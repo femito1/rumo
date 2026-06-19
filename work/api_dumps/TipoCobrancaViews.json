@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoCobrancaViews","value":[
+    {
+      "Id":"5AF36B3C-2057-AD91-7AF7-547B33F835B0","Descricao":"Final Caso","Ativo":"S","DataInclusao":"2018-05-09T21:41:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:35-03:00","UsuarioAlteracao":"SYS","Codigo":"3","Hora":"N","Fixo":"S","Cobravel":"S","Selecionado":false
+    },{
+      "Id":"5AF36B3E-2056-9A35-3DA9-8D639C673C0F","Descricao":"Partido Fixo","Ativo":"S","DataInclusao":"2018-05-09T21:41:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:35-03:00","UsuarioAlteracao":"SYS","Codigo":"2","Hora":"N","Fixo":"S","Cobravel":"S","Selecionado":false
+    },{
+      "Id":"5AF36B4E-2055-64D0-51FD-C7C0C87AF08D","Descricao":"Por Hora","Ativo":"S","DataInclusao":"2018-05-09T21:41:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:35-03:00","UsuarioAlteracao":"SYS","Codigo":"1","Hora":"S","Fixo":"N","Cobravel":"S","Selecionado":false
+    },{
+      "Id":"5AF36B77-205C-2C95-17DD-7E5108873AD5","Descricao":"Misto","Ativo":"S","DataInclusao":"2018-05-09T21:41:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:35-03:00","UsuarioAlteracao":"SYS","Codigo":"8","Hora":"S","Fixo":"S","Cobravel":"S","Selecionado":false
+    },{
+      "Id":"5AF36B88-205B-3B2A-35B2-267EB2186B82","Descricao":"Parcelamento por Ocorr\u00eancia","Ativo":"S","DataInclusao":"2018-05-09T21:41:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:35-03:00","UsuarioAlteracao":"SYS","Codigo":"7","Hora":"N","Fixo":"S","Cobravel":"S","Selecionado":false
+    }
+  ]
+}

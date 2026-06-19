@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PosicaoFinanceiraResultadoRecebimentoViews","value":[
+    {
+      "Id":"6A160332-717E-FDC3-F997-F0222AE5C6EC","CasoId":"60EDB2D1-E41C-DEBE-7C7E-639D846BB1F0","CasoEscritorioId":null,"AnoMes":"2021-07","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"RR","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"756.5","Valor2":"-109.92","Valor3":"-149.02","Valor4":"-21.72","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160334-72AF-5BEA-1891-62E7576CAEF6","CasoId":"637BB638-A837-1453-E9AD-78A03A2C8C59","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2022-10","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"RR","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"0","Valor2":"0","Valor3":"-7989.49","Valor4":"-1990.77","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160334-7864-66C6-BE87-B1EEB4A839F2","CasoId":"5B0C6B7D-9DE1-B0B4-32A1-E82E21DA1BEA","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2019-02","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"RR","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"1000","Valor2":"-145.3","Valor3":"0","Valor4":"0","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160335-7489-A630-2CB9-10D0B47DF350","CasoId":"61828EEC-8F9F-E287-8796-47850413C06C","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2022-03","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"RR","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"0","Valor2":"0","Valor3":"519.86","Valor4":"117.6","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160335-749B-26F2-A243-27A706E30AC4","CasoId":"5B0C60E0-9D3D-4D84-A52F-D26067A6353D","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2021-12","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"RR","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"0","Valor2":"0","Valor3":"139.06","Valor4":"28.59","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    }
+  ]
+}

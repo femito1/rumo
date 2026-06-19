@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MeioPagamentoViews","value":[
+    {
+      "Id":"5AF36B3C-20EF-3070-171D-D5610805F1DD","Sigla":"DOC","Descricao":"Documento de Cr\u00e9dito","Ativo":"S","Tipo":"CC","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-29T18:23:09-03:00","UsuarioAlteracao":"BCSSUP","DataInclusao":"2018-05-09T21:41:39-03:00"
+    },{
+      "Id":"5AF36B49-20F0-921E-F76E-CD04FC4A31E8","Sigla":"DEP","Descricao":"Dep\u00f3sito em Conta","Ativo":"S","Tipo":"CC","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:39-03:00","UsuarioAlteracao":"SYS","DataInclusao":"2018-05-09T21:41:39-03:00"
+    },{
+      "Id":"5AF36B55-20F4-1A78-78B5-CA35BD840D0A","Sigla":"CHQ","Descricao":"Cheque","Ativo":"S","Tipo":"CH","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:39-03:00","UsuarioAlteracao":"SYS","DataInclusao":"2018-05-09T21:41:39-03:00"
+    },{
+      "Id":"5AF36B72-20F2-A380-D9CE-831BDA3465E9","Sigla":"TED","Descricao":"TED Mesma Titularidade","Ativo":"S","Tipo":"CC","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-29T18:23:54-03:00","UsuarioAlteracao":"BCSSUP","DataInclusao":"2018-05-09T21:41:39-03:00"
+    },{
+      "Id":"5AF36B7C-20F3-A153-9A99-568FC580F281","Sigla":"CC","Descricao":"Cr\u00e9dito em Conta Corrente","Ativo":"S","Tipo":"CC","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-29T18:23:13-03:00","UsuarioAlteracao":"BCSSUP","DataInclusao":"2018-05-09T21:41:39-03:00"
+    }
+  ]
+}

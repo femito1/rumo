@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#EmpresaViews","value":[
+    {
+      "Id":"5B041C3D-98E8-0EDE-38F0-3C0D474770EB","Codigo":"1","RazaoSocial":"Marchini, Botelho e Caselta - Sociedade de Advogados","NomeFantasia":"MBC Advogados","Site":"www.mbclaw.com.br","Virtual":"N","DataInclusao":"2018-05-22T13:33:12-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T13:33:17-03:00","UsuarioAlteracao":"LCP"
+    }
+  ]
+}

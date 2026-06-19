@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ModeloTelaAcaoViews","value":[
+    {
+      "Id":"5CDEF089-42D2-6A4C-5A9D-E78B55B841E5","Acao":"Create","Descricao":"Novo","ModeloTelaId":"5AF35F3F-064E-A89F-0938-F473AEF56D7A"
+    },{
+      "Id":"5CDEF089-42F8-0CA1-A637-F57D256515D6","Acao":"Create","Descricao":"Novo","ModeloTelaId":"5AF35F83-0676-5D50-B43D-91E19CBB8C1A"
+    },{
+      "Id":"5CDEF089-439E-932E-BD8D-5D6FC884867D","Acao":"Update","Descricao":"Editar","ModeloTelaId":"5AF35FCC-0690-3058-3D30-E78CEEA1261C"
+    },{
+      "Id":"5CDEF08A-4369-592C-4CFB-6C29871C3B65","Acao":"Update","Descricao":"Editar","ModeloTelaId":"5AF35F71-065A-8699-A442-AB75DCA9150C"
+    },{
+      "Id":"5CDEF08A-4423-4D9D-84E5-15E39FF7AC44","Acao":"Delete","Descricao":"Excluir","ModeloTelaId":"5AF35FD3-068B-34B3-BC96-2EBEBB994333"
+    }
+  ]
+}

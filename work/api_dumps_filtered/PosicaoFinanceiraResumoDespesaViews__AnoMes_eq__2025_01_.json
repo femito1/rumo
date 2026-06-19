@@ -1,0 +1,13 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PosicaoFinanceiraResumoDespesaViews","value":[
+    {
+      "Id":"6A1604DE-BDC5-E6FE-D067-AD0B9FCA2742","CasoId":"64ECD2B2-55AA-0B70-6085-D9876807EE37","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2025-01","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"D","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"230","Valor2":"0","Valor3":"0","Valor4":"0","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160551-BDC6-FF88-2A74-A8A7CEEF2A1C","CasoId":"5FAD4AC8-D3EE-EB7D-93E0-54544229FCD5","CasoEscritorioId":null,"AnoMes":"2025-01","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"D","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"13140","Valor2":"0","Valor3":"0","Valor4":"0","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A160587-BDC4-D9D8-5E65-BAE3396B6E8F","CasoId":"5D9B9402-BDF0-6A34-C680-888FB9C11B62","CasoEscritorioId":null,"AnoMes":"2025-01","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"D","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"0","Valor2":"3263.3","Valor3":"0","Valor4":"0","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    },{
+      "Id":"6A1605AF-BDC3-9616-6F85-BFE7045BF18D","CasoId":"65A98550-2767-5302-C233-C9B3BE1B438B","CasoEscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","AnoMes":"2025-01","ProfissionalId":null,"ProfissionalSigla":null,"ProfissionalPessoaNome":null,"ProfissionalCategoriaNome":null,"TipoDespesaId":null,"TipoDespesaDescricao":null,"Tipo":"D","MoedaId":null,"MoedaSigla":null,"Numero1":null,"Data1":null,"Data2":null,"Data3":null,"Valor1":"422.03","Valor2":"1094.03","Valor3":"0","Valor4":"0","Valor5":"0","Valor6":"0","Valor7":"0","Valor8":"0","Valor9":"0","Descricao1":null
+    }
+  ]
+}

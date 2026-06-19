@@ -1,0 +1,1 @@
+{"_error": 404, "body": "{\"Message\":\"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/TemplateWorkflowResponsabilidadesViews?$top=5'.\",\"MessageDetail\":\"Nenhum tipo foi encontrado que corresponda ao controlador chamado 'TemplateWorkflowResponsabilidadesViews'.\"}"}

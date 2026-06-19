@@ -1,0 +1,13 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#UnidadeMedidaViews","value":[
+    {
+      "Id":"5AF36B3A-2107-AAC7-2B79-14078FAAE7E5","Codigo":"1","Sigla":"UN","Descricao":"Unidade","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B8D-2108-3301-F89A-5AEE42F98BE3","Codigo":"4","Sigla":"Cento","Descricao":"Cento","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BAB-210A-47F1-2E32-E19710734597","Codigo":"2","Sigla":"Kg","Descricao":"Kilo","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BE7-2109-3466-4B8D-B0B6347517E4","Codigo":"3","Sigla":"PCT","Descricao":"Pacote","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

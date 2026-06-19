@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TimesheetVinculadoViews","value":[
+    {
+      "Id":"5b9bfbfd-cf2a-00fe-81ab-44a635895c10","TimesheetOrigemId":"5b9bd0ef-b681-4f25-023a-f1ac168a6ece","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalPessoaNome":"Aurelio Marchini Santos","ProfissionalSigla":"AM","ProfissionalCodigo":"AM","TimesheetNovoId":"5b9bfd2a-cf2c-002c-67ba-9e37f0938c98","SincronizaTempo":"S","SincronizaDescricao":"S","Situacao":"A"
+    },{
+      "Id":"5ba2af1f-0661-008a-2a0d-8b3447c577a4","TimesheetOrigemId":"5ba27e08-d292-0162-306e-11fc1bab6b49","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalPessoaNome":"Aurelio Marchini Santos","ProfissionalSigla":"AM","ProfissionalCodigo":"AM","TimesheetNovoId":null,"SincronizaTempo":"S","SincronizaDescricao":"S","Situacao":"P"
+    },{
+      "Id":"6579d3a3-e2c4-00c9-2681-31113e7943be","TimesheetOrigemId":"6579a92b-bb42-ec32-2fa4-26bead8e68f6","ProfissionalId":"5F2824C5-9E67-B406-1739-202EDD3CCE3A","ProfissionalPessoaNome":"Martim Della Valle","ProfissionalSigla":"MV","ProfissionalCodigo":"MV","TimesheetNovoId":null,"SincronizaTempo":"S","SincronizaDescricao":"S","Situacao":"P"
+    },{
+      "Id":"6579d5c7-e2c9-0080-b153-c0b3a08b34a1","TimesheetOrigemId":"6579ab61-1e78-69a9-7dc1-e6c7b406105b","ProfissionalId":"5F2824C5-9E67-B406-1739-202EDD3CCE3A","ProfissionalPessoaNome":"Martim Della Valle","ProfissionalSigla":"MV","ProfissionalCodigo":"MV","TimesheetNovoId":null,"SincronizaTempo":"S","SincronizaDescricao":"S","Situacao":"P"
+    },{
+      "Id":"65d511fd-ebc9-0047-4c6d-ddc347e50b4b","TimesheetOrigemId":"65d4e720-03f2-a529-810c-35a1e2671e55","ProfissionalId":"6452A888-F395-6C4E-8CA6-C6C25B3212A1","ProfissionalPessoaNome":"Beatriz Baes Xavier","ProfissionalSigla":"BBX","ProfissionalCodigo":"BBX","TimesheetNovoId":"65d5120b-ebd5-0051-d711-7cfca6181e33","SincronizaTempo":"S","SincronizaDescricao":"S","Situacao":"A"
+    }
+  ]
+}

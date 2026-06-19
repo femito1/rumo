@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoContaViews","value":[
+    {
+      "Id":"5AF36B1F-2065-927E-FE5D-E6B365349AE0","Codigo":"E","Descricao":"Receita"
+    },{
+      "Id":"5AF36B29-2067-49C5-3238-D9F08DE9AAAF","Codigo":"L","Descricao":"Lucro/B\u00f4nus"
+    },{
+      "Id":"5AF36B36-2063-22AC-C7DB-0756A502203F","Codigo":"B","Descricao":"Banco/Caixa"
+    },{
+      "Id":"5AF36B4A-2069-62B5-E1C5-0BE3EC52D28A","Codigo":"P","Descricao":"C.C.Profissional"
+    },{
+      "Id":"5AF36B4D-206A-19D1-8171-F60913B1408F","Codigo":"S","Descricao":"Despesa"
+    }
+  ]
+}

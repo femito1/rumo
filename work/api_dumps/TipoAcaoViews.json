@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoAcaoViews","value":[
+    {
+      "Id":"5AF36B87-96A5-02C6-2541-5197BE6A56EB","Codigo":"72","NaturezaId":null,"NaturezaDescricao":null,"Descricao":"Inqu\u00e9rito Criminal","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B87-96B6-5A16-6F63-75EB70C6D3E2","Codigo":"89","NaturezaId":null,"NaturezaDescricao":null,"Descricao":"Notifica\u00e7\u00e3o Judicial","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B87-96F2-A5D2-CB5D-AE51532D680A","Codigo":"149","NaturezaId":null,"NaturezaDescricao":null,"Descricao":"Cess\u00e3o da Marca","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B88-96C9-0068-68EB-B21470D5F9BA","Codigo":"108","NaturezaId":null,"NaturezaDescricao":null,"Descricao":"Recurso Adesivo","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B88-96CC-AD85-424B-244823CA4566","Codigo":"111","NaturezaId":null,"NaturezaDescricao":null,"Descricao":"Recurso Especial","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

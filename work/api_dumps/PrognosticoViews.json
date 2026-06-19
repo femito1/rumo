@@ -1,0 +1,11 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PrognosticoViews","value":[
+    {
+      "Id":"5AF36B9F-9704-3439-B65D-08BADACF8BD4","Codigo":"1","Descricao":"Prov\u00e1vel","Percentual":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36BB6-9705-3CCC-6296-746051203C83","Codigo":"2","Descricao":"Poss\u00edvel","Percentual":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36BB7-9706-262D-6C8C-3A831A365EF3","Codigo":"3","Descricao":"Remota","Percentual":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

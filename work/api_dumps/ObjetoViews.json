@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ObjetoViews","value":[
+    {
+      "Id":"5AF36B8B-9729-9264-E174-B85BB0A4C640","Codigo":"57","Descricao":"ASSUNTOS DIVERSOS","Esfera":"F","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B8D-9742-6D22-978B-8B3950A9BD41","Codigo":"40","Descricao":"IMPOSTOS E CONTRIBUI\u00c7\u00d5ES ESPECIAIS","Esfera":"F","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B8F-9725-71CB-416B-3BDF6A8BA99B","Codigo":"47","Descricao":"IMPUGNA\u00c7\u00c3O","Esfera":"F","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B91-972F-3600-720C-134BFB5B0225","Codigo":"4","Descricao":"PIS - SEMESTRALIDADE","Esfera":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B92-9732-6FC4-9F73-FE59B76F1437","Codigo":"7","Descricao":"PIS - N\u00c3O RECOLHIMENTO","Esfera":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

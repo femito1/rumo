@@ -1,0 +1,11 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#SituacaoCompromissoViews","value":[
+    {
+      "Id":"5AF36103-0754-6E68-0438-E11557DED42D","Codigo":"P","Descricao":"Pendente","Situacao":"P","ProximasEtapas":null,"ExcluirLembreteOutlook":"N","DataInclusao":"2018-05-09T20:57:03-03:00","ProximasSituacoes":null,"TipoColunaKanban":null,"Ordem":null,"SituacaoPaiId":null,"AtualizacaoAutomaticaTarefaPrincipal":null,"UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T20:57:03-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF3611A-0756-9DC5-3929-852BEA1AD967","Codigo":"C","Descricao":"Cancelado","Situacao":"X","ProximasEtapas":null,"ExcluirLembreteOutlook":"S","DataInclusao":"2018-05-09T20:57:03-03:00","ProximasSituacoes":null,"TipoColunaKanban":null,"Ordem":null,"SituacaoPaiId":null,"AtualizacaoAutomaticaTarefaPrincipal":null,"UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T20:57:03-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36138-0755-95CB-4144-6AC60F312891","Codigo":"E","Descricao":"Conclu\u00eddo","Situacao":"C","ProximasEtapas":null,"ExcluirLembreteOutlook":"S","DataInclusao":"2018-05-09T20:57:03-03:00","ProximasSituacoes":null,"TipoColunaKanban":null,"Ordem":null,"SituacaoPaiId":null,"AtualizacaoAutomaticaTarefaPrincipal":null,"UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T20:57:03-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

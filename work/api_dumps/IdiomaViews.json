@@ -1,0 +1,9 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#IdiomaViews","value":[
+    {
+      "Id":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","Codigo":"P","Sigla":"P","Iso":"pt-BR","Descricao":"Portugu\u00eas","Faturamento":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:24-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","Codigo":"I","Sigla":"I","Iso":"en-US","Descricao":"Ingl\u00eas","Faturamento":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:24-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

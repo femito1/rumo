@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#GrupoEmpresaJuridicoViews","value":[
+    {
+      "Id":"5bbc80f5-0c41-8433-be27-0193de31e9ef","LicencaId":"1","Codigo":"-2105332660983542262","Nome":"AMBEV","GrupoPaiId":null,"GrupoPaiNome":null,"DataInclusao":"2018-10-09T10:20:41-03:00","UsuarioInclusao":"juritis.sis","DataAlteracao":"2018-10-09T10:20:57-03:00","UsuarioAlteracao":"juritis.sis"
+    }
+  ]
+}

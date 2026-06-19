@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#GerencialDemonstrativoViews","value":[
+    {
+      "Id":"A","Descricao":"Sem agrupamento (Padr\u00e3o: Cliente)"
+    },{
+      "Id":"B","Descricao":"S\u00f3c. Resp. Cliente"
+    },{
+      "Id":"C","Descricao":"S\u00f3c. Resp. Caso"
+    },{
+      "Id":"D","Descricao":"Solicitante Abertura Caso"
+    },{
+      "Id":"E-2","Descricao":"Comiss\u00e3o entre \u00e1reas (cliente)"
+    }
+  ]
+}

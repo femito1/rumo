@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TSProfissionalViews","value":[
+    {
+      "Id":"5AF5D71A-98B7-92F7-C294-3F210E247B08","Codigo":"SIP","Sigla":"SIP","PessoaNome":"Simone Paris","PessoaNomeFantasia":"Simone Paris","PessoaCnpjCpf":null,"EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B50C4F9-BE6A-08BF-025B-286BB7FA8394","GrupoJuridicoNome":"Administra\u00e7\u00e3o","CategoriaId":"5AF5D6ED-98B2-A03B-4C98-B3F021A6ECA6","CategoriaNome":"Adm","Socio":"N","Revisor":"N","Tecnico":"N","DataEntrada":"2018-05-11T17:45:32-03:00","DataSaida":"2019-09-30T00:00:00-03:00"
+    },{
+      "Id":"5AF5E261-98CD-A53D-EBE9-2AC5705544DF","Codigo":"BRS","Sigla":"BRS","PessoaNome":"Bruno Spedo","PessoaNomeFantasia":"Bruno Spedo","PessoaCnpjCpf":null,"EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B50C4F9-BE6A-08BF-025B-286BB7FA8394","GrupoJuridicoNome":"Administra\u00e7\u00e3o","CategoriaId":"5AF5D6ED-98B2-A03B-4C98-B3F021A6ECA6","CategoriaNome":"Adm","Socio":"N","Revisor":"N","Tecnico":"N","DataEntrada":"2018-05-11T18:35:06-03:00","DataSaida":"2019-12-01T00:00:00-03:00"
+    },{
+      "Id":"5AF5E2EB-98C8-03CF-879C-F67783425F18","Codigo":"LCP","Sigla":"LCP","PessoaNome":"Luciana Perrone","PessoaNomeFantasia":"Luciana Perrone","PessoaCnpjCpf":"373.439.598-40","EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B50C4F9-BE6A-08BF-025B-286BB7FA8394","GrupoJuridicoNome":"Administra\u00e7\u00e3o","CategoriaId":"5AF5D6ED-98B2-A03B-4C98-B3F021A6ECA6","CategoriaNome":"Adm","Socio":"N","Revisor":"N","Tecnico":"N","DataEntrada":"2018-05-11T18:34:42-03:00","DataSaida":"2024-10-31T00:00:00-03:00"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C8914","Codigo":"AM","Sigla":"AM","PessoaNome":"Aurelio Marchini Santos","PessoaNomeFantasia":"Aurelio Marchini Santos","PessoaCnpjCpf":"134.273.648-60","EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B041F81-98EA-864E-A74D-68BAE8F49F73","GrupoJuridicoNome":"Equipe Direito Econ\u00f4mico","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","Socio":"S","Revisor":"S","Tecnico":"S","DataEntrada":"2018-03-12T00:00:00-03:00","DataSaida":null
+    },{
+      "Id":"5B044FDE-995D-A3D4-A945-016A1B8D73B7","Codigo":"DC","Sigla":"DC","PessoaNome":"Daniel Costa Caselta","PessoaNomeFantasia":"Daniel Costa Caselta","PessoaCnpjCpf":"316.108.438-19","EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B0420E0-98ED-70E3-4A46-149095BB84E4","GrupoJuridicoNome":"Equipe Contencioso","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","Socio":"S","Revisor":"S","Tecnico":"S","DataEntrada":"2018-03-12T00:00:00-03:00","DataSaida":null
+    }
+  ]
+}

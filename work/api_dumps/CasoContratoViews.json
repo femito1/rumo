@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CasoContratoViews","value":[
+    {
+      "Id":"6A152988-3AB2-28B1-9D4A-1118E5D43908","Codigo":"100/1/1","CasoId":"628FE54B-398F-AA03-9E5F-6EDE32B2D579","ContratoId":"6A152A3B-3A50-786A-58DA-7FC7C9CD5613","ContratoCodigo2":"628FE54B-398F-AA03-9E5F-6EDE32B2D579","DataInclusao":"2026-05-26T02:03:01-03:00","UsuarioInclusao":"SYNC","DataAlteracao":"2026-05-26T02:03:01-03:00","UsuarioAlteracao":"SYNC","OrigemAlteracao":null
+    },{
+      "Id":"6A152988-3CC8-9FDA-C87B-FCA7C82F1BDB","Codigo":"84/12/12","CasoId":"6601E110-BC66-7407-AF11-03455F15942D","ContratoId":"6A1529BF-3A83-A726-7280-D8A41DB24FAD","ContratoCodigo2":"6601E110-BC66-7407-AF11-03455F15942D","DataInclusao":"2026-05-26T02:03:01-03:00","UsuarioInclusao":"SYNC","DataAlteracao":"2026-05-26T02:03:01-03:00","UsuarioAlteracao":"SYNC","OrigemAlteracao":null
+    },{
+      "Id":"6A15298A-3B30-4430-CC23-755D7ECB2EA0","Codigo":"14/1/1","CasoId":"5B0C5B81-9CD9-A09B-1287-CF40996C5646","ContratoId":"6A1529ED-3A1B-0D9D-2BD4-0B826040A678","ContratoCodigo2":"5B0C5B81-9CD9-A09B-1287-CF40996C5646","DataInclusao":"2026-05-26T02:03:01-03:00","UsuarioInclusao":"SYNC","DataAlteracao":"2026-05-26T02:03:01-03:00","UsuarioAlteracao":"SYNC","OrigemAlteracao":null
+    },{
+      "Id":"6A15298A-3E9F-5F95-134C-CE50CC318890","Codigo":"3/26/26","CasoId":"6605731D-66C1-B6B8-0EEB-F005DDD0F198","ContratoId":"6A152985-3A89-D311-61AB-F48E93AA9C0B","ContratoCodigo2":"6605731D-66C1-B6B8-0EEB-F005DDD0F198","DataInclusao":"2026-05-26T02:03:01-03:00","UsuarioInclusao":"SYNC","DataAlteracao":"2026-05-26T02:03:01-03:00","UsuarioAlteracao":"SYNC","OrigemAlteracao":null
+    },{
+      "Id":"6A15298C-3EC3-E912-FDB5-10DCD25911BA","Codigo":"61/29/29","CasoId":"69CC217E-8025-8985-5D84-714862C9CB3F","ContratoId":"6A1529B2-3994-88BA-E1B6-602205280CA3","ContratoCodigo2":"69CC217E-8025-8985-5D84-714862C9CB3F","DataInclusao":"2026-05-26T02:03:01-03:00","UsuarioInclusao":"SYNC","DataAlteracao":"2026-05-26T02:03:01-03:00","UsuarioAlteracao":"SYNC","OrigemAlteracao":null
+    }
+  ]
+}

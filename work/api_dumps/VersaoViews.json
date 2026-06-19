@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#VersaoViews","value":[
+    {
+      "Id":"5CDEF593-4E2A-75AA-7D38-97579B560091","NumeroVersao":"2019.0.0.0","DataInclusao":"2019-05-17T17:55:04-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T17:55:04-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEFAF7-4FF2-3571-1848-EED0EB0FE318","NumeroVersao":"2019.0.2.2","DataInclusao":"2019-05-17T18:18:19-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:18:19-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEFB3A-4FF3-0654-3CFF-393E21215BDD","NumeroVersao":"2019.0.1.1","DataInclusao":"2019-05-17T18:18:19-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:18:19-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5FBCF017-31BF-F9F5-1CB2-AA854804540A","NumeroVersao":"2020.0.0.0","DataInclusao":"2020-11-24T08:34:07-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2020-11-24T08:34:07-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5FBCF1E9-35EF-27D9-657E-B8E673567D3B","NumeroVersao":"2019.1.0.0","DataInclusao":"2020-11-24T08:42:14-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2020-11-24T08:42:14-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

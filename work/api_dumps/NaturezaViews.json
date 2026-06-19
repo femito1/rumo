@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#NaturezaViews","value":[
+    {
+      "Id":"5AF36BE1-965A-2B4F-9D07-4FDA88D4A24C","Codigo":"2","Descricao":"Administrativa","Judicial":"N","Administrativa":"N","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36BEE-965B-44E3-7AD9-176831F7317C","Codigo":"3","Descricao":"Extrajudicial","Judicial":"N","Administrativa":"N","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36BF6-965C-0D29-7595-604A57CDC443","Codigo":"4","Descricao":"Incidental","Judicial":"N","Administrativa":"N","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36C20-9659-46B7-C460-E010D97DC3CD","Codigo":"1","Descricao":"Judicial","Judicial":"N","Administrativa":"N","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36C22-965D-5D51-7119-717076C7D914","Codigo":"5","Descricao":"Recursal","Judicial":"N","Administrativa":"N","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

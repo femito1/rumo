@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MetaReceitaViews","value":[
+    {
+      "Id":"682cb40d-35cf-bd89-058e-c1c1f3c642f7","DataAnoMes":"2025-01-01T12:00:00Z","AnoMes":"2025-01","EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","GrupoJuridicoId":null,"Valor":"700000","Tipo":"F","EscritorioNome":"MBC Advogados","GrupoJuridicoNome":null,"DataInclusao":"2025-05-20T16:56:32.348803-03:00","UsuarioInclusao":"rumo2","DataAlteracao":"2025-05-20T16:56:32.348803-03:00","UsuarioAlteracao":"rumo2","Codigo":"-8667936177110409304"
+    }
+  ]
+}

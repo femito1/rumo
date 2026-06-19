@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBC — Fechamento Mensal (Automação v0)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">MBC</div>
+        <div class="brand-text">
+          <strong>Fechamento Mensal</strong>
+          <span>Automação v0</span>
+        </div>
+      </div>
+      <nav id="nav" class="nav"></nav>
+      <div class="nav-hint">
+        <span class="dot dot-api"></span> = aba com dados ao vivo da API
+      </div>
+      <div class="legend">
+        <div class="legend-title">Origem do dado</div>
+        <span class="badge badge-api">API</span> Puxado da API ao vivo<br />
+        <span class="badge badge-formula">FÓRM</span> Célula de fórmula<br />
+        <span class="badge badge-manual">MANUAL</span> TOTVS Backoffice (sem API)<br />
+        <span class="badge badge-manual">REF</span> Valor de referência do workbook
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <h1 id="period-title">Fechamento</h1>
+          <p id="period-sub" class="muted"></p>
+        </div>
+        <div id="generated" class="muted small"></div>
+      </header>
+
+      <section id="kpis" class="kpis"></section>
+      <section id="coverage" class="coverage"></section>
+      <section id="tab-content" class="tab-content"></section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

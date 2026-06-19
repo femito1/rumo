@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ChamadaViews","value":[
+    {
+      "Id":"5AF36322-0836-3C95-5C90-50080391B0A2","ServicoWebId":"5AF36383-0834-10BD-E090-D644731AD1DB","ServicoWebNome":"TOTVS_BPO_DISTRIBUICAO","Nome":"TOTVS_BPO_AUTENTICACAO_DISTRIBUICAO","Url":"http://juridico.totvsbpo.com.br:8082/WSDISTRIBUICOES.apw","ParametroUrl":"N","EstruturaChamada":null,"EstruturaResposta":null,"TipoRetorno":"RA","VersaoEstrutra":"1","IgnorarArray":"S","MetodoWsdl":"MTDISTRIBUICOES","RespostaWsdl":"STRUACESSODIS","Culture":"pt-BR","DataInclusao":"2018-05-09T21:07:42-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:07:42-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36345-0803-8C30-9CC7-6A31A9C8EB47","ServicoWebId":"5AF3631E-0800-9526-5F4C-F139E69239CA","ServicoWebNome":"Fluig","Nome":"Fluig_Sinc_Despesa_get","Url":"http://172.16.1.142:8080/webdesk/ECMWorkflowEngineService","ParametroUrl":"N","EstruturaChamada":null,"EstruturaResposta":null,"TipoRetorno":"IA","VersaoEstrutra":null,"IgnorarArray":"N","MetodoWsdl":"processAttachmentDto","RespostaWsdl":null,"Culture":"pt-BR","DataInclusao":"2018-05-09T21:07:40-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:07:40-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36346-0802-73A8-1F92-6F2DC2176B2F","ServicoWebId":"5AF3631E-0800-9526-5F4C-F139E69239CA","ServicoWebNome":"Fluig","Nome":"Fluig_Sinc_Despesa_ssp","Url":"http://172.16.1.142:8080/webdesk/ECMWorkflowEngineService","ParametroUrl":"N","EstruturaChamada":null,"EstruturaResposta":null,"TipoRetorno":"SR","VersaoEstrutra":null,"IgnorarArray":"N","MetodoWsdl":"simpleStartProcess","RespostaWsdl":null,"Culture":"pt-BR","DataInclusao":"2018-05-09T21:07:40-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:07:40-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF3639C-0837-8591-8D61-850D77C3DAB2","ServicoWebId":"5AF36389-0835-8C0D-B6CF-97D393C73DED","ServicoWebNome":"LEGALDATA_IMPORTACAO_DISTRIBUICAO","Nome":"TOTVS_BPO_IMPORT_DISTRIBUICAO","Url":"http://acessows.brasilia.me:9090/WebServiceDistribuicao/WebServiceSolucionare.asmx","ParametroUrl":"N","EstruturaChamada":null,"EstruturaResposta":null,"TipoRetorno":"RC","VersaoEstrutra":"1","IgnorarArray":"N","MetodoWsdl":"RecuperarNovaDistribuicao","RespostaWsdl":"RecuperarNovaDistribuicaoResult","Culture":"pt-BR","DataInclusao":"2018-05-09T21:07:42-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:07:42-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF363A4-07ED-7508-52A6-4A3244E95BEF","ServicoWebId":"5AF36396-07EC-9402-E298-088EDBD03FB4","ServicoWebNome":"TOTVS_BPO","Nome":"TOTVS_BPO_import_legaldata","Url":"http://juridico.totvsbpo.com.br:8082/WSPUBLICACOES.apw","ParametroUrl":"N","EstruturaChamada":null,"EstruturaResposta":null,"TipoRetorno":"RA","VersaoEstrutra":"1","IgnorarArray":"S","MetodoWsdl":"MTPUBLICACOES","RespostaWsdl":"STRUACESSOPUB","Culture":"pt-BR","DataInclusao":"2018-05-09T21:07:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:07:39-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

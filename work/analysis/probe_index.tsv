@@ -1,0 +1,722 @@
+set	status	bytes	items	error
+AlcadaExcecaoViews	skip	129	0	
+AcessoCaixinhaViews	skip	130	0	
+AlcadaCategoriaViews	skip	131	0	
+AlocacaoGrupoJuridicoPercentualViews	skip	147	0	
+AlcadaViews	skip	122	0	
+AlocacaoGrupoJuridicoViews	skip	137	0	
+AlocacaoRecebimentoTransferenciaClienteViews	skip	7464	5	
+AlocacaoRecebimentoCasoClienteViews	skip	146	0	
+AlocacaoRecebimentoTransferenciaJuncaoViews	skip	154	0	
+AlocacaoRecebimentoCasoJuncaoViews	skip	145	0	
+AlocacaoRecebimentoContratoViews	skip	3595	5	
+AlocacaoRecebimentoCasoContratoViews	skip	147	0	
+AlocacaoRecebimentoFaturaJuncaoTransferenciaViews	500	4309	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+AlocacaoRecebimentoFaturaClienteTransferenciaViews	500	4309	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+AlocacaoRecebimentoDespesaJuncaoViews	200	148	0	
+AlocacaoRecebimentoDespesaClienteViews	200	149	0	
+AlocacaoRecebimentoFaturaClienteJobViews	200	2917	5	
+AlocacaoRecebimentoFaturaJuncaoViews	200	147	0	
+AlocacaoRecebimentoHorasAlocarClienteViews	200	153	0	
+AlocacaoRecebimentoPeriodoModuloViews	200	1474	5	
+AlocacaoRecebimentoFaturaClienteViews	200	2759	5	
+AlocacaoRecebimentoTotalViews	200	140	0	
+AlocacaoRecebimentoTotalDetalheViews	200	147	0	
+AlocacaoRecebimentoProfissionalViews	200	147	0	
+AlocacaoRecebimentoViews	200	135	0	
+AlocacaoRecebimentoHorasAlocarJuncaoViews	200	152	0	
+AndamentoViews	200	125	0	
+AlocacaoRecebimentoTabeladoClienteViews	200	150	0	
+ContratosAndamentoViews	200	134	0	
+AlocacaoRecebimentoHorasAlocarCasoJuncaoViews	200	156	0	
+ConsultivoAndamentoViews	200	135	0	
+AlocacaoRecebimentoHorasAlocarCasoViews	200	150	0	
+AlocacaoRecebimentoTabeladoJuncaoViews	200	149	0	
+ConsultivoAndamentoGridViews	200	139	0	
+AndamentoGridViews	200	129	0	
+ContratosAndamentoGridViews	200	138	0	
+AreaTipoAtividadeViews	200	133	0	
+AndamentoPadraoViews	200	131	0	
+AditivoViews	200	123	0	
+AgendaMensalViews	200	658	1	
+AprovacaoCaixinhaViews	200	133	0	
+AprovacaoDespesaViews	200	12936	5	
+RelatorioGerencialViews	200	4503	5	
+DepartamentoSolicitanteViews	200	139	0	
+AreaInteresseViews	200	129	0	
+AssuntoPastaFisicaViews	200	134	0	
+CasoPastaFisicaViews	200	131	0	
+ConsultivoCompromissoGridViews	500	442	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n
+CompromissoGridViews	500	402	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n
+ContratosCompromissoGridViews	500	438	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n
+ConfiguracaoUsuarioViews	200	841	1	
+ConsultivoCompromissoViews	200	3987	1	
+CompromissoViews	200	4095	1	
+ContratosCompromissoViews	200	3977	1	
+CompromissoWorkflowLogViews	200	138	0	
+CronometroViews	500	2745	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+AreaJuridicaViews	200	1697	5	
+ArmarioViews	200	123	0	
+TrabalhistaAssuntoGridViews	200	2002	1	
+CriminalAssuntoGridViews	200	1740	1	
+AssuntoGridViews	200	2853	1	
+ConsultivoAssuntoGridViews	200	1334	1	
+ContratosAssuntoGridViews	200	1313	1	
+AssuntoSearchModalViews	200	817	1	
+AlteracaoResponsavelLoteViews	200	140	0	
+TributarioAssuntoViews	200	4019	1	
+ConsultivoAssuntoViews	200	2459	1	
+AssuntoResponsavelViews	200	134	0	
+AssuntoRegraViews	200	128	0	
+CriminalAssuntoViews	200	3374	1	
+CivelAssuntoViews	200	4014	1	
+AbaViews	200	3384	5	
+ContratosAssuntoViews	200	2457	1	
+TrabalhistaAssuntoViews	200	3996	1	
+AssuntoViews	200	4768	1	
+AtoViews	200	2052	5	
+VersaoViews	200	1241	5	
+AgendamentoDeFeriasViews	200	135	0	
+RegistroAcaoViews	500	440	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "No coercion operator is defined between ty
+TabelaConversaoViews	200	934	2	
+UsuarioAtividadeViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+ValorCotacaoViews	200	1787	5	
+PeriodoModuloViews	200	1677	5	
+AtoGerencialViews	200	128	0	
+PeriodoModuloFinanceiroViews	200	139	0	
+CampoModeloTelaViews	200	131	0	
+CadastroPerfilViews	200	130	0	
+ModeloTelaCamposViews	200	132	0	
+ModeloViews	200	456	5	
+CasoTipoDespesaViews	200	2211	5	
+CasoFixoFaixaViews	200	129	0	
+CasoTipoAtividadeViews	200	2475	5	
+CasoFixoViews	200	124	0	
+CasoFixoFaixaProfissionalViews	200	141	0	
+ComarcaViews	200	2472	5	
+CelulaViews	200	122	0	
+ComarcaEstadoViews	200	129	0	
+CasoViews	200	27808	5	
+ForoViews	200	2625	5	
+ComarcaFavoritoViews	200	131	0	
+ClassificacaoDespesaViews	200	136	0	
+VaraViews	200	2909	5	
+ClienteParticipacaoViews	200	135	0	
+ClientePagadorViews	200	9977	5	
+ClienteViews	200	17305	5	
+ComponenteUsuarioViews	200	1207	5	
+ConfiguracaoAssuntoPerfilViews	200	141	0	
+ConfiguracaoAssuntoViews	200	2077	3	
+ConfiguracaoDesdobramentoViews	200	141	0	
+ConflitoAvaliacaoViews	200	133	0	
+ConsumoOrcamentoProjetoEscritorioGrupoJuridicoViews	200	162	0	
+ConsumoOrcamentoProjetoEscritorioViews	200	149	0	
+ConsumoOrcamentoProjetoGerenciaViews	200	147	0	
+ConsumoOrcamentoProjetoGrupoJuridicoViews	200	152	0	
+ClientesRevisaoFixoViews	200	1508	5	
+ContratoViews	200	2389	5	
+ConsumoOrcamentoProjetoViews	200	139	0	
+CasoContratoViews	200	2113	5	
+ConsumoOrcamentoProjetoItemViews	200	143	0	
+ConsumoOrcamentoProjetoItemDespesaViews	200	150	0	
+CotacaoAprovacaoViews	200	132	0	
+CotacaoViews	200	123	0	
+BusinessPlanConsolidadoProfissionalViews	200	151	0	
+CotacaoFornecedorAprovacaoViews	200	142	0	
+CotacaoFornecedorViews	200	133	0	
+BusinessPlanCustoViews	200	133	0	
+BusinessPlanCategoriaViews	200	137	0	
+DepositoViews	200	124	0	
+DescarteSaldoHoraViews	200	133	0	
+DesdobramentoViews	200	129	0	
+DespFavoritoViews	200	128	0	
+DesdobramentoConfigCamposViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+DesdobramentoResponsavelViews	200	140	0	
+DiscrepanciaViews	200	128	0	
+EBillingDocumentoValorPadraoViews	200	144	0	
+EBillingDocumentoViews	200	133	0	
+DiscrepanciaItemViews	200	132	0	
+EBillingAtividadeViews	200	133	0	
+DevolucaoRemanejamentoProjetoViews	200	145	0	
+EBillingEmpresaViews	200	131	0	
+EbillingTarefaViews	200	130	0	
+EBillingFaseViews	200	128	0	
+TSEBillingFaseViews	200	130	0	
+TSEBillingDocumentoViews	200	135	0	
+ClienteEmLoteViews	200	3933	5	
+EnvioEmailViews	200	126	0	
+EmprestimoPastaFisicaViews	200	137	0	
+EnvolvidoViews	200	125	0	
+TrabalhistaEnvolvidoViews	200	136	0	
+EnvolvidoGridViews	200	129	0	
+ConsultivoEnvolvidoViews	200	135	0	
+EscritorioViews	200	1125	2	
+EmpresaJuridicoViews	200	935	1	
+ExcecaoReceitaAlocacaoViews	200	138	0	
+ExportacaoModeloViews	200	132	0	
+ExcecaoRevisorCasoViews	200	4581	5	
+ExportacaoModeloColunaViews	200	2026	5	
+ExportacaoModeloPerfilViews	200	1667	5	
+FaseViews	200	1530	5	
+CasosRevisaoFixoViews	200	2948	5	
+FaturaRedacaoViews	200	5444	5	
+FaturaViews	200	5437	5	
+FeriadoViews	200	2489	5	
+FaturaProfissionalViews	500	1007	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Unable to create a map expression from Fat
+FaturaCasoViews	200	5244	5	
+FornecedorViews	200	2800	5	
+FormaCorrecaoViews	200	129	0	
+FornecedorFavoritoViews	200	134	0	
+FornecedorContaViews	200	2516	5	
+FornecedorEnderecoViews	200	5166	5	
+GerenciaViews	200	124	0	
+FornecedorPlanoContaViews	200	136	0	
+LDataCapaProcessoViews	200	133	0	
+GerenciaCentroCustoViews	200	135	0	
+GerencialDemonstrativoViews	200	485	5	
+LDataDistribuicaoViews	200	133	0	
+GrupoAvaliacaoConflitoViews	200	138	0	
+GrupoDespesaViews	200	128	0	
+GrupoMaterialViews	200	1357	5	
+GrupoJuridicoViews	200	3195	5	
+GrupoEmpresaViews	200	1086	4	
+GrupoEmpresaJuridicoViews	200	448	1	
+GrupoJuridicoResponsavelViews	200	140	0	
+GrupoMaterialProfissionalViews	200	141	0	
+GrupoTrabalhoViews	200	509	1	
+GrupoTrabalhoProfissionalViews	200	3456	5	
+GrupoJuridicoProfissionalViews	200	672	1	
+HistPlanejamentoOrcamentoViews	500	419	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Non-static method requires a target.",
+  
+HistoricoDescarteSaldoHoraViews	200	142	0	
+IdiomaViews	200	682	2	
+IdiomaTipoAtividadeViews	200	2566	5	
+IndiceViews	200	1488	4	
+IndiceValorViews	200	127	0	
+IetfViews	200	28637	417	
+TimeZoneViews	200	11841	141	
+ImportacaoPublicacaoItemViews	200	140	0	
+ImportacaoPublicacaoLayoutViews	200	5183	2	
+ImportacaoPublicacaoViews	200	136	0	
+CultureViews	200	11410	248	
+JurFavoritoCasoViews	200	131	0	
+LacunaViews	200	122	0	
+JurFavoritoClienteViews	200	134	0	
+DisplayCampoModeloTelaViews	200	138	0	
+LocalidadeViews	200	126	0	
+LocalizacaoCnjViews	200	679	5	
+MaterialViews	200	124	0	
+LogCorteHorasTimesheetViews	200	138	0	
+LocalTrabalhoViews	200	129	0	
+MeioPagamentoViews	200	1486	5	
+LogImportacaoAndamentoViews	200	138	0	
+MoedaViews	200	973	3	
+MenuPerfilViews	200	1453	5	
+MenuViews	200	804	5	
+MotivoReprovacaoViews	200	877	3	
+MovimentacaoFinanceiraViews	200	138	0	
+MovimentacaoFinanceiraGridViews	200	142	0	
+MotivoEncerramentoViews	200	1074	3	
+MotivoEscolhaViews	200	1115	4	
+ObjetoViews	200	1564	5	
+MotivoWoViews	200	124	0	
+ParticularidadeDespesaViews	200	138	0	
+NotificacaoGridViews	200	131	0	
+ParticularidadeDespesaDetalheViews	200	145	0	
+PastaFisicaMovimentacaoViews	200	139	0	
+PastaFisicaDocumentoViews	200	136	0	
+PastaFisicaViews	200	127	0	
+TributarioPedidoViews	200	132	0	
+PCOClienteFavoritoViews	200	134	0	
+PCOFavoritoViews	200	127	0	
+PedidoViews	200	122	0	
+PedidoGridViews	200	126	0	
+PedidoAbaViews	200	125	0	
+TributoAbaViews	200	126	0	
+PedidoTotalAbaViews	200	130	0	
+MovimentacaoFinanceiraAbaViews	200	887	3	
+TributoTotalAbaViews	200	131	0	
+PedidoValorViews	200	127	0	
+TributarioPedidoValorViews	200	137	0	
+PedidoTotalViews	200	127	0	
+PeticionamentoEletronicoViews	200	140	0	
+PedidoValorParcelaViews	200	134	0	
+PeticionamentoEletronicoLoteViews	404	309	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+ResponsavelProfissionalViews	200	139	0	
+RestricaoAssuntoViews	200	132	0	
+PlanoContasViews	200	2834	5	
+PlanejamentoOrcamentoTotalViews	200	142	0	
+PlanejamentoOrcamentoViews	200	137	0	
+PosicaoFinanceiraAdiantamentoViews	200	3322	5	
+PosicaoFinanceiraCobrancaViews	200	3600	5	
+PosicaoFinanceiraDespesaIncorridaViews	200	3346	5	
+PosicaoFinanceiraResumoDespesaViews	200	3016	5	
+PosicaoFinanceiraResultadoFaturamentoViews	200	3037	5	
+PosicaoFinanceiraPendenciaViews	200	142	0	
+PosicaoFinanceiraResultadoRecebimentoViews	200	3069	5	
+PreFaturaAcaoViews	200	3145	5	
+PosicaoFinanceiraCasoViews	200	14715	5	
+PreFaturaViews	200	12138	5	
+PosicaoFinanceiraFaturaViews	200	3522	5	
+PreFaturaDespesaViews	200	10370	5	
+PreFaturaPagadorViews	200	9308	5	
+PreFaturaProfissionalViews	200	8286	5	
+PreFaturaTimesheetViews	400	423	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "O argumento 'rawValue' é nulo ou vazio.\r\
+PreFaturaTabeladoViews	200	133	0	
+PreFaturaCasoViews	200	24239	5	
+PreFaturaRevisorViews	200	3021	5	
+PreFaturaInstrucaoViews	200	6478	5	
+PreFaturaLogViews	200	3845	5	
+PreferenciaViews	200	3967	5	
+PreferenciaIndividualViews	200	2635	5	
+PreferenciaPerfilViews	200	543	1	
+PreferenciaTelaViews	200	2221	4	
+PreliminarViews	200	126	0	
+PrestacaoContaAprovadorViews	200	139	0	
+PrestacaoContaItemAprovacaoViews	200	143	0	
+PrestacaoContaViews	200	130	0	
+ProfissaoViews	200	125	0	
+PrestacaoContaItemViews	200	134	0	
+ProfissionalViews	200	6693	5	
+PreFaturaAcaoDetalhadaViews	200	4919	5	
+ProfissionalCarrosselAgendaViews	200	143	0	
+PrognosticoViews	200	959	3	
+ProjetoGerenciaResponsavelViews	200	142	0	
+ProjetoGerenciaResponsavelResumoViews	200	148	0	
+ProjetoGerenciaProjecaoViews	200	139	0	
+ProjecaoViews	200	124	0	
+ProjetoViews	200	123	0	
+RamoAtividadeViews	200	129	0	
+ProjetoResumoViews	200	129	0	
+ProjetoItemViews	200	127	0	
+RateioViews	200	5437	5	
+RestricaoPerfilViews	200	131	0	
+RestricaoViews	200	125	0	
+RateioFaturaProfissionalCustomViews	404	313	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+RateioFaturaProfissionalViews	200	5621	5	
+PerfilRuleViews	200	580	1	
+PendenciasDiariaViews	200	5059	5	
+RelatorioParamViews	200	3272	5	
+RelatorioViews	200	4564	5	
+RateioFaturaCasoViews	200	5448	5	
+RelatorioPerfilViews	200	131	0	
+RequisicaoAprovadorViews	200	135	0	
+RequisicaoEscritorioViews	200	136	0	
+RequisicaoMaterialAprovacaoViews	200	143	0	
+RemanejamentoProjetoViews	200	136	0	
+RequisicaoMaterialViews	200	134	0	
+ResponsavelDesbloqueioViews	200	138	0	
+RequisicaoViews	200	126	0	
+ReservaOrcamentoComboViews	200	137	0	
+ReservaOrcamentoViews	200	132	0	
+RevisaoFixoViews	200	127	0	
+RevisaoFixoParcelaViews	200	134	0	
+RevisaoFinalizadoFixoViews	200	137	0	
+RevisaoFixoAlocacaoViews	200	135	0	
+RevisaoTimesheetPorCasoGridViews	200	143	0	
+RevisaoTimesheetViews	200	16055	5	
+PosicaoFinanceiraViews	ERR	0	0	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)
+ResumoHistoricoViews	200	3918	5	
+RitoViews	200	1414	5	
+RuleRegistryViews	200	20065	242	
+RevisaoTimesheetFixoViews	200	17204	5	
+RateioGerencialViews	200	1558	5	
+PosicaoFinanceiraResumoProfissionalViews	ERR	0	0	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)
+SaldoHoraViews	200	125	0	
+SegmentoViews	200	1479	5	
+ServicoViews	200	123	0	
+SituacaoCompromissoViews	200	1491	3	
+SituacaoMovimentacaoFinanceiraViews	200	2084	5	
+SituacaoRetornoViews	200	1182	5	
+ContatoViews	200	123	0	
+AutoAprovacaoViews	200	129	0	
+ClienteContatoViews	200	130	0	
+SobreporVigenciaViews	400	403	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Value cannot be null.\r\nParameter name: i
+RevisaoTimesheetGridViews	200	136	0	
+SolicitacaoDespesaRevisorViews	200	1156	5	
+SolicitacaoPagamentoAprovadorViews	200	145	0	
+SolicitacaoDespesaViews	200	134	0	
+SolicitacaoPagamentoViews	200	136	0	
+SolicitacaoPagamentoItemContaFinanceiraViews	200	155	0	
+SolicitacaoPagamentoItemAprovacaoViews	200	149	0	
+SubAreaJuridicaViews	200	2040	5	
+SaldoFaturaViews	200	3010	5	
+TabelaRateioHistoricoViews	200	137	0	
+TabelaServicoViews	200	129	0	
+TabelaServicoDetalheViews	200	136	0	
+SolicitacaoPagamentoItemViews	200	140	0	
+TabelaRateioViews	200	411	1	
+TemporalidadeViews	200	129	0	
+TipoCobrancaViews	200	1659	5	
+TipoCompromissoViews	200	2510	5	
+RateioFaturaOriginalViews	200	5004	5	
+TipoContratoViews	200	128	0	
+TipoContaViews	200	621	5	
+TipoAssuntoViews	200	1574	5	
+TipoDespesaViews	200	1781	5	
+TipoAssuntoPerfilViews	200	1471	5	
+TermoPublicacaoVariacaoViews	200	139	0	
+TermoPublicacaoAbrangenciaViews	200	142	0	
+TermoPublicacaoPalavraObrigatoriaViews	200	149	0	
+TermoPublicacaoViews	200	131	0	
+TermoPublicacaoPalavraBloqueadaViews	200	147	0	
+TipoProcessoViews	200	128	0	
+TipoAtividadeViews	200	2034	5	
+ClasseCnjViews	200	2257	5	
+AssuntoCnjViews	200	1911	5	
+TipoHistoricoViews	200	129	0	
+TipoDocumentoViews	200	901	3	
+TipoHoraViews	200	124	0	
+TipoHoraCasoProfissionalViews	200	140	0	
+TipoHoraCasoViews	200	128	0	
+TipoMovimentacaoFinanceiraViews	200	2323	5	
+CategoriaMovimentacaoFinanceiraViews	200	1278	4	
+TipoPedidoViews	200	1505	5	
+TipoOcorrenciaViews	200	130	0	
+TipoOriginacaoViews	200	835	2	
+TipoPrestacaoContasViews	200	135	0	
+TipoPedidoValorViews	200	2173	3	
+TipoRemuneracaoViews	200	131	0	
+TipoRateioProfissionalViews	200	138	0	
+TipoResponsabilidadeViews	200	1439	5	
+TratamentoViews	200	126	0	
+TipoServicoViews	200	127	0	
+TipoRelatorioViews	200	129	0	
+TribunalViews	200	895	5	
+TSMonitorDesbloqueioViews	200	136	0	
+IdiomaTipoDespesaViews	200	3128	5	
+IdiomaServicoViews	200	129	0	
+UnidadeMedidaViews	200	1102	4	
+UsuarioViews	200	3560	5	
+FluxoAcaoDinamicaViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+ModeloTelaViews	200	1050	5	
+UsuarioPerfilViews	200	2927	5	
+PerfilViews	200	1780	5	
+AcessoLogViews	200	3040	5	
+PaisViews	200	1405	5	
+PesoProfissionalViews	200	132	0	
+PalavraChaveViews	200	128	0	
+CheckinViews	200	123	0	
+EstadoViews	200	1688	5	
+PessoaEnderecoViews	200	4273	5	
+CidadeViews	200	2433	5	
+TabelaPadraoViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+PessoaViews	200	2768	5	
+TabelaPadraoHistoricoViews	200	1418	3	
+TabeladoViews	200	124	0	
+PesquisaPerfilViews	200	130	0	
+PesquisaCamposViews	200	130	0	
+CorrespondenteViews	200	819	1	
+CasoParticipacaoViews	200	3316	5	
+CorrespondenteAdvogadoViews	200	270	1	
+PesquisaViews	200	124	0	
+CompromissoResponsavelViews	200	878	1	
+NaturezaViews	200	1601	5	
+TipoEnvolvimentoViews	200	944	3	
+TimesheetRevisaoViews	200	11033	5	
+DecisaoViews	200	123	0	
+RateioFixoCasoViews	200	130	0	
+TipoAcaoViews	200	1695	5	
+TimesheetVinculadoViews	200	2004	5	
+TimesheetGridViews	200	129	0	
+TSCasoViews	200	6330	5	
+TSClienteViews	200	5259	5	
+TimesheetViews	200	125	0	
+TSTipoAtividadeViews	200	1291	5	
+TSProfissionalViews	200	2977	5	
+TSIdiomaTipoAtividadeViews	200	2287	5	
+TSFavoritoViews	200	126	0	
+TipoAtividadeTipoAtividadeEbillingViews	200	150	0	
+TSUsuarioViews	200	670	5	
+TSSolicitacaoDespesaViews	200	136	0	
+TSEbillingTarefaViews	200	132	0	
+TSEbillingAtividadeViews	200	135	0	
+TSTabeladoViews	200	126	0	
+TSCompromissoResponsavelViews	200	1193	1	
+CategoriaCompromissoViews	200	136	0	
+CategoriaViews	200	2106	5	
+CasoParcelasViews	200	8705	5	
+CasoFaturamentoViews	200	9066	5	
+CategoriaRhViews	200	127	0	
+AdiantamentoDespesaViews	200	135	0	
+ManageableProfissionalViews	200	138	0	
+AdiantamentoViews	200	4876	5	
+AnexoViews	200	121	0	
+ManageableAgendaProfissionalViews	200	144	0	
+FilaImpressaoViews	200	129	0	
+JuizViews	200	120	0	
+JuncaoAlocacaoCasoViews	200	134	0	
+JuncaoAlocacaoViews	200	130	0	
+AssuntoVinculoViews	200	130	0	
+CondicaoPagamentoViews	200	1380	5	
+PreFaturaClienteFavoritoViews	200	140	0	
+ContaViews	200	121	0	
+PreFaturaCasoFavoritoViews	200	137	0	
+BusinessPlanViews	200	128	0	
+LancamentoViews	200	126	0	
+LancamentoFinanceiroViews	200	875	5	
+LancamentoEstornoProjetoViews	200	140	0	
+CustoCategoriaViews	200	130	0	
+CustoProfissionalViews	200	133	0	
+OrcamentoViews	200	3111	5	
+TributoViews	200	2417	5	
+MetaReceitaViews	200	2336	5	
+EmpresaViews	200	472	1	
+PrepostoViews	200	124	0	
+RelatorioModeloViews	200	406	1	
+BusinessPlanProfissionalViews	200	140	0	
+AcessoEscritorioViews	200	132	0	
+RelatorioModeloPerfilViews	200	460	1	
+RelatorioModeloViewModelConfigViews	200	146	0	
+RelatorioModeloViewModelViews	200	452	1	
+HonorarioViews	200	2047	5	
+HonorarioHistoricoViews	200	2642	5	
+RateioProfissionalViews	200	134	0	
+FilaEtiquetaViews	200	128	0	
+HonorarioCategoriaHistoricoViews	200	2680	5	
+JuroViews	200	1516	3	
+TSClienteFavoritoViews	200	133	0	
+ParametrosViews	200	1991	5	
+AcessoEscritorioProfissionalViews	200	144	0	
+SolicitacaoPastaFisicaViews	200	138	0	
+PFLacunaViews	200	124	0	
+CaixinhaViews	200	124	0	
+SolicitacaoCaixinhaViews	200	135	0	
+CampanhaViews	200	124	0	
+SolicitacaoPagamentoInstitucionalViews	200	149	0	
+CargoFavoritoViews	200	129	0	
+SolicitacaoPagamentoClienteViews	200	143	0	
+CargoViews	200	121	0	
+TipoEnderecoViews	200	128	0	
+SolicitacaoPagamentoEscritorioViews	200	146	0	
+SolicitacaoPagamentoUnicoViews	200	141	0	
+ProjetoSaldoViews	200	128	0	
+FormaCorrecaoAreaViews	200	133	0	
+SolicitacaoPagamentoUnicoItemViews	200	145	0	
+FormaCorrecaoAreaJuridicaViews	500	436	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Object reference not set to an instance of
+PrestacaoContaClienteViews	200	137	0	
+BancoViews	200	1536	5	
+ServicoWebViews	200	2241	5	
+PrestacaoContaEscritorioViews	200	140	0	
+PrestacaoContaInstitucionalViews	200	143	0	
+CasoFavoritoViews	200	5678	5	
+RotinaViews	200	1915	5	
+ChamadaViews	200	3130	5	
+OrdemViews	200	2345	5	
+ParametroServicoViews	200	2502	5	
+AcessoExcecaoViews	200	129	0	
+AcessoExcecaoProfissionalViews	200	141	0	
+OportunidadeMotivoPerdaViews	200	139	0	
+ImportacaoColetorViews	200	133	0	
+ImportacaoColetorItemViews	200	137	0	
+MenuFavoritoViews	200	922	5	
+PreFaturaContratoViews	200	6398	5	
+PreFaturaRevisoresViews	200	134	0	
+PreFaturaFixoViews	200	129	0	
+PendenciaEmailViews	400	386	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Value cannot be null.\r\nParameter name: c
+MailServidorViews	200	645	1	
+ProjetoGrupoJuridicoViews	200	136	0	
+GrupoJuridicoRelatViews	200	2956	5	
+RegraEmailViews	200	1486	1	
+FornecedorPlanoContaCompletoViews	200	144	0	
+ProfissionalRelatViews	200	4898	5	
+AlertaViews	200	580	1	
+AlertaVinculoViews	200	129	0	
+PreFaturaAcessoExcecaoViews	200	554	1	
+NovaDespesaPreFaturaViews	200	5054	5	
+OportunidadeParticipacaoViews	200	140	0	
+NovoTabeladoPreFaturaViews	200	137	0	
+OportunidadeEtapaViews	200	133	0	
+OportunidadeViews	200	128	0	
+OportunidadeOrigemViews	200	134	0	
+OportunidadeHistoricoViews	200	137	0	
+OportunidadeContatoViews	200	135	0	
+OportunidadeValorViews	200	133	0	
+NovoTimesheetPreFaturaViews	200	5067	5	
+OfertaViews	200	122	0	
+TipoOfertaViews	200	126	0	
+MotivoPerdaViews	200	843	3	
+ReporOrcamentoViews	200	130	0	
+AtoRegraViews	200	124	0	
+PreFaturaCasoLancadoViews	200	136	0	
+GerenciaRespViews	200	128	0	
+ProjetoGerenciaViews	200	131	0	
+ProjetoItemResumoGrupoJuridicoViews	200	146	0	
+ProjetoItemResumoEscritorioViews	200	143	0	
+GlossarioViews	200	125	0	
+SyncLogItemViews	200	2031	5	
+RevisaoCasoFixoRevisadoViews	200	7654	5	
+SyncLogItemGrupoViews	200	2036	5	
+AlcadaPlanejamentoViews	200	134	0	
+TimesheetGrupoJuridicoViews	200	6305	5	
+DicionarioModeloTelaViews	200	2069	1	
+LogSistemaViews	200	6439	5	
+FiltroGridViews	200	126	0	
+ModeloTelaAcaoViews	200	881	5	
+TimesheetFluxoAprovacaoViews	200	139	0	
+RestricaoAcaoViews	200	4121	5	
+ProfissionalSocioRelatViews	200	5018	5	
+PreFaturaResumoProfissionalViews	200	6438	5	
+ClienteCrystalViews	200	11367	5	
+ComponenteViews	200	681	5	
+AreaDeTrabalhoViews	200	2066	5	
+FonteLayoutViews	200	631	5	
+TipoHoraProfissionalViews	200	136	0	
+ProfissionalCaixinhaViews	200	659	1	
+AssuntoConfiguracaoViews	200	135	0	
+RegiaoViews	200	122	0	
+TributosPrognosticoViews	404	291	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+PesquisaPublicacaoViews	200	968	1	
+CasoEmLoteViews	200	7428	5	
+CasoAlocacaoViews	200	14027	5	
+CorrespondenteComarcaAtoValorViews	404	311	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+CalculoViews	200	123	0	
+CorrespondenteComarcaViews	200	137	0	
+ConflitoInteresseViews	200	133	0	
+ChecagemConflitoViews	200	132	0	
+TipoAlocacaoViews	200	128	0	
+LayoutJsonViews	200	17387	1	
+CasoMaeFilhoViews	200	5111	5	
+ExcecaoProfissionalPagamentoViews	200	144	0	
+DespesaCorrespondenteViews	200	137	0	
+DicionarioSensivelModeloViews	200	140	0	
+DicionarioSensivelViews	200	2581	5	
+AgendaCorrespondenteViews	200	1997	1	
+CorrespondenteClienteViews	200	137	0	
+EmpresaClienteViews	200	771	1	
+AlocacaoCasoFavoritoViews	200	2470	5	
+MovimentacaoViews	200	905	3	
+AlocacaoClienteFavoritoViews	200	1851	5	
+CheckinMovimentacaoViews	200	135	0	
+ResponsavelProfissionalRhViews	200	141	0	
+ResponsavelProfissionalIntegranteViews	200	149	0	
+CheckinEmailViews	200	128	0	
+RevisaoTimesheetPorCasoViews	200	198142538	55301	
+DesdobramentoCamposViews	200	135	0	
+RevisaoFixoAcumularViews	200	135	0	
+CorrecaoMonetariaCamposViews	200	139	0	
+ExcecaoCorteTimesheetViews	200	137	0	
+CampoModeloViews	200	127	0	
+TipoLogradouroViews	200	1427	5	
+RevisaoFixoInstrucaoViews	200	136	0	
+ClassificacaoBairroViews	200	1442	5	
+PessoaSimplificadoViews	200	1135	5	
+AgendadorRelatorioViews	200	134	0	
+LogAgendadorRelatorioViews	200	137	0	
+FaturamentoOcorrenciaDicionarioViews	200	1819	5	
+CabecalhoAssuntoViews	200	132	0	
+CabecalhoAssuntoCamposViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+BaseLoyAreaJuridicaViews	200	135	0	
+BaseLoyViews	200	123	0	
+PreFaturaRecoveryViews	200	1155	5	
+TemplateWorkflowViews	200	132	0	
+TemplateWorkflowResponsabilidadesViews	404	319	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+TemplateWorkflowCondicoesViews	404	303	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+TemplateWorkflowProfissionaisViews	404	311	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+TemplateWorkflowTarefasViews	500	518	0	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "LINQ to Entities does not recognize the me
+TemplateWorkflowCriteriosViews	404	303	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+TemplateWorkflowTarefasRespViews	500	4278	0	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+
+RegraDistribuicaoClienteViews	200	140	0	
+RegraDistribuicaoComarcaViews	200	140	0	
+RegraDistribuicaoEstadoViews	200	139	0	
+RegraDistribuicaoAreaViews	200	137	0	
+RegraDistribuicaoViews	200	133	0	
+RegraDistribuicaoProfissionaisViews	404	313	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+RegraDistribuicaoEscritoriosViews	200	144	0	
+RegraSolicitacaoAgendasViews	404	299	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+RegraSolicitacaoProfissionaisViews	404	311	0	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/
+RevisaoTimesheetResumoProfissionalViews	200	3000	5	
+TipoSolicitacaoViews	200	131	0	
+RegraSolicitacaoViews	200	132	0	
+PreFaturaMargemContribuicaoViews	200	812	5	
+PreFaturaMargemContribuicaoResumoPreViews	200	1702	5	
+PreFaturaMargemContribuicaoResumoCasoViews	200	2598	5	

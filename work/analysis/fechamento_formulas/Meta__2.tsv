@@ -1,0 +1,43 @@
+META 2026		YTD				jan a jun	jan a ago	projeção ate dez			
+Meta Anual	12	1	11	Nova meta mês		3120555	=C3	=H2+576522+85120+420000+374267+140000+(400000*3)		576622	Nacionais
+8060000	=A3/B2	='Areas Sintetico atualizado'!C3	=A3-C3	=D3/D2		=G2/A3	=H2/A3	=I2/A3		85120	Internacionais
+										420000	Pre faturas
+							=10377407-5768380			374267	WM
+							=(H2/H5)-1			140000	Tonico
+META 2025		YTD						6143091			
+Meta Anual	12							=(I2/I7)-1			
+=A3	=A9/B8	='Areas Sintetico atualizado'!L3		=A9-C9	=E9/D2						
+											
+											
+											
+	Recebimento	Faturamento	Meta	Despesas	Despesas indiretas	Custo direto					
+Jan	='Areas Sintetico atualizado'!C4	='Areas Sintetico atualizado'!C3	671667	=F14+G14	='Areas Sintetico atualizado'!C13	='Areas Sintetico atualizado'!C6		=B14-F14-G14			
+Fev			671667	=F15+G15				=B15-F15-G15			
+Mar			671667	=F16+G16				=B16-F16-G16			
+Abr			671667	=F17+G17				=B17-F17-G17			
+Mai			671667	=F18+G18				=B18-F18-G18			
+Jun			671667	=F19+G19				=B19-F19-G19			
+Jul			671667	=F20+G20				=B20-F20-G20			
+Ago			671667	=F21+G21				=B21-F21-G21			
+Set			671667	=F22+G22				=B22-F22-G22			
+Out			671667	=F23+G23				=B23-F23-G23			
+Nov			671667	=F24+G24				=B24-F24-G24			
+Dez			671667	=F25+G25				=B25-F25-G25			
+	=SUM(B14:B25)	=SUM(C14:C25)	=SUM(D14:D25)	=SUM(E14:E25)	=SUM(F14:F25)	=SUM(G14:G25)	=SUM(H14:H25)	=SUM(I14:I25)			
+											
+MÉDIA ANUAL	=B26/12										
+											
+											
+			=C26-F26-G26	=B26-F26-G26							
+											
+											
+											
+	Recebimento	Despesas		#							
+Jan	316807.42	330244.38499999995	='[1]Base_Resultado Mensal_V2'!D190	=B36-C36-D36							
+Fev	216057.27	377306.695	='[1]Base_Resultado Mensal_V2'!F190	=B37-C37-D37							
+Mar	613202.96	363984.20666666667	='[1]Base_Resultado Mensal_V2'!H190	=B38-C38-D38							
+Abr	588260.32	375072.45999999996	='[1]Base_Resultado Mensal_V2'!J190	=B39-C39-D39							
+Mai	658171.05	360112.80000000005	='[1]Base_Resultado Mensal_V2'!L190	=B40-C40-D40							
+Jun	632809.49	334821.86	='[1]Base_Resultado Mensal_V2'!N190	=B41-C41-D41							
+Jul	260036.93	337422.559	='[1]Base_Resultado Mensal_V2'!P190	=B42-C42-D42							
+	3285345.44	2478964.965666667	=SUM(D36:D42)								

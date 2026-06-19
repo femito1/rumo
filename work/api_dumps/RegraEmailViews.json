@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#RegraEmailViews","value":[
+    {
+      "Id":"62decb97-93c8-8415-f79e-5547a7145e3e","Selecionado":false,"Pendentes":"27","Descricao":"Alerta - Limite CAP com limite do caso ","SqlEnvio":"SELECT COD_CLIENTE, PASTA,TIPO, DATA, PERCENTUAL, VALORCONSIDERADO, VALORTS, VALOR_DISPONIVEL, UTS, ANO_MES, REGRA, ASSUNTO,EMAIL, corpo_email, EMAIL2 FROM ssjr.cst_vw_acomp_cap_lim_caso","Intervalo":"10","SqlUpdate":"INSERT INTO ssjr.cst_acomp_cap_mensal_excd (COD_CLIENTE, PASTA,TIPO, DATA, PERCENTUAL, VALORCONSIDERADO, VALORTS, VALOR_DISPONIVEL, UTS, ANO_MES, REGRA, ASSUNTO,EMAIL) VALUES (':COD_CLIENTE',':PASTA',':TIPO',SYSDATE,':PERCENTUAL',':VALORCONSIDERADO',':VALORTS',':VALOR_DISPONIVEL', ':UTS',':ANO_MES',':REGRA',':ASSUNTO',':EMAIL2')","Ativo":"S","DataBaseTimeout":"240","EmailDestino":"email","AssuntoEmail":"assunto","TextoEmail":"corpo_email","EmailCopia":null,"EmailCopiaOculta":null,"DisplayEmail":"Alerta sobre o CAP com limite do caso","MailServidorId":"62dec9a4-93be-667f-3ca1-d7e061ff23e6","MailServidorNome":"Servidor ","EmailOrigem":null,"Host":null,"Porta":null,"Username":null,"Password":null,"AutenticacaoSSL":"N","AutenticacaoTLS":"N","UltimoEnvio":"2023-07-31T23:42:00.836516Z","EmailHtml":"S","SqlAnexos":null,"DataInclusao":"2022-07-25T20:03:07.711145Z","UsuarioInclusao":"juritis.sis","DataAlteracao":"2023-07-31T23:42:00.836516Z","UsuarioAlteracao":"juritis.sis"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/EscritorioViews?$top=5",
+  "status": 200,
+  "elapsed_s": 2.016,
+  "content_type": "application/json; charset=utf-8",
+  "bytes": 1125
+}

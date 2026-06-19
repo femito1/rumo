@@ -1,0 +1,11 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MovimentacaoFinanceiraAbaViews","value":[
+    {
+      "Id":"6A1603B6-689E-0F76-35BD-DECDC5023C76","AssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","Movimentacao":"64E8F2AE-C8C3-7AF9-A298-15BB1A0C7A2F","Valor":null,"ValorAtualizado":null,"SiglaMoeda":"R$","Titulo":"Total de Despesas"
+    },{
+      "Id":"6A16035C-689F-2676-926E-77139EEB4E5B","AssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","Movimentacao":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","Valor":null,"ValorAtualizado":null,"SiglaMoeda":"R$","Titulo":"Total de Garantias"
+    },{
+      "Id":"6A16033C-68A0-5C9B-3A37-6A24E4FBD8CD","AssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","Movimentacao":"64E8F260-C8C6-5A56-F499-EB125EB9E339","Valor":null,"ValorAtualizado":null,"SiglaMoeda":"R$","Titulo":"Total de Pagamentos"
+    }
+  ]
+}

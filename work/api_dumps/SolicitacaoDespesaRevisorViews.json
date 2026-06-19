@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#SolicitacaoDespesaRevisorViews","value":[
+    {
+      "Id":"5AF5D71A-98B7-92F7-C294-3F210E247B08","Codigo":"SIP","PessoaNome":"Simone Paris","PessoaNomeFantasia":null,"Sigla":"SIP","Socio":"N","Tecnico":"N","DataSaida":"2019-09-30T00:00:00-03:00"
+    },{
+      "Id":"5AF5E261-98CD-A53D-EBE9-2AC5705544DF","Codigo":"BRS","PessoaNome":"Bruno Spedo","PessoaNomeFantasia":null,"Sigla":"BRS","Socio":"N","Tecnico":"N","DataSaida":"2019-12-01T00:00:00-03:00"
+    },{
+      "Id":"5AF5E2EB-98C8-03CF-879C-F67783425F18","Codigo":"LCP","PessoaNome":"Luciana Perrone","PessoaNomeFantasia":null,"Sigla":"LCP","Socio":"N","Tecnico":"N","DataSaida":"2024-10-31T00:00:00-03:00"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C8914","Codigo":"AM","PessoaNome":"Aurelio Marchini Santos","PessoaNomeFantasia":null,"Sigla":"AM","Socio":"S","Tecnico":"S","DataSaida":null
+    },{
+      "Id":"5B044FDE-995D-A3D4-A945-016A1B8D73B7","Codigo":"DC","PessoaNome":"Daniel Costa Caselta","PessoaNomeFantasia":null,"Sigla":"DC","Socio":"S","Tecnico":"S","DataSaida":null
+    }
+  ]
+}

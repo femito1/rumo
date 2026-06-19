@@ -1,0 +1,2529 @@
+{
+  "odata.metadata": "https://legaldesk.mbclaw.com.br/API/v1/ODataCONSULTIVO/$metadata",
+  "value": [
+    {
+      "name": "AcessoCaixinhaViews",
+      "url": "AcessoCaixinhaViews"
+    },
+    {
+      "name": "AlcadaViews",
+      "url": "AlcadaViews"
+    },
+    {
+      "name": "AlcadaExcecaoViews",
+      "url": "AlcadaExcecaoViews"
+    },
+    {
+      "name": "AlcadaCategoriaViews",
+      "url": "AlcadaCategoriaViews"
+    },
+    {
+      "name": "AlocacaoGrupoJuridicoViews",
+      "url": "AlocacaoGrupoJuridicoViews"
+    },
+    {
+      "name": "AlocacaoGrupoJuridicoPercentualViews",
+      "url": "AlocacaoGrupoJuridicoPercentualViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoCasoClienteViews",
+      "url": "AlocacaoRecebimentoCasoClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTransferenciaClienteViews",
+      "url": "AlocacaoRecebimentoTransferenciaClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTransferenciaJuncaoViews",
+      "url": "AlocacaoRecebimentoTransferenciaJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoCasoJuncaoViews",
+      "url": "AlocacaoRecebimentoCasoJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoCasoContratoViews",
+      "url": "AlocacaoRecebimentoCasoContratoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoContratoViews",
+      "url": "AlocacaoRecebimentoContratoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoDespesaClienteViews",
+      "url": "AlocacaoRecebimentoDespesaClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoDespesaJuncaoViews",
+      "url": "AlocacaoRecebimentoDespesaJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoFaturaClienteViews",
+      "url": "AlocacaoRecebimentoFaturaClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoFaturaClienteTransferenciaViews",
+      "url": "AlocacaoRecebimentoFaturaClienteTransferenciaViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoFaturaClienteJobViews",
+      "url": "AlocacaoRecebimentoFaturaClienteJobViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoFaturaJuncaoTransferenciaViews",
+      "url": "AlocacaoRecebimentoFaturaJuncaoTransferenciaViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoFaturaJuncaoViews",
+      "url": "AlocacaoRecebimentoFaturaJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoHorasAlocarCasoViews",
+      "url": "AlocacaoRecebimentoHorasAlocarCasoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoHorasAlocarCasoJuncaoViews",
+      "url": "AlocacaoRecebimentoHorasAlocarCasoJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoHorasAlocarClienteViews",
+      "url": "AlocacaoRecebimentoHorasAlocarClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoHorasAlocarJuncaoViews",
+      "url": "AlocacaoRecebimentoHorasAlocarJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoPeriodoModuloViews",
+      "url": "AlocacaoRecebimentoPeriodoModuloViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTabeladoClienteViews",
+      "url": "AlocacaoRecebimentoTabeladoClienteViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTabeladoJuncaoViews",
+      "url": "AlocacaoRecebimentoTabeladoJuncaoViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTotalViews",
+      "url": "AlocacaoRecebimentoTotalViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoTotalDetalheViews",
+      "url": "AlocacaoRecebimentoTotalDetalheViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoProfissionalViews",
+      "url": "AlocacaoRecebimentoProfissionalViews"
+    },
+    {
+      "name": "AlocacaoRecebimentoViews",
+      "url": "AlocacaoRecebimentoViews"
+    },
+    {
+      "name": "AndamentoViews",
+      "url": "AndamentoViews"
+    },
+    {
+      "name": "ConsultivoAndamentoViews",
+      "url": "ConsultivoAndamentoViews"
+    },
+    {
+      "name": "ContratosAndamentoViews",
+      "url": "ContratosAndamentoViews"
+    },
+    {
+      "name": "AndamentoGridViews",
+      "url": "AndamentoGridViews"
+    },
+    {
+      "name": "ConsultivoAndamentoGridViews",
+      "url": "ConsultivoAndamentoGridViews"
+    },
+    {
+      "name": "ContratosAndamentoGridViews",
+      "url": "ContratosAndamentoGridViews"
+    },
+    {
+      "name": "AreaTipoAtividadeViews",
+      "url": "AreaTipoAtividadeViews"
+    },
+    {
+      "name": "RelatorioGerencialViews",
+      "url": "RelatorioGerencialViews"
+    },
+    {
+      "name": "AndamentoPadraoViews",
+      "url": "AndamentoPadraoViews"
+    },
+    {
+      "name": "AditivoViews",
+      "url": "AditivoViews"
+    },
+    {
+      "name": "AgendaMensalViews",
+      "url": "AgendaMensalViews"
+    },
+    {
+      "name": "AprovacaoCaixinhaViews",
+      "url": "AprovacaoCaixinhaViews"
+    },
+    {
+      "name": "AprovacaoDespesaViews",
+      "url": "AprovacaoDespesaViews"
+    },
+    {
+      "name": "DepartamentoSolicitanteViews",
+      "url": "DepartamentoSolicitanteViews"
+    },
+    {
+      "name": "AreaInteresseViews",
+      "url": "AreaInteresseViews"
+    },
+    {
+      "name": "AssuntoPastaFisicaViews",
+      "url": "AssuntoPastaFisicaViews"
+    },
+    {
+      "name": "CasoPastaFisicaViews",
+      "url": "CasoPastaFisicaViews"
+    },
+    {
+      "name": "CompromissoViews",
+      "url": "CompromissoViews"
+    },
+    {
+      "name": "ConsultivoCompromissoViews",
+      "url": "ConsultivoCompromissoViews"
+    },
+    {
+      "name": "ContratosCompromissoViews",
+      "url": "ContratosCompromissoViews"
+    },
+    {
+      "name": "CompromissoGridViews",
+      "url": "CompromissoGridViews"
+    },
+    {
+      "name": "ConsultivoCompromissoGridViews",
+      "url": "ConsultivoCompromissoGridViews"
+    },
+    {
+      "name": "ContratosCompromissoGridViews",
+      "url": "ContratosCompromissoGridViews"
+    },
+    {
+      "name": "CompromissoWorkflowLogViews",
+      "url": "CompromissoWorkflowLogViews"
+    },
+    {
+      "name": "ConfiguracaoUsuarioViews",
+      "url": "ConfiguracaoUsuarioViews"
+    },
+    {
+      "name": "CronometroViews",
+      "url": "CronometroViews"
+    },
+    {
+      "name": "AreaJuridicaViews",
+      "url": "AreaJuridicaViews"
+    },
+    {
+      "name": "ArmarioViews",
+      "url": "ArmarioViews"
+    },
+    {
+      "name": "AssuntoGridViews",
+      "url": "AssuntoGridViews"
+    },
+    {
+      "name": "TrabalhistaAssuntoGridViews",
+      "url": "TrabalhistaAssuntoGridViews"
+    },
+    {
+      "name": "CriminalAssuntoGridViews",
+      "url": "CriminalAssuntoGridViews"
+    },
+    {
+      "name": "ConsultivoAssuntoGridViews",
+      "url": "ConsultivoAssuntoGridViews"
+    },
+    {
+      "name": "ContratosAssuntoGridViews",
+      "url": "ContratosAssuntoGridViews"
+    },
+    {
+      "name": "AssuntoSearchModalViews",
+      "url": "AssuntoSearchModalViews"
+    },
+    {
+      "name": "AlteracaoResponsavelLoteViews",
+      "url": "AlteracaoResponsavelLoteViews"
+    },
+    {
+      "name": "AssuntoViews",
+      "url": "AssuntoViews"
+    },
+    {
+      "name": "CivelAssuntoViews",
+      "url": "CivelAssuntoViews"
+    },
+    {
+      "name": "TrabalhistaAssuntoViews",
+      "url": "TrabalhistaAssuntoViews"
+    },
+    {
+      "name": "TributarioAssuntoViews",
+      "url": "TributarioAssuntoViews"
+    },
+    {
+      "name": "CriminalAssuntoViews",
+      "url": "CriminalAssuntoViews"
+    },
+    {
+      "name": "ConsultivoAssuntoViews",
+      "url": "ConsultivoAssuntoViews"
+    },
+    {
+      "name": "ContratosAssuntoViews",
+      "url": "ContratosAssuntoViews"
+    },
+    {
+      "name": "AssuntoResponsavelViews",
+      "url": "AssuntoResponsavelViews"
+    },
+    {
+      "name": "AssuntoRegraViews",
+      "url": "AssuntoRegraViews"
+    },
+    {
+      "name": "AbaViews",
+      "url": "AbaViews"
+    },
+    {
+      "name": "VersaoViews",
+      "url": "VersaoViews"
+    },
+    {
+      "name": "AtoViews",
+      "url": "AtoViews"
+    },
+    {
+      "name": "AgendamentoDeFeriasViews",
+      "url": "AgendamentoDeFeriasViews"
+    },
+    {
+      "name": "RegistroAcaoViews",
+      "url": "RegistroAcaoViews"
+    },
+    {
+      "name": "UsuarioAtividadeViews",
+      "url": "UsuarioAtividadeViews"
+    },
+    {
+      "name": "TabelaConversaoViews",
+      "url": "TabelaConversaoViews"
+    },
+    {
+      "name": "ValorCotacaoViews",
+      "url": "ValorCotacaoViews"
+    },
+    {
+      "name": "AtoGerencialViews",
+      "url": "AtoGerencialViews"
+    },
+    {
+      "name": "PeriodoModuloViews",
+      "url": "PeriodoModuloViews"
+    },
+    {
+      "name": "PeriodoModuloFinanceiroViews",
+      "url": "PeriodoModuloFinanceiroViews"
+    },
+    {
+      "name": "CadastroPerfilViews",
+      "url": "CadastroPerfilViews"
+    },
+    {
+      "name": "CampoModeloTelaViews",
+      "url": "CampoModeloTelaViews"
+    },
+    {
+      "name": "ModeloTelaCamposViews",
+      "url": "ModeloTelaCamposViews"
+    },
+    {
+      "name": "ModeloViews",
+      "url": "ModeloViews"
+    },
+    {
+      "name": "CasoViews",
+      "url": "CasoViews"
+    },
+    {
+      "name": "CasoTipoAtividadeViews",
+      "url": "CasoTipoAtividadeViews"
+    },
+    {
+      "name": "CasoTipoDespesaViews",
+      "url": "CasoTipoDespesaViews"
+    },
+    {
+      "name": "CasoFixoViews",
+      "url": "CasoFixoViews"
+    },
+    {
+      "name": "CasoFixoFaixaViews",
+      "url": "CasoFixoFaixaViews"
+    },
+    {
+      "name": "CasoFixoFaixaProfissionalViews",
+      "url": "CasoFixoFaixaProfissionalViews"
+    },
+    {
+      "name": "CasosRevisaoFixoViews",
+      "url": "CasosRevisaoFixoViews"
+    },
+    {
+      "name": "ClientesRevisaoFixoViews",
+      "url": "ClientesRevisaoFixoViews"
+    },
+    {
+      "name": "CelulaViews",
+      "url": "CelulaViews"
+    },
+    {
+      "name": "ComarcaViews",
+      "url": "ComarcaViews"
+    },
+    {
+      "name": "ComarcaEstadoViews",
+      "url": "ComarcaEstadoViews"
+    },
+    {
+      "name": "ComarcaFavoritoViews",
+      "url": "ComarcaFavoritoViews"
+    },
+    {
+      "name": "ForoViews",
+      "url": "ForoViews"
+    },
+    {
+      "name": "VaraViews",
+      "url": "VaraViews"
+    },
+    {
+      "name": "ClassificacaoDespesaViews",
+      "url": "ClassificacaoDespesaViews"
+    },
+    {
+      "name": "ClienteViews",
+      "url": "ClienteViews"
+    },
+    {
+      "name": "ClienteEmLoteViews",
+      "url": "ClienteEmLoteViews"
+    },
+    {
+      "name": "ClientePagadorViews",
+      "url": "ClientePagadorViews"
+    },
+    {
+      "name": "ClienteParticipacaoViews",
+      "url": "ClienteParticipacaoViews"
+    },
+    {
+      "name": "ComponenteUsuarioViews",
+      "url": "ComponenteUsuarioViews"
+    },
+    {
+      "name": "ConfiguracaoAssuntoViews",
+      "url": "ConfiguracaoAssuntoViews"
+    },
+    {
+      "name": "ConfiguracaoAssuntoPerfilViews",
+      "url": "ConfiguracaoAssuntoPerfilViews"
+    },
+    {
+      "name": "ConfiguracaoDesdobramentoViews",
+      "url": "ConfiguracaoDesdobramentoViews"
+    },
+    {
+      "name": "ConflitoAvaliacaoViews",
+      "url": "ConflitoAvaliacaoViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoEscritorioGrupoJuridicoViews",
+      "url": "ConsumoOrcamentoProjetoEscritorioGrupoJuridicoViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoEscritorioViews",
+      "url": "ConsumoOrcamentoProjetoEscritorioViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoGerenciaViews",
+      "url": "ConsumoOrcamentoProjetoGerenciaViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoGrupoJuridicoViews",
+      "url": "ConsumoOrcamentoProjetoGrupoJuridicoViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoViews",
+      "url": "ConsumoOrcamentoProjetoViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoItemDespesaViews",
+      "url": "ConsumoOrcamentoProjetoItemDespesaViews"
+    },
+    {
+      "name": "ConsumoOrcamentoProjetoItemViews",
+      "url": "ConsumoOrcamentoProjetoItemViews"
+    },
+    {
+      "name": "ContratoViews",
+      "url": "ContratoViews"
+    },
+    {
+      "name": "CasoContratoViews",
+      "url": "CasoContratoViews"
+    },
+    {
+      "name": "CotacaoViews",
+      "url": "CotacaoViews"
+    },
+    {
+      "name": "CotacaoAprovacaoViews",
+      "url": "CotacaoAprovacaoViews"
+    },
+    {
+      "name": "CotacaoFornecedorViews",
+      "url": "CotacaoFornecedorViews"
+    },
+    {
+      "name": "CotacaoFornecedorAprovacaoViews",
+      "url": "CotacaoFornecedorAprovacaoViews"
+    },
+    {
+      "name": "BusinessPlanCustoViews",
+      "url": "BusinessPlanCustoViews"
+    },
+    {
+      "name": "BusinessPlanConsolidadoProfissionalViews",
+      "url": "BusinessPlanConsolidadoProfissionalViews"
+    },
+    {
+      "name": "BusinessPlanCategoriaViews",
+      "url": "BusinessPlanCategoriaViews"
+    },
+    {
+      "name": "DepositoViews",
+      "url": "DepositoViews"
+    },
+    {
+      "name": "DescarteSaldoHoraViews",
+      "url": "DescarteSaldoHoraViews"
+    },
+    {
+      "name": "DesdobramentoViews",
+      "url": "DesdobramentoViews"
+    },
+    {
+      "name": "DesdobramentoResponsavelViews",
+      "url": "DesdobramentoResponsavelViews"
+    },
+    {
+      "name": "DesdobramentoConfigCamposViews",
+      "url": "DesdobramentoConfigCamposViews"
+    },
+    {
+      "name": "DespFavoritoViews",
+      "url": "DespFavoritoViews"
+    },
+    {
+      "name": "DevolucaoRemanejamentoProjetoViews",
+      "url": "DevolucaoRemanejamentoProjetoViews"
+    },
+    {
+      "name": "DiscrepanciaViews",
+      "url": "DiscrepanciaViews"
+    },
+    {
+      "name": "DiscrepanciaItemViews",
+      "url": "DiscrepanciaItemViews"
+    },
+    {
+      "name": "EBillingDocumentoViews",
+      "url": "EBillingDocumentoViews"
+    },
+    {
+      "name": "EBillingDocumentoValorPadraoViews",
+      "url": "EBillingDocumentoValorPadraoViews"
+    },
+    {
+      "name": "EBillingAtividadeViews",
+      "url": "EBillingAtividadeViews"
+    },
+    {
+      "name": "EBillingEmpresaViews",
+      "url": "EBillingEmpresaViews"
+    },
+    {
+      "name": "EBillingFaseViews",
+      "url": "EBillingFaseViews"
+    },
+    {
+      "name": "EbillingTarefaViews",
+      "url": "EbillingTarefaViews"
+    },
+    {
+      "name": "TSEBillingFaseViews",
+      "url": "TSEBillingFaseViews"
+    },
+    {
+      "name": "TSEBillingDocumentoViews",
+      "url": "TSEBillingDocumentoViews"
+    },
+    {
+      "name": "EmprestimoPastaFisicaViews",
+      "url": "EmprestimoPastaFisicaViews"
+    },
+    {
+      "name": "EnvioEmailViews",
+      "url": "EnvioEmailViews"
+    },
+    {
+      "name": "EnvolvidoViews",
+      "url": "EnvolvidoViews"
+    },
+    {
+      "name": "TrabalhistaEnvolvidoViews",
+      "url": "TrabalhistaEnvolvidoViews"
+    },
+    {
+      "name": "ConsultivoEnvolvidoViews",
+      "url": "ConsultivoEnvolvidoViews"
+    },
+    {
+      "name": "EnvolvidoGridViews",
+      "url": "EnvolvidoGridViews"
+    },
+    {
+      "name": "EscritorioViews",
+      "url": "EscritorioViews"
+    },
+    {
+      "name": "EmpresaJuridicoViews",
+      "url": "EmpresaJuridicoViews"
+    },
+    {
+      "name": "ExcecaoReceitaAlocacaoViews",
+      "url": "ExcecaoReceitaAlocacaoViews"
+    },
+    {
+      "name": "ExcecaoRevisorCasoViews",
+      "url": "ExcecaoRevisorCasoViews"
+    },
+    {
+      "name": "ExportacaoModeloViews",
+      "url": "ExportacaoModeloViews"
+    },
+    {
+      "name": "ExportacaoModeloColunaViews",
+      "url": "ExportacaoModeloColunaViews"
+    },
+    {
+      "name": "ExportacaoModeloPerfilViews",
+      "url": "ExportacaoModeloPerfilViews"
+    },
+    {
+      "name": "FaseViews",
+      "url": "FaseViews"
+    },
+    {
+      "name": "FeriadoViews",
+      "url": "FeriadoViews"
+    },
+    {
+      "name": "FaturaViews",
+      "url": "FaturaViews"
+    },
+    {
+      "name": "FaturaRedacaoViews",
+      "url": "FaturaRedacaoViews"
+    },
+    {
+      "name": "FaturaCasoViews",
+      "url": "FaturaCasoViews"
+    },
+    {
+      "name": "FaturaProfissionalViews",
+      "url": "FaturaProfissionalViews"
+    },
+    {
+      "name": "FormaCorrecaoViews",
+      "url": "FormaCorrecaoViews"
+    },
+    {
+      "name": "FornecedorViews",
+      "url": "FornecedorViews"
+    },
+    {
+      "name": "FornecedorFavoritoViews",
+      "url": "FornecedorFavoritoViews"
+    },
+    {
+      "name": "FornecedorContaViews",
+      "url": "FornecedorContaViews"
+    },
+    {
+      "name": "FornecedorEnderecoViews",
+      "url": "FornecedorEnderecoViews"
+    },
+    {
+      "name": "FornecedorPlanoContaViews",
+      "url": "FornecedorPlanoContaViews"
+    },
+    {
+      "name": "GerenciaViews",
+      "url": "GerenciaViews"
+    },
+    {
+      "name": "GerenciaCentroCustoViews",
+      "url": "GerenciaCentroCustoViews"
+    },
+    {
+      "name": "GerencialDemonstrativoViews",
+      "url": "GerencialDemonstrativoViews"
+    },
+    {
+      "name": "LDataCapaProcessoViews",
+      "url": "LDataCapaProcessoViews"
+    },
+    {
+      "name": "LDataDistribuicaoViews",
+      "url": "LDataDistribuicaoViews"
+    },
+    {
+      "name": "GrupoAvaliacaoConflitoViews",
+      "url": "GrupoAvaliacaoConflitoViews"
+    },
+    {
+      "name": "GrupoDespesaViews",
+      "url": "GrupoDespesaViews"
+    },
+    {
+      "name": "GrupoEmpresaJuridicoViews",
+      "url": "GrupoEmpresaJuridicoViews"
+    },
+    {
+      "name": "GrupoEmpresaViews",
+      "url": "GrupoEmpresaViews"
+    },
+    {
+      "name": "GrupoMaterialViews",
+      "url": "GrupoMaterialViews"
+    },
+    {
+      "name": "GrupoMaterialProfissionalViews",
+      "url": "GrupoMaterialProfissionalViews"
+    },
+    {
+      "name": "GrupoJuridicoViews",
+      "url": "GrupoJuridicoViews"
+    },
+    {
+      "name": "GrupoJuridicoResponsavelViews",
+      "url": "GrupoJuridicoResponsavelViews"
+    },
+    {
+      "name": "GrupoTrabalhoViews",
+      "url": "GrupoTrabalhoViews"
+    },
+    {
+      "name": "GrupoTrabalhoProfissionalViews",
+      "url": "GrupoTrabalhoProfissionalViews"
+    },
+    {
+      "name": "GrupoJuridicoProfissionalViews",
+      "url": "GrupoJuridicoProfissionalViews"
+    },
+    {
+      "name": "HistoricoDescarteSaldoHoraViews",
+      "url": "HistoricoDescarteSaldoHoraViews"
+    },
+    {
+      "name": "HistPlanejamentoOrcamentoViews",
+      "url": "HistPlanejamentoOrcamentoViews"
+    },
+    {
+      "name": "IdiomaViews",
+      "url": "IdiomaViews"
+    },
+    {
+      "name": "IdiomaTipoAtividadeViews",
+      "url": "IdiomaTipoAtividadeViews"
+    },
+    {
+      "name": "IndiceViews",
+      "url": "IndiceViews"
+    },
+    {
+      "name": "IndiceValorViews",
+      "url": "IndiceValorViews"
+    },
+    {
+      "name": "ImportacaoPublicacaoItemViews",
+      "url": "ImportacaoPublicacaoItemViews"
+    },
+    {
+      "name": "ImportacaoPublicacaoViews",
+      "url": "ImportacaoPublicacaoViews"
+    },
+    {
+      "name": "ImportacaoPublicacaoLayoutViews",
+      "url": "ImportacaoPublicacaoLayoutViews"
+    },
+    {
+      "name": "IetfViews",
+      "url": "IetfViews"
+    },
+    {
+      "name": "TimeZoneViews",
+      "url": "TimeZoneViews"
+    },
+    {
+      "name": "CultureViews",
+      "url": "CultureViews"
+    },
+    {
+      "name": "DisplayCampoModeloTelaViews",
+      "url": "DisplayCampoModeloTelaViews"
+    },
+    {
+      "name": "JurFavoritoCasoViews",
+      "url": "JurFavoritoCasoViews"
+    },
+    {
+      "name": "JurFavoritoClienteViews",
+      "url": "JurFavoritoClienteViews"
+    },
+    {
+      "name": "LacunaViews",
+      "url": "LacunaViews"
+    },
+    {
+      "name": "LocalidadeViews",
+      "url": "LocalidadeViews"
+    },
+    {
+      "name": "LocalizacaoCnjViews",
+      "url": "LocalizacaoCnjViews"
+    },
+    {
+      "name": "LocalTrabalhoViews",
+      "url": "LocalTrabalhoViews"
+    },
+    {
+      "name": "LogImportacaoAndamentoViews",
+      "url": "LogImportacaoAndamentoViews"
+    },
+    {
+      "name": "LogCorteHorasTimesheetViews",
+      "url": "LogCorteHorasTimesheetViews"
+    },
+    {
+      "name": "MaterialViews",
+      "url": "MaterialViews"
+    },
+    {
+      "name": "MeioPagamentoViews",
+      "url": "MeioPagamentoViews"
+    },
+    {
+      "name": "MoedaViews",
+      "url": "MoedaViews"
+    },
+    {
+      "name": "MovimentacaoFinanceiraViews",
+      "url": "MovimentacaoFinanceiraViews"
+    },
+    {
+      "name": "MovimentacaoFinanceiraGridViews",
+      "url": "MovimentacaoFinanceiraGridViews"
+    },
+    {
+      "name": "MenuViews",
+      "url": "MenuViews"
+    },
+    {
+      "name": "MenuPerfilViews",
+      "url": "MenuPerfilViews"
+    },
+    {
+      "name": "MotivoReprovacaoViews",
+      "url": "MotivoReprovacaoViews"
+    },
+    {
+      "name": "MotivoEncerramentoViews",
+      "url": "MotivoEncerramentoViews"
+    },
+    {
+      "name": "MotivoEscolhaViews",
+      "url": "MotivoEscolhaViews"
+    },
+    {
+      "name": "MotivoWoViews",
+      "url": "MotivoWoViews"
+    },
+    {
+      "name": "NotificacaoGridViews",
+      "url": "NotificacaoGridViews"
+    },
+    {
+      "name": "ObjetoViews",
+      "url": "ObjetoViews"
+    },
+    {
+      "name": "ParticularidadeDespesaViews",
+      "url": "ParticularidadeDespesaViews"
+    },
+    {
+      "name": "ParticularidadeDespesaDetalheViews",
+      "url": "ParticularidadeDespesaDetalheViews"
+    },
+    {
+      "name": "PastaFisicaViews",
+      "url": "PastaFisicaViews"
+    },
+    {
+      "name": "PastaFisicaMovimentacaoViews",
+      "url": "PastaFisicaMovimentacaoViews"
+    },
+    {
+      "name": "PastaFisicaDocumentoViews",
+      "url": "PastaFisicaDocumentoViews"
+    },
+    {
+      "name": "PCOClienteFavoritoViews",
+      "url": "PCOClienteFavoritoViews"
+    },
+    {
+      "name": "PCOFavoritoViews",
+      "url": "PCOFavoritoViews"
+    },
+    {
+      "name": "PedidoViews",
+      "url": "PedidoViews"
+    },
+    {
+      "name": "TributarioPedidoViews",
+      "url": "TributarioPedidoViews"
+    },
+    {
+      "name": "PedidoGridViews",
+      "url": "PedidoGridViews"
+    },
+    {
+      "name": "PedidoAbaViews",
+      "url": "PedidoAbaViews"
+    },
+    {
+      "name": "PedidoTotalAbaViews",
+      "url": "PedidoTotalAbaViews"
+    },
+    {
+      "name": "TributoAbaViews",
+      "url": "TributoAbaViews"
+    },
+    {
+      "name": "TributoTotalAbaViews",
+      "url": "TributoTotalAbaViews"
+    },
+    {
+      "name": "MovimentacaoFinanceiraAbaViews",
+      "url": "MovimentacaoFinanceiraAbaViews"
+    },
+    {
+      "name": "PedidoTotalViews",
+      "url": "PedidoTotalViews"
+    },
+    {
+      "name": "PedidoValorViews",
+      "url": "PedidoValorViews"
+    },
+    {
+      "name": "TributarioPedidoValorViews",
+      "url": "TributarioPedidoValorViews"
+    },
+    {
+      "name": "PedidoValorParcelaViews",
+      "url": "PedidoValorParcelaViews"
+    },
+    {
+      "name": "PeticionamentoEletronicoViews",
+      "url": "PeticionamentoEletronicoViews"
+    },
+    {
+      "name": "PeticionamentoEletronicoLoteViews",
+      "url": "PeticionamentoEletronicoLoteViews"
+    },
+    {
+      "name": "ResponsavelProfissionalViews",
+      "url": "ResponsavelProfissionalViews"
+    },
+    {
+      "name": "RestricaoAssuntoViews",
+      "url": "RestricaoAssuntoViews"
+    },
+    {
+      "name": "PlanoContasViews",
+      "url": "PlanoContasViews"
+    },
+    {
+      "name": "PlanejamentoOrcamentoViews",
+      "url": "PlanejamentoOrcamentoViews"
+    },
+    {
+      "name": "PlanejamentoOrcamentoTotalViews",
+      "url": "PlanejamentoOrcamentoTotalViews"
+    },
+    {
+      "name": "PosicaoFinanceiraViews",
+      "url": "PosicaoFinanceiraViews"
+    },
+    {
+      "name": "PosicaoFinanceiraAdiantamentoViews",
+      "url": "PosicaoFinanceiraAdiantamentoViews"
+    },
+    {
+      "name": "PosicaoFinanceiraCobrancaViews",
+      "url": "PosicaoFinanceiraCobrancaViews"
+    },
+    {
+      "name": "PosicaoFinanceiraFaturaViews",
+      "url": "PosicaoFinanceiraFaturaViews"
+    },
+    {
+      "name": "PosicaoFinanceiraResumoDespesaViews",
+      "url": "PosicaoFinanceiraResumoDespesaViews"
+    },
+    {
+      "name": "PosicaoFinanceiraDespesaIncorridaViews",
+      "url": "PosicaoFinanceiraDespesaIncorridaViews"
+    },
+    {
+      "name": "PosicaoFinanceiraResumoProfissionalViews",
+      "url": "PosicaoFinanceiraResumoProfissionalViews"
+    },
+    {
+      "name": "PosicaoFinanceiraResultadoFaturamentoViews",
+      "url": "PosicaoFinanceiraResultadoFaturamentoViews"
+    },
+    {
+      "name": "PosicaoFinanceiraResultadoRecebimentoViews",
+      "url": "PosicaoFinanceiraResultadoRecebimentoViews"
+    },
+    {
+      "name": "PosicaoFinanceiraPendenciaViews",
+      "url": "PosicaoFinanceiraPendenciaViews"
+    },
+    {
+      "name": "PosicaoFinanceiraCasoViews",
+      "url": "PosicaoFinanceiraCasoViews"
+    },
+    {
+      "name": "PreFaturaViews",
+      "url": "PreFaturaViews"
+    },
+    {
+      "name": "PreFaturaAcaoViews",
+      "url": "PreFaturaAcaoViews"
+    },
+    {
+      "name": "PreFaturaAcaoDetalhadaViews",
+      "url": "PreFaturaAcaoDetalhadaViews"
+    },
+    {
+      "name": "PreFaturaCasoViews",
+      "url": "PreFaturaCasoViews"
+    },
+    {
+      "name": "PreFaturaDespesaViews",
+      "url": "PreFaturaDespesaViews"
+    },
+    {
+      "name": "PreFaturaPagadorViews",
+      "url": "PreFaturaPagadorViews"
+    },
+    {
+      "name": "PreFaturaProfissionalViews",
+      "url": "PreFaturaProfissionalViews"
+    },
+    {
+      "name": "PreFaturaTabeladoViews",
+      "url": "PreFaturaTabeladoViews"
+    },
+    {
+      "name": "PreFaturaTimesheetViews",
+      "url": "PreFaturaTimesheetViews"
+    },
+    {
+      "name": "PreFaturaInstrucaoViews",
+      "url": "PreFaturaInstrucaoViews"
+    },
+    {
+      "name": "PreFaturaRevisorViews",
+      "url": "PreFaturaRevisorViews"
+    },
+    {
+      "name": "PreFaturaLogViews",
+      "url": "PreFaturaLogViews"
+    },
+    {
+      "name": "PreferenciaViews",
+      "url": "PreferenciaViews"
+    },
+    {
+      "name": "PreferenciaIndividualViews",
+      "url": "PreferenciaIndividualViews"
+    },
+    {
+      "name": "PreferenciaPerfilViews",
+      "url": "PreferenciaPerfilViews"
+    },
+    {
+      "name": "PreferenciaTelaViews",
+      "url": "PreferenciaTelaViews"
+    },
+    {
+      "name": "PreliminarViews",
+      "url": "PreliminarViews"
+    },
+    {
+      "name": "PrestacaoContaAprovadorViews",
+      "url": "PrestacaoContaAprovadorViews"
+    },
+    {
+      "name": "PrestacaoContaViews",
+      "url": "PrestacaoContaViews"
+    },
+    {
+      "name": "PrestacaoContaItemViews",
+      "url": "PrestacaoContaItemViews"
+    },
+    {
+      "name": "PrestacaoContaItemAprovacaoViews",
+      "url": "PrestacaoContaItemAprovacaoViews"
+    },
+    {
+      "name": "ProfissaoViews",
+      "url": "ProfissaoViews"
+    },
+    {
+      "name": "ProfissionalViews",
+      "url": "ProfissionalViews"
+    },
+    {
+      "name": "ProfissionalCarrosselAgendaViews",
+      "url": "ProfissionalCarrosselAgendaViews"
+    },
+    {
+      "name": "PrognosticoViews",
+      "url": "PrognosticoViews"
+    },
+    {
+      "name": "ProjetoGerenciaResponsavelViews",
+      "url": "ProjetoGerenciaResponsavelViews"
+    },
+    {
+      "name": "ProjetoGerenciaResponsavelResumoViews",
+      "url": "ProjetoGerenciaResponsavelResumoViews"
+    },
+    {
+      "name": "ProjetoGerenciaProjecaoViews",
+      "url": "ProjetoGerenciaProjecaoViews"
+    },
+    {
+      "name": "ProjecaoViews",
+      "url": "ProjecaoViews"
+    },
+    {
+      "name": "ProjetoItemViews",
+      "url": "ProjetoItemViews"
+    },
+    {
+      "name": "ProjetoViews",
+      "url": "ProjetoViews"
+    },
+    {
+      "name": "ProjetoResumoViews",
+      "url": "ProjetoResumoViews"
+    },
+    {
+      "name": "RamoAtividadeViews",
+      "url": "RamoAtividadeViews"
+    },
+    {
+      "name": "RateioViews",
+      "url": "RateioViews"
+    },
+    {
+      "name": "RestricaoViews",
+      "url": "RestricaoViews"
+    },
+    {
+      "name": "RestricaoPerfilViews",
+      "url": "RestricaoPerfilViews"
+    },
+    {
+      "name": "RateioFaturaProfissionalViews",
+      "url": "RateioFaturaProfissionalViews"
+    },
+    {
+      "name": "RateioFaturaProfissionalCustomViews",
+      "url": "RateioFaturaProfissionalCustomViews"
+    },
+    {
+      "name": "RateioFaturaOriginalViews",
+      "url": "RateioFaturaOriginalViews"
+    },
+    {
+      "name": "RateioFaturaCasoViews",
+      "url": "RateioFaturaCasoViews"
+    },
+    {
+      "name": "PerfilRuleViews",
+      "url": "PerfilRuleViews"
+    },
+    {
+      "name": "PendenciasDiariaViews",
+      "url": "PendenciasDiariaViews"
+    },
+    {
+      "name": "RelatorioViews",
+      "url": "RelatorioViews"
+    },
+    {
+      "name": "RelatorioParamViews",
+      "url": "RelatorioParamViews"
+    },
+    {
+      "name": "RelatorioPerfilViews",
+      "url": "RelatorioPerfilViews"
+    },
+    {
+      "name": "RemanejamentoProjetoViews",
+      "url": "RemanejamentoProjetoViews"
+    },
+    {
+      "name": "RequisicaoAprovadorViews",
+      "url": "RequisicaoAprovadorViews"
+    },
+    {
+      "name": "RequisicaoEscritorioViews",
+      "url": "RequisicaoEscritorioViews"
+    },
+    {
+      "name": "RequisicaoMaterialAprovacaoViews",
+      "url": "RequisicaoMaterialAprovacaoViews"
+    },
+    {
+      "name": "RequisicaoMaterialViews",
+      "url": "RequisicaoMaterialViews"
+    },
+    {
+      "name": "RequisicaoViews",
+      "url": "RequisicaoViews"
+    },
+    {
+      "name": "ResponsavelDesbloqueioViews",
+      "url": "ResponsavelDesbloqueioViews"
+    },
+    {
+      "name": "ReservaOrcamentoViews",
+      "url": "ReservaOrcamentoViews"
+    },
+    {
+      "name": "ReservaOrcamentoComboViews",
+      "url": "ReservaOrcamentoComboViews"
+    },
+    {
+      "name": "RevisaoFixoViews",
+      "url": "RevisaoFixoViews"
+    },
+    {
+      "name": "RevisaoFixoAlocacaoViews",
+      "url": "RevisaoFixoAlocacaoViews"
+    },
+    {
+      "name": "RevisaoFixoParcelaViews",
+      "url": "RevisaoFixoParcelaViews"
+    },
+    {
+      "name": "RevisaoFinalizadoFixoViews",
+      "url": "RevisaoFinalizadoFixoViews"
+    },
+    {
+      "name": "RevisaoTimesheetGridViews",
+      "url": "RevisaoTimesheetGridViews"
+    },
+    {
+      "name": "RevisaoTimesheetViews",
+      "url": "RevisaoTimesheetViews"
+    },
+    {
+      "name": "RevisaoTimesheetPorCasoGridViews",
+      "url": "RevisaoTimesheetPorCasoGridViews"
+    },
+    {
+      "name": "RevisaoTimesheetPorCasoViews",
+      "url": "RevisaoTimesheetPorCasoViews"
+    },
+    {
+      "name": "RevisaoTimesheetFixoViews",
+      "url": "RevisaoTimesheetFixoViews"
+    },
+    {
+      "name": "ResumoHistoricoViews",
+      "url": "ResumoHistoricoViews"
+    },
+    {
+      "name": "RitoViews",
+      "url": "RitoViews"
+    },
+    {
+      "name": "RuleRegistryViews",
+      "url": "RuleRegistryViews"
+    },
+    {
+      "name": "RateioGerencialViews",
+      "url": "RateioGerencialViews"
+    },
+    {
+      "name": "SaldoFaturaViews",
+      "url": "SaldoFaturaViews"
+    },
+    {
+      "name": "SaldoHoraViews",
+      "url": "SaldoHoraViews"
+    },
+    {
+      "name": "ServicoViews",
+      "url": "ServicoViews"
+    },
+    {
+      "name": "SegmentoViews",
+      "url": "SegmentoViews"
+    },
+    {
+      "name": "SituacaoCompromissoViews",
+      "url": "SituacaoCompromissoViews"
+    },
+    {
+      "name": "SituacaoMovimentacaoFinanceiraViews",
+      "url": "SituacaoMovimentacaoFinanceiraViews"
+    },
+    {
+      "name": "SituacaoRetornoViews",
+      "url": "SituacaoRetornoViews"
+    },
+    {
+      "name": "ContatoViews",
+      "url": "ContatoViews"
+    },
+    {
+      "name": "AutoAprovacaoViews",
+      "url": "AutoAprovacaoViews"
+    },
+    {
+      "name": "ClienteContatoViews",
+      "url": "ClienteContatoViews"
+    },
+    {
+      "name": "SobreporVigenciaViews",
+      "url": "SobreporVigenciaViews"
+    },
+    {
+      "name": "SolicitacaoDespesaViews",
+      "url": "SolicitacaoDespesaViews"
+    },
+    {
+      "name": "SolicitacaoDespesaRevisorViews",
+      "url": "SolicitacaoDespesaRevisorViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoViews",
+      "url": "SolicitacaoPagamentoViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoAprovadorViews",
+      "url": "SolicitacaoPagamentoAprovadorViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoItemViews",
+      "url": "SolicitacaoPagamentoItemViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoItemContaFinanceiraViews",
+      "url": "SolicitacaoPagamentoItemContaFinanceiraViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoItemAprovacaoViews",
+      "url": "SolicitacaoPagamentoItemAprovacaoViews"
+    },
+    {
+      "name": "SubAreaJuridicaViews",
+      "url": "SubAreaJuridicaViews"
+    },
+    {
+      "name": "TabelaRateioHistoricoViews",
+      "url": "TabelaRateioHistoricoViews"
+    },
+    {
+      "name": "TabelaRateioViews",
+      "url": "TabelaRateioViews"
+    },
+    {
+      "name": "TabelaServicoViews",
+      "url": "TabelaServicoViews"
+    },
+    {
+      "name": "TabelaServicoDetalheViews",
+      "url": "TabelaServicoDetalheViews"
+    },
+    {
+      "name": "TemporalidadeViews",
+      "url": "TemporalidadeViews"
+    },
+    {
+      "name": "TipoCobrancaViews",
+      "url": "TipoCobrancaViews"
+    },
+    {
+      "name": "TipoCompromissoViews",
+      "url": "TipoCompromissoViews"
+    },
+    {
+      "name": "TipoContaViews",
+      "url": "TipoContaViews"
+    },
+    {
+      "name": "TipoContratoViews",
+      "url": "TipoContratoViews"
+    },
+    {
+      "name": "TipoDespesaViews",
+      "url": "TipoDespesaViews"
+    },
+    {
+      "name": "TipoAssuntoViews",
+      "url": "TipoAssuntoViews"
+    },
+    {
+      "name": "TipoAssuntoPerfilViews",
+      "url": "TipoAssuntoPerfilViews"
+    },
+    {
+      "name": "TermoPublicacaoViews",
+      "url": "TermoPublicacaoViews"
+    },
+    {
+      "name": "TermoPublicacaoVariacaoViews",
+      "url": "TermoPublicacaoVariacaoViews"
+    },
+    {
+      "name": "TermoPublicacaoAbrangenciaViews",
+      "url": "TermoPublicacaoAbrangenciaViews"
+    },
+    {
+      "name": "TermoPublicacaoPalavraObrigatoriaViews",
+      "url": "TermoPublicacaoPalavraObrigatoriaViews"
+    },
+    {
+      "name": "TermoPublicacaoPalavraBloqueadaViews",
+      "url": "TermoPublicacaoPalavraBloqueadaViews"
+    },
+    {
+      "name": "TipoProcessoViews",
+      "url": "TipoProcessoViews"
+    },
+    {
+      "name": "ClasseCnjViews",
+      "url": "ClasseCnjViews"
+    },
+    {
+      "name": "AssuntoCnjViews",
+      "url": "AssuntoCnjViews"
+    },
+    {
+      "name": "TipoAtividadeViews",
+      "url": "TipoAtividadeViews"
+    },
+    {
+      "name": "TipoDocumentoViews",
+      "url": "TipoDocumentoViews"
+    },
+    {
+      "name": "TipoHistoricoViews",
+      "url": "TipoHistoricoViews"
+    },
+    {
+      "name": "TipoHoraViews",
+      "url": "TipoHoraViews"
+    },
+    {
+      "name": "TipoHoraCasoViews",
+      "url": "TipoHoraCasoViews"
+    },
+    {
+      "name": "TipoHoraCasoProfissionalViews",
+      "url": "TipoHoraCasoProfissionalViews"
+    },
+    {
+      "name": "TipoMovimentacaoFinanceiraViews",
+      "url": "TipoMovimentacaoFinanceiraViews"
+    },
+    {
+      "name": "CategoriaMovimentacaoFinanceiraViews",
+      "url": "CategoriaMovimentacaoFinanceiraViews"
+    },
+    {
+      "name": "TipoOcorrenciaViews",
+      "url": "TipoOcorrenciaViews"
+    },
+    {
+      "name": "TipoOriginacaoViews",
+      "url": "TipoOriginacaoViews"
+    },
+    {
+      "name": "TipoPedidoViews",
+      "url": "TipoPedidoViews"
+    },
+    {
+      "name": "TipoPedidoValorViews",
+      "url": "TipoPedidoValorViews"
+    },
+    {
+      "name": "TipoPrestacaoContasViews",
+      "url": "TipoPrestacaoContasViews"
+    },
+    {
+      "name": "TipoRateioProfissionalViews",
+      "url": "TipoRateioProfissionalViews"
+    },
+    {
+      "name": "TipoRemuneracaoViews",
+      "url": "TipoRemuneracaoViews"
+    },
+    {
+      "name": "TipoResponsabilidadeViews",
+      "url": "TipoResponsabilidadeViews"
+    },
+    {
+      "name": "TipoRelatorioViews",
+      "url": "TipoRelatorioViews"
+    },
+    {
+      "name": "TipoServicoViews",
+      "url": "TipoServicoViews"
+    },
+    {
+      "name": "TratamentoViews",
+      "url": "TratamentoViews"
+    },
+    {
+      "name": "TribunalViews",
+      "url": "TribunalViews"
+    },
+    {
+      "name": "TSMonitorDesbloqueioViews",
+      "url": "TSMonitorDesbloqueioViews"
+    },
+    {
+      "name": "IdiomaTipoDespesaViews",
+      "url": "IdiomaTipoDespesaViews"
+    },
+    {
+      "name": "IdiomaServicoViews",
+      "url": "IdiomaServicoViews"
+    },
+    {
+      "name": "UnidadeMedidaViews",
+      "url": "UnidadeMedidaViews"
+    },
+    {
+      "name": "UsuarioViews",
+      "url": "UsuarioViews"
+    },
+    {
+      "name": "AcessoLogViews",
+      "url": "AcessoLogViews"
+    },
+    {
+      "name": "FluxoAcaoDinamicaViews",
+      "url": "FluxoAcaoDinamicaViews"
+    },
+    {
+      "name": "UsuarioPerfilViews",
+      "url": "UsuarioPerfilViews"
+    },
+    {
+      "name": "ModeloTelaViews",
+      "url": "ModeloTelaViews"
+    },
+    {
+      "name": "PerfilViews",
+      "url": "PerfilViews"
+    },
+    {
+      "name": "PesoProfissionalViews",
+      "url": "PesoProfissionalViews"
+    },
+    {
+      "name": "PaisViews",
+      "url": "PaisViews"
+    },
+    {
+      "name": "PalavraChaveViews",
+      "url": "PalavraChaveViews"
+    },
+    {
+      "name": "EstadoViews",
+      "url": "EstadoViews"
+    },
+    {
+      "name": "CheckinViews",
+      "url": "CheckinViews"
+    },
+    {
+      "name": "CidadeViews",
+      "url": "CidadeViews"
+    },
+    {
+      "name": "PessoaViews",
+      "url": "PessoaViews"
+    },
+    {
+      "name": "PessoaEnderecoViews",
+      "url": "PessoaEnderecoViews"
+    },
+    {
+      "name": "TabelaPadraoViews",
+      "url": "TabelaPadraoViews"
+    },
+    {
+      "name": "TabelaPadraoHistoricoViews",
+      "url": "TabelaPadraoHistoricoViews"
+    },
+    {
+      "name": "TabeladoViews",
+      "url": "TabeladoViews"
+    },
+    {
+      "name": "PesquisaPerfilViews",
+      "url": "PesquisaPerfilViews"
+    },
+    {
+      "name": "PesquisaCamposViews",
+      "url": "PesquisaCamposViews"
+    },
+    {
+      "name": "CasoParticipacaoViews",
+      "url": "CasoParticipacaoViews"
+    },
+    {
+      "name": "CorrespondenteViews",
+      "url": "CorrespondenteViews"
+    },
+    {
+      "name": "CorrespondenteAdvogadoViews",
+      "url": "CorrespondenteAdvogadoViews"
+    },
+    {
+      "name": "PesquisaViews",
+      "url": "PesquisaViews"
+    },
+    {
+      "name": "CompromissoResponsavelViews",
+      "url": "CompromissoResponsavelViews"
+    },
+    {
+      "name": "TimesheetRevisaoViews",
+      "url": "TimesheetRevisaoViews"
+    },
+    {
+      "name": "NaturezaViews",
+      "url": "NaturezaViews"
+    },
+    {
+      "name": "TipoEnvolvimentoViews",
+      "url": "TipoEnvolvimentoViews"
+    },
+    {
+      "name": "RateioFixoCasoViews",
+      "url": "RateioFixoCasoViews"
+    },
+    {
+      "name": "DecisaoViews",
+      "url": "DecisaoViews"
+    },
+    {
+      "name": "TipoAcaoViews",
+      "url": "TipoAcaoViews"
+    },
+    {
+      "name": "TimesheetViews",
+      "url": "TimesheetViews"
+    },
+    {
+      "name": "TimesheetGridViews",
+      "url": "TimesheetGridViews"
+    },
+    {
+      "name": "TimesheetVinculadoViews",
+      "url": "TimesheetVinculadoViews"
+    },
+    {
+      "name": "TSCasoViews",
+      "url": "TSCasoViews"
+    },
+    {
+      "name": "TSClienteViews",
+      "url": "TSClienteViews"
+    },
+    {
+      "name": "TSFavoritoViews",
+      "url": "TSFavoritoViews"
+    },
+    {
+      "name": "TSProfissionalViews",
+      "url": "TSProfissionalViews"
+    },
+    {
+      "name": "TSTipoAtividadeViews",
+      "url": "TSTipoAtividadeViews"
+    },
+    {
+      "name": "TSIdiomaTipoAtividadeViews",
+      "url": "TSIdiomaTipoAtividadeViews"
+    },
+    {
+      "name": "TipoAtividadeTipoAtividadeEbillingViews",
+      "url": "TipoAtividadeTipoAtividadeEbillingViews"
+    },
+    {
+      "name": "TSUsuarioViews",
+      "url": "TSUsuarioViews"
+    },
+    {
+      "name": "TSSolicitacaoDespesaViews",
+      "url": "TSSolicitacaoDespesaViews"
+    },
+    {
+      "name": "TSTabeladoViews",
+      "url": "TSTabeladoViews"
+    },
+    {
+      "name": "TSEbillingAtividadeViews",
+      "url": "TSEbillingAtividadeViews"
+    },
+    {
+      "name": "TSEbillingTarefaViews",
+      "url": "TSEbillingTarefaViews"
+    },
+    {
+      "name": "TSCompromissoResponsavelViews",
+      "url": "TSCompromissoResponsavelViews"
+    },
+    {
+      "name": "CasoFaturamentoViews",
+      "url": "CasoFaturamentoViews"
+    },
+    {
+      "name": "CasoParcelasViews",
+      "url": "CasoParcelasViews"
+    },
+    {
+      "name": "CategoriaViews",
+      "url": "CategoriaViews"
+    },
+    {
+      "name": "CategoriaCompromissoViews",
+      "url": "CategoriaCompromissoViews"
+    },
+    {
+      "name": "CategoriaRhViews",
+      "url": "CategoriaRhViews"
+    },
+    {
+      "name": "AdiantamentoViews",
+      "url": "AdiantamentoViews"
+    },
+    {
+      "name": "AdiantamentoDespesaViews",
+      "url": "AdiantamentoDespesaViews"
+    },
+    {
+      "name": "AnexoViews",
+      "url": "AnexoViews"
+    },
+    {
+      "name": "ManageableProfissionalViews",
+      "url": "ManageableProfissionalViews"
+    },
+    {
+      "name": "ManageableAgendaProfissionalViews",
+      "url": "ManageableAgendaProfissionalViews"
+    },
+    {
+      "name": "FilaImpressaoViews",
+      "url": "FilaImpressaoViews"
+    },
+    {
+      "name": "AssuntoVinculoViews",
+      "url": "AssuntoVinculoViews"
+    },
+    {
+      "name": "JuizViews",
+      "url": "JuizViews"
+    },
+    {
+      "name": "JuncaoAlocacaoViews",
+      "url": "JuncaoAlocacaoViews"
+    },
+    {
+      "name": "JuncaoAlocacaoCasoViews",
+      "url": "JuncaoAlocacaoCasoViews"
+    },
+    {
+      "name": "CondicaoPagamentoViews",
+      "url": "CondicaoPagamentoViews"
+    },
+    {
+      "name": "PreFaturaClienteFavoritoViews",
+      "url": "PreFaturaClienteFavoritoViews"
+    },
+    {
+      "name": "PreFaturaCasoFavoritoViews",
+      "url": "PreFaturaCasoFavoritoViews"
+    },
+    {
+      "name": "ContaViews",
+      "url": "ContaViews"
+    },
+    {
+      "name": "BusinessPlanViews",
+      "url": "BusinessPlanViews"
+    },
+    {
+      "name": "LancamentoViews",
+      "url": "LancamentoViews"
+    },
+    {
+      "name": "LancamentoFinanceiroViews",
+      "url": "LancamentoFinanceiroViews"
+    },
+    {
+      "name": "LancamentoEstornoProjetoViews",
+      "url": "LancamentoEstornoProjetoViews"
+    },
+    {
+      "name": "OrcamentoViews",
+      "url": "OrcamentoViews"
+    },
+    {
+      "name": "CustoProfissionalViews",
+      "url": "CustoProfissionalViews"
+    },
+    {
+      "name": "CustoCategoriaViews",
+      "url": "CustoCategoriaViews"
+    },
+    {
+      "name": "TributoViews",
+      "url": "TributoViews"
+    },
+    {
+      "name": "MetaReceitaViews",
+      "url": "MetaReceitaViews"
+    },
+    {
+      "name": "BusinessPlanProfissionalViews",
+      "url": "BusinessPlanProfissionalViews"
+    },
+    {
+      "name": "EmpresaViews",
+      "url": "EmpresaViews"
+    },
+    {
+      "name": "PrepostoViews",
+      "url": "PrepostoViews"
+    },
+    {
+      "name": "RelatorioModeloViews",
+      "url": "RelatorioModeloViews"
+    },
+    {
+      "name": "RelatorioModeloPerfilViews",
+      "url": "RelatorioModeloPerfilViews"
+    },
+    {
+      "name": "RelatorioModeloViewModelViews",
+      "url": "RelatorioModeloViewModelViews"
+    },
+    {
+      "name": "RelatorioModeloViewModelConfigViews",
+      "url": "RelatorioModeloViewModelConfigViews"
+    },
+    {
+      "name": "AcessoEscritorioViews",
+      "url": "AcessoEscritorioViews"
+    },
+    {
+      "name": "HonorarioViews",
+      "url": "HonorarioViews"
+    },
+    {
+      "name": "HonorarioHistoricoViews",
+      "url": "HonorarioHistoricoViews"
+    },
+    {
+      "name": "HonorarioCategoriaHistoricoViews",
+      "url": "HonorarioCategoriaHistoricoViews"
+    },
+    {
+      "name": "RateioProfissionalViews",
+      "url": "RateioProfissionalViews"
+    },
+    {
+      "name": "FilaEtiquetaViews",
+      "url": "FilaEtiquetaViews"
+    },
+    {
+      "name": "JuroViews",
+      "url": "JuroViews"
+    },
+    {
+      "name": "SolicitacaoPastaFisicaViews",
+      "url": "SolicitacaoPastaFisicaViews"
+    },
+    {
+      "name": "ParametrosViews",
+      "url": "ParametrosViews"
+    },
+    {
+      "name": "TSClienteFavoritoViews",
+      "url": "TSClienteFavoritoViews"
+    },
+    {
+      "name": "AcessoEscritorioProfissionalViews",
+      "url": "AcessoEscritorioProfissionalViews"
+    },
+    {
+      "name": "PFLacunaViews",
+      "url": "PFLacunaViews"
+    },
+    {
+      "name": "CaixinhaViews",
+      "url": "CaixinhaViews"
+    },
+    {
+      "name": "SolicitacaoCaixinhaViews",
+      "url": "SolicitacaoCaixinhaViews"
+    },
+    {
+      "name": "CampanhaViews",
+      "url": "CampanhaViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoClienteViews",
+      "url": "SolicitacaoPagamentoClienteViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoInstitucionalViews",
+      "url": "SolicitacaoPagamentoInstitucionalViews"
+    },
+    {
+      "name": "CargoViews",
+      "url": "CargoViews"
+    },
+    {
+      "name": "CargoFavoritoViews",
+      "url": "CargoFavoritoViews"
+    },
+    {
+      "name": "TipoEnderecoViews",
+      "url": "TipoEnderecoViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoEscritorioViews",
+      "url": "SolicitacaoPagamentoEscritorioViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoUnicoViews",
+      "url": "SolicitacaoPagamentoUnicoViews"
+    },
+    {
+      "name": "SolicitacaoPagamentoUnicoItemViews",
+      "url": "SolicitacaoPagamentoUnicoItemViews"
+    },
+    {
+      "name": "ProjetoSaldoViews",
+      "url": "ProjetoSaldoViews"
+    },
+    {
+      "name": "FormaCorrecaoAreaViews",
+      "url": "FormaCorrecaoAreaViews"
+    },
+    {
+      "name": "FormaCorrecaoAreaJuridicaViews",
+      "url": "FormaCorrecaoAreaJuridicaViews"
+    },
+    {
+      "name": "BancoViews",
+      "url": "BancoViews"
+    },
+    {
+      "name": "PrestacaoContaClienteViews",
+      "url": "PrestacaoContaClienteViews"
+    },
+    {
+      "name": "PrestacaoContaEscritorioViews",
+      "url": "PrestacaoContaEscritorioViews"
+    },
+    {
+      "name": "PrestacaoContaInstitucionalViews",
+      "url": "PrestacaoContaInstitucionalViews"
+    },
+    {
+      "name": "CasoFavoritoViews",
+      "url": "CasoFavoritoViews"
+    },
+    {
+      "name": "ServicoWebViews",
+      "url": "ServicoWebViews"
+    },
+    {
+      "name": "RotinaViews",
+      "url": "RotinaViews"
+    },
+    {
+      "name": "ChamadaViews",
+      "url": "ChamadaViews"
+    },
+    {
+      "name": "ParametroServicoViews",
+      "url": "ParametroServicoViews"
+    },
+    {
+      "name": "OrdemViews",
+      "url": "OrdemViews"
+    },
+    {
+      "name": "AcessoExcecaoViews",
+      "url": "AcessoExcecaoViews"
+    },
+    {
+      "name": "AcessoExcecaoProfissionalViews",
+      "url": "AcessoExcecaoProfissionalViews"
+    },
+    {
+      "name": "OportunidadeMotivoPerdaViews",
+      "url": "OportunidadeMotivoPerdaViews"
+    },
+    {
+      "name": "ImportacaoColetorViews",
+      "url": "ImportacaoColetorViews"
+    },
+    {
+      "name": "ImportacaoColetorItemViews",
+      "url": "ImportacaoColetorItemViews"
+    },
+    {
+      "name": "MenuFavoritoViews",
+      "url": "MenuFavoritoViews"
+    },
+    {
+      "name": "PreFaturaContratoViews",
+      "url": "PreFaturaContratoViews"
+    },
+    {
+      "name": "PreFaturaFixoViews",
+      "url": "PreFaturaFixoViews"
+    },
+    {
+      "name": "PreFaturaRevisoresViews",
+      "url": "PreFaturaRevisoresViews"
+    },
+    {
+      "name": "RegraEmailViews",
+      "url": "RegraEmailViews"
+    },
+    {
+      "name": "MailServidorViews",
+      "url": "MailServidorViews"
+    },
+    {
+      "name": "PendenciaEmailViews",
+      "url": "PendenciaEmailViews"
+    },
+    {
+      "name": "ProjetoGrupoJuridicoViews",
+      "url": "ProjetoGrupoJuridicoViews"
+    },
+    {
+      "name": "GrupoJuridicoRelatViews",
+      "url": "GrupoJuridicoRelatViews"
+    },
+    {
+      "name": "ProfissionalRelatViews",
+      "url": "ProfissionalRelatViews"
+    },
+    {
+      "name": "FornecedorPlanoContaCompletoViews",
+      "url": "FornecedorPlanoContaCompletoViews"
+    },
+    {
+      "name": "PreFaturaAcessoExcecaoViews",
+      "url": "PreFaturaAcessoExcecaoViews"
+    },
+    {
+      "name": "AlertaViews",
+      "url": "AlertaViews"
+    },
+    {
+      "name": "AlertaVinculoViews",
+      "url": "AlertaVinculoViews"
+    },
+    {
+      "name": "NovoTimesheetPreFaturaViews",
+      "url": "NovoTimesheetPreFaturaViews"
+    },
+    {
+      "name": "NovaDespesaPreFaturaViews",
+      "url": "NovaDespesaPreFaturaViews"
+    },
+    {
+      "name": "NovoTabeladoPreFaturaViews",
+      "url": "NovoTabeladoPreFaturaViews"
+    },
+    {
+      "name": "OportunidadeViews",
+      "url": "OportunidadeViews"
+    },
+    {
+      "name": "OportunidadeParticipacaoViews",
+      "url": "OportunidadeParticipacaoViews"
+    },
+    {
+      "name": "OportunidadeEtapaViews",
+      "url": "OportunidadeEtapaViews"
+    },
+    {
+      "name": "OportunidadeOrigemViews",
+      "url": "OportunidadeOrigemViews"
+    },
+    {
+      "name": "OportunidadeHistoricoViews",
+      "url": "OportunidadeHistoricoViews"
+    },
+    {
+      "name": "OportunidadeContatoViews",
+      "url": "OportunidadeContatoViews"
+    },
+    {
+      "name": "OportunidadeValorViews",
+      "url": "OportunidadeValorViews"
+    },
+    {
+      "name": "OfertaViews",
+      "url": "OfertaViews"
+    },
+    {
+      "name": "TipoOfertaViews",
+      "url": "TipoOfertaViews"
+    },
+    {
+      "name": "MotivoPerdaViews",
+      "url": "MotivoPerdaViews"
+    },
+    {
+      "name": "ReporOrcamentoViews",
+      "url": "ReporOrcamentoViews"
+    },
+    {
+      "name": "RevisaoCasoFixoRevisadoViews",
+      "url": "RevisaoCasoFixoRevisadoViews"
+    },
+    {
+      "name": "AtoRegraViews",
+      "url": "AtoRegraViews"
+    },
+    {
+      "name": "PreFaturaCasoLancadoViews",
+      "url": "PreFaturaCasoLancadoViews"
+    },
+    {
+      "name": "ProjetoGerenciaViews",
+      "url": "ProjetoGerenciaViews"
+    },
+    {
+      "name": "GerenciaRespViews",
+      "url": "GerenciaRespViews"
+    },
+    {
+      "name": "ProjetoItemResumoEscritorioViews",
+      "url": "ProjetoItemResumoEscritorioViews"
+    },
+    {
+      "name": "ProjetoItemResumoGrupoJuridicoViews",
+      "url": "ProjetoItemResumoGrupoJuridicoViews"
+    },
+    {
+      "name": "GlossarioViews",
+      "url": "GlossarioViews"
+    },
+    {
+      "name": "SyncLogItemViews",
+      "url": "SyncLogItemViews"
+    },
+    {
+      "name": "SyncLogItemGrupoViews",
+      "url": "SyncLogItemGrupoViews"
+    },
+    {
+      "name": "TimesheetGrupoJuridicoViews",
+      "url": "TimesheetGrupoJuridicoViews"
+    },
+    {
+      "name": "AlcadaPlanejamentoViews",
+      "url": "AlcadaPlanejamentoViews"
+    },
+    {
+      "name": "DicionarioModeloTelaViews",
+      "url": "DicionarioModeloTelaViews"
+    },
+    {
+      "name": "LogSistemaViews",
+      "url": "LogSistemaViews"
+    },
+    {
+      "name": "FiltroGridViews",
+      "url": "FiltroGridViews"
+    },
+    {
+      "name": "RestricaoAcaoViews",
+      "url": "RestricaoAcaoViews"
+    },
+    {
+      "name": "ModeloTelaAcaoViews",
+      "url": "ModeloTelaAcaoViews"
+    },
+    {
+      "name": "PreFaturaResumoProfissionalViews",
+      "url": "PreFaturaResumoProfissionalViews"
+    },
+    {
+      "name": "TimesheetFluxoAprovacaoViews",
+      "url": "TimesheetFluxoAprovacaoViews"
+    },
+    {
+      "name": "ProfissionalSocioRelatViews",
+      "url": "ProfissionalSocioRelatViews"
+    },
+    {
+      "name": "ClienteCrystalViews",
+      "url": "ClienteCrystalViews"
+    },
+    {
+      "name": "CasoEmLoteViews",
+      "url": "CasoEmLoteViews"
+    },
+    {
+      "name": "AreaDeTrabalhoViews",
+      "url": "AreaDeTrabalhoViews"
+    },
+    {
+      "name": "ComponenteViews",
+      "url": "ComponenteViews"
+    },
+    {
+      "name": "FonteLayoutViews",
+      "url": "FonteLayoutViews"
+    },
+    {
+      "name": "TipoHoraProfissionalViews",
+      "url": "TipoHoraProfissionalViews"
+    },
+    {
+      "name": "ProfissionalCaixinhaViews",
+      "url": "ProfissionalCaixinhaViews"
+    },
+    {
+      "name": "AssuntoConfiguracaoViews",
+      "url": "AssuntoConfiguracaoViews"
+    },
+    {
+      "name": "RegiaoViews",
+      "url": "RegiaoViews"
+    },
+    {
+      "name": "CasoAlocacaoViews",
+      "url": "CasoAlocacaoViews"
+    },
+    {
+      "name": "PesquisaPublicacaoViews",
+      "url": "PesquisaPublicacaoViews"
+    },
+    {
+      "name": "TributosPrognosticoViews",
+      "url": "TributosPrognosticoViews"
+    },
+    {
+      "name": "CalculoViews",
+      "url": "CalculoViews"
+    },
+    {
+      "name": "CorrespondenteComarcaViews",
+      "url": "CorrespondenteComarcaViews"
+    },
+    {
+      "name": "CorrespondenteComarcaAtoValorViews",
+      "url": "CorrespondenteComarcaAtoValorViews"
+    },
+    {
+      "name": "ConflitoInteresseViews",
+      "url": "ConflitoInteresseViews"
+    },
+    {
+      "name": "ChecagemConflitoViews",
+      "url": "ChecagemConflitoViews"
+    },
+    {
+      "name": "LayoutJsonViews",
+      "url": "LayoutJsonViews"
+    },
+    {
+      "name": "CasoMaeFilhoViews",
+      "url": "CasoMaeFilhoViews"
+    },
+    {
+      "name": "TipoAlocacaoViews",
+      "url": "TipoAlocacaoViews"
+    },
+    {
+      "name": "ExcecaoProfissionalPagamentoViews",
+      "url": "ExcecaoProfissionalPagamentoViews"
+    },
+    {
+      "name": "AgendaCorrespondenteViews",
+      "url": "AgendaCorrespondenteViews"
+    },
+    {
+      "name": "DespesaCorrespondenteViews",
+      "url": "DespesaCorrespondenteViews"
+    },
+    {
+      "name": "DicionarioSensivelViews",
+      "url": "DicionarioSensivelViews"
+    },
+    {
+      "name": "DicionarioSensivelModeloViews",
+      "url": "DicionarioSensivelModeloViews"
+    },
+    {
+      "name": "CorrespondenteClienteViews",
+      "url": "CorrespondenteClienteViews"
+    },
+    {
+      "name": "EmpresaClienteViews",
+      "url": "EmpresaClienteViews"
+    },
+    {
+      "name": "AlocacaoClienteFavoritoViews",
+      "url": "AlocacaoClienteFavoritoViews"
+    },
+    {
+      "name": "AlocacaoCasoFavoritoViews",
+      "url": "AlocacaoCasoFavoritoViews"
+    },
+    {
+      "name": "MovimentacaoViews",
+      "url": "MovimentacaoViews"
+    },
+    {
+      "name": "CheckinMovimentacaoViews",
+      "url": "CheckinMovimentacaoViews"
+    },
+    {
+      "name": "CheckinEmailViews",
+      "url": "CheckinEmailViews"
+    },
+    {
+      "name": "ResponsavelProfissionalRhViews",
+      "url": "ResponsavelProfissionalRhViews"
+    },
+    {
+      "name": "ResponsavelProfissionalIntegranteViews",
+      "url": "ResponsavelProfissionalIntegranteViews"
+    },
+    {
+      "name": "RevisaoFixoAcumularViews",
+      "url": "RevisaoFixoAcumularViews"
+    },
+    {
+      "name": "DesdobramentoCamposViews",
+      "url": "DesdobramentoCamposViews"
+    },
+    {
+      "name": "ExcecaoCorteTimesheetViews",
+      "url": "ExcecaoCorteTimesheetViews"
+    },
+    {
+      "name": "PreFaturaRecoveryViews",
+      "url": "PreFaturaRecoveryViews"
+    },
+    {
+      "name": "CorrecaoMonetariaCamposViews",
+      "url": "CorrecaoMonetariaCamposViews"
+    },
+    {
+      "name": "ClassificacaoBairroViews",
+      "url": "ClassificacaoBairroViews"
+    },
+    {
+      "name": "RevisaoFixoInstrucaoViews",
+      "url": "RevisaoFixoInstrucaoViews"
+    },
+    {
+      "name": "CampoModeloViews",
+      "url": "CampoModeloViews"
+    },
+    {
+      "name": "TipoLogradouroViews",
+      "url": "TipoLogradouroViews"
+    },
+    {
+      "name": "PessoaSimplificadoViews",
+      "url": "PessoaSimplificadoViews"
+    },
+    {
+      "name": "FaturamentoOcorrenciaDicionarioViews",
+      "url": "FaturamentoOcorrenciaDicionarioViews"
+    },
+    {
+      "name": "AgendadorRelatorioViews",
+      "url": "AgendadorRelatorioViews"
+    },
+    {
+      "name": "LogAgendadorRelatorioViews",
+      "url": "LogAgendadorRelatorioViews"
+    },
+    {
+      "name": "CabecalhoAssuntoViews",
+      "url": "CabecalhoAssuntoViews"
+    },
+    {
+      "name": "CabecalhoAssuntoCamposViews",
+      "url": "CabecalhoAssuntoCamposViews"
+    },
+    {
+      "name": "BaseLoyViews",
+      "url": "BaseLoyViews"
+    },
+    {
+      "name": "BaseLoyAreaJuridicaViews",
+      "url": "BaseLoyAreaJuridicaViews"
+    },
+    {
+      "name": "TemplateWorkflowViews",
+      "url": "TemplateWorkflowViews"
+    },
+    {
+      "name": "TemplateWorkflowProfissionaisViews",
+      "url": "TemplateWorkflowProfissionaisViews"
+    },
+    {
+      "name": "TemplateWorkflowCondicoesViews",
+      "url": "TemplateWorkflowCondicoesViews"
+    },
+    {
+      "name": "TemplateWorkflowResponsabilidadesViews",
+      "url": "TemplateWorkflowResponsabilidadesViews"
+    },
+    {
+      "name": "TemplateWorkflowTarefasViews",
+      "url": "TemplateWorkflowTarefasViews"
+    },
+    {
+      "name": "TemplateWorkflowTarefasRespViews",
+      "url": "TemplateWorkflowTarefasRespViews"
+    },
+    {
+      "name": "TemplateWorkflowCriteriosViews",
+      "url": "TemplateWorkflowCriteriosViews"
+    },
+    {
+      "name": "RegraDistribuicaoViews",
+      "url": "RegraDistribuicaoViews"
+    },
+    {
+      "name": "RegraDistribuicaoAreaViews",
+      "url": "RegraDistribuicaoAreaViews"
+    },
+    {
+      "name": "RegraDistribuicaoEstadoViews",
+      "url": "RegraDistribuicaoEstadoViews"
+    },
+    {
+      "name": "RegraDistribuicaoComarcaViews",
+      "url": "RegraDistribuicaoComarcaViews"
+    },
+    {
+      "name": "RegraDistribuicaoClienteViews",
+      "url": "RegraDistribuicaoClienteViews"
+    },
+    {
+      "name": "RegraDistribuicaoProfissionaisViews",
+      "url": "RegraDistribuicaoProfissionaisViews"
+    },
+    {
+      "name": "RegraDistribuicaoEscritoriosViews",
+      "url": "RegraDistribuicaoEscritoriosViews"
+    },
+    {
+      "name": "TipoSolicitacaoViews",
+      "url": "TipoSolicitacaoViews"
+    },
+    {
+      "name": "RegraSolicitacaoViews",
+      "url": "RegraSolicitacaoViews"
+    },
+    {
+      "name": "RegraSolicitacaoProfissionaisViews",
+      "url": "RegraSolicitacaoProfissionaisViews"
+    },
+    {
+      "name": "RegraSolicitacaoAgendasViews",
+      "url": "RegraSolicitacaoAgendasViews"
+    },
+    {
+      "name": "RevisaoTimesheetResumoProfissionalViews",
+      "url": "RevisaoTimesheetResumoProfissionalViews"
+    },
+    {
+      "name": "PreFaturaMargemContribuicaoViews",
+      "url": "PreFaturaMargemContribuicaoViews"
+    },
+    {
+      "name": "PreFaturaMargemContribuicaoResumoCasoViews",
+      "url": "PreFaturaMargemContribuicaoResumoCasoViews"
+    },
+    {
+      "name": "PreFaturaMargemContribuicaoResumoPreViews",
+      "url": "PreFaturaMargemContribuicaoResumoPreViews"
+    }
+  ]
+}

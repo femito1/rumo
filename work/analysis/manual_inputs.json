@@ -1,0 +1,722 @@
+[
+  {
+    "row": 4,
+    "label": "Receita de honorários",
+    "jan_2025_value": 279821.07,
+    "jan_2025_formula": 279821.07,
+    "jan_is_manual": true,
+    "feb_2025_value": 319233.58,
+    "feb_2025_formula": 319233.58,
+    "feb_is_manual": true
+  },
+  {
+    "row": 8,
+    "label": "Aurelio Marchini Santos- Pro labore",
+    "jan_2025_value": 810.5,
+    "jan_2025_formula": 810.5,
+    "jan_is_manual": true,
+    "feb_2025_value": 810.5,
+    "feb_2025_formula": 810.5,
+    "feb_is_manual": true
+  },
+  {
+    "row": 10,
+    "label": "Beatriz Baes Xavier - Convenio Medico",
+    "jan_2025_value": 1269.46,
+    "jan_2025_formula": 1269.46,
+    "jan_is_manual": true,
+    "feb_2025_value": 1269.46,
+    "feb_2025_formula": 1269.46,
+    "feb_is_manual": true
+  },
+  {
+    "row": 13,
+    "label": "Beatriz Baes Xavier - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 14,
+    "label": "Beatriz Baes Xavier - Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 518.4,
+    "feb_2025_formula": 518.4,
+    "feb_is_manual": true
+  },
+  {
+    "row": 15,
+    "label": "Daniel Costa Caselta - Convenio Medico",
+    "jan_2025_value": 1736.14,
+    "jan_2025_formula": 1736.14,
+    "jan_is_manual": true,
+    "feb_2025_value": 1736.14,
+    "feb_2025_formula": 1736.14,
+    "feb_is_manual": true
+  },
+  {
+    "row": 17,
+    "label": "Daniel Costa Caselta - Pro labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 18,
+    "label": "Daniel Costa Caselta - AASP",
+    "jan_2025_value": 97.7,
+    "jan_2025_formula": 97.7,
+    "jan_is_manual": true,
+    "feb_2025_value": 108.7,
+    "feb_2025_formula": 108.7,
+    "feb_is_manual": true
+  },
+  {
+    "row": 19,
+    "label": "Isabel de Almeida Rego Campinho - Convenio Medico",
+    "jan_2025_value": 1564.08,
+    "jan_2025_formula": 1564.08,
+    "jan_is_manual": true,
+    "feb_2025_value": 1564.08,
+    "feb_2025_formula": 1564.08,
+    "feb_is_manual": true
+  },
+  {
+    "row": 21,
+    "label": "Isabel de Almeida Rego Campinho - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 22,
+    "label": "Isabel de Almeida Rego Campinho - Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1566,
+    "feb_2025_formula": 1566,
+    "feb_is_manual": true
+  },
+  {
+    "row": 23,
+    "label": "João Victor Santos de Oliveira - Bolsa auxilio / IR Estagiários",
+    "jan_2025_value": 2800,
+    "jan_2025_formula": 2800,
+    "jan_is_manual": true,
+    "feb_2025_value": 2800,
+    "feb_2025_formula": 2800,
+    "feb_is_manual": true
+  },
+  {
+    "row": 26,
+    "label": "Vale Refeição",
+    "jan_2025_value": 829.8,
+    "jan_2025_formula": 829.8,
+    "jan_is_manual": true,
+    "feb_2025_value": 1014.2,
+    "feb_2025_formula": 1014.2,
+    "feb_is_manual": true
+  },
+  {
+    "row": 27,
+    "label": "Vale Transporte",
+    "jan_2025_value": 168,
+    "jan_2025_formula": 168,
+    "jan_is_manual": true,
+    "feb_2025_value": 235.2,
+    "feb_2025_formula": 235.2,
+    "feb_is_manual": true
+  },
+  {
+    "row": 31,
+    "label": "Andrielly da Silva Gonsalves - Convenio Medico",
+    "jan_2025_value": 1269.46,
+    "jan_2025_formula": 1269.46,
+    "jan_is_manual": true,
+    "feb_2025_value": 564.92,
+    "feb_2025_formula": 564.92,
+    "feb_is_manual": true
+  },
+  {
+    "row": 33,
+    "label": "Andrielly da Silva Gonsalves - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 35,
+    "label": "Andrielly da Silva Gonsalves -  Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 520,
+    "feb_2025_formula": 520,
+    "feb_is_manual": true
+  },
+  {
+    "row": 36,
+    "label": "Aurelio Marchini Santos - AASP",
+    "jan_2025_value": 97.7,
+    "jan_2025_formula": 97.7,
+    "jan_is_manual": true,
+    "feb_2025_value": 54.35,
+    "feb_2025_formula": "=108.7/2",
+    "feb_is_manual": false
+  },
+  {
+    "row": 39,
+    "label": "Aurelio Marchini Santos- Pro labore",
+    "jan_2025_value": 810.5,
+    "jan_2025_formula": 810.5,
+    "jan_is_manual": true,
+    "feb_2025_value": 810.5,
+    "feb_2025_formula": 810.5,
+    "feb_is_manual": true
+  },
+  {
+    "row": 40,
+    "label": "Bruno Micalli Pedrinelli - Convenio Medico",
+    "jan_2025_value": 1269.46,
+    "jan_2025_formula": 1269.46,
+    "jan_is_manual": true,
+    "feb_2025_value": 564.92,
+    "feb_2025_formula": 564.92,
+    "feb_is_manual": true
+  },
+  {
+    "row": 42,
+    "label": "Bruno Micalli Pedrinelli - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 43,
+    "label": "Bruno Micalli Pedrinelli - Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1034.38,
+    "feb_2025_formula": 1034.38,
+    "feb_is_manual": true
+  },
+  {
+    "row": 44,
+    "label": "Elisa Hime Funari - Convenio Medico",
+    "jan_2025_value": 2122.3,
+    "jan_2025_formula": 2122.3,
+    "jan_is_manual": true,
+    "feb_2025_value": 2122.3,
+    "feb_2025_formula": 2122.3,
+    "feb_is_manual": true
+  },
+  {
+    "row": 46,
+    "label": "Elisa Hime Funari - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 47,
+    "label": "Elisa Hime Funari - Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1000,
+    "feb_2025_formula": 1000,
+    "feb_is_manual": true
+  },
+  {
+    "row": 48,
+    "label": "Ricardo Franco Botelho - Convenio Medico",
+    "jan_2025_value": 2355.73,
+    "jan_2025_formula": 2355.73,
+    "jan_is_manual": true,
+    "feb_2025_value": 3427.58,
+    "feb_2025_formula": 3427.58,
+    "feb_is_manual": true
+  },
+  {
+    "row": 50,
+    "label": "Ricardo Franco Botelho - Pro labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 51,
+    "label": "Victoria Malta Corradini - Convenio Medico",
+    "jan_2025_value": 1409.09,
+    "jan_2025_formula": 1409.09,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 56,
+    "label": "Participação/comissão - Economico",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1500,
+    "feb_2025_formula": 1500,
+    "feb_is_manual": true
+  },
+  {
+    "row": 60,
+    "label": "Emilly Kauany Martins Calixto - Convenio medico",
+    "jan_2025_value": 1269,
+    "jan_2025_formula": 1269,
+    "jan_is_manual": true,
+    "feb_2025_value": 1269.46,
+    "feb_2025_formula": 1269.46,
+    "feb_is_manual": true
+  },
+  {
+    "row": 62,
+    "label": "Emilly Kauany Martins Calixto - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 63,
+    "label": "Felipe Sartório de Melo - Convenio Medico",
+    "jan_2025_value": 1564.08,
+    "jan_2025_formula": 1564.08,
+    "jan_is_manual": true,
+    "feb_2025_value": 1564.08,
+    "feb_2025_formula": 1564.08,
+    "feb_is_manual": true
+  },
+  {
+    "row": 65,
+    "label": "Felipe Sartório de Melo - Pro Labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 66,
+    "label": "Felipe Sartório de Melo - Reajuste de Distribuição Mensal Fixa",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1610.4,
+    "feb_2025_formula": 1610.4,
+    "feb_is_manual": true
+  },
+  {
+    "row": 67,
+    "label": "Joao Gabriel Previero de Arruda Sampaio - Convenio Medico",
+    "jan_2025_value": 1911.45,
+    "jan_2025_formula": 1911.45,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 69,
+    "label": "Joao Gabriel Previero de Arruda Sampaio -",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 71,
+    "label": "Martim Della Valle - Pro labore",
+    "jan_2025_value": 1621,
+    "jan_2025_formula": 1621,
+    "jan_is_manual": true,
+    "feb_2025_value": 1621,
+    "feb_2025_formula": 1621,
+    "feb_is_manual": true
+  },
+  {
+    "row": 81,
+    "label": "Aluguel",
+    "jan_2025_value": 26384.63,
+    "jan_2025_formula": 26384.63,
+    "jan_is_manual": true,
+    "feb_2025_value": 26384.63,
+    "feb_2025_formula": 26384.63,
+    "feb_is_manual": true
+  },
+  {
+    "row": 82,
+    "label": "Condomínio",
+    "jan_2025_value": 4996,
+    "jan_2025_formula": 4996,
+    "jan_is_manual": true,
+    "feb_2025_value": 4996,
+    "feb_2025_formula": 4996,
+    "feb_is_manual": true
+  },
+  {
+    "row": 84,
+    "label": "Energia",
+    "jan_2025_value": 773.71,
+    "jan_2025_formula": 773.71,
+    "jan_is_manual": true,
+    "feb_2025_value": 926.16,
+    "feb_2025_formula": 926.16,
+    "feb_is_manual": true
+  },
+  {
+    "row": 85,
+    "label": "IPTU",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 6916.97,
+    "feb_2025_formula": 6916.97,
+    "feb_is_manual": true
+  },
+  {
+    "row": 86,
+    "label": "Seguro Locação",
+    "jan_2025_value": 182.71,
+    "jan_2025_formula": 182.71,
+    "jan_is_manual": true,
+    "feb_2025_value": 183,
+    "feb_2025_formula": 183,
+    "feb_is_manual": true
+  },
+  {
+    "row": 89,
+    "label": "Telefonia Fixa",
+    "jan_2025_value": 65.29,
+    "jan_2025_formula": 65.29,
+    "jan_is_manual": true,
+    "feb_2025_value": 65.29,
+    "feb_2025_formula": 65.29,
+    "feb_is_manual": true
+  },
+  {
+    "row": 96,
+    "label": "Limpeza e Copeira - Serviço Terceirizado",
+    "jan_2025_value": 3049.23,
+    "jan_2025_formula": 3049.23,
+    "jan_is_manual": true,
+    "feb_2025_value": 3049.23,
+    "feb_2025_formula": 3049.23,
+    "feb_is_manual": true
+  },
+  {
+    "row": 97,
+    "label": "Manutenção ar condicionado",
+    "jan_2025_value": 919.76,
+    "jan_2025_formula": 919.76,
+    "jan_is_manual": true,
+    "feb_2025_value": 919.76,
+    "feb_2025_formula": 919.76,
+    "feb_is_manual": true
+  },
+  {
+    "row": 98,
+    "label": "Manutenção do Escritório",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 50,
+    "feb_2025_formula": 50,
+    "feb_is_manual": true
+  },
+  {
+    "row": 99,
+    "label": "Manutenção do Jardim",
+    "jan_2025_value": 836,
+    "jan_2025_formula": 836,
+    "jan_is_manual": true,
+    "feb_2025_value": 919.6,
+    "feb_2025_formula": 919.6,
+    "feb_is_manual": true
+  },
+  {
+    "row": 100,
+    "label": "Material de Escritório",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 41.2,
+    "feb_2025_formula": 41.2,
+    "feb_is_manual": true
+  },
+  {
+    "row": 102,
+    "label": "Motoboy",
+    "jan_2025_value": 36.76,
+    "jan_2025_formula": 36.76,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 103,
+    "label": "OAB / CS",
+    "jan_2025_value": 936.2,
+    "jan_2025_formula": 936.2,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 106,
+    "label": "Consultoria Adm. e Financeira",
+    "jan_2025_value": 14705.8,
+    "jan_2025_formula": 14705.8,
+    "jan_is_manual": true,
+    "feb_2025_value": 14705.8,
+    "feb_2025_formula": 14705.8,
+    "feb_is_manual": true
+  },
+  {
+    "row": 107,
+    "label": "Consultoria em Marketing",
+    "jan_2025_value": 6251.98,
+    "jan_2025_formula": 6251.98,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 108,
+    "label": "Contabilidade",
+    "jan_2025_value": 9077.36,
+    "jan_2025_formula": 9077.36,
+    "jan_is_manual": true,
+    "feb_2025_value": 7804.05,
+    "feb_2025_formula": 7804.05,
+    "feb_is_manual": true
+  },
+  {
+    "row": 115,
+    "label": "Férias",
+    "jan_2025_value": 2328.11,
+    "jan_2025_formula": 2328.11,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 116,
+    "label": "Salario ADM",
+    "jan_2025_value": 1683.06,
+    "jan_2025_formula": 1683.06,
+    "jan_is_manual": true,
+    "feb_2025_value": 3455.42,
+    "feb_2025_formula": 3455.42,
+    "feb_is_manual": true
+  },
+  {
+    "row": 117,
+    "label": "Vale Refeição- ADM",
+    "jan_2025_value": 829.8,
+    "jan_2025_formula": 829.8,
+    "jan_is_manual": true,
+    "feb_2025_value": 1014.2,
+    "feb_2025_formula": 1014.2,
+    "feb_is_manual": true
+  },
+  {
+    "row": 118,
+    "label": "Vale Transporte",
+    "jan_2025_value": 298.15999999999997,
+    "jan_2025_formula": "=35.52+262.64",
+    "jan_is_manual": false,
+    "feb_2025_value": 337.68,
+    "feb_2025_formula": 337.68,
+    "feb_is_manual": true
+  },
+  {
+    "row": 120,
+    "label": "Assinaturas - Contencioso (AASP)",
+    "jan_2025_value": 360,
+    "jan_2025_formula": 360,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 128,
+    "label": "Seguro de Responsabilidade Civil",
+    "jan_2025_value": 2539.84,
+    "jan_2025_formula": 2539.84,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 134,
+    "label": "Eventos e Happy hour - Contencioso",
+    "jan_2025_value": 146,
+    "jan_2025_formula": 146,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 158,
+    "label": "Biblioteca",
+    "jan_2025_value": 692.37,
+    "jan_2025_formula": 692.37,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 164,
+    "label": "COFINS",
+    "jan_2025_value": 185.68,
+    "jan_2025_formula": 185.68,
+    "jan_is_manual": true,
+    "feb_2025_value": 226.54,
+    "feb_2025_formula": 226.54,
+    "feb_is_manual": true
+  },
+  {
+    "row": 165,
+    "label": "CSLL Trimestral",
+    "jan_2025_value": 43297.07,
+    "jan_2025_formula": 43297.07,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 166,
+    "label": "E-social",
+    "jan_2025_value": null,
+    "jan_2025_formula": null,
+    "jan_is_manual": false,
+    "feb_2025_value": 1032.35,
+    "feb_2025_formula": 1032.35,
+    "feb_is_manual": true
+  },
+  {
+    "row": 167,
+    "label": "FGTS",
+    "jan_2025_value": 480.64,
+    "jan_2025_formula": 480.64,
+    "jan_is_manual": true,
+    "feb_2025_value": 354.66,
+    "feb_2025_formula": 354.66,
+    "feb_is_manual": true
+  },
+  {
+    "row": 168,
+    "label": "Impostos 3ºs",
+    "jan_2025_value": 2381.0699999999997,
+    "jan_2025_formula": "=12.28+36.67+2332.12",
+    "jan_is_manual": false,
+    "feb_2025_value": 2159.37,
+    "feb_2025_formula": 2159.37,
+    "feb_is_manual": true
+  },
+  {
+    "row": 169,
+    "label": "INSS Folha e Pro - Labores",
+    "jan_2025_value": 7466.34,
+    "jan_2025_formula": 7466.34,
+    "jan_is_manual": true,
+    "feb_2025_value": 1591.0800000000002,
+    "feb_2025_formula": "=22.16+1568.92",
+    "feb_is_manual": false
+  },
+  {
+    "row": 170,
+    "label": "IRRF Folha",
+    "jan_2025_value": 169.52,
+    "jan_2025_formula": 169.52,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 171,
+    "label": "IRRF Trimestral",
+    "jan_2025_value": 123429.61,
+    "jan_2025_formula": 123429.61,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  },
+  {
+    "row": 172,
+    "label": "ISS 3ºs",
+    "jan_2025_value": 228.69,
+    "jan_2025_formula": 228.69,
+    "jan_is_manual": true,
+    "feb_2025_value": 228.69,
+    "feb_2025_formula": 228.69,
+    "feb_is_manual": true
+  },
+  {
+    "row": 173,
+    "label": "PIS",
+    "jan_2025_value": 40.3,
+    "jan_2025_formula": 40.3,
+    "jan_is_manual": true,
+    "feb_2025_value": 49.13,
+    "feb_2025_formula": 49.13,
+    "feb_is_manual": true
+  },
+  {
+    "row": 177,
+    "label": "Data Center  (Oracle)",
+    "jan_2025_value": 7478.66,
+    "jan_2025_formula": 7478.66,
+    "jan_is_manual": true,
+    "feb_2025_value": null,
+    "feb_2025_formula": null,
+    "feb_is_manual": false
+  }
+]

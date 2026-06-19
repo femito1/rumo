@@ -1,0 +1,13 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PreferenciaTelaViews","value":[
+    {
+      "Id":"6380f517-ded7-7c74-7ef3-c8802f69df29","PreferenciaId":"5AF35F78-06E5-8102-B61A-D64849667A92","ModeloTelaId":"5AF35FD9-0680-4276-DE51-607C7E71D8F3","ModeloTelaTitulo":"Revis\u00e3o de Timesheet","PerfilId":"5b0e8607-be35-2875-85dd-c22f5233ae35","PerfilNome":"S\u00f3cios","Nome":"PERIODO_CORTE_MENSAL","Valor":"N","DataInclusao":"2022-11-25T17:03:40.638438-03:00","UsuarioInclusao":"juritis.sis","DataAlteracao":"2022-11-25T17:03:40.638438-03:00","UsuarioAlteracao":"juritis.sis","Selecionado":false
+    },{
+      "Id":"6380f578-dedb-0bd5-fb74-940ad11ebb48","PreferenciaId":"5AF35F78-06E5-8102-B61A-D64849667A92","ModeloTelaId":"5AF35F82-067F-0EB0-6AA7-28042C9E339E","ModeloTelaTitulo":"Revis\u00e3o de Lan\u00e7amentos Fixos","PerfilId":"5b0e8607-be35-2875-85dd-c22f5233ae35","PerfilNome":"S\u00f3cios","Nome":"PERIODO_CORTE_MENSAL","Valor":"N","DataInclusao":"2022-11-25T17:04:31.535607-03:00","UsuarioInclusao":"juritis.sis","DataAlteracao":"2022-11-25T17:04:31.535607-03:00","UsuarioAlteracao":"juritis.sis","Selecionado":false
+    },{
+      "Id":"63b46e6f-d5a8-0088-627a-d02c0839af99","PreferenciaId":"5AF35F78-06E5-8102-B61A-D64849667A92","ModeloTelaId":"5AF35FD9-0680-4276-DE51-607C7E71D8F3","ModeloTelaTitulo":"Revis\u00e3o de Timesheet","PerfilId":"63b44435-f519-bef5-4374-b6970e87aa5b","PerfilNome":"TS exce\u00e7\u00e3o","Nome":"PERIODO_CORTE_MENSAL","Valor":"N","DataInclusao":"2022-11-25T17:03:40.638438-03:00","UsuarioInclusao":"lr","DataAlteracao":"2023-01-03T15:05:35.353999-03:00","UsuarioAlteracao":"lr","Selecionado":false
+    },{
+      "Id":"63b46e6f-d5a9-00c9-3ac6-ce4b4e34b318","PreferenciaId":"5AF35F78-06E5-8102-B61A-D64849667A92","ModeloTelaId":"5AF35F82-067F-0EB0-6AA7-28042C9E339E","ModeloTelaTitulo":"Revis\u00e3o de Lan\u00e7amentos Fixos","PerfilId":"63b44435-f519-bef5-4374-b6970e87aa5b","PerfilNome":"TS exce\u00e7\u00e3o","Nome":"PERIODO_CORTE_MENSAL","Valor":"N","DataInclusao":"2022-11-25T17:04:31.535607-03:00","UsuarioInclusao":"lr","DataAlteracao":"2023-01-03T15:05:35.36961-03:00","UsuarioAlteracao":"lr","Selecionado":false
+    }
+  ]
+}

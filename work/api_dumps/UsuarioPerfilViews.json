@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#UsuarioPerfilViews","value":[
+    {
+      "Id":"5AFAE2C3-98D3-AE65-8253-6FBB7581521F","UsuarioId":"5AFAE33A-98D1-9C47-B277-07D1410776DE","UsuarioNome":"Usuario de suporte TOTVS JuriTIs","UsuarioUsuarioAd":"juritis.sis_inativo","UsuarioAtivo":"N","UsuarioBloqueado":"N","UsuarioProvider":"ADMembershipProvider","PerfilId":"5AF35F76-0005-26E2-5690-7A9490E953F9","PerfilNome":"Geral - ADV","PerfilNivel":"10001","PerfilCodigo":"GERALADV","Padrao":"N","DataInclusao":"2018-05-15T13:37:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2020-11-23T10:23:14.472476-03:00","UsuarioAlteracao":"juritis.sis"
+    },{
+      "Id":"5AFAE34A-98D2-580E-D9B8-184CB0FA76FA","UsuarioId":"5AFAE33A-98D1-9C47-B277-07D1410776DE","UsuarioNome":"Usuario de suporte TOTVS JuriTIs","UsuarioUsuarioAd":"juritis.sis_inativo","UsuarioAtivo":"N","UsuarioBloqueado":"N","UsuarioProvider":"ADMembershipProvider","PerfilId":"5AF35F6C-0007-54A2-1FCF-AC9D833323A2","PerfilNome":"Geral - Outlook","PerfilNivel":"10001","PerfilCodigo":"GERALO","Padrao":"N","DataInclusao":"2018-05-15T13:37:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2020-11-23T10:23:14.571483-03:00","UsuarioAlteracao":"juritis.sis"
+    },{
+      "Id":"5B0BF4DE-9AB1-78B4-1D6F-110866F5AA0C","UsuarioId":"5AFAE33A-98D1-9C47-B277-07D1410776DE","UsuarioNome":"Usuario de suporte TOTVS JuriTIs","UsuarioUsuarioAd":"juritis.sis_inativo","UsuarioAtivo":"N","UsuarioBloqueado":"N","UsuarioProvider":"ADMembershipProvider","PerfilId":"5AF35F44-0004-774D-269D-D1D7A6AEC767","PerfilNome":"Geral","PerfilNivel":"10001","PerfilCodigo":"GERALW","Padrao":"S","DataInclusao":"2018-05-28T09:23:32-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2020-11-23T10:23:14.581477-03:00","UsuarioAlteracao":"juritis.sis"
+    },{
+      "Id":"5B0BF622-9AB2-4636-20B6-098D5344FD3A","UsuarioId":"5AFAE33A-98D1-9C47-B277-07D1410776DE","UsuarioNome":"Usuario de suporte TOTVS JuriTIs","UsuarioUsuarioAd":"juritis.sis_inativo","UsuarioAtivo":"N","UsuarioBloqueado":"N","UsuarioProvider":"ADMembershipProvider","PerfilId":"5AF35FD2-0008-A596-0030-7F6788C853CF","PerfilNome":"Administrator","PerfilNivel":"501","PerfilCodigo":"ADMIN","Padrao":"N","DataInclusao":"2018-05-28T09:27:32-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2018-05-28T09:27:32-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"5B19A71B-A4D8-970E-7990-9E56BEBFFF38","UsuarioId":"5B19A783-A4D7-62A9-4467-CFD6DF08A533","UsuarioNome":"Maria Luiza Bengel de Paula","UsuarioUsuarioAd":"mb","UsuarioAtivo":"N","UsuarioBloqueado":"N","UsuarioProvider":null,"PerfilId":"5AF35F6C-0007-54A2-1FCF-AC9D833323A2","PerfilNome":"Geral - Outlook","PerfilNivel":"10001","PerfilCodigo":"GERALO","Padrao":"N","DataInclusao":"2018-06-07T21:43:47-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2019-08-14T14:10:38-03:00","UsuarioAlteracao":"mb"
+    }
+  ]
+}

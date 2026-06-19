@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/SobreporVigenciaViews?$top=5",
+  "status": 400,
+  "elapsed_s": 0.982,
+  "content_type": "text/json; charset=utf-8",
+  "bytes": 403
+}

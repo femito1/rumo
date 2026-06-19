@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CasoTipoAtividadeViews","value":[
+    {
+      "Id":"679BBDAC-A6FD-38C4-88C8-28C388AD4EC7","Codigo":"138/1/14","CasoId":"679BBDC4-A6D3-11C6-796E-DBF5C2EE0C90","CasoAssunto":"Dias de descansos e aus\u00eancias - Equipe Jur\u00eddica","TipoAtividadeId":"5AF36B7B-09F7-61BB-1205-AD7E0F9E8150","TipoAtividadeDescricao":"Dias descanso/Aus\u00eancias/Licen\u00e7as","DataInclusao":"2025-01-30T14:55:49-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2025-01-30T14:55:49-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"67A6466C-465A-6D78-2862-E58F6442D42B","Codigo":"139/1/14","CasoId":"67A6466F-462F-9FCB-64AF-63C80AE4EB79","CasoAssunto":"Audi\u00eancia P\u00fablica Cade - Contribui\u00e7\u00f5es escritas e oral","TipoAtividadeId":"5AF36B7B-09F7-61BB-1205-AD7E0F9E8150","TipoAtividadeDescricao":"Dias descanso/Aus\u00eancias/Licen\u00e7as","DataInclusao":"2025-02-07T14:43:55-03:00","UsuarioInclusao":"MLA","DataAlteracao":"2025-02-07T14:43:55-03:00","UsuarioAlteracao":"MLA"
+    },{
+      "Id":"67ACEDA9-C83D-FDD2-DD30-BE87511486E9","Codigo":"140/1/14","CasoId":"67ACECE2-C812-59D6-29FA-5679AF9D1BD6","CasoAssunto":"Notifica\u00e7\u00e3o de opera\u00e7\u00e3o ao CADE | Projeto Parker\r\n","TipoAtividadeId":"5AF36B7B-09F7-61BB-1205-AD7E0F9E8150","TipoAtividadeDescricao":"Dias descanso/Aus\u00eancias/Licen\u00e7as","DataInclusao":"2025-02-12T15:47:10-03:00","UsuarioInclusao":"MLA","DataAlteracao":"2025-02-12T15:47:10-03:00","UsuarioAlteracao":"MLA"
+    },{
+      "Id":"67B77CB9-ED09-C41C-2400-A1887F8C29E5","Codigo":"141/1/14","CasoId":"67B77BDE-ECDE-EBED-F2DF-6D78457586C2","CasoAssunto":"Resposta ao Of\u00edcio n\u00ba 1275/2025\r\n","TipoAtividadeId":"5AF36B7B-09F7-61BB-1205-AD7E0F9E8150","TipoAtividadeDescricao":"Dias descanso/Aus\u00eancias/Licen\u00e7as","DataInclusao":"2025-02-20T16:00:14-03:00","UsuarioInclusao":"MLA","DataAlteracao":"2025-02-20T16:00:14-03:00","UsuarioAlteracao":"MLA"
+    },{
+      "Id":"67F03953-725A-3ECD-791E-59C4EA22E4A4","Codigo":"142/1/14","CasoId":"67F0397D-7230-957E-5D52-A5CD64321469","CasoAssunto":"Elabora\u00e7\u00e3o de Protocolo Antitruste \r\n","TipoAtividadeId":"5AF36B7B-09F7-61BB-1205-AD7E0F9E8150","TipoAtividadeDescricao":"Dias descanso/Aus\u00eancias/Licen\u00e7as","DataInclusao":"2025-04-04T16:55:29-03:00","UsuarioInclusao":"MLA","DataAlteracao":"2025-04-04T16:55:29-03:00","UsuarioAlteracao":"MLA"
+    }
+  ]
+}

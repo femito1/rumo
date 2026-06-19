@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#GrupoMaterialViews","value":[
+    {
+      "Id":"5AF36B38-20FA-9315-9E94-5BBC0BA284E4","Codigo":"4","Descricao":"Manuten\u00e7\u00e3o","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B3D-20FC-94EE-41E8-7CB15D4FDC29","Codigo":"5","Descricao":"teste","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B45-20F9-8E1F-62C1-F7236F0775B6","Codigo":"1","Descricao":"Material de Escrit\u00f3rio","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BCC-20FD-49DD-E12B-6AFA626B2189","Codigo":"2","Descricao":"Material Copa/Limpeza/Higiene","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BDD-20FB-8DFE-1339-5BF04A08F55C","Codigo":"3","Descricao":"Material de Inform\u00e1tica","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

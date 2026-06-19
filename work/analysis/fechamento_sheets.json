@@ -1,0 +1,62 @@
+{
+  "Meta (2)": {
+    "max_row": 43,
+    "max_col": 12
+  },
+  "Rateio Mensal": {
+    "max_row": 11,
+    "max_col": 14
+  },
+  "Fluxo consolidado ": {
+    "max_row": 30,
+    "max_col": 16
+  },
+  "DRE 2026": {
+    "max_row": 168,
+    "max_col": 40
+  },
+  "Orçamento 2026": {
+    "max_row": 198,
+    "max_col": 15
+  },
+  "Base_Resultado Mensal_V2": {
+    "max_row": 295,
+    "max_col": 15
+  },
+  "Areas Sintetico atualizado": {
+    "max_row": 408,
+    "max_col": 18
+  },
+  "Institucional": {
+    "max_row": 31,
+    "max_col": 5
+  },
+  "Institucional ano": {
+    "max_row": 50,
+    "max_col": 4
+  },
+  "Contencioso": {
+    "max_row": 18,
+    "max_col": 4
+  },
+  "Econômico": {
+    "max_row": 18,
+    "max_col": 4
+  },
+  "Arbitragem": {
+    "max_row": 18,
+    "max_col": 4
+  },
+  "Resumo_Recebidas 2025_2026": {
+    "max_row": 355,
+    "max_col": 17
+  },
+  "FATURAS Analitico CENTRO CUSTO ": {
+    "max_row": 525,
+    "max_col": 9
+  },
+  "Amortização": {
+    "max_row": 98,
+    "max_col": 4
+  }
+}

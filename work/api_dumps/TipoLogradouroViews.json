@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoLogradouroViews","value":[
+    {
+      "Id":"64E8EEF6-C1F6-FA2F-1BDC-C937F931C91A","Codigo":"1","Descricao":"Avenida","CodigoPrefeitura":"1","DataInclusao":"2023-08-25T15:11:33-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:11:33-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8EF13-C1FC-2B38-1337-F5A5A64EA421","Codigo":"7","Descricao":"Sup. Quadra","CodigoPrefeitura":"7","DataInclusao":"2023-08-25T15:11:33-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:11:33-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8EF23-C1FF-04D2-3C3A-E9E3EBFF8B47","Codigo":"10","Descricao":"Via","CodigoPrefeitura":"10","DataInclusao":"2023-08-25T15:11:33-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:11:33-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8EF36-C1FE-1BA6-5FBE-00BD356DB50E","Codigo":"9","Descricao":"Vale","CodigoPrefeitura":"9","DataInclusao":"2023-08-25T15:11:33-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:11:33-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8EF3C-C202-09CD-B01F-1CA103360765","Codigo":"13","Descricao":"Vila","CodigoPrefeitura":"13","DataInclusao":"2023-08-25T15:11:33-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:11:33-03:00","UsuarioAlteracao":"SYSTEM"
+    }
+  ]
+}

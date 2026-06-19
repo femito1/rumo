@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#FornecedorViews","value":[
+    {
+      "Id":"5B042DA3-9958-8D4F-32EA-58AE6215DC40","PessoaId":"5B042DE3-9957-AB22-38F1-007BA2EB17F4","PessoaNome":"Exito'X Consultoria e Assessoria em Adm. Ltda.","PessoaNomeFantasia":null,"PessoaTipo":"J","Existente":"N","PessoaCnpjCpf":"09485310000118","MeioPagamentoId":null,"MeioPagamentoDescricao":null,"Ativo":"S","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T14:47:16-03:00","UsuarioAlteracao":"LCP","DataInclusao":"2018-05-22T14:47:16-03:00","Codigo":"11","ValidaNovo":false
+    },{
+      "Id":"5B04754B-996E-04F0-3E79-98D26F482E76","PessoaId":"5B047547-996D-233A-27F6-98D72B513751","PessoaNome":"Juritis Comercio e Servi\u00e7os de Informatica Ltda.","PessoaNomeFantasia":"Totvs Juritis","PessoaTipo":"J","Existente":"N","PessoaCnpjCpf":"17594848000199","MeioPagamentoId":"5AF36B8B-20F1-4EC6-641B-EFD02260AB2A","MeioPagamentoDescricao":"Boleto Ita\u00fa","Ativo":"S","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T20:29:48-03:00","UsuarioAlteracao":"BRS","DataInclusao":"2018-05-22T19:52:24-03:00","Codigo":"12","ValidaNovo":false
+    },{
+      "Id":"5B047F64-9978-89EC-D77C-641486D55268","PessoaId":"5B047F90-9977-0088-4E63-197048588500","PessoaNome":"WeWork Servicos de Escritorio","PessoaNomeFantasia":null,"PessoaTipo":"J","Existente":"N","PessoaCnpjCpf":"23301943000150","MeioPagamentoId":"5AF36B7C-20F3-A153-9A99-568FC580F281","MeioPagamentoDescricao":"Cr\u00e9dito em Conta Corrente","Ativo":"S","UsuarioInclusao":"BRS","DataAlteracao":"2018-05-22T20:34:52-03:00","UsuarioAlteracao":"BRS","DataInclusao":"2018-05-22T20:34:52-03:00","Codigo":"14","ValidaNovo":false
+    },{
+      "Id":"5B0481BF-997C-808D-7FC7-40B58D34C592","PessoaId":"5B048149-997B-A354-BAE4-58EDDB159D39","PessoaNome":"Moutinho e Tranchesi Advogados","PessoaNomeFantasia":null,"PessoaTipo":"J","Existente":"N","PessoaCnpjCpf":"69128346000176","MeioPagamentoId":"5AF36B7C-20F3-A153-9A99-568FC580F281","MeioPagamentoDescricao":"Cr\u00e9dito em Conta Corrente","Ativo":"S","UsuarioInclusao":"BRS","DataAlteracao":"2018-05-22T20:44:07-03:00","UsuarioAlteracao":"BRS","DataInclusao":"2018-05-22T20:44:07-03:00","Codigo":"15","ValidaNovo":false
+    },{
+      "Id":"5B04837F-997F-14F9-4CAA-722E33F1E95C","PessoaId":"5B04835E-997E-5A98-7B22-9D03C962E0D3","PessoaNome":"Supricorp Suprimentos Ltda","PessoaNomeFantasia":null,"PessoaTipo":"J","Existente":"N","PessoaCnpjCpf":"54651716001150","MeioPagamentoId":"5AF36B8B-20F1-4EC6-641B-EFD02260AB2A","MeioPagamentoDescricao":"Boleto Ita\u00fa","Ativo":"S","UsuarioInclusao":"BRS","DataAlteracao":"2018-05-22T21:11:10-03:00","UsuarioAlteracao":"BRS","DataInclusao":"2018-05-22T20:53:28-03:00","Codigo":"17","ValidaNovo":false
+    }
+  ]
+}

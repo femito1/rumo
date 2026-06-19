@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#IdiomaTipoAtividadeViews","value":[
+    {
+      "Id":"5AF36B0F-2002-7C34-E375-DE1CA65AF78E","Codigo":"2/P","IdiomaId":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","IdiomaDescricao":"Portugu\u00eas","TipoAtividadeId":"5AF36B38-09EB-111C-F4E0-E453E0BBE650","TipoAtividadeDescricao":"An\u00e1lise","TipoAtividadeCodigo":"2","Descricao":"An\u00e1lise","DescricaoPadrao":"An\u00e1lise","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-09-06T14:07:44-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"5AF36B10-1FFF-5122-2420-F96D58C932D8","Codigo":"1/I","IdiomaId":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","IdiomaDescricao":"Ingl\u00eas","TipoAtividadeId":"5AF36B67-09EA-7D28-5E96-77E704307716","TipoAtividadeDescricao":"Acompanhamento Processual","TipoAtividadeCodigo":"1","Descricao":"Follow up","DescricaoPadrao":"Follow up ","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-09-06T14:03:16-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"5AF36B10-2005-763F-2905-7452E781A70B","Codigo":"4/I","IdiomaId":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","IdiomaDescricao":"Ingl\u00eas","TipoAtividadeId":"5AF36B8A-09ED-32F2-4A54-9A21A6AF9170","TipoAtividadeDescricao":"Cadastro","TipoAtividadeCodigo":"4","Descricao":"Registration","DescricaoPadrao":"Registration","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-09-05T16:07:55-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"5AF36B1B-2003-564D-C131-E3103407002C","Codigo":"3/I","IdiomaId":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","IdiomaDescricao":"Ingl\u00eas","TipoAtividadeId":"5AF36B19-09EC-8D17-9281-54A6E1D93868","TipoAtividadeDescricao":"Audi\u00eancia","TipoAtividadeCodigo":"3","Descricao":"Hearing","DescricaoPadrao":"Hearing","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-09-05T16:07:55-03:00","UsuarioAlteracao":"BCSSUP"
+    },{
+      "Id":"5AF36B1C-2000-36CA-8E30-558875E0E4D0","Codigo":"1/P","IdiomaId":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","IdiomaDescricao":"Portugu\u00eas","TipoAtividadeId":"5AF36B67-09EA-7D28-5E96-77E704307716","TipoAtividadeDescricao":"Acompanhamento Processual","TipoAtividadeCodigo":"1","Descricao":"Acompanhamento Processual","DescricaoPadrao":"Atualiza\u00e7\u00e3o","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-09-06T14:07:44-03:00","UsuarioAlteracao":"BCSSUP"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MenuPerfilViews","value":[
+    {
+      "Id":"5AF35F3A-00B6-57A8-67C3-F2B17BC7E0FE","MenuId":"5AF35F73-003E-1590-A395-68CAB4E18948","MenuGrupo":"Cadastro B\u00e1sico - Jur\u00eddico","MenuTitulo":"Preposto","Titulo":null,"Ordem":"34","PerfilId":"5AF35F44-0004-774D-269D-D1D7A6AEC767"
+    },{
+      "Id":"5AF35F3A-01BC-4AD6-5734-4F5038493D2A","MenuId":"5AF35F75-0043-04F2-12B8-2DDF55F20283","MenuGrupo":"Cadastro B\u00e1sico - Jur\u00eddico","MenuTitulo":"Valor do \u00cdndice","Titulo":null,"Ordem":null,"PerfilId":"5AF35F6C-0007-54A2-1FCF-AC9D833323A2"
+    },{
+      "Id":"5AF35F3A-04B3-1BD7-94D9-164A80085081","MenuId":"5AF35F5F-003C-4878-FDA0-6A46061993FC","MenuGrupo":"Cadastro B\u00e1sico - Jur\u00eddico","MenuTitulo":"Empresa","Titulo":null,"Ordem":null,"PerfilId":"5AF35FD2-0008-A596-0030-7F6788C853CF"
+    },{
+      "Id":"5AF35F3A-04F2-1DC6-EFDC-CF8B0A80FF20","MenuId":"5AF35FBB-002A-6240-F2FB-BFCDC9AE549B","MenuGrupo":"Cadastro B\u00e1sico - Jur\u00eddico","MenuTitulo":"Vara/C\u00e2mara","Titulo":null,"Ordem":null,"PerfilId":"5AF35FD2-0008-A596-0030-7F6788C853CF"
+    },{
+      "Id":"5AF35F3B-009B-8AD8-52FF-B2C2CCF15B46","MenuId":"5AF35F46-008A-23DA-1118-68AEC7FD09F0","MenuGrupo":"Cadastro B\u00e1sico - ADM","MenuTitulo":"Tipo de Origina\u00e7\u00e3o","Titulo":null,"Ordem":"8","PerfilId":"5AF35F44-0004-774D-269D-D1D7A6AEC767"
+    }
+  ]
+}

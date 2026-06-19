@@ -1,0 +1,11 @@
+JANEIRO				Orçado			DESPESAS RATEADAS			Rateio anual			
+=K2	='Base_Resultado Mensal_V2'!C5	=+B2/B5		='Areas Sintetico atualizado'!B39	=E2/$E$5		=('Base_Resultado Mensal_V2'!C194)-'Base_Resultado Mensal_V2'!C200-'Base_Resultado Mensal_V2'!C201-'Base_Resultado Mensal_V2'!C202	=$H$2*C2		='DRE 2026'!A6	='DRE 2026'!B6	=L2/$L$5	
+=K3	='Base_Resultado Mensal_V2'!C30	=+B3/B5		='Areas Sintetico atualizado'!B57	=E3/$E$5			=$H$2*C3		='DRE 2026'!A7	='DRE 2026'!B7	=L3/$L$5	
+=K4	='Base_Resultado Mensal_V2'!C58	=B4/$B$5		='Areas Sintetico atualizado'!B75	=E4/$E$5			=$H$2*C4		='DRE 2026'!A8	='DRE 2026'!B8	=L4/$L$5	
+Total das Áreas	=SUM(B2:B4)	=SUM(C2:C4)		=SUM(E2:E4)						=A5	=SUM(L2:L4)	=SUM(M2:M4)	
+													
+FEVEREIRO													
+=K2	='Base_Resultado Mensal_V2'!D5	=+B8/B11		='DRE 2026'!D6	=E8/$E$11		='Base_Resultado Mensal_V2'!D203	=$H$8*C8					
+=K3	='Base_Resultado Mensal_V2'!D30	=+B9/B11		='DRE 2026'!D7	=E9/$E$11			=$H$8*C9					
+=K4	='Base_Resultado Mensal_V2'!D58	=B10/$B$11		='DRE 2026'!D8	=E10/$E$11			=$H$8*C10					
+=K5	=SUM(B8:B10)	=SUM(C8:C10)		=SUM(E8:E10)									

@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ProfissionalCaixinhaViews","value":[
+    {
+      "Id":"681CB3A7-6DA5-6F30-D21E-966449566DD6","Codigo":"AR","Sigla":"AR","PessoaNome":"Adriana Ramos","PessoaNomeFantasia":"Adriana Ramos","PessoaCnpjCpf":null,"EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","GrupoJuridicoId":"5B50C4F9-BE6A-08BF-025B-286BB7FA8394","GrupoJuridicoNome":"Administra\u00e7\u00e3o","CategoriaId":"5AF5D6ED-98B2-A03B-4C98-B3F021A6ECA6","CategoriaNome":"Adm","Socio":"N","Revisor":"N","DataEntrada":"2025-05-08T00:00:00-03:00","DataSaida":null
+    }
+  ]
+}

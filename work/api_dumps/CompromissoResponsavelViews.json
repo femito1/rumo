@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CompromissoResponsavelViews","value":[
+    {
+      "ProfissionalId":"64AF060F-B592-3BD7-2C41-78C8A6821576","ProfissionalSigla":"JCT","ProfissionalPessoaNome":"J\u00falia Citrangulo","ProfissionalDataSaida":"2025-10-31T00:00:00-03:00","IdCompromissoOutlook":null,"TipoResponsabilidadeId":"5AF36102-075A-4EBE-FFA0-FE7948A7183C","TipoResponsabilidadeDescricao":"Respons\u00e1vel","TipoResponsabilidadePrincipal":null,"TipoResponsabilidadeTipo":"C","Editando":false,"ProfissionalPessoaNomeFantasia":null,"DataInclusao":"2024-02-06T17:07:43.243529-03:00","UsuarioInclusao":"lmi","DataAlteracao":"2024-02-06T17:07:43.243529-03:00","UsuarioAlteracao":"lmi","Id":"65c2918f-eaa8-00f0-45be-3a50149227e9","CompromissoId":"65c2672a-c444-9bbc-7576-5ddee8eaeb78","ProfissionalCodigo":"JCT"
+    }
+  ]
+}

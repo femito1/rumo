@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#SituacaoMovimentacaoFinanceiraViews","value":[
+    {
+      "Id":"5AF36B91-974C-42A7-2F7F-AF0816698D25","CategoriaMovimentacaoFinanceiraId":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","CategoriaMovimentacaoFinanceiraNome":"Garantia","Descricao":"Requerido o levantamento pelo autor e indeferido","Codigo":"6","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B98-9751-8140-4BF0-2F629B39DA53","CategoriaMovimentacaoFinanceiraId":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","CategoriaMovimentacaoFinanceiraNome":"Garantia","Descricao":"Requerido o levantamento por empresa do grupo e indeferido","Codigo":"7","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BA0-974E-AB9C-26E5-5B85E19F2FAF","CategoriaMovimentacaoFinanceiraId":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","CategoriaMovimentacaoFinanceiraNome":"Garantia","Descricao":"Levantado por empresa do grupo","Codigo":"5","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BC6-974D-248F-316B-1DE4BE533E75","CategoriaMovimentacaoFinanceiraId":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","CategoriaMovimentacaoFinanceiraNome":"Garantia","Descricao":"Levantado pelo r\u00e9u","Codigo":"3","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BF2-974B-52A1-E8E8-FA574944031D","CategoriaMovimentacaoFinanceiraId":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","CategoriaMovimentacaoFinanceiraNome":"Garantia","Descricao":"Levantamento autorizado na senten\u00e7a","Codigo":"1","DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

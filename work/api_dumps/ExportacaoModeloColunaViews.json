@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ExportacaoModeloColunaViews","value":[
+    {
+      "Id":"5CDEF920-4E50-47DA-91E9-677DE26C2E13","ExportacaoModeloId":"5CDEF924-4E43-1172-B4DF-8DE56EC13960","Model":"Pessoa","PropertyName":"Nome","ParentJoins":"Assunto,Caso,Cliente,Pessoa","Display":"Cliente - Nome","Position":"2","DataInclusao":"2019-05-17T18:10:38-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:10:38-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEF922-4E7B-079E-7F14-0818EA9B9940","ExportacaoModeloId":"5CDEF927-4E6D-22EC-23C8-0B9CEEC8D53E","Model":"TipoCompromisso","PropertyName":"Descricao","ParentJoins":"Compromisso,TipoCompromisso","Display":"Tipo","Position":"3","DataInclusao":"2019-05-17T18:10:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:10:39-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEF924-4E4B-718E-3D15-D60282D8F473","ExportacaoModeloId":"5CDEF924-4E43-1172-B4DF-8DE56EC13960","Model":"Estado","PropertyName":"Sigla","ParentJoins":"Assunto,Cidade,Estado","Display":"UF","Position":"9","DataInclusao":"2019-05-17T18:10:37-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:10:37-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEF92B-4E5E-7A4B-5B36-8F461B5F7611","ExportacaoModeloId":"5CDEF983-4E57-52A1-BEB1-C6D11C03422E","Model":"Caso","PropertyName":"Codigo","ParentJoins":"Andamento,Assunto,Caso","Display":"Processo: Caso - C\u00f3digo","Position":"3","DataInclusao":"2019-05-17T18:10:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:10:39-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5CDEF92F-4E4C-8391-B397-A68B2E57CEF9","ExportacaoModeloId":"5CDEF924-4E43-1172-B4DF-8DE56EC13960","Model":"Foro","PropertyName":"Descricao","ParentJoins":"Assunto,Foro","Display":"Foro/Tribunal","Position":"11","DataInclusao":"2019-05-17T18:10:38-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T18:10:38-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

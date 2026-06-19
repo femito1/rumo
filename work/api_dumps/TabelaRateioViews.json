@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TabelaRateioViews","value":[
+    {
+      "Id":"5FBCF1F0-372B-4244-E1C6-84FF133A4384","Codigo":"1","Descricao":"tESTE","Tipo":"ES","Ativo":"S","DataInclusao":"2020-11-24T08:42:48-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2020-11-24T08:42:48-03:00","UsuarioAlteracao":"SYS","MultiRegistrosHistorico":"[]"
+    }
+  ]
+}

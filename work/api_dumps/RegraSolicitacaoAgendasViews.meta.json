@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/RegraSolicitacaoAgendasViews?$top=5",
+  "status": 404,
+  "elapsed_s": 2.488,
+  "content_type": "application/json; charset=utf-8",
+  "bytes": 299
+}

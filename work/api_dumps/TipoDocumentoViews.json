@@ -1,0 +1,11 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoDocumentoViews","value":[
+    {
+      "Id":"5AF36B24-20F6-3017-3647-24706EDEEEF0","Codigo":"9","Descricao":"Fatura","PercentualAcrescimo":"0","DataInclusao":"2018-05-09T21:41:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:39-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B3F-20F8-90A1-A284-6A02D479AF2A","Codigo":"8","Descricao":"Boleto","PercentualAcrescimo":"0","DataInclusao":"2018-05-09T21:41:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:39-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B88-20F7-94FA-A845-4B3F174F73D0","Codigo":"7","Descricao":"Nota Fiscal","PercentualAcrescimo":"0","DataInclusao":"2018-05-09T21:41:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:39-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

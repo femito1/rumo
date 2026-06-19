@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#HonorarioHistoricoViews","value":[
+    {
+      "Id":"5B0C15CF-9AF4-5F51-C61B-F7748EB6B2D2","Codigo":"PI/2018-05","AnoMesInicial":"2018-05","AnoMesFinal":"2018-05","Sigla":"PI","MoedaId":"5AF36B31-09E6-2C14-D5E2-C8050317789A","MoedaCodigo":"R","MoedaSigla":"R$","MoedaDescricao":"R$","Observacao":"Padr\u00e3o 2018","DataInclusao":"2018-05-28T14:42:49-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2026-05-01T02:00:59-03:00","UsuarioAlteracao":"SYNC","HonorarioId":"5B0C156F-9AF3-7F74-D7E1-DA4A033D27C1","HonorarioSigla":"PI"
+    },{
+      "Id":"5B50BABA-BBA8-6D94-0085-AADB3C341C17","Codigo":"PI/2018-06","AnoMesInicial":"2018-06","AnoMesFinal":"2018-06","Sigla":"PI","MoedaId":"5AF36B31-09E6-2C14-D5E2-C8050317789A","MoedaCodigo":"R","MoedaSigla":"R$","MoedaDescricao":"R$","Observacao":"Padr\u00e3o 2018","DataInclusao":"2018-07-19T16:22:14-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2026-05-01T02:00:59-03:00","UsuarioAlteracao":"SYNC","HonorarioId":"5B0C156F-9AF3-7F74-D7E1-DA4A033D27C1","HonorarioSigla":"PI"
+    },{
+      "Id":"5B50BAC0-BB34-1FA4-BEBF-409DEFDB94AB","Codigo":"Whit/2018-05","AnoMesInicial":"2018-05","AnoMesFinal":"2018-05","Sigla":"Whit","MoedaId":"5AF36B31-09E6-2C14-D5E2-C8050317789A","MoedaCodigo":"R","MoedaSigla":"R$","MoedaDescricao":"R$","Observacao":"White Martins","DataInclusao":"2018-07-19T16:22:09-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2026-05-01T02:01:10-03:00","UsuarioAlteracao":"SYNC","HonorarioId":"5B50BB29-BB33-52C1-A004-D9370C8832E7","HonorarioSigla":"Whit"
+    },{
+      "Id":"5B50BAC5-BAF1-42F1-BCFB-342E54BCBFA8","Codigo":"EURO/2018-05","AnoMesInicial":"2018-05","AnoMesFinal":"2018-05","Sigla":"EURO","MoedaId":"5AF36B8A-09E5-5B6B-E41D-6298117C65D9","MoedaCodigo":"E","MoedaSigla":"EUR","MoedaDescricao":"EUR","Observacao":"Padr\u00e3o EURO","DataInclusao":"2018-07-19T16:22:09-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2026-05-01T02:00:51-03:00","UsuarioAlteracao":"SYNC","HonorarioId":"5B50BB4B-BAF0-ACB5-70D8-04634CAAB968","HonorarioSigla":"EURO"
+    },{
+      "Id":"5B50BACB-BB2A-9BC4-F692-7BB8AF3213AF","Codigo":"P16/2018-05","AnoMesInicial":"2018-05","AnoMesFinal":"2018-05","Sigla":"P16","MoedaId":"5AF36B31-09E6-2C14-D5E2-C8050317789A","MoedaCodigo":"R","MoedaSigla":"R$","MoedaDescricao":"R$","Observacao":"2016 - 20% desconto","DataInclusao":"2018-07-19T16:22:09-03:00","UsuarioInclusao":"BCSSUP","DataAlteracao":"2026-05-01T02:00:58-03:00","UsuarioAlteracao":"SYNC","HonorarioId":"5B50BAFB-BB29-8A1F-6065-17DD1459535F","HonorarioSigla":"P16"
+    }
+  ]
+}

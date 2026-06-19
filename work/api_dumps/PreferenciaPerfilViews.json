@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PreferenciaPerfilViews","value":[
+    {
+      "Id":"63b44540-f53e-552d-73a9-fb9384badb22","PreferenciaId":"5AF35F78-06E5-8102-B61A-D64849667A92","PerfilId":"63b44435-f519-bef5-4374-b6970e87aa5b","PerfilNome":"TS exce\u00e7\u00e3o","Nome":"PERIODO_CORTE_MENSAL","Valor":"N","DataInclusao":"2023-01-03T15:09:55.864657-03:00","UsuarioInclusao":"lr","DataAlteracao":"2023-01-03T15:09:55.864657-03:00","UsuarioAlteracao":"lr","Selecionado":false
+    }
+  ]
+}

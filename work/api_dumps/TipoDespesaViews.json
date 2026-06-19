@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoDespesaViews","value":[
+    {
+      "Id":"5AF36B13-1FE5-13DF-3B1B-118FA8A4E5FB","Codigo":"2","Descricao":"Buscas em Cart\u00f3rio","Localidade":"N","ValorUnitario":null,"Ativo":"N","DescricaoPadrao":null,"Cobravel":"S","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-22T14:37:37-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5AF36B15-1FE4-B0C2-685B-C189B70319EE","Codigo":"1","Descricao":"Autentica\u00e7\u00e3o","Localidade":"N","ValorUnitario":null,"Ativo":"S","DescricaoPadrao":null,"Cobravel":"S","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B16-1FFB-2C56-C1C1-967BB7D385E9","Codigo":"25","Descricao":"T\u00e1xi","Localidade":"N","ValorUnitario":null,"Ativo":"S","DescricaoPadrao":null,"Cobravel":"S","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B1A-1FF6-2F5F-9CED-9F4F744F4D23","Codigo":"20","Descricao":"Oficial de Justi\u00e7a","Localidade":"N","ValorUnitario":null,"Ativo":"N","DescricaoPadrao":null,"Cobravel":"S","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-22T14:39:09-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5AF36B26-1FEA-279A-77DD-6AAA96812C88","Codigo":"7","Descricao":"Custas Judiciais","Localidade":"N","ValorUnitario":null,"Ativo":"S","DescricaoPadrao":null,"Cobravel":"S","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

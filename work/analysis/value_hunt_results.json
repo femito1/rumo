@@ -1,0 +1,4965 @@
+[
+  {
+    "endpoint": "AlocacaoRecebimentoFaturaClienteJobViews",
+    "field": "ValorRecebido",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "C-5B0C60F4-9D41-9A1B-DD07-35E4962F3F5F-5EE38A95-D7CD-4581-85F7-E0462768E8B4-5EE35ED5-D540-0220-39C3-F5F9595D9AB5",
+      "Tipo": "CL",
+      "Numero": "1040"
+    }
+  },
+  {
+    "endpoint": "AlocacaoRecebimentoFaturaClienteJobViews",
+    "field": "ValorRecebido",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "C-5B0C610E-9D49-1E3C-D464-B6C1B6C22A72-5E39B167-CDCC-41BF-9A0A-83675515C91B-5E397B5C-C628-6DA8-8E9E-8E1E5718EE35",
+      "Tipo": "CL",
+      "Numero": "744"
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E397B5C-C628-6DA8-8E9E-8E1E5718EE35",
+      "DataEmissao": "2020-02-04T00:00:00-03:00",
+      "DataInclusao": "2020-02-04T14:09:48-03:00",
+      "Tipo": "F",
+      "Numero": "744",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B83D4-6922-0F5E-53A2-77C2C3028CF6",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:15:54-03:00",
+      "Tipo": "F",
+      "Numero": "848",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8BF2-696C-5627-6431-682CEDDA8BD1",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:49:24-03:00",
+      "Tipo": "F",
+      "Numero": "849",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE35ED5-D540-0220-39C3-F5F9595D9AB5",
+      "DataEmissao": "2020-06-12T00:00:00-03:00",
+      "DataInclusao": "2020-06-12T10:51:26-03:00",
+      "Tipo": "F",
+      "Numero": "1040",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19",
+      "DataEmissao": "2022-03-04T00:00:00-03:00",
+      "DataInclusao": "2022-03-04T16:35:35-03:00",
+      "Tipo": "F",
+      "Numero": "1919",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96",
+      "DataEmissao": "2022-04-18T00:00:00-03:00",
+      "DataInclusao": "2022-04-18T11:02:07-03:00",
+      "Tipo": "F",
+      "Numero": "1993",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623",
+      "DataEmissao": "2022-05-23T00:00:00-03:00",
+      "DataInclusao": "2022-05-23T12:01:54-03:00",
+      "Tipo": "F",
+      "Numero": "2041",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62B0CEB4-C882-BBBB-38FB-79368F3414E0",
+      "DataEmissao": "2022-06-20T00:00:00-03:00",
+      "DataInclusao": "2022-06-20T16:45:34-03:00",
+      "Tipo": "F",
+      "Numero": "2087",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62D9987B-F2AE-A8FF-3665-53BAF056A1F0",
+      "DataEmissao": "2022-07-21T00:00:00-03:00",
+      "DataInclusao": "2022-07-21T15:15:19-03:00",
+      "Tipo": "F",
+      "Numero": "2113",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6303EED8-39FC-B285-B64F-EC89B5C91342",
+      "DataEmissao": "2022-08-22T00:00:00-03:00",
+      "DataInclusao": "2022-08-22T17:58:31-03:00",
+      "Tipo": "F",
+      "Numero": "2141",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "632B22DB-92AF-011F-F618-AF893B0DD7E3",
+      "DataEmissao": "2022-09-21T00:00:00-03:00",
+      "DataInclusao": "2022-09-21T11:40:45-03:00",
+      "Tipo": "F",
+      "Numero": "2174",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6352D306-0E3D-39FB-B196-1C4B26B1E59F",
+      "DataEmissao": "2022-10-21T00:00:00-03:00",
+      "DataInclusao": "2022-10-21T14:11:44-03:00",
+      "Tipo": "F",
+      "Numero": "2207",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "637BD3F6-B6BF-D73A-E6FD-C789B8AE0D4C",
+      "DataEmissao": "2022-11-21T00:00:00-03:00",
+      "DataInclusao": "2022-11-21T16:36:54-03:00",
+      "Tipo": "F",
+      "Numero": "2246",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63A07937-7901-BFD6-ACAB-DB92FFB2F7B6",
+      "DataEmissao": "2022-12-19T00:00:00-03:00",
+      "DataInclusao": "2022-12-19T11:45:20-03:00",
+      "Tipo": "F",
+      "Numero": "2291",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63D045A6-B46E-ACB6-C34A-D15BDA24FB70",
+      "DataEmissao": "2023-01-24T00:00:00-03:00",
+      "DataInclusao": "2023-01-24T17:51:49-03:00",
+      "Tipo": "F",
+      "Numero": "2339",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63F6877E-9AB2-F0C6-BB66-4B3191B459F4",
+      "DataEmissao": "2023-02-22T00:00:00-03:00",
+      "DataInclusao": "2023-02-22T18:18:15-03:00",
+      "Tipo": "F",
+      "Numero": "2379",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "641A0662-2A48-AC93-75A0-40C33922B171",
+      "DataEmissao": "2023-03-21T00:00:00-03:00",
+      "DataInclusao": "2023-03-21T16:31:30-03:00",
+      "Tipo": "F",
+      "Numero": "2420",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "643D8B45-7CE3-CDB2-0E42-2BD98D635129",
+      "DataEmissao": "2023-04-17T00:00:00-03:00",
+      "DataInclusao": "2023-04-17T15:09:07-03:00",
+      "Tipo": "F",
+      "Numero": "2448",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64419569-1A4E-7644-3C4E-9EB92D3313F1",
+      "DataEmissao": "2023-04-20T00:00:00-03:00",
+      "DataInclusao": "2023-04-20T16:39:03-03:00",
+      "Tipo": "F",
+      "Numero": "2457",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "646BA639-5D1A-8D89-A8A1-D75A6644FC1B",
+      "DataEmissao": "2023-05-22T00:00:00-03:00",
+      "DataInclusao": "2023-05-22T14:26:03-03:00",
+      "Tipo": "F",
+      "Numero": "2496",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67EED8F4-4D8C-7B05-0CCA-83E61850B1DD",
+      "DataEmissao": "2025-04-03T00:00:00-03:00",
+      "DataInclusao": "2025-04-03T15:49:31-03:00",
+      "Tipo": "F",
+      "Numero": "3551",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68701075-2968-FC2B-9FA5-CC12B8BFDD11",
+      "DataEmissao": "2025-07-10T00:00:00-03:00",
+      "DataInclusao": "2025-07-10T16:07:46-03:00",
+      "Tipo": "F",
+      "Numero": "3715",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68E7A670-0598-56E8-9E3C-8B846C2F3FED",
+      "DataEmissao": "2025-10-09T00:00:00-03:00",
+      "DataInclusao": "2025-10-09T09:09:54-03:00",
+      "Tipo": "F",
+      "Numero": "3844",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E397B5C-C628-6DA8-8E9E-8E1E5718EE35",
+      "DataEmissao": "2020-02-04T00:00:00-03:00",
+      "DataInclusao": "2020-02-04T14:09:48-03:00",
+      "Tipo": "F",
+      "Numero": "744",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B83D4-6922-0F5E-53A2-77C2C3028CF6",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:15:54-03:00",
+      "Tipo": "F",
+      "Numero": "848",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8BF2-696C-5627-6431-682CEDDA8BD1",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:49:24-03:00",
+      "Tipo": "F",
+      "Numero": "849",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE35ED5-D540-0220-39C3-F5F9595D9AB5",
+      "DataEmissao": "2020-06-12T00:00:00-03:00",
+      "DataInclusao": "2020-06-12T10:51:26-03:00",
+      "Tipo": "F",
+      "Numero": "1040",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19",
+      "DataEmissao": "2022-03-04T00:00:00-03:00",
+      "DataInclusao": "2022-03-04T16:35:35-03:00",
+      "Tipo": "F",
+      "Numero": "1919",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96",
+      "DataEmissao": "2022-04-18T00:00:00-03:00",
+      "DataInclusao": "2022-04-18T11:02:07-03:00",
+      "Tipo": "F",
+      "Numero": "1993",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623",
+      "DataEmissao": "2022-05-23T00:00:00-03:00",
+      "DataInclusao": "2022-05-23T12:01:54-03:00",
+      "Tipo": "F",
+      "Numero": "2041",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62B0CEB4-C882-BBBB-38FB-79368F3414E0",
+      "DataEmissao": "2022-06-20T00:00:00-03:00",
+      "DataInclusao": "2022-06-20T16:45:34-03:00",
+      "Tipo": "F",
+      "Numero": "2087",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62D9987B-F2AE-A8FF-3665-53BAF056A1F0",
+      "DataEmissao": "2022-07-21T00:00:00-03:00",
+      "DataInclusao": "2022-07-21T15:15:19-03:00",
+      "Tipo": "F",
+      "Numero": "2113",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6303EED8-39FC-B285-B64F-EC89B5C91342",
+      "DataEmissao": "2022-08-22T00:00:00-03:00",
+      "DataInclusao": "2022-08-22T17:58:31-03:00",
+      "Tipo": "F",
+      "Numero": "2141",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "632B22DB-92AF-011F-F618-AF893B0DD7E3",
+      "DataEmissao": "2022-09-21T00:00:00-03:00",
+      "DataInclusao": "2022-09-21T11:40:45-03:00",
+      "Tipo": "F",
+      "Numero": "2174",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6352D306-0E3D-39FB-B196-1C4B26B1E59F",
+      "DataEmissao": "2022-10-21T00:00:00-03:00",
+      "DataInclusao": "2022-10-21T14:11:44-03:00",
+      "Tipo": "F",
+      "Numero": "2207",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "637BD3F6-B6BF-D73A-E6FD-C789B8AE0D4C",
+      "DataEmissao": "2022-11-21T00:00:00-03:00",
+      "DataInclusao": "2022-11-21T16:36:54-03:00",
+      "Tipo": "F",
+      "Numero": "2246",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63A07937-7901-BFD6-ACAB-DB92FFB2F7B6",
+      "DataEmissao": "2022-12-19T00:00:00-03:00",
+      "DataInclusao": "2022-12-19T11:45:20-03:00",
+      "Tipo": "F",
+      "Numero": "2291",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63D045A6-B46E-ACB6-C34A-D15BDA24FB70",
+      "DataEmissao": "2023-01-24T00:00:00-03:00",
+      "DataInclusao": "2023-01-24T17:51:49-03:00",
+      "Tipo": "F",
+      "Numero": "2339",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63F6877E-9AB2-F0C6-BB66-4B3191B459F4",
+      "DataEmissao": "2023-02-22T00:00:00-03:00",
+      "DataInclusao": "2023-02-22T18:18:15-03:00",
+      "Tipo": "F",
+      "Numero": "2379",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "641A0662-2A48-AC93-75A0-40C33922B171",
+      "DataEmissao": "2023-03-21T00:00:00-03:00",
+      "DataInclusao": "2023-03-21T16:31:30-03:00",
+      "Tipo": "F",
+      "Numero": "2420",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "643D8B45-7CE3-CDB2-0E42-2BD98D635129",
+      "DataEmissao": "2023-04-17T00:00:00-03:00",
+      "DataInclusao": "2023-04-17T15:09:07-03:00",
+      "Tipo": "F",
+      "Numero": "2448",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64419569-1A4E-7644-3C4E-9EB92D3313F1",
+      "DataEmissao": "2023-04-20T00:00:00-03:00",
+      "DataInclusao": "2023-04-20T16:39:03-03:00",
+      "Tipo": "F",
+      "Numero": "2457",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "646BA639-5D1A-8D89-A8A1-D75A6644FC1B",
+      "DataEmissao": "2023-05-22T00:00:00-03:00",
+      "DataInclusao": "2023-05-22T14:26:03-03:00",
+      "Tipo": "F",
+      "Numero": "2496",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67EED8F4-4D8C-7B05-0CCA-83E61850B1DD",
+      "DataEmissao": "2025-04-03T00:00:00-03:00",
+      "DataInclusao": "2025-04-03T15:49:31-03:00",
+      "Tipo": "F",
+      "Numero": "3551",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68701075-2968-FC2B-9FA5-CC12B8BFDD11",
+      "DataEmissao": "2025-07-10T00:00:00-03:00",
+      "DataInclusao": "2025-07-10T16:07:46-03:00",
+      "Tipo": "F",
+      "Numero": "3715",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "FaturaRedacaoViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68E7A670-0598-56E8-9E3C-8B846C2F3FED",
+      "DataEmissao": "2025-10-09T00:00:00-03:00",
+      "DataInclusao": "2025-10-09T09:09:54-03:00",
+      "Tipo": "F",
+      "Numero": "3844",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "PosicaoFinanceiraDespesaIncorridaViews",
+    "field": "Valor1",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1EF3B9-C0D9-3168-57D0-DBF5BBAFD143",
+      "AnoMes": "2025-03",
+      "Tipo": "DI",
+      "ProfissionalSigla": null,
+      "ProfissionalPessoaNome": null
+    }
+  },
+  {
+    "endpoint": "PosicaoFinanceiraDespesaIncorridaViews",
+    "field": "Valor2",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1EF431-C0DA-D981-92DA-7F5720D55484",
+      "AnoMes": "2025-03",
+      "Tipo": "DI",
+      "ProfissionalSigla": null,
+      "ProfissionalPessoaNome": null
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D525-FC4B-1F85-9311-A4D1A89448A7",
+      "DataEmissao": "2019-04-03T12:00:00-03:00",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC15741-44AE-3FCF-D079-2A0C1BA2E058",
+      "DataEmissao": "2019-11-05T12:00:00-03:00",
+      "DataInclusao": "2019-11-05T12:00:00-03:00",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DE7857D-CE69-595B-4ACA-3ED18C2D3426",
+      "DataEmissao": "2019-12-04T12:00:00-03:00",
+      "DataInclusao": "2019-12-04T13:00:00-02:00",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E30701D-A252-56E0-057F-E753B96652B1",
+      "DataEmissao": "2020-01-28T12:00:00-03:00",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E307143-A2AF-65FD-F182-56FC36A192EC",
+      "DataEmissao": "2020-01-28T12:00:00-03:00",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8A66-6945-423E-54B0-CBE6EF0BB5BC",
+      "DataEmissao": "2020-03-25T12:00:00-03:00",
+      "DataInclusao": "2020-03-25T12:00:00-03:00",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5ED54B87-921C-2463-A3FB-2A9458D7D816",
+      "DataEmissao": "2020-06-01T12:00:00-03:00",
+      "DataInclusao": "2020-06-01T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "642C3655-7FEA-07FE-EEBC-F69B9C17B1EE",
+      "DataEmissao": "2023-04-04T12:00:00-03:00",
+      "DataInclusao": "2023-04-04T12:00:00-03:00",
+      "ClientePessoaNome": "Solange Queiroz Ramiro Costa "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64A55EC6-B91B-4A50-DE76-160D5ADF9139",
+      "DataEmissao": "2023-07-05T12:00:00-03:00",
+      "DataInclusao": "2023-07-05T12:00:00-03:00",
+      "ClientePessoaNome": "Solange Queiroz Ramiro Costa "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA7624-A66C-09EB-BDE7-6810971790CF",
+      "DataEmissao": "2023-08-02T12:00:00-03:00",
+      "DataInclusao": "2023-08-02T12:00:00-03:00",
+      "ClientePessoaNome": "Marchini, Botelho Caselta - Sociedade de Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "660C56F7-FB0A-AFF6-DF2F-07D24EE5B47F",
+      "DataEmissao": "2024-04-02T12:00:00-03:00",
+      "DataInclusao": "2024-04-02T12:00:00-03:00",
+      "ClientePessoaNome": "Marchini, Botelho Caselta - Sociedade de Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67ED3C4B-13AB-684F-6CAA-820B219F4552",
+      "DataEmissao": "2025-04-02T12:00:00-03:00",
+      "DataInclusao": "2025-04-02T12:00:00-03:00",
+      "ClientePessoaNome": "Orizon Valorização de Resíduos S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "690B5458-851C-7E82-D2BC-75B97013CD1E",
+      "DataEmissao": "2025-11-05T12:00:00-03:00",
+      "DataInclusao": "2025-11-05T12:00:00-03:00",
+      "ClientePessoaNome": "Orizon Valorização de Resíduos S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69302A32-7436-F281-F28B-9B433F4CABC3",
+      "DataEmissao": "2025-12-03T12:00:00-03:00",
+      "DataInclusao": "2025-12-03T12:00:00-03:00",
+      "ClientePessoaNome": "Orizon Valorização de Resíduos S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69824EA3-2767-4096-1351-FD91DE2CE6FB",
+      "DataEmissao": "2026-02-03T12:00:00-03:00",
+      "DataInclusao": "2026-02-03T12:00:00-03:00",
+      "ClientePessoaNome": "Orizon Valorização de Resíduos S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D525-FC4B-1F85-9311-A4D1A89448A7",
+      "DataEmissao": "2019-04-03T12:00:00-03:00",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC15741-44AE-3FCF-D079-2A0C1BA2E058",
+      "DataEmissao": "2019-11-05T12:00:00-03:00",
+      "DataInclusao": "2019-11-05T12:00:00-03:00",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DE7857D-CE69-595B-4ACA-3ED18C2D3426",
+      "DataEmissao": "2019-12-04T12:00:00-03:00",
+      "DataInclusao": "2019-12-04T13:00:00-02:00",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E30701D-A252-56E0-057F-E753B96652B1",
+      "DataEmissao": "2020-01-28T12:00:00-03:00",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E307143-A2AF-65FD-F182-56FC36A192EC",
+      "DataEmissao": "2020-01-28T12:00:00-03:00",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8A66-6945-423E-54B0-CBE6EF0BB5BC",
+      "DataEmissao": "2020-03-25T12:00:00-03:00",
+      "DataInclusao": "2020-03-25T12:00:00-03:00",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5ED54B87-921C-2463-A3FB-2A9458D7D816",
+      "DataEmissao": "2020-06-01T12:00:00-03:00",
+      "DataInclusao": "2020-06-01T12:00:00-03:00",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63DC02CD-C25F-FA41-F69D-259ED070533F",
+      "DataEmissao": "2023-02-02T12:00:00-03:00",
+      "DataInclusao": "2023-02-02T12:00:00-03:00",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6400C3DB-F2F2-9D89-BE40-3E615EAC96F0",
+      "DataEmissao": "2023-03-02T12:00:00-03:00",
+      "DataInclusao": "2023-03-02T12:00:00-03:00",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "642C3655-7FEA-07FE-EEBC-F69B9C17B1EE",
+      "DataEmissao": "2023-04-04T12:00:00-03:00",
+      "DataInclusao": "2023-04-04T12:00:00-03:00",
+      "ClientePessoaNome": "Solange Queiroz Ramiro Costa "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64A55EC6-B91B-4A50-DE76-160D5ADF9139",
+      "DataEmissao": "2023-07-05T12:00:00-03:00",
+      "DataInclusao": "2023-07-05T12:00:00-03:00",
+      "ClientePessoaNome": "Solange Queiroz Ramiro Costa "
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA7624-A66C-09EB-BDE7-6810971790CF",
+      "DataEmissao": "2023-08-02T12:00:00-03:00",
+      "DataInclusao": "2023-08-02T12:00:00-03:00",
+      "ClientePessoaNome": "Marchini, Botelho Caselta - Sociedade de Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaViews",
+    "field": "ValorTimesheets",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "660C56F7-FB0A-AFF6-DF2F-07D24EE5B47F",
+      "DataEmissao": "2024-04-02T12:00:00-03:00",
+      "DataInclusao": "2024-04-02T12:00:00-03:00",
+      "ClientePessoaNome": "Marchini, Botelho Caselta - Sociedade de Advogados"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5BABE7DC-C3AB-8911-2A19-B8A8045004AA",
+      "DataInclusao": "2018-09-26T12:00:00-03:00",
+      "CasoCodigo": "6",
+      "CasoAssunto": "Marcelo Carneiro (Beertech/Afrebras)."
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D516-FC7F-2C38-E430-840267A1DEC2",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "CasoCodigo": "17",
+      "CasoAssunto": "Ação de Cobrança - Ruppental Representações"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC1575F-44DC-5418-76C3-FE7B8DAD5A41",
+      "DataInclusao": "2019-11-05T12:00:00-03:00",
+      "CasoCodigo": "2",
+      "CasoAssunto": "Consultas Diversas "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E306D7F-A242-6B07-2300-10382D073F46",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E307026-A276-193E-AAF4-5F4368CC759C",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E3071FE-A307-8F38-D634-9BB60E0D44DF",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E726BCB-343D-8852-C378-9632551051AE",
+      "DataInclusao": "2020-03-18T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8A82-6969-38A2-FD65-C3BF5D049C76",
+      "DataInclusao": "2020-03-25T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE00A47-1DFD-1AEF-D2E8-AF55B17CA837",
+      "DataInclusao": "2020-06-09T12:00:00-03:00",
+      "CasoCodigo": "6",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "609453BE-C916-D837-145E-F2FA4F79978F",
+      "DataInclusao": "2021-05-06T12:00:00-03:00",
+      "CasoCodigo": "3",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62F3CEBF-1B11-2C0B-7B70-EE28D576D22D",
+      "DataInclusao": "2022-08-10T12:00:00-03:00",
+      "CasoCodigo": "5",
+      "CasoAssunto": "Consultas Gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63DD0EFC-1122-B62D-3E3A-8A7D73D8939F",
+      "DataInclusao": "2023-02-03T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64124756-83BD-5C15-A658-4A2237806948",
+      "DataInclusao": "2023-03-15T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64370608-4489-B4BA-DADB-4CCE7D9CF238",
+      "DataInclusao": "2023-04-12T12:00:00-03:00",
+      "CasoCodigo": "5",
+      "CasoAssunto": "Consultas Gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64ADB1EF-02C2-9EF0-597A-0DB7ECE7AFAA",
+      "DataInclusao": "2023-07-11T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Inventário e Falência - análise e revisão de contratos de prestação de serviços"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA7665-A69A-3BB0-88B4-C41B10000C77",
+      "DataInclusao": "2023-08-02T12:00:00-03:00",
+      "CasoCodigo": "11",
+      "CasoAssunto": "Honorários de Êxito Multipark"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6865750E-FFD8-A790-9270-F567D5A98E4D",
+      "DataInclusao": "2025-07-02T12:00:00-03:00",
+      "CasoCodigo": "3",
+      "CasoAssunto": "Consultas Gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorDespesa",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67ED3D0A-14C1-1BE0-A0FC-A0741655E0FB",
+      "DataInclusao": "2025-04-02T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorDespesa",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "690B54AA-854B-B6D2-D87C-83E7BD8BD7B5",
+      "DataInclusao": "2025-11-05T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorDespesa",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69302A31-7465-C8BD-A100-47A375FC05C2",
+      "DataInclusao": "2025-12-03T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorDespesa",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69824EC2-278C-1CDD-6208-E00D961A0376",
+      "DataInclusao": "2026-02-03T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "ValorTimeSheetTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D516-FC7F-2C38-E430-840267A1DEC2",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "CasoCodigo": "17",
+      "CasoAssunto": "Ação de Cobrança - Ruppental Representações"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaContratoValorTimesheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC1575F-44DC-5418-76C3-FE7B8DAD5A41",
+      "DataInclusao": "2019-11-05T12:00:00-03:00",
+      "CasoCodigo": "2",
+      "CasoAssunto": "Consultas Diversas "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaContratoValorTimesheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "609453BE-C916-D837-145E-F2FA4F79978F",
+      "DataInclusao": "2021-05-06T12:00:00-03:00",
+      "CasoCodigo": "3",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaContratoValorTimesheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA7665-A69A-3BB0-88B4-C41B10000C77",
+      "DataInclusao": "2023-08-02T12:00:00-03:00",
+      "CasoCodigo": "11",
+      "CasoAssunto": "Honorários de Êxito Multipark"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaContratoValorTimesheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6865750E-FFD8-A790-9270-F567D5A98E4D",
+      "DataInclusao": "2025-07-02T12:00:00-03:00",
+      "CasoCodigo": "3",
+      "CasoAssunto": "Consultas Gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D4BA-FC7D-3E85-2A1C-894842F11FC4",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D4C9-FC7E-39A7-C7C3-A3FF0349B9ED",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "CasoCodigo": "12",
+      "CasoAssunto": "Ação de Cobrança - Uelton Antonio Benfica e Cia Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5CA4D516-FC7F-2C38-E430-840267A1DEC2",
+      "DataInclusao": "2019-04-03T12:00:00-03:00",
+      "CasoCodigo": "17",
+      "CasoAssunto": "Ação de Cobrança - Ruppental Representações"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC1575F-44DC-5418-76C3-FE7B8DAD5A41",
+      "DataInclusao": "2019-11-05T12:00:00-03:00",
+      "CasoCodigo": "2",
+      "CasoAssunto": "Consultas Diversas "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E307026-A276-193E-AAF4-5F4368CC759C",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E3071FE-A307-8F38-D634-9BB60E0D44DF",
+      "DataInclusao": "2020-01-28T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E726BCB-343D-8852-C378-9632551051AE",
+      "DataInclusao": "2020-03-18T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8A82-6969-38A2-FD65-C3BF5D049C76",
+      "DataInclusao": "2020-03-25T12:00:00-03:00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE00A47-1DFD-1AEF-D2E8-AF55B17CA837",
+      "DataInclusao": "2020-06-09T12:00:00-03:00",
+      "CasoCodigo": "6",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações "
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64370608-4489-B4BA-DADB-4CCE7D9CF238",
+      "DataInclusao": "2023-04-12T12:00:00-03:00",
+      "CasoCodigo": "5",
+      "CasoAssunto": "Consultas Gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64ADB1EF-02C2-9EF0-597A-0DB7ECE7AFAA",
+      "DataInclusao": "2023-07-11T12:00:00-03:00",
+      "CasoCodigo": "8",
+      "CasoAssunto": "Inventário e Falência - análise e revisão de contratos de prestação de serviços"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA7665-A69A-3BB0-88B4-C41B10000C77",
+      "DataInclusao": "2023-08-02T12:00:00-03:00",
+      "CasoCodigo": "11",
+      "CasoAssunto": "Honorários de Êxito Multipark"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "662908EC-0B2E-4C21-295F-9382DA30A38B",
+      "DataInclusao": "2024-04-24T12:00:00-03:00",
+      "CasoCodigo": "7",
+      "CasoAssunto": "Contencioso - horas elegíveis administrativas/promocionais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "66290919-0B31-5FD1-08BE-FD49F371EBC9",
+      "DataInclusao": "2024-04-24T12:00:00-03:00",
+      "CasoCodigo": "2",
+      "CasoAssunto": "Trabalhos Administrativos Elegíveis."
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67ED3D0A-14C1-1BE0-A0FC-A0741655E0FB",
+      "DataInclusao": "2025-04-02T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "690B54AA-854B-B6D2-D87C-83E7BD8BD7B5",
+      "DataInclusao": "2025-11-05T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69302A31-7465-C8BD-A100-47A375FC05C2",
+      "DataInclusao": "2025-12-03T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaCasoViews",
+    "field": "PreFaturaValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "69824EC2-278C-1CDD-6208-E00D961A0376",
+      "DataInclusao": "2026-02-03T12:00:00-03:00",
+      "CasoCodigo": "9",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaDespesaViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67ED3CD7-14C6-4628-6737-2B61A1308FFC",
+      "Data": "2025-03-26T12:00:00-03:00",
+      "Descricao": "Custas Judiciais\r\n\r\nDespesas de cliente 84 caso 09 - emissão de relatórios referentes a due diligence, solicitado pelo sócio MV.",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "9",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaDespesaViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "690B5431-8550-B884-C50F-33B5A6EAA2D4",
+      "Data": "2025-03-26T12:00:00-03:00",
+      "Descricao": "Custas Judiciais\r\n\r\nDespesas de cliente 84 caso 09 - emissão de relatórios referentes a due diligence, solicitado pelo sócio MV.",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "9",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaDespesaViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "693029A7-746A-E36D-3833-7479332534A4",
+      "Data": "2025-03-26T12:00:00-03:00",
+      "Descricao": "Custas Judiciais\r\n\r\nDespesas de cliente 84 caso 09 - emissão de relatórios referentes a due diligence, solicitado pelo sócio MV.",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "9",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Due Diligence"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6092EFBA-AB29-E218-9277-55881A3260C3",
+      "DataInclusao": "2021-05-05T16:19:17-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6092F02A-AB2A-0056-4570-57F8E68B8856",
+      "DataInclusao": "2021-05-05T16:19:17-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6094538F-C945-3738-E48E-C66A866BC6C8",
+      "DataInclusao": "2021-05-06T17:35:14-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "609453CD-C946-2642-0770-47A76EFE75B3",
+      "DataInclusao": "2021-05-06T17:35:14-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B7B9A6-E5A4-E512-C0E6-87877595A1BB",
+      "DataInclusao": "2021-06-02T14:00:28-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação ATC e Telxius (Ato de Concentração nº 08700.000821/2021-01)"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B7BA0D-E5A5-5523-CD3D-5D58EC6A9096",
+      "DataInclusao": "2021-06-02T14:00:28-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação TIM e IHS"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6109856A-C8FF-24E4-4716-5950BBC25086",
+      "DataInclusao": "2021-08-03T15:03:00-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Consultas diversas"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "610985C0-C8FE-3411-EF9F-7857622C4113",
+      "DataInclusao": "2021-08-03T15:03:00-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Parecer Projeto Líbano III - Análise do dever de notificação ao Cade"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1E4A-FD96-D379-0EA6-7B567C8B3CA4",
+      "DataInclusao": "2021-10-04T12:27:40-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação Cade - FIP DX Ventures | Amata"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615F6B71-9107-04B4-4963-899B2A2893B6",
+      "DataInclusao": "2021-10-07T18:46:37-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61969394-F2BD-8A44-8BBA-D22BE8BBCA81",
+      "DataInclusao": "2021-11-18T14:55:22-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62267015-98B8-1DE1-3481-36F97B3C7460",
+      "DataInclusao": "2022-03-07T17:46:58-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "Revisão concorrencial de prática de benchmarking - trabalhos adicionais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6227559B-85D5-B0A1-DDFF-52F01DF32814",
+      "DataInclusao": "2022-03-08T10:09:30-03:00",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "Revisão concorrencial de prática de benchmarking - trabalhos adicionais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E979ED-D61C-E123-58AE-DEE281D90D67",
+      "DataInclusao": "2022-08-02T16:24:18-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E97AB8-D66E-102E-4743-026BE1A0C74F",
+      "DataInclusao": "2022-08-02T16:24:19-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Ação Civil Pública FUP\r\n"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E97F69-DE31-AD3D-96A7-E04B98021546",
+      "DataInclusao": "2022-08-02T16:45:16-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63125E23-EB6A-291F-891E-9188B27662D7",
+      "DataInclusao": "2022-09-02T16:46:32-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "633C8572-4CC5-E917-0011-74B25BA95895",
+      "DataInclusao": "2022-10-04T16:08:09-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63BC4C78-7BEA-366E-834E-A110F747E540",
+      "DataInclusao": "2023-01-09T14:16:17-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Ação Civil Pública FUP\r\n"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "647A6868-7056-3E70-7889-033E2333F9FD",
+      "DataInclusao": "2023-06-02T19:06:03-03:00",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Ação Civil Pública FUP\r\n"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60917C51-C246-A0D8-BCED-3155F550C4A1",
+      "DataInclusao": "2021-05-04T13:51:25-03:00",
+      "ProfissionalSigla": "IU",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Isabelle Tiemi Nakao Ueda",
+      "CasoAssunto": "Reply to Cade RFI - Merger Filing No. 08700.004426/2020-17 (Bus Serviços/J3)"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945347-C94A-3160-9EBC-6773C03ADC16",
+      "DataInclusao": "2021-05-06T17:35:14-03:00",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1DC7-FC1C-2F2A-4C61-E3B624AE0D3B",
+      "DataInclusao": "2021-10-04T12:27:37-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Representação Sabbá"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62716A59-B04B-D493-DB9E-6CC17D3AC884",
+      "DataInclusao": "2022-05-03T14:44:19-03:00",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "683F396B-A3EF-6314-8456-734495955D22",
+      "DataInclusao": "2025-06-03T15:02:02-03:00",
+      "ProfissionalSigla": "ASG",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Andrielly da Silva Gonsalves",
+      "CasoAssunto": "Assessoria e Monitoramento (Etapa 3) - Cade"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5C5C2314-3668-71D5-7DF4-7DD679DE4C82",
+      "DataInclusao": "2019-02-07T12:20:18-02:00",
+      "ProfissionalSigla": "TK",
+      "CasoCodigo": "15",
+      "ProfissionalPessoaNome": "Tatiana Amar Kauffmann",
+      "CasoAssunto": "Análise Contratual "
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945347-C94A-3160-9EBC-6773C03ADC16",
+      "DataInclusao": "2021-05-06T17:35:14-03:00",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1DC7-FC1C-2F2A-4C61-E3B624AE0D3B",
+      "DataInclusao": "2021-10-04T12:27:37-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Representação Sabbá"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62716A59-B04B-D493-DB9E-6CC17D3AC884",
+      "DataInclusao": "2022-05-03T14:44:19-03:00",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62DEF008-B92D-8476-7A35-E4B22FD69A33",
+      "DataInclusao": "2022-07-25T16:32:26-03:00",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas gerais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5C5C2314-3668-71D5-7DF4-7DD679DE4C82",
+      "DataInclusao": "2019-02-07T12:20:18-02:00",
+      "ProfissionalSigla": "TK",
+      "CasoCodigo": "15",
+      "ProfissionalPessoaNome": "Tatiana Amar Kauffmann",
+      "CasoAssunto": "Análise Contratual "
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5D6FB5B7-3BF1-162E-6C7D-399466098426",
+      "DataInclusao": "2019-09-04T13:01:04-03:00",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Consultas Diversas "
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945347-C94A-3160-9EBC-6773C03ADC16",
+      "DataInclusao": "2021-05-06T17:35:14-03:00",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1DC7-FC1C-2F2A-4C61-E3B624AE0D3B",
+      "DataInclusao": "2021-10-04T12:27:37-03:00",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Representação Sabbá"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62716A59-B04B-D493-DB9E-6CC17D3AC884",
+      "DataInclusao": "2022-05-03T14:44:19-03:00",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court"
+    }
+  },
+  {
+    "endpoint": "PreFaturaProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62DEF008-B92D-8476-7A35-E4B22FD69A33",
+      "DataInclusao": "2022-07-25T16:32:26-03:00",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas gerais"
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E397B5C-C628-6DA8-8E9E-8E1E5718EE35",
+      "DataEmissao": "2020-02-04T00:00:00-03:00",
+      "DataInclusao": "2020-02-04T14:09:48-03:00",
+      "Tipo": "F",
+      "Numero": "744",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B83D4-6922-0F5E-53A2-77C2C3028CF6",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:15:54-03:00",
+      "Tipo": "F",
+      "Numero": "848",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8BF2-696C-5627-6431-682CEDDA8BD1",
+      "DataEmissao": "2020-03-25T00:00:00-03:00",
+      "DataInclusao": "2020-03-25T16:49:24-03:00",
+      "Tipo": "F",
+      "Numero": "849",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE35ED5-D540-0220-39C3-F5F9595D9AB5",
+      "DataEmissao": "2020-06-12T00:00:00-03:00",
+      "DataInclusao": "2020-06-12T10:51:26-03:00",
+      "Tipo": "F",
+      "Numero": "1040",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19",
+      "DataEmissao": "2022-03-04T00:00:00-03:00",
+      "DataInclusao": "2022-03-04T16:35:35-03:00",
+      "Tipo": "F",
+      "Numero": "1919",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96",
+      "DataEmissao": "2022-04-18T00:00:00-03:00",
+      "DataInclusao": "2022-04-18T11:02:07-03:00",
+      "Tipo": "F",
+      "Numero": "1993",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623",
+      "DataEmissao": "2022-05-23T00:00:00-03:00",
+      "DataInclusao": "2022-05-23T12:01:54-03:00",
+      "Tipo": "F",
+      "Numero": "2041",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62B0CEB4-C882-BBBB-38FB-79368F3414E0",
+      "DataEmissao": "2022-06-20T00:00:00-03:00",
+      "DataInclusao": "2022-06-20T16:45:34-03:00",
+      "Tipo": "F",
+      "Numero": "2087",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62D9987B-F2AE-A8FF-3665-53BAF056A1F0",
+      "DataEmissao": "2022-07-21T00:00:00-03:00",
+      "DataInclusao": "2022-07-21T15:15:19-03:00",
+      "Tipo": "F",
+      "Numero": "2113",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6303EED8-39FC-B285-B64F-EC89B5C91342",
+      "DataEmissao": "2022-08-22T00:00:00-03:00",
+      "DataInclusao": "2022-08-22T17:58:31-03:00",
+      "Tipo": "F",
+      "Numero": "2141",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "632B22DB-92AF-011F-F618-AF893B0DD7E3",
+      "DataEmissao": "2022-09-21T00:00:00-03:00",
+      "DataInclusao": "2022-09-21T11:40:45-03:00",
+      "Tipo": "F",
+      "Numero": "2174",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6352D306-0E3D-39FB-B196-1C4B26B1E59F",
+      "DataEmissao": "2022-10-21T00:00:00-03:00",
+      "DataInclusao": "2022-10-21T14:11:44-03:00",
+      "Tipo": "F",
+      "Numero": "2207",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "637BD3F6-B6BF-D73A-E6FD-C789B8AE0D4C",
+      "DataEmissao": "2022-11-21T00:00:00-03:00",
+      "DataInclusao": "2022-11-21T16:36:54-03:00",
+      "Tipo": "F",
+      "Numero": "2246",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63A07937-7901-BFD6-ACAB-DB92FFB2F7B6",
+      "DataEmissao": "2022-12-19T00:00:00-03:00",
+      "DataInclusao": "2022-12-19T11:45:20-03:00",
+      "Tipo": "F",
+      "Numero": "2291",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63D045A6-B46E-ACB6-C34A-D15BDA24FB70",
+      "DataEmissao": "2023-01-24T00:00:00-03:00",
+      "DataInclusao": "2023-01-24T17:51:49-03:00",
+      "Tipo": "F",
+      "Numero": "2339",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63F6877E-9AB2-F0C6-BB66-4B3191B459F4",
+      "DataEmissao": "2023-02-22T00:00:00-03:00",
+      "DataInclusao": "2023-02-22T18:18:15-03:00",
+      "Tipo": "F",
+      "Numero": "2379",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "641A0662-2A48-AC93-75A0-40C33922B171",
+      "DataEmissao": "2023-03-21T00:00:00-03:00",
+      "DataInclusao": "2023-03-21T16:31:30-03:00",
+      "Tipo": "F",
+      "Numero": "2420",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "643D8B45-7CE3-CDB2-0E42-2BD98D635129",
+      "DataEmissao": "2023-04-17T00:00:00-03:00",
+      "DataInclusao": "2023-04-17T15:09:07-03:00",
+      "Tipo": "F",
+      "Numero": "2448",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64419569-1A4E-7644-3C4E-9EB92D3313F1",
+      "DataEmissao": "2023-04-20T00:00:00-03:00",
+      "DataInclusao": "2023-04-20T16:39:03-03:00",
+      "Tipo": "F",
+      "Numero": "2457",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "646BA639-5D1A-8D89-A8A1-D75A6644FC1B",
+      "DataEmissao": "2023-05-22T00:00:00-03:00",
+      "DataInclusao": "2023-05-22T14:26:03-03:00",
+      "Tipo": "F",
+      "Numero": "2496",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "67EED8F4-4D8C-7B05-0CCA-83E61850B1DD",
+      "DataEmissao": "2025-04-03T00:00:00-03:00",
+      "DataInclusao": "2025-04-03T15:49:31-03:00",
+      "Tipo": "F",
+      "Numero": "3551",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68701075-2968-FC2B-9FA5-CC12B8BFDD11",
+      "DataEmissao": "2025-07-10T00:00:00-03:00",
+      "DataInclusao": "2025-07-10T16:07:46-03:00",
+      "Tipo": "F",
+      "Numero": "3715",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioViews",
+    "field": "ValorDespesas",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68E7A670-0598-56E8-9E3C-8B846C2F3FED",
+      "DataEmissao": "2025-10-09T00:00:00-03:00",
+      "DataInclusao": "2025-10-09T09:09:54-03:00",
+      "Tipo": "F",
+      "Numero": "3844",
+      "ClientePessoaNome": null
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D637-BBB6-1CCF-3380-1906E769D6C1",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D644-B432-0F21-9CF8-08D140F00C0E",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D651-B5A2-651E-3A37-18937BABD9CF",
+      "AnoMes": "2020-04",
+      "DataAnoMes": "2020-04-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas Diversas ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6A3-BB4C-5DBF-6392-9285E172F51A",
+      "AnoMes": "2020-04",
+      "DataAnoMes": "2020-04-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas Diversas ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6A5-B9DC-8301-3949-CD1B3A817260",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6BD-B997-3EF4-BA2C-AC2F67620225",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6C8-B60C-C6CC-16AA-B253706FCDFB",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6D6-B3ED-48A7-9DB1-112D6FD21506",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD5F0-ACCE-1FB9-C53F-2FBC5D7A5550",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD60E-ACCD-86AB-6AFF-77B10EAA326C",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD6AA-ACC5-C28C-81E6-9131CE010FA6",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD6B6-ACC6-406E-2050-841E80F90AFC",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61F0D5CD-BA08-7C37-8590-3D83BC85D325",
+      "AnoMes": "2022-01",
+      "DataAnoMes": "2022-01-01T12:00:00Z",
+      "DataInclusao": "2022-01-26T02:00:34-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61F0D66C-BA0F-65CB-413B-CE07A59A0F1C",
+      "AnoMes": "2022-01",
+      "DataAnoMes": "2022-01-01T12:00:00Z",
+      "DataInclusao": "2022-01-26T02:00:34-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61FCB2FA-C998-A655-586A-25E26EDFD1FD",
+      "AnoMes": "2022-02",
+      "DataAnoMes": "2022-02-01T12:00:00Z",
+      "DataInclusao": "2022-02-04T02:00:30-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Guaratinguetá Ambiental SAEG",
+      "ClientePessoaNome": "Iguá  Saneamento S.A. - Águas Cuiabá S.A."
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61FCB3CF-C990-80C7-FDB1-F591FA8E0EEA",
+      "AnoMes": "2022-02",
+      "DataAnoMes": "2022-02-01T12:00:00Z",
+      "DataInclusao": "2022-02-04T02:00:29-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Guaratinguetá Ambiental SAEG",
+      "ClientePessoaNome": "Iguá  Saneamento S.A. - Águas Cuiabá S.A."
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62565934-DB43-DC1D-FC07-A700362A613C",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-13T02:01:12-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "FAS",
+      "CasoCodigo": "4",
+      "ProfissionalPessoaNome": "Felipe Augusto Costa Siqueira",
+      "CasoAssunto": "Consultas Gerais",
+      "ClientePessoaNome": "American Tower do Brasil - Cessão de Infraestruturas Ltda"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625659CB-DB50-6552-AE54-F11A91FFB6EF",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-13T02:01:12-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "FAS",
+      "CasoCodigo": "4",
+      "ProfissionalPessoaNome": "Felipe Augusto Costa Siqueira",
+      "CasoAssunto": "Consultas Gerais",
+      "ClientePessoaNome": "American Tower do Brasil - Cessão de Infraestruturas Ltda"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "627B4371-059C-922A-95AE-C9B2E180558D",
+      "AnoMes": "2022-05",
+      "DataAnoMes": "2022-05-01T12:00:00Z",
+      "DataInclusao": "2022-05-11T02:00:49-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court",
+      "ClientePessoaNome": "Dachser SE "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorFaturado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "627B43C3-05BA-BCFD-3AB4-CE36FDE3697B",
+      "AnoMes": "2022-05",
+      "DataAnoMes": "2022-05-01T12:00:00Z",
+      "DataInclusao": "2022-05-11T02:00:49-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court",
+      "ClientePessoaNome": "Dachser SE "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D637-BBB6-1CCF-3380-1906E769D6C1",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D644-B432-0F21-9CF8-08D140F00C0E",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D651-B5A2-651E-3A37-18937BABD9CF",
+      "AnoMes": "2020-04",
+      "DataAnoMes": "2020-04-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas Diversas ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D665-BB3F-ACDA-E9A3-8815C1E0FDEC",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6A3-BB4C-5DBF-6392-9285E172F51A",
+      "AnoMes": "2020-04",
+      "DataAnoMes": "2020-04-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Consultas Diversas ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6A5-B9DC-8301-3949-CD1B3A817260",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6B1-BCB1-474D-A636-34FFECACA758",
+      "AnoMes": "2019-10",
+      "DataAnoMes": "2019-10-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Notificações TCFA - IBAMA ",
+      "ClientePessoaNome": "Pic Química e Farmacêutica Ltda."
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6BD-B997-3EF4-BA2C-AC2F67620225",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6C8-B60C-C6CC-16AA-B253706FCDFB",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6D6-B3ED-48A7-9DB1-112D6FD21506",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6D6-B595-25F2-ABAA-F152B673B6E4",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6E2-B707-5DC2-2BBC-740AF936CCF4",
+      "AnoMes": "2019-10",
+      "DataAnoMes": "2019-10-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "Notificações TCFA - IBAMA ",
+      "ClientePessoaNome": "Pic Química e Farmacêutica Ltda."
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5FBC93DA-58D9-5C5B-5DFA-40134ED9A145",
+      "AnoMes": "2020-11",
+      "DataAnoMes": "2020-11-01T12:00:00Z",
+      "DataInclusao": "2020-11-24T02:00:08-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5FBC942F-58D3-05DD-C6AA-EA7A25FBA760",
+      "AnoMes": "2020-11",
+      "DataAnoMes": "2020-11-01T12:00:00Z",
+      "DataInclusao": "2020-11-24T02:00:08-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "DC",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Daniel Costa Caselta",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD5F0-ACCE-1FB9-C53F-2FBC5D7A5550",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD60E-ACCD-86AB-6AFF-77B10EAA326C",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD6AA-ACC5-C28C-81E6-9131CE010FA6",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60ADD6B6-ACC6-406E-2050-841E80F90AFC",
+      "AnoMes": "2021-05",
+      "DataAnoMes": "2021-05-01T12:00:00Z",
+      "DataInclusao": "2021-05-26T02:00:24-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60C43FF4-5BBB-439A-A968-83F5527331E1",
+      "AnoMes": "2021-06",
+      "DataAnoMes": "2021-06-01T12:00:00Z",
+      "DataInclusao": "2021-06-12T02:00:35-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "ValorTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60C44065-5BAC-26E5-DB44-990DA96CBABC",
+      "AnoMes": "2021-06",
+      "DataAnoMes": "2021-06-01T12:00:00Z",
+      "DataInclusao": "2021-06-12T02:00:35-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira",
+      "ClientePessoaNome": "KCI Brazil Holdings LLC"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D637-BBB6-1CCF-3380-1906E769D6C1",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D644-B432-0F21-9CF8-08D140F00C0E",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D665-BB3F-ACDA-E9A3-8815C1E0FDEC",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6A5-B9DC-8301-3949-CD1B3A817260",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6BD-B997-3EF4-BA2C-AC2F67620225",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:24-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6C8-B60C-C6CC-16AA-B253706FCDFB",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6D6-B3ED-48A7-9DB1-112D6FD21506",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME ",
+      "ClientePessoaNome": "Sherwin-Williams do Brasil Indústria e Comércio Ltda. "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F15D6D6-B595-25F2-ABAA-F152B673B6E4",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": "2020-07-20T14:36:22-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "Questões concorrenciais",
+      "ClientePessoaNome": "Perlman Vidigal Godoy Advogados"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EE6E-CE36-C30E-0ADC-7536E2C8571B",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EE7B-CE38-830D-51BB-C280C43FC25B",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EE85-CE3C-52AB-5F0B-A1E3EAC98D4A",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EEA8-CE39-16EB-92DD-BA7E1260EFB0",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EECF-CE3D-6B57-A73A-F9A3F551017E",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6222EF3A-CE3A-5560-8E87-0BF3AA287375",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": "2022-03-05T02:00:30-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E4203-0CB6-E007-0555-0AFA2F9CF49C",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:38-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E4233-0CD4-25BD-AA12-CF0E90967B5B",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:39-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "ESC",
+      "CasoCodigo": "8",
+      "ProfissionalPessoaNome": "Profissional que representa o escritório",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E4251-0CBA-9995-9A06-B8B7BBA56CCE",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:38-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E4257-0CCD-83BD-6F58-96647F86127A",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:39-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VA",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Victor Gualda de Freitas Rodriguez Adame",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec ",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E4271-0CB8-630F-C252-37D2A4156D45",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:38-03:00",
+      "Tipo": "O",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaProfissionalViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625E42AC-0CCB-E00B-D225-3CF180E6DD2E",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": "2022-04-19T02:00:39-03:00",
+      "Tipo": "R",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "6",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP",
+      "ClientePessoaNome": "VLI Multimodal S.A"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E397B5C-C628-6DA8-8E9E-8E1E5718EE35-5B0C610E-9D49-1E3C-D464-B6C1B6C22A72-2019-12",
+      "AnoMes": "2019-12",
+      "DataAnoMes": "2019-12-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E397B5C-C628-6DA8-8E9E-8E1E5718EE35-5B0C610E-9D49-1E3C-D464-B6C1B6C22A72-2020-02",
+      "AnoMes": "2020-02",
+      "DataAnoMes": "2020-02-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "8",
+      "CasoAssunto": "Ação de Cobrança - Matos & Alves Representações Ltda. ME "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B83D4-6922-0F5E-53A2-77C2C3028CF6-5DD297A3-E219-2A6B-4CC0-F6A8C082625F-2019-11",
+      "AnoMes": "2019-11",
+      "DataAnoMes": "2019-11-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B83D4-6922-0F5E-53A2-77C2C3028CF6-5DD297A3-E219-2A6B-4CC0-F6A8C082625F-2020-03",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8BF2-696C-5627-6431-682CEDDA8BD1-5DD297A3-E219-2A6B-4CC0-F6A8C082625F-2019-11",
+      "AnoMes": "2019-11",
+      "DataAnoMes": "2019-11-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E7B8BF2-696C-5627-6431-682CEDDA8BD1-5DD297A3-E219-2A6B-4CC0-F6A8C082625F-2020-03",
+      "AnoMes": "2020-03",
+      "DataAnoMes": "2020-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "1",
+      "CasoAssunto": "Questões concorrenciais"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE35ED5-D540-0220-39C3-F5F9595D9AB5-5B0C60F4-9D41-9A1B-DD07-35E4962F3F5F-2020-05",
+      "AnoMes": "2020-05",
+      "DataAnoMes": "2020-05-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5EE35ED5-D540-0220-39C3-F5F9595D9AB5-5B0C60F4-9D41-9A1B-DD07-35E4962F3F5F-2020-06",
+      "AnoMes": "2020-06",
+      "DataAnoMes": "2020-06-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "Ação de Cobrança - ARG Representações "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19-5B0C6978-9DB8-0883-4442-65E4BF5EAC2A-2022-03",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19-5B0C69F6-9DC0-69DC-EF2A-6458CF203A13-2022-03",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "8",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19-5B6304D4-0288-9482-3AAC-0692922E1DC5-2022-03",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "12",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96-5B0C6978-9DB8-0883-4442-65E4BF5EAC2A-2022-03",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96-5B0C6978-9DB8-0883-4442-65E4BF5EAC2A-2022-04",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96-5B0C69F6-9DC0-69DC-EF2A-6458CF203A13-2022-04",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "8",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96-5B6304D4-0288-9482-3AAC-0692922E1DC5-2022-03",
+      "AnoMes": "2022-03",
+      "DataAnoMes": "2022-03-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "12",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "625D6FC9-F148-5314-5408-369DBD9A5E96-5B6304D4-0288-9482-3AAC-0692922E1DC5-2022-04",
+      "AnoMes": "2022-04",
+      "DataAnoMes": "2022-04-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "12",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623-5B0C6978-9DB8-0883-4442-65E4BF5EAC2A-2022-05",
+      "AnoMes": "2022-05",
+      "DataAnoMes": "2022-05-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623-5B0C69F6-9DC0-69DC-EF2A-6458CF203A13-2022-05",
+      "AnoMes": "2022-05",
+      "DataAnoMes": "2022-05-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "8",
+      "CasoAssunto": "(Contrato Fixo) - Ação Ordinária ANTAQ"
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "628BA257-834E-B05E-B4D2-0E273FAA8623-5B6304D4-0288-9482-3AAC-0692922E1DC5-2022-05",
+      "AnoMes": "2022-05",
+      "DataAnoMes": "2022-05-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "12",
+      "CasoAssunto": "(Contrato Fixo) - Ação Judicial - Cobrança Multa Contratual Valec "
+    }
+  },
+  {
+    "endpoint": "RateioFaturaCasoViews",
+    "field": "FaturaValorHonorarios",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62B0CEB4-C882-BBBB-38FB-79368F3414E0-5B0C6978-9DB8-0883-4442-65E4BF5EAC2A-2022-06",
+      "AnoMes": "2022-06",
+      "DataAnoMes": "2022-06-01T12:00:00Z",
+      "DataInclusao": null,
+      "CasoCodigo": "6",
+      "CasoAssunto": "(Contrato Fixo)  Cautelar Dragagem MPF e MPSP"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F1676DF-2C59-B3EF-0205-4111DE5CD50C",
+      "AnoMes": "2019-07"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E2AA-6FA0-F386-0620-39AAB4D8E3C3",
+      "AnoMes": "2019-10"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E2CD-72FB-D40D-9C9F-6F73AA9A30BE",
+      "AnoMes": "2020-04"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E2DA-72D0-0145-0ACD-B63D89EC1E1F",
+      "AnoMes": "2020-04"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E2E1-6C37-4B7D-D2B4-A10CCAB2E03E",
+      "AnoMes": "2019-08"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E300-71E7-2F17-F7FC-DF40DF4F4D88",
+      "AnoMes": "2020-02"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E355-703D-7851-6020-0288ED4F1249",
+      "AnoMes": "2019-11"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E361-7062-0699-C1B6-534D6B7CFC53",
+      "AnoMes": "2019-11"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E383-72A4-C117-BE6D-FD4DDB1A3116",
+      "AnoMes": "2020-03"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E391-733A-16EC-4DDE-987C37705D5D",
+      "AnoMes": "2020-05"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F16E3A0-70DF-9721-BC95-DBE0F9766FD6",
+      "AnoMes": "2019-12"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5F7E9D44-B621-B9D8-8402-516B7784452F",
+      "AnoMes": "2020-09"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5FA62A5A-BF52-60CD-B5FB-390A1794D05F",
+      "AnoMes": "2020-10"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5FA62A5B-C08A-D976-63E0-2969E83D4D6F",
+      "AnoMes": "2020-10"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5FCF0945-B129-31E5-CF91-85180CF2FCFA",
+      "AnoMes": "2020-11"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "601E2343-869A-74DE-42D0-6508BA0AFD34",
+      "AnoMes": "2021-01"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60961B7F-B2B7-0317-33C0-D84B0BD0088E",
+      "AnoMes": "2021-04"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60961BD4-B92F-D2A3-5583-A267AE79C29D",
+      "AnoMes": "2021-04"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60E68692-E261-9B78-CA15-B314243ED271",
+      "AnoMes": "2021-06"
+    }
+  },
+  {
+    "endpoint": "RateioGerencialViews",
+    "field": "ValorTabPadrao",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60E686D8-E484-6687-8406-58DE766B71A7",
+      "AnoMes": "2021-06"
+    }
+  },
+  {
+    "endpoint": "CasoFaturamentoViews",
+    "field": "ValorBase",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "CasoCodigo": "1",
+      "CasoAssunto": "Ação Indenizatória Neo Energia"
+    }
+  },
+  {
+    "endpoint": "CasoParcelasViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "696119BC-3F84-B655-4759-EC5B9171B8E9",
+      "DataInclusao": "2026-01-09T12:04:59-03:00",
+      "Tipo": "F",
+      "Descricao": "Cobrança mensal no valor de 1.500,00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Ação Indenizatória Neo Energia"
+    }
+  },
+  {
+    "endpoint": "CasoParcelasViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "699746E4-CF77-3792-E1FE-257BC3F85477",
+      "DataInclusao": "2026-02-19T14:21:59-03:00",
+      "Tipo": "F",
+      "Descricao": "Cobrança mensal no valor de 1.500,00",
+      "CasoCodigo": "1",
+      "CasoAssunto": "Ação Indenizatória Neo Energia"
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63B3-BBBF-E9D2-0F45-7AA8D13BC8F5",
+      "AnoMes": "2025-10",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63CB-BAAE-AE7A-664F-A3EE0CE0645F",
+      "AnoMes": "2025-04",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63D4-BAB3-A94B-DC58-B35010B0A2F5",
+      "AnoMes": "2025-09",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63DC-BBBC-8871-3667-7D067F911FED",
+      "AnoMes": "2025-07",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63DF-BAB2-7384-2E06-F996F9CCC487",
+      "AnoMes": "2025-08",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63E4-BAAD-B695-4F96-A8290361D70A",
+      "AnoMes": "2025-03",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E63F5-BAB0-F986-2B00-CC932B1ED7E3",
+      "AnoMes": "2025-06",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6406-BBC1-1E9D-EA83-6CA2ADE78150",
+      "AnoMes": "2025-12",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6428-BBBA-355F-0C1A-122973AA7087",
+      "AnoMes": "2025-05",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E642D-BBC0-0C5E-0ABF-5F208302A868",
+      "AnoMes": "2025-11",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6431-BAB6-FD87-0035-C694ED711C81",
+      "AnoMes": "2025-12",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6432-BAAB-F288-3A80-FB6381A9DC9C",
+      "AnoMes": "2025-01",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6433-BBB9-9B99-C127-5D1565006428",
+      "AnoMes": "2025-04",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6440-BBBE-F944-B0D7-3C350DFB9743",
+      "AnoMes": "2025-09",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6443-BBBD-BC64-594D-95CC52CB54E5",
+      "AnoMes": "2025-08",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6446-BAAF-8DB5-B183-585DF6D7D330",
+      "AnoMes": "2025-05",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6452-BB9E-25ED-5F4E-549AD06F6E84",
+      "AnoMes": "2025-02",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6457-BAB4-1352-E739-F00201E06BD0",
+      "AnoMes": "2025-10",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E645B-BBB8-3C40-06AF-445B2C836FA2",
+      "AnoMes": "2025-03",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "OrcamentoViews",
+    "field": "Valor",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6A1E6468-BBBB-EB99-C7C4-0DF69229C93D",
+      "AnoMes": "2025-06",
+      "DataInclusao": null
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6066510F-76FD-96F6-90BA-2AF02560F925",
+      "DataInclusao": "2021-04-01T20:00:03-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60665111-76FC-42A0-55A3-838A47ACAFAA",
+      "DataInclusao": "2021-04-01T20:00:03-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6066A60F-7284-1DB9-886A-39FAB408039D",
+      "DataInclusao": "2021-04-02T02:05:06-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6066A684-7282-8C19-4B53-93CD9E3652CE",
+      "DataInclusao": "2021-04-02T02:05:06-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6070DE0A-058F-491F-AAF9-145EEC66D7AD",
+      "DataInclusao": "2021-04-09T20:05:02-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6070DE61-0590-47BC-9428-612B93C3CB70",
+      "DataInclusao": "2021-04-09T20:05:02-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6082E14B-C9F3-FA3C-75FA-2B3289F5968D",
+      "DataInclusao": "2021-04-23T12:00:03-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6082E188-C9F2-DBC7-6993-A5DB7DCD5F22",
+      "DataInclusao": "2021-04-23T12:00:03-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6083A716-495E-3D7A-2DA0-447C93973DE6",
+      "DataInclusao": "2021-04-24T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6083A7E6-495F-0B7A-03A9-CD6C88B70DD8",
+      "DataInclusao": "2021-04-24T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "608CE1A6-8857-77D1-0513-8FEFB9F1FB0B",
+      "DataInclusao": "2021-05-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "608CE1EB-885A-A0BB-2A6F-895FAD885B8A",
+      "DataInclusao": "2021-05-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "608CE1F6-887B-4F30-EEB9-50018641BED7",
+      "DataInclusao": "2021-05-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "608CE274-8877-4203-CBAD-F2421CC8A423",
+      "DataInclusao": "2021-05-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B5C028-E136-C710-A31B-329991859F5C",
+      "DataInclusao": "2021-06-01T02:05:07-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B5C05C-E12E-6AA0-EB48-C253D4538367",
+      "DataInclusao": "2021-06-01T02:05:07-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B5C070-E12F-A00D-C7E0-A38C4C22A665",
+      "DataInclusao": "2021-06-01T02:05:07-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B5C0AA-E138-01DC-62CD-912ACEBF1F89",
+      "DataInclusao": "2021-06-01T02:05:07-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60DD4D5C-8757-5464-EFB6-C83F6AF77D41",
+      "DataInclusao": "2021-07-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "HonorarioCategoriaHistoricoViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60DD4DD5-8745-C00A-01DA-3503D111EE34",
+      "DataInclusao": "2021-07-01T02:05:05-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DC156F5-44DD-178F-CF0F-8CB33340A167",
+      "DataInclusao": "2019-11-05T11:02:54-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5DE785D1-CE98-9290-BD16-44ADF5DFEC45",
+      "DataInclusao": "2019-12-04T10:06:46-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5E18C82B-7D93-1DA6-3896-39DC2D5A4668",
+      "DataInclusao": "2020-01-10T18:53:18-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5ED54B9D-924B-0B87-6FA4-BC0FC1408279",
+      "DataInclusao": "2020-06-01T18:39:22-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945318-C917-2A08-5460-5B4DAEFF8441",
+      "DataInclusao": "2021-05-06T17:35:13-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E97F18-DAC5-44C1-C5A1-8642BD95EFB6",
+      "DataInclusao": "2022-08-02T16:45:08-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63DC025B-C290-AFC9-61E7-901AA00DB574",
+      "DataInclusao": "2023-02-02T15:34:28-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6400C367-F323-9170-EEAB-544B62B0A8EC",
+      "DataInclusao": "2023-03-02T12:39:45-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "642C373B-8020-8023-4385-BA74D5A3BC5B",
+      "DataInclusao": "2023-04-04T11:37:48-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64A55E83-B94C-094F-68A8-E15CBD4F887B",
+      "DataInclusao": "2023-07-05T09:13:55-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "64CA75DF-A69D-E490-5E4A-1264DF1D05C7",
+      "DataInclusao": "2023-08-02T12:27:21-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaContratoViews",
+    "field": "ValorTimeSheet",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "68657545-FFDF-78BB-8999-C69DD2218356",
+      "DataInclusao": "2025-07-02T15:04:42-03:00"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6092EFEF-AB23-F75E-AE76-BAA1B854B8BD",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6092F055-AB22-9E26-76B6-288BE39A310A",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6092F089-AB13-458E-469E-BD4744AE36EC",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945312-C92D-26EC-1BC7-A6E302F071AE",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "609453DA-C92E-4C0D-9F90-959DDFC57397",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Garcia"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "609453E0-C92A-F322-FD8B-4E76F0FE0FE0",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B7B9F9-E59F-2F09-B1FC-2EBCE7467360",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação ATC e Telxius (Ato de Concentração nº 08700.000821/2021-01)"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60B7BA26-E59B-0E81-35B9-16CD3DC44084",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação TIM e IHS"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "61098561-C8FD-CDD6-90B4-AB99CDB8292F",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Consultas diversas"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6109857F-C8F2-FF1E-4463-7B4C548FB180",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Parecer Projeto Líbano III - Análise do dever de notificação ao Cade"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1E46-FD94-18C4-D663-24425A900B31",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Operação Cade - FIP DX Ventures | Amata"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615F6B97-9102-18C7-F26B-0BC0C3034F99",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "6196946F-F2B7-31F8-CE76-98193D8A570F",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "PA Mercado de Trabalho - Ferreira"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62267029-98AE-28F9-4165-A0B5C93B6B6E",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "Revisão concorrencial de prática de benchmarking - trabalhos adicionais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62275613-85D3-1CD0-A9AE-4ED56094C0A7",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "12",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "Revisão concorrencial de prática de benchmarking - trabalhos adicionais"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E97A57-D61A-60E0-A66F-632E8B3BFDB0",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62E97A88-D66B-A573-CF9E-29A979B569CA",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Ação Civil Pública FUP\r\n"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62e9ad0b-b1b2-6f51-80de-96840ff66fe6",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "63125E8D-EB5A-9A7C-FB00-62449F7E236C",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorHora",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "633C84FD-4CAE-81DD-2874-2DC2BBB1E7F9",
+      "ProfissionalSigla": "MV",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Martim Della Valle",
+      "CasoAssunto": "Opinião em Arbitragem"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5D8DDC05-749D-ABD4-3B6D-C6B586AC596B",
+      "ProfissionalSigla": "AM",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Aurelio Marchini Santos",
+      "CasoAssunto": "Consultas Diversas "
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60917C72-C231-4128-CDF4-CEA086428EAD",
+      "ProfissionalSigla": "IU",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Isabelle Tiemi Nakao Ueda",
+      "CasoAssunto": "Reply to Cade RFI - Merger Filing No. 08700.004426/2020-17 (Bus Serviços/J3)"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "60945340-C92B-D54A-E3C7-E730D41EF834",
+      "ProfissionalSigla": "PF",
+      "CasoCodigo": "3",
+      "ProfissionalPessoaNome": "Priscila Viola Foureaux",
+      "CasoAssunto": "PA Mercado de Trabalho - Silva"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "615B1DF7-FC18-B3DC-1332-27867C1ACBE2",
+      "ProfissionalSigla": "RB",
+      "CasoCodigo": "1",
+      "ProfissionalPessoaNome": "Ricardo Franco Botelho",
+      "CasoAssunto": "Representação Sabbá"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "62716AF0-B045-8DFB-39E9-C74706F4D11D",
+      "ProfissionalSigla": "VMS",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Victor Michel Savatovsky",
+      "CasoAssunto": "Appeal Brazilian Court"
+    }
+  },
+  {
+    "endpoint": "PreFaturaResumoProfissionalViews",
+    "field": "ValorTotal",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "683F392D-A3EB-BFD6-7F2C-E9E1E69F1791",
+      "ProfissionalSigla": "ASG",
+      "CasoCodigo": "2",
+      "ProfissionalPessoaNome": "Andrielly da Silva Gonsalves",
+      "CasoAssunto": "Assessoria e Monitoramento (Etapa 3) - Cade"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69652C9A-EE74-88B9-6611-21413D06D6C3900",
+      "ProfissionalSigla": "DC"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalTrabalhado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69BB0390-9A64-4441-A5AA-19965969E960900",
+      "ProfissionalSigla": "DC"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalRevisado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69652C9A-EE74-88B9-6611-21413D06D6C3900",
+      "ProfissionalSigla": "DC"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalRevisado",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69BB0390-9A64-4441-A5AA-19965969E960900",
+      "ProfissionalSigla": "DC"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69652C9A-EE74-88B9-6611-21413D06D6C3900",
+      "ProfissionalSigla": "DC"
+    }
+  },
+  {
+    "endpoint": "RevisaoTimesheetResumoProfissionalViews",
+    "field": "ValorTotalProdutivo",
+    "label": "Comissao_Eco",
+    "target": 1500,
+    "context": {
+      "Id": "5B044FDE-995D-A3D4-A945-016A1B8D73B75B0C3020-9B33-A740-FF7C-414E8433EE5E69BB0390-9A64-4441-A5AA-19965969E960900",
+      "ProfissionalSigla": "DC"
+    }
+  }
+]

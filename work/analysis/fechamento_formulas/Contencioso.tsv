@@ -1,0 +1,18 @@
+	Orçado	Realizado	
+Recebimento	='Areas Sintetico atualizado'!B36	='Areas Sintetico atualizado'!L36	
+Custo equipe	='Areas Sintetico atualizado'!K39	='Areas Sintetico atualizado'!L39	=C3/$C$2
+Comissão	='Areas Sintetico atualizado'!K40	='Areas Sintetico atualizado'!L40	=C4/$C$2
+Despesas Equipe	='Areas Sintetico atualizado'!K41	='Areas Sintetico atualizado'!L41	=C5/$C$2
+Despesa Institucional	='Areas Sintetico atualizado'!K42	='Areas Sintetico atualizado'!L42	=C6/$C$2
+Resultado Bruto	=B2-B3-B5-B6	=C2-C3-C5-C6-C4	=C7/$C$2
+			
+			
+			
+			
+			
+Recebimento			
+Custo equipe	=D3		
+=A4	=D4		
+Despesas Equipe	=D5		
+Despesa Institucional	=D6		
+=A7	=D7		

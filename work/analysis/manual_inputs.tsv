@@ -1,0 +1,73 @@
+row	label	jan_value	jan_manual	feb_value	feb_manual
+4	Receita de honorários	279821.07	True	319233.58	True
+8	Aurelio Marchini Santos- Pro labore	810.5	True	810.5	True
+10	Beatriz Baes Xavier - Convenio Medico	1269.46	True	1269.46	True
+13	Beatriz Baes Xavier - Pro Labore	1621	True	1621	True
+14	Beatriz Baes Xavier - Reajuste de Distribuição Mensal Fixa		False	518.4	True
+15	Daniel Costa Caselta - Convenio Medico	1736.14	True	1736.14	True
+17	Daniel Costa Caselta - Pro labore	1621	True	1621	True
+18	Daniel Costa Caselta - AASP	97.7	True	108.7	True
+19	Isabel de Almeida Rego Campinho - Convenio Medico	1564.08	True	1564.08	True
+21	Isabel de Almeida Rego Campinho - Pro Labore	1621	True	1621	True
+22	Isabel de Almeida Rego Campinho - Reajuste de Distribuição Mensal Fixa		False	1566	True
+23	João Victor Santos de Oliveira - Bolsa auxilio / IR Estagiários	2800	True	2800	True
+26	Vale Refeição	829.8	True	1014.2	True
+27	Vale Transporte	168	True	235.2	True
+31	Andrielly da Silva Gonsalves - Convenio Medico	1269.46	True	564.92	True
+33	Andrielly da Silva Gonsalves - Pro Labore	1621	True	1621	True
+35	Andrielly da Silva Gonsalves -  Reajuste de Distribuição Mensal Fixa		False	520	True
+36	Aurelio Marchini Santos - AASP	97.7	True	54.35	False
+39	Aurelio Marchini Santos- Pro labore	810.5	True	810.5	True
+40	Bruno Micalli Pedrinelli - Convenio Medico	1269.46	True	564.92	True
+42	Bruno Micalli Pedrinelli - Pro Labore	1621	True	1621	True
+43	Bruno Micalli Pedrinelli - Reajuste de Distribuição Mensal Fixa		False	1034.38	True
+44	Elisa Hime Funari - Convenio Medico	2122.3	True	2122.3	True
+46	Elisa Hime Funari - Pro Labore	1621	True	1621	True
+47	Elisa Hime Funari - Reajuste de Distribuição Mensal Fixa		False	1000	True
+48	Ricardo Franco Botelho - Convenio Medico	2355.73	True	3427.58	True
+50	Ricardo Franco Botelho - Pro labore	1621	True	1621	True
+51	Victoria Malta Corradini - Convenio Medico	1409.09	True		False
+56	Participação/comissão - Economico		False	1500	True
+60	Emilly Kauany Martins Calixto - Convenio medico	1269	True	1269.46	True
+62	Emilly Kauany Martins Calixto - Pro Labore	1621	True	1621	True
+63	Felipe Sartório de Melo - Convenio Medico	1564.08	True	1564.08	True
+65	Felipe Sartório de Melo - Pro Labore	1621	True	1621	True
+66	Felipe Sartório de Melo - Reajuste de Distribuição Mensal Fixa		False	1610.4	True
+67	Joao Gabriel Previero de Arruda Sampaio - Convenio Medico	1911.45	True		False
+69	Joao Gabriel Previero de Arruda Sampaio -	1621	True	1621	True
+71	Martim Della Valle - Pro labore	1621	True	1621	True
+81	Aluguel	26384.63	True	26384.63	True
+82	Condomínio	4996	True	4996	True
+84	Energia	773.71	True	926.16	True
+85	IPTU		False	6916.97	True
+86	Seguro Locação	182.71	True	183	True
+89	Telefonia Fixa	65.29	True	65.29	True
+96	Limpeza e Copeira - Serviço Terceirizado	3049.23	True	3049.23	True
+97	Manutenção ar condicionado	919.76	True	919.76	True
+98	Manutenção do Escritório		False	50	True
+99	Manutenção do Jardim	836	True	919.6	True
+100	Material de Escritório		False	41.2	True
+102	Motoboy	36.76	True		False
+103	OAB / CS	936.2	True		False
+106	Consultoria Adm. e Financeira	14705.8	True	14705.8	True
+107	Consultoria em Marketing	6251.98	True		False
+108	Contabilidade	9077.36	True	7804.05	True
+115	Férias	2328.11	True		False
+116	Salario ADM	1683.06	True	3455.42	True
+117	Vale Refeição- ADM	829.8	True	1014.2	True
+118	Vale Transporte	298.15999999999997	False	337.68	True
+120	Assinaturas - Contencioso (AASP)	360	True		False
+128	Seguro de Responsabilidade Civil	2539.84	True		False
+134	Eventos e Happy hour - Contencioso	146	True		False
+158	Biblioteca	692.37	True		False
+164	COFINS	185.68	True	226.54	True
+165	CSLL Trimestral	43297.07	True		False
+166	E-social		False	1032.35	True
+167	FGTS	480.64	True	354.66	True
+168	Impostos 3ºs	2381.0699999999997	False	2159.37	True
+169	INSS Folha e Pro - Labores	7466.34	True	1591.0800000000002	False
+170	IRRF Folha	169.52	True		False
+171	IRRF Trimestral	123429.61	True		False
+172	ISS 3ºs	228.69	True	228.69	True
+173	PIS	40.3	True	49.13	True
+177	Data Center  (Oracle)	7478.66	True		False

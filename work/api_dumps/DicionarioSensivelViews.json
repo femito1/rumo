@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#DicionarioSensivelViews","value":[
+    {
+      "Id":"61BC8877-43D6-1A41-8468-F271759A476A","ModeloTelaId":"5AF35F8F-0672-24E3-6AFE-27DAFD5E2EF2","ModeloTelaTitulo":"Profissional","Campo":"PessoaEnderecoNumero","PerfilId":null,"PerfilNome":null,"PerfilCodigo":null,"Ativo":"S","Padrao":"S","Contexto":null,"TipoAssuntoId":null,"TipoAssuntoNome":null,"ValorSubs":null,"DataInclusao":"2021-12-17T09:54:13.357802-03:00","UsuarioInclusao":"LDESK","DataAlteracao":"2021-12-17T09:54:13.357802-03:00","UsuarioAlteracao":"LDESK"
+    },{
+      "Id":"61BC887C-43D1-4049-FAEE-75B9859228ED","ModeloTelaId":"5AF35F8F-0672-24E3-6AFE-27DAFD5E2EF2","ModeloTelaTitulo":"Profissional","Campo":"PessoaEnderecoCelular","PerfilId":null,"PerfilNome":null,"PerfilCodigo":null,"Ativo":"S","Padrao":"S","Contexto":null,"TipoAssuntoId":null,"TipoAssuntoNome":null,"ValorSubs":null,"DataInclusao":"2021-12-17T09:54:13.357802-03:00","UsuarioInclusao":"LDESK","DataAlteracao":"2021-12-17T09:54:13.357802-03:00","UsuarioAlteracao":"LDESK"
+    },{
+      "Id":"61BC8881-43D3-9717-5653-D10E212C1A23","ModeloTelaId":"5AF35F8F-0672-24E3-6AFE-27DAFD5E2EF2","ModeloTelaTitulo":"Profissional","Campo":"PessoaEnderecoFax","PerfilId":null,"PerfilNome":null,"PerfilCodigo":null,"Ativo":"S","Padrao":"S","Contexto":null,"TipoAssuntoId":null,"TipoAssuntoNome":null,"ValorSubs":null,"DataInclusao":"2021-12-17T09:54:13.357802-03:00","UsuarioInclusao":"LDESK","DataAlteracao":"2021-12-17T09:54:13.357802-03:00","UsuarioAlteracao":"LDESK"
+    },{
+      "Id":"61BC8881-43D7-B2C3-5AF2-312D3FCAFDE8","ModeloTelaId":"5AF35F8F-0672-24E3-6AFE-27DAFD5E2EF2","ModeloTelaTitulo":"Profissional","Campo":"PessoaEnderecoComplemento","PerfilId":null,"PerfilNome":null,"PerfilCodigo":null,"Ativo":"S","Padrao":"S","Contexto":null,"TipoAssuntoId":null,"TipoAssuntoNome":null,"ValorSubs":null,"DataInclusao":"2021-12-17T09:54:13.357802-03:00","UsuarioInclusao":"LDESK","DataAlteracao":"2021-12-17T09:54:13.357802-03:00","UsuarioAlteracao":"LDESK"
+    },{
+      "Id":"61BC8884-43D5-D998-396C-AAAD0F9E412D","ModeloTelaId":"5AF35F8F-0672-24E3-6AFE-27DAFD5E2EF2","ModeloTelaTitulo":"Profissional","Campo":"PessoaEnderecoBairro","PerfilId":null,"PerfilNome":null,"PerfilCodigo":null,"Ativo":"S","Padrao":"S","Contexto":null,"TipoAssuntoId":null,"TipoAssuntoNome":null,"ValorSubs":null,"DataInclusao":"2021-12-17T09:54:13.357802-03:00","UsuarioInclusao":"LDESK","DataAlteracao":"2021-12-17T09:54:13.357802-03:00","UsuarioAlteracao":"LDESK"
+    }
+  ]
+}

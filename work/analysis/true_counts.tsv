@@ -1,0 +1,716 @@
+set	status	total_count	n_rows_returned
+AlocacaoGrupoJuridicoPercentualViews	200	0	0
+AlcadaCategoriaViews	200	0	0
+AlcadaExcecaoViews	200	0	0
+AlcadaViews	200	0	0
+AlocacaoGrupoJuridicoViews	200	0	0
+AcessoCaixinhaViews	200	0	0
+AlocacaoRecebimentoTransferenciaClienteViews	200	542	1
+AlocacaoRecebimentoCasoClienteViews	200	0	0
+AlocacaoRecebimentoTransferenciaJuncaoViews	200	0	0
+AlocacaoRecebimentoCasoContratoViews	200	0	0
+AlocacaoRecebimentoContratoViews	200	542	1
+AlocacaoRecebimentoDespesaJuncaoViews	200	0	0
+AlocacaoRecebimentoCasoJuncaoViews	200	0	0
+AlocacaoRecebimentoDespesaClienteViews	200	0	0
+AlocacaoRecebimentoFaturaClienteJobViews	200	728	1
+AlocacaoRecebimentoFaturaJuncaoTransferenciaViews	500	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+	0
+AlocacaoRecebimentoFaturaClienteTransferenciaViews	500	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+	0
+AlocacaoRecebimentoPeriodoModuloViews	200	732	1
+AlocacaoRecebimentoFaturaJuncaoViews	200	0	0
+AlocacaoRecebimentoTotalViews	200	0	0
+AlocacaoRecebimentoTotalDetalheViews	200	0	0
+AlocacaoRecebimentoHorasAlocarClienteViews	200	0	0
+AlocacaoRecebimentoFaturaClienteViews	200	18	1
+AlocacaoRecebimentoProfissionalViews	200	0	0
+AlocacaoRecebimentoViews	200	0	0
+ConsultivoAndamentoViews	200	0	0
+ContratosAndamentoViews	200	0	0
+AndamentoViews	200	0	0
+ConsultivoAndamentoGridViews	200	0	0
+ContratosAndamentoGridViews	200	0	0
+AndamentoGridViews	200	0	0
+AreaTipoAtividadeViews	200	0	0
+AlocacaoRecebimentoTabeladoClienteViews	200	0	0
+AditivoViews	200	0	0
+RelatorioGerencialViews	200	114	1
+AndamentoPadraoViews	200	0	0
+AlocacaoRecebimentoHorasAlocarJuncaoViews	200	0	0
+AgendaMensalViews	200	1	1
+DepartamentoSolicitanteViews	200	0	0
+AlocacaoRecebimentoHorasAlocarCasoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+AlocacaoRecebimentoHorasAlocarCasoJuncaoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+AlocacaoRecebimentoTabeladoJuncaoViews	200	0	0
+AreaInteresseViews	200	0	0
+AprovacaoCaixinhaViews	200	0	0
+AprovacaoDespesaViews	200	9	1
+CompromissoGridViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n	0
+AssuntoPastaFisicaViews	200	0	0
+ContratosCompromissoGridViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n	0
+ConsultivoCompromissoGridViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Parâmetro dos profissionais do carrossel n	0
+CasoPastaFisicaViews	200	0	0
+CompromissoWorkflowLogViews	200	0	0
+ConfiguracaoUsuarioViews	200	1	1
+CronometroViews	500	{
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"Ocorreu um erro."
+    },"innererror":{
+	0
+AreaJuridicaViews	200	8	1
+CompromissoViews	200	1	1
+ContratosCompromissoViews	200	1	1
+ConsultivoCompromissoViews	200	1	1
+ArmarioViews	200	0	0
+TrabalhistaAssuntoGridViews	200	1	1
+AssuntoGridViews	200	1	1
+AssuntoSearchModalViews	200	1	1
+CriminalAssuntoGridViews	200	1	1
+AlteracaoResponsavelLoteViews	200	0	0
+ContratosAssuntoGridViews	200	1	1
+ConsultivoAssuntoGridViews	200	1	1
+AssuntoViews	200	1	1
+AssuntoResponsavelViews	200	0	0
+AssuntoRegraViews	200	0	0
+AbaViews	200	28	1
+ConsultivoAssuntoViews	200	1	1
+VersaoViews	200	22	1
+ContratosAssuntoViews	200	1	1
+CivelAssuntoViews	200	1	1
+AtoViews	200	24	1
+CriminalAssuntoViews	200	1	1
+TributarioAssuntoViews	200	1	1
+TrabalhistaAssuntoViews	200	1	1
+AgendamentoDeFeriasViews	200	0	0
+RegistroAcaoViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "No coercion operator is defined between ty	0
+UsuarioAtividadeViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+TabelaConversaoViews	200	2	1
+PeriodoModuloViews	200	732	1
+PeriodoModuloFinanceiroViews	200	0	0
+ModeloTelaCamposViews	200	None	0
+ValorCotacaoViews	200	5877	1
+AtoGerencialViews	200	0	0
+ModeloViews	200	620	1
+CampoModeloTelaViews	200	None	0
+CadastroPerfilViews	200	0	0
+CasoTipoDespesaViews	200	1084	1
+CasoFixoViews	200	0	0
+CasoTipoAtividadeViews	200	17	1
+CasoFixoFaixaViews	200	0	0
+CelulaViews	200	0	0
+ComarcaEstadoViews	200	0	0
+CasoFixoFaixaProfissionalViews	200	0	0
+CasoViews	200	542	1
+ComarcaViews	200	13245	1
+VaraViews	200	15116	1
+ComarcaFavoritoViews	200	0	0
+ForoViews	200	12588	1
+ClassificacaoDespesaViews	200	0	0
+ClienteViews	200	147	1
+ClientesRevisaoFixoViews	200	28	1
+ClienteParticipacaoViews	200	0	0
+ConfiguracaoAssuntoViews	200	3	1
+ClientePagadorViews	200	227	1
+ComponenteUsuarioViews	200	23	1
+ConfiguracaoDesdobramentoViews	200	0	0
+ConfiguracaoAssuntoPerfilViews	200	0	0
+ConflitoAvaliacaoViews	200	0	0
+ConsumoOrcamentoProjetoEscritorioGrupoJuridicoViews	200	0	0
+ConsumoOrcamentoProjetoGerenciaViews	200	0	0
+ConsumoOrcamentoProjetoEscritorioViews	200	0	0
+ConsumoOrcamentoProjetoGrupoJuridicoViews	200	0	0
+ConsumoOrcamentoProjetoViews	200	0	0
+ContratoViews	200	522	1
+CasoContratoViews	200	542	1
+ConsumoOrcamentoProjetoItemViews	200	0	0
+ConsumoOrcamentoProjetoItemDespesaViews	200	0	0
+CotacaoViews	200	0	0
+CotacaoAprovacaoViews	200	0	0
+CotacaoFornecedorViews	200	0	0
+CasosRevisaoFixoViews	200	66	1
+CotacaoFornecedorAprovacaoViews	200	0	0
+BusinessPlanConsolidadoProfissionalViews	200	0	0
+BusinessPlanCustoViews	200	0	0
+DescarteSaldoHoraViews	200	0	0
+DepositoViews	200	0	0
+BusinessPlanCategoriaViews	200	0	0
+ClienteEmLoteViews	200	147	1
+DesdobramentoViews	200	0	0
+DesdobramentoConfigCamposViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+DespFavoritoViews	200	0	0
+DesdobramentoResponsavelViews	200	0	0
+DiscrepanciaItemViews	200	0	0
+DiscrepanciaViews	200	0	0
+EBillingAtividadeViews	200	0	0
+EBillingDocumentoViews	200	0	0
+DevolucaoRemanejamentoProjetoViews	200	0	0
+TSEBillingDocumentoViews	200	0	0
+EBillingDocumentoValorPadraoViews	200	0	0
+EBillingEmpresaViews	200	0	0
+TSEBillingFaseViews	200	0	0
+EBillingFaseViews	200	0	0
+EbillingTarefaViews	200	0	0
+EmprestimoPastaFisicaViews	200	0	0
+EnvioEmailViews	200	0	0
+TrabalhistaEnvolvidoViews	200	0	0
+EnvolvidoViews	200	0	0
+ConsultivoEnvolvidoViews	200	0	0
+EscritorioViews	200	2	1
+EnvolvidoGridViews	200	0	0
+ExcecaoReceitaAlocacaoViews	200	0	0
+ExcecaoRevisorCasoViews	200	8	1
+EmpresaJuridicoViews	200	1	1
+ExportacaoModeloPerfilViews	200	12	1
+ExportacaoModeloColunaViews	200	48	1
+ExportacaoModeloViews	200	0	0
+FaseViews	200	6	1
+FeriadoViews	200	36	1
+FaturaProfissionalViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Unable to create a map expression from Fat	0
+FornecedorFavoritoViews	200	0	0
+FornecedorViews	200	275	1
+FaturaRedacaoViews	200	4191	1
+FormaCorrecaoViews	200	0	0
+FaturaViews	200	4191	1
+FaturaCasoViews	200	5070	1
+FornecedorContaViews	200	102	1
+FornecedorEnderecoViews	200	56	1
+GerenciaViews	200	0	0
+FornecedorPlanoContaViews	200	0	0
+GerencialDemonstrativoViews	200	8	1
+GerenciaCentroCustoViews	200	0	0
+LDataCapaProcessoViews	200	0	0
+LDataDistribuicaoViews	200	0	0
+GrupoAvaliacaoConflitoViews	200	0	0
+GrupoDespesaViews	200	0	0
+GrupoMaterialProfissionalViews	200	0	0
+GrupoEmpresaJuridicoViews	200	1	1
+GrupoEmpresaViews	200	4	1
+GrupoJuridicoViews	200	6	1
+GrupoMaterialViews	200	5	1
+GrupoJuridicoProfissionalViews	200	1	1
+GrupoTrabalhoViews	200	1	1
+GrupoJuridicoResponsavelViews	200	0	0
+IdiomaViews	200	2	1
+GrupoTrabalhoProfissionalViews	200	34	1
+HistPlanejamentoOrcamentoViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Non-static method requires a target.",
+  	0
+IndiceViews	200	4	1
+HistoricoDescarteSaldoHoraViews	200	0	0
+IdiomaTipoAtividadeViews	200	48	1
+IetfViews	200	None	417
+IndiceValorViews	200	0	0
+ImportacaoPublicacaoItemViews	200	0	0
+TimeZoneViews	200	None	141
+CultureViews	200	None	248
+ImportacaoPublicacaoLayoutViews	200	2	1
+DisplayCampoModeloTelaViews	200	None	0
+ImportacaoPublicacaoViews	200	0	0
+JurFavoritoClienteViews	200	0	0
+JurFavoritoCasoViews	200	0	0
+LacunaViews	200	0	0
+LocalizacaoCnjViews	200	2943	1
+LocalTrabalhoViews	200	0	0
+LogImportacaoAndamentoViews	200	0	0
+LocalidadeViews	200	0	0
+MaterialViews	200	0	0
+MeioPagamentoViews	200	10	1
+LogCorteHorasTimesheetViews	200	0	0
+MenuViews	200	232	1
+MoedaViews	200	3	1
+MenuPerfilViews	200	560	1
+MotivoReprovacaoViews	200	3	1
+MotivoWoViews	200	0	0
+MotivoEscolhaViews	200	4	1
+MotivoEncerramentoViews	200	3	1
+ObjetoViews	200	61	1
+ParticularidadeDespesaViews	200	0	0
+PCOClienteFavoritoViews	200	0	0
+ParticularidadeDespesaDetalheViews	200	0	0
+MovimentacaoFinanceiraGridViews	200	0	0
+PastaFisicaMovimentacaoViews	200	0	0
+NotificacaoGridViews	200	0	0
+TributarioPedidoViews	200	0	0
+PCOFavoritoViews	200	0	0
+PastaFisicaDocumentoViews	200	0	0
+MovimentacaoFinanceiraViews	200	0	0
+PedidoViews	200	0	0
+PedidoAbaViews	200	0	0
+PedidoTotalAbaViews	200	0	0
+PedidoGridViews	200	0	0
+PastaFisicaViews	200	0	0
+TributoTotalAbaViews	200	0	0
+TributoAbaViews	200	0	0
+MovimentacaoFinanceiraAbaViews	200	3	1
+PeticionamentoEletronicoLoteViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+ResponsavelProfissionalViews	200	None	0
+PedidoValorParcelaViews	200	0	0
+PedidoTotalViews	200	0	0
+PeticionamentoEletronicoViews	200	0	0
+PedidoValorViews	200	0	0
+TributarioPedidoValorViews	200	0	0
+RestricaoAssuntoViews	200	0	0
+PlanoContasViews	200	278	1
+PlanejamentoOrcamentoViews	200	0	0
+PlanejamentoOrcamentoTotalViews	200	0	0
+PosicaoFinanceiraAdiantamentoViews	200	82	1
+PosicaoFinanceiraDespesaIncorridaViews	200	716	1
+PosicaoFinanceiraPendenciaViews	200	0	0
+PosicaoFinanceiraCasoViews	200	542	1
+PreFaturaViews	200	5594	1
+PreFaturaAcaoViews	200	20313	1
+PosicaoFinanceiraViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraCobrancaViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraFaturaViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraResumoDespesaViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraResumoProfissionalViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraResultadoFaturamentoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PosicaoFinanceiraResultadoRecebimentoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PreFaturaDespesaViews	200	633	1
+PreFaturaTabeladoViews	200	0	0
+PreFaturaProfissionalViews	200	5557	1
+PreFaturaInstrucaoViews	200	16	1
+PreFaturaTimesheetViews	400	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "O argumento 'rawValue' é nulo ou vazio.\r\	0
+PreFaturaPagadorViews	200	4160	1
+PreferenciaIndividualViews	200	119	1
+PreFaturaCasoViews	200	6272	1
+PreFaturaLogViews	200	2979	1
+PreliminarViews	200	0	0
+PreferenciaViews	200	411	1
+PreFaturaRevisorViews	200	69	1
+PreferenciaTelaViews	200	4	1
+PreferenciaPerfilViews	200	1	1
+ProfissionalCarrosselAgendaViews	200	0	0
+PrestacaoContaViews	200	0	0
+ProfissaoViews	200	0	0
+PrestacaoContaItemAprovacaoViews	200	0	0
+ProfissionalViews	200	69	1
+PrestacaoContaAprovadorViews	200	0	0
+PrognosticoViews	200	3	1
+ProjetoViews	200	0	0
+ProjetoGerenciaResponsavelViews	200	0	0
+ProjecaoViews	200	0	0
+PrestacaoContaItemViews	200	0	0
+RamoAtividadeViews	200	0	0
+ProjetoItemViews	200	0	0
+RestricaoViews	200	0	0
+RestricaoPerfilViews	200	0	0
+RateioFaturaProfissionalCustomViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+RateioViews	200	4191	1
+ProjetoGerenciaResponsavelResumoViews	200	0	0
+ProjetoGerenciaProjecaoViews	200	0	0
+ProjetoResumoViews	200	0	0
+PendenciasDiariaViews	200	5	1
+RelatorioParamViews	200	412	1
+RelatorioViews	200	114	1
+RequisicaoAprovadorViews	200	0	0
+PerfilRuleViews	200	1	1
+RequisicaoMaterialAprovacaoViews	200	0	0
+RelatorioPerfilViews	200	0	0
+RateioFaturaProfissionalViews	200	19606	1
+ResponsavelDesbloqueioViews	200	0	0
+ReservaOrcamentoViews	200	0	0
+RequisicaoViews	200	0	0
+RequisicaoEscritorioViews	200	0	0
+ReservaOrcamentoComboViews	200	0	0
+RequisicaoMaterialViews	200	0	0
+RevisaoFixoParcelaViews	200	0	0
+RevisaoFixoViews	200	0	0
+PreFaturaAcaoDetalhadaViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+RemanejamentoProjetoViews	200	0	0
+RevisaoFinalizadoFixoViews	200	0	0
+RevisaoTimesheetPorCasoGridViews	200	0	0
+ResumoHistoricoViews	200	177	1
+RitoViews	200	9	1
+RuleRegistryViews	200	None	242
+RateioGerencialViews	200	33911	1
+RevisaoFixoAlocacaoViews	200	0	0
+RevisaoTimesheetViews	200	55603	1
+ServicoViews	200	0	0
+SegmentoViews	200	24	1
+SaldoHoraViews	200	0	0
+SituacaoCompromissoViews	200	3	1
+SituacaoMovimentacaoFinanceiraViews	200	8	1
+RateioFaturaCasoViews	200	9030	1
+SituacaoRetornoViews	200	6	1
+ContatoViews	200	0	0
+AutoAprovacaoViews	200	0	0
+SobreporVigenciaViews	400	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Value cannot be null.\r\nParameter name: i	0
+SolicitacaoDespesaRevisorViews	200	69	1
+RevisaoTimesheetFixoViews	200	55603	1
+ClienteContatoViews	200	0	0
+SolicitacaoPagamentoAprovadorViews	200	0	0
+SolicitacaoDespesaViews	200	0	0
+SolicitacaoPagamentoItemAprovacaoViews	200	0	0
+SubAreaJuridicaViews	200	23	1
+SolicitacaoPagamentoViews	200	0	0
+TabelaRateioHistoricoViews	200	0	0
+TabelaServicoViews	200	0	0
+TabelaServicoDetalheViews	200	0	0
+SolicitacaoPagamentoItemContaFinanceiraViews	200	0	0
+TipoCobrancaViews	200	9	1
+TabelaRateioViews	200	1	1
+TipoCompromissoViews	200	5	1
+TipoContaViews	200	8	1
+TemporalidadeViews	200	0	0
+TipoContratoViews	200	0	0
+TipoDespesaViews	200	34	1
+SolicitacaoPagamentoItemViews	200	0	0
+TipoAssuntoViews	200	7	1
+TermoPublicacaoViews	200	0	0
+RateioFaturaOriginalViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+TipoAssuntoPerfilViews	200	7	1
+TermoPublicacaoVariacaoViews	200	0	0
+TermoPublicacaoPalavraBloqueadaViews	200	0	0
+TermoPublicacaoPalavraObrigatoriaViews	200	0	0
+TermoPublicacaoAbrangenciaViews	200	0	0
+TipoProcessoViews	200	0	0
+AssuntoCnjViews	200	4109	1
+TipoDocumentoViews	200	3	1
+TipoHistoricoViews	200	0	0
+ClasseCnjViews	200	609	1
+TipoHoraCasoViews	200	0	0
+TipoHoraCasoProfissionalViews	200	0	0
+TipoOcorrenciaViews	200	0	0
+TipoAtividadeViews	200	24	1
+TipoMovimentacaoFinanceiraViews	200	7	1
+TipoHoraViews	200	0	0
+TipoPedidoViews	200	304	1
+CategoriaMovimentacaoFinanceiraViews	200	4	1
+TipoOriginacaoViews	200	2	1
+TipoPedidoValorViews	200	3	1
+TipoPrestacaoContasViews	200	0	0
+TipoResponsabilidadeViews	200	5	1
+TipoRateioProfissionalViews	200	0	0
+TipoServicoViews	200	0	0
+TipoRelatorioViews	200	0	0
+TSMonitorDesbloqueioViews	200	0	0
+TipoRemuneracaoViews	200	0	0
+RevisaoTimesheetGridViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+TratamentoViews	200	0	0
+IdiomaTipoDespesaViews	200	68	1
+TribunalViews	200	180	1
+IdiomaServicoViews	200	0	0
+UnidadeMedidaViews	200	4	1
+UsuarioPerfilViews	200	197	1
+PerfilViews	200	24	1
+AcessoLogViews	200	284821	1
+UsuarioViews	200	64	1
+FluxoAcaoDinamicaViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+PesoProfissionalViews	200	0	0
+PaisViews	200	8	1
+CidadeViews	200	13245	1
+PalavraChaveViews	200	0	0
+ModeloTelaViews	200	337	1
+EstadoViews	200	32	1
+PessoaViews	200	845	1
+CheckinViews	200	0	0
+TabelaPadraoViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+TabelaPadraoHistoricoViews	200	3	1
+RevisaoTimesheetPorCasoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+TabeladoViews	200	0	0
+PessoaEnderecoViews	200	303	1
+PesquisaPerfilViews	200	0	0
+PesquisaCamposViews	200	0	0
+PesquisaViews	200	0	0
+CorrespondenteViews	200	1	1
+CasoParticipacaoViews	200	21	1
+CorrespondenteAdvogadoViews	200	1	1
+CompromissoResponsavelViews	200	1	1
+DecisaoViews	200	0	0
+NaturezaViews	200	5	1
+TipoEnvolvimentoViews	200	3	1
+SaldoFaturaViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+RateioFixoCasoViews	200	0	0
+TipoAcaoViews	200	161	1
+TSFavoritoViews	200	0	0
+TimesheetGridViews	200	0	0
+TimesheetVinculadoViews	200	952	1
+TimesheetViews	200	0	0
+TimesheetRevisaoViews	200	55603	1
+TSClienteViews	200	147	1
+TSCasoViews	200	542	1
+TSProfissionalViews	200	69	1
+TSTipoAtividadeViews	200	24	1
+TSIdiomaTipoAtividadeViews	200	48	1
+TSUsuarioViews	200	64	1
+TSTabeladoViews	200	0	0
+TSEbillingAtividadeViews	200	0	0
+TipoAtividadeTipoAtividadeEbillingViews	200	0	0
+TSSolicitacaoDespesaViews	200	0	0
+TSCompromissoResponsavelViews	200	1	1
+TSEbillingTarefaViews	200	0	0
+CategoriaCompromissoViews	200	0	0
+CategoriaViews	200	12	1
+CategoriaRhViews	200	0	0
+CasoParcelasViews	200	1628	1
+AdiantamentoDespesaViews	200	0	0
+AdiantamentoViews	200	157	1
+AnexoViews	200	0	0
+CasoFaturamentoViews	200	542	1
+FilaImpressaoViews	200	0	0
+JuizViews	200	0	0
+ManageableProfissionalViews	200	0	0
+AssuntoVinculoViews	200	0	0
+JuncaoAlocacaoCasoViews	200	0	0
+JuncaoAlocacaoViews	200	0	0
+ManageableAgendaProfissionalViews	200	0	0
+CondicaoPagamentoViews	200	5	1
+ContaViews	200	0	0
+PreFaturaCasoFavoritoViews	200	0	0
+PreFaturaClienteFavoritoViews	200	0	0
+BusinessPlanViews	200	0	0
+LancamentoViews	200	0	0
+LancamentoFinanceiroViews	200	71614	1
+LancamentoEstornoProjetoViews	200	0	0
+MetaReceitaViews	200	36	1
+OrcamentoViews	200	551	1
+CustoProfissionalViews	200	0	0
+TributoViews	200	108	1
+CustoCategoriaViews	200	0	0
+BusinessPlanProfissionalViews	200	0	0
+EmpresaViews	200	1	1
+RelatorioModeloPerfilViews	200	1	1
+RelatorioModeloViewModelViews	200	1	1
+PrepostoViews	200	0	0
+RelatorioModeloViewModelConfigViews	200	0	0
+AcessoEscritorioViews	200	0	0
+RelatorioModeloViews	200	1	1
+HonorarioViews	200	62	1
+HonorarioHistoricoViews	200	4268	1
+JuroViews	200	3	1
+FilaEtiquetaViews	200	0	0
+HonorarioCategoriaHistoricoViews	200	27943	1
+RateioProfissionalViews	200	0	0
+SolicitacaoPastaFisicaViews	200	0	0
+TSClienteFavoritoViews	200	0	0
+AcessoEscritorioProfissionalViews	200	0	0
+PFLacunaViews	200	0	0
+ParametrosViews	200	47	1
+CampanhaViews	200	0	0
+SolicitacaoCaixinhaViews	200	0	0
+CaixinhaViews	200	0	0
+CargoFavoritoViews	200	0	0
+TipoEnderecoViews	200	0	0
+CargoViews	200	0	0
+SolicitacaoPagamentoUnicoViews	200	0	0
+FormaCorrecaoAreaJuridicaViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Object reference not set to an instance of	0
+SolicitacaoPagamentoClienteViews	200	0	0
+SolicitacaoPagamentoInstitucionalViews	200	0	0
+BancoViews	200	12	1
+FormaCorrecaoAreaViews	200	0	0
+ProjetoSaldoViews	200	0	0
+SolicitacaoPagamentoUnicoItemViews	200	0	0
+SolicitacaoPagamentoEscritorioViews	200	0	0
+RotinaViews	200	27	1
+PrestacaoContaClienteViews	200	0	0
+PrestacaoContaInstitucionalViews	200	0	0
+CasoFavoritoViews	200	26	1
+ServicoWebViews	200	18	1
+PrestacaoContaEscritorioViews	200	0	0
+ChamadaViews	200	33	1
+OrdemViews	200	54	1
+ParametroServicoViews	200	128	1
+AcessoExcecaoProfissionalViews	200	0	0
+AcessoExcecaoViews	200	0	0
+OportunidadeMotivoPerdaViews	200	0	0
+MenuFavoritoViews	200	69	1
+ImportacaoColetorViews	200	0	0
+ImportacaoColetorItemViews	200	0	0
+PreFaturaFixoViews	200	0	0
+PendenciaEmailViews	400	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "Value cannot be null.\r\nParameter name: c	0
+PreFaturaContratoViews	200	4204	1
+PreFaturaRevisoresViews	200	0	0
+MailServidorViews	200	1	1
+ProjetoGrupoJuridicoViews	200	0	0
+GrupoJuridicoRelatViews	200	6	1
+PreFaturaAcessoExcecaoViews	200	1	1
+ProfissionalRelatViews	200	69	1
+FornecedorPlanoContaCompletoViews	200	0	0
+RegraEmailViews	200	1	1
+AlertaVinculoViews	200	0	0
+AlertaViews	200	1	1
+OportunidadeOrigemViews	200	0	0
+OportunidadeParticipacaoViews	200	0	0
+OportunidadeEtapaViews	200	0	0
+NovaDespesaPreFaturaViews	200	26	1
+OportunidadeHistoricoViews	200	0	0
+MotivoPerdaViews	200	3	1
+TipoOfertaViews	200	0	0
+NovoTabeladoPreFaturaViews	200	0	0
+OportunidadeValorViews	200	0	0
+OportunidadeContatoViews	200	0	0
+OportunidadeViews	200	0	0
+NovoTimesheetPreFaturaViews	200	2245	1
+OfertaViews	200	0	0
+PreFaturaCasoLancadoViews	200	0	0
+AtoRegraViews	200	0	0
+GlossarioViews	200	0	0
+ProjetoGerenciaViews	200	0	0
+ReporOrcamentoViews	200	0	0
+ProjetoItemResumoGrupoJuridicoViews	200	0	0
+GerenciaRespViews	200	0	0
+SyncLogItemViews	200	34	1
+ProjetoItemResumoEscritorioViews	200	0	0
+SyncLogItemGrupoViews	200	33	1
+DicionarioModeloTelaViews	200	1	1
+AlcadaPlanejamentoViews	200	0	0
+LogSistemaViews	200	509393	1
+FiltroGridViews	200	0	0
+RestricaoAcaoViews	200	681	1
+ModeloTelaAcaoViews	200	1746	1
+ProfissionalSocioRelatViews	200	69	1
+TimesheetFluxoAprovacaoViews	200	0	0
+TimesheetGrupoJuridicoViews	200	55603	1
+ClienteCrystalViews	200	147	1
+ComponenteViews	200	30	1
+FonteLayoutViews	200	30	1
+AreaDeTrabalhoViews	200	56	1
+TipoHoraProfissionalViews	200	0	0
+ProfissionalCaixinhaViews	200	1	1
+AssuntoConfiguracaoViews	200	0	0
+RegiaoViews	200	0	0
+TributosPrognosticoViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+CorrespondenteComarcaAtoValorViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+PesquisaPublicacaoViews	200	1	1
+CalculoViews	200	0	0
+CorrespondenteComarcaViews	200	0	0
+CasoAlocacaoViews	200	542	1
+LayoutJsonViews	200	1	1
+ChecagemConflitoViews	200	0	0
+ConflitoInteresseViews	200	0	0
+TipoAlocacaoViews	200	0	0
+CasoMaeFilhoViews	200	542	1
+ExcecaoProfissionalPagamentoViews	200	0	0
+DicionarioSensivelViews	200	26	1
+EmpresaClienteViews	200	1	1
+DespesaCorrespondenteViews	200	0	0
+AgendaCorrespondenteViews	200	1	1
+DicionarioSensivelModeloViews	200	0	0
+CorrespondenteClienteViews	200	0	0
+RevisaoCasoFixoRevisadoViews	200	41	1
+MovimentacaoViews	200	3	1
+AlocacaoCasoFavoritoViews	200	73	1
+PreFaturaResumoProfissionalViews	200	5585	1
+CheckinMovimentacaoViews	200	0	0
+AlocacaoClienteFavoritoViews	200	34	1
+ResponsavelProfissionalRhViews	200	0	0
+CheckinEmailViews	200	0	0
+RevisaoFixoAcumularViews	200	0	0
+DesdobramentoCamposViews	200	0	0
+ResponsavelProfissionalIntegranteViews	200	0	0
+ExcecaoCorteTimesheetViews	200	0	0
+ClassificacaoBairroViews	200	19	1
+CorrecaoMonetariaCamposViews	200	0	0
+CampoModeloViews	200	0	0
+RevisaoFixoInstrucaoViews	200	0	0
+PessoaSimplificadoViews	200	845	1
+FaturamentoOcorrenciaDicionarioViews	200	10	1
+TipoLogradouroViews	200	14	1
+AgendadorRelatorioViews	200	0	0
+LogAgendadorRelatorioViews	200	0	0
+CabecalhoAssuntoCamposViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+CabecalhoAssuntoViews	200	0	0
+BaseLoyAreaJuridicaViews	200	0	0
+BaseLoyViews	200	0	0
+TemplateWorkflowProfissionaisViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+TemplateWorkflowResponsabilidadesViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+TemplateWorkflowCondicoesViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+TemplateWorkflowTarefasViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "LINQ to Entities does not recognize the me	0
+CasoEmLoteViews	200	542	1
+TemplateWorkflowViews	200	0	0
+TemplateWorkflowCriteriosViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+TemplateWorkflowTarefasRespViews	500	{
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "ORA-00942: table or view does not exist",	0
+RegraDistribuicaoEstadoViews	200	0	0
+RegraDistribuicaoAreaViews	200	0	0
+RegraDistribuicaoClienteViews	200	0	0
+RegraDistribuicaoComarcaViews	200	0	0
+RegraDistribuicaoProfissionaisViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+RegraDistribuicaoViews	200	0	0
+RegraSolicitacaoProfissionaisViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+RegraSolicitacaoAgendasViews	404	{"Message":"Não foram encontrados recursos HTTP que correspondam ao URI de solicitação 'https://legaldesk.mbclaw.com.br/	0
+RegraDistribuicaoEscritoriosViews	200	0	0
+TipoSolicitacaoViews	200	0	0
+PreFaturaMargemContribuicaoViews	200	25120	1
+RegraSolicitacaoViews	200	0	0
+RevisaoTimesheetResumoProfissionalViews	200	341	1
+PreFaturaRecoveryViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PreFaturaMargemContribuicaoResumoCasoViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0
+PreFaturaMargemContribuicaoResumoPreViews	ERR	HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)	0

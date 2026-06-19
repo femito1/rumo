@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/ConsultivoCompromissoGridViews?$top=5",
+  "status": 500,
+  "elapsed_s": 1.202,
+  "content_type": "text/json; charset=utf-8",
+  "bytes": 442
+}

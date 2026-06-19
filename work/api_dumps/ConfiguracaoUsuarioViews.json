@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ConfiguracaoUsuarioViews","value":[
+    {
+      "Id":"69e253c5-2aa0-005d-b3c1-32b2be054eec","LicencaId":"1","PreferenciaId":"5AF35F43-06ED-71E8-4C82-90EEFD0C7B1A","UsuarioId":"681CB3D1-6DA7-D587-C475-688D75F20E72","UsuarioNome":"integracao","ProfissionalSigla":null,"ProfissionalCodigo":null,"Nome":"VISAO_PREFERENCIAL_TS","Valor":"D","DataInclusao":"2026-04-17T12:37:41.856151-03:00","UsuarioInclusao":"rumo3","DataAlteracao":"2026-04-17T12:39:51.653301-03:00","UsuarioAlteracao":"rumo3","Selecionado":false,"PreferenciaOpcaoUsuario":"S","PreferenciaDescricao":"Indica a vis\u00e3o preferencial a ser utilizada na tela de timesheet. (D - Di\u00e1ria / S - Semanal / M - Mensal / PM - Pend\u00eancias Mensal / L - Lista)","ExtraData":null
+    }
+  ]
+}

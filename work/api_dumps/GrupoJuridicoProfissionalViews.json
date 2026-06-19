@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#GrupoJuridicoProfissionalViews","value":[
+    {
+      "Id":"692ef8f2-c86d-7a57-d4d8-a0d1a38cc92f","Codigo":"-7535492986981265760","ProfissionalId":"6914B7F8-DC03-9074-43DE-18C59F405458","EscritorioId":"5B041D9E-98E9-68F1-A6E1-8C4DB3FE939A","EscritorioNome":"MBC Advogados","EscritorioCodigo":"1","GrupoJuridicoId":"5B0420E0-98ED-70E3-4A46-149095BB84E4","GrupoJuridicoNome":"Equipe Contencioso","GrupoJuridicoCodigo":"3","DataInclusao":"2025-12-02T14:34:37.556468-03:00","UsuarioInclusao":"mla","DataAlteracao":"2025-12-02T14:34:37.556468-03:00","UsuarioAlteracao":"mla"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TipoAtividadeViews","value":[
+    {
+      "Id":"5AF36B19-09EC-8D17-9281-54A6E1D93868","Codigo":"3","Descricao":"Audi\u00eancia","DescricaoPadrao":"Audi\u00eancia","ParticipacaoCliente":"N","Cobravel":"S","Ativo":"S","ZeraTempoRevisado":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-06-20T12:43:15-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5AF36B38-09EB-111C-F4E0-E453E0BBE650","Codigo":"2","Descricao":"An\u00e1lise","DescricaoPadrao":"An\u00e1lise","ParticipacaoCliente":"N","Cobravel":"S","Ativo":"S","ZeraTempoRevisado":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:24-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B40-09F1-8040-28DE-AD6F19459596","Codigo":"8","Descricao":"Elabora\u00e7\u00e3o de Proposta de Honor\u00e1rios","DescricaoPadrao":"Elabora\u00e7\u00e3o de Proposta de Honor\u00e1rios","ParticipacaoCliente":"N","Cobravel":"S","Ativo":"S","ZeraTempoRevisado":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-06-20T12:44:10-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5AF36B4D-09EE-93CD-26BE-B756FD05403C","Codigo":"5","Descricao":"Contato com Cliente","DescricaoPadrao":"Contato com Cliente","ParticipacaoCliente":"N","Cobravel":"S","Ativo":"S","ZeraTempoRevisado":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-06-20T12:43:36-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5AF36B50-09F0-6424-EF3D-7FD9276830B3","Codigo":"7","Descricao":"Elabora\u00e7\u00e3o de Formul\u00e1rio para Ranking","DescricaoPadrao":"Elabora\u00e7\u00e3o de Formul\u00e1rio para Ranking","ParticipacaoCliente":"N","Cobravel":"S","Ativo":"S","ZeraTempoRevisado":"N","DataInclusao":"2018-05-09T21:41:24-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-06-20T12:44:01-03:00","UsuarioAlteracao":"SIP"
+    }
+  ]
+}

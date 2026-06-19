@@ -1,0 +1,13 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MotivoEscolhaViews","value":[
+    {
+      "Id":"5AF36B45-210E-5DE5-8997-03EC41CA0013","Codigo":"2","Descricao":"Melhor Pre\u00e7o","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B4D-210C-9BF0-E505-E26538E6251E","Codigo":"4","Descricao":"Melhor Qualidade","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B6A-210D-A884-7DAF-0E51522CD17A","Codigo":"3","Descricao":"Melhor Condi\u00e7\u00e3o de Pagamento","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36BCC-210B-418C-5C15-42A60765F634","Codigo":"1","Descricao":"Fornecedor Exclusivo","DataInclusao":"2018-05-09T21:42:13-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:13-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PreFaturaRecoveryViews","value":[
+    {
+      "Id":"RECOVERY-5B0C7BF0-9E7F-78AD-0E24-636201F9738B","PreFaturaId":"5B0C7BF0-9E7F-78AD-0E24-636201F9738B","ValorTotalTrabalhado":"0","ValorTotalRevisado":"0","PercentualRecovery":"0"
+    },{
+      "Id":"RECOVERY-5B0C7CEF-9EB0-4B43-448D-CDB290935AB8","PreFaturaId":"5B0C7CEF-9EB0-4B43-448D-CDB290935AB8","ValorTotalTrabalhado":"0","ValorTotalRevisado":"17916.67","PercentualRecovery":"0"
+    },{
+      "Id":"RECOVERY-5B0C7D7C-9EDF-76C9-1B09-615C235F6346","PreFaturaId":"5B0C7D7C-9EDF-76C9-1B09-615C235F6346","ValorTotalTrabalhado":"0","ValorTotalRevisado":"17916.67","PercentualRecovery":"0"
+    },{
+      "Id":"RECOVERY-5B0C7E31-9F0E-0D1A-0830-E1FB04A52281","PreFaturaId":"5B0C7E31-9F0E-0D1A-0830-E1FB04A52281","ValorTotalTrabalhado":"0","ValorTotalRevisado":"17916.67","PercentualRecovery":"0"
+    },{
+      "Id":"RECOVERY-5B0EBFF0-9FD4-A79D-E73A-28CB6C6DDD3A","PreFaturaId":"5B0EBFF0-9FD4-A79D-E73A-28CB6C6DDD3A","ValorTotalTrabalhado":"0","ValorTotalRevisado":"21341.67","PercentualRecovery":"0"
+    }
+  ]
+}

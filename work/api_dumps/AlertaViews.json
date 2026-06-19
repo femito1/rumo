@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AlertaViews","value":[
+    {
+      "Id":"5AF35F3D-06C8-A452-0AE0-1C068B740160","Ativo":"N","Tipo":"T","Url":"/Timesheet/Mensal/","Nome":"Lan\u00e7amento de Timesheet","Profissionais":null,"Grupos":null,"HoraExpiracao":"16","Dia":null,"Mes":null,"Ano":null,"LabelAcao":"Lan\u00e7ar","TipoData":"CS","DataInclusao":"2018-05-09T20:51:06-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T20:51:06-03:00","UsuarioAlteracao":"SYS","GrupoJuridicoId":null,"DataExpiracao":null
+    }
+  ]
+}

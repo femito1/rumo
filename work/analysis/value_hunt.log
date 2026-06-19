@@ -1,0 +1,42 @@
+Endpoints with data and Decimal Valor* columns: 43
+Total queries to run: 785
+[100/785] hits=1 errs=7
+[200/785] hits=1 errs=7
+[300/785] hits=5 errs=7
+[400/785] hits=9 errs=12
+[500/785] hits=13 errs=22
+[600/785] hits=27 errs=27
+[700/785] hits=32 errs=27
+
+Finished. Endpoint hits: 38 | errors: 27
+Total positive hits: 371
+  Comissao_Eco                  1,500.00  in AlocacaoRecebimentoFaturaClienteJobViews.ValorRecebido  ctx={'Id': 'C-5B0C60F4-9D41-9A1B-DD07-35E4962F3F5F-5EE38A95-D7CD-4581-85F7-E0462768E8B4-5EE35ED5-D540-0220-39C3-F5F9595D9AB5', 'Tipo': 'CL', 'Numero': '1040'}
+  Comissao_Eco                  1,500.00  in AlocacaoRecebimentoFaturaClienteJobViews.ValorRecebido  ctx={'Id': 'C-5B0C610E-9D49-1E3C-D464-B6C1B6C22A72-5E39B167-CDCC-41BF-9A0A-83675515C91B-5E397B5C-C628-6DA8-8E9E-8E1E5718EE35', 'Tipo': 'CL', 'Numero': '744'}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '5E397B5C-C628-6DA8-8E9E-8E1E5718EE35', 'DataEmissao': '2020-02-04T00:00:00-03:00', 'DataInclusao': '2020-02-04T14:09:48-03:00', 'Tipo': 'F', 'Numero': '744', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '5E7B83D4-6922-0F5E-53A2-77C2C3028CF6', 'DataEmissao': '2020-03-25T00:00:00-03:00', 'DataInclusao': '2020-03-25T16:15:54-03:00', 'Tipo': 'F', 'Numero': '848', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '5E7B8BF2-696C-5627-6431-682CEDDA8BD1', 'DataEmissao': '2020-03-25T00:00:00-03:00', 'DataInclusao': '2020-03-25T16:49:24-03:00', 'Tipo': 'F', 'Numero': '849', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '5EE35ED5-D540-0220-39C3-F5F9595D9AB5', 'DataEmissao': '2020-06-12T00:00:00-03:00', 'DataInclusao': '2020-06-12T10:51:26-03:00', 'Tipo': 'F', 'Numero': '1040', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19', 'DataEmissao': '2022-03-04T00:00:00-03:00', 'DataInclusao': '2022-03-04T16:35:35-03:00', 'Tipo': 'F', 'Numero': '1919', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '625D6FC9-F148-5314-5408-369DBD9A5E96', 'DataEmissao': '2022-04-18T00:00:00-03:00', 'DataInclusao': '2022-04-18T11:02:07-03:00', 'Tipo': 'F', 'Numero': '1993', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '628BA257-834E-B05E-B4D2-0E273FAA8623', 'DataEmissao': '2022-05-23T00:00:00-03:00', 'DataInclusao': '2022-05-23T12:01:54-03:00', 'Tipo': 'F', 'Numero': '2041', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '62B0CEB4-C882-BBBB-38FB-79368F3414E0', 'DataEmissao': '2022-06-20T00:00:00-03:00', 'DataInclusao': '2022-06-20T16:45:34-03:00', 'Tipo': 'F', 'Numero': '2087', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '62D9987B-F2AE-A8FF-3665-53BAF056A1F0', 'DataEmissao': '2022-07-21T00:00:00-03:00', 'DataInclusao': '2022-07-21T15:15:19-03:00', 'Tipo': 'F', 'Numero': '2113', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '6303EED8-39FC-B285-B64F-EC89B5C91342', 'DataEmissao': '2022-08-22T00:00:00-03:00', 'DataInclusao': '2022-08-22T17:58:31-03:00', 'Tipo': 'F', 'Numero': '2141', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '632B22DB-92AF-011F-F618-AF893B0DD7E3', 'DataEmissao': '2022-09-21T00:00:00-03:00', 'DataInclusao': '2022-09-21T11:40:45-03:00', 'Tipo': 'F', 'Numero': '2174', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '6352D306-0E3D-39FB-B196-1C4B26B1E59F', 'DataEmissao': '2022-10-21T00:00:00-03:00', 'DataInclusao': '2022-10-21T14:11:44-03:00', 'Tipo': 'F', 'Numero': '2207', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '637BD3F6-B6BF-D73A-E6FD-C789B8AE0D4C', 'DataEmissao': '2022-11-21T00:00:00-03:00', 'DataInclusao': '2022-11-21T16:36:54-03:00', 'Tipo': 'F', 'Numero': '2246', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '63A07937-7901-BFD6-ACAB-DB92FFB2F7B6', 'DataEmissao': '2022-12-19T00:00:00-03:00', 'DataInclusao': '2022-12-19T11:45:20-03:00', 'Tipo': 'F', 'Numero': '2291', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '63D045A6-B46E-ACB6-C34A-D15BDA24FB70', 'DataEmissao': '2023-01-24T00:00:00-03:00', 'DataInclusao': '2023-01-24T17:51:49-03:00', 'Tipo': 'F', 'Numero': '2339', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '63F6877E-9AB2-F0C6-BB66-4B3191B459F4', 'DataEmissao': '2023-02-22T00:00:00-03:00', 'DataInclusao': '2023-02-22T18:18:15-03:00', 'Tipo': 'F', 'Numero': '2379', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '641A0662-2A48-AC93-75A0-40C33922B171', 'DataEmissao': '2023-03-21T00:00:00-03:00', 'DataInclusao': '2023-03-21T16:31:30-03:00', 'Tipo': 'F', 'Numero': '2420', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '643D8B45-7CE3-CDB2-0E42-2BD98D635129', 'DataEmissao': '2023-04-17T00:00:00-03:00', 'DataInclusao': '2023-04-17T15:09:07-03:00', 'Tipo': 'F', 'Numero': '2448', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '64419569-1A4E-7644-3C4E-9EB92D3313F1', 'DataEmissao': '2023-04-20T00:00:00-03:00', 'DataInclusao': '2023-04-20T16:39:03-03:00', 'Tipo': 'F', 'Numero': '2457', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorHonorarios  ctx={'Id': '646BA639-5D1A-8D89-A8A1-D75A6644FC1B', 'DataEmissao': '2023-05-22T00:00:00-03:00', 'DataInclusao': '2023-05-22T14:26:03-03:00', 'Tipo': 'F', 'Numero': '2496', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorDespesas  ctx={'Id': '67EED8F4-4D8C-7B05-0CCA-83E61850B1DD', 'DataEmissao': '2025-04-03T00:00:00-03:00', 'DataInclusao': '2025-04-03T15:49:31-03:00', 'Tipo': 'F', 'Numero': '3551', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorDespesas  ctx={'Id': '68701075-2968-FC2B-9FA5-CC12B8BFDD11', 'DataEmissao': '2025-07-10T00:00:00-03:00', 'DataInclusao': '2025-07-10T16:07:46-03:00', 'Tipo': 'F', 'Numero': '3715', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaViews.ValorDespesas  ctx={'Id': '68E7A670-0598-56E8-9E3C-8B846C2F3FED', 'DataEmissao': '2025-10-09T00:00:00-03:00', 'DataInclusao': '2025-10-09T09:09:54-03:00', 'Tipo': 'F', 'Numero': '3844', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaRedacaoViews.ValorHonorarios  ctx={'Id': '5E397B5C-C628-6DA8-8E9E-8E1E5718EE35', 'DataEmissao': '2020-02-04T00:00:00-03:00', 'DataInclusao': '2020-02-04T14:09:48-03:00', 'Tipo': 'F', 'Numero': '744', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaRedacaoViews.ValorHonorarios  ctx={'Id': '5E7B83D4-6922-0F5E-53A2-77C2C3028CF6', 'DataEmissao': '2020-03-25T00:00:00-03:00', 'DataInclusao': '2020-03-25T16:15:54-03:00', 'Tipo': 'F', 'Numero': '848', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaRedacaoViews.ValorHonorarios  ctx={'Id': '5E7B8BF2-696C-5627-6431-682CEDDA8BD1', 'DataEmissao': '2020-03-25T00:00:00-03:00', 'DataInclusao': '2020-03-25T16:49:24-03:00', 'Tipo': 'F', 'Numero': '849', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaRedacaoViews.ValorHonorarios  ctx={'Id': '5EE35ED5-D540-0220-39C3-F5F9595D9AB5', 'DataEmissao': '2020-06-12T00:00:00-03:00', 'DataInclusao': '2020-06-12T10:51:26-03:00', 'Tipo': 'F', 'Numero': '1040', 'ClientePessoaNome': None}
+  Comissao_Eco                  1,500.00  in FaturaRedacaoViews.ValorHonorarios  ctx={'Id': '62226A8C-C5D3-A7A7-FF17-AB36B8DB2D19', 'DataEmissao': '2022-03-04T00:00:00-03:00', 'DataInclusao': '2022-03-04T16:35:35-03:00', 'Tipo': 'F', 'Numero': '1919', 'ClientePessoaNome': None}

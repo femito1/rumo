@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/PreFaturaTimesheetViews?$top=5",
+  "status": 400,
+  "elapsed_s": 0.712,
+  "content_type": "text/json; charset=utf-8",
+  "bytes": 423
+}

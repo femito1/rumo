@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CidadeViews","value":[
+    {
+      "Id":"5AF36B06-0A2B-AC9D-3710-E2C97DFF277F","Codigo":"4719","Nome":"Buritin\u00f3polis","PaisId":"5AF36B7A-09FA-0B75-4F5C-3472B7390E5F","PaisNome":"Brasil","EstadoId":"5AF36B09-0A03-4C28-4742-4F8EFF4631A1","EstadoNome":"Goi\u00e1s","EstadoSigla":"GO","Tipo":"M","Ativo":"S","ChaveCnj":null,"CodigoTotvs":null,"DataInclusao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B06-0B0E-8206-BAF5-F50E117488FF","Codigo":"5219","Nome":"S\u00e3o Gabriel da Cachoeira","PaisId":"5AF36B7A-09FA-0B75-4F5C-3472B7390E5F","PaisNome":"Brasil","EstadoId":"5AF36B10-09FD-6319-D543-8B3EF7316B3B","EstadoNome":"Amazonas","EstadoSigla":"AM","Tipo":"M","Ativo":"S","ChaveCnj":null,"CodigoTotvs":null,"DataInclusao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B06-0B1F-7F4D-CE39-0EE4F210B48B","Codigo":"5242","Nome":"Serra do Navio","PaisId":"5AF36B7A-09FA-0B75-4F5C-3472B7390E5F","PaisNome":"Brasil","EstadoId":"5AF36B5C-09FE-5BA4-0320-38584512A672","EstadoNome":"Amap\u00e1","EstadoSigla":"AP","Tipo":"M","Ativo":"S","ChaveCnj":null,"CodigoTotvs":null,"DataInclusao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B06-0B3F-735C-EAA9-D928AB42E191","Codigo":"4293","Nome":"Presidente Sarney","PaisId":"5AF36B7A-09FA-0B75-4F5C-3472B7390E5F","PaisNome":"Brasil","EstadoId":"5AF36B33-0A04-5C17-1AEB-0CCC01A73D33","EstadoNome":"Maranh\u00e3o","EstadoSigla":"MA","Tipo":"M","Ativo":"S","ChaveCnj":null,"CodigoTotvs":null,"DataInclusao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioAlteracao":"SYS"
+    },{
+      "Id":"5AF36B06-0C24-83FA-406F-CC3DA41E83B7","Codigo":"1880","Nome":"Angra dos Reis","PaisId":"5AF36B7A-09FA-0B75-4F5C-3472B7390E5F","PaisNome":"Brasil","EstadoId":"5AF36BA0-0A0D-7151-74B3-BA4BF0554969","EstadoNome":"Rio de Janeiro","EstadoSigla":"RJ","Tipo":"M","Ativo":"S","ChaveCnj":null,"CodigoTotvs":null,"DataInclusao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioAlteracao":"SYS"
+    }
+  ]
+}

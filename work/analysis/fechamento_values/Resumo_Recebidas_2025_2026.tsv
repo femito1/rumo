@@ -1,0 +1,355 @@
+Fatura	Nº	Cliente	Nº	Caso	Advogado	Valor	Area Originador	DT Receb	Valor a Creditar	Area Destino		saida		entrada		
+3465	61	Atems	10	Ream - Trabalhos Adicionais	ASG	474.09	Econômico	2025-03-01 00:00:00	7395.61	Contencioso		Consolidado	Area Origem (saida)	Consolidado	Area Destino (Entrada)	
+					BBX	7395.61			7822.38	Contencioso		54452.9331872	Arbitragem	10285.68	Arbitragem	
+					BMP	2560.02						46372.07	Contencioso	106691.10318719999	Contencioso	
+					DC	7822.38						53095.31	Econômico	36943.53	Econômico	
+					RB	9718.71										
+					VC	10429.76						Consolidado	Area Origem	Area Destino	MÊS	
+					Total Fatura	38400.57						857.14	Econômico	Arbitragem	Agosto	
+					Recebido	60000						5714.27	Contencioso	Arbitragem	Agosto	
+3480	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	350	Contencioso	2025-03-17 00:00:00	700	Econômico		2571.42	Contencioso	Arbitragem	Setembro	
+					DC	525			350	Econômico		1142.85	Contencioso	Arbitragem	Outubro	
+					VC	700						15217.99	Econômico	Contencioso	Março	
+					Total Fatura	1575						34919.89	Econômico	Contencioso	Abril	
+					Recebido	1575						32348.3732247	Arbitragem	Contencioso	Junho	
+3522	61	Atems	10	Ream - Trabalhos Adicionais	ASG	711.12	Econômico	2025-04-01 00:00:00	12843.81	Contencioso		1799.42	Econômico	Contencioso	Junho	
+					BBX	14364.56			12721.81	Contencioso		14038.9679853	Arbitragem	Contencioso	Agosto	
+					BMP	995.56			9047.73	Contencioso		300.87	Econômico	Contencioso	Agosto	
+					DC	14222.5						8065.5919772	Arbitragem	Contencioso	Setembro	
+					IAC	10113.71						1050	Contencioso	Econômico	Março	
+					RB	7348.29						525	Contencioso	Econômico	Abril	
+					VC	19279.25						525	Contencioso	Econômico	Maio	
+					Total Fatura	67034.98999999999						30525	Contencioso	Econômico	Junho	
+					Recebido	60000						3268.5299999999997	Contencioso	Econômico	Julho	
+3535	136	Deere	1	Projeto Santos	IAC	5833.33	Arbitragem	2025-06-01 00:00:00	30257.48271	Contencioso		525	Contencioso	Econômico	Agosto	
+					JGS	6250						525	Contencioso	Econômico	Outubro	
+					MV	5500	10% Comiss	9120.473271				11025	Arbitragem	Contencioso	Dezembro	
+					Total Fatura	17583.33										
+					Recebido	91204.73271000001										
+3536	136	Deere	1	Projeto Santos	IAC	2741.67	Arbitragem	2025-08-01 00:00:00	14038.9679853	Contencioso						
+					JGS	8100						Consolidado	Area Origem	Area Destino	MÊS	
+					MV	8525	10% Comiss	9916.87767353				32348.3732247	Arbitragem	Contencioso	Junho	
+					Total Fatura	19366.67						14038.9679853	Arbitragem	Contencioso	Agosto	
+					Recebido	99168.7767353						8065.5919772	Arbitragem	Contencioso	Setembro	
+3537	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-04-01 00:00:00	525	Econômico		1050	Contencioso	Econômico	Março	
+					Total Fatura	525						525	Contencioso	Econômico	Abril	
+					Recebido	525						525	Contencioso	Econômico	Maio	
+3573	20	Dascher	1	Administrative Proceeding nº 08012.001183/2009-08 - Freight Forwarding	FMF	50	Econômico	2025-04-01 00:00:00	306.53999999999996	Contencioso		30525	Contencioso	Econômico	Junho	
+					Total Fatura	50						3268.5299999999997	Contencioso	Econômico	Julho	
+					Recebido	306.53999999999996						6239.27	Contencioso	Econômico	Agosto	
+3595	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-05-01 00:00:00	525	Econômico		2571.42	Contencioso	Arbitragem	Setembro	
+					Total Fatura	525						1142.85	Contencioso	Arbitragem	Outubro	
+					Recebido	525						525	Contencioso	Econômico	Outubro	
+3605	136	Deere	1	Projeto Santos	IAC	408.33	Arbitragem	2025-06-01 00:00:00	2090.8905147	Contencioso		15217.99	Econômico	Contencioso	Março	
+					JGS	100						34919.89	Econômico	Contencioso	Abril	
+					MV	825	10% Comiss	682.74362647				1799.42	Econômico	Contencioso	Junho	
+					Total Fatura	1333.33						1158.01	Econômico	Arbitragem	Agosto	
+					Recebido	6827.4362647										
+3614	140	Meu Financiamento Solar	1	Notificação de operação ao CADE | Projeto Parker	ASG	2000	Contencioso	2025-06-01 00:00:00	30000	Econômico						
+					AM	24150										
+					BMP	16200										
+					VC	38733.33						Consolidado	Area Origem	Valor Comissao	Area Destino	MÊS
+					Total Fatura	81083.33						9803.21689747	Arbitragem	4901.608448735	Contencioso	Junho
+					Recebido	30000								4901.608448735	Economico	Junho
+3640	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-06-01 00:00:00	525	Econômico		12528.30867353	Arbitragem	6264.154336765	Contencioso	Agosto
+					Total Fatura	525								6264.154336765	Economico	Agosto
+					Recebido	525						10268.0129892	Arbitragem	5134.0064946	Contencioso	Setembro
+3687	61	Atems	18	MS ANP - Cessão de Bases	AM	9244.63	Contencioso	2025-07-01 00:00:00	1021.31	Econômico				5134.0064946	Economico	Setembro
+					BBX	3697.81			1722.22	Econômico		1142.85	Arbitragem	571.425	Contencioso	Outubro
+					DC	24889.38								571.425	Economico	Outubro
+					IAC	27654.67						2500	Contencioso	2500	Arbitragem	Outubro
+					JCT	22329.06						5722.5	Arbitragem	2861.25	Contencioso	Dezembro
+					RB	4029.71								2861.25	Economico	Dezembro
+					VC	6795.15										
+					Total Fatura	98640.41										
+					Recebido	25000										
+3690	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-07-01 00:00:00	525	Econômico						
+					Total Fatura	525										
+					Recebido	525										
+3712	20	Dascher	1	Administrative Proceeding nº 08012.001183/2009-08 - Freight Forwarding	FMF	50	Econômico	2025-08-01 00:00:00	300.87	Contencioso						
+					Total Fatura	50										
+					Recebido	300.87										
+3717	7	John Deere Brasil	1	Consultas Diversas	MV	857.14	Econômico	2025-08-01 00:00:00	857.14	Arbitragem						
+					Total Fatura	857.14	10% Comiss	85.714								
+					Recebido	857.14										
+3718	7	John Deere Brasil	16	Pré-contencioso - Contrato de Distribuição Rota Oeste	AM	8571.4	Contencioso	2025-08-01 00:00:00	5714.27	Arbitragem						
+					BBX	3942.89										
+					DC	1285.71										
+					IAC	5742.9										
+					MV	5714.27	10% Comiss	2525.7170000000006								
+					Total Fatura	25257.170000000002										
+					Recebido	25257.170000000002										
+3736	136	Deere	2	Project South	IAC	233.33	Arbitragem	2025-09-01 00:00:00	1167.58332	Contencioso						
+					MV	2750										
+					Total Fatura	2983.33	10% Comiss	1492.8583319999998								
+					Recebido	14928.583319999998										
+3746	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-08-01 00:00:00	525	Econômico						
+					Total Fatura	525										
+					Recebido	525										
+3767	7	John Deere Brasil	16	Pré-contencioso - Contrato de Distribuição Rota Oeste	AM	7714.26	Contencioso	2025-09-01 00:00:00	2571.42	Arbitragem						
+					BBX	771.44										
+					DC	1285.71										
+					IAC	6428.63	10% Comiss	1877.146								
+					MV	2571.42										
+					Total Fatura	18771.46										
+					Recebido	18771.46										
+3630	142	Engelog	1	Elaboração de Protocolo Antitruste	ASG	3149.04	Econômico	2025-06-01 00:00:00	899.71	Contencioso						
+					DC	899.71										
+					EHF	7966.74										
+					Total Fatura	12015.49										
+					Recebido	12015.49										
+3681	142	Engelog	1	Elaboração de Protocolo Antitruste	ASG	1574.52	Econômico	2025-06-01 00:00:00	899.71	Contencioso						
+					AM	2474.19										
+					DC	899.71										
+					Total Fatura	4948.42										
+					Recebido	4948.42										
+3822	136	Deere	2	Project South	IAC	233.33	Arbitragem	2025-09-01 00:00:00	1173.2765720000002	Contencioso						
+					JGS	2550										
+					MV	2475										
+					Total Fatura	5258.33	10% Comiss	2644.0986572								
+					Recebido	26440.986572										
+3815	136	Deere	2	Project South	IAC	291.67	Arbitragem	2025-09-01 00:00:00	1459.6916820000001	Contencioso						
+					JGS	3900										
+					MV	4308.33										
+					Total Fatura	8500	10% Comiss	4253.91								
+					Recebido	42539.1										
+3813	7	John Deere Brasil	16	Pré-contencioso - Contrato de Distribuição Rota Oeste	AM	6857.12	Contencioso	2025-10-01 00:00:00	1142.85	Arbitragem						
+					BBX	2400.02										
+					IAC	5228.62										
+					MV	1142.85										
+					Total Fatura	15628.609999999999	10% Comiss	1142.85								
+					Recebido	15628.609999999999										
+3821	5	White Martins	1	Ato de Concentração - Projeto CSA	ASG	525	Contencioso	2025-10-01 00:00:00	525	Econômico						
+					Total Fatura	525										
+					Recebido	525										
+3880	145	Silvia Figueiredo 	1	Ação Civil Pública - Reserva Legal e APP	Total Fatura	25000	Contencioso	2025-10-01 00:00:00		Arbitragem						
+					Recebido	25000	10% Comiss	2500		contencioso para arbitragem						
+3900	136	Deere & Company	3	Project North	IAC	11025	Arbitragem	2025-12-01 00:00:00	11025	Contencioso						
+					JGS	28350										
+					MV	28875										
+					Total Fatura	68250	10% Comiss	5722.5								
+					Recebido	68250				arbitragem para o contencioso						
+3900	136	Deere & Company	3	Project North	IAC	11025	Arbitragem	2025-12-01 00:00:00	11025	Contencioso						
+					JGS	28350										
+					MV	28875						saida		entrada		
+					Total Fatura	68250	10% Comiss	5722.5				Consolidado	Area Origem (saida)	Consolidado	Area Destino (Entrada)	
+					Recebido	68250				arbitragem para o contencioso		26933.722604000002	Arbitragem	13731.119479	Contencioso	
+3957	136	Deere & Company	3	Project North	IAC	1204.519459	Arbitragem	2026-01-01 00:00:00	1204.519459	Contencioso				13202.603125000001	Econômico	
+					JGS	12131.405										
+					MV	3785.669459										
+					Total Fatura	17121.593918000002	10% Comiss	1591.7074459000003								
+					Recebido	17121.593918000002						Consolidado Alocação	Area Origem	Area Destino	MÊS	
+3985	136	Deere & Company	3	Project North	IAC	12526.60002	Arbitragem	2026-01-01 00:00:00	12526.60002	Contencioso		13731.119479	Arbitragem	Contencioso	2026-01-01 00:00:00	
+					JGS	5493.4						13202.603125000001	Arbitragem	Econômico	2026-01-01 00:00:00	
+					MV	6408.950019999999						4362.575	Arbitragem	Contencioso	2026-02-01 00:00:00	
+					Total Fatura	24428.95004	10% Comiss	1190.235002								
+					Recebido	24428.95004										
+3991	146	Hunter Douglas do Brasil	1	Contrato de Credenciamento de Revenda	AM	3135.9375	Arbitragem	2026-01-01 00:00:00	13202.603125000001	Econômico						
+					BMP	10066.665625000001										
+				0.3125	MV	4297.396875										
+					Total Fatura	56000										
+					Recebido	17500										
+4009	136	Deere & Company	3	Project North	IAC	4362.575	Arbitragem	2026-02-01 00:00:00	4362.575	Contencioso		Consolidado Comissão	Area Origem	Valor Comissao	Area Destino	MÊS
+					JGS	1495.74						2781.9424479	Arbitragem	1390.97122395	Contencioso	2026-01-01 00:00:00
+					MV	19195.33								1390.97122395	Economico	2026-01-01 00:00:00
+					Total Fatura	25053.645	10% Comiss	2069.1070000000004				2069.1070000000004	Arbitragem	1034.5535000000002	Contencioso	2026-02-01 00:00:00
+					Recebido	25053.645								1034.5535000000002	Economico	2026-02-01 00:00:00
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																
+																

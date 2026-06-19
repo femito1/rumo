@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ModeloTelaViews","value":[
+    {
+      "Id":"5AF35F3A-0678-333D-2BC5-9BC4FB02C7D8","Titulo":"Dashboard","NomeView":"RedirectApexView","PrincipalId":"5AF35F3A-0678-333D-2BC5-9BC4FB02C7D8","Tipo":"L"
+    },{
+      "Id":"5AF35F3A-06A1-0C17-23BE-635F77E693E2","Titulo":"Organiza\u00e7\u00e3o/Resultado","NomeView":"39","PrincipalId":"5AF35F3A-06A1-0C17-23BE-635F77E693E2","Tipo":"D"
+    },{
+      "Id":"5AF35F3C-0641-577A-671A-FA80F08B3A29","Titulo":"Decis\u00e3o","NomeView":"DecisaoView","PrincipalId":"5AF35F3C-0641-577A-671A-FA80F08B3A29","Tipo":"L"
+    },{
+      "Id":"5AF35F3F-0640-3A36-EE76-DBBD38CD4A5F","Titulo":"Custo Profissional","NomeView":"CustoProfissionalView","PrincipalId":"5AF35F3F-0640-3A36-EE76-DBBD38CD4A5F","Tipo":"L"
+    },{
+      "Id":"5AF35F3F-064E-A89F-0938-F473AEF56D7A","Titulo":"Respons\u00e1vel pelo Grupo","NomeView":"GrupoJuridicoResponsavelView","PrincipalId":"5AF35F3F-064E-A89F-0938-F473AEF56D7A","Tipo":"L"
+    }
+  ]
+}

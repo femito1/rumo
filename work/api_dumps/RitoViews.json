@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#RitoViews","value":[
+    {
+      "Id":"5AF36B58-357A-5F0F-2687-CC2BF89DB715","Codigo":"2","Descricao":"Ordin\u00e1rio","DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B5F-3579-9A98-3762-550AD29EA70F","Codigo":"5","Descricao":"Cautelar","DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B61-357C-4747-29A7-4CBEE5F47626","Codigo":"4","Descricao":"Executivo","DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B81-3578-07A7-E36A-8C53EE156040","Codigo":"3","Descricao":"Especial","DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36BAB-357E-7507-EFBE-ACECB4D80024","Codigo":"8","Descricao":"Mandamental","DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

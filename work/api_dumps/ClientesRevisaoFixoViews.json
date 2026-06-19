@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ClientesRevisaoFixoViews","value":[
+    {
+      "Id":"5B05A4EF-9996-A90D-5101-3AE74190227F","ClienteId":null,"Codigo":"2","CodigoNumerico":"2","PessoaNome":"VLI Multimodal S.A","PessoaNomeFantasia":"VLI Multimodal","Situacao":"A","ClienteRaiz":null,"CodigoSimplificado":null
+    },{
+      "Id":"5B070120-99C4-857A-FA2E-C69BF05B63EF","ClienteId":null,"Codigo":"5","CodigoNumerico":"5","PessoaNome":"White Martins Gases Industriais Ltda.\r\n","PessoaNomeFantasia":"White","Situacao":"A","ClienteRaiz":null,"CodigoSimplificado":null
+    },{
+      "Id":"5B0701F5-99CA-25BB-FC72-EA80648D404B","ClienteId":null,"Codigo":"6","CodigoNumerico":"6","PessoaNome":"Sherwin-Williams do Brasil Ind\u00fastria e Com\u00e9rcio Ltda. ","PessoaNomeFantasia":"Sherwin-Williams","Situacao":"A","ClienteRaiz":null,"CodigoSimplificado":null
+    },{
+      "Id":"5B07046B-99E2-9E9A-CF25-F1E434F6E056","ClienteId":null,"Codigo":"10","CodigoNumerico":"10","PessoaNome":"Technip Brasil - Engenharia, Instala\u00e7\u00f5es e Apoio Mar\u00edtimo Ltda.\r\n","PessoaNomeFantasia":"Technip Brasil","Situacao":"A","ClienteRaiz":null,"CodigoSimplificado":null
+    },{
+      "Id":"5B070583-99EE-47A7-044A-40FA8E5FA14C","ClienteId":null,"Codigo":"12","CodigoNumerico":"12","PessoaNome":"Abril Comunica\u00e7\u00f5es S.A ","PessoaNomeFantasia":"Abril Comunica\u00e7\u00f5es","Situacao":"A","ClienteRaiz":null,"CodigoSimplificado":null
+    }
+  ]
+}

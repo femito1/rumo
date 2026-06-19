@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AtoViews","value":[
+    {
+      "Id":"5AF36B87-9643-8CAC-E885-7EB4038F658E","Codigo":"3","Descricao":"Cita\u00e7\u00e3o","SugestaoDescricao":null,"Situacao":"A","FaseId":null,"FaseDescricao":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null,"SugestaoValor":null,"QuantPalavrasChave":"0"
+    },{
+      "Id":"5AF36BA9-9654-7D5B-CAFB-F68F294E2F5B","Codigo":"21","Descricao":"Telefonema","SugestaoDescricao":null,"Situacao":"A","FaseId":null,"FaseDescricao":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null,"SugestaoValor":null,"QuantPalavrasChave":"0"
+    },{
+      "Id":"5AF36BB2-964D-5A68-8977-9D513347489F","Codigo":"14","Descricao":"Contesta\u00e7\u00e3o","SugestaoDescricao":null,"Situacao":"A","FaseId":null,"FaseDescricao":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null,"SugestaoValor":null,"QuantPalavrasChave":"0"
+    },{
+      "Id":"5AF36BBE-964C-AEC2-D4D2-CE3645C54419","Codigo":"13","Descricao":"Intima\u00e7\u00e3o","SugestaoDescricao":null,"Situacao":"A","FaseId":null,"FaseDescricao":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null,"SugestaoValor":null,"QuantPalavrasChave":"0"
+    },{
+      "Id":"5AF36BC8-964E-81BE-9D9D-FB505AB835DE","Codigo":"15","Descricao":"Dep\u00f3sito","SugestaoDescricao":null,"Situacao":"A","FaseId":null,"FaseDescricao":null,"DataInclusao":"2018-05-09T21:43:35-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:35-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null,"SugestaoValor":null,"QuantPalavrasChave":"0"
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+DRE 2025	Janeiro				Fevereiro									11		CHECK	
+             Resultado  Institucional	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Variação Mensal	YTG			
+Faturamento 	='DRE 2026'!C3	444545.69	=+C3-B3	=C3/B3	='DRE 2026'!D3	534752.84	=+G3-F3	=G3/F3	='DRE 2026'!B3	='DRE 2026'!C3+'DRE 2026'!D3	=C3	=L3-K3	=L3/K3	=J3-L3		=C3	=L3-Q3
+Receita 		='Base_Resultado Mensal_V2'!C4				='Base_Resultado Mensal_V2'!D4				='DRE 2026'!C3+'DRE 2026'!D3	='Base_Resultado Mensal_V2'!C4+'Base_Resultado Mensal_V2'!D4+'Base_Resultado Mensal_V2'!E4+'Base_Resultado Mensal_V2'!F4+'Base_Resultado Mensal_V2'!G4+'Base_Resultado Mensal_V2'!H4+'Base_Resultado Mensal_V2'!I4+'Base_Resultado Mensal_V2'!J4+'Base_Resultado Mensal_V2'!K4+'Base_Resultado Mensal_V2'!L4+'Base_Resultado Mensal_V2'!M4+'Base_Resultado Mensal_V2'!N4	=L4-K3				='Base_Resultado Mensal_V2'!O4	=L4-Q4
+Despesas 	Orçado	Realizado	Variação Mensal	Variação Mensal	Orçado	Realizado	Variação Mensal	Variação Mensal					Variação Mensal				
+Custos Diretos	=SUM(B7:B11)	=SUM(C7:C12)	=+B6-C6		=SUM(F7:F11)	=SUM(G7:G12)	=+F6-G6		=SUM(J7:J11)	=SUM(K7:K11)	=L7+L8+L9+L10+L11+L12	=K6-L6	=L6/K6	=J6-L6		=SUM(Q7:Q12)	=L6-Q6
+=+'Base_Resultado Mensal_V2'!A5	='DRE 2026'!C6	='Base_Resultado Mensal_V2'!C5	=+B7-C7	=C7/B7	='DRE 2026'!D6	='Base_Resultado Mensal_V2'!D5	=+F7-G7	=G7/F7	='DRE 2026'!B6	='DRE 2026'!C6	=C7	=K7-L7	=L7/K7	=J7-L7		='Base_Resultado Mensal_V2'!O5	=L7-Q7
+='Base_Resultado Mensal_V2'!A28		='Base_Resultado Mensal_V2'!C28+'Base_Resultado Mensal_V2'!C29				='Base_Resultado Mensal_V2'!D28+'Base_Resultado Mensal_V2'!D29					=C8					='Base_Resultado Mensal_V2'!O28+'Base_Resultado Mensal_V2'!O29	=L8-Q8
+=+'Base_Resultado Mensal_V2'!A30	='DRE 2026'!C7	='Base_Resultado Mensal_V2'!C30	=+B9-C9	=C9/B9	='DRE 2026'!D7	='Base_Resultado Mensal_V2'!D30	=+F9-G9	=G9/F9	='DRE 2026'!B7	='DRE 2026'!C7	=C9	=K9-L9	=L9/K9	=J9-L9		='Base_Resultado Mensal_V2'!O30	=L9-Q9
+='Base_Resultado Mensal_V2'!A56		='Base_Resultado Mensal_V2'!C28+'Base_Resultado Mensal_V2'!C29				='Base_Resultado Mensal_V2'!D56+'Base_Resultado Mensal_V2'!D57					=C10					='Base_Resultado Mensal_V2'!O56+'Base_Resultado Mensal_V2'!O57	=L10-Q10
+=+'Base_Resultado Mensal_V2'!A58	='DRE 2026'!C8	='Base_Resultado Mensal_V2'!C58	=+B11-C11	=C11/B11	='DRE 2026'!D8	='Base_Resultado Mensal_V2'!D58	=+F11-G11	=G11/F11	='DRE 2026'!B8	='DRE 2026'!C8	=C11	=K11-L11	=L11/K11	=J11-L11		='Base_Resultado Mensal_V2'!O58	=L11-Q11
+='Base_Resultado Mensal_V2'!A75		='Base_Resultado Mensal_V2'!C75+'Base_Resultado Mensal_V2'!C76				='Base_Resultado Mensal_V2'!D75+'Base_Resultado Mensal_V2'!D76					=C12					='Base_Resultado Mensal_V2'!O75+'Base_Resultado Mensal_V2'!O76	=L12-Q12
+Despesas Indiretas	=SUM(B14:B24)	=SUM(C14:C24)	=(B13-C13)		=SUM(F14:F24)	=SUM(G14:G24)	=(F13-G13)		=SUM(J14:J24)	=SUM(K14:K24)	=SUM(L14:L24)	=K13-L13	=L13/K13	=J13-L13		=SUM(Q14:Q24)	=L13-Q13
+=+'Base_Resultado Mensal_V2'!A80	='DRE 2026'!C10	='Base_Resultado Mensal_V2'!C80	=+B14-C14	=(C14/B14)	='DRE 2026'!D10	='Base_Resultado Mensal_V2'!D80	=+F14-G14	=(G14/F14)	='DRE 2026'!B10	='DRE 2026'!C10	=C14	=K14-L14	=L14/K14	=J14-L14		='Base_Resultado Mensal_V2'!B80	=L14-Q14
+=+'Base_Resultado Mensal_V2'!A87	='DRE 2026'!C11	='Base_Resultado Mensal_V2'!C87	=+B15-C15	=(C15/B15)	='DRE 2026'!D11	='Base_Resultado Mensal_V2'!D87	=+F15-G15	=(G15/F15)	='DRE 2026'!B11	='DRE 2026'!C11	=C15	=K15-L15	=L15/K15	=J15-L15		='Base_Resultado Mensal_V2'!B87	=L15-Q15
+=+'Base_Resultado Mensal_V2'!A90	='DRE 2026'!C12	='Base_Resultado Mensal_V2'!C90	=+B16-C16	=(C16/B16)	='DRE 2026'!D12	='Base_Resultado Mensal_V2'!D90	=+F16-G16	=(G16/F16)	='DRE 2026'!B12	='DRE 2026'!C12	=C16	=K16-L16	=L16/K16	=J16-L16		='Base_Resultado Mensal_V2'!B90	=L16-Q16
+=+'Base_Resultado Mensal_V2'!A105	='DRE 2026'!C13	='Base_Resultado Mensal_V2'!C105	=+B17-C17	=(C17/B17)	='DRE 2026'!D13	='Base_Resultado Mensal_V2'!D105	=+F17-G17	=(G17/F17)	='DRE 2026'!B13	='DRE 2026'!C13	=C17	=K17-L17	=L17/K17	=J17-L17		='Base_Resultado Mensal_V2'!B105	=L17-Q17
+=+'Base_Resultado Mensal_V2'!A111	='DRE 2026'!C14	='Base_Resultado Mensal_V2'!C111	=+B18-C18	=(C18/B18)	='DRE 2026'!D14	='Base_Resultado Mensal_V2'!D111	=+F18-G18	=(G18/F18)	='DRE 2026'!B14	='DRE 2026'!C14	=C18	=K18-L18	=L18/K18	=J18-L18		='Base_Resultado Mensal_V2'!B111	=L18-Q18
+=+'Base_Resultado Mensal_V2'!A119	='DRE 2026'!C15	='Base_Resultado Mensal_V2'!C119	=+B19-C19	=(C19/B19)	='DRE 2026'!D15	='Base_Resultado Mensal_V2'!D119	=+F19-G19	=(G19/F19)	='DRE 2026'!B15	='DRE 2026'!C15	=C19	=K19-L19	=L19/K19	=J19-L19		='Base_Resultado Mensal_V2'!B119	=L19-Q19
+='Base_Resultado Mensal_V2'!A129	='DRE 2026'!C16	='Base_Resultado Mensal_V2'!C129	=+B20-C20		='DRE 2026'!D16	='Base_Resultado Mensal_V2'!D129	=+F20-G20		='DRE 2026'!B16	='DRE 2026'!C16	=C20	=K20-L20		=J20-L20		='Base_Resultado Mensal_V2'!B129	=L20-Q20
+=+'Base_Resultado Mensal_V2'!A132	='DRE 2026'!C17	='Base_Resultado Mensal_V2'!C132	=+B21-C21	=(C21/B21)	='DRE 2026'!D17	='Base_Resultado Mensal_V2'!D132	=+F21-G21	=(G21/F21)	='DRE 2026'!B17	='DRE 2026'!C17	=C21	=K21-L21	=L21/K21	=J21-L21		='Base_Resultado Mensal_V2'!B132	=L21-Q21
+='Base_Resultado Mensal_V2'!A159	='DRE 2026'!C18	='Base_Resultado Mensal_V2'!C159	=+B22-C22	=(C22/B22)	='DRE 2026'!D18	='Base_Resultado Mensal_V2'!D159	=+F22-G22	=(G22/F22)	='DRE 2026'!B18	='DRE 2026'!C18	=C22	=K22-L22	=L22/K22	=J22-L22		='Base_Resultado Mensal_V2'!B159	=L22-Q22
+='Base_Resultado Mensal_V2'!A153	='DRE 2026'!C19	='Base_Resultado Mensal_V2'!C153	=+B23-C23		='DRE 2026'!D19	='Base_Resultado Mensal_V2'!D153	=+F23-G23		='DRE 2026'!B19	='DRE 2026'!C19	=C23	=K23-L23	=L23/K23	=J23-L23		='Base_Resultado Mensal_V2'!B153	=L23-Q23
+=+'Base_Resultado Mensal_V2'!A175	='DRE 2026'!C20	='Base_Resultado Mensal_V2'!C175	=+B24-C24	=(C24/B24)	='DRE 2026'!D20	='Base_Resultado Mensal_V2'!D175	=+F24-G24	=(G24/F24)	='DRE 2026'!B20	='DRE 2026'!C20	=C24	=K24-L24	=L24/K24	=J24-L24		='Base_Resultado Mensal_V2'!B175	=L24-Q24
+Resultado Bruto	=B3-B6-B13	=C4-C6-C13			=F3-F6-F13	=G4-G6-G13			=J3-J6-J13	=K3-K6-K13	=L4-L6-L13					=Q4-Q6-Q13	
+Margem de bruta	=B25/B3	=C25/C4			=F25/F3	=G25/G4			=J25/J3	=K25/K3	=L25/L4					=Q25/Q4	
+0.15																	
+Impostos	='DRE 2026'!C23	=C4*$A$27			='DRE 2026'!D23	='Base_Resultado Mensal_V2'!D163	=+F28-G28		='DRE 2026'!B23	='DRE 2026'!C23	=C28						=L28-Q28
+Investimento amortização	='DRE 2026'!C24	8117			8117	=F29	=+F29-G29		='DRE 2026'!B24	='DRE 2026'!C24	=C29						=L29-Q29
+Resultado Liquido após impostos	=B25-B28-B29	=C25-C28-C29			=F25-F28-F29	=G25-G28-G29			=J25-J28-J29	=K25-K28-K29	=L25-L28-L29						=L30-Q30
+Margem liquida	=B30/B3	=C30/C4			=F30/F3	=G30/G4			=J30/J3	=K30/K3	=L30/L4						
+Bonus 	=B30*10%	=C30*10%			=F30*10%	=G30*10%			=J30*10%	=K30*10%	=L30*10%-9.9						=L32-Q32
+																	
+0.15	Janeiro 				Fevereiro												
+Resultado Contencioso	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Receita 	=($B$3-($B$3/4))/2	=57491+'Resumo_Recebidas 2025_2026'!M142+'Resumo_Recebidas 2025_2026'!O153	=C36-B36	=C36/B36	=B36	=133203+'Resumo_Recebidas 2025_2026'!M144+'Resumo_Recebidas 2025_2026'!O155	=G36-F36	=G36/F36	=($J$3-($J$3/4))/2	=B36	=C36	=L36-K36	=L36/K36	=J36-L36		=L36	=L36-Q36
+																	
+Despesas 	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Custo Equipe 	=+B7	=+'Base_Resultado Mensal_V2'!C5	=+B39-C39	=C39/B39	=+F7	='Base_Resultado Mensal_V2'!D5	=+F39-G39	=G39/F39	='Base_Resultado Mensal_V2'!B5	=B39	=C39	=K39-L39	=L39/K39	=J39-L39		='Base_Resultado Mensal_V2'!B5	=L39-Q39
+=A8		=C8				='Base_Resultado Mensal_V2'!D28					=C40					=L40	
+Despesas Equipe	='Orçamento 2026'!D191	=+'Base_Resultado Mensal_V2'!C200	=(B41-C41)	=C41/B41	='Orçamento 2026'!E191		=(F41-G41)	=G41/F41	='Base_Resultado Mensal_V2'!B200	=B41	=C41	=K41-L41	=L41/K41	=J41-L41		='Base_Resultado Mensal_V2'!O200	=L41-Q41
+Despesas Institucional	=(B13-B41)*'Rateio Mensal'!M2	='Rateio Mensal'!I2	=B42-C42	=C42/B42	=(F13-F41)*'Rateio Mensal'!M2		=F42-G42	=G42/F42	=(J13-J21)*'Rateio Mensal'!M3	=B42	=C42	=K42-L42	=L42/K42	=J42-L42		=L42	=L42-Q42
+Resultado Bruto	=B36-B39-B41-B42	=C36-C39-C41-C42-C40			=F36-F39-F41-F42				=+J36-(J39+J41+J42)	=+K36-(K39+K41+K42)	=L36-L39-L41-L42-L40					=Q36-Q39-Q41-Q42-Q40	=L43-Q43
+Margem de bruta	=B43/B36	=C43/C36			=F43/F36				=J43/J36	=K43/K36	=L43/L36					=Q43/Q36	
+																	
+Impostos 	=B36*$A$34	=C36*$A$34	=(B46-C46)	=C46/B46	=F36*$A$34				=J36*$A$34	=B46	=+L36*$A$34						
+Investimento amortização	=B29*'Rateio Mensal'!M2	=C29*'Rateio Mensal'!C2	=B47-C47	=C47/B47	=F29*'Rateio Mensal'!M2				=J29*'Rateio Mensal'!M3	=B47	=C47						
+Resultado Liquido após impostos	=B43-B46-B47	=C43-C46-C47			=F43-F46-F47	=G43-G46-G47			=J43-J46-J47	=K43-K46-K47	=L43-L46-L47						
+Margem liquida	=B48/B36	=C48/C36			=F48/F36	=G48/G36			=J48/J36	=K48/K36	=L48/L36						
+Reserva bônus	=B48*10%	=C48*10%			=F48*10%	=G48*10%			=J48*10%	=K48*10%	=L48*10%						
+																	
+	Janeiro 				Fevereiro												
+ Resultado Econômico	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Receita 	=($B$3-($B$3/4))/2	=105769+'Resumo_Recebidas 2025_2026'!M143+'Resumo_Recebidas 2025_2026'!O154	=C54-B54	=C54/B54	=B54	=117627+'Resumo_Recebidas 2025_2026'!O156	=G54-F54	=G54/F54	=($J$3-($J$3/4))/2	=B54	=C54	=L54-K54	=L54/K54	=J54-L54		=L54	=L54-Q54
+																	
+Despesas 	Orçado	Realizado	Variação Mensal	Desvio%			Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Custo Equipe 	=+B9	='Base_Resultado Mensal_V2'!C30	=+B57-C57	=C57/B57	=+F9	='Base_Resultado Mensal_V2'!D30	=+F57-G57	=G57/F57	=J9	=B57	=C57	=K57-L57	=L57/K57	=J57-L57		=L57	=L57-Q57
+=A10		=C10				='Base_Resultado Mensal_V2'!D56					=C58					='Base_Resultado Mensal_V2'!O56+'Base_Resultado Mensal_V2'!O57	
+Despesas Equipe	='Orçamento 2026'!D192	=+'Base_Resultado Mensal_V2'!C201	=+B59-C59	=C59/B59	='Orçamento 2026'!E192		=+F59-G59	=G59/F59	='Base_Resultado Mensal_V2'!B201	=B59	=C59	=K59-L59	=L59/K59	=J59-L59		=L59	=L59-Q59
+Despesas Institucional	=(B13-B59)*'Rateio Mensal'!M3	='Rateio Mensal'!I3	=+B60-C60	=C60/B60	=(F13-F59)*'Rateio Mensal'!M3		=+F60-G60	=G60/F60	=(J13-J21)*'Rateio Mensal'!M4	=B60	=C60	=K60-L60	=L60/K60	=J60-L60		=L60	=L60-Q60
+Resultado Bruto	=B54-B57-B59-B60	=C54-C57-C59-C60-C58			=F54-F57-F59-F60				=+J54-(J57+J59+J60)	=K54-K57-K59-K60-K58	=L54-L57-L59-L60-L58						
+Margem de bruta	=B61/B54	=C61/C54			=F61/F54				=J61/J54	=K61/K54	=L61/L54						
+																	
+Impostos 	=B54*$A$34	=C54*$A$34	=(B64-C64)	=C64/B64	=F54*$A$34				=J54*$A$34	=B64	=C64						
+Investimento amortização	=B29*'Rateio Mensal'!M3	=C29*'Rateio Mensal'!C3	=B65-C65	=C65/B65	=F29*'Rateio Mensal'!M3	=G29*'Rateio Mensal'!G3			=J29*'Rateio Mensal'!M4	=B65	=C65						
+Resultado Liquido após impostos	=B61-B64-B65	=C61-C64-C65			=F61-F64-F65	=G61-G64-G65			=J61-J64-J65	=K61-K64-K65	=L61-L64-L65						
+Margem liquida	=B66/B54	=C66/C54			=F66/F54	=G66/G54			=J66/J54	=K66/K54	=L66/L54						
+Reserva bônus	=B66*10%	=C66*10%			=F66*10%	=G66*10%			=J66*10%	=K66*10%	=L66*10%						
+																	
+	Janeiro 				Fevereiro												
+ Resultado Arbitragem	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Receita 	=($B$3/4)	=116562-('Resumo_Recebidas 2025_2026'!M136+'Resumo_Recebidas 2025_2026'!M153)	=C72-B72	=C72/B72	=B72	=68404-('Resumo_Recebidas 2025_2026'!M144+'Resumo_Recebidas 2025_2026'!M155)	=G72-F72	=G72/F72	=($J$3/4)	=B72	=C72	=L72-K72	=L72/K72	=J72-L72			
+																	
+Despesas 	Orçado	Realizado	Variação Mensal	Desvio%	Orçado	Realizado	Variação Mensal	Desvio%	Orçado YTG	Orçado YTD	Realizado	Variação	Desvio%	YTG			
+Custo Equipe 	=+B11	='Base_Resultado Mensal_V2'!C58	=+B75-C75	=(C75/B75)-1	=+F11		=+F75-G75	=(G75/F75)-1	='Base_Resultado Mensal_V2'!B58	=B75	=C75	=K75-L75	=L75/K75	=J75-L75		=L75	=L75-Q75
+=A12		=C12									=C76						
+Despesas Equipe	='Orçamento 2026'!D193	=+'Base_Resultado Mensal_V2'!C202	=+B77-C77	=(C77/B77)-1	='Base_Resultado Mensal_V2'!D202		=+F77-G77	=(G77/F77)-1	='Base_Resultado Mensal_V2'!B202	=B77	=C77	=K77-L77	=L77/K77	=J77-L77		=L77	=L77-Q77
+Despesas Institucional 	=(B13-B59)*'Rateio Mensal'!M4	='Rateio Mensal'!I4	=+B78-C78	=(C78/B78)-1	=(F13-F59)*'Rateio Mensal'!M4		=+F78-G78	=(G78/F78)-1	=(J13-J21)*'Rateio Mensal'!M2	=B78	=C78	=K78-L78	=L78/K78	=J78-L78		=L78	=L78-Q78
+Resultado Bruto	=B72-B75-B77-B78	=C72-C75-C77-C78-C76			=F72-F75-F77-F78	=G72-G75-G77-G78-G76			=+J72-(J75+J77+J78)	=+K72-(K75+K77+K78)	=L72-L75-L77-L78-L76					=C79+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!+#REF!	=L79-Q79
+Margem de bruta	=B79/B72	=C79/C72			=F79/F72	=G79/G72			=J79/J72	=K79/K72	=L79/L72						
+																	
+Impostos 	=B72*$A$34	=C72*$A$34	=(B82-C82)	=C82/B82	=F72*$A$34	=G72*$A$34			=J72*$A$34	=B82	=L72*$A$34					=C82+#REF!+#REF!+#REF!+#REF!+#REF!	
+Investimento amortização	=B29*'Rateio Mensal'!M4	=C29*'Rateio Mensal'!C4	=B83-C83	=C83/B83	=F29*'Rateio Mensal'!M4	=G29*'Rateio Mensal'!G4			=J29*'Rateio Mensal'!M2	=B83	=C83						
+Resultado Liquido após impostos	=B79-B82-B83	=C79-C82-C83			=F79-F82-F83	=G79-G82-G83			=J79-J82-J83	=K79-K82-K83	=L79-L82-L83						
+Margem liquida	=B84/B72	=C84/C72			=F84/F72	=G84/G72			=J84/J72	=K84/K72	=L84/L72						
+Reserva bônus	=B84*10%	=C84*10%			=F84*10%	=G84*10%			=J84*10%	=K84*10%	=L84*10%						
+																	
+											=L86+L68+L50					=Q86+Q68+Q50	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	
+																	

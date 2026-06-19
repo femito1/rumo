@@ -1,0 +1,13 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CategoriaMovimentacaoFinanceiraViews","value":[
+    {
+      "Id":"64E8F1CF-C8C4-D409-EBEF-A8116B5B6EA7","Titulo":"Total de Garantias","Nome":"Garantia","ExibirDetalhe":"S","Tipo":"G","DataInclusao":"2023-08-25T15:23:58-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:23:58-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8F241-C8C5-5D3F-80A4-9D756A193152","Titulo":"Total de Levantamentos","Nome":"Levantamento","ExibirDetalhe":"N","Tipo":"L","DataInclusao":"2023-08-25T15:23:58-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:23:58-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8F260-C8C6-5A56-F499-EB125EB9E339","Titulo":"Total de Pagamentos","Nome":"Pagamento","ExibirDetalhe":"S","Tipo":"P","DataInclusao":"2023-08-25T15:23:58-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:23:58-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"64E8F2AE-C8C3-7AF9-A298-15BB1A0C7A2F","Titulo":"Total de Despesas","Nome":"Despesa","ExibirDetalhe":"S","Tipo":"D","DataInclusao":"2023-08-25T15:23:58-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2023-08-25T15:23:58-03:00","UsuarioAlteracao":"SYSTEM"
+    }
+  ]
+}

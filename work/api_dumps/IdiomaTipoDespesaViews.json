@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#IdiomaTipoDespesaViews","value":[
+    {
+      "Id":"5AF36B08-2034-6348-5876-3539FE14435A","Codigo":"11/P","TipoDespesaId":"5AF36B32-1FEE-AF34-7B7F-443DD4B8BF0E","TipoDespesaDescricao":"Fax","TipoDespesaLocalidade":"N","IdiomaId":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","IdiomaDescricao":"Portugu\u00eas","Descricao":"Fax","DescricaoPadrao":"Fax","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS","IdiomaIso":"pt-BR","TipoDespesaDescricaoPadrao":null,"TipoDespesaAtivo":"N","TipoDespesaCodigo":"11","TipoDespesaValorUnitario":null
+    },{
+      "Id":"5AF36B0A-204C-912F-70BB-FCFD40F9EB7C","Codigo":"24/P","TipoDespesaId":"5AF36BA9-1FFA-2287-F047-A922E246C69B","TipoDespesaDescricao":"Refei\u00e7\u00e3o","TipoDespesaLocalidade":"N","IdiomaId":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","IdiomaDescricao":"Portugu\u00eas","Descricao":"Refei\u00e7\u00e3o","DescricaoPadrao":"Refei\u00e7\u00e3o","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS","IdiomaIso":"pt-BR","TipoDespesaDescricaoPadrao":null,"TipoDespesaAtivo":"S","TipoDespesaCodigo":"24","TipoDespesaValorUnitario":null
+    },{
+      "Id":"5AF36B0E-2026-313A-70C1-4B60148BFD57","Codigo":"4/P","TipoDespesaId":"5AF36B4F-1FE7-9A5F-5A08-F515A0B27D91","TipoDespesaDescricao":"C\u00f3pias","TipoDespesaLocalidade":"N","IdiomaId":"5AF36B43-09E8-6FF2-6ACD-A959D5C4858C","IdiomaDescricao":"Portugu\u00eas","Descricao":"C\u00f3pias","DescricaoPadrao":"C\u00f3pias","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS","IdiomaIso":"pt-BR","TipoDespesaDescricaoPadrao":null,"TipoDespesaAtivo":"S","TipoDespesaCodigo":"4","TipoDespesaValorUnitario":null
+    },{
+      "Id":"5AF36B10-2029-A57A-C9AE-BE8289A5E875","Codigo":"6/I","TipoDespesaId":"5AF36B9A-1FE9-3E4E-F37D-996B584A6E4C","TipoDespesaDescricao":"Courier","TipoDespesaLocalidade":"N","IdiomaId":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","IdiomaDescricao":"Ingl\u00eas","Descricao":"Courier","DescricaoPadrao":"Courier","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS","IdiomaIso":"en-US","TipoDespesaDescricaoPadrao":null,"TipoDespesaAtivo":"S","TipoDespesaCodigo":"6","TipoDespesaValorUnitario":null
+    },{
+      "Id":"5AF36B12-2033-1509-7B8A-E427AC087BBA","Codigo":"11/I","TipoDespesaId":"5AF36B32-1FEE-AF34-7B7F-443DD4B8BF0E","TipoDespesaDescricao":"Fax","TipoDespesaLocalidade":"N","IdiomaId":"5AF36B5B-09E9-9210-0F75-5009FC9B308F","IdiomaDescricao":"Ingl\u00eas","Descricao":"Fax","DescricaoPadrao":"Fax","DataInclusao":"2018-05-09T21:41:26-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:41:26-03:00","UsuarioAlteracao":"SYS","IdiomaIso":"en-US","TipoDespesaDescricaoPadrao":null,"TipoDespesaAtivo":"N","TipoDespesaCodigo":"11","TipoDespesaValorUnitario":null
+    }
+  ]
+}

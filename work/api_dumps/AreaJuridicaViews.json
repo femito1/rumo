@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AreaJuridicaViews","value":[
+    {
+      "Id":"5B041866-98E5-A2BE-FE1D-6405D6C9E6C4","Codigo":"DE","Nome":"Direito Econ\u00f4mico","Sigla":"DE","Ativo":"S","DataInativo":null,"Processo":"S","DataInclusao":"2018-05-22T13:16:28-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T13:16:28-03:00","UsuarioAlteracao":"LCP","Selecionado":false
+    },{
+      "Id":"5B041887-98E6-7FF7-63B5-F4167C17BB4A","Codigo":"CT","Nome":"Contencioso","Sigla":"CT","Ativo":"S","DataInativo":null,"Processo":"S","DataInclusao":"2018-05-22T13:17:08-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T13:17:08-03:00","UsuarioAlteracao":"LCP","Selecionado":false
+    },{
+      "Id":"5B041906-98E7-7C92-0A79-8F67705859C2","Codigo":"AM","Nome":"ERRO","Sigla":"AM","Ativo":"N","DataInativo":null,"Processo":"S","DataInclusao":"2018-05-22T13:17:42-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2019-09-03T15:53:17-03:00","UsuarioAlteracao":"SIP","Selecionado":false
+    },{
+      "Id":"5B45FB08-B5CD-81B7-33D8-5BD93321A5DD","Codigo":"CO","Nome":"Concorrencial","Sigla":"CO","Ativo":"N","DataInativo":null,"Processo":"S","DataInclusao":"2018-07-11T12:39:21-03:00","UsuarioInclusao":"SIP","DataAlteracao":"2019-09-03T18:32:18-03:00","UsuarioAlteracao":"SIP","Selecionado":false
+    },{
+      "Id":"5B84125F-5BE5-6CF2-8E88-D285D1C91152","Codigo":"ADM","Nome":"Administra\u00e7\u00e3o","Sigla":"ADM","Ativo":"S","DataInativo":null,"Processo":"S","DataInclusao":"2018-08-27T15:00:37-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2019-09-03T15:48:19-03:00","UsuarioAlteracao":"SIP","Selecionado":false
+    }
+  ]
+}

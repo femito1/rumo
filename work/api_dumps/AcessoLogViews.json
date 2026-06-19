@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AcessoLogViews","value":[
+    {
+      "Id":"64e904ed-05d9-00fb-9b9c-130adca23c0f","Codigo":"01200","UsuarioId":"606EFE3C-54F6-D2CA-D341-C9DA6981E4B2","UsuarioCodigo":"juritis.sis","UsuarioNome":"Usuario de suporte TOTVS JuriTIs","UsuarioUsuarioAd":"juritis.sis","TipoAcao":"0","ResultadoAcao":null,"MotivoFalha":null,"IpOrigem":"localhost","IpOrigemHeader":null,"Geolocalizacao":null,"DataRegistro":"2023-08-25T16:45:49.729474-03:00","NomeOs":"Windows NT 10.0","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36","Maquina":"MBC-LDESK01.MBC.local"
+    },{
+      "Id":"64eca3c9-05da-00ee-7b52-eb6ac662957e","Codigo":"01200","UsuarioId":"64B00A4D-6850-09E7-8EE0-A71206B3010B","UsuarioCodigo":"jct","UsuarioNome":"J\u00falia Citrangulo","UsuarioUsuarioAd":"jct","TipoAcao":"0","ResultadoAcao":null,"MotivoFalha":null,"IpOrigem":"191.205.38.57","IpOrigemHeader":null,"Geolocalizacao":null,"DataRegistro":"2023-08-28T10:40:25.356383-03:00","NomeOs":"Windows NT 10.0","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54","Maquina":"MBC-LDESK01"
+    },{
+      "Id":"64eca4c3-05db-00cb-4fb4-20cef908fbd6","Codigo":"01200","UsuarioId":"5B19A7CD-A4E6-9F62-4F2B-8CB2D5A66D64","UsuarioCodigo":"rb","UsuarioNome":"Ricardo Franco Botelho","UsuarioUsuarioAd":"rb","TipoAcao":"0","ResultadoAcao":null,"MotivoFalha":null,"IpOrigem":"187.37.222.246","IpOrigemHeader":null,"Geolocalizacao":null,"DataRegistro":"2023-08-28T10:44:35.71927-03:00","NomeOs":"Macintosh","UserAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15","Maquina":"MBC-LDESK01"
+    },{
+      "Id":"64ecfa5c-05dc-00f7-82d6-056140e678e0","Codigo":"01200","UsuarioId":"64B00A4D-6850-09E7-8EE0-A71206B3010B","UsuarioCodigo":"jct","UsuarioNome":"J\u00falia Citrangulo","UsuarioUsuarioAd":"jct","TipoAcao":"0","ResultadoAcao":null,"MotivoFalha":null,"IpOrigem":"20.206.100.30","IpOrigemHeader":null,"Geolocalizacao":null,"DataRegistro":"2023-08-28T16:49:48.538053-03:00","NomeOs":"Windows NT 10.0","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62","Maquina":"MBC-LDESK01"
+    },{
+      "Id":"64ee1e7d-05dd-00d6-77c8-c95df195ce85","Codigo":"01200","UsuarioId":"64B00A4D-6850-09E7-8EE0-A71206B3010B","UsuarioCodigo":"jct","UsuarioNome":"J\u00falia Citrangulo","UsuarioUsuarioAd":"jct","TipoAcao":"0","ResultadoAcao":null,"MotivoFalha":null,"IpOrigem":"20.206.100.30","IpOrigemHeader":null,"Geolocalizacao":null,"DataRegistro":"2023-08-29T13:36:13.875531-03:00","NomeOs":"Windows NT 10.0","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62","Maquina":"MBC-LDESK01"
+    }
+  ]
+}

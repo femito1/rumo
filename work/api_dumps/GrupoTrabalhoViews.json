@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#GrupoTrabalhoViews","value":[
+    {
+      "Id":"5b8ebf5e-a287-40e8-42f5-58511ffc104a","Nome":"GRUPO S\u00d3CIOS","RespInclui":"S","RespAltera":"S","RespExclui":"S","RespVisual":"S","GrupoInclui":"S","GrupoAltera":"S","GrupoExclui":"S","GrupoTimesheet":"S","GrupoDespesa":"S","GrupoAgenda":"S","GrupoOportunidades":"S","GrupoAssuntoJuridico":"S","GrupoControlePrazo":"N","GrupoRh":"N","GrupoAgendFerias":"N"
+    }
+  ]
+}

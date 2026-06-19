@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CasoTipoDespesaViews","value":[
+    {
+      "Id":"5B071709-9A92-3B90-05DF-5F66B6C8CB47","Codigo":"2/1/30","CasoId":"5B071720-9A8F-43FE-8E99-4E051DF90CC6","CasoAssunto":"A\u00e7\u00e3o Judicial FNS x Valec(fixo)","TipoDespesaId":"5AF36B34-1FE3-374F-1B2B-A13EAF8E9BBF","TipoDespesaDescricao":"Pagamento de Client Fee","DataInclusao":"2018-05-24T19:48:16-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-24T19:48:16-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5B0C2E56-9B2C-04B2-A4D0-61C503503E54","Codigo":"3/1/30","CasoId":"5B0C2E74-9B29-712A-F594-1A47024C32D3","CasoAssunto":"Consultas Concorrenciais","TipoDespesaId":"5AF36B34-1FE3-374F-1B2B-A13EAF8E9BBF","TipoDespesaDescricao":"Pagamento de Client Fee","DataInclusao":"2018-05-28T16:27:51-03:00","UsuarioInclusao":"SIP","DataAlteracao":"2018-05-28T16:27:51-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5B0C324C-9B42-6111-957C-31409CBF96ED","Codigo":"3/2/30","CasoId":"5B0C3277-9B3F-7739-1096-C37653688ACB","CasoAssunto":"Resposta ao Of\u00edcio AC Nestl\u00e9 Indai\u00e1 ","TipoDespesaId":"5AF36B34-1FE3-374F-1B2B-A13EAF8E9BBF","TipoDespesaDescricao":"Pagamento de Client Fee","DataInclusao":"2018-05-28T16:43:54-03:00","UsuarioInclusao":"SIP","DataAlteracao":"2018-05-28T16:43:54-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5B0C34B6-9B4C-ACD4-6302-56335CC2ADE7","Codigo":"38/1/30","CasoId":"5B0C34D6-9B49-31A6-5FFC-6911D1C160FA","CasoAssunto":"PA Resinas - Ades\u00e3o a TCC ","TipoDespesaId":"5AF36B34-1FE3-374F-1B2B-A13EAF8E9BBF","TipoDespesaDescricao":"Pagamento de Client Fee","DataInclusao":"2018-05-28T16:55:51-03:00","UsuarioInclusao":"SIP","DataAlteracao":"2018-05-28T16:55:51-03:00","UsuarioAlteracao":"SIP"
+    },{
+      "Id":"5B0C3545-9B51-4BC0-1DAA-713D808BB755","Codigo":"8/1/30","CasoId":"5B0C354E-9B4E-8427-DD92-7B0CE7D3613A","CasoAssunto":"Consultas Diversas","TipoDespesaId":"5AF36B34-1FE3-374F-1B2B-A13EAF8E9BBF","TipoDespesaDescricao":"Pagamento de Client Fee","DataInclusao":"2018-05-28T16:57:34-03:00","UsuarioInclusao":"SIP","DataAlteracao":"2018-05-28T16:57:34-03:00","UsuarioAlteracao":"SIP"
+    }
+  ]
+}

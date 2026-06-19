@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/AreaJuridicaViews?$top=5",
+  "status": 200,
+  "elapsed_s": 2.02,
+  "content_type": "application/json; charset=utf-8",
+  "bytes": 1697
+}

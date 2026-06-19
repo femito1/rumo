@@ -1,0 +1,72 @@
+FaturaViews                                        | DataEmissao ge datetime'2025-01-01' and DataEmissao lt  | status=500 bytes=462 t=0.5s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: FaturaViews\r\nActionName: G
+FaturaRedacaoViews                                 | DataEmissao ge datetime'2025-01-01' and DataEmissao lt  | status=500 bytes=490 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: FaturaRedacaoViews\r\nAction
+AlocacaoRecebimentoFaturaClienteJobViews           | DataRecebimento ge datetime'2025-01-01' and DataRecebim | status=500 bytes=578 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: AlocacaoRecebimentoFaturaCli
+AlocacaoRecebimentoFaturaClienteViews              | DataRecebimento ge datetime'2025-01-01' and DataRecebim | status=500 bytes=566 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: AlocacaoRecebimentoFaturaCli
+RateioFaturaCasoViews                              | AnoMes eq '2025-01'                                     | status=200 bytes=119697 t=1.0s -> 106
+RateioFaturaCasoViews                              | AnoMes eq '2025-02'                                     | status=200 bytes=132764 t=0.9s -> 118
+RateioFaturaCasoViews                              | DataAnoMes ge datetime'2025-01-01' and DataAnoMes lt da | status=500 bytes=502 t=0.5s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: RateioFaturaCasoViews\r\nAct
+RateioFaturaOriginalViews                          | AnoMes eq '2025-01'                                     | status=200 bytes=93044 t=14.1s -> 94
+RateioFaturaOriginalViews                          | AnoMes eq '2025-02'                                     | status=200 bytes=106512 t=0.7s -> 108
+RateioFaturaProfissionalViews                      | AnoMes eq '2025-01'                                     | status=200 bytes=222569 t=0.7s -> 188
+RateioFaturaProfissionalViews                      | AnoMes eq '2025-02'                                     | status=200 bytes=259359 t=0.5s -> 220
+TributoViews                                       | AnoMes eq '2025-01'                                     | status=200 bytes=575 t=0.5s -> 1
+TributoViews                                       | AnoMes eq '2025-02'                                     | status=200 bytes=575 t=0.4s -> 1
+OrcamentoViews                                     | AnoMes eq '2025-01'                                     | status=200 bytes=27375 t=0.6s -> 46
+OrcamentoViews                                     | AnoMes eq '2025-02'                                     | status=200 bytes=27375 t=0.4s -> 46
+MetaReceitaViews                                   | AnoMes eq '2025-01'                                     | status=200 bytes=590 t=0.5s -> 1
+MetaReceitaViews                                   | AnoMes eq '2025-02'                                     | status=200 bytes=590 t=0.4s -> 1
+AdiantamentoViews                                  | AnoMes eq '2025-01'                                     | status=200 bytes=128 t=0.5s -> 0
+AdiantamentoViews                                  | AnoMes eq '2025-02'                                     | status=200 bytes=4773 t=0.4s -> 5
+AprovacaoDespesaViews                              | Data ge datetime'2025-01-01' and Data lt datetime'2025- | status=500 bytes=502 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: AprovacaoDespesaViews\r\nAct
+PreFaturaViews                                     | DataEmissao ge datetime'2025-01-01' and DataEmissao lt  | status=500 bytes=474 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: PreFaturaViews\r\nActionName
+SaldoFaturaViews                                   | Data ge datetime'2025-01-01' and Data lt datetime'2025- | status=500 bytes=482 t=0.4s -> {
+  "result": {
+    "error": true,
+    "type": "general",
+    "message": "A binary operator with incompatible types was detected. Found operand types 'Edm.DateTimeOffset' and 'Edm.DateTime' for operator kind 'GreaterThanOrEqual'.",
+    "stackTrace": "ControllerName: SaldoFaturaViews\r\nActionNa
+PosicaoFinanceiraResultadoFaturamentoViews         | AnoMes eq '2025-01'                                     | status=200 bytes=48603 t=0.6s -> 82
+PosicaoFinanceiraResultadoFaturamentoViews         | AnoMes eq '2025-02'                                     | status=200 bytes=52066 t=0.4s -> 88
+PosicaoFinanceiraResultadoRecebimentoViews         | AnoMes eq '2025-01'                                     | status=200 bytes=49684 t=0.6s -> 84
+PosicaoFinanceiraResultadoRecebimentoViews         | AnoMes eq '2025-02'                                     | status=200 bytes=50849 t=0.4s -> 86
+PosicaoFinanceiraDespesaIncorridaViews             | AnoMes eq '2025-01'                                     | status=200 bytes=2118 t=0.6s -> 3
+PosicaoFinanceiraDespesaIncorridaViews             | AnoMes eq '2025-02'                                     | status=200 bytes=3494 t=0.4s -> 5
+PosicaoFinanceiraResumoDespesaViews                | AnoMes eq '2025-01'                                     | status=200 bytes=2407 t=2.5s -> 4
+PosicaoFinanceiraResumoDespesaViews                | AnoMes eq '2025-02'                                     | status=200 bytes=3604 t=0.4s -> 6
+PosicaoFinanceiraResumoProfissionalViews           | AnoMes eq '2025-01'                                     | status=200 bytes=327967 t=5.0s -> 500
+PosicaoFinanceiraResumoProfissionalViews           | AnoMes eq '2025-02'                                     | status=200 bytes=328192 t=1.2s -> 500

@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#BancoViews","value":[
+    {
+      "Id":"5B0451CE-9965-1109-20D2-28EE084B1921","Codigo":"341","Nome":"Ita\u00fa","NomeCompleto":"Itau S/A","BCodigo":"341","DataInclusao":"2018-05-22T17:22:09-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-09-10T13:53:54-03:00","UsuarioAlteracao":"ROS"
+    },{
+      "Id":"5B045230-9966-7605-633B-85460CCD0CE2","Codigo":"033","Nome":"Santander","NomeCompleto":"Banco Santander","BCodigo":"033","DataInclusao":"2018-05-22T17:22:18-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T17:22:18-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5B047D05-9973-5E8A-AC08-6ED6377AA9F7","Codigo":"001","Nome":"Banco do Brasil","NomeCompleto":"Banco do Brasil SA","BCodigo":"001","DataInclusao":"2018-05-22T20:25:53-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T20:25:53-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5B047D11-9974-72DA-45F6-83F35D9049B2","Codigo":"104","Nome":"Caixa Econ\u00f4mica","NomeCompleto":"Caixa Econ\u00f4mica Federal","BCodigo":"104","DataInclusao":"2018-05-22T20:26:15-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T20:26:15-03:00","UsuarioAlteracao":"LCP"
+    },{
+      "Id":"5B047D2C-9975-48F0-251C-8DD2D79E9C52","Codigo":"745","Nome":"Citibank","NomeCompleto":"Citibank SA","BCodigo":"745","DataInclusao":"2018-05-22T20:26:51-03:00","UsuarioInclusao":"LCP","DataAlteracao":"2018-05-22T20:26:51-03:00","UsuarioAlteracao":"LCP"
+    }
+  ]
+}

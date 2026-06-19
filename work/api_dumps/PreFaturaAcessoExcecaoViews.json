@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PreFaturaAcessoExcecaoViews","value":[
+    {
+      "Id":"5cb0b6a1-678c-0c66-a716-41a55442e9ea","ProfissionalId":"5B0BFA10-9AB4-2AFA-34B8-A10CADD1FAAC","ProfissionalPessoaNome":"SUPORTE TOTVS","ProfissionalCodigo":"BCSSUP","ProfissionalPessoaNomeFantasia":"SUPORTE TOTVS","ProfissionalSigla":"BCSSUP","UsuarioInclusao":"juritis.sis","DataAlteracao":"2019-04-12T16:02:48-03:00","UsuarioAlteracao":"juritis.sis","DataInclusao":"2019-04-12T16:02:48-03:00"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#RevisaoTimesheetResumoProfissionalViews","value":[
+    {
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C89145B0C3020-9B33-A740-FF7C-414E8433EE5E5B0C6897-9DA5-7544-DE31-E2445EBDB59E1254.65","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalSigla":"AM","ProfissionalNome":"Aurelio Marchini Santos","CasoId":"5B0C6897-9DA5-7544-DE31-E2445EBDB59E","HoraRevisada":"300","HoraTrabalhada":"300","HoraProdutiva":"300","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","ValorHora":"1254.65","ValorTotalTrabalhado":"6273.25","ValorTotalRevisado":"6273.25","ValorTotalProdutivo":"6273.25"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C89145B0C3020-9B33-A740-FF7C-414E8433EE5E6631399B-B17C-3747-C70F-C83DA885D0792100","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalSigla":"AM","ProfissionalNome":"Aurelio Marchini Santos","CasoId":"6631399B-B17C-3747-C70F-C83DA885D079","HoraRevisada":"90","HoraTrabalhada":"90","HoraProdutiva":"90","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","ValorHora":"2100","ValorTotalTrabalhado":"3150","ValorTotalRevisado":"3150","ValorTotalProdutivo":"3150"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C89145B0C3020-9B33-A740-FF7C-414E8433EE5E67F6CB40-74A1-B156-8554-FD0A363D23AE2230","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalSigla":"AM","ProfissionalNome":"Aurelio Marchini Santos","CasoId":"67F6CB40-74A1-B156-8554-FD0A363D23AE","HoraRevisada":"950","HoraTrabalhada":"950","HoraProdutiva":"950","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","ValorHora":"2230","ValorTotalTrabalhado":"35308.33","ValorTotalRevisado":"35308.33","ValorTotalProdutivo":"35308.33"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C89145B0C3020-9B33-A740-FF7C-414E8433EE5E690A4268-002B-131D-54D5-DDB18CB7879A941.25","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalSigla":"AM","ProfissionalNome":"Aurelio Marchini Santos","CasoId":"690A4268-002B-131D-54D5-DDB18CB7879A","HoraRevisada":"60","HoraTrabalhada":"60","HoraProdutiva":"60","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","ValorHora":"941.25","ValorTotalTrabalhado":"941.25","ValorTotalRevisado":"941.25","ValorTotalProdutivo":"941.25"
+    },{
+      "Id":"5B044D59-995A-3F07-1E74-68C16C6C89145B0C3020-9B33-A740-FF7C-414E8433EE5E698B90C3-6324-5BF0-C1D6-5FC5ADE63C7A1050","ProfissionalId":"5B044D59-995A-3F07-1E74-68C16C6C8914","ProfissionalSigla":"AM","ProfissionalNome":"Aurelio Marchini Santos","CasoId":"698B90C3-6324-5BF0-C1D6-5FC5ADE63C7A","HoraRevisada":"120","HoraTrabalhada":"120","HoraProdutiva":"120","CategoriaId":"5B0C3020-9B33-A740-FF7C-414E8433EE5E","CategoriaNome":"S\u00f3cio","ValorHora":"1050","ValorTotalTrabalhado":"2100","ValorTotalRevisado":"2100","ValorTotalProdutivo":"2100"
+    }
+  ]
+}

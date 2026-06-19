@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PreFaturaMargemContribuicaoResumoPreViews","value":[
+    {
+      "Id":"1-5B22696A-A574-0EFA-3DDB-AF1AEBF4CC91","PreFaturaId":"5B22696A-A574-0EFA-3DDB-AF1AEBF4CC91","TotalValorTrabalhada":"1955.83333333","TotalValorRevisado":"1955.83333333","Custos":"0","PercentualEficiencia":"100","Tributos":"0.1562","TotalMargemBruta":"1650.33","PercentualMargemBruta":"84.38"
+    },{
+      "Id":"1-5B227142-A5CA-A975-94E0-07EEB56446BD","PreFaturaId":"5B227142-A5CA-A975-94E0-07EEB56446BD","TotalValorTrabalhada":"1955.83333333","TotalValorRevisado":"2940.83333333","Custos":"0","PercentualEficiencia":"150.36","Tributos":"0.1562","TotalMargemBruta":"2481.48","PercentualMargemBruta":"84.38"
+    },{
+      "Id":"1-5B6DCCED-6161-1A2A-5EAE-C5F8A6E9CE68","PreFaturaId":"5B6DCCED-6161-1A2A-5EAE-C5F8A6E9CE68","TotalValorTrabalhada":"11615.25","TotalValorRevisado":"11615.25","Custos":"0","PercentualEficiencia":"100","Tributos":"0.1562","TotalMargemBruta":"9800.95","PercentualMargemBruta":"84.38"
+    },{
+      "Id":"1-5B71D85C-88B1-3D0C-54F7-EC128CEC52FA","PreFaturaId":"5B71D85C-88B1-3D0C-54F7-EC128CEC52FA","TotalValorTrabalhada":"25508.33333333","TotalValorRevisado":"25508.33333333","Custos":"0","PercentualEficiencia":"100","Tributos":"0.1562","TotalMargemBruta":"21523.93","PercentualMargemBruta":"84.38"
+    },{
+      "Id":"1-5B7340A6-96B9-5CAC-79B3-5BE96C299109","PreFaturaId":"5B7340A6-96B9-5CAC-79B3-5BE96C299109","TotalValorTrabalhada":"19150","TotalValorRevisado":"19150","Custos":"0","PercentualEficiencia":"100","Tributos":"0.1562","TotalMargemBruta":"16158.77","PercentualMargemBruta":"84.38"
+    }
+  ]
+}

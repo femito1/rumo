@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#EmpresaClienteViews","value":[
+    {
+      "Id":"66C9D178-963C-71F5-E8E5-DC470367DAC2","EmpresaJuridicoId":"5bbc811a-0c4d-6254-1fcc-05a12034c98f","EmpresaJuridicoPessoaId":"5B06FE56-99B7-2873-8E6D-4E6A0A98B8BA","EmpresaJuridicoPessoaNome":"Ambev S.A.","EmpresaJuridicoPessoaCnpjCpf":"07526557000100","EmpresaJuridicoPessoaTipo":"J","Codigo":"-4116072472105719263","ClienteId":"5B06FE36-99B8-8A56-6D05-F486833BD1FB","ClientePessoaNome":"Ambev S.A.","ClienteCodigo":"3","ClienteCodigoSimplificado":null,"ClienteClienteRaiz":null,"DataInclusao":"2024-08-24T09:25:50-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2024-08-24T09:25:50-03:00","UsuarioAlteracao":"SYSTEM"
+    }
+  ]
+}

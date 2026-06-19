@@ -1,0 +1,168 @@
+DRE		Janeiro	Fevereiro	Março	Abril	Maio	Junho	Julho	Agosto	Setembro	Outubro	Novembro	Dezembro																										
+             Resultado  Institucional		Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado	Orçado																										
+Faturamento 	=SUM(C3:N3)	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67	671666.67																										
+Despesas 																																							
+Custos Diretos	=SUM(C5:N5)	=SUM(C6:C8)	=SUM(D6:D8)	=SUM(E6:E8)	=SUM(F6:F8)	=SUM(G6:G8)	=SUM(H6:H8)	=SUM(I6:I8)	=SUM(J6:J8)	=SUM(K6:K8)	=SUM(L6:L8)	=SUM(M6:M8)	=SUM(N6:N8)																										
+Custo equipe - Contencioso	=SUM(C6:N6)	='[2]Orçamento 2026'!D5	='[2]Orçamento 2026'!E5	='[2]Orçamento 2026'!F5	='[2]Orçamento 2026'!G5	='[2]Orçamento 2026'!H5	='[2]Orçamento 2026'!I5	='[2]Orçamento 2026'!J5	='[2]Orçamento 2026'!K5	='[2]Orçamento 2026'!L5	='[2]Orçamento 2026'!M5	='[2]Orçamento 2026'!N5	='[2]Orçamento 2026'!O5																										
+Custo equipe - Econômico	=SUM(C7:N7)	='[2]Orçamento 2026'!D28	='[2]Orçamento 2026'!E28	='[2]Orçamento 2026'!F28	='[2]Orçamento 2026'!G28	='[2]Orçamento 2026'!H28	='[2]Orçamento 2026'!I28	='[2]Orçamento 2026'!J28	='[2]Orçamento 2026'!K28	='[2]Orçamento 2026'!L28	='[2]Orçamento 2026'!M28	='[2]Orçamento 2026'!N28	='[2]Orçamento 2026'!O28																										
+Custo equipe - Arbitragem e Compliance	=SUM(C8:N8)	='[2]Orçamento 2026'!D53	='[2]Orçamento 2026'!E53	='[2]Orçamento 2026'!F53	='[2]Orçamento 2026'!G53	='[2]Orçamento 2026'!H53	='[2]Orçamento 2026'!I53	='[2]Orçamento 2026'!J53	='[2]Orçamento 2026'!K53	='[2]Orçamento 2026'!L53	='[2]Orçamento 2026'!M53	='[2]Orçamento 2026'!N53	='[2]Orçamento 2026'!O53																										
+Despesas Indiretas	=SUM(C9:N9)	=SUM(C10:C20)	=SUM(D10:D20)	=SUM(E10:E20)	=SUM(F10:F20)	=SUM(G10:G20)	=SUM(H10:H20)	=SUM(I10:I20)	=SUM(J10:J20)	=SUM(K10:K20)	=SUM(L10:L20)	=SUM(M10:M20)	=SUM(N10:N20)																										
+Ocupação	=SUM(C10:N10)	='[2]Orçamento 2026'!D73	='[2]Orçamento 2026'!E73	='[2]Orçamento 2026'!F73	='[2]Orçamento 2026'!G73	='[2]Orçamento 2026'!H73	='[2]Orçamento 2026'!I73	='[2]Orçamento 2026'!J73	='[2]Orçamento 2026'!K73	='[2]Orçamento 2026'!L73	='[2]Orçamento 2026'!M73	='[2]Orçamento 2026'!N73	='[2]Orçamento 2026'!O73																										
+Telecomunicações	=SUM(C11:N11)	='[2]Orçamento 2026'!D80	='[2]Orçamento 2026'!E80	='[2]Orçamento 2026'!F80	='[2]Orçamento 2026'!G80	='[2]Orçamento 2026'!H80	='[2]Orçamento 2026'!I80	='[2]Orçamento 2026'!J80	='[2]Orçamento 2026'!K80	='[2]Orçamento 2026'!L80	='[2]Orçamento 2026'!M80	='[2]Orçamento 2026'!N80	='[2]Orçamento 2026'!O80																										
+Despesas Gerais	=SUM(C12:N12)	='[2]Orçamento 2026'!D83	='[2]Orçamento 2026'!E83	='[2]Orçamento 2026'!F83	='[2]Orçamento 2026'!G83	='[2]Orçamento 2026'!H83	='[2]Orçamento 2026'!I83	='[2]Orçamento 2026'!J83	='[2]Orçamento 2026'!K83	='[2]Orçamento 2026'!L83	='[2]Orçamento 2026'!M83	='[2]Orçamento 2026'!N83	='[2]Orçamento 2026'!O83																										
+Consultoria	=SUM(C13:N13)	='[2]Orçamento 2026'!D97	='[2]Orçamento 2026'!E97	='[2]Orçamento 2026'!F97	='[2]Orçamento 2026'!G97	='[2]Orçamento 2026'!H97	='[2]Orçamento 2026'!I97	='[2]Orçamento 2026'!J97	='[2]Orçamento 2026'!K97	='[2]Orçamento 2026'!L97	='[2]Orçamento 2026'!M97	='[2]Orçamento 2026'!N97	='[2]Orçamento 2026'!O97																										
+Salários Administração	=SUM(C14:N14)	='[2]Orçamento 2026'!D103	='[2]Orçamento 2026'!E103	='[2]Orçamento 2026'!F103	='[2]Orçamento 2026'!G103	='[2]Orçamento 2026'!H103	='[2]Orçamento 2026'!I103	='[2]Orçamento 2026'!J103	='[2]Orçamento 2026'!K103	='[2]Orçamento 2026'!L103	='[2]Orçamento 2026'!M103	='[2]Orçamento 2026'!N103	='[2]Orçamento 2026'!O103																										
+Administrativas 	=SUM(C15:N15)	='[2]Orçamento 2026'!D111	='[2]Orçamento 2026'!E111	='[2]Orçamento 2026'!F111	='[2]Orçamento 2026'!G111	='[2]Orçamento 2026'!H111	='[2]Orçamento 2026'!I111	='[2]Orçamento 2026'!J111	='[2]Orçamento 2026'!K111	='[2]Orçamento 2026'!L111	='[2]Orçamento 2026'!M111	='[2]Orçamento 2026'!N111	='[2]Orçamento 2026'!O111																										
+Taxas / Despesas Financeiras	=SUM(C16:N16)																																						
+Investimentos em Prospecção	=SUM(C17:N17)	='[2]Orçamento 2026'!D124	='[2]Orçamento 2026'!E124	='[2]Orçamento 2026'!F124	='[2]Orçamento 2026'!G124	='[2]Orçamento 2026'!H124	='[2]Orçamento 2026'!I124	='[2]Orçamento 2026'!J124	='[2]Orçamento 2026'!K124	='[2]Orçamento 2026'!L124	='[2]Orçamento 2026'!M124	='[2]Orçamento 2026'!N124	='[2]Orçamento 2026'!O124																										
+Endomarketing	=SUM(C18:N18)	='[2]Orçamento 2026'!D151	='[2]Orçamento 2026'!E151	='[2]Orçamento 2026'!F151	='[2]Orçamento 2026'!G151	='[2]Orçamento 2026'!H151	='[2]Orçamento 2026'!I151	='[2]Orçamento 2026'!J151	='[2]Orçamento 2026'!K151	='[2]Orçamento 2026'!L151	='[2]Orçamento 2026'!M151	='[2]Orçamento 2026'!N151	='[2]Orçamento 2026'!O151																										
+='[3]Areas Sintetico atualizado'!A21	=SUM(C19:N19)	='[2]Orçamento 2026'!D145	='[2]Orçamento 2026'!E145	='[2]Orçamento 2026'!F145	='[2]Orçamento 2026'!G145	='[2]Orçamento 2026'!H145	='[2]Orçamento 2026'!I145	='[2]Orçamento 2026'!J145	='[2]Orçamento 2026'!K145	='[2]Orçamento 2026'!L145	='[2]Orçamento 2026'!M145	='[2]Orçamento 2026'!N145	='[2]Orçamento 2026'!O145																										
+Informática 	=SUM(C20:N20)	='[2]Orçamento 2026'!D161	='[2]Orçamento 2026'!E161	='[2]Orçamento 2026'!F161	='[2]Orçamento 2026'!G161	='[2]Orçamento 2026'!H161	='[2]Orçamento 2026'!I161	='[2]Orçamento 2026'!J161	='[2]Orçamento 2026'!K161	='[2]Orçamento 2026'!L161	='[2]Orçamento 2026'!M161	='[2]Orçamento 2026'!N161	='[2]Orçamento 2026'!O161																										
+Resultado Bruto	=B3-B5-B9	=C3-C5-C9	=D3-D5-D9	=E3-E5-E9	=F3-F5-F9	=G3-G5-G9	=H3-H5-H9	=I3-I5-I9	=J3-J5-J9	=K3-K5-K9	=L3-L5-L9	=M3-M5-M9	=N3-N5-N9																										
+Margem de bruta	=B21/B3	=C21/C3	=D21/D3	=E21/E3	=F21/F3	=G21/G3	=H21/H3	=I21/I3	=J21/J3	=K21/K3	=L21/L3	=M21/M3	=N21/N3																										
+Impostos	=C23+D23+E23+F23+G23+H23+I23+J23+K23+L23+M23+N23	=(C3*15%)+50000	=(D3*15%)+50000	=(E3*15%)+50000	=(F3*15%)+50000	=(G3*15%)+50000	=(H3*15%)+50000	=(I3*15%)+50000	=(J3*15%)+50000	=(K3*15%)+50000	=(L3*15%)+50000	=(M3*15%)+50000	=(N3*15%)+50000																										
+Amortização	=SUM(C24:N24)	8117	8117	8117	8117	8117	8117	8117	8117	8117	8117	8117	8117																										
+Resultado Liquido após impostos	=B21-B23-B24	=C21-C23-C24	=D21-D23-D24	=E21-E23-E24	=F21-F23-F24	=G21-G23-G24	=H21-H23-H24	=I21-I23-I24	=J21-J23-J24	=K21-K23-K24	=L21-L23-L24	=M21-M23-M24	=N21-N23-N24																										
+Margem liquida	=B25/B3	=C25/C3	=D25/D3	=E25/E3	=F25/F3	=G25/G3	=H25/H3	=I25/I3	=J25/J3	=K25/K3	=L25/L3	=M25/M3	=N25/N3																										
+Reserva bônus	=B25*10%	=C25*10%	=D25*10%	=E25*10%	=F25*10%	=G25*10%	=H25*10%	=I25*10%	=J25*10%	=K25*10%	=L25*10%	=M25*10%	=N25*10%																										
+																																							
+Rentabilidade	=B6+B7+B8	=C6+C7+C8	=D6+D7+D8	=E6+E7+E8	=F6+F7+F8	=G6+G7+G8	=H6+H7+H8	=I6+I7+I8	=J6+J7+J8	=K6+K7+K8	=L6+L7+L8	=M6+M7+M8	=N6+N7+N8																										
+	=B9	=C9	=D9	=E9	=F9	=G9	=H9	=I9	=J9	=K9	=L9	=M9	=N9																										
+	=B29-B30	=C29-C30	=D29-D30	=E29-E30	=F29-F30	=G29-G30	=H29-H30	=I29-I30	=J29-J30	=K29-K30	=L29-L30	=M29-M30	=N29-N30																										
+	=B31/B3	=C31/C3	=D31/D3	=E31/E3	=F31/F3	=G31/G3	=H31/H3	=I31/I3	=J31/J3	=K31/K3	=L31/L3	=M31/M3	=N31/N3																										
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+	=SUM(B97:B102)		=SUM(D97:D102)	=SUM(E97:E102)	=SUM(F97:F102)	=SUM(G97:G102)	=SUM(H97:H102)	=SUM(I97:I102)	=SUM(J97:J102)	=SUM(K97:K102)	=SUM(L97:L102)	=SUM(M97:M102)	=SUM(N97:N102)																										
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+Assinaturas																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+	=SUM(B138:B141)		=SUM(D138:D141)	=SUM(E138:E141)	=SUM(F138:F141)	=SUM(G138:G141)	=SUM(H138:H141)	=SUM(I138:I141)	=SUM(J138:J141)	=SUM(K138:K141)	=SUM(L138:L141)	=SUM(M138:M141)	=SUM(N138:N141)																										
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+																																							
+	=B4+B26+B51+B67+B73+B76+B90+B96+B103+B142+B152+B116+B137		=D4+D26+D51+D67+D73+D76+D90+D96+D103+D142+D152+D116+D137	=E4+E26+E51+E67+E73+E76+E90+E96+E103+E142+E152+E116+E137	=F4+F26+F51+F67+F73+F76+F90+F96+F103+F142+F152+F116+F137	=G4+G26+G51+G67+G73+G76+G90+G96+G103+G142+G152+G116+G137	=H4+H26+H51+H67+H73+H76+H90+H96+H103+H142+H152+H116+H137	=I4+I26+I51+I67+I73+I76+I90+I96+I103+I142+I152+I116+I137	=J4+J26+J51+J67+J73+J76+J90+J96+J103+J142+J152+J116+J137	=K4+K26+K51+K67+K73+K76+K90+K96+K103+K142+K152+K116+K137	=L4+L26+L51+L67+L73+L76+L90+L96+L103+L142+L152+L116+L137	=M4+M26+M51+M67+M73+M76+M90+M96+M103+M142+M152+M116+M137	=N4+N26+N51+N67+N73+N76+N90+N96+N103+N142+N152+N116+N137																										

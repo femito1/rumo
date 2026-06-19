@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#ForoViews","value":[
+    {
+      "Id":"5AF36B51-3582-22E2-7F3D-2CDFDFB32501","Codigo":"F/5456","CidadeId":"5AF36BB1-2F62-ABE1-EF7A-95AB06AE1CB2","CidadeCodigo2":"3403","CidadeNome":"Marialva","CidadeEstadoSigla":"PR","Descricao":"de Tubar\u00e3o ","Instancia":"1","Endereco":null,"Ativo":"S","TribunalId":null,"TribunalNome":null,"ChaveCnj":null,"DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B51-35D6-68BA-E022-82E646323618","Codigo":"F/6903","CidadeId":"5AF36B75-2D27-599F-864B-E6B8E9CC4140","CidadeCodigo2":"4187","CidadeNome":"Novo Hamburgo","CidadeEstadoSigla":"RS","Descricao":"Vara Judicial","Instancia":"1","Endereco":null,"Ativo":"S","TribunalId":null,"TribunalNome":null,"ChaveCnj":null,"DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B52-3598-01BD-051A-96527F359273","Codigo":"F/5547","CidadeId":"5AF36BDE-349B-18D0-E455-C80806A778CA","CidadeCodigo2":"3456","CidadeNome":"Pato Branco","CidadeEstadoSigla":"PR","Descricao":"Juizado Especial C\u00edvel","Instancia":"1","Endereco":null,"Ativo":"S","TribunalId":null,"TribunalNome":null,"ChaveCnj":null,"DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B52-3641-5D69-2B33-F35CE02CB33A","Codigo":"F/7158","CidadeId":"5AF36BD7-24E8-5B2C-554A-A511B44E7B7B","CidadeCodigo2":"4277","CidadeNome":"S\u00e3o Jer\u00f4nimo","CidadeEstadoSigla":"RS","Descricao":"de S\u00e3o Jer\u00f4nimo","Instancia":"1","Endereco":null,"Ativo":"S","TribunalId":null,"TribunalNome":null,"ChaveCnj":null,"DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    },{
+      "Id":"5AF36B52-3649-70D5-53B1-505109FABE1F","Codigo":"F/7200","CidadeId":"5AF36B8E-2254-9183-846E-C609B978D2FE","CidadeCodigo2":"4300","CidadeNome":"S\u00e3o Sebasti\u00e3o do Ca\u00ed","CidadeEstadoSigla":"RS","Descricao":"PROCON","Instancia":"1","Endereco":null,"Ativo":"S","TribunalId":null,"TribunalNome":null,"ChaveCnj":null,"DataInclusao":"2018-05-09T21:42:39-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:42:39-03:00","UsuarioAlteracao":"SYS","CadastroPerfilIds":null
+    }
+  ]
+}

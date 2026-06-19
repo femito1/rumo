@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#MailServidorViews","value":[
+    {
+      "Id":"62dec9a4-93be-667f-3ca1-d7e061ff23e6","Nome":"Servidor ","EmailOrigem":"administracao@mbclaw.com.br","Host":"smtp.office365.com","Porta":"587","Username":"administracao@mbclaw.com.br","Password":"NiGcMVbUEU6i8oV43aMhKbGrpMb0fLxPzw4/UjKZsKFHlJlzGnVXOHDgaIm8aMtb36lGXQ==","AutenticacaoSSL":"S","AutenticacaoTLS":"S","EmailHtml":"N","DataInclusao":"2022-07-25T16:55:55.962726-03:00","UsuarioInclusao":"juritis.sis","DataAlteracao":"2022-07-25T16:55:55.962726-03:00","UsuarioAlteracao":"juritis.sis"
+    }
+  ]
+}

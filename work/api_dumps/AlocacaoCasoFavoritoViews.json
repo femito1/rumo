@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AlocacaoCasoFavoritoViews","value":[
+    {
+      "Id":"5B0C2E74-9B29-712A-F594-1A47024C32D3","Assunto":"Consultas Concorrenciais","Codigo":"1","CodigoNumerico":"1","ClienteId":"5B06FE36-99B8-8A56-6D05-F486833BD1FB","ClienteCodigo":"3","CodigoSimplificado":"1","ClienteCodigoNumerico":"3","ClientePessoaNome":"Ambev S.A.","ClientePessoaNomeFantasia":"Ambev","SituacaoJuridica":"A","DataEncerramento":null,"ClienteClienteRaiz":null,"ClienteCodigoSimplificado":null
+    },{
+      "Id":"5B0C5B15-9CD0-8F42-E86A-2F7884044ABF","Assunto":"Ato de Concentra\u00e7\u00e3o - Projeto CSA ","Codigo":"1","CodigoNumerico":"1","ClienteId":"5B070120-99C4-857A-FA2E-C69BF05B63EF","ClienteCodigo":"5","CodigoSimplificado":"1","ClienteCodigoNumerico":"5","ClientePessoaNome":"White Martins Gases Industriais Ltda.\r\n","ClientePessoaNomeFantasia":"White","SituacaoJuridica":"A","DataEncerramento":null,"ClienteClienteRaiz":null,"ClienteCodigoSimplificado":null
+    },{
+      "Id":"5B0C5C23-9CE5-44C0-4A8A-05BC9617D94C","Assunto":"A\u00e7\u00e3o Cautelar ","Codigo":"1","CodigoNumerico":"1","ClienteId":"5B0705D8-99F4-110D-969C-D0EA5416A462","ClienteCodigo":"13","CodigoSimplificado":"1","ClienteCodigoNumerico":"13","ClientePessoaNome":"Canais Abril de Televis\u00e3o Ltda. ","ClientePessoaNomeFantasia":"Canais Abril de Televis\u00e3o","SituacaoJuridica":"A","DataEncerramento":null,"ClienteClienteRaiz":null,"ClienteCodigoSimplificado":null
+    },{
+      "Id":"5B0C5C5B-9CEB-25F6-4585-1F40DC0333E4","Assunto":"A\u00e7\u00e3o Principal ","Codigo":"2","CodigoNumerico":"2","ClienteId":"5B0705D8-99F4-110D-969C-D0EA5416A462","ClienteCodigo":"13","CodigoSimplificado":"2","ClienteCodigoNumerico":"13","ClientePessoaNome":"Canais Abril de Televis\u00e3o Ltda. ","ClientePessoaNomeFantasia":"Canais Abril de Televis\u00e3o","SituacaoJuridica":"A","DataEncerramento":null,"ClienteClienteRaiz":null,"ClienteCodigoSimplificado":null
+    },{
+      "Id":"5B0C5EB5-9D11-ACB8-15D6-90C8826E90B7","Assunto":"A\u00e7\u00e3o Judicial Nutriex","Codigo":"1","CodigoNumerico":"1","ClienteId":"5B070E10-9A41-0B8D-3189-6CCEB38488D4","ClienteCodigo":"25","CodigoSimplificado":"1","ClienteCodigoNumerico":"25","ClientePessoaNome":"Ceras Johnson Ltda","ClientePessoaNomeFantasia":"Ceras Johnson","SituacaoJuridica":"A","DataEncerramento":null,"ClienteClienteRaiz":null,"ClienteCodigoSimplificado":null
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AgendaMensalViews","value":[
+    {
+      "Id":"1_65c2672a-c444-9bbc-7576-5ddee8eaeb78_64AF060F-B592-3BD7-2C41-78C8A6821576","CompromissoId":"65c2672a-c444-9bbc-7576-5ddee8eaeb78","ProfissionalId":"64AF060F-B592-3BD7-2C41-78C8A6821576","AssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","Data":"2024-02-06T12:00:00-03:00","CompromissoPendente":"N","CompromissoConcluido":"N","CompromissoCancelado":"N","CompromissoOutros":"N","CompromissoAtrasado":"N","TarefaPendente":"N","TarefaConcluida":"N","TarefaCancelada":"N","TarefaOutros":"N","TarefaAtrasada":"S"
+    }
+  ]
+}

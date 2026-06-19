@@ -1,0 +1,7 @@
+{
+  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/AssuntoViews?$top=5",
+  "status": 200,
+  "elapsed_s": 9.73,
+  "content_type": "application/json; charset=utf-8",
+  "bytes": 4768
+}

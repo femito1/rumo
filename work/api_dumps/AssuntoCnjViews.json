@@ -1,0 +1,15 @@
+{
+  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#AssuntoCnjViews","value":[
+    {
+      "Id":"694E928C-33EA-73F6-4FC7-EAD95989DB0A","Descricao":"Abandono","Codigo":5575,"ObjetoId":null,"ObjetoDescricao":null,"TipoAcaoId":null,"TipoAcaoDescricao":null,"DataInclusao":"2025-12-26T10:50:00.019761-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2025-12-26T10:50:00.019761-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"694E9290-3464-C80C-5825-C259BD46C3B3","Descricao":"Ado\u00e7\u00e3o de Crian\u00e7a","Codigo":9974,"ObjetoId":null,"ObjetoDescricao":null,"TipoAcaoId":null,"TipoAcaoDescricao":null,"DataInclusao":"2025-12-26T10:50:07.587944-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2025-12-26T10:50:07.587944-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"694E9294-3425-1160-57BA-3ED46F5AA06A","Descricao":"Acidente de Trabalho","Codigo":14810,"ObjetoId":null,"ObjetoDescricao":null,"TipoAcaoId":null,"TipoAcaoDescricao":null,"DataInclusao":"2025-12-26T10:50:03.568315-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2025-12-26T10:50:03.568315-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"694E9294-3432-9A3F-1C4C-3604DC528495","Descricao":"Acordo - Comiss\u00e3o de Concilia\u00e7\u00e3o Pr\u00e9via","Codigo":13976,"ObjetoId":null,"ObjetoDescricao":null,"TipoAcaoId":null,"TipoAcaoDescricao":null,"DataInclusao":"2025-12-26T10:50:04.259085-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2025-12-26T10:50:04.259085-03:00","UsuarioAlteracao":"SYSTEM"
+    },{
+      "Id":"694E9295-3411-A18A-C3D4-6992E88F51D0","Descricao":"Abuso do poder econ\u00f4mico","Codigo":10788,"ObjetoId":null,"ObjetoDescricao":null,"TipoAcaoId":null,"TipoAcaoDescricao":null,"DataInclusao":"2025-12-26T10:50:02.574732-03:00","UsuarioInclusao":"SYSTEM","DataAlteracao":"2025-12-26T10:50:02.574732-03:00","UsuarioAlteracao":"SYSTEM"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Generated dashboard data (rebuild from the API)
+data/data.json
+frontend/data.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Editor
+.DS_Store
