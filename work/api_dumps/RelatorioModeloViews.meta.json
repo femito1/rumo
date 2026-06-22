@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/RelatorioModeloViews?$top=5",
-  "status": 200,
-  "elapsed_s": 2.04,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 406
-}

@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CorrespondenteAdvogadoViews","value":[
-    {
-      "Id":"5AF36C13-9885-8467-6047-FE7E2EB739ED","Nome":"teste","CorrespondenteId":"5AF36BA7-9883-981C-BC5E-B3FF592E4DFE"
-    }
-  ]
-}

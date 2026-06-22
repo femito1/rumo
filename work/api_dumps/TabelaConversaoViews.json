@@ -1,9 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TabelaConversaoViews","value":[
-    {
-      "Id":"5AF36B52-09F9-5711-5E3F-7C121BAE11FF","Descricao":"R$/US$ Real para D\u00f3lar","Moeda1Id":"5AF36B31-09E6-2C14-D5E2-C8050317789A","Moeda1Sigla":"R$","Moeda2Id":"5AF36B09-09E7-7B95-A1CA-20244B734581","Moeda2Sigla":"US$","Codigo":"R$/US$","DataInclusao":"2018-05-09T21:41:25-03:00","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","UsuarioAlteracao":"SYS","Tipo":"D"
-    },{
-      "Id":"5AF36BAB-09F8-3708-062A-0F632AEFE068","Descricao":"R$/EU Real para Euro","Moeda1Id":"5AF36B31-09E6-2C14-D5E2-C8050317789A","Moeda1Sigla":"R$","Moeda2Id":"5AF36B8A-09E5-5B6B-E41D-6298117C65D9","Moeda2Sigla":"EUR","Codigo":"R$/EU","DataInclusao":"2018-05-09T21:41:25-03:00","DataAlteracao":"2018-05-09T21:41:25-03:00","UsuarioInclusao":"SYS","UsuarioAlteracao":"SYS","Tipo":"D"
-    }
-  ]
-}

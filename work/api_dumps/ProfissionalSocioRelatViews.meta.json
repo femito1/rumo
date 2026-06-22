@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/ProfissionalSocioRelatViews?$top=5",
-  "status": 200,
-  "elapsed_s": 1.71,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 5018
-}

@@ -18,13 +18,6 @@ dist/
 *.egg
 uv.lock
 
-# Generated dashboard data (rebuild from the API)
-mbc-automation/data/data.json
-mbc-automation/frontend/data.json
-
-# Oversized API dump (exceeds GitHub 100 MB limit; rebuild from API if needed)
-work/api_dumps/RevisaoTimesheetPorCasoViews.json
-
 # Brainstorming visual companion mockups
 .superpowers/
 

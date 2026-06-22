@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#EmpresaJuridicoViews","value":[
-    {
-      "Id":"5bbc811a-0c4d-6254-1fcc-05a12034c98f","Existente":"N","Codigo":"-4116072472105719263","EmpresaClienteClientePessoaNome":null,"PessoaId":"5B06FE56-99B7-2873-8E6D-4E6A0A98B8BA","PessoaManutencaoDbm":"N","PessoaTipo":"J","PessoaCnpjCpf":"07526557000100","PessoaNome":"Ambev S.A.","PessoaNomeFantasia":"Ambev","PessoaNomeFantasiaOriginal":"","GrupoEmpresaJuridicoId":"5bbc80f5-0c41-8433-be27-0193de31e9ef","GrupoEmpresaJuridicoNome":"AMBEV","PessoaClientesCount":1,"PessoaCorrespondentesCount":0,"PessoaJuizCount":0,"PessoaProfissionaisCount":0,"PessoaPrepostosCount":0,"PessoaEnvolvidosCount":0,"ValidaNovo":false,"DataInclusao":"2018-10-09T10:23:28-03:00","UsuarioInclusao":"juritis.sis","DataAlteracao":"2018-10-09T10:23:28-03:00","UsuarioAlteracao":"juritis.sis","VinculadosId":null
-    }
-  ]
-}

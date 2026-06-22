@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TributoViews","value":[
-    {
-      "Id":"67AB63F6-438F-7977-6161-ACB42E2975FC","DataAnoMes":"2025-01-01T12:00:00Z","AnoMes":"2025-01","EmpresaId":"5B041C3D-98E8-0EDE-38F0-3C0D474770EB","PercentualIRPJ":"10.88","PercentualCSLL":"0","PercentualPIS":"0.65","PercentualCOFINS":"3","EmpresaNomeFantasia":"MBC Advogados","DataInclusao":"2025-02-11T11:51:02-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2025-02-11T11:51:02-03:00","UsuarioAlteracao":"SYS","Codigo":"1/2025-01"
-    }
-  ]
-}

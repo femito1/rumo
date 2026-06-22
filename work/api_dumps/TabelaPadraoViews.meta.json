@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/TabelaPadraoViews?$top=5",
-  "status": 500,
-  "elapsed_s": 1.79,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 4278
-}

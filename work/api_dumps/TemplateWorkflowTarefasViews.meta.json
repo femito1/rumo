@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/TemplateWorkflowTarefasViews?$top=5",
-  "status": 500,
-  "elapsed_s": 1.747,
-  "content_type": "text/json; charset=utf-8",
-  "bytes": 518
-}

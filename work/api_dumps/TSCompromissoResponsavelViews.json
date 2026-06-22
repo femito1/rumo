@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#TSCompromissoResponsavelViews","value":[
-    {
-      "Id":"65c2918f-eaa8-00f0-45be-3a50149227e9","CompromissoId":"65c2672a-c444-9bbc-7576-5ddee8eaeb78","ProfissionalId":"64AF060F-B592-3BD7-2C41-78C8A6821576","ProfissionalSigla":"JCT","ProfissionalPessoaNome":"J\u00falia Citrangulo","ProfissionalPessoaNomeFantasia":null,"TipoResponsabilidadeId":"5AF36102-075A-4EBE-FFA0-FE7948A7183C","TipoResponsabilidadeTipo":"C","CompromissoAssuntoCasoClienteId":"658B0DF1-5331-2B6A-5C05-9F3998A10B59","CompromissoAssuntoCasoId":"658B102B-5336-935E-A1EF-402D71502671","CompromissoAssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","CompromissoAssuntoObjetoDescricao":"ASSUNTOS DIVERSOS","CompromissoAssuntoSituacao":"A","CompromissoTipoCompromissoId":"5AF36BC0-9700-90BF-9E28-1F8F1F8A1428","CompromissoTipoCompromissoDescricao":"Prazo","CompromissoData":"2024-02-06T12:00:00-03:00","CompromissoDescricao":"Teste de provid\u00eancia","CompromissoSituacaoCompromissoId":"5AF36103-0754-6E68-0438-E11557DED42D","CompromissoSituacaoCompromissoSituacao":"P","CompromissoSituacaoCompromissoDescricao":"Pendente"
-    }
-  ]
-}

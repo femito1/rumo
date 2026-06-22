@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#RelatorioModeloViewModelViews","value":[
-    {
-      "Id":"5CDEF0D6-4569-A6C3-5CB5-A29DEDAC3BB8","ModeloId":"5BBCBC3E-E916-981F-ACC5-41C34E1DE5EC","ModeloNome":"Padr\u00e3o","ViewModel":"AditivoView","Visivel":"S","DataInclusao":"2019-05-17T14:34:09-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2019-05-17T14:34:09-03:00","UsuarioAlteracao":"SYS"
-    }
-  ]
-}

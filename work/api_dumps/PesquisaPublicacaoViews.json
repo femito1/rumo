@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#PesquisaPublicacaoViews","value":[
-    {
-      "LicencaId":"1","AssuntoId":"65c2647a-c41b-88f7-62ef-eccdd23877b6","DesdobramentoId":null,"Tipo":"Principal","TipoAcao":"Execu\u00e7\u00e3o de T\u00edtulo Extrajudicial","CasoCodigo":"1","CasoCodigoSimplificado":"1","CasoAssunto":"TSL Judicial","ClienteCodigo":"118","ClienteCodigoSimplificado":null,"ClienteClienteRaiz":null,"ClientePessoaNome":"TSL Engenharia, Manuten\u00e7\u00e3o e Preserva\u00e7\u00e3o Ambiental S.A.","AssuntoDataEntrada":"2024-02-06T12:00:00-03:00","AssuntoSituacao":"Em Andamento","PoloPrincipalPassivo":"-","PoloPrincipalAtivo":"-","AssuntoNumeroProcesso":"1047894-24.2015.8.26.0100","AssuntoNumerosProcesso":" 1047894-24.2015.8.26.0100 10478942420158260100 ","DesdobramentoNumeroProcesso":"-","DesdobramentoNumerosProcesso":"-","Envolvidos":null,"Id":"1-65c2647a-c41b-88f7-62ef-eccdd23877b6"
-    }
-  ]
-}

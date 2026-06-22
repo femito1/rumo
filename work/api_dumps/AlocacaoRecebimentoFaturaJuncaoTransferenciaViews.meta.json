@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/AlocacaoRecebimentoFaturaJuncaoTransferenciaViews?$top=5",
-  "status": 500,
-  "elapsed_s": 2.486,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 4309
-}

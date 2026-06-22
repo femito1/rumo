@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/AlocacaoRecebimentoHorasAlocarJuncaoViews?$top=5",
-  "status": 200,
-  "elapsed_s": 28.038,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 152
-}

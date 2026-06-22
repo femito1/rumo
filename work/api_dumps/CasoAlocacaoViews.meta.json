@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/CasoAlocacaoViews?$top=5",
-  "status": 200,
-  "elapsed_s": 2.726,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 14027
-}

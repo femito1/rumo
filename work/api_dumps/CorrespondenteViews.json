@@ -1,7 +1,0 @@
-{
-  "odata.metadata":"https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/$metadata#CorrespondenteViews","value":[
-    {
-      "Id":"5AF36BA7-9883-981C-BC5E-B3FF592E4DFE","Existente":"N","Codigo":"1","PessoaId":"5AF36BA4-9884-3883-5C5E-B6287B0C0ACF","PessoaTipo":"F","PessoaCnpjCpf":null,"PessoaNome":"teste","PessoaNomeFantasia":null,"PessoaNomeFantasiaOriginal":"","PessoaEmpresasCount":0,"PessoaClientesCount":0,"PessoaEnvolvidosCount":0,"PessoaJuizCount":0,"PessoaProfissionaisCount":0,"PessoaPrepostosCount":0,"ValidaNovo":false,"FornecedorId":null,"DataInclusao":"2018-05-09T21:43:43-03:00","UsuarioInclusao":"SYS","DataAlteracao":"2018-05-09T21:43:43-03:00","UsuarioAlteracao":"SYS","Usuario":null,"Email":null,"Limite":null,"PerfilId":null,"Senha":null,"UsuarioEnviado":null,"AssuntosCount":0
-    }
-  ]
-}

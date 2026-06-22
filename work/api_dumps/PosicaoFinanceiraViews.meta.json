@@ -1,1 +1,0 @@
-{"url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/PosicaoFinanceiraViews?$top=5", "error": "HTTPSConnectionPool(host='legaldesk.mbclaw.com.br', port=443): Read timed out. (read timeout=60)"}

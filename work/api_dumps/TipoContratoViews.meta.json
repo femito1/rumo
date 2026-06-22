@@ -1,7 +1,0 @@
-{
-  "url": "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV/TipoContratoViews?$top=5",
-  "status": 200,
-  "elapsed_s": 2.922,
-  "content_type": "application/json; charset=utf-8",
-  "bytes": 128
-}
