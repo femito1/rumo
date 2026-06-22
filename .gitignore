@@ -6,6 +6,17 @@ __pycache__/
 venv/
 .env
 .env.*
+!.env.example
+
+# Python build / tool caches
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg
+uv.lock
 
 # Generated dashboard data (rebuild from the API)
 mbc-automation/data/data.json
