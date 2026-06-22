@@ -1,4 +1,4 @@
-import { useAuth } from "../features/auth/authStore";
+import { useAuth } from "../features/auth/useAuth";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { user, logout } = useAuth();
   return (

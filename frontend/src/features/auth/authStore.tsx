@@ -1,28 +1,32 @@
 // frontend/src/features/auth/authStore.tsx
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { apiFetch, getToken, setToken } from "../../lib/api";
 import type { AuthUser } from "../../lib/types";
-
-type Status = "loading" | "authenticated" | "unauthenticated";
-
-interface AuthCtx {
-  user: AuthUser | null;
-  status: Status;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
-
-const Ctx = createContext<AuthCtx | null>(null);
+import { Ctx, type Status } from "./useAuth";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [status, setStatus] = useState<Status>("loading");
+  const [status, setStatus] = useState<Status>(() =>
+    getToken() ? "loading" : "unauthenticated",
+  );
 
   useEffect(() => {
-    if (!getToken()) { setStatus("unauthenticated"); return; }
+    if (!getToken()) return;
+    let ignore = false;
     apiFetch<AuthUser>("/api/auth/me")
-      .then((u) => { setUser(u); setStatus("authenticated"); })
-      .catch(() => { setToken(null); setStatus("unauthenticated"); });
+      .then((u) => {
+        if (ignore) return;
+        setUser(u);
+        setStatus("authenticated");
+      })
+      .catch(() => {
+        if (ignore) return;
+        setToken(null);
+        setStatus("unauthenticated");
+      });
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   async function login(email: string, password: string) {
@@ -42,10 +46,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return <Ctx.Provider value={{ user, status, login, logout }}>{children}</Ctx.Provider>;
-}
-
-export function useAuth(): AuthCtx {
-  const v = useContext(Ctx);
-  if (!v) throw new Error("useAuth must be used within AuthProvider");
-  return v;
 }

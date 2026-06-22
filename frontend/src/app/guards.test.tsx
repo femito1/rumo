@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { RequireAuth, RequireAdmin } from "./guards";
-import * as authStore from "../features/auth/authStore";
+import * as authStore from "../features/auth/useAuth";
 
 function mockAuth(status: string, role: string | null) {
   vi.spyOn(authStore, "useAuth").mockReturnValue({

@@ -1,6 +1,6 @@
 // frontend/src/app/guards.tsx
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../features/auth/authStore";
+import { useAuth } from "../features/auth/useAuth";
 import { AppShell } from "./AppShell";
 
 export function RequireAuth() {

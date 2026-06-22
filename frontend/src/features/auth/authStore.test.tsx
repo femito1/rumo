@@ -1,7 +1,8 @@
 // frontend/src/features/auth/authStore.test.tsx
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { AuthProvider, useAuth } from "./authStore";
+import { AuthProvider } from "./authStore";
+import { useAuth } from "./useAuth";
 import * as api from "../../lib/api";
 
 function Probe() {

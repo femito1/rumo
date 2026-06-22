@@ -1,7 +1,7 @@
 // frontend/src/features/auth/LoginPage.tsx
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./authStore";
+import { useAuth } from "./useAuth";
 
 export function LoginPage() {
   const { login } = useAuth();

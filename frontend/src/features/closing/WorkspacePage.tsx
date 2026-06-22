@@ -25,7 +25,11 @@ export function WorkspacePage() {
   }, [id]);
 
   const { data, error, loading } = useClosing(id, month, from, to);
-  useEffect(() => { if (data && !activeTab) setActiveTab(data.tab_order[0] ?? ""); }, [data, activeTab]);
+  if (data && !activeTab && data.tab_order[0]) {
+    // Default to the first tab once data loads; render-phase update avoids
+    // a setState-in-effect cascade and applies before paint.
+    setActiveTab(data.tab_order[0]);
+  }
 
   if (!month) return <div className="workspace"><Skeleton rows={6} /></div>;
 

@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { LoginPage } from "./LoginPage";
-import * as authStore from "./authStore";
+import * as authStore from "./useAuth";
 
 describe("LoginPage", () => {
   it("shows a PT-BR error when login fails", async () => {
