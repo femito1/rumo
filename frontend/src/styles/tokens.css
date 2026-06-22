@@ -1,0 +1,19 @@
+/* frontend/src/styles/tokens.css */
+:root {
+  --bg: #0f1115; --surface: #161922; --border: #262b36; --text: #e6e8ee; --muted: #8b91a0;
+  --api: #22c55e; --formula: #3b82f6; --manual: #6b7280; --juritis: #8b5cf6; --fixture: #a3a3a3;
+  --radius: 8px; --space: 8px;
+}
+body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+.badge-legaldesk { background: rgba(34,197,94,.15); color: var(--api); }
+.badge-formula { background: rgba(59,130,246,.15); color: var(--formula); }
+.badge-manual, .badge-fixture { background: rgba(107,114,128,.18); color: var(--muted); }
+.badge-juritis { background: rgba(139,92,246,.15); color: var(--juritis); }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.kpi-highlight { border-color: var(--api); }
+.btn { border-radius: var(--radius); padding: 8px 14px; border: 1px solid var(--border); cursor: pointer; }
+.btn-primary { background: var(--api); color: #04210f; border-color: var(--api); }
+.skeleton-row { height: 14px; background: var(--surface); border-radius: 4px; margin: 8px 0; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100% { opacity: .5 } 50% { opacity: 1 } }
