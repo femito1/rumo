@@ -1,12 +1,17 @@
 // frontend/src/app/guards.tsx
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../features/auth/authStore";
+import { AppShell } from "./AppShell";
 
 export function RequireAuth() {
   const { status } = useAuth();
   if (status === "loading") return <div className="page-loading">Carregando…</div>;
   if (status === "unauthenticated") return <Navigate to="/login" replace />;
-  return <Outlet />;
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  );
 }
 
 export function RequireAdmin() {
