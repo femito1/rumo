@@ -15,5 +15,13 @@ def _build_supabase_repo() -> Repository:
     s = get_settings()
     return SupabaseRepository(create_client(s.supabase_url, s.supabase_service_key))
 
+@lru_cache
+def _build_fixture_repo() -> Repository:
+    from app.tenancy.fixture_repository import FixtureRepository
+    return FixtureRepository.seeded()
+
 def get_repo() -> Repository:
+    # Dev/demo escape hatch: run the whole app with no external services.
+    if get_settings().use_fake_repo:
+        return _build_fixture_repo()
     return _build_supabase_repo()

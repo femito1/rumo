@@ -11,6 +11,7 @@ class Settings:
     cors_origins: list[str]
     supabase_url: str
     supabase_service_key: str
+    use_fake_repo: bool
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -21,4 +22,5 @@ class Settings:
             cors_origins=[o.strip() for o in origins.split(",") if o.strip()],
             supabase_url=os.environ.get("SUPABASE_URL", ""),
             supabase_service_key=os.environ.get("SUPABASE_SERVICE_KEY", ""),
+            use_fake_repo=os.environ.get("USE_FAKE_REPO", "").lower() in ("1", "true", "yes"),
         )

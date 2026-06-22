@@ -17,7 +17,7 @@ def client(repo):
     app.dependency_overrides[providers.get_repo] = lambda: repo
     app.dependency_overrides[providers.get_settings] = lambda: Settings(
         jwt_secret=TEST_SECRET, jwt_ttl_minutes=60, cors_origins=["*"],
-        supabase_url="", supabase_service_key="",
+        supabase_url="", supabase_service_key="", use_fake_repo=False,
     )
     yield TestClient(app)
     app.dependency_overrides.clear()

@@ -54,6 +54,23 @@ cp .env.example .env        # fill in real values (never commit .env)
 uvicorn app.main:app --reload   # http://localhost:8000
 ```
 
+**Try it with zero external setup** (no Supabase): set `USE_FAKE_REPO=1` to serve
+an in-memory repo seeded with the demo accounts below. The demo client renders
+real-looking data via `FixtureSource`; MBC's actual numbers still need LegalDesk
+credentials. Never enable this in production.
+
+```bash
+USE_FAKE_REPO=1 JWT_SECRET=dev-secret-at-least-32-chars-long uvicorn app.main:app --reload
+```
+
+Demo logins (passwords overridable via `SEED_*_PASSWORD`):
+
+| Email | Role | Default password |
+| --- | --- | --- |
+| `admin@rumo.com.br` | ADMIN (all clients) | `admin123` |
+| `demo@cliente.com.br` | CLIENT → demo | `demo123` |
+| `financeiro@mbclaw.com.br` | CLIENT → mbc | `mbc123` |
+
 ### Frontend
 
 ```bash

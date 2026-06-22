@@ -66,7 +66,7 @@ talks to our authenticated backend.
   the admin multi-client view. Not real client data.
 
 ### Test counts (as of last update)
-- Backend: **45 passing** (`cd backend && pytest`).
+- Backend: **48 passing** (`cd backend && pytest`).
 - Frontend: **20 passing** (`cd frontend && npm run test`).
 
 ---
@@ -183,6 +183,11 @@ See `README.md` for full instructions. Quick reference:
 - **Frontend lint/type:** `cd frontend && npm run lint && npm run typecheck`
 - **Local stack:** copy `backend/.env.example` → `backend/.env`, then
   `docker compose up --build`. Backend on :8000, frontend on :5173.
+- **Zero-setup dev mode:** set `USE_FAKE_REPO=1` to serve an in-memory
+  repo seeded with the three demo accounts (no Supabase needed). The demo
+  client renders via `FixtureSource`; MBC's real numbers still require
+  LegalDesk creds. Never enable in production. Implemented in
+  `app/tenancy/fixture_repository.py`, selected in `app/api/providers.py`.
 - **Seed:** `cd backend && python -m scripts.seed` (needs Supabase env vars
   + `SEED_*_PASSWORD` env vars).
 - **Deploy:** EasyPanel (Docker images) + Supabase (Postgres). Secrets via

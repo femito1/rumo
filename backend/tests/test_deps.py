@@ -12,7 +12,7 @@ def _user(repo, email):
     return repo.get_user_by_email(email)
 
 def _settings():
-    return Settings(jwt_secret=SECRET, jwt_ttl_minutes=60, cors_origins=["*"], supabase_url="", supabase_service_key="")
+    return Settings(jwt_secret=SECRET, jwt_ttl_minutes=60, cors_origins=["*"], supabase_url="", supabase_service_key="", use_fake_repo=False)
 
 def test_require_user_rejects_missing_token():
     repo = FakeRepository.seeded()
