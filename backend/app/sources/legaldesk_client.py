@@ -11,13 +11,25 @@ small set of verified behaviours documented in docs/AUTOMATION_BUILD_GUIDE.md:
 """
 from __future__ import annotations
 
+import os
+from dataclasses import dataclass
 from typing import Any
 from urllib.parse import quote
 
 import requests
 from requests.auth import HTTPBasicAuth
 
-from .config import SETTINGS, Settings
+
+@dataclass(frozen=True)
+class _LegalDeskSettings:
+    api_base: str = os.environ.get("LEGALDESK_BASE", "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV").rstrip("/")
+    api_user: str = os.environ.get("LEGALDESK_USER", "integracao")
+    api_password: str = os.environ.get("LEGALDESK_PASSWORD", "")
+    request_timeout: int = int(os.environ.get("LEGALDESK_TIMEOUT", "120"))
+    default_top: int = int(os.environ.get("LEGALDESK_TOP", "5000"))
+
+
+SETTINGS = _LegalDeskSettings()
 
 
 def to_float(value: Any) -> float:
@@ -31,7 +43,7 @@ def to_float(value: Any) -> float:
 
 
 class LegalDeskClient:
-    def __init__(self, settings: Settings = SETTINGS) -> None:
+    def __init__(self, settings: _LegalDeskSettings = SETTINGS) -> None:
         self.settings = settings
         self.session = requests.Session()
         self.session.auth = HTTPBasicAuth(settings.api_user, settings.api_password)

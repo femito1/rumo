@@ -16,10 +16,10 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any
 
-from .api_client import LegalDeskClient, to_float
-from .base_resultado_layout import BASE_RESULTADO_LINES
-from .period import Period
-from .tab_layouts import TAB_LAYOUTS, TAB_ORDER
+from app.sources.legaldesk_client import LegalDeskClient, to_float
+from app.closing.base_resultado_layout import BASE_RESULTADO_LINES
+from app.closing.period import Period
+from app.closing.tab_layouts import TAB_LAYOUTS, TAB_ORDER
 
 API = "api"
 MANUAL = "manual"
