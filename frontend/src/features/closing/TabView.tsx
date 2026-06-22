@@ -1,4 +1,6 @@
 // frontend/src/features/closing/TabView.tsx
+import { TableScroll } from "../../components/TableScroll";
+
 interface GridCell { t: "label" | "number" | "formula" | "empty"; v?: string | null; n?: number | null }
 interface RichTab { kind: "rich"; name: string; [k: string]: unknown }
 interface GridTab { kind: "grid"; name: string; note?: string; grid: GridCell[][]; rows: number; cols: number }
@@ -15,7 +17,7 @@ export function TabView({ tab }: { tab: Tab }) {
       <div className="tab grid-tab">
         <h2>{g.name}</h2>
         {g.note ? <p className="muted">{g.note}</p> : null}
-        <div className="table-wrap">
+        <TableScroll>
           <table className="grid-table">
             <tbody>
               {g.grid.map((row, ri) => (
@@ -23,7 +25,7 @@ export function TabView({ tab }: { tab: Tab }) {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </div>
     );
   }

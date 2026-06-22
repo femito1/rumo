@@ -1,6 +1,6 @@
 // frontend/src/app/router.tsx
 import { createBrowserRouter } from "react-router-dom";
-import { RequireAuth, RequireAdmin } from "./guards";
+import { RequireAuth, RequireAdmin, HomeRedirect } from "./guards";
 import { LoginPage } from "../features/auth/LoginPage";
 import { ClientsPage } from "../features/clients/ClientsPage";
 import { WorkspacePage } from "../features/closing/WorkspacePage";
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       { element: <RequireAdmin />, children: [{ path: "/clientes", element: <ClientsPage /> }] },
       { path: "/clientes/:id", element: <WorkspacePage /> },
-      { path: "/", element: <ClientsPage /> },
+      { path: "/", element: <HomeRedirect /> },
     ],
   },
 ]);

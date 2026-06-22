@@ -20,3 +20,10 @@ export function formatMonthLabel(anoMes: string): string {
   const [y, m] = anoMes.split("-").map(Number);
   return `${MESES[m - 1]} ${y}`;
 }
+
+/** Number of days in a YYYY-MM competence month (28/29/30/31). */
+export function daysInMonth(anoMes: string): number {
+  const [y, m] = anoMes.split("-").map(Number);
+  if (!y || !m) return 31;
+  return new Date(y, m, 0).getDate(); // day 0 of next month = last day of this one
+}

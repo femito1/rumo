@@ -29,8 +29,14 @@ def get_closing(
         raise HTTPException(status_code=422, detail="Mês ainda em aberto ou no futuro")
     period = Period.parse(month)
     if from_ is not None and to is not None:
+        last = period.days_in_month
         if from_ > to:
             raise HTTPException(status_code=422, detail="Intervalo de dias inválido")
+        if from_ > last or to > last:
+            raise HTTPException(
+                status_code=422,
+                detail=f"{period.label} tem {last} dias; informe dias entre 1 e {last}.",
+            )
         day_range = DayRange.within(period, from_day=from_, to_day=to)
     else:
         day_range = DayRange.full_month(period)

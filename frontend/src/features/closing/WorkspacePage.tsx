@@ -8,6 +8,7 @@ import { DayRangeFilter } from "./DayRangeFilter";
 import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
 import { TabView } from "./TabView";
+import { daysInMonth } from "../../lib/format";
 
 export function WorkspacePage() {
   const { id = "" } = useParams();
@@ -39,12 +40,18 @@ export function WorkspacePage() {
         <h1>Fechamento — {data?.client.name ?? ""}</h1>
         <div className="filters">
           <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
-          <DayRangeFilter from={from} to={to} onChange={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
+          <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
         </div>
       </header>
 
       {error ? <div className="error-state" role="alert">{error}</div> : null}
-      {loading || !data ? <Skeleton rows={6} /> : (
+      {loading || !data ? (
+        <div className="loading-block">
+          <div className="spinner" aria-label="Carregando" />
+          <span className="muted">Carregando fechamento…</span>
+          <Skeleton rows={6} />
+        </div>
+      ) : (
         <>
           <section className="kpis">
             <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} highlight />

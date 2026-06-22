@@ -1,6 +1,7 @@
 """Helpers for working with a competence month (``AnoMes``)."""
 from __future__ import annotations
 
+import calendar
 from dataclasses import dataclass
 
 _MONTH_NAMES_PT = [
@@ -44,6 +45,11 @@ class Period:
         if self.month == 12:
             return f"{self.year + 1:04d}-01-01"
         return f"{self.year:04d}-{self.month + 1:02d}-01"
+
+    @property
+    def days_in_month(self) -> int:
+        """Number of days in this competence month (28/29/30/31)."""
+        return calendar.monthrange(self.year, self.month)[1]
 
     @property
     def column_letter(self) -> str:

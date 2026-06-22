@@ -21,3 +21,12 @@ export function RequireAdmin() {
   if (user?.role !== "ADMIN") return <Navigate to={`/clientes/${user?.client_id}`} replace />;
   return <Outlet />;
 }
+
+/** Landing route: send each role to the right home. */
+export function HomeRedirect() {
+  const { status, user } = useAuth();
+  if (status === "loading") return <div className="page-loading">Carregando…</div>;
+  if (status === "unauthenticated" || !user) return <Navigate to="/login" replace />;
+  if (user.role === "ADMIN") return <Navigate to="/clientes" replace />;
+  return <Navigate to={`/clientes/${user.client_id}`} replace />;
+}

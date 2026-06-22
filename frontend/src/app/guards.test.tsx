@@ -2,7 +2,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { RequireAuth, RequireAdmin } from "./guards";
+import { RequireAuth, RequireAdmin, HomeRedirect } from "./guards";
 import * as authStore from "../features/auth/useAuth";
 
 function mockAuth(status: string, role: string | null) {
@@ -37,6 +37,34 @@ describe("guards", () => {
           <Route element={<RequireAdmin />}>
             <Route path="/clientes" element={<div>CLIENTES</div>} />
           </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("WORKSPACE")).toBeInTheDocument();
+  });
+
+  it("HomeRedirect sends ADMIN to /clientes", () => {
+    mockAuth("authenticated", "ADMIN");
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<HomeRedirect />} />
+          <Route path="/clientes" element={<div>CLIENTES</div>} />
+          <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("CLIENTES")).toBeInTheDocument();
+  });
+
+  it("HomeRedirect sends a CLIENT straight to its own workspace (not the admin list)", () => {
+    mockAuth("authenticated", "CLIENT");
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<HomeRedirect />} />
+          <Route path="/clientes" element={<div>CLIENTES</div>} />
+          <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
         </Routes>
       </MemoryRouter>,
     );

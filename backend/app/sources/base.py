@@ -34,10 +34,22 @@ class DayRange:
 
     @classmethod
     def within(cls, period: Period, *, from_day: int, to_day: int) -> "DayRange":
+        """Build a partial range, clamped to the month's real calendar bounds.
+
+        Guards against invalid dates like ``2026-02-31``: days are clamped to
+        ``[1, days_in_month]`` and the exclusive ``end`` rolls over to the next
+        month's first day when ``to_day`` is the last day of the month.
+        """
+        last = period.days_in_month
+        from_day = max(1, min(from_day, last))
+        to_day = max(from_day, min(to_day, last))
         start = f"{period.year:04d}-{period.month:02d}-{from_day:02d}"
-        end_day = to_day + 1
-        end = f"{period.year:04d}-{period.month:02d}-{end_day:02d}"
-        return cls(start=start, end=end, is_full_month=False)
+        if to_day >= last:
+            end = period.date_end
+        else:
+            end = f"{period.year:04d}-{period.month:02d}-{to_day + 1:02d}"
+        is_full = from_day == 1 and to_day >= last
+        return cls(start=start, end=end, is_full_month=is_full)
 
 # SectionData is the raw per-section structure a Source emits (shape defined per section).
 SectionData = dict
