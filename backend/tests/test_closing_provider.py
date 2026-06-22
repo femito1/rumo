@@ -1,7 +1,7 @@
 # backend/tests/test_closing_provider.py
 from app.closing.provider import ClosingProvider, build_provider_for
 from app.closing.period import Period
-from app.sources.base import SectionKey, DayRange, Source, SectionData
+from app.sources.base import SectionKey, DayRange
 from app.sources.fixture import FixtureSource
 from app.tenancy.models import Client
 

@@ -4,7 +4,6 @@ from fastapi import HTTPException
 from app.api.deps import require_user, require_admin, require_client_access
 from app.auth.tokens import create_access_token
 from app.config import Settings
-from app.tenancy.models import User, Role
 from tests.fakes import FakeRepository
 
 SECRET = "t"

@@ -1,4 +1,3 @@
-import time
 import pytest
 from app.auth.tokens import create_access_token, decode_token, TokenError
 

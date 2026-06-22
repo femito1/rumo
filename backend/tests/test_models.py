@@ -1,4 +1,4 @@
-from app.tenancy.models import User, Client, Role
+from app.tenancy.models import User, Role
 
 def test_admin_user_has_no_client():
     u = User(id="u1", email="admin@rumo.com.br", password_hash="x", role=Role.ADMIN, client_id=None, active=True)

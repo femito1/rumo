@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.auth_router import router as auth_router
+from app.api.clients_router import router as clients_router
+from app.api.closing_router import router as closing_router
+
 app = FastAPI(title="RUMO Closing Platform API")
 
 app.add_middleware(
@@ -11,13 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from app.api.auth_router import router as auth_router
 app.include_router(auth_router)
-
-from app.api.clients_router import router as clients_router
 app.include_router(clients_router)
-
-from app.api.closing_router import router as closing_router
 app.include_router(closing_router)
 
 
