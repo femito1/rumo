@@ -4,12 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.auth_router import router as auth_router
 from app.api.clients_router import router as clients_router
 from app.api.closing_router import router as closing_router
+from app.config import Settings
 
+_settings = Settings.from_env()
 app = FastAPI(title="RUMO Closing Platform API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # narrowed via env in Task 8.x
+    allow_origins=_settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
