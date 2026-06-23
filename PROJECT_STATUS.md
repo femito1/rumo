@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/AUTOMATION_BUILD_GUIDE.md`).
 
-**Last updated:** 2026-06-21
+**Last updated:** 2026-06-22
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Design spec:** `docs/superpowers/specs/2026-06-21-rumo-multi-client-platform-design.md`
 
@@ -66,8 +66,16 @@ talks to our authenticated backend.
   the admin multi-client view. Not real client data.
 
 ### Test counts (as of last update)
-- Backend: **48 passing** (`cd backend && pytest`).
-- Frontend: **20 passing** (`cd frontend && npm run test`).
+- Backend: **54 passing** (`cd backend && pytest`).
+- Frontend: **29 passing** (`cd frontend && npm run test`).
+
+### Production (EasyPanel + Supabase) — live 2026-06-22
+- **Frontend:** https://rumo-frontend.xem1qi.easypanel.host
+- **Backend API:** https://rumo-backend.xem1qi.easypanel.host (`/api/health` → 200)
+- **Supabase:** project `skrwptamwbhwaiwwhrqj` — `schema.sql` applied, seed run (`mbc` + `demo` clients, three users).
+- **EasyPanel:** project `rumo`, services `backend` + `frontend` (GitHub `femito1/rumo` @ `main`, Dockerfiles in `backend/` + `frontend/`).
+- **Auth:** production uses Supabase (`USE_FAKE_REPO=0`). Dev zero-setup toggle still available locally.
+- Env templates: `backend/.env.production.example`, `frontend/.env.production.example`.
 
 ---
 
