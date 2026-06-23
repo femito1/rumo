@@ -19,9 +19,15 @@ export function useClosing(clientId: string, month: string, from: number | null,
   }
 
   useEffect(() => {
+    if (!month || !/^\d{4}-\d{2}$/.test(month)) {
+      return;
+    }
     let ignore = false;
     const q = new URLSearchParams({ month });
-    if (from && to) { q.set("from", String(from)); q.set("to", String(to)); }
+    if (from != null && to != null) {
+      q.set("from", String(from));
+      q.set("to", String(to));
+    }
     apiFetch<ClosingPayload>(`/api/clients/${clientId}/closing?${q.toString()}`)
       .then((d) => {
         if (ignore) return;
