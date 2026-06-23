@@ -5,11 +5,11 @@
 > single source of truth for *current* state, limitations, and plans.
 > Keep it updated at the end of every milestone. When it disagrees with
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
-> live in `docs/AUTOMATION_BUILD_GUIDE.md`).
+> live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-06-22
+**Last updated:** 2026-06-23
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
-**Design spec:** `docs/superpowers/specs/2026-06-21-rumo-multi-client-platform-design.md`
+**Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
@@ -105,7 +105,8 @@ rumo/
 ├── docker-compose.yml
 ├── PROJECT_STATUS.md   (this file)
 ├── CLAUDE.md           agent operating guide
-└── docs/               existing validated docs + design spec
+├── docs/               LEGALDESK.md, DESIGN.md
+└── reference/workbook/ ground-truth xlsx + Postman (not runtime)
 ```
 
 Data flow: `provider`/`provider_config` on a client → ordered `Source`s →
@@ -116,7 +117,7 @@ Data flow: `provider`/`provider_config` on a client → ordered `Source`s →
 
 ## 4. Verified facts preserved (SACRED — never silently regress)
 
-Source of truth: `docs/AUTOMATION_BUILD_GUIDE.md`. Locked by backend tests
+Source of truth: `docs/LEGALDESK.md`. Locked by backend tests
 against the recorded fixture `backend/tests/fixtures/legaldesk_2026_05.json`:
 
 - `recebimento_bruto('2026-05')` ≈ **415.927,84** (98 rows)
@@ -181,25 +182,10 @@ Non-blocking items found during review. Fix opportunistically; add new ones here
 
 ---
 
-## 8. How to run / test / deploy (pointers)
+## 8. Run / test / deploy
 
-See `README.md` for full instructions. Quick reference:
-
-- **Backend tests:** `cd backend && pytest`
-- **Frontend tests:** `cd frontend && npm run test`
-- **Backend lint/type:** `cd backend && ruff check . && mypy app`
-- **Frontend lint/type:** `cd frontend && npm run lint && npm run typecheck`
-- **Local stack:** copy `backend/.env.example` → `backend/.env`, then
-  `docker compose up --build`. Backend on :8000, frontend on :5173.
-- **Zero-setup dev mode:** set `USE_FAKE_REPO=1` to serve an in-memory
-  repo seeded with the three demo accounts (no Supabase needed). The demo
-  client renders via `FixtureSource`; MBC's real numbers still require
-  LegalDesk creds. Never enable in production. Implemented in
-  `app/tenancy/fixture_repository.py`, selected in `app/api/providers.py`.
-- **Seed:** `cd backend && python -m scripts.seed` (needs Supabase env vars
-  + `SEED_*_PASSWORD` env vars).
-- **Deploy:** EasyPanel (Docker images) + Supabase (Postgres). Secrets via
-  EasyPanel/Supabase env, never committed.
+See `README.md`. Quality gates: backend `ruff` + `mypy` + `pytest`; frontend `lint` +
+`typecheck` + `vitest`. Update this file when status changes.
 
 ---
 

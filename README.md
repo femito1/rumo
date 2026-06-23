@@ -24,8 +24,8 @@ backend/    FastAPI service — auth (JWT/argon2), tenancy, data Sources,
             ClosingProvider, /api routers, pytest suite, Dockerfile
 frontend/   React + TS + Vite SPA — login, admin clients list, client
             workspace (month picker + day-range, KPIs, 15 tabs), Dockerfile
-docs/       validated reference docs (incl. AUTOMATION_BUILD_GUIDE.md =
-            source of truth for the verified LegalDesk numbers) + design spec
+docs/       LEGALDESK.md (API reference + sacred numbers), DESIGN.md (architecture)
+reference/  workbook + Postman artifacts (not runtime)
 docker-compose.yml   local dev parity (backend :8000, frontend :5173)
 ```
 

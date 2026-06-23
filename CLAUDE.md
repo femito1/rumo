@@ -9,10 +9,7 @@
 ## Start here
 
 1. Read `PROJECT_STATUS.md`.
-2. Skim the design spec:
-   `docs/superpowers/specs/2026-06-21-rumo-multi-client-platform-design.md`.
-3. For the verified LegalDesk numbers, the source of truth is
-   `docs/AUTOMATION_BUILD_GUIDE.md`.
+2. Skim `docs/DESIGN.md` (architecture) and `docs/LEGALDESK.md` (API + sacred numbers).
 
 ## What this product is (one paragraph)
 

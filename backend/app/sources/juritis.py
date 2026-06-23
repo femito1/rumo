@@ -8,8 +8,7 @@ class JuritisSource:
 
     When credentials arrive, implement `supports()` to return the institutional-expense
     SectionKeys it can fill and `fetch()` to emit them. Three integration paths are
-    documented in docs/superpowers/specs/2026-06-21-rumo-multi-client-platform-design.md §4:
-    additive, partial override, or full replacement. Do NOT guess the API shape until we
+    documented in docs/DESIGN.md (Juritis migration paths). Do NOT guess the API shape until we
     have access.
     """
     name = "juritis"

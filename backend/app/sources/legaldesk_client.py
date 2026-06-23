@@ -1,7 +1,7 @@
 """Thin client for the Juritis LegalDesk OData v3 API.
 
 This is the *only* data source for v0. The client deliberately keeps to the
-small set of verified behaviours documented in docs/AUTOMATION_BUILD_GUIDE.md:
+small set of verified behaviours documented in docs/LEGALDESK.md:
 
 - HTTP Basic auth, JSON responses, rows under the ``value`` key.
 - OData **v3** syntax (no v4, no ``$expand``, no ``$select=*``).
