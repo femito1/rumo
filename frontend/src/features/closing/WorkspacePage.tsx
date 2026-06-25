@@ -9,6 +9,7 @@ import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
 import { TabView } from "./TabView";
 import { daysInMonth } from "../../lib/format";
+import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
 
 export function WorkspacePage() {
   const { id = "" } = useParams();
@@ -37,7 +38,27 @@ export function WorkspacePage() {
   return (
     <div className="workspace">
       <header className="workspace-top">
-        <h1>Fechamento — {data?.client.name ?? ""}</h1>
+        <div className="workspace-title">
+          <h1>Fechamento — {data?.client.name ?? ""}</h1>
+          <div className="export-actions">
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              disabled={!data || loading}
+              onClick={() => data && exportAllSheets(data)}
+            >
+              Exportar tudo
+            </button>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              disabled={!data || loading || !activeTab}
+              onClick={() => data && activeTab && exportSingleSheet(data, activeTab)}
+            >
+              Exportar esta página
+            </button>
+          </div>
+        </div>
         <div className="filters">
           <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
           <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />

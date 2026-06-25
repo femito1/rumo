@@ -334,6 +334,16 @@ input::placeholder {
   margin: 0;
   font-size: 22px;
 }
+.workspace-title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+}
+.export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+}
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -546,22 +556,36 @@ input::placeholder {
 }
 .grid-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 13px;
 }
-.grid-table td {
+.grid-table td,
+.grid-table th {
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
   padding: 7px 10px;
   white-space: nowrap;
 }
-.grid-table td.num {
+.grid-table td.num,
+.grid-table th.num {
   text-align: right;
 }
-.grid-table tr:last-child td {
+/* Column titles stay pinned to the top of the scroll body while you scroll. */
+.grid-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.grid-table tbody tr:last-child td {
   border-bottom: none;
 }
-.grid-table tr:nth-child(even) td {
+.grid-table tbody tr:nth-child(even) td {
   background: rgba(255, 255, 255, 0.015);
 }
 

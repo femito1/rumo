@@ -22,6 +22,10 @@ uv.lock
 # Brainstorming visual companion mockups
 .superpowers/
 
+# Local deploy credentials (EasyPanel API, etc.) — never commit
+.easypanel.env
+*.local.secrets
+
 # Editor / OS
 .DS_Store
 .idea/

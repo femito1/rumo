@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-06-23
+**Last updated:** 2026-06-25
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -53,6 +53,15 @@ talks to our authenticated backend.
   restore, route guards (`RequireAuth`/`RequireAdmin`), design tokens +
   primitives, `MonthPicker` + `DayRangeFilter`, `LoginPage`, `ClientsPage`,
   `WorkspacePage`, `TabView` (rich + grid), app shell. All PT-BR, dark fintech.
+  Tables have **sticky column headers** (`thead` pinned inside the scroll body);
+  rich tabs (Meta, Base_Resultado, Resumo Recebidas, Faturas Centro Custo) render
+  their real structure and fill not-yet-available cells with **"ainda não temos"**
+  instead of a placeholder paragraph.
+- **`.xlsx` export:** `lib/exportClosing.ts` turns a `ClosingPayload` into a
+  multi-sheet workbook (one sheet per tab). WorkspacePage exposes "Exportar tudo"
+  (all sheets) and "Exportar esta página" (current tab only). Uses SheetJS
+  (patched CDN build `xlsx-0.20.3`, **0 npm audit vulns**), lazy-imported so it
+  ships as a separate chunk and stays out of the initial bundle.
 - CI: GitHub Actions running ruff + mypy + pytest (backend) and eslint + tsc +
   vitest (frontend) on push/PR.
 - Docker: `backend/Dockerfile`, `frontend/Dockerfile` + `nginx.conf`,
@@ -67,7 +76,7 @@ talks to our authenticated backend.
 
 ### Test counts (as of last update)
 - Backend: **54 passing** (`cd backend && pytest`).
-- Frontend: **29 passing** (`cd frontend && npm run test`).
+- Frontend: **36 passing** (`cd frontend && npm run test`).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host
@@ -177,7 +186,6 @@ Non-blocking items found during review. Fix opportunistically; add new ones here
 - Implement `JuritisSource` once the API is available (see §5).
 - Evolution API (WhatsApp) closing notifications.
 - Password-reset emails; self-serve client onboarding UI.
-- `.xlsx` export of a closing.
 - Per-request audit logging for ADMIN cross-client access.
 
 ---
