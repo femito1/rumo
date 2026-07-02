@@ -69,3 +69,37 @@ def test_ingest_disabled_when_no_token_configured(client):
         headers={"Authorization": "Bearer anything"},
     )
     assert resp.status_code == 503
+
+
+def test_summary_requires_token(client):
+    c, _ = client
+    assert c.get("/api/ingest/2026-02/summary").status_code == 401
+
+
+def test_summary_404_when_absent(client):
+    c, _ = client
+    resp = c.get(
+        "/api/ingest/2026-02/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    )
+    assert resp.status_code == 404
+
+
+def test_summary_reports_structure_after_ingest(client):
+    c, store = client
+    store.put(
+        "2026-02",
+        {
+            "meta": {"ano_mes": "2026-02"},
+            "revenue": {"recebimento_bruto": 319233.58, "faturamento_bruto": 10.0},
+            "despesas_conta": [{"a": 1}, {"a": 2}],
+            "prolabore": [{"s": "x"}],
+        },
+    )
+    resp = c.get(
+        "/api/ingest/2026-02/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["counts"]["despesas_conta"] == 2
+    assert body["counts"]["prolabore"] == 1
+    assert body["revenue"]["recebimento_bruto"] == 319233.58
