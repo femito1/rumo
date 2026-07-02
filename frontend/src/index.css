@@ -526,7 +526,10 @@ input::placeholder {
   inset: 0;
   border-radius: 50%;
   border: 1px dashed rgba(139, 145, 160, 0.18);
-  animation: loader-spin linear infinite;
+  animation-name: loader-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 2.4s;
 }
 .loader-orbit-1 { animation-duration: 2.4s; }
 .loader-orbit-2 { inset: 22px; animation-duration: 1.7s; animation-direction: reverse; }
