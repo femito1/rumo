@@ -143,6 +143,13 @@ If a change moves any of these numbers, it is a bug until proven otherwise.
 
 ## 5. Juritis-readiness (the defining constraint)
 
+> **UPDATE 2026-07-01 — may be partly obsolete.** The institutional expenses this
+> section assumes live only in TOTVS Backoffice were found in the **SISJURI Oracle
+> DB** (`FINANCE` schema), readable today via the bridge server. See
+> `docs/SISJURI_DB.md` §"Full-closing coverage". A `FinanceDbSource` could supply
+> the expense side without waiting for the Juritis API. Revisit the paths below
+> in light of that. Reconciliation of exact per-line DRE definitions is still open.
+
 The Juritis / TOTVS Backoffice API is coming but its shape is **unknown**. The
 data layer is built so integrating it is a localized change, never a frontend or
 contract rewrite. When access arrives, pick one path:
@@ -178,6 +185,38 @@ Non-blocking items found during review. Fix opportunistically; add new ones here
 - **`docker compose up` needs `backend/.env`:** compose references
   `env_file: ./backend/.env`. Copy `backend/.env.example` → `backend/.env`
   before `up`. The `.env` is gitignored and must never be committed.
+
+## 6b. SISJURI direct DB access (discovered 2026-07-01)
+
+An **Oracle 19c** database behind SISJURI is reachable **read-only** through the
+authorized Windows bridge server `MBC-LDESK01` (the Power BI gateway host). It
+contains the **`LDESK`** schema (601 tables) — the same LegalDesk data RUMO pulls
+via OData — and **`SSJR`** (704 tables) of SISJURI core data. Confirmed: real
+`SELECT` on `LDESK` billing tables, 98 months of history (2018-05 → 2026-06),
+53 May-2026 invoices matching the sacred `faturas_emitidas`. This opens an
+**audit / fallback / alternative-`Source`** path to the API. Details, schema map,
+and the (hard-won) `sqlplus`-over-RDP invocation recipe live in
+`docs/SISJURI_DB.md`; the implementation-ready SQL per DRE line and the egress
+options live in `docs/SISJURI_QUERIES.md`. The DB and RDP credentials used during
+discovery were shared out-of-band and **must be rotated**; never commit them.
+
+**Now partially wired (2026-07-02).** Full closing proven sourceable from the DB
+via three objects + one fixed formula: revenue (`GERENC_VW_POSFIN_RESULT*`),
+expenses gross/competence (`GERENC_LANCAMENTORESUMO`), pró-labore gross
+(`CONTASPAGAR.CPGNVALORBASE`), and reserva de bônus = 10% da margem líquida
+(finance-confirmed). Built so far:
+
+- **On-server agent** `ops/sisjuri-agent/{extract.sql, run-agent.ps1}` — pure
+  PowerShell + the existing `sqlplus` (no Python on the box), emits one JSON
+  snapshot per competence month, TLS-1.2 outbound POST. Verified on the server:
+  `closing_2026-02.json` (recebimento 319.233,58; 30 expense accounts).
+- **Egress = Option A** (server pushes to VPS): `POST /api/ingest` (bearer-token,
+  `INGEST_TOKEN`) stores snapshots via `SnapshotStore` (`SNAPSHOT_DIR`).
+- **`app/sources/sisjuri_db.py`** (`SisjuriDbSource`) consumes a snapshot and
+  emits `SectionKey`s, encoding the pró-labore-gross and bonus-reserve rules.
+  Tested against a recorded fixture (`tests/fixtures/sisjuri_2026_02.json`).
+- **Still TODO:** compose `SisjuriDbSource` into `ClosingProvider` (merge policy
+  vs `LegalDeskSource`); schedule the agent (Windows Task); rotate credentials.
 
 ---
 

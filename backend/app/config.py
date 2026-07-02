@@ -12,6 +12,7 @@ class Settings:
     supabase_url: str
     supabase_service_key: str
     use_fake_repo: bool
+    ingest_token: str = ""
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -23,4 +24,5 @@ class Settings:
             supabase_url=os.environ.get("SUPABASE_URL", ""),
             supabase_service_key=os.environ.get("SUPABASE_SERVICE_KEY", ""),
             use_fake_repo=os.environ.get("USE_FAKE_REPO", "").lower() in ("1", "true", "yes"),
+            ingest_token=os.environ.get("INGEST_TOKEN", ""),
         )

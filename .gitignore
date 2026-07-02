@@ -26,6 +26,13 @@ uv.lock
 .easypanel.env
 *.local.secrets
 
+# Windows "mark of the web" metadata streams
+*:Zone.Identifier
+*Zone.Identifier
+
+# Ingested SISJURI snapshots (runtime data, not source)
+backend/data/snapshots/
+
 # Editor / OS
 .DS_Store
 .idea/

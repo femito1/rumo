@@ -40,5 +40,5 @@ def get_closing(
         day_range = DayRange.within(period, from_day=from_, to_day=to)
     else:
         day_range = DayRange.full_month(period)
-    provider = build_provider_for(client)
+    provider = build_provider_for(client, period=period)
     return provider.build_closing(client=client, period=period, day_range=day_range)

@@ -30,9 +30,12 @@ Implementation: `backend/app/sources/legaldesk_client.py`, `backend/app/closing/
 
 **In scope:** legal-practice data — invoices, receipts, cases, lawyers, fee splits.
 
-**Out of scope:** institutional expenses (payroll, rent, taxes, suppliers). Those live in
-TOTVS Backoffice modules under credentials we do not have. ~65 workbook lines stay
-`manual` until `JuritisSource` exists.
+**Out of scope for *this API*:** institutional expenses (payroll, rent, taxes, suppliers).
+The OData API does not expose them. **However (2026-07-01):** these expenses were found in
+the **SISJURI Oracle DB** `FINANCE` schema (`FINANCE.LANCAMENTO` + `FINANCE.PLANOCONTAS`),
+readable via the bridge server — so the ~65 "manual" lines are **not** necessarily manual
+forever. See `docs/SISJURI_DB.md`. This does not change the OData contract; it is an
+alternative source.
 
 **Dead ends (already investigated):**
 
