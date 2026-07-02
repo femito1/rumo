@@ -97,4 +97,161 @@ def assemble_rateio_mensal(
 __all__ = [
     "assemble_amortizacao",
     "assemble_rateio_mensal",
+    "assemble_dre_2026",
+    "assemble_fluxo_consolidado",
+    "assemble_institucional_ano",
 ]
+
+
+_MESES = (
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
+)
+
+
+def assemble_dre_2026(
+    budget: dict[str, dict[str, float]] | None,
+) -> dict[str, Any]:
+    """Annual budget projection with 12 monthly columns (all Orçado), mirroring
+    the workbook 'DRE 2026'. Each line = annual budget split evenly per month."""
+    from app.closing.dre import (
+        CUSTO_EQUIPE,
+        DESPESAS,
+        IMPOSTO,
+        RECEBIMENTO,
+    )
+
+    inst = (budget or {}).get("institucional", {})
+    columns = ["Linha", "Anual", *_MESES]
+
+    def line(label: str, key: str, *, is_total: bool = False,
+             kind: str = "amount") -> dict[str, Any]:
+        monthly = inst.get(key)
+        annual = round(monthly * 12, 2) if monthly is not None else None
+        # Display columns first (Linha, Anual, 12 months), metadata last, so the
+        # frontend's rowKeys slice (== column count) never grabs metadata.
+        row: dict[str, Any] = {
+            "Linha": label,
+            "Anual": {"value": annual, "source": "orcado"},
+        }
+        for mes in _MESES:
+            row[mes] = {"value": monthly, "source": "orcado"}
+        row["is_total"] = is_total
+        row["kind"] = kind
+        row["key"] = key
+        return row
+
+    rows = [
+        line("Faturamento", RECEBIMENTO),
+        line("Custo equipe", CUSTO_EQUIPE),
+        line("Despesas", DESPESAS),
+        line("Imposto", IMPOSTO),
+    ]
+    return {
+        "kind": "rich",
+        "name": "DRE 2026 (Orçado)",
+        "columns": columns,
+        "rows": rows,
+    }
+
+
+def assemble_fluxo_consolidado(
+    snapshot: dict[str, Any] | None,
+    manual: dict[str, dict[str, float]] | None,
+    period_label: str,
+) -> dict[str, Any]:
+    """Per-area cash flow (workbook 'Fluxo consolidado'): Recebimento, Equipe,
+    Despesas, Impostos, Amortização, Margem líquida per area. Recebimento and
+    Despesas come from manual per-area actuals; Equipe from SISJURI."""
+    from app.closing.dre import (
+        COMISSAO,
+        DESPESA_INSTITUCIONAL,
+        DESPESAS_EQUIPE,
+        RECEBIMENTO,
+        RealizadoInputs,
+    )
+
+    r = (
+        RealizadoInputs.from_snapshot(snapshot)
+        if snapshot is not None
+        else RealizadoInputs.empty()
+    )
+    manual = manual or {}
+    amort_area = round(AMORTIZACAO_MENSAL / len(AREAS), 2)
+
+    rows: list[dict[str, Any]] = []
+    for area in AREAS:
+        man = manual.get(area, {})
+        receb = man.get(RECEBIMENTO)
+        equipe = r.area_custo_equipe.get(area)
+        despesas = None
+        if any(k in man for k in (COMISSAO, DESPESAS_EQUIPE, DESPESA_INSTITUCIONAL)):
+            despesas = round(
+                (man.get(COMISSAO) or 0.0)
+                + (man.get(DESPESAS_EQUIPE) or 0.0)
+                + (man.get(DESPESA_INSTITUCIONAL) or 0.0),
+                2,
+            )
+        margem = None
+        if receb is not None:
+            margem = round(
+                receb - (equipe or 0.0) - (despesas or 0.0) - amort_area, 2
+            )
+        rows.append({"Linha": area, "Valor": None, "is_total": True, "kind": "header", "key": f"hdr::{area}"})
+        rows.append({"Linha": "Recebimento", "Valor": {"value": receb, "source": "manual"}, "indent": 1, "key": f"{area}::receb"})
+        rows.append({"Linha": "Equipe", "Valor": {"value": equipe, "source": "realizado"}, "indent": 1, "key": f"{area}::equipe"})
+        rows.append({"Linha": "Despesas", "Valor": {"value": despesas, "source": "manual"}, "indent": 1, "key": f"{area}::despesas"})
+        rows.append({"Linha": "Amortização", "Valor": {"value": amort_area, "source": "manual"}, "indent": 1, "key": f"{area}::amort"})
+        rows.append({"Linha": "Margem líquida", "Valor": {"value": margem, "source": "calc"}, "indent": 1, "is_total": True, "key": f"{area}::margem"})
+    return {
+        "kind": "rich",
+        "name": "Fluxo consolidado",
+        "columns": ["Linha", "Valor"],
+        "rows": rows,
+        "snapshot_missing": snapshot is None,
+    }
+
+
+def assemble_institucional_ano(
+    snapshot: dict[str, Any] | None,
+    budget: dict[str, dict[str, float]] | None,
+    period_label: str,
+) -> dict[str, Any]:
+    """Annual consolidated Institucional (workbook 'Institucional ano'): Orçado
+    anual vs Realizado acumulado for the headline DRE lines. With single-month
+    snapshots, Realizado is the month; Orçado is the annual budget."""
+    from app.closing.dre import (
+        CUSTO_EQUIPE,
+        DESPESAS,
+        IMPOSTO,
+        RECEBIMENTO,
+        RealizadoInputs,
+    )
+
+    r = (
+        RealizadoInputs.from_snapshot(snapshot)
+        if snapshot is not None
+        else RealizadoInputs.empty()
+    )
+    inst = (budget or {}).get("institucional", {})
+
+    def orc_annual(key: str) -> float | None:
+        m = inst.get(key)
+        return round(m * 12, 2) if m is not None else None
+
+    rows = [
+        {"Linha": "Recebimento", "Orçado (ano)": {"value": orc_annual(RECEBIMENTO), "source": "orcado"}, "Realizado": {"value": r.recebimento, "source": "realizado"}, "key": RECEBIMENTO},
+        {"Linha": "Custo equipe", "Orçado (ano)": {"value": orc_annual(CUSTO_EQUIPE), "source": "orcado"}, "Realizado": {"value": r.custo_equipe, "source": "realizado"}, "key": CUSTO_EQUIPE},
+        {"Linha": "Despesas", "Orçado (ano)": {"value": orc_annual(DESPESAS), "source": "orcado"}, "Realizado": {"value": r.despesas, "source": "realizado"}, "key": DESPESAS},
+        {"Linha": "Resultado Bruto", "Orçado (ano)": None, "Realizado": {"value": r.resultado_bruto, "source": "realizado"}, "is_total": True, "kind": "subtotal", "key": "resultado_bruto"},
+        {"Linha": "Imposto", "Orçado (ano)": {"value": orc_annual(IMPOSTO), "source": "orcado"}, "Realizado": {"value": r.imposto, "source": "realizado"}, "key": IMPOSTO},
+        {"Linha": "Amortização", "Orçado (ano)": None, "Realizado": {"value": r.amortizacao, "source": "manual"}, "key": "amortizacao"},
+        {"Linha": "Resultado Liquido", "Orçado (ano)": None, "Realizado": {"value": r.resultado_liquido, "source": "realizado"}, "is_total": True, "kind": "subtotal", "key": "resultado_liquido"},
+    ]
+    return {
+        "kind": "rich",
+        "name": "Institucional ano",
+        "columns": ["Linha", "Orçado (ano)", "Realizado"],
+        "rows": rows,
+        "snapshot_missing": snapshot is None,
+    }

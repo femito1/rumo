@@ -130,3 +130,43 @@ def test_base_resultado_lump_distribution_row(snapshot):
     tab = assemble_base_resultado(snapshot, "Fev 2026")
     lump = next(r for r in tab["rows"] if r["key"] == "distrib_fixa")
     assert lump["Valor"]["value"] == pytest.approx(172129.96, abs=0.05)
+
+
+def test_all_workbook_tabs_emitted(snapshot):
+    sections = assemble_dre_sections(
+        snapshot=snapshot,
+        budget={"institucional": {RECEBIMENTO: 671666.67}},
+        period_label="Fev 2026",
+    )
+    for key in (
+        "institucional", "institucional_ano", "contencioso", "economico",
+        "arbitragem", "areas_sintetico", "base_resultado", "rateio_mensal",
+        "amortizacao", "dre_2026", "fluxo_consolidado",
+    ):
+        assert key in sections, f"missing tab: {key}"
+
+
+def test_dre_2026_has_twelve_month_columns_all_orcado():
+    sections = assemble_dre_sections(
+        snapshot=None,
+        budget={"institucional": {RECEBIMENTO: 671666.67}},
+        period_label="x",
+    )
+    dre = sections["dre_2026"]
+    assert len(dre["columns"]) == 14  # Linha + Anual + 12 months
+    row = dre["rows"][0]
+    keys = list(row.keys())[: len(dre["columns"])]
+    assert "is_total" not in keys  # metadata must not leak into columns
+    assert row["Janeiro"]["value"] == pytest.approx(671666.67, abs=0.05)
+
+
+def test_fluxo_consolidado_per_area_margin():
+    sections = assemble_dre_sections(
+        snapshot=None,
+        budget=None,
+        period_label="x",
+        manual={"Contencioso": {RECEBIMENTO: 100000.0}},
+    )
+    rows = sections["fluxo_consolidado"]["rows"]
+    margem = next(r for r in rows if r["key"] == "Contencioso::margem")
+    assert margem["Valor"]["value"] is not None

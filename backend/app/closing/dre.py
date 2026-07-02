@@ -366,11 +366,21 @@ def assemble_dre_sections(
 
     from app.closing.secondary_tabs import (
         assemble_amortizacao,
+        assemble_dre_2026,
+        assemble_fluxo_consolidado,
+        assemble_institucional_ano,
         assemble_rateio_mensal,
     )
 
     sections["amortizacao"] = assemble_amortizacao()
     sections["rateio_mensal"] = assemble_rateio_mensal(snapshot, period_label)
+    sections["dre_2026"] = assemble_dre_2026(budget)
+    sections["institucional_ano"] = assemble_institucional_ano(
+        snapshot, budget, period_label
+    )
+    sections["fluxo_consolidado"] = assemble_fluxo_consolidado(
+        snapshot, manual, period_label
+    )
     sections["base_resultado"] = {
         "kind": "rich",
         "name": "Base_Resultado Mensal",

@@ -40,6 +40,9 @@ class AssemblerSource:
             SectionKey.AMORTIZACAO,
             SectionKey.BASE_RESULTADO,
             SectionKey.RATEIO_MENSAL,
+            SectionKey.DRE_2026,
+            SectionKey.INSTITUCIONAL_ANO,
+            SectionKey.FLUXO_CONSOLIDADO,
         }
 
     def fetch(self, period: Period, day_range: DayRange) -> dict[SectionKey, SectionData]:
