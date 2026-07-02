@@ -215,8 +215,29 @@ expenses gross/competence (`GERENC_LANCAMENTORESUMO`), pró-labore gross
 - **`app/sources/sisjuri_db.py`** (`SisjuriDbSource`) consumes a snapshot and
   emits `SectionKey`s, encoding the pró-labore-gross and bonus-reserve rules.
   Tested against a recorded fixture (`tests/fixtures/sisjuri_2026_02.json`).
-- **Still TODO:** compose `SisjuriDbSource` into `ClosingProvider` (merge policy
-  vs `LegalDeskSource`); schedule the agent (Windows Task); rotate credentials.
+- **`ClosingProvider`** now has a `legaldesk+sisjuri` mode: composes
+  `LegalDeskSource` (KPIs) with `SisjuriDbSource` in augment mode (institucional),
+  preserving the sacred numbers.
+- **LIVE on EasyPanel (2026-07-02):** `POST /api/ingest` is deployed and verified
+  end-to-end — 401 without/with-wrong token, 422 on missing `meta.ano_mes`, 200 on
+  the real Feb-2026 snapshot, persisted to a named volume `sisjuri-snapshots` →
+  `/data/snapshots` (survives redeploys). **Root-cause fix:** the `backend` service
+  was building via **Nixpacks** (wrong start cmd `python -m rumo-backend` → boot
+  crash / 502); switched `build.type` to **`dockerfile`** so it uses the tested
+  `backend/Dockerfile` (`uvicorn app.main:app`). `INGEST_TOKEN` is set in the
+  EasyPanel backend env (not committed).
+- **SCHEDULED & LIVE (2026-07-02):** `RUMO-SISJURI-Agent` runs daily at 06:00 on
+  MBC-LDESK01 for the previous full month, extracts, and pushes to the VPS.
+  Verified `LastTaskResult=0` (2026-06 snapshot uploaded). Constraints found on
+  that box: `bia4u` is **not** a local admin, so env vars are **User-scope** and
+  the task **runs as `bia4u`** (not SYSTEM). "Run whether logged on or not"
+  needed the *Log on as a batch job* right, which an admin granted to `bia4u`
+  (error `2147943785` until then). `register-task.ps1` now has `-StorePassword`
+  (run-as-user) and `-AsSystem` modes.
+- **Agent upload:** must send the body as **UTF-8 bytes** with an explicit
+  charset (fixed in `run-agent.ps1`); a plain string body 400s on FastAPI,
+  especially with accented account names.
+- **Still TODO:** rotate the DB/RDP credentials that were shared in chat.
 
 ---
 
