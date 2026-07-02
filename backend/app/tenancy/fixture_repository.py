@@ -28,7 +28,7 @@ class FixtureRepository:
     @classmethod
     def seeded(cls) -> "FixtureRepository":
         clients = [
-            Client(id="mbc", name="MBC", provider="legaldesk", provider_config={}),
+            Client(id="mbc", name="MBC", provider="legaldesk+sisjuri", provider_config={}),
             Client(
                 id="demo",
                 name="Cliente Demonstração",

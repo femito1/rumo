@@ -19,6 +19,8 @@ describe("WorkspacePage", () => {
   it("renders client name + headline KPI from the closing", async () => {
     vi.spyOn(api, "apiFetch").mockImplementation((path: string) => {
       if (path.includes("/closing")) return Promise.resolve(payload as never);
+      if (path.includes("/budget"))
+        return Promise.resolve({ client_id: "mbc", ano: 2026, areas: ["institucional"], lines: [], entries: [] } as never);
       return Promise.resolve({ id: "mbc", name: "MBC", provider: "legaldesk", available_months: ["2026-05"] } as never);
     });
     render(

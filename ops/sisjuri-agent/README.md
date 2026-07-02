@@ -13,6 +13,8 @@ no inbound firewall rule or VPN is needed.
 - `run-agent.ps1` — PowerShell wrapper: connects via the existing `sqlplus`,
   runs `extract.sql`, validates the JSON, writes a snapshot, optionally uploads.
 - `register-task.ps1` — installs a daily Scheduled Task (run once, elevated).
+- `backfill.ps1` — one-shot historical catch-up: loops months from a start
+  through the last closed month, calling `run-agent.ps1` for each.
 
 No Python is required on the server; the agent uses the Oracle 11g `sqlplus`
 already installed at `C:\oracle11\app\product\11.2.0\client_1\bin`.
@@ -47,6 +49,25 @@ powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\run-agent.ps1 -AnoMes 2
 ```
 
 Snapshots are written to `C:\temp\sisjuri\closing_<AnoMes>.json`.
+
+## Historical backfill (one-shot)
+
+Populate every past month so any competence month shows real data in the UI.
+Runs the agent month-by-month from `-StartMonth` to the last closed month:
+
+```powershell
+$env:SISJURI_PASSWORD='...'; $env:INGEST_TOKEN='...'
+$env:INGEST_URL='https://<vps>/api/ingest'
+powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\backfill.ps1 -StartMonth 2024-01
+```
+
+After the catch-up, the daily scheduled task keeps recent months fresh. Verify
+a few months landed via the token-protected summary endpoint:
+
+```powershell
+$h = @{ Authorization = "Bearer $env:INGEST_TOKEN" }
+Invoke-RestMethod -Headers $h "https://<vps>/api/ingest/2024-01/summary" | ConvertTo-Json -Depth 5
+```
 
 ## Backend side
 

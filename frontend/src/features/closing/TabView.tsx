@@ -1,5 +1,6 @@
 // frontend/src/features/closing/TabView.tsx
 import { TableScroll } from "../../components/TableScroll";
+import { formatPercent } from "../../lib/format";
 
 /** Shown wherever a value isn't available from the source yet (was MANUAL/blank). */
 export const MISSING_LABEL = "ainda não temos";
@@ -84,6 +85,11 @@ function RichTabView({ tab }: { tab: RichTab }) {
   return (
     <div className="tab rich-tab">
       <h2>{tab.name}</h2>
+      {tab.snapshot_missing === true ? (
+        <div className="missing-banner" role="status">
+          Dados institucionais ainda não importados para este mês.
+        </div>
+      ) : null}
       <TableScroll>
         <table className="grid-table">
           <thead>
@@ -91,9 +97,14 @@ function RichTabView({ tab }: { tab: RichTab }) {
           </thead>
           <tbody>
             {rows.map((row, ri) => (
-              <tr key={ri}>
+              <tr key={ri} className={rowClass(row)}>
                 {keys.map((k, ci) => (
-                  <td key={ci} className={ci === 0 ? "" : "num"}>{renderRichValue(row[k], ci === 0)}</td>
+                  <td
+                    key={ci}
+                    className={ci === 0 ? cellIndentClass(row) : "num"}
+                  >
+                    {renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]))}
+                  </td>
                 ))}
               </tr>
             ))}
@@ -102,6 +113,25 @@ function RichTabView({ tab }: { tab: RichTab }) {
       </TableScroll>
     </div>
   );
+}
+
+/** Row styling from DRE metadata (is_total/kind), ignored for plain tables. */
+function rowClass(row: RichRow): string {
+  const kind = row.kind;
+  const isTotal = row.is_total;
+  const parts: string[] = [];
+  if (kind === "header") parts.push("row-section");
+  if (isTotal === true) parts.push("row-total");
+  if (kind === "margin") parts.push("row-margin");
+  return parts.join(" ");
+}
+
+function cellIndentClass(row: RichRow): string {
+  return row.indent === 1 ? "cell-indent" : "";
+}
+
+function isPercentColumn(header: string | undefined): boolean {
+  return typeof header === "string" && header.trim().endsWith("%");
 }
 
 function RichInvoicesView({ tab, invoices }: { tab: RichTab; invoices: RichInvoice[] }) {
@@ -142,7 +172,12 @@ function rowKeys(sample: RichRow, columnCount: number): string[] {
   return keys.slice(0, columnCount);
 }
 
-function renderRichValue(v: unknown, isFirstColumn: boolean): string {
+function renderRichValue(v: unknown, isFirstColumn: boolean, isPercent = false): string {
+  if (isPercent) {
+    if (isSourcedCell(v)) return v.value == null ? MISSING_LABEL : formatPercent(v.value);
+    if (typeof v === "number") return formatPercent(v);
+    return v == null ? MISSING_LABEL : String(v);
+  }
   if (isSourcedCell(v)) return moneyOrMissing(v.value);
   if (typeof v === "number") return numberFmt.format(v);
   if (typeof v === "string") return v === "" ? MISSING_LABEL : v;

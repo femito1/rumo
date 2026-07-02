@@ -25,3 +25,24 @@ def get_repo() -> Repository:
     if get_settings().use_fake_repo:
         return _build_fixture_repo()
     return _build_supabase_repo()
+
+
+@lru_cache
+def _build_supabase_budget_repo():
+    from supabase import create_client
+
+    from app.budget.repository import SupabaseBudgetRepository
+    s = get_settings()
+    return SupabaseBudgetRepository(create_client(s.supabase_url, s.supabase_service_key))
+
+
+@lru_cache
+def _build_fixture_budget_repo():
+    from app.budget.repository import InMemoryBudgetRepository
+    return InMemoryBudgetRepository.seeded()
+
+
+def get_budget_repo():
+    if get_settings().use_fake_repo:
+        return _build_fixture_budget_repo()
+    return _build_supabase_budget_repo()

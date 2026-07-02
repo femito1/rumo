@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-06-25
+**Last updated:** 2026-07-02
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -238,6 +238,67 @@ expenses gross/competence (`GERENC_LANCAMENTORESUMO`), pró-labore gross
   charset (fixed in `run-agent.ps1`); a plain string body 400s on FastAPI,
   especially with accented account names.
 - **Still TODO:** rotate the DB/RDP credentials that were shared in chat.
+
+---
+
+## 6c. Workbook mirror + manual budget (2026-07-02)
+
+The deployed closing page now mirrors the MBC workbook DRE structure and adds a
+manually-entered Orçado (budget) for Orçado × Realizado variance. Built:
+
+- **DRE engine `app/closing/dre.py`** — a canonical DRE line-key registry
+  (`faturamento`, `custos_diretos`, `despesas_indiretas`, `resultado_bruto`,
+  `margem_bruta`, `impostos`, `amortizacao`, `resultado_liquido`,
+  `margem_liquida`, `reserva_bonus`) shared by the SISJURI source, the budget
+  domain and the frontend. `assemble_dre_sections` computes the **Institucional**
+  block plus three area blocks (Contencioso/Economico/Arbitragem) and
+  `areas_sintetico`, each row carrying `orcado | realizado | variacao | desvio%`.
+  It **recomputes** from clean sources (not the workbook cells, which have
+  `#REF!`s). Reserva de bônus = 10% da margem líquida; amortização = fixed
+  monthly institutional installment.
+- **`SisjuriDbSource` expanded** — emits rich, grouped expense detail
+  (`INSTITUCIONAL_ANO`, section subtotal + indented sub-accounts) plus
+  `RATEIO_MENSAL` (per-area team cost + per-lawyer rateio), prolabore (gross/net)
+  and distribuição tables. The assembled DRE owns `INSTITUCIONAL`.
+- **Budget domain `app/budget/`** — `budgets` Supabase table
+  (`client_id, ano, area, line_key, annual_amount`; DDL in `app/db/schema.sql`),
+  `BudgetRepository` (supabase + in-memory seeded), annual granularity split
+  evenly to monthly. `BudgetSource` emits the `ORCAMENTO_2026` reference tab.
+- **Budget API** — `GET/PUT /api/clients/{id}/budget?ano=YYYY`, guarded by
+  `require_client_access` (ADMIN + that client's CLIENT may edit). Validates
+  area/line keys. Seeded placeholder budget (Meta 8.060.000/ano) for MBC 2026.
+- **Provider composition** — `legaldesk+sisjuri` now composes
+  LegalDesk → SisjuriDb → Budget → **Assembler** (last, overrides). Headline KPIs
+  (`resultado_bruto`, `margem_bruta`, `resultado_liquido`, `margem_liquida`,
+  `reserva_bonus`) are lifted from the assembled DRE into the `kpis` map. When no
+  snapshot exists the DRE still renders with `snapshot_missing: true`.
+- **Frontend** — new KPI cards (with `formatPercent`/`formatNumber` and a
+  `KpiCard format` prop); `RichTabView` renders DRE percent columns, section/total
+  rows and indented sub-accounts; a PT-BR **missing-data banner**
+  ("Dados institucionais ainda não importados para este mês") on institucional/DRE
+  tabs; a **budget editor** panel (`BudgetEditor` + `useBudget` hook in its own
+  module) for ADMIN and CLIENT. Spinner already existed. New rich tabs export via
+  the existing `exportClosing.ts` automatically.
+- **Backfill** — `ops/sisjuri-agent/backfill.ps1` loops 2024-01 → last closed
+  month calling `run-agent.ps1` per month (one-shot catch-up; the daily task
+  keeps recent months fresh). Documented in the agent README.
+- **MBC provider** — the fixture/demo MBC client is now `legaldesk+sisjuri`. The
+  **prod `clients.provider` for MBC must be set to `legaldesk+sisjuri`** for this
+  to show live.
+
+**Tests:** backend 95 passing (new: DRE assembler math/variance/margins,
+BudgetSource, budget repo/API auth boundary, provider composition with all four
+sources, snapshot_missing flag; sacred-number lock still green). Frontend 44
+passing (new: `formatPercent`/`formatNumber`, DRE percent + grouped/indent
+rendering + banner, BudgetEditor). Backend `ruff`+`mypy` clean; frontend
+`lint`+`typecheck` clean.
+
+**Operator TODO before this is fully live:**
+1. Apply the `budgets` DDL (`backend/app/db/schema.sql`) to Supabase.
+2. Set MBC's `clients.provider = 'legaldesk+sisjuri'` in Supabase.
+3. Deploy backend+frontend (GitHub → EasyPanel, Dockerfile build).
+4. Run `backfill.ps1` once on MBC-LDESK01, then verify a few months via
+   `GET /api/ingest/{ano_mes}/summary`.
 
 ---
 

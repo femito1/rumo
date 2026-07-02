@@ -24,7 +24,7 @@ export interface ClosingPayload {
   client: { id: string; name: string };
   period: { ano_mes: string; label: string; column_letter: string };
   day_range: { from: string; to: string; is_full_month: boolean };
-  kpis: Record<string, number>;
+  kpis: Record<string, number | null>;
   tab_order: string[];
   tabs: Record<string, unknown>;
   generated_at: string;

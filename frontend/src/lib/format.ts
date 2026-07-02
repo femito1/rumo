@@ -11,6 +11,28 @@ export function formatBRL(value: number | null | undefined): string {
   return BRL.format(value).replace("\u00a0", " ");
 }
 
+const NUM = new Intl.NumberFormat("pt-BR", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
+export function formatNumber(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  return NUM.format(value);
+}
+
+const PCT = new Intl.NumberFormat("pt-BR", {
+  style: "percent",
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
+/** Format a ratio (e.g. 0.4123) as a PT-BR percentage ("41,2%"). */
+export function formatPercent(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  return PCT.format(value);
+}
+
 const MESES = [
   "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",

@@ -8,6 +8,7 @@ import { DayRangeFilter } from "./DayRangeFilter";
 import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
 import { TabView } from "./TabView";
+import { BudgetEditor } from "./BudgetEditor";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
 
@@ -77,9 +78,15 @@ export function WorkspacePage() {
           <section className="kpis">
             <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} highlight />
             <KpiCard label="Faturamento Realizado" value={data.kpis.faturamento_realizado ?? null} highlight />
-            <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} />
+            <KpiCard label="Resultado Bruto" value={data.kpis.resultado_bruto ?? null} />
+            <KpiCard label="Margem Bruta" value={data.kpis.margem_bruta ?? null} format="percent" />
+            <KpiCard label="Resultado Líquido" value={data.kpis.resultado_liquido ?? null} />
+            <KpiCard label="Margem Líquida" value={data.kpis.margem_liquida ?? null} format="percent" />
+            <KpiCard label="Reserva de Bônus" value={data.kpis.reserva_bonus ?? null} />
+            <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} format="number" />
           </section>
           {!data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
+          <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
           <nav className="tab-rail">
             {data.tab_order.map((t) => (
               <button key={t} className={t === activeTab ? "active" : ""} onClick={() => setActiveTab(t)}>

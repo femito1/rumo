@@ -589,6 +589,87 @@ input::placeholder {
   background: rgba(255, 255, 255, 0.015);
 }
 
+/* DRE row styling (Orcado x Realizado tables) */
+.grid-table tbody tr.row-total td {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+}
+.grid-table tbody tr.row-section td {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+}
+.grid-table tbody tr.row-margin td {
+  color: var(--muted);
+  font-style: italic;
+}
+.grid-table td.cell-indent {
+  padding-left: 26px;
+  color: var(--muted);
+}
+
+/* Missing-data banner (institutional/DRE tabs without a snapshot) */
+.missing-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-bottom: calc(var(--space) * 2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--manual, #d9a441);
+  border-radius: var(--radius);
+  background: rgba(217, 164, 65, 0.08);
+  color: var(--text);
+  font-size: 13px;
+}
+.missing-banner::before {
+  content: "⚠";
+  font-size: 15px;
+}
+
+/* Budget editor */
+.budget-editor {
+  margin-bottom: calc(var(--space) * 2);
+}
+.budget-panel {
+  margin-top: var(--space);
+  padding: calc(var(--space) * 2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.budget-grid {
+  display: grid;
+  gap: 8px;
+}
+.budget-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 160px minmax(120px, auto);
+  align-items: center;
+  gap: 10px;
+}
+.budget-line-label {
+  font-size: 13px;
+}
+.budget-row input {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg, transparent);
+  color: var(--text);
+  font: inherit;
+  text-align: right;
+}
+.budget-monthly {
+  font-size: 12px;
+}
+.budget-actions {
+  margin-top: calc(var(--space) * 1.5);
+}
+
 /* Responsive */
 @media (max-width: 720px) {
   .topbar {

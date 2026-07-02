@@ -79,4 +79,54 @@ describe("TabView", () => {
     render(<TabView tab={undefined} />);
     expect(screen.getByText(/Selecione uma aba/)).toBeInTheDocument();
   });
+
+  it("formats a percent column (Desvio %) and shows the missing-data banner", () => {
+    render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Resultado Institucional",
+          columns: ["Linha", "Orcado", "Realizado", "Variacao", "Desvio %"],
+          snapshot_missing: true,
+          rows: [
+            {
+              Linha: "Margem Bruta",
+              Orcado: { value: null, source: "orcado" },
+              Realizado: { value: 0.411, source: "realizado" },
+              Variacao: { value: null, source: "formula" },
+              "Desvio %": 0.98,
+              key: "margem_bruta",
+              indent: 1,
+              is_total: false,
+              kind: "margin",
+            },
+          ],
+        }}
+      />,
+    );
+    // The banner appears when snapshot_missing is true.
+    expect(
+      screen.getByText(/Dados institucionais ainda não importados/),
+    ).toBeInTheDocument();
+    // The Desvio % column renders as a PT-BR percentage.
+    expect(screen.getByText("98,0%")).toBeInTheDocument();
+  });
+
+  it("indents sub-account rows in a grouped expense tree", () => {
+    const { container } = render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Institucional - Despesas",
+          columns: ["Conta", "Valor", "Lancamentos"],
+          rows: [
+            { Conta: "Ocupação", Valor: { value: 100, source: "realizado" }, Lancamentos: 2, indent: 0, is_total: true },
+            { Conta: "Aluguel", Valor: { value: 90, source: "realizado" }, Lancamentos: 1, indent: 1, is_total: false },
+          ],
+        }}
+      />,
+    );
+    expect(container.querySelector("tr.row-total")).not.toBeNull();
+    expect(container.querySelector("td.cell-indent")).not.toBeNull();
+  });
 });

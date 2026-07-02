@@ -1,6 +1,12 @@
 // frontend/src/lib/format.test.ts
 import { describe, it, expect } from "vitest";
-import { formatBRL, formatMonthLabel, daysInMonth } from "./format";
+import {
+  formatBRL,
+  formatMonthLabel,
+  daysInMonth,
+  formatNumber,
+  formatPercent,
+} from "./format";
 
 describe("formatBRL", () => {
   it("formats with R$, thousands dot, decimal comma", () => {
@@ -14,6 +20,25 @@ describe("formatBRL", () => {
 describe("formatMonthLabel", () => {
   it("maps ano_mes to a PT-BR label", () => {
     expect(formatMonthLabel("2026-05")).toBe("Maio 2026");
+  });
+});
+
+describe("formatNumber", () => {
+  it("formats integers with a PT-BR thousands dot", () => {
+    expect(formatNumber(48)).toBe("48");
+    expect(formatNumber(1234)).toBe("1.234");
+  });
+  it("renders null as em dash", () => {
+    expect(formatNumber(null)).toBe("—");
+  });
+});
+
+describe("formatPercent", () => {
+  it("formats a ratio as a PT-BR percentage", () => {
+    expect(formatPercent(0.411)).toBe("41,1%");
+  });
+  it("renders null as em dash", () => {
+    expect(formatPercent(null)).toBe("—");
   });
 });
 
