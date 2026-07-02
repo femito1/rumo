@@ -58,6 +58,47 @@ def bonus_reserve(net_margin_value: float) -> float:
 
 
 @dataclass
+class OrcadoDerived:
+    """Budgeted derived lines, computed from the base Orçado inputs the same way
+    Realizado derives from SISJURI. Present only when the base budget rows exist,
+    so the Orçado column mirrors Realizado instead of showing a placeholder."""
+
+    resultado_bruto: float | None = None
+    margem_bruta: float | None = None
+    amortizacao: float | None = None
+    resultado_liquido: float | None = None
+    margem_liquida: float | None = None
+    reserva_bonus: float | None = None
+
+    @classmethod
+    def from_budget(cls, orc: dict[str, float]) -> "OrcadoDerived":
+        receb = orc.get(RECEBIMENTO)
+        custo = orc.get(CUSTO_EQUIPE)
+        desp = orc.get(DESPESAS)
+        imposto = orc.get(IMPOSTO)
+        # Only derive when the whole base is budgeted; a partial budget would
+        # produce misleading totals, so we leave those lines blank instead.
+        if None in (receb, custo, desp):
+            return cls()
+        assert receb is not None and custo is not None and desp is not None
+        rb = round(receb - custo - desp, 2)
+        amort = orc.get(AMORTIZACAO, AMORTIZACAO_MENSAL)
+        rl: float | None = None
+        rbonus: float | None = None
+        if imposto is not None:
+            rl = round(rb - imposto - amort, 2)
+            rbonus = bonus_reserve(rl)
+        return cls(
+            resultado_bruto=rb,
+            margem_bruta=_pct(rb, receb),
+            amortizacao=amort,
+            resultado_liquido=rl,
+            margem_liquida=_pct(rl, receb) if rl is not None else None,
+            reserva_bonus=rbonus,
+        )
+
+
+@dataclass
 class SectionBreakdown:
     """One institutional section subtotal + its sub-accounts."""
 
@@ -202,29 +243,32 @@ def _institucional_rows(
     r: RealizadoInputs, orc: dict[str, float]
 ) -> list[dict[str, Any]]:
     """Block 1 (DRE) + block 3 (expense sections) of the Institucional tab."""
+    od = OrcadoDerived.from_budget(orc)
     rows: list[dict[str, Any]] = [
         _dre_row("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
         _dre_row("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custo_equipe),
         _dre_row("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
         _dre_row(
-            "Resultado Bruto", RESULTADO_BRUTO, None, r.resultado_bruto,
+            "Resultado Bruto", RESULTADO_BRUTO, od.resultado_bruto, r.resultado_bruto,
             is_total=True, kind="subtotal",
         ),
         _dre_row(
-            "Margem Bruta", MARGEM_BRUTA, None, _pct(r.resultado_bruto, r.recebimento),
+            "Margem Bruta", MARGEM_BRUTA, od.margem_bruta,
+            _pct(r.resultado_bruto, r.recebimento),
             indent=1, kind="margin",
         ),
         _dre_row("Imposto", IMPOSTO, orc.get(IMPOSTO), r.imposto),
-        _dre_row("Amortização", AMORTIZACAO, None, r.amortizacao),
+        _dre_row("Amortização", AMORTIZACAO, od.amortizacao, r.amortizacao),
         _dre_row(
-            "Resultado Liquido", RESULTADO_LIQUIDO, None, r.resultado_liquido,
+            "Resultado Liquido", RESULTADO_LIQUIDO, od.resultado_liquido,
+            r.resultado_liquido,
             is_total=True, kind="subtotal",
         ),
         _dre_row(
-            "Margem Liquida", MARGEM_LIQUIDA, None,
+            "Margem Liquida", MARGEM_LIQUIDA, od.margem_liquida,
             _pct(r.resultado_liquido, r.recebimento), indent=1, kind="margin",
         ),
-        _dre_row("Reserva de Bônus", RESERVA_BONUS, None, r.reserva_bonus),
+        _dre_row("Reserva de Bônus", RESERVA_BONUS, od.reserva_bonus, r.reserva_bonus),
     ]
     # Block 3: expense sections + indented sub-accounts, % of recebimento.
     rows.append(_section_header_row("DESPESAS POR SEÇÃO"))

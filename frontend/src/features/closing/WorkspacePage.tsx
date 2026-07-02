@@ -7,6 +7,7 @@ import { MonthPicker } from "./MonthPicker";
 import { DayRangeFilter } from "./DayRangeFilter";
 import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
+import { Loader } from "../../components/Loader";
 import { TabView } from "./TabView";
 import { BudgetEditor } from "./BudgetEditor";
 import { ManualActualsEditor } from "./ManualActualsEditor";
@@ -69,11 +70,7 @@ export function WorkspacePage() {
 
       {error ? <div className="error-state" role="alert">{error}</div> : null}
       {loading || !data ? (
-        <div className="loading-block">
-          <div className="spinner" aria-label="Carregando" />
-          <span className="muted">Carregando fechamento…</span>
-          <Skeleton rows={6} />
-        </div>
+        <Loader />
       ) : (
         <>
           <section className="kpis">
