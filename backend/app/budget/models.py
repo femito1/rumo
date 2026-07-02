@@ -34,6 +34,21 @@ BUDGET_LINES: tuple[tuple[str, str], ...] = (
 
 _BUDGET_LINE_KEYS = {k for k, _ in BUDGET_LINES}
 
+#: Pre-rework line keys → current workbook vocabulary. Lets budgets saved before
+#: the Recebimento-base rework keep feeding the Orçado columns without re-entry.
+LEGACY_LINE_ALIASES: dict[str, str] = {
+    "faturamento": RECEBIMENTO,
+    "receita": RECEBIMENTO,
+    "custos_diretos": CUSTO_EQUIPE,
+    "despesas_indiretas": DESPESAS,
+    "impostos": IMPOSTO,
+}
+
+
+def canonical_line_key(line_key: str) -> str:
+    """Map a possibly-legacy line key to the current canonical key."""
+    return LEGACY_LINE_ALIASES.get(line_key, line_key)
+
 
 @dataclass(frozen=True)
 class BudgetEntry:
@@ -45,7 +60,8 @@ class BudgetEntry:
 
 
 def is_valid_line(line_key: str) -> bool:
-    return line_key in _BUDGET_LINE_KEYS
+    # Accept legacy keys on write/validation too, so old clients don't 422.
+    return canonical_line_key(line_key) in _BUDGET_LINE_KEYS
 
 
 def is_valid_area(area: str) -> bool:
@@ -53,9 +69,12 @@ def is_valid_area(area: str) -> bool:
 
 
 def monthly_budget(entries: list[BudgetEntry]) -> dict[str, dict[str, float]]:
-    """Fold budget entries into {area: {line_key: monthly_amount}}."""
+    """Fold budget entries into {area: {canonical_line_key: monthly_amount}}.
+
+    Legacy keys are normalized so pre-rework budgets still feed the Orçado
+    columns."""
     out: dict[str, dict[str, float]] = {}
     for e in entries:
         area_map = out.setdefault(e.area, {})
-        area_map[e.line_key] = round(e.annual_amount / 12.0, 2)
+        area_map[canonical_line_key(e.line_key)] = round(e.annual_amount / 12.0, 2)
     return out

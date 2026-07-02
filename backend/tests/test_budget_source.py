@@ -30,3 +30,21 @@ def test_budget_source_empty_when_no_entries():
     out = src.fetch(p, DayRange.full_month(p))
     rows = out[SectionKey.ORCAMENTO_2026]["rows"]
     assert all(r["Anual (Orcado)"]["value"] is None for r in rows)
+
+
+def test_legacy_line_keys_map_to_canonical():
+    from app.budget.models import canonical_line_key, is_valid_line
+
+    assert canonical_line_key("faturamento") == "recebimento"
+    assert canonical_line_key("custos_diretos") == "custo_equipe"
+    assert canonical_line_key("despesas_indiretas") == "despesas"
+    assert canonical_line_key("impostos") == "imposto"
+    # legacy keys still validate (no 422 for pre-rework clients)
+    assert is_valid_line("faturamento")
+
+
+def test_monthly_budget_normalizes_legacy_keys():
+    entries = [BudgetEntry("mbc", 2026, "institucional", "faturamento", 8060000.0)]
+    monthly = monthly_budget(entries)
+    assert monthly["institucional"]["recebimento"] == round(8060000.0 / 12, 2)
+    assert "faturamento" not in monthly["institucional"]

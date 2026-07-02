@@ -7,7 +7,12 @@ tab so the budget is always visible even when no snapshot exists yet.
 """
 from __future__ import annotations
 
-from app.budget.models import BUDGET_LINES, BudgetEntry, monthly_budget
+from app.budget.models import (
+    BUDGET_LINES,
+    BudgetEntry,
+    canonical_line_key,
+    monthly_budget,
+)
 from app.closing.period import Period
 from app.sources.base import DayRange, SectionData, SectionKey
 
@@ -25,7 +30,7 @@ class BudgetSource:
         # Annual comes straight from the stored entry (source of truth); monthly
         # is the even split. Avoids annual != monthly*12 rounding drift.
         annual_by_key = {
-            e.line_key: e.annual_amount
+            canonical_line_key(e.line_key): e.annual_amount
             for e in self._entries
             if e.area == "institucional"
         }
