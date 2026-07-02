@@ -92,8 +92,13 @@ Write-Output ("[agent] despesas_conta rows = {0}" -f ($obj.despesas_conta | Meas
 if ($IngestUrl) {
   if (-not $IngestToken) { throw "IngestUrl set but INGEST_TOKEN missing." }
   Write-Output "[agent] uploading to $IngestUrl ..."
-  $headers = @{ Authorization = "Bearer $IngestToken"; 'Content-Type' = 'application/json' }
-  $resp = Invoke-WebRequest -UseBasicParsing -Uri $IngestUrl -Method POST -Headers $headers -Body $json -TimeoutSec 60
+  # Send the body as explicit UTF-8 bytes: PowerShell would otherwise encode a
+  # string body as UTF-16/latin-1, which FastAPI rejects ("error parsing the
+  # body") — worse with accented account names. Bytes + charged content-type
+  # is unambiguous.
+  $headers = @{ Authorization = "Bearer $IngestToken" }
+  $bytes = [Text.Encoding]::UTF8.GetBytes($json)
+  $resp = Invoke-WebRequest -UseBasicParsing -Uri $IngestUrl -Method POST -Headers $headers -ContentType 'application/json; charset=utf-8' -Body $bytes -TimeoutSec 60
   Write-Output "[agent] ingest response: $($resp.StatusCode)"
 } else {
   Write-Output "[agent] no -IngestUrl; snapshot-only run (no upload)."
