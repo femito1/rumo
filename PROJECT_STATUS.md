@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-02
+**Last updated:** 2026-07-03
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -74,9 +74,45 @@ talks to our authenticated backend.
 - **`FixtureSource`** — minimal deterministic demo data; exists only to showcase
   the admin multi-client view. Not real client data.
 
+### Workbook-faithful DRE rework (2026-07-02)
+The closing tabs now mirror `Copy of Fechamento MBC 02.2026.xlsx` in vocabulary
+and structure (base = **Recebimento**, not Faturamento):
+- `app/closing/workbook_layouts.py` — canonical section vocabulary + account-
+  family rollups (`020./040.*` → institutional sections by `nome_conta_pai`,
+  `030.*` → Custo equipe, Impostos → Impostos).
+- `app/closing/dre.py` rebuilt: **Institucional** (DRE block + section-by-section
+  expense breakdown with sub-accounts, % of Recebimento), **area tabs**
+  (Recebimento/Custo equipe/Comissão/Despesas Equipe/Despesa Institucional/
+  Resultado Bruto), **Base_Resultado Mensal** (hierarchical: per-lawyer custo
+  equipe grouped by area + institutional sections/sub-accounts + Impostos).
+- `app/closing/secondary_tabs.py` — **Amortização** real fixed schedule (8 × 2022
+  originations, 60 parcelas each = R$ 8.117,32/mês) + **Rateio Mensal** per-area
+  shares.
+- `ops/sisjuri-agent/extract.sql` extended with `custo_equipe_prof` (per-lawyer ×
+  account 030.*, area via professional→grupo). **Needs a re-backfill** to
+  populate historical months (existing snapshots lack this key; Base_Resultado
+  per-lawyer rows show only for months re-run with the new extract).
+
+### Manual per-area Realizado (2026-07-02)
+Per-area **Recebimento** is not derivable from SISJURI — the workbook assigns
+received cash to practice areas via manual case-by-area classification and
+cross-area transfers (`Resumo_Recebidas` tab). New `manual_actuals` table +
+`app/manual/` domain + `GET/PUT /api/clients/{id}/manual?ano_mes=` + frontend
+`ManualActualsEditor`. Values overlay the area tabs' Recebimento/Comissão/
+Despesas and compute Resultado Bruto. **Open question with MBC finance:** is
+there a fixed rule for per-area recebimento? If yes, an automatic source can
+supersede the manual entries.
+
+### Operator steps to finish the deploy
+1. Apply the new DDL in Supabase (`manual_actuals` table — see `app/db/schema.sql`).
+2. Update the on-server `extract.sql` (new gist) and **re-run the backfill** so
+   snapshots carry `custo_equipe_prof`.
+3. Enter per-area Recebimento for the months you want populated (or wait for the
+   finance rule).
+
 ### Test counts (as of last update)
-- Backend: **54 passing** (`cd backend && pytest`).
-- Frontend: **36 passing** (`cd frontend && npm run test`).
+- Backend: **106 passing** (`cd backend && pytest`).
+- Frontend: **46 passing** (`cd frontend && npm run test`).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host

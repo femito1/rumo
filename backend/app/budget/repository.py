@@ -64,18 +64,15 @@ class InMemoryBudgetRepository:
     @classmethod
     def seeded(cls) -> "InMemoryBudgetRepository":
         repo = cls()
-        from app.budget.models import (
-            CUSTOS_DIRETOS,
-            DESPESAS_INDIRETAS,
-            FATURAMENTO,
-            IMPOSTOS,
-        )
+        from app.closing.dre import CUSTO_EQUIPE, DESPESAS, IMPOSTO, RECEBIMENTO
 
+        # Workbook Meta 2026: Recebimento meta 8.060.000/ano (671.666,67/mês),
+        # custo direto + despesas indiretas + impostos annualized.
         seed = [
-            BudgetEntry("mbc", 2026, "institucional", FATURAMENTO, 8060000.0),
-            BudgetEntry("mbc", 2026, "institucional", CUSTOS_DIRETOS, 2403882.65),
-            BudgetEntry("mbc", 2026, "institucional", DESPESAS_INDIRETAS, 1331793.81),
-            BudgetEntry("mbc", 2026, "institucional", IMPOSTOS, 1809000.0),
+            BudgetEntry("mbc", 2026, "institucional", RECEBIMENTO, 8060000.0),
+            BudgetEntry("mbc", 2026, "institucional", CUSTO_EQUIPE, 2403882.65),
+            BudgetEntry("mbc", 2026, "institucional", DESPESAS, 1331793.81),
+            BudgetEntry("mbc", 2026, "institucional", IMPOSTO, 1809000.0),
         ]
         repo._store[("mbc", 2026)] = seed
         return repo

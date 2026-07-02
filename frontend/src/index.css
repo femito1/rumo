@@ -631,6 +631,22 @@ input::placeholder {
 }
 
 /* Budget editor */
+.editor-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--space) * 2);
+  align-items: flex-start;
+}
+.editor-row > .budget-editor {
+  flex: 1 1 auto;
+}
+.manual-grid {
+  overflow-x: auto;
+}
+.manual-grid input {
+  width: 7.5rem;
+  text-align: right;
+}
 .budget-editor {
   margin-bottom: calc(var(--space) * 2);
 }

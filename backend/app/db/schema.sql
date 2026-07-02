@@ -31,3 +31,18 @@ create table if not exists budgets (
   updated_at timestamptz not null default now(),
   primary key (client_id, ano, area, line_key)
 );
+
+-- Manually-entered Realizado inputs that SISJURI cannot derive. The prime case
+-- is per-area Recebimento: the workbook assigns received cash to a practice
+-- area (Contencioso/Economico/Arbitragem) via case-by-case human classification
+-- and cross-area transfers recorded in 'Resumo_Recebidas', which has no DB
+-- equivalent. Grain is per competence month. `line_key` matches app/closing/dre.
+create table if not exists manual_actuals (
+  client_id text not null references clients(id),
+  ano_mes text not null,
+  area text not null,
+  line_key text not null,
+  valor numeric not null default 0,
+  updated_at timestamptz not null default now(),
+  primary key (client_id, ano_mes, area, line_key)
+);

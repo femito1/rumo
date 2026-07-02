@@ -21,6 +21,8 @@ describe("WorkspacePage", () => {
       if (path.includes("/closing")) return Promise.resolve(payload as never);
       if (path.includes("/budget"))
         return Promise.resolve({ client_id: "mbc", ano: 2026, areas: ["institucional"], lines: [], entries: [] } as never);
+      if (path.includes("/manual"))
+        return Promise.resolve({ client_id: "mbc", ano_mes: "2026-05", areas: [], lines: [], entries: [] } as never);
       return Promise.resolve({ id: "mbc", name: "MBC", provider: "legaldesk", available_months: ["2026-05"] } as never);
     });
     render(

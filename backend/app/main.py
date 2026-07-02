@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.auth_router import router as auth_router
 from app.api.budget_router import router as budget_router
+from app.api.manual_router import router as manual_router
 from app.api.clients_router import router as clients_router
 from app.api.closing_router import router as closing_router
 from app.api.ingest_router import router as ingest_router
@@ -23,6 +24,7 @@ app.include_router(auth_router)
 app.include_router(clients_router)
 app.include_router(closing_router)
 app.include_router(budget_router)
+app.include_router(manual_router)
 app.include_router(ingest_router)
 
 

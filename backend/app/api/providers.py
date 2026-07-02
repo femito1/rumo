@@ -46,3 +46,26 @@ def get_budget_repo():
     if get_settings().use_fake_repo:
         return _build_fixture_budget_repo()
     return _build_supabase_budget_repo()
+
+
+@lru_cache
+def _build_supabase_manual_repo():
+    from supabase import create_client
+
+    from app.manual.repository import SupabaseManualActualsRepository
+    s = get_settings()
+    return SupabaseManualActualsRepository(
+        create_client(s.supabase_url, s.supabase_service_key)
+    )
+
+
+@lru_cache
+def _build_fixture_manual_repo():
+    from app.manual.repository import InMemoryManualActualsRepository
+    return InMemoryManualActualsRepository()
+
+
+def get_manual_repo():
+    if get_settings().use_fake_repo:
+        return _build_fixture_manual_repo()
+    return _build_supabase_manual_repo()

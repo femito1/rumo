@@ -9,6 +9,7 @@ import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
 import { TabView } from "./TabView";
 import { BudgetEditor } from "./BudgetEditor";
+import { ManualActualsEditor } from "./ManualActualsEditor";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
 
@@ -86,7 +87,10 @@ export function WorkspacePage() {
             <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} format="number" />
           </section>
           {!data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
-          <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
+          <div className="editor-row">
+            <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
+            <ManualActualsEditor clientId={id} anoMes={month} />
+          </div>
           <nav className="tab-rail">
             {data.tab_order.map((t) => (
               <button key={t} className={t === activeTab ? "active" : ""} onClick={() => setActiveTab(t)}>

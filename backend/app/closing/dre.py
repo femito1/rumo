@@ -1,61 +1,49 @@
 # backend/app/closing/dre.py
-"""Assemble the workbook's DRE views from clean sources (Orcado x Realizado).
+"""Assemble the workbook's DRE views faithfully (Orçado x Realizado).
 
-The MBC workbook computes a consolidated (Institucional) P&L plus three
-cost-center P&Ls (Contencioso, Economico, Arbitragem). We recompute those blocks
-here from canonical inputs rather than copying workbook cells verbatim (the
-workbook carries #REF! errors and blends hardcoded constants with references).
+Mirrors `Copy of Fechamento MBC 02.2026.xlsx`. Vocabulary and structure come
+from `workbook_layouts.py`. Base of the Institucional DRE is **Recebimento**
+(cash received), matching the workbook — not Faturamento.
 
-Vocabulary
-----------
-A DRE is a list of ``DreLine``. Each line has a stable ``key`` (used to align
-Realizado, Orcado and the UI), a PT-BR ``label``, an ``indent`` for the tree,
-and flags (``is_total``, ``is_section``). The ``kind`` marks how the value is
-formed: a fetched amount, a subtotal, or a margin (%).
+All values are recomputed from clean sources (SISJURI snapshot + manual budget);
+the workbook itself carries #REF! errors so we never copy its cells.
 
-This module is a pure transformation: given realizado inputs and an optional
-budget, it returns section payloads keyed by ``SectionKey``. No IO here.
+Row shape for rich DRE tabs: each row exposes the display columns first
+(``Linha``, then value columns) followed by metadata (``key``, ``indent``,
+``is_total``, ``kind``) that the frontend's ``rowKeys`` slice ignores.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
 
-# --- canonical line keys -----------------------------------------------------
-# These strings are the contract shared by SisjuriDbSource, BudgetSource and the
-# frontend. Do not rename without a migration of stored budgets.
+from app.closing.workbook_layouts import (
+    AMORTIZACAO_MENSAL,
+    AREAS,
+    BONUS_RESERVE_RATE,
+    INSTITUCIONAL_SECTIONS,
+    is_direct_team,
+    is_imposto,
+    is_indirect,
+    match_area,
+    section_for,
+)
 
+# --- canonical line keys (stable; shared with budget + frontend) -------------
+RECEBIMENTO = "recebimento"
 FATURAMENTO = "faturamento"
-RECEITA = "receita"
-CUSTOS_DIRETOS = "custos_diretos"
-DESPESAS_INDIRETAS = "despesas_indiretas"
+CUSTO_EQUIPE = "custo_equipe"
+DESPESAS = "despesas"
 RESULTADO_BRUTO = "resultado_bruto"
 MARGEM_BRUTA = "margem_bruta"
-IMPOSTOS = "impostos"
+IMPOSTO = "imposto"
 AMORTIZACAO = "amortizacao"
 RESULTADO_LIQUIDO = "resultado_liquido"
 MARGEM_LIQUIDA = "margem_liquida"
 RESERVA_BONUS = "reserva_bonus"
-
-#: Reserva de bonus = fixed rate x margem liquida (finance-confirmed, all months).
-BONUS_RESERVE_RATE = 0.10
-
-#: Monthly amortization installment (Institucional), workbook 'Amortizacao' tab.
-AMORTIZACAO_MENSAL = 8117.31
-
-#: The three cost centers, workbook labels.
-AREAS = ("Contencioso", "Economico", "Arbitragem")
-
-
-@dataclass
-class DreLine:
-    key: str
-    label: str
-    indent: int = 0
-    is_total: bool = False
-    is_section: bool = False
-    kind: str = "amount"  # amount | subtotal | margin
-    children: list["DreLine"] = field(default_factory=list)
+COMISSAO = "comissao"
+DESPESAS_EQUIPE = "despesas_equipe"
+DESPESA_INSTITUCIONAL = "despesa_institucional"
 
 
 def _pct(numer: float, denom: float) -> float | None:
@@ -65,382 +53,416 @@ def _pct(numer: float, denom: float) -> float | None:
 
 
 def bonus_reserve(net_margin_value: float) -> float:
-    """Reserva de bonus = fixed rate x margem liquida (finance-confirmed)."""
+    """Reserva de bônus = fixed rate x margem líquida (finance-confirmed)."""
     return round(net_margin_value * BONUS_RESERVE_RATE, 2)
 
 
-# --- expense grouping --------------------------------------------------------
-# SISJURI chart-of-accounts families -> workbook expense buckets.
-#   020.* -> institucional/indirect (D)
-#   030.* -> custos com pessoal tecnico (C) -> Custos Diretos
-#   040.* -> investimentos (I) -> indirect (investimento)
-def _sum_despesas_indiretas(despesas: list[dict]) -> float:
-    """Sum institutional indirect expenses (families 020.* and 040.*)."""
-    total = 0.0
-    for row in despesas:
-        conta = str(row.get("id_conta", ""))
-        if conta.startswith("020.") or conta.startswith("040."):
-            total += float(row.get("total", 0.0))
-    return round(total, 2)
+@dataclass
+class SectionBreakdown:
+    """One institutional section subtotal + its sub-accounts."""
 
-
-def _sum_custos_diretos(despesas: list[dict], custo_area: list[dict]) -> float:
-    """Direct team cost. Prefer the per-area breakdown when present."""
-    if custo_area:
-        return round(sum(float(a.get("total", 0.0)) for a in custo_area), 2)
-    total = 0.0
-    for row in despesas:
-        if str(row.get("id_conta", "")).startswith("030."):
-            total += float(row.get("total", 0.0))
-    return round(total, 2)
+    name: str
+    total: float = 0.0
+    accounts: list[tuple[str, float]] = field(default_factory=list)
 
 
 @dataclass
 class RealizadoInputs:
-    """Clean realizado inputs for one competence month."""
+    """Clean realizado inputs for one competence month (workbook vocabulary)."""
 
+    recebimento: float
     faturamento: float
-    receita: float
-    custos_diretos: float
-    despesas_indiretas: float
-    impostos: float
+    custo_equipe: float
+    despesas: float
+    imposto: float
     amortizacao: float = AMORTIZACAO_MENSAL
+    sections: list[SectionBreakdown] = field(default_factory=list)
+    area_custo_equipe: dict[str, float] = field(default_factory=dict)
+    imposto_accounts: list[tuple[str, float]] = field(default_factory=list)
 
     @classmethod
     def from_snapshot(cls, snap: dict[str, Any]) -> "RealizadoInputs":
         revenue = snap.get("revenue", {}) or {}
-        despesas = snap.get("despesas_conta", []) or []
+        despesas_rows = snap.get("despesas_conta", []) or []
         custo_area = snap.get("custo_area", []) or []
+
+        recebimento = float(revenue.get("recebimento_bruto", 0.0) or 0.0)
         faturamento = float(revenue.get("faturamento_bruto", 0.0) or 0.0)
-        receita = float(revenue.get("recebimento_bruto", 0.0) or 0.0)
-        indiretas = _sum_despesas_indiretas(despesas)
-        diretos = _sum_custos_diretos(despesas, custo_area)
-        # Impostos: taxes captured under any 'Impostos' account family; the
-        # snapshot lists them among despesas. Fall back to 0 when absent.
-        impostos = 0.0
-        for row in despesas:
-            pai = str(row.get("nome_conta_pai", "")).lower()
-            if "imposto" in pai:
-                impostos += float(row.get("total", 0.0))
-        return cls(
-            faturamento=faturamento,
-            receita=receita,
-            custos_diretos=diretos,
-            despesas_indiretas=indiretas,
-            impostos=round(impostos, 2),
+
+        sec_map: dict[str, SectionBreakdown] = {}
+        imposto_total = 0.0
+        imposto_accounts: list[tuple[str, float]] = []
+        custo_equipe_from_accounts = 0.0
+
+        for row in despesas_rows:
+            id_conta = str(row.get("id_conta", ""))
+            total = float(row.get("total", 0.0) or 0.0)
+            nome = str(row.get("nome_conta", "?"))
+            if is_imposto(row):
+                imposto_total += total
+                imposto_accounts.append((nome, round(total, 2)))
+                continue
+            if is_direct_team(id_conta):
+                custo_equipe_from_accounts += total
+                continue
+            if is_indirect(id_conta):
+                sec_name = section_for(row.get("nome_conta_pai"))
+                sec = sec_map.setdefault(sec_name, SectionBreakdown(sec_name))
+                sec.total = round(sec.total + total, 2)
+                sec.accounts.append((nome, round(total, 2)))
+
+        ordered: list[SectionBreakdown] = []
+        for name in INSTITUCIONAL_SECTIONS:
+            if name in sec_map:
+                ordered.append(sec_map.pop(name))
+            else:
+                ordered.append(SectionBreakdown(name, 0.0, []))
+        ordered.extend(sec_map.values())
+
+        despesas_total = round(sum(s.total for s in ordered), 2)
+
+        area_custo: dict[str, float] = {}
+        for a in custo_area:
+            for area in AREAS:
+                if match_area(str(a.get("area", "")), area):
+                    area_custo[area] = round(
+                        area_custo.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
+                    )
+        custo_equipe = (
+            round(sum(area_custo.values()), 2)
+            if area_custo
+            else round(custo_equipe_from_accounts, 2)
         )
 
+        return cls(
+            recebimento=recebimento,
+            faturamento=faturamento,
+            custo_equipe=custo_equipe,
+            despesas=despesas_total,
+            imposto=round(imposto_total, 2),
+            sections=ordered,
+            area_custo_equipe=area_custo,
+            imposto_accounts=imposto_accounts,
+        )
 
-def _dre_block_rows(
-    realizado: RealizadoInputs, orcado: dict[str, float] | None
-) -> list[dict[str, Any]]:
-    """Build the canonical DRE line rows with orcado/realizado/variacao/desvio.
+    @classmethod
+    def empty(cls) -> "RealizadoInputs":
+        return cls(
+            recebimento=0.0,
+            faturamento=0.0,
+            custo_equipe=0.0,
+            despesas=0.0,
+            imposto=0.0,
+            sections=[SectionBreakdown(n, 0.0, []) for n in INSTITUCIONAL_SECTIONS],
+        )
 
-    ``orcado`` maps line-key -> budgeted (monthly) amount. When ``None`` the
-    orcado column is left null (renders as 'ainda nao temos').
-    """
-    orc = orcado or {}
+    @property
+    def resultado_bruto(self) -> float:
+        return round(self.recebimento - self.custo_equipe - self.despesas, 2)
 
-    resultado_bruto = round(
-        realizado.faturamento - realizado.custos_diretos - realizado.despesas_indiretas,
-        2,
-    )
-    resultado_liquido = round(
-        resultado_bruto - realizado.impostos - realizado.amortizacao, 2
-    )
-    reserva = bonus_reserve(resultado_liquido)
+    @property
+    def resultado_liquido(self) -> float:
+        return round(self.resultado_bruto - self.imposto - self.amortizacao, 2)
 
-    realizado_by_key: dict[str, float | None] = {
-        FATURAMENTO: realizado.faturamento,
-        RECEITA: realizado.receita,
-        CUSTOS_DIRETOS: realizado.custos_diretos,
-        DESPESAS_INDIRETAS: realizado.despesas_indiretas,
-        RESULTADO_BRUTO: resultado_bruto,
-        MARGEM_BRUTA: _pct(resultado_bruto, realizado.faturamento),
-        IMPOSTOS: realizado.impostos,
-        AMORTIZACAO: realizado.amortizacao,
-        RESULTADO_LIQUIDO: resultado_liquido,
-        MARGEM_LIQUIDA: _pct(resultado_liquido, realizado.faturamento),
-        RESERVA_BONUS: reserva,
+    @property
+    def reserva_bonus(self) -> float:
+        return bonus_reserve(self.resultado_liquido)
+
+
+# --- rich-tab helpers --------------------------------------------------------
+_DRE_COLUMNS = ["Linha", "Orçado", "Realizado", "Desvio %"]
+
+
+def _dre_row(
+    label: str,
+    key: str,
+    orcado: float | None,
+    realizado: float | None,
+    *,
+    indent: int = 0,
+    is_total: bool = False,
+    kind: str = "amount",
+) -> dict[str, Any]:
+    desvio = None
+    if kind != "margin" and orcado is not None and realizado is not None:
+        desvio = _pct(realizado, orcado)
+    return {
+        "Linha": label,
+        "Orçado": {"value": orcado, "source": "orcado"},
+        "Realizado": {"value": realizado, "source": "realizado"},
+        "Desvio %": desvio,
+        "key": key,
+        "indent": indent,
+        "is_total": is_total,
+        "kind": kind,
     }
 
-    spec = [
-        (FATURAMENTO, "Faturamento", 0, False, "amount"),
-        (RECEITA, "Receita (recebimento)", 0, False, "amount"),
-        (CUSTOS_DIRETOS, "Custos Diretos", 0, False, "amount"),
-        (DESPESAS_INDIRETAS, "Despesas Indiretas", 0, False, "amount"),
-        (RESULTADO_BRUTO, "Resultado Bruto", 0, True, "subtotal"),
-        (MARGEM_BRUTA, "Margem Bruta", 1, False, "margin"),
-        (IMPOSTOS, "Impostos", 0, False, "amount"),
-        (AMORTIZACAO, "Amortizacao", 0, False, "amount"),
-        (RESULTADO_LIQUIDO, "Resultado Liquido", 0, True, "subtotal"),
-        (MARGEM_LIQUIDA, "Margem Liquida", 1, False, "margin"),
-        (RESERVA_BONUS, "Reserva de Bonus", 0, False, "amount"),
-    ]
 
-    rows: list[dict[str, Any]] = []
-    for key, label, indent, is_total, kind in spec:
-        realizado_val = realizado_by_key.get(key)
-        orcado_val = orc.get(key)
-        if kind == "margin":
-            variacao = None
-            desvio = None
-        else:
-            if orcado_val is not None and realizado_val is not None:
-                variacao = round(realizado_val - orcado_val, 2)
-                desvio = _pct(realizado_val, orcado_val)
-            else:
-                variacao = None
-                desvio = None
+def _institucional_rows(
+    r: RealizadoInputs, orc: dict[str, float]
+) -> list[dict[str, Any]]:
+    """Block 1 (DRE) + block 3 (expense sections) of the Institucional tab."""
+    rows: list[dict[str, Any]] = [
+        _dre_row("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
+        _dre_row("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custo_equipe),
+        _dre_row("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
+        _dre_row(
+            "Resultado Bruto", RESULTADO_BRUTO, None, r.resultado_bruto,
+            is_total=True, kind="subtotal",
+        ),
+        _dre_row(
+            "Margem Bruta", MARGEM_BRUTA, None, _pct(r.resultado_bruto, r.recebimento),
+            indent=1, kind="margin",
+        ),
+        _dre_row("Imposto", IMPOSTO, orc.get(IMPOSTO), r.imposto),
+        _dre_row("Amortização", AMORTIZACAO, None, r.amortizacao),
+        _dre_row(
+            "Resultado Liquido", RESULTADO_LIQUIDO, None, r.resultado_liquido,
+            is_total=True, kind="subtotal",
+        ),
+        _dre_row(
+            "Margem Liquida", MARGEM_LIQUIDA, None,
+            _pct(r.resultado_liquido, r.recebimento), indent=1, kind="margin",
+        ),
+        _dre_row("Reserva de Bônus", RESERVA_BONUS, None, r.reserva_bonus),
+    ]
+    # Block 3: expense sections + indented sub-accounts, % of recebimento.
+    rows.append(_section_header_row("DESPESAS POR SEÇÃO"))
+    for sec in r.sections:
         rows.append(
             {
-                "label": label,
-                "orcado": orcado_val,
-                "realizado": realizado_val,
-                "variacao": variacao,
-                "desvio": desvio,
-                "key": key,
-                "indent": indent,
-                "is_total": is_total,
-                "kind": kind,
+                "Linha": sec.name,
+                "Orçado": {"value": None, "source": "orcado"},
+                "Realizado": {"value": sec.total, "source": "realizado"},
+                "Desvio %": _pct(sec.total, r.recebimento),
+                "key": f"sec::{sec.name}",
+                "indent": 0,
+                "is_total": True,
+                "kind": "section_total",
             }
         )
+        for nome, val in sec.accounts:
+            rows.append(
+                {
+                    "Linha": nome,
+                    "Orçado": {"value": None, "source": "orcado"},
+                    "Realizado": {"value": val, "source": "realizado"},
+                    "Desvio %": None,
+                    "key": f"acct::{sec.name}::{nome}",
+                    "indent": 1,
+                    "is_total": False,
+                    "kind": "amount",
+                }
+            )
     return rows
-
-
-_DRE_COLUMNS = ["Linha", "Orcado", "Realizado", "Variacao", "Desvio %"]
-
-
-def _rich_dre_tab(name: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """Wrap DRE rows as a rich tab the frontend renders generically.
-
-    Each row exposes keys in column order (Linha, Orcado, Realizado, Variacao,
-    Desvio) followed by ignored metadata (key/indent/is_total/kind).
-    """
-    render_rows = []
-    for r in rows:
-        render_rows.append(
-            {
-                "Linha": r["label"],
-                "Orcado": {"value": r["orcado"], "source": "orcado"},
-                "Realizado": {"value": r["realizado"], "source": "realizado"},
-                "Variacao": {"value": r["variacao"], "source": "formula"},
-                "Desvio %": r["desvio"],
-                "key": r["key"],
-                "indent": r["indent"],
-                "is_total": r["is_total"],
-                "kind": r["kind"],
-            }
-        )
-    return {
-        "kind": "rich",
-        "name": name,
-        "columns": _DRE_COLUMNS,
-        "rows": render_rows,
-    }
-
-
-def area_budget(orcado: dict[str, dict[str, float]] | None, area: str) -> dict[str, float] | None:
-    if not orcado:
-        return None
-    return orcado.get(area)
-
-
-def assemble_dre_sections(
-    *,
-    snapshot: dict[str, Any] | None,
-    budget: dict[str, Any] | None,
-    period_label: str,
-) -> dict[str, dict[str, Any]]:
-    """Return section payloads keyed by SectionKey.value.
-
-    ``budget`` shape (all optional):
-      {
-        "institucional": {line_key: monthly_amount, ...},
-        "Contencioso": {...}, "Economico": {...}, "Arbitragem": {...},
-      }
-    ``snapshot`` is the SISJURI agent snapshot (or None when not imported yet).
-    """
-    sections: dict[str, dict[str, Any]] = {}
-    inst_budget = (budget or {}).get("institucional")
-
-    if snapshot is not None:
-        realizado = RealizadoInputs.from_snapshot(snapshot)
-    else:
-        realizado = RealizadoInputs(
-            faturamento=0.0,
-            receita=0.0,
-            custos_diretos=0.0,
-            despesas_indiretas=0.0,
-            impostos=0.0,
-        )
-
-    inst_rows = _dre_block_rows(realizado, inst_budget)
-    sections["institucional"] = {
-        **_rich_dre_tab("Resultado Institucional", inst_rows),
-        "snapshot_missing": snapshot is None,
-    }
-
-    # Per-area blocks: realizado receita comes from custo_area/rateio when
-    # available; a full per-area P&L needs the receita split (rateio) which we
-    # surface as receita only for now, expenses left to institucional.
-    custo_area = (snapshot or {}).get("custo_area", []) or []
-    area_cost = {a.get("area", ""): float(a.get("total", 0.0)) for a in custo_area}
-    for area in AREAS:
-        area_real = RealizadoInputs(
-            faturamento=0.0,
-            receita=0.0,
-            custos_diretos=_match_area_cost(area_cost, area),
-            despesas_indiretas=0.0,
-            impostos=0.0,
-        )
-        rows = _dre_block_rows(area_real, area_budget(budget, area))
-        sections[_AREA_SECTION[area]] = {
-            **_rich_dre_tab(f"Resultado {area}", rows),
-            "snapshot_missing": snapshot is None,
-        }
-
-    # areas_sintetico: consolidated + the three area blocks stacked.
-    sintetico_rows: list[dict[str, Any]] = []
-    sintetico_rows.append(_section_header_row("RESULTADO INSTITUCIONAL"))
-    sintetico_rows.extend(_rich_dre_tab("", inst_rows)["rows"])
-    for area in AREAS:
-        sintetico_rows.append(_section_header_row(f"RESULTADO {area.upper()}"))
-        rows = _dre_block_rows(
-            RealizadoInputs(
-                faturamento=0.0,
-                receita=0.0,
-                custos_diretos=_match_area_cost(area_cost, area),
-                despesas_indiretas=0.0,
-                impostos=0.0,
-            ),
-            area_budget(budget, area),
-        )
-        sintetico_rows.extend(_rich_dre_tab("", rows)["rows"])
-    sections["areas_sintetico"] = {
-        "kind": "rich",
-        "name": "Areas Sintetico atualizado",
-        "columns": _DRE_COLUMNS,
-        "rows": sintetico_rows,
-        "snapshot_missing": snapshot is None,
-    }
-
-    # Secondary workbook views. NB: we intentionally do NOT emit `meta` here so
-    # we never clobber the KPI-bearing META section from LegalDesk during merge;
-    # the meta display tab stays LegalDesk's. `assemble_meta_tab` is available
-    # for standalone/full-mode use.
-    sections["dre_2026"] = assemble_dre_2026_tab(inst_budget)
-    sections["amortizacao"] = assemble_amortizacao_tab()
-
-    return sections
-
-
-_AREA_SECTION = {
-    "Contencioso": "contencioso",
-    "Economico": "economico",
-    "Arbitragem": "arbitragem",
-}
-
-
-def _match_area_cost(area_cost: dict[str, float], area: str) -> float:
-    """The snapshot area labels differ from the workbook (e.g. 'Equipe
-    Contencioso', 'Equipe Direito Economico'); match loosely by keyword."""
-    for name, total in area_cost.items():
-        low = name.lower()
-        if area == "Economico" and ("econ" in low):
-            return round(total, 2)
-        if area == "Contencioso" and ("conten" in low):
-            return round(total, 2)
-        if area == "Arbitragem" and ("arbitr" in low):
-            return round(total, 2)
-    return 0.0
 
 
 def _section_header_row(title: str) -> dict[str, Any]:
     return {
         "Linha": title,
-        "Orcado": None,
+        "Orçado": None,
         "Realizado": None,
-        "Variacao": None,
         "Desvio %": None,
+        "key": f"hdr::{title}",
         "indent": 0,
         "is_total": True,
         "kind": "header",
     }
 
 
-# --- secondary workbook views ------------------------------------------------
-_MESES_PT = [
-    "Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
-]
+def _area_rows(
+    area: str,
+    r: RealizadoInputs,
+    orc: dict[str, float],
+    man: dict[str, float] | None = None,
+) -> list[dict[str, Any]]:
+    """Contencioso/Econômico/Arbitragem tab: Recebimento, Custo equipe, Comissão,
+    Despesas Equipe, Despesa Institucional, Resultado Bruto (Orçado|Realizado|%).
 
-
-def assemble_meta_tab(
-    *, realizado: RealizadoInputs, orcado: dict[str, float] | None, month_name: str
-) -> dict[str, Any]:
-    """Meta (2): monthly Recebimento/Faturamento vs Meta."""
-    meta_val = (orcado or {}).get(FATURAMENTO)
-    return {
-        "kind": "rich",
-        "name": "Meta (2)",
-        "columns": ["Mes", "Recebimento", "Faturamento", "Meta"],
-        "rows": [
-            {
-                "Mes": month_name,
-                "Recebimento": {"value": realizado.receita, "source": "realizado"},
-                "Faturamento": {"value": realizado.faturamento, "source": "realizado"},
-                "Meta": {"value": meta_val, "source": "orcado"},
-            }
-        ],
-    }
-
-
-def assemble_amortizacao_tab() -> dict[str, Any]:
-    """Amortizacao: the fixed 60-month institutional installment schedule."""
-    rows = [
-        {
-            "Mes": f"Parcela {i}/60",
-            "Valor Institucional": {"value": AMORTIZACAO_MENSAL, "source": "manual"},
-        }
-        for i in range(1, 13)
-    ]
-    return {
-        "kind": "rich",
-        "name": "Amortizacao",
-        "columns": ["Mes", "Valor Institucional"],
-        "rows": rows,
-    }
-
-
-def assemble_dre_2026_tab(orcado: dict[str, float] | None) -> dict[str, Any]:
-    """DRE 2026: full-year budgeted DRE (annual = monthly x 12)."""
-    orc = orcado or {}
-    spec = [
-        (FATURAMENTO, "Faturamento", False),
-        (CUSTOS_DIRETOS, "Custos Diretos", False),
-        (DESPESAS_INDIRETAS, "Despesas Indiretas", False),
-        (RESULTADO_BRUTO, "Resultado Bruto", True),
-        (IMPOSTOS, "Impostos", False),
-        (AMORTIZACAO, "Amortizacao", False),
-        (RESULTADO_LIQUIDO, "Resultado Liquido", True),
-        (RESERVA_BONUS, "Reserva de Bonus", False),
-    ]
-    rows = []
-    for key, label, is_total in spec:
-        monthly = orc.get(key)
-        annual = round(monthly * 12, 2) if monthly is not None else None
-        rows.append(
-            {
-                "Linha": label,
-                "Anual (Orcado)": {"value": annual, "source": "orcado"},
-                "key": key,
-                "is_total": is_total,
-            }
+    Custo equipe realizado comes from SISJURI (per-area). Recebimento, Comissão,
+    Despesas Equipe and Despesa Institucional are manual per-area actuals
+    (``man``) because the workbook assigns received cash to areas via manual
+    case-by-area classification with no DB equivalent. When absent they render
+    blank; Resultado Bruto is computed once Recebimento is present."""
+    man = man or {}
+    custo = r.area_custo_equipe.get(area)
+    receb = man.get(RECEBIMENTO)
+    comissao = man.get(COMISSAO)
+    desp_equipe = man.get(DESPESAS_EQUIPE)
+    desp_inst = man.get(DESPESA_INSTITUCIONAL)
+    resultado: float | None = None
+    if receb is not None:
+        resultado = round(
+            receb - (custo or 0.0) - (comissao or 0.0)
+            - (desp_equipe or 0.0) - (desp_inst or 0.0),
+            2,
         )
+    return [
+        _dre_row("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), receb),
+        _dre_row("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), custo),
+        _dre_row("Comissão", COMISSAO, orc.get(COMISSAO), comissao),
+        _dre_row("Despesas Equipe", DESPESAS_EQUIPE, orc.get(DESPESAS_EQUIPE), desp_equipe),
+        _dre_row(
+            "Despesa Institucional", DESPESA_INSTITUCIONAL,
+            orc.get(DESPESA_INSTITUCIONAL), desp_inst,
+        ),
+        _dre_row(
+            "Resultado Bruto", RESULTADO_BRUTO, None, resultado,
+            is_total=True, kind="subtotal",
+        ),
+    ]
+
+
+_AREA_SECTION = {"Contencioso": "contencioso", "Econômico": "economico", "Arbitragem": "arbitragem"}
+
+
+def assemble_dre_sections(
+    *,
+    snapshot: dict[str, Any] | None,
+    budget: dict[str, dict[str, float]] | None,
+    period_label: str,
+    manual: dict[str, dict[str, float]] | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Return section payloads keyed by SectionKey.value (workbook-faithful).
+
+    ``manual`` carries per-area Realizado inputs (per-area Recebimento etc.) that
+    SISJURI cannot derive; shape is {area: {line_key: valor}}."""
+    r = RealizadoInputs.from_snapshot(snapshot) if snapshot is not None else RealizadoInputs.empty()
+    missing = snapshot is None
+    budget = budget or {}
+    manual = manual or {}
+    inst_orc = budget.get("institucional", {})
+
+    sections: dict[str, dict[str, Any]] = {}
+    sections["institucional"] = {
+        "kind": "rich",
+        "name": "Institucional",
+        "columns": _DRE_COLUMNS,
+        "rows": _institucional_rows(r, inst_orc),
+        "snapshot_missing": missing,
+    }
+    for area in AREAS:
+        sections[_AREA_SECTION[area]] = {
+            "kind": "rich",
+            "name": area,
+            "columns": _DRE_COLUMNS,
+            "rows": _area_rows(area, r, budget.get(area, {}), manual.get(area, {})),
+            "snapshot_missing": missing,
+        }
+
+    # Areas Sintetico: consolidated block + the three area blocks stacked.
+    sint: list[dict[str, Any]] = [_section_header_row("RESULTADO INSTITUCIONAL")]
+    sint.extend(_institucional_rows(r, inst_orc)[:10])  # DRE lines only
+    for area in AREAS:
+        sint.append(_section_header_row(f"RESULTADO {area.upper()}"))
+        sint.extend(_area_rows(area, r, budget.get(area, {}), manual.get(area, {})))
+    sections["areas_sintetico"] = {
+        "kind": "rich",
+        "name": "Areas Sintetico atualizado",
+        "columns": _DRE_COLUMNS,
+        "rows": sint,
+        "snapshot_missing": missing,
+    }
+
+    from app.closing.secondary_tabs import (
+        assemble_amortizacao,
+        assemble_rateio_mensal,
+    )
+
+    sections["amortizacao"] = assemble_amortizacao()
+    sections["rateio_mensal"] = assemble_rateio_mensal(snapshot, period_label)
+    sections["base_resultado"] = {
+        "kind": "rich",
+        "name": "Base_Resultado Mensal",
+        "columns": ["Linha", "Valor"],
+        "rows": _base_resultado_rows(snapshot, r),
+        "snapshot_missing": missing,
+    }
+    return sections
+
+
+# --- Base_Resultado Mensal (hierarchical monthly ledger) ---------------------
+_AREA_ORDER = ("Contencioso", "Econômico", "Arbitragem")
+
+
+def _base_resultado_rows(
+    snap: dict[str, Any] | None, r: RealizadoInputs
+) -> list[dict[str, Any]]:
+    """Faithful Base_Resultado: Movimentação (Recebimento) + per-area Custo
+    equipe (with per-lawyer sub-rows) + institutional sections/sub-accounts +
+    Impostos. One 'Valor' column for the competence month."""
+
+    def row(label: str, valor: float | None, *, indent: int = 0,
+            is_total: bool = False, kind: str = "amount",
+            key: str = "") -> dict[str, Any]:
+        return {
+            "Linha": label,
+            "Valor": {"value": valor, "source": "realizado"} if valor is not None else None,
+            "indent": indent,
+            "is_total": is_total,
+            "kind": kind,
+            "key": key or label,
+        }
+
+    rows: list[dict[str, Any]] = []
+    rows.append(row("Movimentação de Entrada", r.recebimento, is_total=True, kind="section_total", key="mov_entrada"))
+    rows.append(row("Receita de honorários", r.recebimento, indent=1, key="receita_hon"))
+
+    # Per-area Custo equipe with per-lawyer sub-rows.
+    prof = (snap or {}).get("custo_equipe_prof", []) or []
+    by_area: dict[str, dict[str, list[tuple[str, float]]]] = {}
+    lump: list[tuple[str, float]] = []
+    for p in prof:
+        area = p.get("area")
+        sigla = p.get("sigla")
+        nome = str(p.get("nome_conta", "?"))
+        valor = float(p.get("valor", 0.0) or 0.0)
+        if not sigla or not area:
+            lump.append((nome, valor))
+            continue
+        norm = next((a for a in _AREA_ORDER if match_area(str(area), a)), None) or str(area)
+        by_area.setdefault(norm, {}).setdefault(sigla, []).append((nome, valor))
+
+    for area in _AREA_ORDER:
+        people = by_area.get(area, {})
+        area_total = round(sum(v for pers in people.values() for _, v in pers), 2)
+        rows.append(row(f"Custo equipe - {area}", area_total, is_total=True,
+                        kind="section_total", key=f"custo_{area}"))
+        for sigla in sorted(people):
+            for nome, valor in people[sigla]:
+                rows.append(row(f"{sigla} - {nome}", valor, indent=1,
+                                key=f"prof::{area}::{sigla}::{nome}"))
+
+    if lump:
+        lump_total = round(sum(v for _, v in lump), 2)
+        rows.append(row("Distribuição Mensal Fixa (rateio sócios)", lump_total,
+                        is_total=True, kind="section_total", key="distrib_fixa"))
+        for nome, valor in lump:
+            rows.append(row(nome, valor, indent=1, key=f"lump::{nome}"))
+
+    # Institutional expense sections + sub-accounts.
+    for sec in r.sections:
+        rows.append(row(sec.name, sec.total, is_total=True, kind="section_total",
+                        key=f"sec::{sec.name}"))
+        for nome, valor in sec.accounts:
+            rows.append(row(nome, valor, indent=1, key=f"acct::{sec.name}::{nome}"))
+
+    # Impostos block.
+    rows.append(row("Impostos", r.imposto, is_total=True, kind="section_total", key="impostos"))
+    for nome, valor in r.imposto_accounts:
+        rows.append(row(nome, valor, indent=1, key=f"imp::{nome}"))
+
+    return rows
+
+
+def assemble_base_resultado(
+    snapshot: dict[str, Any] | None, period_label: str
+) -> dict[str, Any]:
+    r = RealizadoInputs.from_snapshot(snapshot) if snapshot is not None else RealizadoInputs.empty()
     return {
         "kind": "rich",
-        "name": "DRE 2026",
-        "columns": ["Linha", "Anual (Orcado)"],
-        "rows": rows,
+        "name": "Base_Resultado Mensal",
+        "columns": ["Linha", "Valor"],
+        "rows": _base_resultado_rows(snapshot, r),
+        "snapshot_missing": snapshot is None,
     }

@@ -3,7 +3,8 @@
 -- Invoked by run-agent.ps1 which substitutes the DEFINE values below.
 --
 -- Output contract: one JSON object with keys: meta, revenue, faturas,
--- rateio_prof, despesas_conta, custo_area, prolabore, distribuicao_socio.
+-- rateio_prof, despesas_conta, custo_area, prolabore, distribuicao_socio,
+-- custo_equipe_prof.
 SET DEFINE ON
 SET HEADING OFF
 SET FEEDBACK OFF
@@ -98,6 +99,29 @@ SELECT JSON_OBJECT(
             WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
               AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
             GROUP BY l.COD_ADVG, l.SIGLADEST)
+  ),
+  -- Per-lawyer x account detail for Custo equipe (030.*), for Base_Resultado.
+  -- sigla + area (via professional -> grupo jurídico) so rows can be grouped
+  -- by area. Distribuição Mensal Fixa (030.010.0010) has NULL professional and
+  -- is carried at account level; the per-partner split is in distribuicao_socio.
+  'custo_equipe_prof' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'      VALUE sigla,
+        'area'       VALUE area,
+        'id_conta'   VALUE id_conta,
+        'nome_conta' VALUE nome_conta,
+        'valor'      VALUE valor
+     ) RETURNING CLOB)
+     FROM (SELECT NVL(p.SIGLA, r.ID_PROFISSIONAL) sigla,
+                  g.NOME area,
+                  r.ID_CONTA id_conta,
+                  MAX(r.NOME_CONTA) nome_conta,
+                  ROUND(SUM(r.VALOR),2) valor
+             FROM LDESK.GERENC_LANCAMENTORESUMO r
+             LEFT JOIN LDESK.CAD_PROFISSIONAL p ON p.ID_PROFISSIONAL = r.ID_PROFISSIONAL
+             LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = p.ID_GRUPOJURIDICO
+            WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '030.%'
+            GROUP BY NVL(p.SIGLA, r.ID_PROFISSIONAL), g.NOME, r.ID_CONTA)
   )
   RETURNING CLOB
 ) AS closing_json

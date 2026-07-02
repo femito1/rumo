@@ -1,1 +1,667 @@
-{"meta":{"ano_mes":"2026-02","d_start":"2026-02-01","d_end":"2026-03-01","generated_at":"2026-07-02T13:00:05-03:00"},"revenue":{"recebimento_bruto":319233.58,"recebimento_rows":92,"faturamento_bruto":534752.84,"faturamento_rows":94},"faturas":{"faturas_emitidas":48},"rateio_prof":[{"id_profissional":"5B044D59-995A-3F07-1E74-68C16C6C8914","faturado":67776.26,"trabalhado":67776.26},{"id_profissional":"5B044FDE-995D-A3D4-A945-016A1B8D73B7","faturado":249778.69,"trabalhado":291795.88},{"id_profissional":"5B045093-9960-5FA8-B63F-AE96A5D1632B","faturado":57138.75,"trabalhado":127675.34},{"id_profissional":"5B50C5E0-BE6C-08D7-655D-253BB2039150","faturado":274888.3,"trabalhado":0},{"id_profissional":"5F2824C5-9E67-B406-1739-202EDD3CCE3A","faturado":31920.94,"trabalhado":50070},{"id_profissional":"6120318D-F7FA-D352-5887-B699B51D3359","faturado":64181.34,"trabalhado":64344.44},{"id_profissional":"62E3EA6F-7F8C-53BC-FDEC-4D11C98A1D9F","faturado":57996.02,"trabalhado":57996.02},{"id_profissional":"63334BB2-6EBD-4E6E-37B9-1B54FE97E398","faturado":94549.87,"trabalhado":218430.16},{"id_profissional":"643EAA77-5820-A0DC-3AE1-527CD2D90D0C","faturado":46468.19,"trabalhado":112773.32},{"id_profissional":"6452A888-F395-6C4E-8CA6-C6C25B3212A1","faturado":50022.19,"trabalhado":106133.12},{"id_profissional":"660B14DB-DEF2-6321-AD63-A715544C1CDB","faturado":31322.51,"trabalhado":45063.34},{"id_profissional":"6720F99E-EB65-ED7C-EB5F-AD8DBAC7DB59","faturado":7229.41,"trabalhado":9560},{"id_profissional":"6914B7F8-DC03-9074-43DE-18C59F405458","faturado":11452.69,"trabalhado":47709}],"despesas_conta":[{"id_conta":"020.010.0010","nome_conta":"Aluguel","nome_conta_pai":"Ocupação","tipo_conta":"D","total":21707.78,"n":2},{"id_conta":"020.010.0020","nome_conta":"Condomínio","nome_conta_pai":"Ocupação","tipo_conta":"D","total":4996,"n":1},{"id_conta":"020.010.0030","nome_conta":"Energia Elétrica","nome_conta_pai":"Ocupação","tipo_conta":"D","total":926.16,"n":1},{"id_conta":"020.010.0040","nome_conta":"IPTU","nome_conta_pai":"Ocupação","tipo_conta":"D","total":6916.97,"n":1},{"id_conta":"020.010.0050","nome_conta":"Manutenção e Conservação","nome_conta_pai":"Ocupação","tipo_conta":"D","total":50,"n":1},{"id_conta":"020.020.0010","nome_conta":"Telefonia Fixa","nome_conta_pai":"Telecomunicações","tipo_conta":"D","total":65.29,"n":1},{"id_conta":"020.020.0030","nome_conta":"Internet","nome_conta_pai":"Telecomunicações","tipo_conta":"D","total":741.87,"n":3},{"id_conta":"020.030.0010","nome_conta":"Material de Escritório","nome_conta_pai":"Despesas Gerais","tipo_conta":"D","total":41.2,"n":1},{"id_conta":"020.030.0020","nome_conta":"Material de Copa/Higiene","nome_conta_pai":"Despesas Gerais","tipo_conta":"D","total":263.89,"n":2},{"id_conta":"020.030.0100","nome_conta":"Manutenção do Escritório","nome_conta_pai":"Despesas Gerais","tipo_conta":"D","total":1887.76,"n":2},{"id_conta":"020.030.0140","nome_conta":"Custas","nome_conta_pai":"Despesas Gerais","tipo_conta":"D","total":38.42,"n":1},{"id_conta":"020.040.0010","nome_conta":"Serviços de Informática","nome_conta_pai":"Serviços de Terceiros","tipo_conta":"D","total":2040,"n":1},{"id_conta":"020.040.0030","nome_conta":"Terceirização Limpeza","nome_conta_pai":"Serviços de Terceiros","tipo_conta":"D","total":3630.03,"n":1},{"id_conta":"020.040.0050","nome_conta":"Contabilidade","nome_conta_pai":"Serviços de Terceiros","tipo_conta":"D","total":7804.05,"n":1},{"id_conta":"020.050.0010","nome_conta":"Salários","nome_conta_pai":"Salários Administração","tipo_conta":"D","total":3455.42,"n":1},{"id_conta":"020.050.0050","nome_conta":"INSS - ADM","nome_conta_pai":"Salários Administração","tipo_conta":"D","total":1591.08,"n":2},{"id_conta":"020.050.0060","nome_conta":"FGTS","nome_conta_pai":"Salários Administração","tipo_conta":"D","total":354.66,"n":1},{"id_conta":"020.050.0110","nome_conta":"Convênio Médico - ADM","nome_conta_pai":"Salários Administração","tipo_conta":"D","total":1269.46,"n":1},{"id_conta":"020.050.0160","nome_conta":"Relatórios trabalhistas - e-Social","nome_conta_pai":"Salários Administração","tipo_conta":"D","total":1032.35,"n":1},{"id_conta":"020.060.0020","nome_conta":"Associações","nome_conta_pai":"Administrativas","tipo_conta":"D","total":7109.73,"n":7},{"id_conta":"020.060.0040","nome_conta":"Seguros","nome_conta_pai":"Administrativas","tipo_conta":"D","total":182.71,"n":1},{"id_conta":"020.090.0040","nome_conta":"Eventos e Happy Hour","nome_conta_pai":"Investimento em Prospecção","tipo_conta":"D","total":1166.75,"n":2},{"id_conta":"020.110.0010","nome_conta":"Participação Externa (comissões)","nome_conta_pai":"Comissões","tipo_conta":"D","total":1500,"n":1},{"id_conta":"030.010.0010","nome_conta":"Distribuição Mensal Fixa","nome_conta_pai":"Custos com Pessoal Técnico","tipo_conta":"C","total":172129.96,"n":21},{"id_conta":"030.010.0050","nome_conta":"INSS - Jurídico","nome_conta_pai":"Custos com Pessoal Técnico","tipo_conta":"C","total":3890.4,"n":12},{"id_conta":"030.010.0110","nome_conta":"Convênio Médico","nome_conta_pai":"Custos com Pessoal Técnico","tipo_conta":"C","total":19177.71,"n":11},{"id_conta":"030.010.0130","nome_conta":"Pró-Labores","nome_conta_pai":"Custos com Pessoal Técnico","tipo_conta":"C","total":17312.28,"n":12},{"id_conta":"030.010.0140","nome_conta":"Bolsa Auxílio","nome_conta_pai":"Custos com Pessoal Técnico","tipo_conta":"C","total":2800,"n":1},{"id_conta":"040.030.0010","nome_conta":"Consultoria","nome_conta_pai":"Investimentos","tipo_conta":"I","total":14705.8,"n":1},{"id_conta":"040.040.0030","nome_conta":"Licenças de Uso de Software","nome_conta_pai":"Informática","tipo_conta":"I","total":16207.9,"n":10}],"custo_area":[{"area":"Arbitragem","total":70796.83,"n":17},{"area":"Equipe Contencioso","total":49941.93,"n":14},{"area":"Equipe Direito Econômico","total":94571.59,"n":26}],"prolabore":[{"sigla":"ASG","bruto":1621,"liquido":1442.69},{"sigla":"EHF","bruto":1621,"liquido":1442.69},{"sigla":"DC","bruto":1621,"liquido":1442.69},{"sigla":"MV","bruto":1621,"liquido":1442.69},{"sigla":"RB","bruto":1621,"liquido":1442.69},{"sigla":"FSM","bruto":1621,"liquido":1442.69},{"sigla":"IAC","bruto":1621,"liquido":1442.69},{"sigla":"AM","bruto":1621,"liquido":1442.69},{"sigla":"BMP","bruto":1621,"liquido":1442.69},{"sigla":"BBX","bruto":1621,"liquido":1442.69},{"sigla":"JGS","bruto":1621,"liquido":1442.69},{"sigla":"EMC","bruto":1621,"liquido":1442.69}],"distribuicao_socio":null}
+{
+  "meta": {
+    "ano_mes": "2026-02",
+    "d_start": "2026-02-01",
+    "d_end": "2026-03-01",
+    "generated_at": "2026-07-02T13:00:05-03:00"
+  },
+  "revenue": {
+    "recebimento_bruto": 319233.58,
+    "recebimento_rows": 92,
+    "faturamento_bruto": 534752.84,
+    "faturamento_rows": 94
+  },
+  "faturas": {
+    "faturas_emitidas": 48
+  },
+  "rateio_prof": [
+    {
+      "id_profissional": "5B044D59-995A-3F07-1E74-68C16C6C8914",
+      "faturado": 67776.26,
+      "trabalhado": 67776.26
+    },
+    {
+      "id_profissional": "5B044FDE-995D-A3D4-A945-016A1B8D73B7",
+      "faturado": 249778.69,
+      "trabalhado": 291795.88
+    },
+    {
+      "id_profissional": "5B045093-9960-5FA8-B63F-AE96A5D1632B",
+      "faturado": 57138.75,
+      "trabalhado": 127675.34
+    },
+    {
+      "id_profissional": "5B50C5E0-BE6C-08D7-655D-253BB2039150",
+      "faturado": 274888.3,
+      "trabalhado": 0
+    },
+    {
+      "id_profissional": "5F2824C5-9E67-B406-1739-202EDD3CCE3A",
+      "faturado": 31920.94,
+      "trabalhado": 50070
+    },
+    {
+      "id_profissional": "6120318D-F7FA-D352-5887-B699B51D3359",
+      "faturado": 64181.34,
+      "trabalhado": 64344.44
+    },
+    {
+      "id_profissional": "62E3EA6F-7F8C-53BC-FDEC-4D11C98A1D9F",
+      "faturado": 57996.02,
+      "trabalhado": 57996.02
+    },
+    {
+      "id_profissional": "63334BB2-6EBD-4E6E-37B9-1B54FE97E398",
+      "faturado": 94549.87,
+      "trabalhado": 218430.16
+    },
+    {
+      "id_profissional": "643EAA77-5820-A0DC-3AE1-527CD2D90D0C",
+      "faturado": 46468.19,
+      "trabalhado": 112773.32
+    },
+    {
+      "id_profissional": "6452A888-F395-6C4E-8CA6-C6C25B3212A1",
+      "faturado": 50022.19,
+      "trabalhado": 106133.12
+    },
+    {
+      "id_profissional": "660B14DB-DEF2-6321-AD63-A715544C1CDB",
+      "faturado": 31322.51,
+      "trabalhado": 45063.34
+    },
+    {
+      "id_profissional": "6720F99E-EB65-ED7C-EB5F-AD8DBAC7DB59",
+      "faturado": 7229.41,
+      "trabalhado": 9560
+    },
+    {
+      "id_profissional": "6914B7F8-DC03-9074-43DE-18C59F405458",
+      "faturado": 11452.69,
+      "trabalhado": 47709
+    }
+  ],
+  "despesas_conta": [
+    {
+      "id_conta": "020.010.0010",
+      "nome_conta": "Aluguel",
+      "nome_conta_pai": "Ocupação",
+      "tipo_conta": "D",
+      "total": 21707.78,
+      "n": 2
+    },
+    {
+      "id_conta": "020.010.0020",
+      "nome_conta": "Condomínio",
+      "nome_conta_pai": "Ocupação",
+      "tipo_conta": "D",
+      "total": 4996,
+      "n": 1
+    },
+    {
+      "id_conta": "020.010.0030",
+      "nome_conta": "Energia Elétrica",
+      "nome_conta_pai": "Ocupação",
+      "tipo_conta": "D",
+      "total": 926.16,
+      "n": 1
+    },
+    {
+      "id_conta": "020.010.0040",
+      "nome_conta": "IPTU",
+      "nome_conta_pai": "Ocupação",
+      "tipo_conta": "D",
+      "total": 6916.97,
+      "n": 1
+    },
+    {
+      "id_conta": "020.010.0050",
+      "nome_conta": "Manutenção e Conservação",
+      "nome_conta_pai": "Ocupação",
+      "tipo_conta": "D",
+      "total": 50,
+      "n": 1
+    },
+    {
+      "id_conta": "020.020.0010",
+      "nome_conta": "Telefonia Fixa",
+      "nome_conta_pai": "Telecomunicações",
+      "tipo_conta": "D",
+      "total": 65.29,
+      "n": 1
+    },
+    {
+      "id_conta": "020.020.0030",
+      "nome_conta": "Internet",
+      "nome_conta_pai": "Telecomunicações",
+      "tipo_conta": "D",
+      "total": 741.87,
+      "n": 3
+    },
+    {
+      "id_conta": "020.030.0010",
+      "nome_conta": "Material de Escritório",
+      "nome_conta_pai": "Despesas Gerais",
+      "tipo_conta": "D",
+      "total": 41.2,
+      "n": 1
+    },
+    {
+      "id_conta": "020.030.0020",
+      "nome_conta": "Material de Copa/Higiene",
+      "nome_conta_pai": "Despesas Gerais",
+      "tipo_conta": "D",
+      "total": 263.89,
+      "n": 2
+    },
+    {
+      "id_conta": "020.030.0100",
+      "nome_conta": "Manutenção do Escritório",
+      "nome_conta_pai": "Despesas Gerais",
+      "tipo_conta": "D",
+      "total": 1887.76,
+      "n": 2
+    },
+    {
+      "id_conta": "020.030.0140",
+      "nome_conta": "Custas",
+      "nome_conta_pai": "Despesas Gerais",
+      "tipo_conta": "D",
+      "total": 38.42,
+      "n": 1
+    },
+    {
+      "id_conta": "020.040.0010",
+      "nome_conta": "Serviços de Informática",
+      "nome_conta_pai": "Serviços de Terceiros",
+      "tipo_conta": "D",
+      "total": 2040,
+      "n": 1
+    },
+    {
+      "id_conta": "020.040.0030",
+      "nome_conta": "Terceirização Limpeza",
+      "nome_conta_pai": "Serviços de Terceiros",
+      "tipo_conta": "D",
+      "total": 3630.03,
+      "n": 1
+    },
+    {
+      "id_conta": "020.040.0050",
+      "nome_conta": "Contabilidade",
+      "nome_conta_pai": "Serviços de Terceiros",
+      "tipo_conta": "D",
+      "total": 7804.05,
+      "n": 1
+    },
+    {
+      "id_conta": "020.050.0010",
+      "nome_conta": "Salários",
+      "nome_conta_pai": "Salários Administração",
+      "tipo_conta": "D",
+      "total": 3455.42,
+      "n": 1
+    },
+    {
+      "id_conta": "020.050.0050",
+      "nome_conta": "INSS - ADM",
+      "nome_conta_pai": "Salários Administração",
+      "tipo_conta": "D",
+      "total": 1591.08,
+      "n": 2
+    },
+    {
+      "id_conta": "020.050.0060",
+      "nome_conta": "FGTS",
+      "nome_conta_pai": "Salários Administração",
+      "tipo_conta": "D",
+      "total": 354.66,
+      "n": 1
+    },
+    {
+      "id_conta": "020.050.0110",
+      "nome_conta": "Convênio Médico - ADM",
+      "nome_conta_pai": "Salários Administração",
+      "tipo_conta": "D",
+      "total": 1269.46,
+      "n": 1
+    },
+    {
+      "id_conta": "020.050.0160",
+      "nome_conta": "Relatórios trabalhistas - e-Social",
+      "nome_conta_pai": "Salários Administração",
+      "tipo_conta": "D",
+      "total": 1032.35,
+      "n": 1
+    },
+    {
+      "id_conta": "020.060.0020",
+      "nome_conta": "Associações",
+      "nome_conta_pai": "Administrativas",
+      "tipo_conta": "D",
+      "total": 7109.73,
+      "n": 7
+    },
+    {
+      "id_conta": "020.060.0040",
+      "nome_conta": "Seguros",
+      "nome_conta_pai": "Administrativas",
+      "tipo_conta": "D",
+      "total": 182.71,
+      "n": 1
+    },
+    {
+      "id_conta": "020.090.0040",
+      "nome_conta": "Eventos e Happy Hour",
+      "nome_conta_pai": "Investimento em Prospecção",
+      "tipo_conta": "D",
+      "total": 1166.75,
+      "n": 2
+    },
+    {
+      "id_conta": "020.110.0010",
+      "nome_conta": "Participação Externa (comissões)",
+      "nome_conta_pai": "Comissões",
+      "tipo_conta": "D",
+      "total": 1500,
+      "n": 1
+    },
+    {
+      "id_conta": "030.010.0010",
+      "nome_conta": "Distribuição Mensal Fixa",
+      "nome_conta_pai": "Custos com Pessoal Técnico",
+      "tipo_conta": "C",
+      "total": 172129.96,
+      "n": 21
+    },
+    {
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "nome_conta_pai": "Custos com Pessoal Técnico",
+      "tipo_conta": "C",
+      "total": 3890.4,
+      "n": 12
+    },
+    {
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "nome_conta_pai": "Custos com Pessoal Técnico",
+      "tipo_conta": "C",
+      "total": 19177.71,
+      "n": 11
+    },
+    {
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "nome_conta_pai": "Custos com Pessoal Técnico",
+      "tipo_conta": "C",
+      "total": 17312.28,
+      "n": 12
+    },
+    {
+      "id_conta": "030.010.0140",
+      "nome_conta": "Bolsa Auxílio",
+      "nome_conta_pai": "Custos com Pessoal Técnico",
+      "tipo_conta": "C",
+      "total": 2800,
+      "n": 1
+    },
+    {
+      "id_conta": "040.030.0010",
+      "nome_conta": "Consultoria",
+      "nome_conta_pai": "Investimentos",
+      "tipo_conta": "I",
+      "total": 14705.8,
+      "n": 1
+    },
+    {
+      "id_conta": "040.040.0030",
+      "nome_conta": "Licenças de Uso de Software",
+      "nome_conta_pai": "Informática",
+      "tipo_conta": "I",
+      "total": 16207.9,
+      "n": 10
+    }
+  ],
+  "custo_area": [
+    {
+      "area": "Arbitragem",
+      "total": 70796.83,
+      "n": 17
+    },
+    {
+      "area": "Equipe Contencioso",
+      "total": 49941.93,
+      "n": 14
+    },
+    {
+      "area": "Equipe Direito Econômico",
+      "total": 94571.59,
+      "n": 26
+    }
+  ],
+  "prolabore": [
+    {
+      "sigla": "ASG",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "EHF",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "DC",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "MV",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "RB",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "FSM",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "IAC",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "AM",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "BMP",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "BBX",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "JGS",
+      "bruto": 1621,
+      "liquido": 1442.69
+    },
+    {
+      "sigla": "EMC",
+      "bruto": 1621,
+      "liquido": 1442.69
+    }
+  ],
+  "distribuicao_socio": null,
+  "custo_equipe_prof": [
+    {
+      "sigla": "AM",
+      "area": "Contencioso",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "AM",
+      "area": "Contencioso",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 3182.83
+    },
+    {
+      "sigla": "AM",
+      "area": "Contencioso",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "ASG",
+      "area": "Econômico",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "ASG",
+      "area": "Econômico",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 564.92
+    },
+    {
+      "sigla": "ASG",
+      "area": "Econômico",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "BBX",
+      "area": "Contencioso",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "BBX",
+      "area": "Contencioso",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1269.46
+    },
+    {
+      "sigla": "BBX",
+      "area": "Contencioso",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "BMP",
+      "area": "Econômico",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "BMP",
+      "area": "Econômico",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 564.91
+    },
+    {
+      "sigla": "BMP",
+      "area": "Econômico",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "DC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "DC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1736.14
+    },
+    {
+      "sigla": "DC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "EHF",
+      "area": "Econômico",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "EHF",
+      "area": "Econômico",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 2122.3
+    },
+    {
+      "sigla": "EHF",
+      "area": "Econômico",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "EMC",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "EMC",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1269.46
+    },
+    {
+      "sigla": "EMC",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "FSM",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "FSM",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1564.08
+    },
+    {
+      "sigla": "FSM",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "IAC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "IAC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1564.08
+    },
+    {
+      "sigla": "IAC",
+      "area": "Contencioso",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "JGS",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "JGS",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 1911.95
+    },
+    {
+      "sigla": "JGS",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "JVO",
+      "area": "Contencioso",
+      "id_conta": "030.010.0140",
+      "nome_conta": "Bolsa Auxílio",
+      "valor": 2800.0
+    },
+    {
+      "sigla": "MV",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "MV",
+      "area": "Arbitragem",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": "RB",
+      "area": "Econômico",
+      "id_conta": "030.010.0050",
+      "nome_conta": "INSS - Jurídico",
+      "valor": 324.2
+    },
+    {
+      "sigla": "RB",
+      "area": "Econômico",
+      "id_conta": "030.010.0110",
+      "nome_conta": "Convênio Médico",
+      "valor": 3427.58
+    },
+    {
+      "sigla": "RB",
+      "area": "Econômico",
+      "id_conta": "030.010.0130",
+      "nome_conta": "Pró-Labores",
+      "valor": 1442.69
+    },
+    {
+      "sigla": null,
+      "area": null,
+      "id_conta": "030.010.0010",
+      "nome_conta": "Distribuição Mensal Fixa",
+      "valor": 172129.96
+    }
+  ]
+}

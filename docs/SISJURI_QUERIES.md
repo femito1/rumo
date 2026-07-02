@@ -289,6 +289,26 @@ hardcoded month anywhere.
 - §5 pró-labore gross `CPGNVALORBASE` = 1.621 x 12 ✓
 - §8 resumo months 2018-06 → 2026-06 (97) ✓
 
+### Probe findings (2026-07-02) — per-area recebimento & per-lawyer
+
+- `GERENC_VW_POSFIN_RESULTREC` has **`ID_PROFISSIONAL`** and **`ID_CASO`** but
+  **no group/area column**; area must be derived via professional→grupo.
+- `CAD_PROFISSIONAL.ID_GRUPOJURIDICO` **exists** → prof→area join is valid.
+- **Per-area recebimento is NOT directly available.** `FAT_RATEIOFATURA_PROF`
+  aggregated by area (via prof→grupo) is **faturamento-basis** and includes a
+  large **"Não Alocados"** bucket (Feb: Contencioso faturado 342.576 / Econ
+  341.642 / Arbitragem 85.618 / Não Alocados 274.888). It does **not** equal the
+  workbook's per-area *Recebimento* (Feb ~138.600 / 120.362 / 86.846). The
+  workbook allocates **received cash** to areas by a rule we must confirm with
+  finance (candidate: apply each area's faturado *share*, excluding Não
+  Alocados, to the month's total recebimento). Until confirmed, area
+  Recebimento realizado stays blank; the DRE structure is faithful regardless.
+- **Per-lawyer 030.\* detail** via resumo→`CAD_PROFISSIONAL.SIGLA` returns only
+  INSS-Jurídico (324,20), Convênio, and Pró-Labores (net 1.442,69) per person;
+  `030.010.0010 Distribuição Mensal Fixa` is a lump (Feb 172.129,96, NULL prof).
+  The workbook's per-lawyer salary/distribution rows come from the §6
+  `FINANCE.LANCAMENTO` per-partner split, not from the resumo.
+
 ---
 
 ## 10. Data egress — how the automation actually reaches the DB

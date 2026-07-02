@@ -10,28 +10,26 @@ from dataclasses import dataclass
 
 from app.closing.dre import (
     AMORTIZACAO,
-    AREAS,
-    CUSTOS_DIRETOS,
-    DESPESAS_INDIRETAS,
-    FATURAMENTO,
-    IMPOSTOS,
-    RECEITA,
+    CUSTO_EQUIPE,
+    DESPESAS,
+    IMPOSTO,
+    RECEBIMENTO,
     RESERVA_BONUS,
 )
+from app.closing.workbook_layouts import AREAS
 
 #: Areas that can hold a budget. 'institucional' is the consolidated view.
 BUDGET_AREAS = ("institucional", *AREAS)
 
-#: The DRE lines an admin/client can budget (subtotals/margins are derived, so
-#: they are intentionally excluded from manual entry).
+#: The DRE lines an admin/client can budget, in workbook vocabulary
+#: (subtotals/margins are derived, so they are excluded from manual entry).
 BUDGET_LINES: tuple[tuple[str, str], ...] = (
-    (FATURAMENTO, "Faturamento"),
-    (RECEITA, "Receita (recebimento)"),
-    (CUSTOS_DIRETOS, "Custos Diretos"),
-    (DESPESAS_INDIRETAS, "Despesas Indiretas"),
-    (IMPOSTOS, "Impostos"),
-    (AMORTIZACAO, "Amortizacao"),
-    (RESERVA_BONUS, "Reserva de Bonus"),
+    (RECEBIMENTO, "Recebimento"),
+    (CUSTO_EQUIPE, "Custo equipe"),
+    (DESPESAS, "Despesas"),
+    (IMPOSTO, "Imposto"),
+    (AMORTIZACAO, "Amortização"),
+    (RESERVA_BONUS, "Reserva de Bônus"),
 )
 
 _BUDGET_LINE_KEYS = {k for k, _ in BUDGET_LINES}

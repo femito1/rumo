@@ -103,7 +103,6 @@ def test_assembler_populates_dre_and_flags_missing_snapshot():
         SectionKey.ECONOMICO,
         SectionKey.ARBITRAGEM,
         SectionKey.AREAS_SINTETICO,
-        SectionKey.DRE_2026,
         SectionKey.AMORTIZACAO,
     ):
         assert key in sections
