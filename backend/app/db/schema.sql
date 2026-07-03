@@ -46,3 +46,15 @@ create table if not exists manual_actuals (
   updated_at timestamptz not null default now(),
   primary key (client_id, ano_mes, area, line_key)
 );
+
+-- Raw SISJURI extraction snapshots (one JSON per client + competence month).
+-- The on-server agent POSTs these to /api/ingest; the whole financial dataset
+-- lives in `payload` as jsonb so it is durable, backed up, and multi-tenant
+-- (keyed by client_id) — unlike the earlier per-VPS filesystem store.
+create table if not exists sisjuri_snapshots (
+  client_id text not null references clients(id),
+  ano_mes text not null,
+  payload jsonb not null,
+  updated_at timestamptz not null default now(),
+  primary key (client_id, ano_mes)
+);

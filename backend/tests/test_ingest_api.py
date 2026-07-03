@@ -50,6 +50,19 @@ def test_ingest_stores_snapshot_by_ano_mes(client):
     assert store.get("2026-02")["revenue"]["recebimento_bruto"] == 1.0
 
 
+def test_ingest_honors_client_id_from_meta(client):
+    c, store = client
+    snap = {"meta": {"ano_mes": "2026-03", "client_id": "acme"}, "revenue": {}}
+    resp = c.post(
+        "/api/ingest", json=snap, headers={"Authorization": f"Bearer {TOKEN}"}
+    )
+    assert resp.status_code == 200
+    assert resp.json()["client_id"] == "acme"
+    assert store.get("2026-03", client_id="acme") is not None
+    # Default client sees nothing for that month.
+    assert store.get("2026-03", client_id="mbc") is None
+
+
 def test_ingest_rejects_snapshot_without_ano_mes(client):
     c, _ = client
     resp = c.post(

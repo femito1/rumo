@@ -69,3 +69,30 @@ def get_manual_repo():
     if get_settings().use_fake_repo:
         return _build_fixture_manual_repo()
     return _build_supabase_manual_repo()
+
+
+@lru_cache
+def _build_supabase_snapshot_store():
+    from supabase import create_client
+
+    from app.sources.supabase_snapshot_store import SupabaseSnapshotStore
+    s = get_settings()
+    return SupabaseSnapshotStore(
+        create_client(s.supabase_url, s.supabase_service_key)
+    )
+
+
+@lru_cache
+def _build_fs_snapshot_store():
+    import os
+
+    from app.sources.snapshot_store import SnapshotStore
+    return SnapshotStore(os.environ.get("SNAPSHOT_DIR", "data/snapshots"))
+
+
+def get_snapshot_store():
+    """Production persists snapshots in Supabase; USE_FAKE_REPO / local dev keeps
+    the filesystem store so the app runs with no external services."""
+    if get_settings().use_fake_repo:
+        return _build_fs_snapshot_store()
+    return _build_supabase_snapshot_store()

@@ -28,6 +28,7 @@ param(
   [string]$DbPassword  = $env:SISJURI_PASSWORD,
   [string]$IngestUrl   = $env:INGEST_URL,
   [string]$IngestToken = $env:INGEST_TOKEN,
+  [string]$ClientId    = $(if($env:CLIENT_ID){$env:CLIENT_ID}else{'mbc'}),
   [string]$OutDir      = 'C:\temp\sisjuri'
 )
 
@@ -82,6 +83,12 @@ $json = $raw.Substring($startIdx, $endIdx - $startIdx + 1)
 
 # Validate it parses.
 try { $obj = $json | ConvertFrom-Json } catch { throw "sqlplus returned invalid JSON: $_" }
+
+# Stamp the tenant into meta.client_id so the backend stores the snapshot under
+# the right client (multi-tenant). Re-serialize from the parsed object.
+if (-not $obj.meta) { $obj | Add-Member -NotePropertyName meta -NotePropertyValue ([pscustomobject]@{}) -Force }
+$obj.meta | Add-Member -NotePropertyName client_id -NotePropertyValue $ClientId -Force
+$json = $obj | ConvertTo-Json -Depth 100 -Compress
 
 $snapshot = Join-Path $OutDir "closing_$AnoMes.json"
 Set-Content -Path $snapshot -Value $json -Encoding UTF8

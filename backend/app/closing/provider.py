@@ -67,7 +67,7 @@ def _headline_kpis_from_dre(institucional: SectionData | None) -> dict[str, floa
 
 def _snapshot_store():
     """Indirection so tests can inject a store; imported lazily to avoid cycles."""
-    from app.api.ingest_router import get_snapshot_store
+    from app.api.providers import get_snapshot_store
 
     return get_snapshot_store()
 
@@ -103,7 +103,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
 
         snapshot = None
         if period is not None:
-            snapshot = _snapshot_store().get(period.ano_mes)
+            snapshot = _snapshot_store().get(period.ano_mes, client_id=client.id)
         if snapshot is not None:
             sources.append(SisjuriDbSource.from_snapshot(snapshot, emit_meta=False))
 
