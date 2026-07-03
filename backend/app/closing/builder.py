@@ -74,7 +74,12 @@ def build_payload(period: Period, client: LegalDeskClient | None = None) -> dict
 
     tabs: dict[str, Any] = {}
     for tab_id in TAB_ORDER:
-        layout = TAB_LAYOUTS[tab_id]
+        # TAB_ORDER also carries assembler-only tabs (e.g. meta_dashboard,
+        # faturas_analitico) that LegalDesk does not own and have no layout here;
+        # the AssemblerSource adds them later in the merge. Skip them.
+        layout = TAB_LAYOUTS.get(tab_id)
+        if layout is None:
+            continue
         if tab_id in RICH_TABS:
             tabs[tab_id] = {"kind": "rich", "name": layout["name"], **rich[tab_id]}
         else:
