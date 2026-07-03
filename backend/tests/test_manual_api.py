@@ -45,13 +45,19 @@ def test_get_manual_returns_areas_and_lines(client):
     body = resp.json()
     assert body["ano_mes"] == "2026-02"
     assert "Contencioso" in body["areas"]
-    assert any(line["key"] == "recebimento" for line in body["lines"])
+    # Recebimento is SISJURI-derived now, so it is NOT an editable manual line.
+    assert not any(line["key"] == "recebimento" for line in body["lines"])
+    assert any(line["key"] == "despesa_institucional" for line in body["lines"])
     assert body["entries"] == []
 
 
 def test_put_then_get_roundtrips_manual(client):
     tok = _token(client, "financeiro@mbclaw.com.br", "mbc123")
-    payload = {"entries": [{"area": "Contencioso", "line_key": "recebimento", "valor": 138600.13}]}
+    payload = {
+        "entries": [
+            {"area": "Contencioso", "line_key": "despesa_institucional", "valor": 35425.45}
+        ]
+    }
     put = client.put(
         "/api/clients/mbc/manual?ano_mes=2026-02",
         json=payload,
@@ -63,15 +69,26 @@ def test_put_then_get_roundtrips_manual(client):
         headers={"Authorization": f"Bearer {tok}"},
     ).json()
     assert got["entries"] == [
-        {"area": "Contencioso", "line_key": "recebimento", "valor": 138600.13}
+        {"area": "Contencioso", "line_key": "despesa_institucional", "valor": 35425.45}
     ]
+
+
+def test_manual_recebimento_rejected(client):
+    """Recebimento is SISJURI-derived; hand-filling it must be rejected."""
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    resp = client.put(
+        "/api/clients/mbc/manual?ano_mes=2026-02",
+        json={"entries": [{"area": "Contencioso", "line_key": "recebimento", "valor": 1}]},
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    assert resp.status_code == 422
 
 
 def test_invalid_area_rejected(client):
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.put(
         "/api/clients/mbc/manual?ano_mes=2026-02",
-        json={"entries": [{"area": "Nope", "line_key": "recebimento", "valor": 1}]},
+        json={"entries": [{"area": "Nope", "line_key": "despesa_institucional", "valor": 1}]},
         headers={"Authorization": f"Bearer {tok}"},
     )
     assert resp.status_code == 422

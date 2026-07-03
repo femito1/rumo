@@ -1,25 +1,29 @@
 # backend/app/manual/models.py
-"""Manual Realizado inputs SISJURI cannot derive (per-area Recebimento, etc.).
+"""Manual Realizado inputs SISJURI cannot derive.
 
-Grain: per client + competence month (ano_mes) + area + line_key. The prime use
-is per-area Recebimento, which the workbook assigns via manual case-by-area
-classification + cross-area transfers ('Resumo_Recebidas'). No DB equivalent, so
-it is entered by hand; if finance later gives a fixed rule, an automatic source
-can supersede these rows.
+Grain: per client + competence month (ano_mes) + area + line_key.
+
+Per-area **Recebimento is no longer manual**: it is derived from SISJURI
+(``GERENC_VW_POSFIN_RESULTREC`` via CASO → área jurídica, verified to the
+centavo against the workbook) with the ``Resumo_Recebidas`` cross-area transfers
+applied as deltas. Hand-filling it is therefore rejected. The remaining manual
+lines are the ones still lacking a verified derivation rule (Comissão, Despesas
+Equipe, Despesa Institucional); if finance confirms a rule for these, an
+automatic source can supersede them too.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from app.closing.dre import COMISSAO, DESPESA_INSTITUCIONAL, DESPESAS_EQUIPE, RECEBIMENTO
+from app.closing.dre import COMISSAO, DESPESA_INSTITUCIONAL, DESPESAS_EQUIPE
 from app.closing.workbook_layouts import AREAS
 
 #: Areas that accept manual per-area actuals (the three cost centers).
 MANUAL_AREAS = tuple(AREAS)
 
-#: Manually-entered Realizado lines per area, in workbook order.
+#: Manually-entered Realizado lines per area, in workbook order. Recebimento is
+#: intentionally absent — it is SISJURI-derived (see module docstring).
 MANUAL_LINES: tuple[tuple[str, str], ...] = (
-    (RECEBIMENTO, "Recebimento"),
     (COMISSAO, "Comissão"),
     (DESPESAS_EQUIPE, "Despesas Equipe"),
     (DESPESA_INSTITUCIONAL, "Despesa Institucional"),

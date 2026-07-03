@@ -76,15 +76,15 @@ def test_transfers_overlay_applied_to_area_recebimento(snapshot):
     assert econ["Realizado"]["value"] == pytest.approx(118661.26, abs=0.05)
 
 
-def test_manual_recebimento_overrides_sisjuri(snapshot):
-    # A manual per-area actual still wins (later-overrides-earlier), e.g. once
-    # the Resumo_Recebidas transfers are applied.
+def test_manual_recebimento_is_ignored_sisjuri_wins(snapshot):
+    # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
+    # transfers applied upstream; a stray manual recebimento must NOT override it.
     sections = assemble_dre_sections(
         snapshot=snapshot, budget=None, period_label="Fev 2026",
         manual={"Contencioso": {RECEBIMENTO: 138600.13}},
     )
     receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
-    assert receb["Realizado"]["value"] == pytest.approx(138600.13, abs=0.05)
+    assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
 
 
 def test_institutional_sections_roll_up_by_family(snapshot):

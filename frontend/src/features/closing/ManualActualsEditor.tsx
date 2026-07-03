@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { useManualActuals, type ManualEntry } from "./useManualActuals";
 
-/** Per-area manual Realizado editor (ADMIN + CLIENT). The prime use is per-area
- *  Recebimento, which the workbook assigns by hand (case-by-area + transfers)
- *  and SISJURI cannot derive. One input per area x line. Collapsed by default. */
+/** Per-area manual Realizado editor (ADMIN + CLIENT). Recebimento is now
+ *  SISJURI-derived and not editable here; the remaining lines are the ones
+ *  without a verified derivation rule (Comissão, Despesas Equipe, Despesa
+ *  Institucional). One input per area x line. Collapsed by default. */
 export function ManualActualsEditor({
   clientId,
   anoMes,
@@ -68,7 +69,7 @@ export function ManualActualsEditor({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        {open ? "Fechar lançamentos" : "Recebimento por área"}
+        {open ? "Fechar lançamentos" : "Lançamentos por área"}
       </button>
       {open ? (
         <div className="budget-panel popover-panel popover-panel-wide">
@@ -82,9 +83,11 @@ export function ManualActualsEditor({
           ) : data ? (
             <>
               <p className="muted">
-                Recebimento e despesas por área (Contencioso/Econômico/Arbitragem)
-                para {data.ano_mes}. Estes valores não vêm do SISJURI — são a
-                classificação manual por área (como na aba Resumo_Recebidas).
+                Lançamentos por área (Contencioso/Econômico/Arbitragem) para{" "}
+                {data.ano_mes}. O Recebimento é derivado do SISJURI e não é
+                editável aqui; estes campos são os que ainda não têm regra de
+                derivação verificada (Comissão, Despesas Equipe, Despesa
+                Institucional).
               </p>
               <div className="manual-grid">
                 <table className="grid-table">

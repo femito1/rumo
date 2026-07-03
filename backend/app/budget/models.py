@@ -95,10 +95,19 @@ def monthly_budget(
     aggregate/reference behavior). Legacy keys are normalized so pre-rework
     budgets still feed the Orçado columns."""
     out: dict[str, dict[str, float]] = {}
+    # Track which (area, line) values came from an entry carrying monthly detail
+    # so a legacy annual-only entry can't shadow an imported granular budget
+    # when both normalize to the same canonical key (order-independent).
+    has_detail: set[tuple[str, str]] = set()
     for e in entries:
         area_map = out.setdefault(e.area, {})
+        line = canonical_line_key(e.line_key)
+        if (e.area, line) in has_detail and not e.monthly_amounts:
+            continue  # keep the detailed value already set
         amount = e.month_amount(month) if month is not None else round(
             e.annual_amount / 12.0, 2
         )
-        area_map[canonical_line_key(e.line_key)] = amount
+        area_map[line] = amount
+        if e.monthly_amounts:
+            has_detail.add((e.area, line))
     return out

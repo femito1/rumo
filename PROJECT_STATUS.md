@@ -102,13 +102,17 @@ centavo vs the workbook base numbers for Jan & Fev 2026. See
 `docs/SISJURI_QUERIES.md` §9 (2026-07-03) for the query + table.
 
 Built on top of that:
-- **`extract.sql`** now emits `recebimento_area` (this split), `faturamento_area`
-  (same split on the faturamento view) and `faturas_analitico` (per-invoice
-  `FAT_FATURA` detail — column names still to verify on the server via
-  `ops/sisjuri-agent/probe_faturas_analitico.sql`).
+- **`extract.sql`** emits `recebimento_area` (this split), `faturamento_area`
+  (same split on the faturamento view) and `faturas_analitico` (per-CASE
+  faturamento detail from `GERENC_VW_POSFIN_RESULTFAT`). All 29 months
+  (2024-01 → last closed) backfilled to Supabase (2026-07-03). The agent emits
+  the JSON in DBMS_OUTPUT chunks so it never hits sqlplus's 32767 LINESIZE
+  ceiling (see `run-agent.ps1`/`extract.sql`).
 - **`dre.py`** `RealizadoInputs.area_recebimento` parses `recebimento_area` and
-  folds names onto the three areas; area tabs' Recebimento now comes from SISJURI
-  (manual per-area Recebimento still overrides if entered).
+  folds names onto the three areas; area tabs' Recebimento is SISJURI-derived
+  and **no longer hand-fillable** (with `Resumo_Recebidas` transfers applied
+  upstream). Manual per-area recebimento is rejected by the API and ignored by
+  the assembler.
 - **`Resumo_Recebidas` transfers** modeled as `area_transfers` (origem→destino
   deltas, net 0) overlaid on the base — new `app/manual/transfers.py` +
   `area_transfers` table. These small cross-area reclassifications are still
@@ -118,12 +122,27 @@ Built on top of that:
   from optional snapshot `distribuicao_extras`, blank otherwise.
 - **Budget granularity:** `BudgetEntry.monthly_amounts` (optional 12-value array)
   → workbook per-month Orçado; `monthly_budget(entries, month=...)` selects it;
-  `budgets.monthly_amounts` jsonb column + API accepts/returns it.
+  `budgets.monthly_amounts` jsonb column + API accepts/returns it. On a
+  legacy/canonical key collision the entry with monthly detail wins (so an
+  imported granular budget is never shadowed by an old annual seed).
+- **Budget import from workbook:** `app/budget/workbook_import.py` +
+  `scripts/import_budget.py` parse the `DRE 2026` sheet (per-area Custo equipe,
+  institucional Recebimento/Despesas/Imposto/Amortização/Reserva) into
+  `BudgetEntry`s with 12-month detail, upserted on (client,ano,area,line) so the
+  **manual budget API still works** (imported lines refresh in place, manual
+  lines under other keys are preserved). MBC 2026 imported (2026-07-03); the 4
+  legacy annual-only seed rows were removed.
 - **Meta dashboard:** new `meta_dashboard` tab (annual goal 8.060.000, monthly
   goal, this-month attainment, 12-month table) via `assemble_meta`.
 
-Still manual (no DB rule): per-area Comissão / Despesas Equipe / Despesa
-Institucional, the `area_transfers`, and `distribuicao_extras`.
+Still manual (no verified DB rule): per-area Comissão / Despesas Equipe /
+Despesa Institucional, the `area_transfers`, and `distribuicao_extras`.
+
+**Blocked on more workbook samples:** automating the hand-built per-lawyer
+ledger (`Base_Resultado Mensal_V2`: Custo equipe / Comissão / Despesas Equipe,
+and the `Despesa Institucional` rateio allocation that depends on it). Those
+cells contain per-lawyer manual splits (`=12500-C8`, `=3182.83/2`); we need
+several months to confirm the structure is stable before automating.
 
 ### Operator steps to finish the deploy
 1. Apply the new DDL in Supabase (`area_transfers` table + `budgets.

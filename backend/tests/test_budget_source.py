@@ -13,6 +13,25 @@ def test_monthly_budget_splits_annual_evenly():
     assert monthly["institucional"]["recebimento"] == 100.0
 
 
+def test_monthly_budget_prefers_monthly_detail_on_legacy_collision():
+    """A legacy-key entry (custos_diretos, annual only) and its canonical
+    counterpart (custo_equipe, with monthly detail) both normalize to the same
+    (area, line_key). The one carrying monthly_amounts must win regardless of
+    order, so an imported granular budget is never shadowed by an old seed."""
+    legacy = BudgetEntry("mbc", 2026, "institucional", "custos_diretos", 2_403_882.65)
+    canonical = BudgetEntry(
+        "mbc",
+        2026,
+        "institucional",
+        "custo_equipe",
+        2_403_882.65,
+        monthly_amounts=(208_717.59,) * 12,
+    )
+    for order in ([legacy, canonical], [canonical, legacy]):
+        monthly = monthly_budget(order, month=2)
+        assert monthly["institucional"]["custo_equipe"] == 208_717.59
+
+
 def test_budget_source_emits_orcamento_tab():
     entries = [BudgetEntry("mbc", 2026, "institucional", "recebimento", 8060000.0)]
     src = BudgetSource(entries)

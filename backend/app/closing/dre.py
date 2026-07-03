@@ -339,14 +339,15 @@ def _area_rows(
 
     Custo equipe and Recebimento realizado both come from SISJURI per-area
     (Recebimento via CASO -> área jurídica, verified to the centavo vs the
-    workbook). A manual per-area actual still overrides the SISJURI value
-    (later-overrides-earlier), e.g. once the Resumo_Recebidas cross-area
-    transfers are applied. Comissão, Despesas Equipe and Despesa Institucional
-    remain manual (``man``). When absent they render blank; Resultado Bruto is
-    computed once Recebimento is present."""
+    workbook, with Resumo_Recebidas cross-area transfers applied upstream).
+    Recebimento is never hand-filled. Comissão, Despesas Equipe and Despesa
+    Institucional remain manual (``man``); when absent they render blank.
+    Resultado Bruto is computed once Recebimento is present."""
     man = man or {}
     custo = r.area_custo_equipe.get(area)
-    receb = man.get(RECEBIMENTO, r.area_recebimento.get(area))
+    # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
+    # transfers already applied upstream; it is never hand-filled anymore.
+    receb = r.area_recebimento.get(area)
     comissao = man.get(COMISSAO)
     desp_equipe = man.get(DESPESAS_EQUIPE)
     desp_inst = man.get(DESPESA_INSTITUCIONAL)
