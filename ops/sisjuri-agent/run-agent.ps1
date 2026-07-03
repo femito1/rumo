@@ -90,7 +90,17 @@ $json = $raw.Substring($startIdx, $endIdx - $startIdx + 1)
 $json = $json -replace "`r", '' -replace "`n", ''
 
 # Validate it parses.
-try { $obj = $json | ConvertFrom-Json } catch { throw "sqlplus returned invalid JSON: $_" }
+try { $obj = $json | ConvertFrom-Json } catch {
+  $rawPath  = Join-Path $OutDir "raw_$AnoMes.txt"
+  $jsonPath = Join-Path $OutDir "json_$AnoMes.txt"
+  Set-Content -Path $rawPath  -Value $raw  -Encoding UTF8
+  Set-Content -Path $jsonPath -Value $json -Encoding UTF8
+  Write-Output ("[agent] DIAG raw.Length={0} json.Length={1} startIdx={2} endIdx={3}" -f $raw.Length, $json.Length, $startIdx, $endIdx)
+  Write-Output ("[agent] DIAG raw head[0..300]: " + $raw.Substring(0, [Math]::Min(300, $raw.Length)))
+  Write-Output ("[agent] DIAG json head[0..120]: " + $json.Substring(0, [Math]::Min(120, $json.Length)))
+  Write-Output "[agent] DIAG full raw saved to $rawPath ; extracted json saved to $jsonPath"
+  throw "sqlplus returned invalid JSON: $_"
+}
 
 # Stamp the tenant into meta.client_id so the backend stores the snapshot under
 # the right client (multi-tenant). Re-serialize from the parsed object.
