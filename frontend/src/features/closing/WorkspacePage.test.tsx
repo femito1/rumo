@@ -31,7 +31,8 @@ describe("WorkspacePage", () => {
       </MemoryRouter>,
     );
     await waitFor(() => {
-      expect(screen.getByText("Fechamento — MBC")).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "MBC" })).toBeInTheDocument();
+      expect(screen.getByText("Fechamento mensal")).toBeInTheDocument();
       expect(screen.getByText("R$ 415.927,84")).toBeInTheDocument();
     });
   });

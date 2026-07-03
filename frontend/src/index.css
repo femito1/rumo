@@ -322,53 +322,119 @@ input::placeholder {
 /* ============================================================
    Workspace
    ============================================================ */
+/* Header: persistent context strip (title left, filters + actions right). */
 .workspace-top {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: calc(var(--space) * 2);
+  padding-bottom: calc(var(--space) * 2);
   margin-bottom: calc(var(--space) * 3);
+  border-bottom: 1px solid var(--border);
+}
+.workspace-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.workspace-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 .workspace-top h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
-.workspace-title {
+.workspace-toolbar {
   display: flex;
-  flex-direction: column;
-  gap: var(--space);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: calc(var(--space) * 2);
+}
+.toolbar-divider {
+  align-self: stretch;
+  width: 1px;
+  background: var(--border);
+  margin: 2px 0;
 }
 .export-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   gap: var(--space);
 }
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: calc(var(--space) * 2);
-}
+
+/* KPIs: hero strip (4 lead metrics) + a compact secondary strip. */
 .kpis {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: calc(var(--space) * 2);
-  margin-bottom: calc(var(--space) * 2);
+}
+.kpis-hero {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: calc(var(--space) * 1.5);
+}
+.kpis-secondary {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: calc(var(--space) * 3);
+}
+@media (max-width: 900px) {
+  .kpis-hero, .kpis-secondary { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .kpis-hero, .kpis-secondary { grid-template-columns: 1fr; }
 }
 .kpi-label {
   color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 8px;
 }
 .kpi-value {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 .kpi-foot {
   color: var(--muted);
   font-size: 12px;
   margin-top: 4px;
+}
+/* Hero cards lead the scan: bigger value + subtle accent frame + top rule. */
+.kpi-hero {
+  position: relative;
+  padding: 18px;
+  overflow: hidden;
+}
+.kpi-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--api), var(--formula));
+  opacity: 0.9;
+}
+.kpi-hero .kpi-value {
+  font-size: 30px;
+}
+/* Sign-aware coloring so a loss reads instantly. */
+.kpi-pos .kpi-value { color: var(--api); }
+.kpi-neg .kpi-value { color: #f87171; }
+
+/* Actions cluster: collapsible editors, integrated (not stranded). */
+.workspace-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space);
+  margin-bottom: calc(var(--space) * 2);
 }
 .filter-chip {
   display: inline-block;
@@ -751,14 +817,9 @@ input::placeholder {
 }
 
 /* Budget editor */
-.editor-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--space) * 2);
-  align-items: flex-start;
-}
-.editor-row > .budget-editor {
-  flex: 1 1 auto;
+.workspace-actions > .budget-editor {
+  flex: 1 1 340px;
+  min-width: 0;
 }
 .manual-grid {
   overflow-x: auto;
@@ -768,7 +829,7 @@ input::placeholder {
   text-align: right;
 }
 .budget-editor {
-  margin-bottom: calc(var(--space) * 2);
+  margin-bottom: 0;
 }
 .budget-panel {
   margin-top: var(--space);

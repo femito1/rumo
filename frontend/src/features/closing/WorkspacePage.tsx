@@ -41,8 +41,14 @@ export function WorkspacePage() {
   return (
     <div className="workspace">
       <header className="workspace-top">
-        <div className="workspace-title">
-          <h1>Fechamento — {data?.client.name ?? ""}</h1>
+        <div className="workspace-heading">
+          <span className="workspace-eyebrow">Fechamento mensal</span>
+          <h1>{data?.client.name ?? ""}</h1>
+        </div>
+        <div className="workspace-toolbar">
+          <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
+          <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
+          <div className="toolbar-divider" aria-hidden="true" />
           <div className="export-actions">
             <button
               type="button"
@@ -58,13 +64,9 @@ export function WorkspacePage() {
               disabled={!data || loading || !activeTab}
               onClick={() => data && activeTab && exportSingleSheet(data, activeTab)}
             >
-              Exportar esta página
+              Exportar página
             </button>
           </div>
-        </div>
-        <div className="filters">
-          <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
-          <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
         </div>
       </header>
 
@@ -73,21 +75,27 @@ export function WorkspacePage() {
         <Loader />
       ) : (
         <>
-          <section className="kpis">
-            <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} highlight />
-            <KpiCard label="Faturamento Realizado" value={data.kpis.faturamento_realizado ?? null} highlight />
-            <KpiCard label="Resultado Bruto" value={data.kpis.resultado_bruto ?? null} />
-            <KpiCard label="Margem Bruta" value={data.kpis.margem_bruta ?? null} format="percent" />
-            <KpiCard label="Resultado Líquido" value={data.kpis.resultado_liquido ?? null} />
-            <KpiCard label="Margem Líquida" value={data.kpis.margem_liquida ?? null} format="percent" />
-            <KpiCard label="Reserva de Bônus" value={data.kpis.reserva_bonus ?? null} />
+          {!data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
+
+          <section className="kpis kpis-hero">
+            <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} hero />
+            <KpiCard label="Faturamento realizado" value={data.kpis.faturamento_realizado ?? null} hero />
+            <KpiCard label="Resultado líquido" value={data.kpis.resultado_liquido ?? null} hero signed />
+            <KpiCard label="Margem líquida" value={data.kpis.margem_liquida ?? null} hero signed format="percent" />
+          </section>
+
+          <section className="kpis kpis-secondary">
+            <KpiCard label="Resultado bruto" value={data.kpis.resultado_bruto ?? null} signed />
+            <KpiCard label="Margem bruta" value={data.kpis.margem_bruta ?? null} signed format="percent" />
+            <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
             <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} format="number" />
           </section>
-          {!data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
-          <div className="editor-row">
+
+          <div className="workspace-actions">
             <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
             <ManualActualsEditor clientId={id} anoMes={month} />
           </div>
+
           <nav className="tab-rail">
             {data.tab_order.map((t) => (
               <button key={t} className={t === activeTab ? "active" : ""} onClick={() => setActiveTab(t)}>
