@@ -518,8 +518,8 @@ input::placeholder {
 }
 .loader-stage {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
 }
 .loader-orbit {
   position: absolute;
@@ -531,9 +531,9 @@ input::placeholder {
   animation-iteration-count: infinite;
   animation-duration: 2.4s;
 }
-.loader-orbit-1 { animation-duration: 2.4s; }
-.loader-orbit-2 { inset: 22px; animation-duration: 1.7s; animation-direction: reverse; }
-.loader-orbit-3 { inset: 44px; animation-duration: 3.1s; }
+.loader-orbit-1 { inset: 0; animation-duration: 2.4s; }
+.loader-orbit-2 { inset: 34px; animation-duration: 1.7s; animation-direction: reverse; }
+.loader-orbit-3 { inset: 66px; animation-duration: 3.1s; }
 .loader-body {
   position: absolute;
   top: -7px;
