@@ -15,14 +15,26 @@ SET DEFINE ON
 SET HEADING OFF
 SET FEEDBACK OFF
 SET PAGESIZE 0
-SET LINESIZE 32767
+SET LINESIZE 200
 SET LONG 100000000
 SET LONGCHUNKSIZE 100000000
 SET TRIMSPACE ON
 SET TERMOUT ON
+SET SERVEROUTPUT ON SIZE UNLIMITED
 WHENEVER SQLERROR EXIT FAILURE
 
-SELECT JSON_OBJECT(
+-- The JSON document routinely exceeds sqlplus's 32767 LINESIZE ceiling. Printing
+-- it as a single CLOB column makes sqlplus truncate/wrap the line and corrupt the
+-- JSON (observed on large months). Instead we build the CLOB, then emit it in
+-- small fixed-size chunks via DBMS_OUTPUT so no physical line exceeds LINESIZE.
+-- run-agent.ps1 strips the physical CR/LF to reassemble the document at any size.
+DECLARE
+  doc   CLOB;
+  len   PLS_INTEGER;
+  pos   PLS_INTEGER := 1;
+  chunk PLS_INTEGER := 180;
+BEGIN
+  SELECT JSON_OBJECT(
   'meta' VALUE JSON_OBJECT(
      'ano_mes' VALUE '&ANO_MES',
      'd_start' VALUE '&D_START',
@@ -190,7 +202,14 @@ SELECT JSON_OBJECT(
             GROUP BY NVL(p.SIGLA, r.ID_PROFISSIONAL), g.NOME, r.ID_CONTA)
   )
   RETURNING CLOB
-) AS closing_json
-FROM dual;
+) INTO doc FROM dual;
+
+  len := DBMS_LOB.GETLENGTH(doc);
+  WHILE pos <= len LOOP
+    DBMS_OUTPUT.PUT_LINE(DBMS_LOB.SUBSTR(doc, chunk, pos));
+    pos := pos + chunk;
+  END LOOP;
+END;
+/
 
 EXIT;
