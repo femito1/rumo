@@ -68,10 +68,10 @@ export function ManualActualsEditor({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        {open ? "Fechar lançamentos por área" : "Lançar recebimento por área"}
+        {open ? "Fechar lançamentos" : "Recebimento por área"}
       </button>
       {open ? (
-        <div className="budget-panel">
+        <div className="budget-panel popover-panel popover-panel-wide">
           {loading ? (
             <div className="loading-block">
               <div className="spinner" aria-label="Carregando" />

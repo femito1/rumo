@@ -22,7 +22,7 @@ describe("ManualActualsEditor", () => {
     vi.spyOn(api, "apiFetch").mockResolvedValue(manual as never);
     render(<ManualActualsEditor clientId="mbc" anoMes="2026-02" />);
     expect(screen.queryByText("Contencioso")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /Lançar recebimento por área/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Recebimento por área/ }));
     await waitFor(() => expect(screen.getByText("Contencioso")).toBeInTheDocument());
     const inputs = screen.getAllByRole("spinbutton") as HTMLInputElement[];
     expect(inputs[0].value).toBe("138600.13");
@@ -31,7 +31,7 @@ describe("ManualActualsEditor", () => {
   it("PUTs the manual entries on save to the ano_mes endpoint", async () => {
     const fetchSpy = vi.spyOn(api, "apiFetch").mockResolvedValue(manual as never);
     render(<ManualActualsEditor clientId="mbc" anoMes="2026-02" />);
-    fireEvent.click(screen.getByRole("button", { name: /Lançar recebimento por área/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Recebimento por área/ }));
     await waitFor(() => expect(screen.getByText("Arbitragem")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /Salvar lançamentos/ }));
     await waitFor(() => {

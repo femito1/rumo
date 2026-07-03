@@ -4,10 +4,16 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { DayRangeFilter } from "./DayRangeFilter";
 
+/** Open the popover so the day inputs are mounted. */
+async function openPopover() {
+  await userEvent.click(screen.getByRole("button", { name: /Filtrar por dia/i }));
+}
+
 describe("DayRangeFilter", () => {
   it("does not fire onApply while typing — only on Aplicar", async () => {
     const onApply = vi.fn();
     render(<DayRangeFilter from={null} to={null} maxDay={31} onApply={onApply} onClear={() => {}} />);
+    await openPopover();
 
     const inputs = screen.getAllByRole("textbox");
     await userEvent.type(inputs[0], "1");
@@ -21,6 +27,7 @@ describe("DayRangeFilter", () => {
   it("rejects an inverted range with a message and no apply", async () => {
     const onApply = vi.fn();
     render(<DayRangeFilter from={null} to={null} maxDay={31} onApply={onApply} onClear={() => {}} />);
+    await openPopover();
     const inputs = screen.getAllByRole("textbox");
     await userEvent.type(inputs[0], "20");
     await userEvent.type(inputs[1], "5");
@@ -31,6 +38,7 @@ describe("DayRangeFilter", () => {
 
   it("clamps non-numeric and out-of-range input (no sticky leading zero)", async () => {
     render(<DayRangeFilter from={null} to={null} maxDay={31} onApply={() => {}} onClear={() => {}} />);
+    await openPopover();
     const inputs = screen.getAllByRole("textbox") as HTMLInputElement[];
     await userEvent.type(inputs[0], "0");
     expect(inputs[0].value).toBe(""); // 0 -> empty, no stuck zero
@@ -40,8 +48,17 @@ describe("DayRangeFilter", () => {
 
   it("clamps to the month's real length (February -> 28)", async () => {
     render(<DayRangeFilter from={null} to={null} maxDay={28} onApply={() => {}} onClear={() => {}} />);
+    await openPopover();
     const inputs = screen.getAllByRole("textbox") as HTMLInputElement[];
     await userEvent.type(inputs[1], "31");
     expect(inputs[1].value).toBe("28"); // can't exceed Feb's 28 days
+  });
+
+  it("shows the active range on the trigger and clears it", async () => {
+    const onClear = vi.fn();
+    render(<DayRangeFilter from={3} to={12} maxDay={31} onApply={() => {}} onClear={onClear} />);
+    expect(screen.getByRole("button", { name: /Dias 3–12/ })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Limpar filtro de dias/i }));
+    expect(onClear).toHaveBeenCalled();
   });
 });

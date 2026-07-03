@@ -5,6 +5,7 @@ import { apiFetch } from "../../lib/api";
 import { useClosing } from "./useClosing";
 import { MonthPicker } from "./MonthPicker";
 import { DayRangeFilter } from "./DayRangeFilter";
+import { ExportMenu } from "./ExportMenu";
 import { KpiCard } from "../../components/KpiCard";
 import { Skeleton } from "../../components/Skeleton";
 import { Loader } from "../../components/Loader";
@@ -47,25 +48,17 @@ export function WorkspacePage() {
         </div>
         <div className="workspace-toolbar">
           <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
-          <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
-          <div className="toolbar-divider" aria-hidden="true" />
-          <div className="export-actions">
-            <button
-              type="button"
-              className="btn btn-ghost btn-sm"
+          <div className="toolbar-actions">
+            <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
+            <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
+            <ManualActualsEditor clientId={id} anoMes={month} />
+            <div className="toolbar-divider" aria-hidden="true" />
+            <ExportMenu
               disabled={!data || loading}
-              onClick={() => data && exportAllSheets(data)}
-            >
-              Exportar tudo
-            </button>
-            <button
-              type="button"
-              className="btn btn-ghost btn-sm"
-              disabled={!data || loading || !activeTab}
-              onClick={() => data && activeTab && exportSingleSheet(data, activeTab)}
-            >
-              Exportar página
-            </button>
+              pageEnabled={!!activeTab}
+              onExportAll={() => data && exportAllSheets(data)}
+              onExportPage={() => data && activeTab && exportSingleSheet(data, activeTab)}
+            />
           </div>
         </div>
       </header>
@@ -90,11 +83,6 @@ export function WorkspacePage() {
             <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
             <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} format="number" />
           </section>
-
-          <div className="workspace-actions">
-            <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
-            <ManualActualsEditor clientId={id} anoMes={month} />
-          </div>
 
           <nav className="tab-rail">
             {data.tab_order.map((t) => (

@@ -23,7 +23,7 @@ describe("BudgetEditor", () => {
     render(<BudgetEditor clientId="mbc" ano={2026} />);
     // Collapsed: inputs not shown yet.
     expect(screen.queryByText("Faturamento")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /Editar orçamento 2026/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Orçamento 2026/ }));
     await waitFor(() => {
       expect(screen.getByText("Faturamento")).toBeInTheDocument();
     });
@@ -35,7 +35,7 @@ describe("BudgetEditor", () => {
   it("PUTs the edited entries on save", async () => {
     const fetchSpy = vi.spyOn(api, "apiFetch").mockResolvedValue(budget as never);
     render(<BudgetEditor clientId="mbc" ano={2026} />);
-    fireEvent.click(screen.getByRole("button", { name: /Editar orçamento 2026/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Orçamento 2026/ }));
     await waitFor(() => expect(screen.getByText("Impostos")).toBeInTheDocument());
     fireEvent.click(screen.getByRole("button", { name: /Salvar orçamento/ }));
     await waitFor(() => {

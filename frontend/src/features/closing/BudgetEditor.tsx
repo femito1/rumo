@@ -57,10 +57,10 @@ export function BudgetEditor({ clientId, ano }: { clientId: string; ano: number 
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        {open ? "Fechar orçamento" : `Editar orçamento ${ano}`}
+        {open ? "Fechar orçamento" : `Orçamento ${ano}`}
       </button>
       {open ? (
-        <div className="budget-panel">
+        <div className="budget-panel popover-panel">
           {loading ? (
             <div className="loading-block">
               <div className="spinner" aria-label="Carregando" />
