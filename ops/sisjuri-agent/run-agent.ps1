@@ -81,6 +81,14 @@ if ($startIdx -lt 0 -or $endIdx -le $startIdx) {
 }
 $json = $raw.Substring($startIdx, $endIdx - $startIdx + 1)
 
+# sqlplus emits the whole document as ONE logical line but hard-wraps it at
+# LINESIZE (max 32767) by injecting physical CR/LF. On large months those wraps
+# land mid-token and corrupt the JSON. Our JSON_OBJECT output is compact with no
+# legitimate embedded newlines (real newlines in values would be escaped as \n,
+# two chars, which this does NOT touch), so stripping physical CR/LF perfectly
+# reassembles the wrapped line regardless of size.
+$json = $json -replace "`r", '' -replace "`n", ''
+
 # Validate it parses.
 try { $obj = $json | ConvertFrom-Json } catch { throw "sqlplus returned invalid JSON: $_" }
 
