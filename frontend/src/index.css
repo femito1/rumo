@@ -591,8 +591,13 @@ input::placeholder {
   0%, 100% { opacity: 0.55; }
   50% { opacity: 1; }
 }
+/* Reduced motion: don't freeze the loader (users read it as "hung"). Keep a
+   single calm, slow pulse so it still reads as active. */
 @media (prefers-reduced-motion: reduce) {
-  .loader-orbit, .loader-core, .loader-coin, .loader-msg { animation: none; }
+  .loader-orbit-2, .loader-orbit-3, .loader-coin { animation: none; }
+  .loader-orbit-1 { animation-duration: 4s; }
+  .loader-core { animation-duration: 3s; }
+  .loader-msg { animation-duration: 3s; }
 }
 
 /* Tabs */
