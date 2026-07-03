@@ -247,7 +247,19 @@ expenses gross/competence (`GERENC_LANCAMENTORESUMO`), pró-labore gross
   snapshot per competence month, TLS-1.2 outbound POST. Verified on the server:
   `closing_2026-02.json` (recebimento 319.233,58; 30 expense accounts).
 - **Egress = Option A** (server pushes to VPS): `POST /api/ingest` (bearer-token,
-  `INGEST_TOKEN`) stores snapshots via `SnapshotStore` (`SNAPSHOT_DIR`).
+  `INGEST_TOKEN`) stores snapshots via the snapshot store.
+- **Snapshots persist in Supabase (2026-07-03).** `sisjuri_snapshots`
+  (`client_id, ano_mes, payload jsonb`, PK `(client_id, ano_mes)`) is now the
+  durable, multi-tenant source of truth — the whole financial dataset lives in
+  Postgres alongside `budgets`/`manual_actuals`, not on the VPS disk.
+  `SupabaseSnapshotStore` is selected in prod; the filesystem `SnapshotStore`
+  (`SNAPSHOT_DIR`) remains the `USE_FAKE_REPO`/local-dev fallback and gained
+  client scoping (with a legacy clientless-filename read fallback). `client_id`
+  flows through `/api/ingest` (`meta.client_id`, default `"mbc"`) and the closing
+  read path (`client.id`). The agent stamps `meta.client_id`. A one-time
+  token-protected `POST /api/ingest/migrate-fs-to-supabase` copied the existing
+  30 months (2024-01 → 2026-06) into Supabase; verified the closing endpoint now
+  reads from Supabase with the sacred numbers intact.
 - **`app/sources/sisjuri_db.py`** (`SisjuriDbSource`) consumes a snapshot and
   emits `SectionKey`s, encoding the pró-labore-gross and bonus-reserve rules.
   Tested against a recorded fixture (`tests/fixtures/sisjuri_2026_02.json`).
