@@ -531,9 +531,11 @@ input::placeholder {
   animation-iteration-count: infinite;
   animation-duration: 2.4s;
 }
-.loader-orbit-1 { inset: 0; animation-duration: 2.4s; }
-.loader-orbit-2 { inset: 34px; animation-duration: 1.7s; animation-direction: reverse; }
-.loader-orbit-3 { inset: 66px; animation-duration: 3.1s; }
+/* Radii (200px stage, center 100px): outer 95 / mid 72 / inner 50.
+   Core radius is 28px, so even the inner orbit clears it with room to spare. */
+.loader-orbit-1 { inset: 5px; animation-duration: 2.4s; }
+.loader-orbit-2 { inset: 28px; animation-duration: 1.7s; animation-direction: reverse; }
+.loader-orbit-3 { inset: 50px; animation-duration: 3.1s; }
 .loader-body {
   position: absolute;
   top: -7px;
@@ -552,14 +554,14 @@ input::placeholder {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 30% 30%, #1c2230, var(--surface));
   border: 1px solid var(--border);
-  box-shadow: 0 0 34px rgba(34, 197, 94, 0.28);
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.28);
   animation: loader-breathe 1.8s ease-in-out infinite;
 }
 .loader-coin {
