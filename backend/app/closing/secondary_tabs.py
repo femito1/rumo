@@ -155,6 +155,52 @@ def assemble_dre_2026(
     }
 
 
+def assemble_faturas_analitico(
+    snapshot: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Per-case faturamento detail ('FATURAS Analitico' grain). One row per case
+    from the snapshot's faturas_analitico (POSFIN_RESULTFAT split by CASE), with
+    código, assunto, área and the faturamento total; plus a Total row."""
+    rows_in = (snapshot or {}).get("faturas_analitico", []) or []
+
+    def cell(v: float | None) -> dict[str, Any]:
+        return {"value": v, "source": "realizado"}
+
+    rows: list[dict[str, Any]] = []
+    running = 0.0
+    for r in sorted(
+        rows_in, key=lambda x: float(x.get("total", 0.0) or 0.0), reverse=True
+    ):
+        total = round(float(r.get("total", 0.0) or 0.0), 2)
+        running += total
+        rows.append(
+            {
+                "Código": str(r.get("codigo", "") or ""),
+                "Caso": str(r.get("caso", "") or ""),
+                "Área": str(r.get("area", "") or ""),
+                "Faturamento": cell(total),
+                "n": int(r.get("n", 0) or 0),
+                "kind": "amount",
+            }
+        )
+    rows.append(
+        {
+            "Código": "",
+            "Caso": "Total",
+            "Área": "",
+            "Faturamento": cell(round(running, 2) if rows_in else None),
+            "kind": "total",
+            "is_total": True,
+        }
+    )
+    return {
+        "kind": "rich",
+        "name": "FATURAS Analítico",
+        "columns": ["Código", "Caso", "Área", "Faturamento"],
+        "rows": rows,
+    }
+
+
 def assemble_meta(
     budget: dict[str, dict[str, float]] | None,
     *,

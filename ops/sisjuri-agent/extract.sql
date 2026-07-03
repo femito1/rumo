@@ -4,11 +4,13 @@
 --
 -- Output contract: one JSON object with keys: meta, revenue, faturas,
 -- rateio_prof, despesas_conta, custo_area, recebimento_area, faturamento_area,
--- prolabore, distribuicao_socio, custo_equipe_prof.
+-- faturas_analitico, prolabore, distribuicao_socio, custo_equipe_prof.
 --
--- SAFE backfill variant: faturas_analitico OMITTED (its FAT_FATURA column names
--- are unverified and would fail the whole extract). recebimento_area and
--- faturamento_area are verified and included.
+-- faturas_analitico is per-CASE faturamento detail built on the (verified)
+-- POSFIN_RESULTFAT view joined to CAD_CASO / CAD_AREAJURIDICA. FAT_FATURA was
+-- the wrong source (invoice headers: no payment date, no liquido, no ID_CASO);
+-- POSFIN_RESULTFAT is the received/faturamento basis with ID_CASO + VALOR1.
+-- All columns used here are confirmed present (probe 2026-07-03).
 SET DEFINE ON
 SET HEADING OFF
 SET FEEDBACK OFF
@@ -114,6 +116,30 @@ SELECT JSON_OBJECT(
              LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
             WHERE r.ANO_MES = '&ANO_MES'
             GROUP BY a.NOME)
+  ),
+  -- Per-CASE faturamento detail (the 'FATURAS Analitico' grain). POSFIN_RESULTFAT
+  -- is per financial-position row (VALOR1) tagged by ID_CASO; join to CAD_CASO for
+  -- código/assunto/área. Client name lives behind CAD_CLIENTE->CAD_PESSOA (unverified
+  -- 2-hop) so it is intentionally omitted; the workbook shows the case name anyway.
+  'faturas_analitico' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'id_caso'    VALUE id_caso,
+        'codigo'     VALUE codigo,
+        'caso'       VALUE caso,
+        'area'       VALUE area,
+        'total'      VALUE total,
+        'n'          VALUE n
+     ) RETURNING CLOB)
+     FROM (SELECT r.ID_CASO id_caso,
+                  MAX(c.CODIGO) codigo,
+                  MAX(c.ASSUNTO) caso,
+                  NVL(MAX(a.NOME), '(sem area)') area,
+                  ROUND(SUM(r.VALOR1),2) total, COUNT(*) n
+             FROM LDESK.GERENC_VW_POSFIN_RESULTFAT r
+             LEFT JOIN LDESK.CAD_CASO c ON c.ID_CASO = r.ID_CASO
+             LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
+            WHERE r.ANO_MES = '&ANO_MES'
+            GROUP BY r.ID_CASO)
   ),
   'prolabore' VALUE (
      SELECT JSON_ARRAYAGG(JSON_OBJECT(

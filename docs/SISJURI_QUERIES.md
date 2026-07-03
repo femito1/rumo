@@ -344,8 +344,14 @@ professional. The receipt view splits by **case → área jurídica**:
 - Name mapping: `Direito Econômico`→Econômico, `Arbitragem MV`→Arbitragem
   (handled by `workbook_layouts.match_area`); `Ambiental` (always 0) is ignored.
 - Faturamento mirrors this via `GERENC_VW_POSFIN_RESULTFAT` (extract key
-  `faturamento_area`); the per-invoice `faturas_analitico` uses `FAT_FATURA`
-  (column names still to be verified with `probe_faturas_analitico.sql`).
+  `faturamento_area`).
+- **`faturas_analitico` corrected (2026-07-03 probe):** `FAT_FATURA` was the
+  wrong source — it is invoice *headers* with **no payment date, no líquido, no
+  `ID_CASO`**. The per-case detail is built on `GERENC_VW_POSFIN_RESULTFAT`
+  (`ID_CASO` + `VALOR1` + `ANO_MES`) joined to `CAD_CASO` (`CODIGO`, `ASSUNTO`,
+  `ID_AREAJURIDICA`). Grain is per case (not per invoice); client name lives
+  behind `CAD_CLIENTE`→`CAD_PESSOA` (unverified 2-hop) so it is omitted — the
+  case `ASSUNTO` is shown instead, matching the workbook's "Nome do caso".
 
 ---
 

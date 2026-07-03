@@ -437,6 +437,7 @@ def assemble_dre_sections(
     from app.closing.secondary_tabs import (
         assemble_amortizacao,
         assemble_dre_2026,
+        assemble_faturas_analitico,
         assemble_fluxo_consolidado,
         assemble_institucional_ano,
         assemble_meta,
@@ -474,6 +475,7 @@ def assemble_dre_sections(
         month=month,
         recebimento_realizado=r.recebimento if not missing else None,
     )
+    sections["faturas_analitico"] = assemble_faturas_analitico(snapshot)
     return sections
 
 

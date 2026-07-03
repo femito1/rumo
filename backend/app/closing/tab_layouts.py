@@ -9,6 +9,7 @@ from __future__ import annotations
 
 TAB_ORDER = ['meta',
  'meta_dashboard',
+ 'faturas_analitico',
  'base_resultado',
  'areas_sintetico',
  'resumo_recebidas',

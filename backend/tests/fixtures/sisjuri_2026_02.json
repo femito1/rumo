@@ -340,6 +340,24 @@
       "n": 26
     }
   ],
+  "faturas_analitico": [
+    {
+      "id_caso": "CASE-1",
+      "codigo": "10",
+      "caso": "Ream - Trabalhos Adicionais",
+      "area": "Direito Econômico",
+      "total": 42730.54,
+      "n": 3
+    },
+    {
+      "id_caso": "CASE-2",
+      "codigo": "1",
+      "caso": "Ato de Concentração - Projeto CSA",
+      "area": "Contencioso",
+      "total": 350.0,
+      "n": 1
+    }
+  ],
   "recebimento_area": [
     {
       "area": "Contencioso",

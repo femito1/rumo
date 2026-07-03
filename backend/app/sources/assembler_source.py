@@ -46,6 +46,7 @@ class AssemblerSource:
             SectionKey.INSTITUCIONAL_ANO,
             SectionKey.FLUXO_CONSOLIDADO,
             SectionKey.META_DASHBOARD,
+            SectionKey.FATURAS_ANALITICO,
         }
 
     def fetch(self, period: Period, day_range: DayRange) -> dict[SectionKey, SectionData]:
