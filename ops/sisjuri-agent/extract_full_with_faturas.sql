@@ -4,11 +4,13 @@
 --
 -- Output contract: one JSON object with keys: meta, revenue, faturas,
 -- rateio_prof, despesas_conta, custo_area, recebimento_area, faturamento_area,
--- prolabore, distribuicao_socio, custo_equipe_prof.
+-- faturas_analitico, prolabore, distribuicao_socio, custo_equipe_prof.
 --
--- SAFE backfill variant: faturas_analitico OMITTED (its FAT_FATURA column names
--- are unverified and would fail the whole extract). recebimento_area and
--- faturamento_area are verified and included.
+-- NOTE: `faturas_analitico` column names on LDESK.FAT_FATURA
+-- (VALOR_HONORARIO / VALOR_LIQUIDO / DATA_PAGAMENTO / ID_CLIENTE) and the
+-- LDESK.CAD_CLIENTE join are UNVERIFIED against the live schema — run the probe
+-- block in probe_faturas_analitico.sql before trusting this on the server.
+-- `faturamento_area` (POSFIN_RESULTFAT split, mirrors recebimento_area) is safe.
 SET DEFINE ON
 SET HEADING OFF
 SET FEEDBACK OFF
@@ -114,6 +116,31 @@ SELECT JSON_OBJECT(
              LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
             WHERE r.ANO_MES = '&ANO_MES'
             GROUP BY a.NOME)
+  ),
+  -- Per-invoice FATURAS Analitico detail: número, cliente, caso, valores e área
+  -- (Sócio Responsável). Payment/cancel date drives the workbook's month.
+  'faturas_analitico' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'num_fatura'     VALUE num_fatura,
+        'cliente'        VALUE cliente,
+        'caso'           VALUE caso,
+        'data_pagto'     VALUE data_pagto,
+        'valor_original' VALUE valor_original,
+        'valor_liquido'  VALUE valor_liquido,
+        'area'           VALUE area
+     ) RETURNING CLOB)
+     FROM (SELECT f.NUMERO num_fatura,
+                  cl.NOME cliente,
+                  cs.NOME caso,
+                  TO_CHAR(f.DATA_PAGAMENTO, 'YYYY-MM-DD') data_pagto,
+                  ROUND(f.VALOR_HONORARIO,2) valor_original,
+                  ROUND(f.VALOR_LIQUIDO,2)   valor_liquido,
+                  NVL(a.NOME, '(sem area)')  area
+             FROM LDESK.FAT_FATURA f
+             LEFT JOIN LDESK.CAD_CASO cs ON cs.ID_CASO = f.ID_CASO
+             LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = cs.ID_AREAJURIDICA
+             LEFT JOIN LDESK.CAD_CLIENTE cl ON cl.ID_CLIENTE = f.ID_CLIENTE
+            WHERE f.DATA_PAGAMENTO >= DATE '&D_START' AND f.DATA_PAGAMENTO < DATE '&D_END')
   ),
   'prolabore' VALUE (
      SELECT JSON_ARRAYAGG(JSON_OBJECT(

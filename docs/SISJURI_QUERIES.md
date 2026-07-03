@@ -309,6 +309,44 @@ hardcoded month anywhere.
   The workbook's per-lawyer salary/distribution rows come from the §6
   `FINANCE.LANCAMENTO` per-partner split, not from the resumo.
 
+### Probe findings (2026-07-03) — per-area recebimento RULE CONFIRMED ✅
+
+The per-area *Recebimento* split **is** derivable, and it is NOT via the
+professional. The receipt view splits by **case → área jurídica**:
+
+- `GERENC_VW_POSFIN_RESULTREC.ID_PROFISSIONAL` is entirely unmapped for receipts
+  (all rows `(sem area)`), so prof→grupo does **not** work here.
+- `CAD_CASO` carries **`ID_AREAJURIDICA`** (+ `ID_SUBAREAJURIDICA`); a dedicated
+  `CAD_AREAJURIDICA` table holds the name (`NOME`, e.g. "Direito Econômico",
+  "Arbitragem MV", "Contencioso", "Ambiental").
+- Rule (verified to the centavo, Jan & Fev 2026):
+
+  ```sql
+  SELECT NVL(a.NOME,'(sem area)') area, ROUND(SUM(r.VALOR1),2) total
+    FROM LDESK.GERENC_VW_POSFIN_RESULTREC r
+    LEFT JOIN LDESK.CAD_CASO c ON c.ID_CASO = r.ID_CASO
+    LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
+   WHERE r.ANO_MES = :ano_mes GROUP BY a.NOME;
+  ```
+
+  | area | Jan | Fev |
+  |---|---|---|
+  | Contencioso | 57.490,92 | 133.202,74 |
+  | Direito Econômico | 105.768,64 | 117.626,71 |
+  | Arbitragem MV | 116.561,51 | 68.404,13 |
+  | Ambiental | 0 | 0 |
+
+  These are the workbook's per-area **base** numbers (57.491 / 105.769 / 116.562,
+  etc.). The workbook's final `Receita` per area = this base **+** the small
+  cross-area reclassifications in `Resumo_Recebidas` (net 0 across areas). Those
+  transfers are genuinely manual (no DB rule) and modeled as `area_transfers`
+  (origem→destino deltas) overlaid on the base.
+- Name mapping: `Direito Econômico`→Econômico, `Arbitragem MV`→Arbitragem
+  (handled by `workbook_layouts.match_area`); `Ambiental` (always 0) is ignored.
+- Faturamento mirrors this via `GERENC_VW_POSFIN_RESULTFAT` (extract key
+  `faturamento_area`); the per-invoice `faturas_analitico` uses `FAT_FATURA`
+  (column names still to be verified with `probe_faturas_analitico.sql`).
+
 ---
 
 ## 10. Data egress — how the automation actually reaches the DB

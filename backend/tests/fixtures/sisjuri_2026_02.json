@@ -340,6 +340,28 @@
       "n": 26
     }
   ],
+  "recebimento_area": [
+    {
+      "area": "Contencioso",
+      "total": 133202.74,
+      "n": 57
+    },
+    {
+      "area": "Direito Econômico",
+      "total": 117626.71,
+      "n": 21
+    },
+    {
+      "area": "Arbitragem MV",
+      "total": 68404.13,
+      "n": 13
+    },
+    {
+      "area": "Ambiental",
+      "total": 0,
+      "n": 1
+    }
+  ],
   "prolabore": [
     {
       "sigla": "ASG",

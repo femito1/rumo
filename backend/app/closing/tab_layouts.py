@@ -8,6 +8,7 @@ values for the target month on the automated tabs.
 from __future__ import annotations
 
 TAB_ORDER = ['meta',
+ 'meta_dashboard',
  'base_resultado',
  'areas_sintetico',
  'resumo_recebidas',

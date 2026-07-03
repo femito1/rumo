@@ -21,6 +21,7 @@ class SectionKey(str, Enum):
     RATEIO_MENSAL = "rateio_mensal"
     FLUXO_CONSOLIDADO = "fluxo_consolidado"
     AMORTIZACAO = "amortizacao"
+    META_DASHBOARD = "meta_dashboard"
 
 @dataclass(frozen=True)
 class DayRange:

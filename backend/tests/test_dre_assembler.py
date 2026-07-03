@@ -36,6 +36,57 @@ def test_custo_equipe_prefers_area_breakdown(snapshot):
     assert r.custo_equipe == pytest.approx(expected, abs=0.05)
 
 
+def test_recebimento_area_parsed_from_snapshot(snapshot):
+    # Per-area recebimento is now derived from SISJURI (CASO -> área jurídica),
+    # verified to the centavo against the workbook (Fev 2026).
+    r = RealizadoInputs.from_snapshot(snapshot)
+    assert r.area_recebimento["Contencioso"] == pytest.approx(133202.74, abs=0.05)
+    assert r.area_recebimento["Econômico"] == pytest.approx(117626.71, abs=0.05)
+    assert r.area_recebimento["Arbitragem"] == pytest.approx(68404.13, abs=0.05)
+
+
+def test_area_tab_recebimento_from_sisjuri(snapshot):
+    # No manual overlay: the area tab's Recebimento realizado should come from
+    # the snapshot's recebimento_area, not require manual entry.
+    sections = assemble_dre_sections(snapshot=snapshot, budget=None, period_label="Fev 2026")
+    receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
+    assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
+
+
+def test_transfers_overlay_applied_to_area_recebimento(snapshot):
+    # Resumo_Recebidas transfers net onto the SISJURI base per area.
+    from app.manual.transfers import AreaTransfer
+
+    transfers = [
+        AreaTransfer("mbc", "2026-02", "Arbitragem", "Contencioso", 4362.575),
+        AreaTransfer("mbc", "2026-02", "Arbitragem", "Contencioso", 1034.5535),
+        AreaTransfer("mbc", "2026-02", "Arbitragem", "Econômico", 1034.5535),
+    ]
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", transfers=transfers
+    )
+    conten = _row(sections["contencioso"]["rows"], RECEBIMENTO)
+    arbitr = _row(sections["arbitragem"]["rows"], RECEBIMENTO)
+    econ = _row(sections["economico"]["rows"], RECEBIMENTO)
+    # base 133202.74 + 4362.575 + 1034.5535 = 138599.87
+    assert conten["Realizado"]["value"] == pytest.approx(138599.87, abs=0.05)
+    # base 68404.13 - 4362.575 - 1034.5535 - 1034.5535 = 61972.45
+    assert arbitr["Realizado"]["value"] == pytest.approx(61972.45, abs=0.05)
+    # base 117626.71 + 1034.5535 = 118661.26
+    assert econ["Realizado"]["value"] == pytest.approx(118661.26, abs=0.05)
+
+
+def test_manual_recebimento_overrides_sisjuri(snapshot):
+    # A manual per-area actual still wins (later-overrides-earlier), e.g. once
+    # the Resumo_Recebidas transfers are applied.
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026",
+        manual={"Contencioso": {RECEBIMENTO: 138600.13}},
+    )
+    receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
+    assert receb["Realizado"]["value"] == pytest.approx(138600.13, abs=0.05)
+
+
 def test_institutional_sections_roll_up_by_family(snapshot):
     r = RealizadoInputs.from_snapshot(snapshot)
     names = [s.name for s in r.sections]
@@ -122,6 +173,36 @@ def test_base_resultado_groups_per_lawyer_by_area(snapshot):
     # A per-lawyer sub-row is present and indented.
     prof_rows = [r for r in tab["rows"] if r["key"].startswith("prof::")]
     assert prof_rows and all(r["indent"] == 1 for r in prof_rows)
+
+
+def test_base_resultado_distribuicao_extras_block(snapshot):
+    from app.closing.dre import assemble_base_resultado
+
+    tab = assemble_base_resultado(snapshot, "Fev 2026")
+    labels = [r["Linha"] for r in tab["rows"]]
+    assert "Distribuição de Lucros extras" in labels
+    for line in ("Bônus equipe", "DL excedente dos sócios", "DL Extraordinária",
+                 "DL excedente MV", "Repasse Cacione"):
+        assert line in labels, f"missing extras line: {line}"
+    # The block total row carries the section_total kind.
+    block = next(r for r in tab["rows"] if r["key"] == "distrib_extras")
+    assert block["kind"] == "section_total"
+
+
+def test_base_resultado_extras_values_from_snapshot():
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "distribuicao_extras": {
+            "bonus_equipe": 101705.84,
+            "dl_extraordinaria": 164477.34,
+        }
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(101705.84, abs=0.05)
+    total = next(r for r in tab["rows"] if r["key"] == "distrib_extras")
+    assert total["Valor"]["value"] == pytest.approx(266183.18, abs=0.05)
 
 
 def test_base_resultado_lump_distribution_row(snapshot):

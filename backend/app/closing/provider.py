@@ -86,6 +86,13 @@ def _manual_repo():
     return get_manual_repo()
 
 
+def _transfers_repo():
+    """Lazy area-transfers repo lookup; imported lazily to avoid import cycles."""
+    from app.api.providers import get_transfers_repo
+
+    return get_transfers_repo()
+
+
 def build_provider_for(client: Client, *, period: Period | None = None) -> ClosingProvider:
     """Resolve a client's `provider` column to an ordered list of Sources (spec §4)."""
     if client.provider == "legaldesk":
@@ -114,7 +121,9 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
                 from app.budget.models import monthly_budget
 
                 entries = _budget_repo().get_budget(client.id, period.year)
-                budget_monthly = monthly_budget(entries) if entries else None
+                budget_monthly = (
+                    monthly_budget(entries, month=period.month) if entries else None
+                )
             except Exception:  # pragma: no cover - budget is best-effort overlay
                 budget_monthly = None
         sources.append(BudgetSource(entries))
@@ -129,9 +138,19 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
             except Exception:  # pragma: no cover - manual overlay is best-effort
                 manual_by_area = None
 
+        transfers = None
+        if period is not None:
+            try:
+                transfers = _transfers_repo().get_transfers(client.id, period.ano_mes)
+            except Exception:  # pragma: no cover - transfers overlay is best-effort
+                transfers = None
+
         sources.append(
             AssemblerSource(
-                snapshot=snapshot, budget=budget_monthly, manual=manual_by_area
+                snapshot=snapshot,
+                budget=budget_monthly,
+                manual=manual_by_area,
+                transfers=transfers,
             )
         )
         return ClosingProvider(sources=sources)

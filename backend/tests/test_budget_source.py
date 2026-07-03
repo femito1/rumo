@@ -1,4 +1,6 @@
 # backend/tests/test_budget_source.py
+import pytest
+
 from app.budget.models import BudgetEntry, monthly_budget
 from app.closing.period import Period
 from app.sources.base import DayRange, SectionKey
@@ -48,3 +50,31 @@ def test_monthly_budget_normalizes_legacy_keys():
     monthly = monthly_budget(entries)
     assert monthly["institucional"]["recebimento"] == round(8060000.0 / 12, 2)
     assert "faturamento" not in monthly["institucional"]
+
+
+def test_monthly_budget_uses_per_month_amounts_when_present():
+    # Workbook-granularity budgets carry 12 distinct monthly values that need not
+    # be annual/12 (e.g. Custo equipe varies by month).
+    months = tuple(float(m) for m in range(1, 13))  # 1..12
+    entries = [
+        BudgetEntry("mbc", 2026, "contencioso", "custo_equipe", 78.0,
+                    monthly_amounts=months)
+    ]
+    jan = monthly_budget(entries, month=1)
+    feb = monthly_budget(entries, month=2)
+    assert jan["contencioso"]["custo_equipe"] == 1.0
+    assert feb["contencioso"]["custo_equipe"] == 2.0
+
+
+def test_monthly_budget_falls_back_to_annual_over_twelve():
+    # No per-month detail: keep the even split (backward compatible).
+    entries = [BudgetEntry("mbc", 2026, "institucional", "recebimento", 1200.0)]
+    assert monthly_budget(entries, month=5)["institucional"]["recebimento"] == 100.0
+
+
+def test_annual_amount_reconciles_with_monthly_sum():
+    from app.budget.models import BudgetEntry as BE
+
+    e = BE("mbc", 2026, "institucional", "recebimento", 0.0,
+           monthly_amounts=tuple([100.0] * 12))
+    assert e.effective_annual() == pytest.approx(1200.0)

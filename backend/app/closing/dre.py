@@ -119,6 +119,7 @@ class RealizadoInputs:
     amortizacao: float = AMORTIZACAO_MENSAL
     sections: list[SectionBreakdown] = field(default_factory=list)
     area_custo_equipe: dict[str, float] = field(default_factory=dict)
+    area_recebimento: dict[str, float] = field(default_factory=dict)
     imposto_accounts: list[tuple[str, float]] = field(default_factory=list)
 
     @classmethod
@@ -126,6 +127,7 @@ class RealizadoInputs:
         revenue = snap.get("revenue", {}) or {}
         despesas_rows = snap.get("despesas_conta", []) or []
         custo_area = snap.get("custo_area", []) or []
+        receb_area = snap.get("recebimento_area", []) or []
 
         recebimento = float(revenue.get("recebimento_bruto", 0.0) or 0.0)
         faturamento = float(revenue.get("faturamento_bruto", 0.0) or 0.0)
@@ -175,6 +177,17 @@ class RealizadoInputs:
             else round(custo_equipe_from_accounts, 2)
         )
 
+        # Per-area recebimento: SISJURI splits the sacred receipt total by
+        # CASO -> área jurídica. Names vary ("Direito Econômico", "Arbitragem
+        # MV"); fold them onto the workbook's three areas via ``match_area``.
+        area_receb: dict[str, float] = {}
+        for a in receb_area:
+            for area in AREAS:
+                if match_area(str(a.get("area", "")), area):
+                    area_receb[area] = round(
+                        area_receb.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
+                    )
+
         return cls(
             recebimento=recebimento,
             faturamento=faturamento,
@@ -183,6 +196,7 @@ class RealizadoInputs:
             imposto=round(imposto_total, 2),
             sections=ordered,
             area_custo_equipe=area_custo,
+            area_recebimento=area_receb,
             imposto_accounts=imposto_accounts,
         )
 
@@ -323,14 +337,16 @@ def _area_rows(
     """Contencioso/Econômico/Arbitragem tab: Recebimento, Custo equipe, Comissão,
     Despesas Equipe, Despesa Institucional, Resultado Bruto (Orçado|Realizado|%).
 
-    Custo equipe realizado comes from SISJURI (per-area). Recebimento, Comissão,
-    Despesas Equipe and Despesa Institucional are manual per-area actuals
-    (``man``) because the workbook assigns received cash to areas via manual
-    case-by-area classification with no DB equivalent. When absent they render
-    blank; Resultado Bruto is computed once Recebimento is present."""
+    Custo equipe and Recebimento realizado both come from SISJURI per-area
+    (Recebimento via CASO -> área jurídica, verified to the centavo vs the
+    workbook). A manual per-area actual still overrides the SISJURI value
+    (later-overrides-earlier), e.g. once the Resumo_Recebidas cross-area
+    transfers are applied. Comissão, Despesas Equipe and Despesa Institucional
+    remain manual (``man``). When absent they render blank; Resultado Bruto is
+    computed once Recebimento is present."""
     man = man or {}
     custo = r.area_custo_equipe.get(area)
-    receb = man.get(RECEBIMENTO)
+    receb = man.get(RECEBIMENTO, r.area_recebimento.get(area))
     comissao = man.get(COMISSAO)
     desp_equipe = man.get(DESPESAS_EQUIPE)
     desp_inst = man.get(DESPESA_INSTITUCIONAL)
@@ -366,15 +382,25 @@ def assemble_dre_sections(
     budget: dict[str, dict[str, float]] | None,
     period_label: str,
     manual: dict[str, dict[str, float]] | None = None,
+    transfers: list[Any] | None = None,
+    period_month: int | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
-    ``manual`` carries per-area Realizado inputs (per-area Recebimento etc.) that
-    SISJURI cannot derive; shape is {area: {line_key: valor}}."""
+    ``manual`` carries per-area Realizado inputs (per-area Recebimento etc.);
+    ``transfers`` are Resumo_Recebidas cross-area recebimento reclassifications
+    (``AreaTransfer``) that net onto the SISJURI-derived per-area base."""
     r = RealizadoInputs.from_snapshot(snapshot) if snapshot is not None else RealizadoInputs.empty()
     missing = snapshot is None
     budget = budget or {}
     manual = manual or {}
+
+    # Overlay Resumo_Recebidas transfers onto the SISJURI per-area recebimento
+    # base (value conserved; sums back to the sacred total).
+    if transfers:
+        from app.manual.transfers import apply_to_base
+
+        r.area_recebimento = apply_to_base(r.area_recebimento, transfers)
     inst_orc = budget.get("institucional", {})
 
     sections: dict[str, dict[str, Any]] = {}
@@ -413,6 +439,7 @@ def assemble_dre_sections(
         assemble_dre_2026,
         assemble_fluxo_consolidado,
         assemble_institucional_ano,
+        assemble_meta,
         assemble_rateio_mensal,
     )
 
@@ -432,7 +459,29 @@ def assemble_dre_sections(
         "rows": _base_resultado_rows(snapshot, r),
         "snapshot_missing": missing,
     }
+
+    # Meta goal-tracking dashboard: annual recebimento goal (8.060.000) vs the
+    # competence month's realized recebimento.
+    month = period_month
+    if month is None:
+        low = period_label.lower()
+        for idx, mes in enumerate(_MESES_PT, start=1):
+            if mes in low:
+                month = idx
+                break
+    sections["meta_dashboard"] = assemble_meta(
+        budget,
+        month=month,
+        recebimento_realizado=r.recebimento if not missing else None,
+    )
     return sections
+
+
+#: Lowercase PT month stems for parsing a period label into a month index.
+_MESES_PT = (
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+)
 
 
 # --- Base_Resultado Mensal (hierarchical monthly ledger) ---------------------
@@ -505,6 +554,32 @@ def _base_resultado_rows(
     rows.append(row("Impostos", r.imposto, is_total=True, kind="section_total", key="impostos"))
     for nome, valor in r.imposto_accounts:
         rows.append(row(nome, valor, indent=1, key=f"imp::{nome}"))
+
+    # Distribuição de Lucros extras (discretionary profit distributions). These
+    # are exceptional, finance-entered amounts (no clean SISJURI rule): team
+    # bonus, extraordinary/excess partner distributions, MV excess, Cacione
+    # pass-through. Values come from the snapshot's optional 'distribuicao_extras'
+    # map when present; otherwise each line renders blank ('ainda não temos').
+    extras = (snap or {}).get("distribuicao_extras", {}) or {}
+    extra_lines: tuple[tuple[str, str], ...] = (
+        ("Bônus equipe", "bonus_equipe"),
+        ("DL excedente dos sócios", "dl_excedente_socios"),
+        ("DL Extraordinária", "dl_extraordinaria"),
+        ("DL excedente MV", "dl_excedente_mv"),
+        ("Repasse Cacione", "repasse_cacione"),
+    )
+    present = [
+        (label, float(extras[k]))
+        for label, k in extra_lines
+        if extras.get(k) is not None
+    ]
+    block_total = round(sum(v for _, v in present), 2) if present else None
+    rows.append(row("Distribuição de Lucros extras", block_total, is_total=True,
+                    kind="section_total", key="distrib_extras"))
+    for label, k in extra_lines:
+        val = extras.get(k)
+        rows.append(row(label, float(val) if val is not None else None,
+                        indent=1, key=f"extra::{k}"))
 
     return rows
 

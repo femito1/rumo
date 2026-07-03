@@ -14,12 +14,22 @@ class BudgetRepository(Protocol):
 
 
 def _row_to_entry(row: dict) -> BudgetEntry:
+    raw_months = row.get("monthly_amounts")
+    months: tuple[float, ...] | None = None
+    if raw_months:
+        try:
+            vals = [float(x) for x in raw_months]
+            if len(vals) == 12:
+                months = tuple(vals)
+        except (TypeError, ValueError):
+            months = None
     return BudgetEntry(
         client_id=str(row["client_id"]),
         ano=int(row["ano"]),
         area=str(row.get("area", "institucional")),
         line_key=str(row["line_key"]),
         annual_amount=float(row.get("annual_amount", 0.0) or 0.0),
+        monthly_amounts=months,
     )
 
 
@@ -44,7 +54,10 @@ class SupabaseBudgetRepository:
                 "ano": ano,
                 "area": e.area,
                 "line_key": e.line_key,
-                "annual_amount": e.annual_amount,
+                "annual_amount": e.effective_annual(),
+                "monthly_amounts": list(e.monthly_amounts)
+                if e.monthly_amounts
+                else None,
             }
             for e in entries
         ]

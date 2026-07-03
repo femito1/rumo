@@ -61,7 +61,12 @@ def test_put_then_get_roundtrips_budget(client):
         "/api/clients/mbc/budget?ano=2026", headers={"Authorization": f"Bearer {tok}"}
     ).json()
     assert got["entries"] == [
-        {"area": "institucional", "line_key": "recebimento", "annual_amount": 8060000.0}
+        {
+            "area": "institucional",
+            "line_key": "recebimento",
+            "annual_amount": 8060000.0,
+            "monthly_amounts": None,
+        }
     ]
 
 

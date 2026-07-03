@@ -57,6 +57,22 @@ class BudgetEntry:
     area: str
     line_key: str
     annual_amount: float
+    #: Optional workbook-granularity per-month amounts (Jan..Dez, 12 values).
+    #: When present these override the annual/12 even split; the workbook's
+    #: Orçado varies month-to-month (Custo equipe, Despesas, etc.).
+    monthly_amounts: tuple[float, ...] | None = None
+
+    def month_amount(self, month: int) -> float:
+        """Budget for a 1-based month; per-month detail if present else annual/12."""
+        if self.monthly_amounts and 1 <= month <= len(self.monthly_amounts):
+            return round(self.monthly_amounts[month - 1], 2)
+        return round(self.annual_amount / 12.0, 2)
+
+    def effective_annual(self) -> float:
+        """Annual total: sum of per-month detail if present, else annual_amount."""
+        if self.monthly_amounts:
+            return round(sum(self.monthly_amounts), 2)
+        return round(self.annual_amount, 2)
 
 
 def is_valid_line(line_key: str) -> bool:
@@ -68,13 +84,21 @@ def is_valid_area(area: str) -> bool:
     return area in BUDGET_AREAS
 
 
-def monthly_budget(entries: list[BudgetEntry]) -> dict[str, dict[str, float]]:
+def monthly_budget(
+    entries: list[BudgetEntry], month: int | None = None
+) -> dict[str, dict[str, float]]:
     """Fold budget entries into {area: {canonical_line_key: monthly_amount}}.
 
-    Legacy keys are normalized so pre-rework budgets still feed the Orçado
-    columns."""
+    ``month`` (1-based) selects a specific competence month; entries carrying
+    workbook-granularity ``monthly_amounts`` then return that month's value,
+    otherwise annual/12. When ``month`` is None the even split is used (the
+    aggregate/reference behavior). Legacy keys are normalized so pre-rework
+    budgets still feed the Orçado columns."""
     out: dict[str, dict[str, float]] = {}
     for e in entries:
         area_map = out.setdefault(e.area, {})
-        area_map[canonical_line_key(e.line_key)] = round(e.annual_amount / 12.0, 2)
+        amount = e.month_amount(month) if month is not None else round(
+            e.annual_amount / 12.0, 2
+        )
+        area_map[canonical_line_key(e.line_key)] = amount
     return out

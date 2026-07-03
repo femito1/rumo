@@ -93,26 +93,50 @@ and structure (base = **Recebimento**, not Faturamento):
   populate historical months (existing snapshots lack this key; Base_Resultado
   per-lawyer rows show only for months re-run with the new extract).
 
-### Manual per-area Realizado (2026-07-02)
-Per-area **Recebimento** is not derivable from SISJURI — the workbook assigns
-received cash to practice areas via manual case-by-area classification and
-cross-area transfers (`Resumo_Recebidas` tab). New `manual_actuals` table +
-`app/manual/` domain + `GET/PUT /api/clients/{id}/manual?ano_mes=` + frontend
-`ManualActualsEditor`. Values overlay the area tabs' Recebimento/Comissão/
-Despesas and compute Resultado Bruto. **Open question with MBC finance:** is
-there a fixed rule for per-area recebimento? If yes, an automatic source can
-supersede the manual entries.
+### Per-area Recebimento — RULE CONFIRMED, now auto-derived (2026-07-03)
+Per-area **Recebimento** *is* derivable from SISJURI after all (the earlier
+2026-07-02 note below is superseded). The receipt view splits by **case → área
+jurídica**: `GERENC_VW_POSFIN_RESULTREC` (via `ID_CASO`) → `CAD_CASO.
+ID_AREAJURIDICA` → `CAD_AREAJURIDICA.NOME`, summing `VALOR1`. Verified to the
+centavo vs the workbook base numbers for Jan & Fev 2026. See
+`docs/SISJURI_QUERIES.md` §9 (2026-07-03) for the query + table.
+
+Built on top of that:
+- **`extract.sql`** now emits `recebimento_area` (this split), `faturamento_area`
+  (same split on the faturamento view) and `faturas_analitico` (per-invoice
+  `FAT_FATURA` detail — column names still to verify on the server via
+  `ops/sisjuri-agent/probe_faturas_analitico.sql`).
+- **`dre.py`** `RealizadoInputs.area_recebimento` parses `recebimento_area` and
+  folds names onto the three areas; area tabs' Recebimento now comes from SISJURI
+  (manual per-area Recebimento still overrides if entered).
+- **`Resumo_Recebidas` transfers** modeled as `area_transfers` (origem→destino
+  deltas, net 0) overlaid on the base — new `app/manual/transfers.py` +
+  `area_transfers` table. These small cross-area reclassifications are still
+  finance-entered (no DB rule), but the *base* is now automatic.
+- **Distribuição de Lucros extras** block surfaced in `base_resultado` (Bônus
+  equipe, DL Extraordinária, DL excedente sócios/MV, Repasse Cacione), values
+  from optional snapshot `distribuicao_extras`, blank otherwise.
+- **Budget granularity:** `BudgetEntry.monthly_amounts` (optional 12-value array)
+  → workbook per-month Orçado; `monthly_budget(entries, month=...)` selects it;
+  `budgets.monthly_amounts` jsonb column + API accepts/returns it.
+- **Meta dashboard:** new `meta_dashboard` tab (annual goal 8.060.000, monthly
+  goal, this-month attainment, 12-month table) via `assemble_meta`.
+
+Still manual (no DB rule): per-area Comissão / Despesas Equipe / Despesa
+Institucional, the `area_transfers`, and `distribuicao_extras`.
 
 ### Operator steps to finish the deploy
-1. Apply the new DDL in Supabase (`manual_actuals` table — see `app/db/schema.sql`).
-2. Update the on-server `extract.sql` (new gist) and **re-run the backfill** so
-   snapshots carry `custo_equipe_prof`.
-3. Enter per-area Recebimento for the months you want populated (or wait for the
-   finance rule).
+1. Apply the new DDL in Supabase (`area_transfers` table + `budgets.
+   monthly_amounts` column + earlier `manual_actuals` — see `app/db/schema.sql`).
+2. Update the on-server `extract.sql` and **re-run the backfill** so snapshots
+   carry `recebimento_area`, `faturamento_area`, `faturas_analitico`
+   (see "When to re-run the backfill" below).
+3. Optionally verify `FAT_FATURA` columns with `probe_faturas_analitico.sql`
+   before trusting `faturas_analitico`.
 
 ### Test counts (as of last update)
-- Backend: **106 passing** (`cd backend && pytest`).
-- Frontend: **46 passing** (`cd frontend && npm run test`).
+- Backend: **135 passing** (`cd backend && pytest`).
+- Frontend: **49 passing** (`cd frontend && npm run test`).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host

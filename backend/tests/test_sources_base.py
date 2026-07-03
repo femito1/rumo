@@ -5,7 +5,9 @@ from app.closing.period import Period
 def test_sectionkey_has_the_fifteen_tabs():
     assert SectionKey.META in SectionKey
     assert SectionKey.BASE_RESULTADO in SectionKey
-    assert len(list(SectionKey)) == 15
+    # 15 workbook tabs + META_DASHBOARD (derived goal-tracking view).
+    assert len(list(SectionKey)) == 16
+    assert SectionKey.META_DASHBOARD in SectionKey
 
 def test_dayrange_full_month_from_period():
     p = Period.parse("2026-05")

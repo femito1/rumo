@@ -155,6 +155,75 @@ def assemble_dre_2026(
     }
 
 
+def assemble_meta(
+    budget: dict[str, dict[str, float]] | None,
+    *,
+    month: int | None,
+    recebimento_realizado: float | None,
+) -> dict[str, Any]:
+    """Meta goal-tracking dashboard (workbook 'Meta' sheet).
+
+    Headline: annual recebimento goal (budget monthly * 12), monthly goal, this
+    month's realized recebimento + attainment %, and remaining vs goal. Plus a
+    12-month table with per-month goal and the competence month's realized
+    recebimento filled in. A full YTD requires multi-month data the single
+    snapshot flow lacks; only the competence month is populated for now."""
+    from app.closing.dre import RECEBIMENTO
+
+    inst = (budget or {}).get("institucional", {})
+    meta_mensal = inst.get(RECEBIMENTO)
+    meta_anual = round(meta_mensal * 12, 2) if meta_mensal is not None else None
+
+    def cell(v: float | None, source: str = "orcado") -> dict[str, Any]:
+        return {"value": v, "source": source}
+
+    attainment = None
+    remaining = None
+    if meta_anual is not None and recebimento_realizado is not None:
+        remaining = round(meta_anual - recebimento_realizado, 2)
+    if meta_mensal and recebimento_realizado is not None:
+        attainment = round(recebimento_realizado / meta_mensal, 4)
+
+    rows: list[dict[str, Any]] = []
+    for idx, mes in enumerate(_MESES, start=1):
+        realized = recebimento_realizado if (month is not None and idx == month) else None
+        rows.append(
+            {
+                "Mês": mes,
+                "Meta": cell(meta_mensal),
+                "Recebimento": cell(realized, "realizado"),
+                "% Meta": (
+                    round(realized / meta_mensal, 4)
+                    if (realized is not None and meta_mensal)
+                    else None
+                ),
+                "kind": "amount",
+            }
+        )
+    total_realizado = recebimento_realizado if recebimento_realizado is not None else None
+    rows.append(
+        {
+            "Mês": "Total",
+            "Meta": cell(meta_anual),
+            "Recebimento": cell(total_realizado, "realizado"),
+            "% Meta": attainment,
+            "kind": "total",
+            "is_total": True,
+        }
+    )
+
+    return {
+        "kind": "rich",
+        "name": "Meta 2026",
+        "columns": ["Mês", "Meta", "Recebimento", "% Meta"],
+        "rows": rows,
+        "meta_anual": cell(meta_anual),
+        "meta_mensal": cell(meta_mensal),
+        "atingimento_mes": attainment,
+        "falta": cell(remaining, "realizado"),
+    }
+
+
 def assemble_fluxo_consolidado(
     snapshot: dict[str, Any] | None,
     manual: dict[str, dict[str, float]] | None,

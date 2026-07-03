@@ -27,10 +27,28 @@ def _serialize(entries: list[BudgetEntry]) -> list[dict[str, Any]]:
         {
             "area": e.area,
             "line_key": e.line_key,
-            "annual_amount": e.annual_amount,
+            "annual_amount": e.effective_annual(),
+            "monthly_amounts": list(e.monthly_amounts) if e.monthly_amounts else None,
         }
         for e in entries
     ]
+
+
+def _parse_monthly(item: dict[str, Any]) -> tuple[float, ...] | None:
+    raw = item.get("monthly_amounts")
+    if raw is None:
+        return None
+    if not isinstance(raw, list) or len(raw) != 12:
+        raise HTTPException(
+            status_code=422,
+            detail="monthly_amounts deve ter 12 valores (Jan..Dez)",
+        )
+    try:
+        return tuple(round(float(x), 2) for x in raw)
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(
+            status_code=422, detail="monthly_amounts inválido"
+        ) from exc
 
 
 @router.get("/{client_id}/budget")
@@ -83,7 +101,13 @@ def put_budget(
             amount = float(item.get("annual_amount", 0.0) or 0.0)
         except (TypeError, ValueError) as exc:
             raise HTTPException(status_code=422, detail="Valor anual inválido") from exc
-        entries.append(BudgetEntry(client_id, ano, area, line_key, round(amount, 2)))
+        months = _parse_monthly(item)
+        entries.append(
+            BudgetEntry(
+                client_id, ano, area, line_key, round(amount, 2),
+                monthly_amounts=months,
+            )
+        )
 
     budget_repo.set_budget(client_id, ano, entries)
     return {"client_id": client_id, "ano": ano, "entries": _serialize(entries)}

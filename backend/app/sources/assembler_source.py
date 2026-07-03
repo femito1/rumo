@@ -25,10 +25,12 @@ class AssemblerSource:
         snapshot: dict[str, Any] | None,
         budget: dict[str, dict[str, float]] | None,
         manual: dict[str, dict[str, float]] | None = None,
+        transfers: list[Any] | None = None,
     ) -> None:
         self._snapshot = snapshot
         self._budget = budget
         self._manual = manual
+        self._transfers = transfers
 
     def supports(self) -> set[SectionKey]:
         return {
@@ -43,6 +45,7 @@ class AssemblerSource:
             SectionKey.DRE_2026,
             SectionKey.INSTITUCIONAL_ANO,
             SectionKey.FLUXO_CONSOLIDADO,
+            SectionKey.META_DASHBOARD,
         }
 
     def fetch(self, period: Period, day_range: DayRange) -> dict[SectionKey, SectionData]:
@@ -51,6 +54,8 @@ class AssemblerSource:
             budget=self._budget,
             period_label=period.label,
             manual=self._manual,
+            transfers=self._transfers,
+            period_month=period.month,
         )
         out: dict[SectionKey, SectionData] = {}
         for value, data in sections.items():

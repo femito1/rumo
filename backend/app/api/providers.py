@@ -72,6 +72,29 @@ def get_manual_repo():
 
 
 @lru_cache
+def _build_supabase_transfers_repo():
+    from supabase import create_client
+
+    from app.manual.transfers import SupabaseAreaTransfersRepository
+    s = get_settings()
+    return SupabaseAreaTransfersRepository(
+        create_client(s.supabase_url, s.supabase_service_key)
+    )
+
+
+@lru_cache
+def _build_fixture_transfers_repo():
+    from app.manual.transfers import InMemoryAreaTransfersRepository
+    return InMemoryAreaTransfersRepository()
+
+
+def get_transfers_repo():
+    if get_settings().use_fake_repo:
+        return _build_fixture_transfers_repo()
+    return _build_supabase_transfers_repo()
+
+
+@lru_cache
 def _build_supabase_snapshot_store():
     from supabase import create_client
 
