@@ -716,3 +716,47 @@ per-lawyer area tagging (one more probe), then full per-area Custo equipe should
   differences within account 0010. Probe `probe_0010_detail.sql` breaks 0010 by
   histórico (Fixa / Reajuste / Diferença / Bônus) net & gross to reconstruct the
   ledger's per-lawyer figure exactly.
+
+### 0010 histórico breakdown RESULTS (2026-07-07) — recipe reconciles 8/13 to centavo
+
+`probe_0010_detail.sql` (Feb) broke account 0010 by histórico. Sub-types:
+- **"Pagamento de Distribuição Fixa Liquida Mensal"** = ledger "Distribuição Mensal Fixa".
+- **"<SIGLA> - Diferença de DL ref. <mês> após d..."** = ledger "Reajuste de Distribuição".
+- **"Bônus <SIGLA> referente a 2025 (x%)"** = a bônus (JGS 7.009,84). The ledger does
+  **NOT** include this bônus in the month's Custo equipe → **exclude bônus histórico**.
+
+**GROSS is per-lawyer in `CONTASPAGAR.CPGNVALORBASE` by histórico** — the definitive
+gross figure the ledger uses (e.g. JGS Fixa base 9.379 = ledger 9.379; the 7.009,84
+bônus is separate).
+
+**Definitive Custo-equipe recipe (per lawyer), Feb validation:**
+- 0010: **CONTASPAGAR gross base, EXCLUDING "Bônus" histórico** (Fixa + Diferença).
+- 0130 Pró-Labore: **GROSS 1.621** (net 1.442,69 leaves a −178,31/lawyer gap → gross).
+- 0110 Convênio: **NET** (LANCPROFDEST).
+- 0140 Bolsa: gross (JVO 2.800).
+- **INSS 0050 is EXCLUDED** from per-lawyer Custo equipe (adding it left a uniform
+  +324,20/lawyer error).
+- Area: **HOME grupo + AM 50/50 (`CAD_RATEIO_GRUPO`)**.
+
+Result vs ledger per lawyer (Feb): **8/13 reconcile to the centavo** (ASG, BBX, BMP,
+EMC, FSM, IAC, JVO, MV = 0,00). Remaining 5 have small, identifiable residuals:
+- **AM −108,70, DC −108,70** (identical): an AASP/other small line (≈2×54,35) the
+  recipe hasn't attributed yet.
+- **JGS +1.911,95** = *exactly his convênio 0110*. JGS ledger total is a suspiciously
+  round **11.000,00** → looks like a **capped/negotiated** figure (manual), so his
+  convênio is effectively excluded to hit 11.000.
+- **RB +901,49, EHF +558,20**: lawyer-specific (bolsa/IR/reajuste timing).
+
+**Honest status:** the automated recipe reproduces **~99%** of per-area Custo equipe
+(total 218.859 vs 215.704; the three area subtotals are within a few hundred to ~3k,
+driven by JGS's round-number cap + AASP). The remaining deltas are genuine
+**ledger-side manual adjustments** (JGS capped at 11.000; AASP handling) — NOT missing
+DB data. This is the boundary between "automatable to the centavo" and "one or two
+per-lawyer manual overrides per month".
+
+**Recommended design:** derive Custo equipe automatically via the recipe above;
+expose a tiny per-lawyer **manual override** (like the existing manual-actuals path)
+for the rare capped/negotiated cases (JGS this month). Document the histórico
+exclusions (Bônus) as a config list. This achieves full automation for 8/13+ lawyers
+and a minimal, auditable override surface for the exceptions — instead of rebuilding
+the entire ledger by hand each month.
