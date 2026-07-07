@@ -221,6 +221,25 @@ BEGIN
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
      )
   ),
+  -- Area-level Custo-equipe lines (blank professional): Vale Refeição (0100),
+  -- Vale Transporte (0220) etc. booked to a grupo, not a lawyer. Emitted with
+  -- ``area`` (grupo name) and no ``sigla``; the app folds them straight to the
+  -- area. From the verified resumo (GERENC_LANCAMENTORESUMO) with a grupo.
+  'custo_equipe_area' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'area'     VALUE area,
+        'id_conta' VALUE id_conta,
+        'valor'    VALUE valor
+     ) RETURNING CLOB)
+     FROM (SELECT g.NOME area, r.ID_CONTA id_conta, ROUND(SUM(r.VALOR),2) valor
+             FROM LDESK.GERENC_LANCAMENTORESUMO r
+             LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = r.ID_GRUPOJURIDICO
+            WHERE r.ANO_MES='&ANO_MES'
+              AND r.ID_CONTA IN ('030.010.0100','030.010.0220')
+              AND r.ID_PROFISSIONAL IS NULL
+              AND g.NOME IS NOT NULL
+            GROUP BY g.NOME, r.ID_CONTA)
+  ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses
   -- home_area (100%) for everyone else.

@@ -46,6 +46,32 @@ DESPESAS_EQUIPE = "despesas_equipe"
 DESPESA_INSTITUCIONAL = "despesa_institucional"
 
 
+def _parse_custo_overrides(raw: dict[str, Any], cls: Any) -> dict[str, Any]:
+    """Build ``{sigla -> LawyerOverride}`` from the snapshot override map.
+
+    Each entry is either a number (treated as ``cap_total``) or an object with
+    optional ``set_account`` (dict), ``add`` (number) and ``cap_total`` (number).
+    See ``app.closing.custo_equipe_deriv.LawyerOverride``.
+    """
+    out: dict[str, Any] = {}
+    for sigla, spec in raw.items():
+        if isinstance(spec, (int, float)):
+            out[str(sigla)] = cls(cap_total=float(spec))
+            continue
+        if isinstance(spec, dict):
+            set_acct = {
+                str(k): float(v) for k, v in (spec.get("set_account") or {}).items()
+            }
+            add = float(spec.get("add", 0.0) or 0.0)
+            cap = spec.get("cap_total")
+            out[str(sigla)] = cls(
+                set_account=set_acct,
+                add=add,
+                cap_total=float(cap) if cap is not None else None,
+            )
+    return out
+
+
 def _pct(numer: float, denom: float) -> float | None:
     if not denom:
         return None
@@ -193,6 +219,7 @@ class RealizadoInputs:
         deriv_rows = snap.get("custo_equipe_deriv") or []
         if deriv_rows:
             from app.closing.custo_equipe_deriv import (
+                LawyerOverride,
                 build_area_splits,
                 derive_area_custo_equipe,
             )
@@ -204,12 +231,14 @@ class RealizadoInputs:
                     for k, v in (snap.get("home_area") or {}).items()
                 },
             )
-            overrides = {
-                str(k): float(v)
-                for k, v in (snap.get("custo_equipe_overrides") or {}).items()
-            }
+            overrides = _parse_custo_overrides(
+                snap.get("custo_equipe_overrides") or {}, LawyerOverride
+            )
+            # Combine per-lawyer rows with area-level (blank-sigla) lines such as
+            # Vale Refeição/Transporte, which the fold routes straight to the area.
+            all_rows = list(deriv_rows) + list(snap.get("custo_equipe_area") or [])
             derived = derive_area_custo_equipe(
-                deriv_rows, splits, overrides=overrides
+                all_rows, splits, overrides=overrides
             )
             if any(derived.values()):
                 area_custo = {a: round(v, 2) for a, v in derived.items()}

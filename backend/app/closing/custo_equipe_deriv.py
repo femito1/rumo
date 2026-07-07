@@ -94,34 +94,79 @@ def _grupo_to_area(grupo_name: str) -> str | None:
     return None
 
 
+#: Convênio account (per-lawyer plan cost; sometimes hand-netted in the ledger).
+CONVENIO_ACCOUNT = "030.010.0110"
+
+
+@dataclass
+class LawyerOverride:
+    """A per-lawyer Custo-equipe override for the small set of cases SISJURI
+    cannot reproduce (documented in ``docs/SISJURI_QUERIES.md`` §11):
+
+    * ``set_account`` — replace a specific account's value (EHF/RB convênio,
+      which the finance team hand-nets from the health-plan invoice; the value
+      is stable month to month, e.g. ``{"030.010.0110": 1564.10}``).
+    * ``add`` — an additive accrual with no DB row (AM/DC monthly AASP 54,35).
+    * ``cap_total`` — replace the lawyer's whole Custo-equipe total (JGS's
+      negotiated round figure some months).
+
+    Precedence: ``set_account`` adjustments apply first, then ``add``, then
+    ``cap_total`` (which wins outright when set).
+    """
+
+    set_account: dict[str, float] = field(default_factory=dict)
+    add: float = 0.0
+    cap_total: float | None = None
+
+
 def derive_area_custo_equipe(
     rows: Sequence[Mapping[str, object]],
     splits: Mapping[str, LawyerAreaSplit],
     *,
-    overrides: Mapping[str, float] | None = None,
+    overrides: Mapping[str, "LawyerOverride | float"] | None = None,
     exclude_accounts: frozenset[str] = frozenset({INSS_ACCOUNT}),
 ) -> dict[str, float]:
     """Fold per-``(sigla, id_conta, valor)`` rows into per-area Custo equipe.
 
     ``rows`` come from the snapshot ``custo_equipe_deriv`` block. ``splits`` maps
     each lawyer to their area fractions (see :func:`build_area_splits`).
-    ``overrides`` optionally replaces a lawyer's *total* (all accounts) with a
-    fixed figure, still allocated by that lawyer's area split (for rare
-    negotiated caps). Amounts for a lawyer with no split are dropped (logged by
-    the caller if needed) — every real lawyer has a home grupo.
+    ``overrides`` maps a sigla to a :class:`LawyerOverride` (or a bare float,
+    treated as ``cap_total`` for convenience). A lawyer with no split is dropped
+    — every real lawyer has a home grupo.
     """
     overrides = overrides or {}
-    per_lawyer: dict[str, float] = {}
+    # Per-lawyer, per-account so overrides can target a single account.
+    per_lawyer_acct: dict[str, dict[str, float]] = {}
     for row in rows:
         sigla = str(row.get("sigla") or "").strip()
         id_conta = str(row.get("id_conta") or "")
         if not sigla or id_conta in exclude_accounts:
             continue
-        per_lawyer[sigla] = round(
-            per_lawyer.get(sigla, 0.0) + float(row.get("valor") or 0.0), 2  # type: ignore[arg-type]
+        accts = per_lawyer_acct.setdefault(sigla, {})
+        accts[id_conta] = round(
+            accts.get(id_conta, 0.0) + float(row.get("valor") or 0.0), 2  # type: ignore[arg-type]
         )
-    for sigla, capped in overrides.items():
-        per_lawyer[sigla] = round(float(capped), 2)
+
+    per_lawyer: dict[str, float] = {
+        sigla: round(sum(accts.values()), 2) for sigla, accts in per_lawyer_acct.items()
+    }
+    # Ensure override-only lawyers (e.g. an AASP add for someone with no rows)
+    # still appear.
+    for sigla in overrides:
+        per_lawyer.setdefault(sigla, 0.0)
+
+    for sigla, ov in overrides.items():
+        if isinstance(ov, (int, float)):
+            per_lawyer[sigla] = round(float(ov), 2)
+            continue
+        accts = per_lawyer_acct.get(sigla, {})
+        total = per_lawyer.get(sigla, 0.0)
+        for acct, value in ov.set_account.items():
+            total = round(total - accts.get(acct, 0.0) + float(value), 2)
+        total = round(total + ov.add, 2)
+        if ov.cap_total is not None:
+            total = round(float(ov.cap_total), 2)
+        per_lawyer[sigla] = total
 
     area_total: dict[str, float] = {a: 0.0 for a in AREAS}
     for sigla, total in per_lawyer.items():
@@ -130,4 +175,20 @@ def derive_area_custo_equipe(
             continue
         for area, frac in split.normalized().items():
             area_total[area] = area_total.get(area, 0.0) + total * frac
+
+    # Area-level lines (blank sigla) — e.g. Vale Refeição/Transporte booked to an
+    # area, not a lawyer. Rows carry ``area`` (a grupo name) instead of ``sigla``.
+    for row in rows:
+        if str(row.get("sigla") or "").strip():
+            continue
+        id_conta = str(row.get("id_conta") or "")
+        if id_conta in exclude_accounts:
+            continue
+        line_area = _grupo_to_area(str(row.get("area") or ""))
+        if line_area is None:
+            continue
+        area_total[line_area] = area_total.get(line_area, 0.0) + float(
+            row.get("valor") or 0.0  # type: ignore[arg-type]
+        )
+
     return {a: round(v, 2) for a, v in area_total.items()}
