@@ -221,24 +221,35 @@ BEGIN
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
      )
   ),
-  -- Area-level Custo-equipe lines (blank professional): Vale Refeição (0100),
-  -- Vale Transporte (0220) etc. booked to a grupo, not a lawyer. Emitted with
-  -- ``area`` (grupo name) and no ``sigla``; the app folds them straight to the
-  -- area. From the verified resumo (GERENC_LANCAMENTORESUMO) with a grupo.
+  -- Area-level Custo-equipe lines that the ledger books at the AREA level
+  -- (a lawyer's Vale Refeição/Transporte becomes an area cost). These live in
+  -- the personal-debit namespace ``500.010.<SIGLA>`` with histórico
+  -- ``Vale refeição``/``Vale transporte`` — NOT in 030.010.0100/0220 (unused).
+  -- Restrict to lawyers who ALSO have a distribuição/pró-labore movement in the
+  -- same month (i.e. active this month) so legacy movements from ex-lawyers
+  -- like MLA don't leak in. We emit per-``sigla`` net; the app folds by home
+  -- area/rateio. Feb 2026 verified: JVO 1.249,40 → Contencioso ledger.
   'custo_equipe_area' VALUE (
      SELECT JSON_ARRAYAGG(JSON_OBJECT(
-        'area'     VALUE area,
+        'sigla'    VALUE sigla,
         'id_conta' VALUE id_conta,
         'valor'    VALUE valor
      ) RETURNING CLOB)
-     FROM (SELECT g.NOME area, r.ID_CONTA id_conta, ROUND(SUM(r.VALOR),2) valor
-             FROM LDESK.GERENC_LANCAMENTORESUMO r
-             LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = r.ID_GRUPOJURIDICO
-            WHERE r.ANO_MES='&ANO_MES'
-              AND r.ID_CONTA IN ('030.010.0100','030.010.0220')
-              AND r.ID_PROFISSIONAL IS NULL
-              AND g.NOME IS NOT NULL
-            GROUP BY g.NOME, r.ID_CONTA)
+     FROM (SELECT SUBSTR(l.PCTCNUMEROCONTADEST, 9) sigla,
+                  '030.010.0100/0220' id_conta,
+                  ROUND(SUM(l.LANNVALOR),2) valor
+             FROM FINANCE.LANCAMENTO l
+            WHERE l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+              AND UPPER(l.LANCHISTORICO) LIKE '%VALE%'
+              AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+              AND SUBSTR(l.PCTCNUMEROCONTADEST, 9) IN (
+                  SELECT DISTINCT cp2.COD_ADVG
+                    FROM FINANCE.CONTASPAGAR cp2
+                   WHERE cp2.PCTCNUMEROCONTA LIKE '030.010.%'
+                     AND cp2.CPGDVECTO >= DATE '&D_START' AND cp2.CPGDVECTO < DATE '&D_END'
+                     AND cp2.COD_ADVG IS NOT NULL
+              )
+            GROUP BY SUBSTR(l.PCTCNUMEROCONTADEST, 9))
   ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses

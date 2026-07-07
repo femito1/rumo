@@ -102,10 +102,9 @@ def test_full_feb_reconciles_to_the_centavo():
     for s, v in c0110.items():
         rows.append({"sigla": s, "id_conta": "030.010.0110", "valor": v})
     rows.append({"sigla": "JVO", "id_conta": "030.010.0140", "valor": 2800})
-    # Area-level lines (blank sigla, area via grupo): Vale Refeição/Transporte,
-    # booked to Contencioso (1.014,20 + 235,20 = 1.249,40).
-    rows.append({"id_conta": "030.010.0100", "area": "Equipe Contencioso", "valor": 1014.20})
-    rows.append({"id_conta": "030.010.0220", "area": "Equipe Contencioso", "valor": 235.20})
+    # Area-level Vale (from 500.010.<SIGLA>): JVO Vale = 1.249,40, routed to his
+    # home area (Contencioso) by the fold.
+    rows.append({"sigla": "JVO", "id_conta": "030.010.0100/0220", "valor": 1249.40})
 
     overrides = {
         "AM": LawyerOverride(add=108.70),   # monthly AASP (54,35 x2 across halves)

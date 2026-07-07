@@ -852,3 +852,42 @@ This is 3–4 lawyers × one number, set-once and rarely changed — NOT a month
 ledger. The `custo_equipe_overrides` map in the snapshot (wired in dre.py) is
 exactly this surface. With it, per-area Custo equipe ties to the dashboard to the
 centavo with zero monthly manual work beyond maintaining that small map.
+
+### The `500.010.<SIGLA>` personal-debit namespace (2026-07-07)
+
+Live probe (Feb 2026) revealed a whole new layer: accounts named
+``500.010.<SIGLA>`` are per-lawyer **personal-debit** accounts (things the lawyer
+owes back to the firm, or firm-paid perks charged to the person). This
+namespace is where the ledger's area-level ``Vale Refeição``/``Vale Transporte``
+lines actually live — NOT in ``030.010.0100/0220`` (which are empty in this book).
+
+Feb 2026 movements on ``500.010.*`` (verified):
+
+| conta         | histórico                       | valor    | interpretation |
+|---------------|---------------------------------|---------:|----------------|
+| 500.010.JVO   | Vale refeição / Vale transporte | 1.249,40 | → ledger Contencioso Vale (exact) |
+| 500.010.MLA   | Vale refeição / Vale transporte | 1.351,88 | ex-lawyer; excluded by "active-this-month" filter |
+| 500.010.AM..RB| GPS - INSS s/ folha ... R$178,31| 178,31 × 12 | employer INSS collected — not Custo equipe |
+| 500.010.DC    | Convênio Médico dependentes ... | 3.796,78 | dependent portion (personal debt) |
+| 500.010.EHF   | Convênio Médico dependentes ... | 1.398,01 | dependent portion (personal debt) |
+| 500.010.RB    | Débito pessoal RB (parte upgrade+dep.) | 5.151,75 | dependent portion (personal debt) |
+| 500.010.AM    | Guia de custas relativas 1% ... | 550,00   | one-off, not Custo equipe |
+
+**What the extract now does:** the ``custo_equipe_area`` block reads Vale rows
+from ``500.010.<SIGLA>`` (histórico ``%VALE%``), keyed by sigla, restricted to
+lawyers active this month (having any ``030.010.*`` movement in CONTASPAGAR).
+The fold attributes them to the lawyer's home area via the existing splits.
+JVO 1.249,40 → Contencioso to the centavo. MLA excluded automatically.
+
+**Convênio dependente residual:** the 500.010.<SIGLA> convênio-dependente
+values don't cleanly reproduce the ledger's hand-netted figure (which is
+invoice-driven arithmetic, memoed only in free text). But the DB *does* now
+tell us who has dependents (EHF, RB, DC) and their dependent debit. This is a
+useful signal for detecting when to prompt for the override, but the manual
+override stays the resolution for EHF/RB convênio.
+
+**GPS/INSS 178,31**: this is the "net vs gross" pró-labore gap I chased earlier
+(1.621 gross − 1.442,69 net = 178,31 = GPS/INSS). Using gross (from
+CONTASPAGAR.CPGNVALORBASE) already picks it up correctly; the 500.010.<SIGLA>
+GPS movement is the reciprocal personal-debit entry. Do NOT add it as Custo
+equipe (would double-count).
