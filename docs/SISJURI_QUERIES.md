@@ -424,3 +424,182 @@ scheduled snapshots.
   contract or SPA.
 - Reuse the recorded-payload pattern (`from_recorded_payload`) for tests so the
   DB source is unit-testable offline with a captured JSON fixture.
+
+---
+
+## 11. Per-area Custo equipe — the automation frontier (2026-07-07)
+
+**Goal is FULL automation.** The workbook / dashboard / Demonstrativo are
+development *aids* (ground-truth to validate against), **not** monthly inputs.
+Nothing we ship may depend on those files arriving each month. Per-area Custo
+equipe is the last DRE piece not yet automated, so it gets the strictest test:
+we assume automation is possible and only accept manual config once impossibility
+is *100% proven*.
+
+### What is decomposed, and where each part lives
+
+Per-area Custo equipe = Σ per-lawyer, per-account 030.* costs, grouped by area.
+
+| Component | ~Share | Per-lawyer in DB? | Area in DB? | Verdict |
+| --- | --- | --- | --- | --- |
+| INSS, Convênio, Pró-Labore, Bolsa | ~20% | ✅ `SIGLA` (resumo) | ✅ prof→`CAD_GRUPOJURIDICO` | automatable now |
+| **Distribuição Mensal Fixa** (`030.010.0010`) | ~80% | ✅ `LANCAMENTO.COD_ADVG` | ❓ `SIGLADEST` — **UNTESTED** | **the crux** |
+
+Feb-2026 evidence: SISJURI per-lawyer grand total **215.310,35** vs ledger
+**216.953,74** (Δ 0,76%). So the money is essentially all present — this is an
+**allocation** problem, not a missing-data problem. The distribuição comes back
+as a single lump (172.129,96, NULL sigla, NULL area) in `custo_equipe_prof`
+*only because that query uses the resumo view*; the cash ledger
+`FINANCE.LANCAMENTO` keys the same amount by `COD_ADVG` (lawyer) and carries a
+`SIGLADEST` "cost center".
+
+### The one unproven question (blocks the full-automation verdict)
+
+Does `LANCAMENTO.COD_ADVG` + `SIGLADEST` reproduce the ledger's per-lawyer,
+per-area distribuição **to the centavo — including the manual-looking splits**
+(e.g. Aurelio `=3182.83/2`, half Contencioso / half Econômico)?
+
+- If **yes** → the split is *booked in the accounting system*, not invented in
+  the spreadsheet. A future lawyer's split flows through automatically. **Full
+  automation is possible**; source distribuição from `LANCAMENTO` per CC and stop
+  reading the workbook entirely.
+- If **no** → then (and only then) do we discuss the minimal manual artifact
+  (e.g. a per-lawyer area-allocation table that changes only on staff moves).
+
+**Why it is not yet answered:** the snapshot's `distribuicao_socio` is **empty
+(0 rows)** — the documented §6 query carries `AND LANCHISTORICO LIKE
+'Distribui%Fixa%'`, a filter that has never been validated and apparently matches
+nothing. So §6 has never actually returned data.
+
+### Next step — run the probe (read-only, on MBC-LDESK01)
+
+`ops/sisjuri-agent/probe_distribuicao_area.sql` (drops the untested historico
+filter; inspects raw `COD_ADVG`/`SIGLADEST`, decodes `SIGLADEST`, checks GROSS
+via `CONTASPAGAR`, and totals for reconciliation vs 172.129,96). Run it via the
+same sqlplus-over-RDP recipe as the other probes and paste the output back.
+
+**Do NOT** treat the workbook importer (`app/closing/ledger_import.py`,
+`scripts/import_ledger.py`, built 2026-07-07) as the automation path — it mirrors
+the monthly workbook and therefore does **not** reduce their manual work. It is
+retained only as an offline validation harness (it ties to the dashboard to the
+centavo) and as a temporary fallback until this probe settles the distribuição
+question. If the probe proves automation, the importer is removed.
+
+### Probe RESULT (2026-07-07) — FULL AUTOMATION PROVEN ✅
+
+`probe_distribuicao_area.sql` ran on MBC-LDESK01 for Feb 2026. Findings:
+
+- **Distribuição Mensal Fixa is per-lawyer AND per-area in the DB.**
+  `FINANCE.LANCAMENTO` (account `030.010.0010`, **no** historico filter) returns
+  one row per `(COD_ADVG, SIGLADEST)` — lawyer × destination cost-center. The
+  documented `LANCHISTORICO LIKE 'Distribui%Fixa%'` filter was the bug: the real
+  histórico text varies ("Pagamento de Distribuição Fixa Liquida Mensal", DL
+  diferença, subsídio, bônus, …), so it matched nothing. **Drop that filter.**
+- **Ties to the centavo:** Σ = **172.129,96** (21 rows) = the ledger lump. Nothing
+  missing.
+- **`SIGLADEST` is the AREA (cost-center), not a person.** Codes seen: `ECT`
+  (Equipe Contencioso), `EDE` (Equipe Direito Econômico), `ESP` (Arbitragem).
+  Every professional also maps to a home area via
+  `CAD_PROFISSIONAL.ID_GRUPOJURIDICO → CAD_GRUPOJURIDICO.NOME` (grupos: Equipe
+  Contencioso, Equipe Direito Econômico, Arbitragem, Equipe Ambiental,
+  Administração, Não Alocados).
+- **Cross-area splits ARE in the DB.** `BBX` (Beatriz) distribuição came back
+  split **518,40 → ECT (Contencioso)** and **7.537,40 → EDE (Econômico)**. This is
+  exactly the "Aurelio ÷2" pattern the ledger shows by hand — but it is *booked*
+  against `SIGLADEST` at payment time. So **a future lawyer's split flows through
+  automatically**; no spreadsheet, no manual per-lawyer table, no monthly labor.
+- **Gross lives in `CONTASPAGAR`** (`CPGNVALORBASE`/`CPGNVALORBRUTO`, account
+  `030.010.0010`) per `COD_ADVG` (AM 23.379, DC 23.379, EHF 12.879, …). Note
+  `CONTASPAGAR` has **no** cost-center column, so the *area split* must come from
+  `LANCAMENTO.SIGLADEST`; gross-vs-net reconciliation (LANCAMENTO net vs
+  CONTASPAGAR gross) is the remaining detail to pin against the ledger's
+  gross-basis rows.
+
+**Conclusion:** per-area Custo equipe is **fully derivable from SISJURI** with no
+monthly manual input. The workbook ledger importer is therefore **not** needed as
+a data path and should be removed once the extract below is wired and validated.
+
+**`SIGLADEST` → DRE area map** (to encode; confirm `ESP` = Arbitragem and capture
+any other codes over a few months):
+`ECT`→Contencioso, `EDE`→Econômico, `ESP`→Arbitragem;
+`EAM`/Ambiental + `Administração` + `Não Alocados` → not one of the three DRE
+cost centers (handle explicitly: Ambiental is ~0; Administração is institucional).
+
+### Extract change needed (implementation-ready)
+Replace the empty `distribuicao_socio` query and augment `custo_equipe_prof`:
+
+```sql
+-- Per-lawyer × area distribuição (NET), from the cash ledger. NO historico filter.
+SELECT l.COD_ADVG AS sigla, l.SIGLADEST AS area_cc,
+       ROUND(SUM(l.LANNVALOR),2) AS valor
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
+   AND l.LANDDATA >= :d_start AND l.LANDDATA < :d_end
+ GROUP BY l.COD_ADVG, l.SIGLADEST;
+```
+
+Then per-area Custo equipe = (area-tagged 030.* small accounts from the resumo,
+already in `custo_equipe_prof`) + (this distribuição folded by `SIGLADEST`→area).
+Validate the three area subtotals against the ledger (76.342 / 78.817 / 61.794 for
+Feb) to the centavo before removing the importer.
+
+### CORRECTION (2026-07-07, later) — reconciliation is NOT clean; two real gaps
+
+Pulling the **live Supabase snapshot** (2026-02) and joining per-lawyer against the
+ledger's "Distribuição Mensal Fixa" rows exposed that the earlier "ties to the
+centavo / splits are in the DB" claim was too optimistic. Reality:
+
+1. **`distribuicao_socio` is already in the stored snapshots** (no backfill needed):
+   2026-02 has 13 rows summing to **172.129,96**, with `cost_center` ∈ {ECT, EDE,
+   ESP} and BBX genuinely split 518,40 ECT / 7.537,40 EDE. Good.
+
+2. **Aurelio's 50/50 IS in the DB — but not in the transactions.** His distribuição
+   is a *single* EDE (Econômico) row in both `LANCAMENTO` and `CONTASPAGAR`
+   (23.379, no caso/cliente/second CC). The split lives in a **static config
+   table**: `LDESK.CAD_RATEIO_GRUPO(ID_PROFISSIONAL, ID_GRUPOJURIDICO, PERCENTUAL,
+   ANO_MES_INICIAL, ANO_MES_FINAL)`. AM has two ACTIVE rows (2022-08..9999-12):
+   Equipe Contencioso **50%**, Equipe Direito Econômico **50%**. He is the ONLY
+   multi-area lawyer in that table (19 rows total; everyone else single grupo).
+   `SSJR.CAD_RATEIOADVG_HIST` has the same shape (COD_ADVG, ANO_MES, SETOR,
+   PERCENTUAL) but is **stale** (last rows 2022-08) — do NOT use it; use
+   `CAD_RATEIO_GRUPO` with the ANO_MES validity window.
+
+3. **BUT even after applying AM 50/50, the per-area totals still DON'T match the
+   ledger:**
+
+   | area        | custo_area (net, SISJURI) | +AM 50/50 | ledger (Feb) | gap |
+   |-------------|--------------------------:|----------:|-------------:|----:|
+   | Contencioso |                 49.941,93 | 61.631,43 |    76.342,35 | **−14.710,92** |
+   | Econômico   |                 94.571,59 | 82.882,09 |    78.817,05 |  +4.065,04 |
+   | Arbitragem  |                 70.796,83 | 70.796,83 |    61.794,34 |  **+9.002,49** |
+   | TOTAL       |                215.310,35 |215.310,35 |   216.953,74 |  −1.643,39 |
+
+   The **total** is within 1.643 (that is broadly net-vs-gross + Reajuste top-ups),
+   but the **per-area allocation is off by ±10–15k**. Arbitragem is +9k with no AM
+   involvement at all, so `SIGLADEST` cost-center ≠ ledger area for several lawyers.
+
+4. **Per-lawyer, SISJURI-net vs ledger-fixa diverge idiosyncratically** (not a
+   uniform tax haircut): e.g. JGS +6.507, RB −6.053, DC −3.797, ASG +3.538. The
+   finance team applies per-lawyer manual gross-ups / reajustes / timing that are
+   **not present in account 030.010.0010** as booked.
+
+**Honest verdict (as of this probe round):** per-area Custo equipe is **NOT yet
+proven fully derivable to the centavo** from SISJURI. What IS proven:
+- The distribuição data (per lawyer × cost-center) is in the snapshots.
+- Aurelio's cross-area split is DB-derivable via `CAD_RATEIO_GRUPO` (%-based,
+  future-proof for any multi-area professional).
+
+What is NOT yet reconciled:
+- Net (LANCAMENTO/`distribuicao_socio`) vs gross (CONTASPAGAR) vs the ledger's
+  per-lawyer figure — the ledger figure is neither the raw net nor the raw gross
+  for several lawyers (JGS, RB, DC…).
+- Whether `SIGLADEST` (payment cost-center) or `CAD_RATEIO_GRUPO` (config %) is the
+  authoritative area — they disagree, and neither alone reproduces the ledger.
+
+**Next probes to close it (do NOT wire the extract until these pass):**
+- Dump `CONTASPAGAR` gross per lawyer for account 030.010.0010 AND every 030.010.*
+  sub-account for Feb, so we can rebuild each lawyer's full Custo equipe components
+  (distribuição + reajuste + pró-labore + convênio + bolsa) the way the ledger does.
+- Confirm the ledger's per-lawyer figure = Σ of which SISJURI accounts, per lawyer,
+  so we know the exact account set and gross/net basis. Only then does per-area
+  reconcile to the centavo.
