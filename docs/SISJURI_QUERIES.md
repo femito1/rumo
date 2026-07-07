@@ -690,3 +690,29 @@ per-lawyer area tagging (one more probe), then full per-area Custo equipe should
 - **Area:** `LANCAMENTO.SIGLADEST` for 0010 (the only account with a real CC), else
   the lawyer's HOME area (`CAD_PROFISSIONAL.ID_GRUPOJURIDICO`), with **Aurelio (AM)
   overridden 50/50** via `CAD_RATEIO_GRUPO`.
+
+### Full component matrix RESULTS (2026-07-07) — AREA solved, AMOUNT is the residual
+
+`probe_lancprofdest.sql` (Feb 2026):
+- **Σ ALL `030.010.*` NET = 215.310,35** (57 rows) = `custo_area` total exactly.
+  Ledger Custo-equipe total = 216.953,74 → **only 1.643,39 more** (the distribuição
+  gross-up). So SISJURI has essentially all the money; the question is allocation.
+- **Convênio (0110) & INSS (0050) per-lawyer via `LANCPROFDEST`** confirmed
+  (§3): INSS is a flat 324,20/lawyer (12 lawyers); convênio varies (AM 3.182,83,
+  RB 3.427,58, …). Pró-labore (0130) 1.442,69/lawyer net.
+- **AREA assignment is SOLVED = lawyer HOME area + AM 50/50.** Per-lawyer, the
+  distribuição SIGLADEST area == home area == ledger area for **everyone except**:
+  - **AM**: SIGLADEST 100% EDE, ledger 50/50 → use `CAD_RATEIO_GRUPO` (done).
+  - **BBX**: SIGLADEST splits 518 ECT / 7.537 EDE, but home & ledger both = 100%
+    Contencioso → **use HOME area, not SIGLADEST** (SIGLADEST is noisy for her).
+  ⇒ **Rule: area = HOME grupo (`CAD_PROFISSIONAL.ID_GRUPOJURIDICO`) + `CAD_RATEIO_GRUPO`
+    percentage override. Do NOT fold distribuição by SIGLADEST** (it disagrees for BBX).
+
+- **RESIDUAL = per-lawyer AMOUNT on 0010**, same area:
+  - JGS: net 15.885,98 vs ledger fixa 9.379 (Δ 6.507) — Arbitragem +.
+  - RB:  net 17.325,69 vs ledger 23.379 (Δ −6.053) — Econômico −.
+  - DC:  net 19.582,18 vs ledger 23.379; IAC net 17.171 vs ledger 15.605.
+  These are NOT area errors; they are Fixa-vs-(Fixa+Reajuste+Diferença+gross) mix
+  differences within account 0010. Probe `probe_0010_detail.sql` breaks 0010 by
+  histórico (Fixa / Reajuste / Diferença / Bônus) net & gross to reconstruct the
+  ledger's per-lawyer figure exactly.
