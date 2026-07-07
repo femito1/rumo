@@ -760,3 +760,25 @@ for the rare capped/negotiated cases (JGS this month). Document the histórico
 exclusions (Bônus) as a config list. This achieves full automation for 8/13+ lawyers
 and a minimal, auditable override surface for the exceptions — instead of rebuilding
 the entire ledger by hand each month.
+
+### Shipped derivation VALIDATED (2026-07-07) — total within R$ 6,62; 9/13 exact
+
+The production module `app/closing/custo_equipe_deriv.py` (fed the Feb component
+rows exactly as the new extract emits them) reconciles vs the dashboard/ledger:
+
+| area        | derived (module) | ledger    | diff      |
+|-------------|-----------------:|----------:|----------:|
+| Contencioso |        74.929,90 | 76.342,35 | −1.412,45 |
+| Econômico   |        80.222,88 | 78.817,05 | +1.405,83 |
+| Arbitragem  |        61.794,34 | 61.794,34 |  **0,00** |
+| TOTAL       |       216.947,12 |216.953,74 |   **−6,62** |
+
+(JGS capped at 11.000 via the per-lawyer override.) Arbitragem ties to the
+centavo. The Cont/Econ ±1.41k is an **offsetting pair** (money in the right total,
+wrong area) from the last per-lawyer residuals:
+- **AM −108,70 & DC −108,70** (identical): a shared small line the recipe omits
+  (AASP 030.010.0150 or an ISS split ~2×54,35). Present for both AM and DC.
+- **EHF +558,20** and **RB +901,49**: lawyer-specific (convênio/reajuste/IR timing).
+These four are the ONLY remaining residuals (ASG/BBX/IAC/JVO/MV/EMC/FSM = 0,00 →
+**9/13 exact**). `probe_residuals_final.sql` (multi-month) will show whether they
+are stable (→ config/recipe fix) or vary (→ manual override), closing it fully.
