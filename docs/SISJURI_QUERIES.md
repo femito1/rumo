@@ -812,3 +812,43 @@ the EHF/RB convênio dependente split (~1.460 combined).** Total was within R$6,
 before these fixes; the EXCEDENTE/RESERVA exclusion only affects January (removes a
 false ~164k that never entered Custo equipe anyway since we take Fixa only, but the
 filter makes the extract robust). These are the final micro-residuals.
+
+### RESIDUALS FULLY CLOSED (2026-07-07) — the exact manual boundary
+
+`probe_convenio_full.sql` + `probe_aasp_final.sql` gave the untruncated histórico
+memos. Every residual is now explained to the centavo. Two are **genuinely manual**
+(no DB source), everything else is DB-derivable:
+
+**1. EHF/RB convênio — hand-netted from the plan invoice (free text only).**
+The 0110 LANCAMENTO value is the "parte MBC" base (EHF 2.122,30; RB 3.427,58). The
+ledger instead books a **hand-computed net** documented ONLY in the histórico memo:
+- RB:  memo "R$ 8.579,33 − 6.053,24 (parte MBC) = **R$ 2.526,09**" (= ledger).
+- EHF: memo "3.520,31 − 1.956,21 (Parte MBC) = **1.564,10**" (= ledger).
+The dependents' share is "lançada na conta 500.<SIGLA>" (personal account). There
+is **no clean DB column** for the ledger figure — it is arithmetic the finance team
+performs from the health-plan invoice and records in prose. `CONTASPAGAR` has no
+0110 rows; account 0120 empty. → **Not DB-derivable. Manual per-lawyer override**
+for EHF, RB (stable month-to-month: EHF 1.564,10; RB 2.526,09 from Mar).
+
+**2. AASP monthly (AM/DC 54,35 each) — a manual accrual.** Account 0160 is purely
+**ISS-Trimestral** (Jan/Apr only, "rateado para N profissionais"). There is **no
+monthly AASP** anywhere in LANCAMENTO/CONTASPAGAR (0150 empty everywhere). The
+ledger's 54,35/month AASP is a finance-team accrual (annual AASP fee spread over
+12). → **Not DB-derivable. Config constant** (~54,35/lawyer/month for AM, DC).
+
+**Everything else IS DB-derivable** (proven, Jan..Mai):
+- Distribuição: `CONTASPAGAR.CPGNVALORBASE` ex `%B_NUS%`/`%EXCEDENTE%`/`%RESERVA%`.
+- Pró-labore/Bolsa: `CONTASPAGAR` gross.
+- Convênio (11/13 lawyers): `LANCAMENTO` net by `LANCPROFDEST`.
+- Area: home grupo + `CAD_RATEIO_GRUPO` % (Aurelio 50/50).
+- INSS excluded; JGS negotiated cap when present.
+
+**FINAL VERDICT — automation boundary:** per-area Custo equipe is **fully
+automatable from SISJURI** except for a **tiny, stable, per-lawyer override map**:
+- EHF convênio → 1.564,10 ; RB convênio → 2.526,09 (hand-netted plan cost)
+- AM/DC → +54,35/month AASP accrual
+- JGS → negotiated cap when it applies
+This is 3–4 lawyers × one number, set-once and rarely changed — NOT a monthly
+ledger. The `custo_equipe_overrides` map in the snapshot (wired in dre.py) is
+exactly this surface. With it, per-area Custo equipe ties to the dashboard to the
+centavo with zero monthly manual work beyond maintaining that small map.
