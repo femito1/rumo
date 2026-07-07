@@ -782,3 +782,33 @@ wrong area) from the last per-lawyer residuals:
 These four are the ONLY remaining residuals (ASG/BBX/IAC/JVO/MV/EMC/FSM = 0,00 →
 **9/13 exact**). `probe_residuals_final.sql` (multi-month) will show whether they
 are stable (→ config/recipe fix) or vary (→ manual override), closing it fully.
+
+### Multi-month residual probe RESULTS (2026-07-07) — new exclusions + 2 micro-residuals
+
+`probe_residuals_final.sql` (Jan..Mai) surfaced two important things:
+
+1. **NEW histórico exclusions for account 0010** (non-recurring profit movements
+   that are NOT monthly Custo equipe): besides "Bônus", January carries big
+   **"DL excedente <SIGLA> - Reserva janeiro"** rows (AM 70.790,94; DC 46.843,20;
+   RB 46.843,20 — visible as the ~70-94k Jan gross). Extract now excludes
+   `%EXCEDENTE%` and `%RESERVA%` too. (Also "Adiantamento de Lucros - Subsídio/
+   Bolsa Mestrado" are separate; keep as-is for now.)
+
+2. **Convênio (0110) is STABLE per lawyer across months** and matches the ledger
+   **exactly for 11/13** lawyers. AM's convênio (3.182,83) is booked in the ledger
+   as 1.591,415 in EACH of his two area-halves = full amount, correctly handled by
+   the 50/50 rateio split. Only **EHF (2.122,30 vs ledger 1.564,10, Δ558,20)** and
+   **RB (3.427,58 vs 2.526,09, Δ901,49)** differ — and both at the **identical
+   ratio 0,7370**, i.e. a structural titular/dependente split (probe
+   `probe_convenio_detail.sql` / `probe_aasp_final.sql` §4 confirms).
+
+3. **AM/DC −108,70 = AASP**, monthly in the ledger (54,35/lawyer; AM ×2 across his
+   halves) but in the DB AASP (0150) did not appear monthly — account 0160
+   (ISS-Trimestral) shows only Jan/Apr. `probe_aasp_final.sql` hunts the monthly
+   AASP source (0150 anywhere, CONTASPAGAR payable side, or a small 54,35 line).
+
+**Reconciliation now: 11/13 convênio exact; the residual is AASP (~108,70/mo) +
+the EHF/RB convênio dependente split (~1.460 combined).** Total was within R$6,62
+before these fixes; the EXCEDENTE/RESERVA exclusion only affects January (removes a
+false ~164k that never entered Custo equipe anyway since we take Fixa only, but the
+filter makes the extract robust). These are the final micro-residuals.

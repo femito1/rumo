@@ -201,18 +201,21 @@ BEGIN
           FROM FINANCE.CONTASPAGAR cp
          WHERE cp.PCTCNUMEROCONTA IN ('030.010.0010','030.010.0130','030.010.0140')
            AND cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+           -- Exclude non-recurring profit movements booked in 0010: annual Bônus
+           -- and the January "DL excedente ... Reserva" excess-distribution
+           -- reserves. Keep only Fixa + monthly Diferença (docs §11).
            AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%B_NUS%'
            AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%BONUS%'
+           AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%EXCEDENTE%'
+           AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%RESERVA%'
          GROUP BY cp.COD_ADVG, cp.PCTCNUMEROCONTA
         UNION ALL
-        -- Net components from LANCAMENTO, keyed by destination professional:
-        -- Convênio (0110) and AASP (0150). AASP closes the AM/DC per-lawyer gap
-        -- (docs §11). CONTASPAGAR does not carry these, so they come from the
-        -- cash ledger by LANCPROFDEST.
+        -- Net convênio (0110) from LANCAMENTO, keyed by destination professional.
+        -- CONTASPAGAR does not carry convênio, so it comes from the cash ledger.
         SELECT l.LANCPROFDEST sigla, l.PCTCNUMEROCONTADEST id_conta,
                ROUND(SUM(l.LANNVALOR),2) valor
           FROM FINANCE.LANCAMENTO l
-         WHERE l.PCTCNUMEROCONTADEST IN ('030.010.0110','030.010.0150')
+         WHERE l.PCTCNUMEROCONTADEST = '030.010.0110'
            AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
            AND l.LANCPROFDEST IS NOT NULL
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
