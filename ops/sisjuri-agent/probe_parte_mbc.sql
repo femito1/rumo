@@ -1,0 +1,66 @@
+-- Hunt: the memo says "8.579,33 - 6.053,24 (parte MBC) = 2.526,09" (RB) and
+-- "3.520,31 - 1.956,21 (Parte MBC) = 1.564,10" (EHF). We just proved:
+--   LANCAMENTO 0110 + 500.010.<SIGLA> conv row = total_invoice (matches memo)
+-- So parte_MBC (1.956,21 EHF, 6.053,24 RB) is a THIRD component. Find it.
+-- Read-only.
+SET DEFINE OFF
+SET PAGESIZE 500
+SET LINESIZE 340
+SET FEEDBACK ON
+COL prof FORMAT A6
+COL conta FORMAT A22
+COL hist FORMAT A85
+WHENEVER SQLERROR CONTINUE
+
+PROMPT === 1. Direct hunt for 1.956,21 (EHF) and 6.053,24 (RB) anywhere in LANCAMENTO ===
+SELECT l.PCTCNUMEROCONTAORG conta_org, l.PCTCNUMEROCONTADEST conta_dest,
+       l.LANCPROFDEST prof, l.LANCPROFORG prof_org,
+       ROUND(l.LANNVALOR,2) net,
+       TO_CHAR(l.LANDDATA,'YYYY-MM') mes,
+       SUBSTR(l.LANCHISTORICO,1,90) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE (ABS(l.LANNVALOR-1956.21) < 0.10 OR ABS(l.LANNVALOR-6053.24) < 0.10
+        OR ABS(l.LANNVALOR-1182.98) < 0.10 OR ABS(l.LANNVALOR-1192.36) < 0.10)
+   AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2027-01-01'
+ ORDER BY mes;
+
+PROMPT === 2. Same in CONTASPAGAR ===
+SELECT cp.PCTCNUMEROCONTA conta, cp.COD_ADVG prof,
+       ROUND(cp.CPGNVALORBASE,2) base, TO_CHAR(cp.CPGDVECTO,'YYYY-MM') mes,
+       SUBSTR(cp.CPGCHISTORICO,1,90) hist
+  FROM FINANCE.CONTASPAGAR cp
+ WHERE (ABS(cp.CPGNVALORBASE-1956.21) < 0.10 OR ABS(cp.CPGNVALORBASE-6053.24) < 0.10
+        OR ABS(cp.CPGNVALORBASE-1182.98) < 0.10)
+   AND cp.CPGDVECTO >= DATE '2026-01-01' AND cp.CPGDVECTO < DATE '2027-01-01';
+
+PROMPT === 3. All rows where EHF or RB appears as ORIGIN (credits), Feb 2026 ===
+SELECT l.PCTCNUMEROCONTAORG conta_org, l.PCTCNUMEROCONTADEST conta_dest,
+       l.LANCPROFORG prof_org, l.LANCPROFDEST prof_dest,
+       ROUND(l.LANNVALOR,2) net, SUBSTR(l.LANCHISTORICO,1,90) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE (l.LANCPROFORG IN ('EHF','RB')
+        OR l.PCTCNUMEROCONTAORG IN ('500.010.EHF','500.010.RB'))
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01';
+
+PROMPT === 4. Convênio Médico rows summed by (histórico plan invoice number), Feb ===
+PROMPT     If the same INVOICE (identified by fatura/pedido) appears for both EHF & the operator...
+SELECT SUBSTR(l.LANCHISTORICO,1,60) hist, COUNT(*) n,
+       ROUND(SUM(l.LANNVALOR),2) tot
+  FROM FINANCE.LANCAMENTO l
+ WHERE UPPER(l.LANCHISTORICO) LIKE '%CONV%'
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01'
+ GROUP BY SUBSTR(l.LANCHISTORICO,1,60)
+ ORDER BY tot DESC;
+
+PROMPT === 5. Anything with fatura / conta 500 dependentes with a Value_MBC field ===
+PROMPT     Full column dump for a sample 500.010.EHF row to see EVERY populated col
+SELECT * FROM FINANCE.LANCAMENTO l
+ WHERE l.PCTCNUMEROCONTADEST='500.010.EHF'
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01'
+   AND ROWNUM<=2;
+
+PROMPT === 6. GERENC_LANCAMENTORESUMO: does it carry a MBC vs SIGLA split? ===
+SELECT column_name FROM ALL_TAB_COLUMNS
+ WHERE owner='LDESK' AND table_name='GERENC_LANCAMENTORESUMO' ORDER BY column_id;
+
+EXIT
