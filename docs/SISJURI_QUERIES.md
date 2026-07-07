@@ -603,3 +603,59 @@ What is NOT yet reconciled:
 - Confirm the ledger's per-lawyer figure = Σ of which SISJURI accounts, per lawyer,
   so we know the exact account set and gross/net basis. Only then does per-area
   reconcile to the centavo.
+
+### Component-level probe RESULTS (2026-07-07) — the real Custo equipe recipe
+
+`probe_custo_components.sql` (Feb 2026) gave the per-lawyer × account breakdown.
+This is the definitive account map for **Custo equipe** and resolves the gross/net
+question. **Future agents: start here — do not re-derive.**
+
+#### Custo equipe component accounts (all under `030.010.*`)
+| account       | ledger line              | Feb basis seen                                  |
+|---------------|--------------------------|-------------------------------------------------|
+| `030.010.0010`| Distribuição Mensal Fixa (+ Reajuste) | GROSS in `CONTASPAGAR.CPGNVALORBASE`; NET in `LANCAMENTO.LANNVALOR`. Total NET 172.129,96 / GROSS base 184.439,20 |
+| `030.010.0050`| INSS - Jurídico          | 3.890,40 (12 rows, **blank COD_ADVG in LANCAMENTO destination**) |
+| `030.010.0110`| Convênio Médico          | 19.177,71 net (11 rows, **blank COD_ADVG in LANCAMENTO destination**) |
+| `030.010.0130`| Pró-Labore               | GROSS 1.621/lawyer, NET 1.442,69/lawyer (per lawyer, `CONTASPAGAR.COD_ADVG`) |
+| `030.010.0140`| Bolsa Auxílio            | JVO 2.800 (Contencioso) |
+
+Plus AASP, Vale, Seguro, ISS, Subsídio lines in the ledger (small; need account
+numbers — likely `030.010.00xx`; not all appeared in Feb LANCAMENTO destination).
+
+#### GROSS vs NET — SOLVED
+`CONTASPAGAR.CPGNVALORBASE` **= the ledger's gross figure**. Proof (account 0010):
+- DC: net 19.582,18 → **base 23.379** = ledger 23.379 ✅
+- RB: net 17.325,69 → **base 23.379** = ledger 23.379 ✅
+- EHF: net 10.922,75 → **base 12.879** = ledger 12.879 ✅
+`CPGNVALORBRUTO`/`CPGNVALORLIQUIDO` = the net (post-withholding). So: **use
+`CPGNVALORBASE` for the ledger-basis gross; the base−liquido delta is INSS/IR.**
+
+#### The AREA split — where it lives
+- `CONTASPAGAR` has **NO cost-center** column. The area/CC (`SIGLADEST` ∈ ECT/EDE/ESP)
+  is **only in `FINANCE.LANCAMENTO`** (destination cost-center of the cash movement).
+- So per-area distribuição = **gross (CONTASPAGAR base) allocated by the SIGLADEST
+  proportions from LANCAMENTO**, with **Aurelio (AM) overridden 50/50** by
+  `CAD_RATEIO_GRUPO` (AM is the only multi-area lawyer; his single LANCAMENTO row is
+  100% EDE, so SIGLADEST alone is wrong for him — the config table is authoritative).
+
+#### STILL OPEN (next probe) — per-lawyer tagging for convênio & INSS
+`030.010.0110` (Convênio) and `030.010.0050` (INSS) returned with **blank COD_ADVG /
+SIGLADEST in the LANCAMENTO destination grouping**, yet the ledger splits convênio
+per lawyer (e.g. Aurelio 1.591,41). The per-lawyer link for these must be in another
+column — candidates: `LANCAMENTO.LANCPROFORG` (source professional),
+`LANCAMENTO.COD_ADVG` on the *origin* side, or `CONTASPAGAR.COD_ADVG` (which DID
+carry pró-labore per lawyer). Probe both: group `030.010.0110`/`0050` by
+`CONTASPAGAR.COD_ADVG` and by every prof/CC column in LANCAMENTO.
+
+#### Ledger block composition (Feb, from Base_Resultado, PROGRAMMATIC — trustworthy)
+| area        | distrib_fixa | reajuste | prolabore | convenio | bolsa | subsidio | vale | aasp | iss | TOTAL |
+|-------------|-------------:|---------:|----------:|---------:|------:|---------:|-----:|-----:|----:|------:|
+| Contencioso |    58.210,90 | 2.084,40 |  5.673,50 | 6.161,10 |2.800 |        – |1.249,40|163,05|   – |76.342,35|
+| Econômico   |    59.084,38 | 2.554,38 |  7.294,50 | 6.811,44 |    – | 3.018,00 |    – |54,35|1.500|80.317,05*|
+| Arbitragem  |    50.866,40 | 1.610,40 |  4.863,00 | 2.833,54 |    – |        – |    – |   – |   – |61.794,34|
+*Econ block sums 80.317 but subtotal row shows 78.817 — the 1.500 ISS/comissão line
+sits outside the Custo-equipe subtotal (it's a Participação/comissão line). Confirm.
+
+**Reconciliation status:** distribuição gross basis SOLVED; Aurelio split SOLVED via
+CAD_RATEIO_GRUPO; pró-labore/bolsa per-lawyer SOLVED. Remaining: convênio + INSS
+per-lawyer area tagging (one more probe), then full per-area Custo equipe should tie.

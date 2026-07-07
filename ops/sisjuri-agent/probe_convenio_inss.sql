@@ -1,0 +1,61 @@
+-- Probe: find the per-lawyer link for Convênio Médico (030.010.0110) and INSS
+-- (030.010.0050), which came back with BLANK COD_ADVG/SIGLADEST in the LANCAMENTO
+-- *destination* grouping but ARE split per lawyer in the ledger. Also fix the
+-- account-name catalogue (PLANOCONTAS column name was wrong) and check the ledger's
+-- small lines (AASP/Vale/Seguro/ISS/Subsídio) account numbers. Read-only, Feb 2026.
+SET DEFINE OFF
+SET PAGESIZE 1000
+SET LINESIZE 340
+SET FEEDBACK ON
+COL nome FORMAT A45
+COL col FORMAT A22
+WHENEVER SQLERROR CONTINUE
+
+PROMPT === 0. Correct PLANOCONTAS column names ===
+SELECT column_name, data_type FROM ALL_TAB_COLUMNS
+ WHERE owner='FINANCE' AND table_name='PLANOCONTAS' ORDER BY column_id;
+
+PROMPT === 0b. All 030.010.* account names (via ALL_TAB_COLUMNS-safe select *) ===
+SELECT * FROM FINANCE.PLANOCONTAS WHERE PCTCNUMEROCONTA LIKE '030.010.%'
+ ORDER BY PCTCNUMEROCONTA;
+
+PROMPT === 1. Convênio 030.010.0110 grouped by CONTASPAGAR.COD_ADVG (per-lawyer gross) ===
+SELECT cp.COD_ADVG AS sigla, ROUND(SUM(cp.CPGNVALORBASE),2) base,
+       ROUND(SUM(cp.CPGNVALORLIQUIDO),2) liq, COUNT(*) n
+  FROM FINANCE.CONTASPAGAR cp
+ WHERE cp.PCTCNUMEROCONTA='030.010.0110'
+   AND cp.CPGDVECTO >= DATE '2026-02-01' AND cp.CPGDVECTO < DATE '2026-03-01'
+ GROUP BY cp.COD_ADVG ORDER BY cp.COD_ADVG;
+
+PROMPT === 2. INSS 030.010.0050 grouped by CONTASPAGAR.COD_ADVG ===
+SELECT cp.COD_ADVG AS sigla, ROUND(SUM(cp.CPGNVALORBASE),2) base, COUNT(*) n
+  FROM FINANCE.CONTASPAGAR cp
+ WHERE cp.PCTCNUMEROCONTA='030.010.0050'
+   AND cp.CPGDVECTO >= DATE '2026-02-01' AND cp.CPGDVECTO < DATE '2026-03-01'
+ GROUP BY cp.COD_ADVG ORDER BY cp.COD_ADVG;
+
+PROMPT === 3. LANCAMENTO 0110/0050 — ALL prof/CC cols, ungrouped sample (find the link col) ===
+SELECT l.COD_ADVG, l.SIGLADEST, l.SIGLAORG, l.LANCPROFORG, l.LANCPROFDEST,
+       l.PCTCNUMEROCONTADEST, ROUND(l.LANNVALOR,2) v
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.PCTCNUMEROCONTADEST IN ('030.010.0110','030.010.0050')
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01'
+ ORDER BY l.PCTCNUMEROCONTADEST, l.LANNVALOR;
+
+PROMPT === 4. FULL per-lawyer Custo equipe from CONTASPAGAR: every 030.010.* account, Feb ===
+PROMPT     This is the money view -- per (lawyer, account) gross base. Fold to areas in app.
+SELECT cp.COD_ADVG AS sigla, cp.PCTCNUMEROCONTA AS conta,
+       ROUND(SUM(cp.CPGNVALORBASE),2) base, COUNT(*) n
+  FROM FINANCE.CONTASPAGAR cp
+ WHERE cp.PCTCNUMEROCONTA LIKE '030.010.%'
+   AND cp.CPGDVECTO >= DATE '2026-02-01' AND cp.CPGDVECTO < DATE '2026-03-01'
+ GROUP BY cp.COD_ADVG, cp.PCTCNUMEROCONTA
+ ORDER BY cp.COD_ADVG, cp.PCTCNUMEROCONTA;
+
+PROMPT === 5. Grand total of ALL 030.010.* gross base (should ~ Σ ledger Custo equipe blocks) ===
+SELECT ROUND(SUM(cp.CPGNVALORBASE),2) total_gross, COUNT(*) n
+  FROM FINANCE.CONTASPAGAR cp
+ WHERE cp.PCTCNUMEROCONTA LIKE '030.010.%'
+   AND cp.CPGDVECTO >= DATE '2026-02-01' AND cp.CPGDVECTO < DATE '2026-03-01';
+
+EXIT
