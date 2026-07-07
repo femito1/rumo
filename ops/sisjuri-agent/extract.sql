@@ -205,11 +205,14 @@ BEGIN
            AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%BONUS%'
          GROUP BY cp.COD_ADVG, cp.PCTCNUMEROCONTA
         UNION ALL
-        -- Net convênio from LANCAMENTO, keyed by destination professional.
+        -- Net components from LANCAMENTO, keyed by destination professional:
+        -- Convênio (0110) and AASP (0150). AASP closes the AM/DC per-lawyer gap
+        -- (docs §11). CONTASPAGAR does not carry these, so they come from the
+        -- cash ledger by LANCPROFDEST.
         SELECT l.LANCPROFDEST sigla, l.PCTCNUMEROCONTADEST id_conta,
                ROUND(SUM(l.LANNVALOR),2) valor
           FROM FINANCE.LANCAMENTO l
-         WHERE l.PCTCNUMEROCONTADEST = '030.010.0110'
+         WHERE l.PCTCNUMEROCONTADEST IN ('030.010.0110','030.010.0150')
            AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
            AND l.LANCPROFDEST IS NOT NULL
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
