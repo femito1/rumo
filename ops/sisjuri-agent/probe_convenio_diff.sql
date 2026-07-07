@@ -1,0 +1,69 @@
+-- Hunt for the EXACT differences: EHF LANCAMENTO 2.122,30 - ledger 1.564,10 = 558,20
+-- and RB LANCAMENTO 3.427,58 - ledger 2.526,09 = 901,49. If those exact numbers
+-- exist ANYWHERE as an entry, we can subtract them programmatically. Also map
+-- the 500.010.<XXXX> numeric-suffix namespace (found 500.010.0010 with a bônus
+-- row) and 200.010.* origin accounts, plus check for offsetting credits. Read-only.
+SET DEFINE OFF
+SET PAGESIZE 500
+SET LINESIZE 340
+SET FEEDBACK ON
+COL prof FORMAT A6
+COL conta FORMAT A22
+COL hist FORMAT A85
+WHENEVER SQLERROR CONTINUE
+
+PROMPT === 1. Hunt for 558,20 (EHF diff) and 901,49 (RB diff) ANYWHERE, all months ===
+SELECT l.PCTCNUMEROCONTADEST conta_dest, l.PCTCNUMEROCONTAORG conta_org,
+       l.LANCPROFDEST prof, ROUND(l.LANNVALOR,2) net,
+       TO_CHAR(l.LANDDATA,'YYYY-MM') mes, SUBSTR(l.LANCHISTORICO,1,80) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE ABS(l.LANNVALOR-558.20) < 0.10 OR ABS(l.LANNVALOR-901.49) < 0.10
+   AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2027-01-01';
+
+PROMPT === 2. Map the 500.010.* namespace: ALL sub-accounts + naming pattern, Feb ===
+SELECT DISTINCT l.PCTCNUMEROCONTADEST conta
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01'
+ ORDER BY conta;
+
+PROMPT === 3. What are 200.010.* accounts? (the credit side of 500.010 rows) ===
+SELECT PCTCNUMEROCONTA conta, PCTCTITULO titulo, PCTCNUMEROCONTAPAI pai
+  FROM FINANCE.PLANOCONTAS
+ WHERE PCTCNUMEROCONTA LIKE '200.010.%'
+ ORDER BY conta;
+
+PROMPT === 4. What are 500.010.* accounts? ===
+SELECT PCTCNUMEROCONTA conta, PCTCTITULO titulo, PCTCNUMEROCONTAPAI pai
+  FROM FINANCE.PLANOCONTAS
+ WHERE PCTCNUMEROCONTA LIKE '500.010.%'
+ ORDER BY conta;
+
+PROMPT === 5. Full offsetting-credit map for EHF/RB Feb (see the double-entry chain) ===
+SELECT l.PCTCNUMEROCONTAORG conta_org, l.PCTCNUMEROCONTADEST conta_dest,
+       l.LANCPROFDEST prof, ROUND(l.LANNVALOR,2) net,
+       SUBSTR(l.LANCHISTORICO,1,80) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE (l.LANCPROFDEST IN ('EHF','RB')
+        OR l.LANCPROFORG IN ('EHF','RB')
+        OR l.PCTCNUMEROCONTADEST IN ('500.010.EHF','500.010.RB'))
+   AND l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-03-01'
+ ORDER BY prof, conta_org, conta_dest;
+
+PROMPT === 6. Any account with EHF+558,20 (=2.122,30-1.564,10)? Test known combinations ===
+SELECT l.PCTCNUMEROCONTADEST conta, l.LANCPROFDEST prof,
+       ROUND(l.LANNVALOR,2) net, SUBSTR(l.LANCHISTORICO,1,60) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.LANDDATA >= DATE '2026-02-01' AND l.LANDDATA < DATE '2026-06-01'
+   AND ABS(l.LANNVALOR - 558.20) < 5;
+
+PROMPT === 7. Search histórico for EHF & RB convênio values across all months ===
+SELECT TO_CHAR(l.LANDDATA,'YYYY-MM') mes, l.PCTCNUMEROCONTADEST conta,
+       ROUND(l.LANNVALOR,2) net, SUBSTR(l.LANCHISTORICO,1,110) hist
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
+   AND UPPER(l.LANCHISTORICO) LIKE '%CONV%'
+   AND (l.LANCPROFDEST IN ('EHF','RB') OR UPPER(l.LANCHISTORICO) LIKE '%EHF%' OR UPPER(l.LANCHISTORICO) LIKE '%RB%')
+ ORDER BY prof, mes, conta;
+
+EXIT
