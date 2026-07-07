@@ -659,3 +659,34 @@ sits outside the Custo-equipe subtotal (it's a Participação/comissão line). C
 **Reconciliation status:** distribuição gross basis SOLVED; Aurelio split SOLVED via
 CAD_RATEIO_GRUPO; pró-labore/bolsa per-lawyer SOLVED. Remaining: convênio + INSS
 per-lawyer area tagging (one more probe), then full per-area Custo equipe should tie.
+
+### Convênio/INSS per-lawyer key FOUND (2026-07-07) — `LANCPROFDEST`
+
+`probe_convenio_inss.sql` (Feb 2026) revealed:
+- **`CONTASPAGAR` only carries 0010 (distribuição), 0130 (pró-labore), 0140 (bolsa).**
+  Grouping `CONTASPAGAR` by `COD_ADVG` for `030.010.0110`/`0050` returns **no rows** —
+  convênio & INSS are NOT in CONTASPAGAR at all. They live only in `LANCAMENTO`.
+- **The per-lawyer key for convênio/INSS is `LANCAMENTO.LANCPROFDEST`** (destination
+  professional), NOT `COD_ADVG`/`SIGLADEST` (those are blank for these accounts).
+  §3 showed all 12 lawyers tagged via `LANCPROFDEST` for both 0110 and 0050.
+- **Full 030.010.* account catalogue** (from `FINANCE.PLANOCONTAS`, name col =
+  `PCTCTITULO`; the code col is `PCTCNUMEROCONTA`, parent `PCTCNUMEROCONTAPAI`):
+  0000 Custos c/ Pessoal (parent), 0010 Distribuição, 0020 Bônus Associados,
+  0030 OAB, 0040 Rescisões, 0050 INSS-Jurídico, 0080 Participação E, 0090
+  Estacionamento, 0100 Vale Refeição, 0110 Convênio Médico, 0120 Participação I,
+  0130 Pró-Labores, 0140 Bolsa Auxílio, 0150 AASP, 0160 ISS, 0170 OAB anuidades,
+  0180 Cursos/Trein., 0190 Adiantamento, 0200 Seguro de Vida, 0210 IR-Equipe,
+  0220 Vale Transporte, 0230 Exame médico, 0240 Férias, 0250 Aux Home Office,
+  0260 Aux Saúde, 0270 Headhunter.
+- **Grand totals (Feb):** Σ CONTASPAGAR gross base `030.010.*` = **206.691,20** (34
+  rows); Σ ledger Custo-equipe blocks ≈ 216.954. Gap ≈ convênio/INSS + small lines
+  that are LANCAMENTO-only.
+
+**Derivation recipe (per lawyer, per account):**
+- **Amount:** gross where CONTASPAGAR has it (`CPGNVALORBASE`: 0010, 0130, 0140),
+  else NET from `LANCAMENTO.LANNVALOR` (0110, 0050, small lines).
+- **Lawyer key:** `CONTASPAGAR.COD_ADVG` for the gross accounts; `LANCAMENTO.LANCPROFDEST`
+  for the LANCAMENTO-only accounts.
+- **Area:** `LANCAMENTO.SIGLADEST` for 0010 (the only account with a real CC), else
+  the lawyer's HOME area (`CAD_PROFISSIONAL.ID_GRUPOJURIDICO`), with **Aurelio (AM)
+  overridden 50/50** via `CAD_RATEIO_GRUPO`.
