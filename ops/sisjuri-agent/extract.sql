@@ -178,6 +178,70 @@ BEGIN
               AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
             GROUP BY l.COD_ADVG, l.SIGLADEST)
   ),
+  -- Per-lawyer team-cost COMPONENTS for the SISJURI-derived per-area Custo
+  -- equipe (docs/SISJURI_QUERIES.md §11). One row per (sigla, id_conta, valor):
+  --  * 030.010.0010 Distribuição: CONTASPAGAR gross base, EXCLUDING "Bônus"
+  --    histórico (Fixa + Diferença), keyed by COD_ADVG.
+  --  * 030.010.0130 Pró-Labore, 030.010.0140 Bolsa: CONTASPAGAR gross base by
+  --    COD_ADVG.
+  --  * 030.010.0110 Convênio: LANCAMENTO net by LANCPROFDEST (CONTASPAGAR does
+  --    not carry it). INSS 030.010.0050 is intentionally omitted (excluded from
+  --    per-lawyer Custo equipe). The app folds these to areas via home grupo +
+  --    CAD_RATEIO_GRUPO %s (rateio_grupo / home_area below).
+  'custo_equipe_deriv' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'    VALUE sigla,
+        'id_conta' VALUE id_conta,
+        'valor'    VALUE valor
+     ) RETURNING CLOB)
+     FROM (
+        -- Gross components from CONTASPAGAR (distribuição ex-bônus, pró-labore, bolsa)
+        SELECT cp.COD_ADVG sigla, cp.PCTCNUMEROCONTA id_conta,
+               ROUND(SUM(cp.CPGNVALORBASE),2) valor
+          FROM FINANCE.CONTASPAGAR cp
+         WHERE cp.PCTCNUMEROCONTA IN ('030.010.0010','030.010.0130','030.010.0140')
+           AND cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+           AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%B_NUS%'
+           AND UPPER(cp.CPGCHISTORICO) NOT LIKE '%BONUS%'
+         GROUP BY cp.COD_ADVG, cp.PCTCNUMEROCONTA
+        UNION ALL
+        -- Net convênio from LANCAMENTO, keyed by destination professional.
+        SELECT l.LANCPROFDEST sigla, l.PCTCNUMEROCONTADEST id_conta,
+               ROUND(SUM(l.LANNVALOR),2) valor
+          FROM FINANCE.LANCAMENTO l
+         WHERE l.PCTCNUMEROCONTADEST = '030.010.0110'
+           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+           AND l.LANCPROFDEST IS NOT NULL
+         GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
+     )
+  ),
+  -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
+  -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses
+  -- home_area (100%) for everyone else.
+  'rateio_grupo' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'      VALUE sigla,
+        'grupo'      VALUE grupo,
+        'percentual' VALUE percentual
+     ) RETURNING CLOB)
+     FROM (SELECT p.SIGLA sigla, g.NOME grupo, rg.PERCENTUAL percentual
+             FROM LDESK.CAD_RATEIO_GRUPO rg
+             JOIN LDESK.CAD_PROFISSIONAL p ON p.ID_PROFISSIONAL = rg.ID_PROFISSIONAL
+             LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = rg.ID_GRUPOJURIDICO
+            WHERE rg.ANO_MES_INICIAL <= '&ANO_MES'
+              AND rg.ANO_MES_FINAL   >= '&ANO_MES'
+              AND rg.PERCENTUAL > 0)
+  ),
+  -- Home area per professional (sigla -> grupo jurídico name). Fallback area for
+  -- any lawyer without a CAD_RATEIO_GRUPO entry.
+  'home_area' VALUE (
+     SELECT JSON_OBJECTAGG(sigla VALUE grupo RETURNING CLOB)
+     FROM (SELECT p.SIGLA sigla, MAX(g.NOME) grupo
+             FROM LDESK.CAD_PROFISSIONAL p
+             LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = p.ID_GRUPOJURIDICO
+            WHERE p.SIGLA IS NOT NULL
+            GROUP BY p.SIGLA)
+  ),
   -- Per-lawyer x account detail for Custo equipe (030.*), for Base_Resultado.
   -- sigla + area (via professional -> grupo jurídico) so rows can be grouped
   -- by area. Distribuição Mensal Fixa (030.010.0010) has NULL professional and

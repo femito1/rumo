@@ -121,6 +121,14 @@ class RealizadoInputs:
     area_custo_equipe: dict[str, float] = field(default_factory=dict)
     area_recebimento: dict[str, float] = field(default_factory=dict)
     imposto_accounts: list[tuple[str, float]] = field(default_factory=list)
+    # Hand-built ledger (workbook Base_Resultado) per-area figures, when present.
+    # Overrides the SISJURI ``custo_area`` aggregation and drives Comissão,
+    # Despesas Equipe and the derived Despesa Institucional (rateio) so the area
+    # tabs tie to the client dashboard. Empty when no ledger was imported.
+    area_comissao: dict[str, float] = field(default_factory=dict)
+    area_despesas_equipe: dict[str, float] = field(default_factory=dict)
+    area_despesa_institucional: dict[str, float] = field(default_factory=dict)
+    has_ledger: bool = False
 
     @classmethod
     def from_snapshot(cls, snap: dict[str, Any]) -> "RealizadoInputs":
@@ -177,6 +185,36 @@ class RealizadoInputs:
             else round(custo_equipe_from_accounts, 2)
         )
 
+        # Preferred: SISJURI-derived per-area Custo equipe (no manual ledger).
+        # The extract emits ``custo_equipe_deriv`` (per-lawyer components) plus
+        # ``rateio_grupo`` (CAD_RATEIO_GRUPO %s) and ``home_area`` (sigla->grupo).
+        # When present it overrides the noisy ``custo_area`` aggregation. A small
+        # per-lawyer ``custo_equipe_overrides`` map handles rare negotiated caps.
+        deriv_rows = snap.get("custo_equipe_deriv") or []
+        if deriv_rows:
+            from app.closing.custo_equipe_deriv import (
+                build_area_splits,
+                derive_area_custo_equipe,
+            )
+
+            splits = build_area_splits(
+                snap.get("rateio_grupo") or [],
+                {
+                    str(k): str(v)
+                    for k, v in (snap.get("home_area") or {}).items()
+                },
+            )
+            overrides = {
+                str(k): float(v)
+                for k, v in (snap.get("custo_equipe_overrides") or {}).items()
+            }
+            derived = derive_area_custo_equipe(
+                deriv_rows, splits, overrides=overrides
+            )
+            if any(derived.values()):
+                area_custo = {a: round(v, 2) for a, v in derived.items()}
+                custo_equipe = round(sum(area_custo.values()), 2)
+
         # Per-area recebimento: SISJURI splits the sacred receipt total by
         # CASO -> área jurídica. Names vary ("Direito Econômico", "Arbitragem
         # MV"); fold them onto the workbook's three areas via ``match_area``.
@@ -188,6 +226,47 @@ class RealizadoInputs:
                         area_receb.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
                     )
 
+        # Hand-built ledger (workbook Base_Resultado) overlay, when imported.
+        # It supplies per-area Custo equipe / Comissão / Despesas Equipe (which
+        # SISJURI cannot reproduce because of manual per-lawyer splits) and lets
+        # us derive Despesa Institucional via the workbook rateio. When present,
+        # its Custo equipe overrides the SISJURI ``custo_area`` per-area values.
+        ledger = snap.get("ledger") or {}
+        area_comissao: dict[str, float] = {}
+        area_desp_equipe: dict[str, float] = {}
+        area_desp_inst: dict[str, float] = {}
+        has_ledger = bool(ledger)
+        if has_ledger:
+            from app.closing.ledger_import import (
+                LedgerMonth,
+                despesa_institucional_rateio,
+            )
+
+            lc = {a: float(v) for a, v in (ledger.get("custo_equipe") or {}).items()}
+            area_comissao = {
+                a: round(float(v), 2) for a, v in (ledger.get("comissao") or {}).items()
+            }
+            area_desp_equipe = {
+                a: round(float(v), 2)
+                for a, v in (ledger.get("despesas_equipe") or {}).items()
+            }
+            lm = LedgerMonth(
+                month=0,
+                custo_equipe=lc,
+                comissao=area_comissao,
+                despesas_equipe=area_desp_equipe,
+                despesa_institucional_total=float(
+                    ledger.get("despesa_institucional_total", 0.0) or 0.0
+                ),
+            )
+            area_desp_inst = despesa_institucional_rateio(lm)
+            # Ledger per-area Custo equipe overrides the SISJURI aggregation
+            # ONLY when the SISJURI-derived block is absent. The derived block
+            # (custo_equipe_deriv) is authoritative when present.
+            if lc and not deriv_rows:
+                area_custo = {a: round(v, 2) for a, v in lc.items()}
+                custo_equipe = round(sum(area_custo.values()), 2)
+
         return cls(
             recebimento=recebimento,
             faturamento=faturamento,
@@ -198,6 +277,10 @@ class RealizadoInputs:
             area_custo_equipe=area_custo,
             area_recebimento=area_receb,
             imposto_accounts=imposto_accounts,
+            area_comissao=area_comissao,
+            area_despesas_equipe=area_desp_equipe,
+            area_despesa_institucional=area_desp_inst,
+            has_ledger=has_ledger,
         )
 
     @classmethod
@@ -337,20 +420,33 @@ def _area_rows(
     """Contencioso/Econômico/Arbitragem tab: Recebimento, Custo equipe, Comissão,
     Despesas Equipe, Despesa Institucional, Resultado Bruto (Orçado|Realizado|%).
 
-    Custo equipe and Recebimento realizado both come from SISJURI per-area
-    (Recebimento via CASO -> área jurídica, verified to the centavo vs the
-    workbook, with Resumo_Recebidas cross-area transfers applied upstream).
-    Recebimento is never hand-filled. Comissão, Despesas Equipe and Despesa
-    Institucional remain manual (``man``); when absent they render blank.
+    Recebimento realizado comes from SISJURI per-area (via CASO -> área
+    jurídica, verified to the centavo vs the workbook, with Resumo_Recebidas
+    cross-area transfers applied upstream); it is never hand-filled. Custo
+    equipe, Comissão and Despesas Equipe come from the imported hand-ledger
+    (workbook Base_Resultado) when present, and Despesa Institucional is then
+    derived via the workbook rateio — ties the area tabs to the client
+    dashboard. Without a ledger, Custo equipe falls back to the SISJURI
+    ``custo_area`` aggregation and Comissão/Despesas Equipe/Despesa
+    Institucional to manual entry (``man``); when absent they render blank.
     Resultado Bruto is computed once Recebimento is present."""
     man = man or {}
     custo = r.area_custo_equipe.get(area)
     # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
     # transfers already applied upstream; it is never hand-filled anymore.
     receb = r.area_recebimento.get(area)
-    comissao = man.get(COMISSAO)
-    desp_equipe = man.get(DESPESAS_EQUIPE)
-    desp_inst = man.get(DESPESA_INSTITUCIONAL)
+    # When the hand-built ledger is imported it is authoritative for Comissão,
+    # Despesas Equipe and the derived Despesa Institucional (rateio); it ties the
+    # area tabs to the client dashboard. Manual entry only fills the gaps when no
+    # ledger exists for the month (future-proof fallback).
+    if r.has_ledger:
+        comissao = r.area_comissao.get(area)
+        desp_equipe = r.area_despesas_equipe.get(area)
+        desp_inst = r.area_despesa_institucional.get(area)
+    else:
+        comissao = man.get(COMISSAO)
+        desp_equipe = man.get(DESPESAS_EQUIPE)
+        desp_inst = man.get(DESPESA_INSTITUCIONAL)
     resultado: float | None = None
     if receb is not None:
         resultado = round(

@@ -151,6 +151,97 @@ def test_area_tabs_present_with_workbook_lines(snapshot):
         ]
 
 
+def test_ledger_block_drives_area_custo_comissao_despesas(snapshot):
+    # When the snapshot carries a hand-ledger block (workbook Base_Resultado),
+    # the area tabs use its per-area Custo equipe / Comissão / Despesas Equipe
+    # (overriding the SISJURI custo_area aggregation), and derive Despesa
+    # Institucional via the rateio rule. Values are the Feb 2026 workbook figures.
+    from app.closing.dre import (
+        COMISSAO,
+        CUSTO_EQUIPE,
+        DESPESA_INSTITUCIONAL,
+        DESPESAS_EQUIPE,
+    )
+
+    snap = dict(snapshot)
+    snap["ledger"] = {
+        "custo_equipe": {"Contencioso": 76342.35, "Econômico": 78817.05, "Arbitragem": 61794.34},
+        "comissao": {"Contencioso": 0.0, "Econômico": 1500.0, "Arbitragem": 0.0},
+        "despesas_equipe": {"Contencioso": 2129.32, "Econômico": 3296.07, "Arbitragem": 2633.69},
+        "despesa_institucional_total": 95047.39,
+    }
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Fev 2026")
+    conten = sections["contencioso"]["rows"]
+    # Custo equipe comes from the ledger, NOT the SISJURI custo_area (49941.93).
+    assert _row(conten, CUSTO_EQUIPE)["Realizado"]["value"] == pytest.approx(76342.35, abs=0.05)
+    assert _row(conten, COMISSAO)["Realizado"]["value"] == pytest.approx(0.0, abs=0.05)
+    assert _row(conten, DESPESAS_EQUIPE)["Realizado"]["value"] == pytest.approx(2129.32, abs=0.05)
+    # Despesa Institucional (rateio): ratear = 95047.39 - (2129.32+3296.07+2633.69)
+    # = 86988.31; Contencioso ratio = 76342.35 / 216953.74 -> 30609.71.
+    assert _row(conten, DESPESA_INSTITUCIONAL)["Realizado"]["value"] == pytest.approx(
+        30609.71, abs=0.05
+    )
+    econ = sections["economico"]["rows"]
+    assert _row(econ, COMISSAO)["Realizado"]["value"] == pytest.approx(1500.0, abs=0.05)
+
+
+def test_ledger_derived_despesa_institucional_overrides_manual(snapshot):
+    # A ledger block makes Despesa Institucional derived; a stray manual value
+    # must not shadow the rateio.
+    from app.closing.dre import DESPESA_INSTITUCIONAL
+
+    snap = dict(snapshot)
+    snap["ledger"] = {
+        "custo_equipe": {"Contencioso": 76342.35, "Econômico": 78817.05, "Arbitragem": 61794.34},
+        "comissao": {"Contencioso": 0.0, "Econômico": 0.0, "Arbitragem": 0.0},
+        "despesas_equipe": {"Contencioso": 2129.32, "Econômico": 3296.07, "Arbitragem": 2633.69},
+        "despesa_institucional_total": 95047.39,
+    }
+    sections = assemble_dre_sections(
+        snapshot=snap, budget=None, period_label="Fev 2026",
+        manual={"Contencioso": {DESPESA_INSTITUCIONAL: 999999.0}},
+    )
+    di = _row(sections["contencioso"]["rows"], DESPESA_INSTITUCIONAL)
+    assert di["Realizado"]["value"] == pytest.approx(30609.71, abs=0.05)
+
+
+def test_derived_block_drives_area_custo_equipe(snapshot):
+    # The SISJURI-derived custo_equipe_deriv block (per-lawyer components +
+    # rateio_grupo + home_area) is authoritative for per-area Custo equipe,
+    # overriding both the noisy custo_area aggregation AND any ledger block.
+    from app.closing.dre import CUSTO_EQUIPE
+
+    snap = dict(snapshot)
+    snap["home_area"] = {
+        "DC": "Equipe Contencioso",
+        "MV": "Arbitragem",
+        "AM": "Equipe Direito Econômico",
+    }
+    snap["rateio_grupo"] = [
+        {"sigla": "AM", "grupo": "Equipe Contencioso", "percentual": 50},
+        {"sigla": "AM", "grupo": "Equipe Direito Econômico", "percentual": 50},
+    ]
+    snap["custo_equipe_deriv"] = [
+        {"sigla": "DC", "id_conta": "030.010.0010", "valor": 23379.0},
+        {"sigla": "DC", "id_conta": "030.010.0050", "valor": 324.20},  # INSS excl
+        {"sigla": "MV", "id_conta": "030.010.0010", "valor": 23379.0},
+        {"sigla": "AM", "id_conta": "030.010.0010", "valor": 23379.0},
+    ]
+    # A stray ledger block must NOT win over the derived block.
+    snap["ledger"] = {
+        "custo_equipe": {"Contencioso": 1.0, "Econômico": 2.0, "Arbitragem": 3.0},
+        "comissao": {}, "despesas_equipe": {}, "despesa_institucional_total": 0.0,
+    }
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Fev 2026")
+    conten = _row(sections["contencioso"]["rows"], CUSTO_EQUIPE)["Realizado"]["value"]
+    econ = _row(sections["economico"]["rows"], CUSTO_EQUIPE)["Realizado"]["value"]
+    arb = _row(sections["arbitragem"]["rows"], CUSTO_EQUIPE)["Realizado"]["value"]
+    # DC 23.379 -> Contencioso; AM 23.379 split 50/50; MV 23.379 -> Arbitragem.
+    assert conten == pytest.approx(23379.0 + 11689.5, abs=0.05)
+    assert econ == pytest.approx(11689.5, abs=0.05)
+    assert arb == pytest.approx(23379.0, abs=0.05)
+
+
 def test_expense_section_rows_in_institucional(snapshot):
     sections = assemble_dre_sections(snapshot=snapshot, budget=None, period_label="Fev 2026")
     rows = sections["institucional"]["rows"]
