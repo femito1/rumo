@@ -56,7 +56,7 @@ own per-area DRE (`DB_RESULTADO_AREA`, per-capita/peso allocation) is a
 | Comissão (per area) | **DONE, shipped** | `020.110.0010` (area) + `030.010.0120` (per-lawyer `LANCPROFDEST`) | §12a; `comissao_deriv.py`, wired in `dre.py`, ties to centavo both months |
 | Despesa Institucional TOTAL | **DB-derivable, needs multi-month verify** | `VW_RESULTADO_MENSAL` `TIPO IN ('S','I')` minus Comissões | §13; workbook row-198 drifts ~R$3k (regroup + hand-keyed lines). Verify Jan..Mai vs both books. |
 | Despesa Institucional per-area (rateio) | **must match workbook logic** | custo-share rateio (in `dre.py`) on the DB total | §13c; DB_RESULTADO_AREA uses per-capita/peso (different). Keep workbook rule. |
-| Despesas Área (direct) | open | `VW_RESULTADO_MENSALCC` `TIPO='S'` by `SETOR` | SETOR (ECT/EDE/ESP/ADM) → workbook area needs the same re-bucket as Custo equipe |
+| Despesas Área (direct) | account set DB-correct; per-area split hand-done | area-tagged non-030 `020.030/060/080/090` | Appendix A3: DB per-area ties partially (Arb exact); workbook re-buckets Cont/Econ by hand. Needs workbook area mapping, not DB tag. |
 | Orçamento | not in DB | — | `ORCAMENTO` column exists but is 0 for 2026; out of scope |
 | area_transfers, distribuicao_extras | manual | — | small, defer |
 
@@ -173,3 +173,88 @@ clipboard paste, no scp. Pull it on the box with the recipe above.
   custo-share rule we must keep.
 - Validation workbooks: `reference/workbook/Copy of Fechamento MBC 02.2026.xlsx`
   and `reference/workbook/Fechamento MBC 05.2026.xlsx` (use BOTH).
+
+---
+
+## Appendix A — concrete probe evidence (do not re-run to rediscover)
+
+These are the real numbers from the probe transcript. Keep them; they are the
+baseline the next agent validates against.
+
+### A1. Institutional total: DB `020+040 − comissão` vs workbook (row 198)
+
+| Month | DB `020+040−com` | Workbook row-198 | Δ (DB−WB) |
+|---|---|---|---|
+| Jan | 104.765,06 | 100.181,41 | +4.583,65 |
+| Feb | 98.185,28 | 95.047,39 | +3.137,89 |
+| Mar | 100.981,35 | 101.968,90 | −987,55 |
+| Apr | 110.214,88 | 110.156,11 | +58,77 |
+| Mai | 105.784,26 | 105.511,43 | +272,83 |
+
+Deltas are small and **both-signed** → workbook manual drift, not a rule. Note
+`020.*`==`TIPO_CONTA='D'` exactly every month; `040.*`==`TIPO_CONTA='I'`.
+`VW_RESULTADO_MENSAL` gives the same pool cleanly as `TIPO='S'` (=`020` minus
+comissão minus the area-tagged that move to Despesas Área) + `TIPO='I'` (=`040`).
+
+### A2. Workbook row 198 is a hand-maintained regroup (authoritative-side proof)
+
+Row 198 formula = `C85+C92+C95+C110+C116+C124+C137+C158+C164+C180` — ten family
+subtotals, NOT "all 020+040". The workbook families do **not** equal DB account
+groups: workbook "Consultoria" 22.509,85 vs DB `040.030 Consultoria` 14.705,80;
+workbook "Informática" 17.620,95 vs DB `040.040` 8.756. It moves Seguros into
+Ocupação, splits Serviços de Terceiros across Consultoria/Informática, and
+carries lines with **no DB row** (Seguro Locação 183, Camera Ed. Lacerda). The
+regroup nets ~0 within families; the residual per-month Δ is hand-keying.
+
+### A3. Despesas Área: account SET is DB-correct, per-area SPLIT is hand-done
+
+Excluding `030.*` (Custo equipe), Administração and comissão, the area-tagged
+non-030 lines (`probe_inst_final` §2) give:
+
+| Month | DB Cont | DB Econ | DB Arb |
+|---|---|---|---|
+| Feb | 2.346,72 | 2.129,32 | 2.633,69 |
+| Mar | 2.346,72 | 2.672,54 | 3.711,92 |
+| Apr | 2.602,58 | 2.231,52 | 4.849,55 |
+| Mai | 995,03 | 2.204,82 | 1.272,47 |
+
+Workbook Feb Despesas Área = Cont 2.129,32 / Econ 3.296,07 / Arb 2.633,69. Arb
+ties; Cont/Econ are **re-bucketed by hand** (workbook moves Feb "Eventos e Happy
+Hour" 1.166,75 from Administração into Econômico; DB-Cont 2.346,72 ≠ WB-Cont).
+Only families `020.030 / 020.060 / 020.080 / 020.090` (+`020.110` comissão) ever
+carry a DRE-area tag — that IS the Despesas Área candidate set. So this is the
+**same "workbook re-buckets area" pattern as Custo equipe**, not a missing
+number. To match the workbook we need the workbook's area mapping, not the DB tag.
+
+### A4. Unexplored schema angles (for the "probe DB_RESULTADO_AREA harder" task)
+
+- `GERENC_LANCAMENTORESUMO` exposes **`NOMESUBAREA` / `ID_SUBAREAJURIDICA`** (a
+  subarea dimension) and `TIPO_DASHBOARD` — never queried. The subarea may hold
+  the workbook's finer area split.
+- `FINANCE.PLANOCONTAS` has **`PCTCFLAGRATEIO`, `CRITERIORATEIO`, `RATNCODIG`,
+  `RATCCODIG`** (per-account rateio config) and `PCTCFLAGSETOR` — may encode how
+  each account is allocated to areas.
+- `LDESK.GERENC_VW_PERC_GRUPOJURIDICO` has `ID_GRUPOJURIDICO`, `PERC_GRUPO`,
+  period columns — **candidate for the Associações `/3`-style area split rule**.
+  Unprobed.
+- `LDESK.DB_RESULTADO_AREA` area names are **Ambiental / Arbitragem MV /
+  Contencioso / Direito Econômico** (NOT the workbook's Cont/Econ/Arb labels) and
+  it splits indirect cost into `DESP_INDIRETA_PERCAPITA` + `DESP_INDIRETA_PESO`
+  (headcount/effort weighting). Feb per-area DESP_IND+INV: Cont 59.085,78 / Econ
+  50.519,53 / Arb 67.502,34 — a *different methodology* from the workbook's
+  custo-share. `DESP_DIRETA` is 0 in `GERENC_LANCAMENTORESUMORATEIO` for the DRE
+  areas, so it does NOT hand you Despesas Área directly.
+- `FINANCE.VW_RESULTADO_MENSAL_DET` is line-level (`LANNCODIG`) with the same
+  `TITULO1/2/3 + SETOR + ORCAMENTO` — use it to see which raw lançamentos land in
+  each `SETOR`, to crack the SETOR(ECT/EDE/ESP/ADM)→workbook-area mapping.
+
+### A5. Custo equipe override map (the small irreducible manual bit)
+
+Custo equipe is DB-derivable to the centavo in unit test, EXCEPT a tiny set-once
+override map (read from raw memos; not in any DB column):
+- EHF / RB convênio: 1.564,10 / 2.526,09
+- AM / DC AASP: 54,35/mo
+- JGS cap: 11.000
+**Not yet validated on live Supabase data** — the Jan–May backfill stalled after
+the Vale fix (`030.010.0100/0220` absent from resumo; read `500.010.<SIGLA>` in
+`LANCAMENTO`). Confirm live before retiring the importer.
