@@ -9,6 +9,11 @@
 > index (incl. the `500.010.<SIGLA>` Vale namespace and the row-198 family map).
 > When a probe teaches you a new DB fact, **add it to that index in the same
 > commit** — that is how we stop re-discovering things we already knew.
+>
+> **Latest session state:** see `docs/HANDOFF_SESSION_2026-07-08.md`. The account→
+> family map is encoded and tested; the ONLY unresolved institutional line is
+> **Vale-ADM inside Salários Administração** (Feb ties exactly, Mar–May short).
+> Start there.
 
 ## North star (do not lose this)
 
