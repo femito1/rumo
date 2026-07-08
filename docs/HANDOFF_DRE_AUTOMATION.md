@@ -361,3 +361,38 @@ centavo. **Nothing here is manual — it is all in SISJURI.**
 rules; locked by `tests/test_workbook_layouts.py`. Row 198 = the 10 institutional
 families (Impostos + Comissão pulled out; area lines surfaced per-area but kept in
 the family totals). Authoritative book = **05.2026**.
+
+## Appendix C — closing the last residuals (2026-07-08, probes inst_close + vale)
+
+Two probes (`probe_inst_close.sql`, `probe_vale_adm.sql`) resolved 3 of the 4 open
+residuals against the authoritative **05.2026** book:
+
+- **Gestão do Conhecimento** = Biblioteca (`040.050.*`) + **`030.010.0180` Cursos /
+  Treinamento Jurídico** — a `030.*` account the workbook lifts OUT of Custo Equipe.
+  Ties Mar (1.094,49) and May (1.600). Encoded as a `030.*` carve-out in
+  `workbook_layouts.py` (`_030_TO_SECTION`). **Nuance:** Apr DB = 1.650 (Contencioso
+  1.450 + Administração 200); the workbook takes only the **area-tagged 1.450** and
+  drops the 200 ADM slice. Current code routes the whole account → Gestão (Apr would
+  read 1.650). If Apr parity matters, restrict the carve-out to area-tagged postings.
+- **Terceirização Limpeza** (`020.040.0030`) posts with **no area** — the Feb
+  580,80 gap vs the workbook "Limpeza e Copeira" is a within-family author reclass,
+  not an area split; it does not move row 198 (stays in Despesas Gerais).
+- **Licenças** (`040.040.0030`) is a single Administrativa account; the Feb 626,95
+  is a within-Informática Totvs/Licenças reshuffle that nets to zero at family level.
+
+### The one genuinely non-ledger line: Vale-ADM
+
+The accounting ledger (`GERENC_LANCAMENTORESUMO`) has **no ADM Vale account**. The
+full `020.050.*` Salários Administração list is: Salários, Férias, INSS-ADM, FGTS,
+IR-ADM, Convênio Médico-ADM, e-Social — **no Vale**. A name search for `%VALE%`
+across all prefixes returns only the tiny area-tagged `020.080.*` staff vale.
+
+Yet the workbook's Salários Administração residual is **exactly** the Vale
+(Refeição+Transporte): Feb 1.351,88, May 3.326,94 (proven: wb row 116 − DB
+[Salários+Férias+Convênio] = wb Vale total, to the centavo). So Vale-ADM is real
+and monthly but lives outside the summarised ledger — most likely in
+`FINANCE.CONTASPAGAR` (folha/payroll postings, keyed by `CPGCHISTORICO`), the same
+place the gross pró-labore/convênio detail lives (see SISJURI_DB.md Lacuna 1).
+`probe_vale_folha.sql` (pushed) hunts it there by history text. If it is a folha-only
+figure with no ledger account, Vale-ADM becomes the single **optional manual input**
+for Salários Administração — everything else in row 198 is DB-derived and ties.
