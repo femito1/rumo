@@ -891,3 +891,91 @@ override stays the resolution for EHF/RB convênio.
 CONTASPAGAR.CPGNVALORBASE) already picks it up correctly; the 500.010.<SIGLA>
 GPS movement is the reciprocal personal-debit entry. Do NOT add it as Custo
 equipe (would double-count).
+
+## 12. Comissão / Despesas Equipe / Despesa Institucional (2026-07-08)
+
+Retiring the workbook `Base_Resultado Mensal_V2` importer requires deriving its
+three remaining lines from SISJURI. Probes `probe_comissao.sql`,
+`probe_despesas_area.sql`, `probe_despesa_inst.sql`, `probe_despesa_inst2.sql`,
+`probe_inst_final.sql`, `probe_inst_hunt.sql` (Jan..Mai 2026) settled each.
+
+### 12a. Comissão — FULLY DB-DERIVABLE ✅
+
+The workbook `comissao[area]` = Participação + Repasse per area. It is ~zero
+every month with two exceptions (Feb Econ 1.500; Mai Econ 2.128,06). Both are in
+the DB and tie to the centavo:
+
+- **`020.110.0010` "Participação Externa (comissões)"** — area-tagged via
+  `ID_GRUPOJURIDICO`. Feb 1.500 → Econômico (matches workbook Feb Econ exactly).
+- **`030.010.0120` "Participação Interna (comissões)"** — per-lawyer via
+  `LANCAMENTO.LANCPROFDEST` / `CONTASPAGAR.COD_ADVG`. Mai EHF 2.128,06 → folds to
+  EHF's home area (Econômico); matches workbook Mai Econ exactly.
+- `030.010.0080` "Participação E" is **empty** (no rows any month) — ignore.
+
+Recipe: `comissao[area] = Σ(020.110.0010 tagged to area) + Σ(030.010.0120 per
+lawyer, folded to home area + CAD_RATEIO_GRUPO)`. Zero manual input.
+
+### 12b. Despesa Institucional total — NOT DB-derivable to the centavo ❌
+
+The workbook "Despesas Institucional" (Base_Resultado row 198) is
+`=C85+C92+C95+C110+C116+C124+C137+C158+C164+C180` — ten **manually-maintained
+family subtotals** (Ocupação, Telecom, Despesas Gerais, Consultoria, Salários
+Administração, Administrativas, Investimentos em Prospecção, Gestão do
+Conhecimento, Endomarketing, Informática). These families are NOT the DB's
+`NOME_CONTA_PAI` groups:
+
+| WB family | WB Feb | Nearest DB | DB Feb |
+|---|---|---|---|
+| Consultoria | 22.509,85 | 040.030 Consultoria | 14.705,80 |
+| Informática | 17.620,95 | 040.040 Informática | 8.756 approx |
+| Ocupação | 34.729,91 | 020.010 Ocupação | 34.596,91 |
+
+The row-198 total vs the DB `020.*+040.*` pool (minus comissão 020.110) differs
+every month by a small, both-signed amount with **no stable pattern**:
+
+| Month | WB row198 | DB pool | Δ |
+|---|---|---|---|
+| Jan | 100.181,41 | 104.765,06 | −4.583,65 |
+| Feb |  95.047,39 |  98.185,28 | −3.137,89 |
+| Mar | 101.968,90 | 100.981,35 |   +987,55 |
+| Apr | 110.156,11 | 110.214,88 |    −58,77 |
+| Mai | 105.511,43 | 105.784,26 |   −272,83 |
+
+The workbook re-groups DB accounts into its own families, breaks out line items
+with no DB equivalent (e.g. "Seguro Locação", "Camera Ed. Lacerda"), and places
+ADM Vale/convênio manually. This is genuine manual accounting, not a discoverable
+fixed formula.
+
+### 12c. Despesas Área (Despesas Equipe per area) — NOT DB-derivable ❌
+
+Base_Resultado rows 204/205/206 reference hand-labeled per-area line items
+(Assinaturas/Associações/Cursos/Eventos/Material Gráfico/Patrocínio/Refeições/
+Viagens × area). Two hard blockers:
+
+1. **Shared costs are hand-split across areas.** e.g. Associações Feb shows
+   **2.129,3183333** in BOTH Contencioso and Econômico rows — a manual `=total/3`
+   style division, not a DB per-area value. The DB `020.060.0020` carries a
+   single area tag per row that does NOT match the workbook's split.
+2. **The block's area labels are internally scrambled** ("Eventos e Happy hour -
+   Contencioso" physically sits in the Arbitragem block), i.e. the mapping is
+   maintained by hand and cannot be inferred from `ID_GRUPOJURIDICO`.
+
+DB area-tagged non-030 rollup does not match the workbook per-area figures for
+any month (only Arbitragem coincidentally matches some months).
+
+### Verdict & recommendation
+
+- **Comissão: automate now** (12a). Removes one of the three ledger lines.
+- **Despesa Institucional total + Despesas Área: NOT automatable to the centavo.**
+  The workbook performs manual regrouping + per-area hand-splits of institutional
+  costs with no DB column behind them. This is the genuine manual boundary for
+  these two lines (analogous to, but larger than, the Custo equipe override map).
+
+Options for the two manual lines (decision needed, none is "derive from DB"):
+1. **Small monthly admin input**: two per-area numbers (Despesas Área) + one total
+   (Despesa Institucional) entered once per closing. ~4 numbers/month.
+2. **DB approximation + documented variance**: ship the `020.*+040.*−comissão`
+   pool as Despesa Institucional and the DB area-tag rollup as Despesas Área,
+   accepting a ±few-thousand monthly variance vs the dashboard (NOT centavo-exact).
+3. Keep the workbook importer for these two lines only (status quo), retire it for
+   Custo equipe + Comissão.
