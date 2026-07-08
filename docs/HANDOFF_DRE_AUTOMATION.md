@@ -3,6 +3,12 @@
 > **Read `PROJECT_STATUS.md` and `docs/SISJURI_QUERIES.md` (§11–§13) first.**
 > This handoff is the narrative of *why* we are where we are and *exactly* what
 > the next agent should do. It supersedes nothing; it points at the durable docs.
+>
+> **Before you write ANY DB probe, read `docs/SISJURI_DB.md` §"Known account facts
+> — CHECK THIS BEFORE PROBING".** It is the living account→meaning→destination
+> index (incl. the `500.010.<SIGLA>` Vale namespace and the row-198 family map).
+> When a probe teaches you a new DB fact, **add it to that index in the same
+> commit** — that is how we stop re-discovering things we already knew.
 
 ## North star (do not lose this)
 

@@ -19,6 +19,78 @@ via OData, plus an **`SSJR` schema (704 tables)** of SISJURI core data. This is 
 viable path to **audit** the sacred numbers, act as a **fallback** source, or
 back a future `Source` implementation.
 
+## Known account facts — CHECK THIS BEFORE PROBING (living index)
+
+> **Read this table first.** It exists so we stop re-discovering the same DB
+> facts. If you learn a new account→meaning→destination fact from a probe, **add a
+> row here in the same commit.** Values are 2026 monthly examples (validation aids),
+> NOT sacred; the *mapping* is the durable part.
+
+### Institutional row-198 (Base_Resultado "Despesas Institucional")
+
+Row 198 = sum of 10 families (Ocupação, Telecomunicações, Despesas Gerais,
+Consultoria, Salários Administração, Administrativas, Investimentos em Prospecção,
+Gestão do Conhecimento, Endomarketing, Informática). **Excludes** Impostos (row
+168), Distribuição de Lucros (191), Despesas para Clientes (82). Area lines are
+surfaced per-area (rows 204-206) **and** kept in the family totals. Authoritative
+book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account map
++ formula proof: `HANDOFF_DRE_AUTOMATION.md` Appendix B/C. Encoded in
+`app/closing/workbook_layouts.py::section_for` (keyed on stable CONTA3 codes).
+
+| account (CONTA3) | meaning | workbook destination |
+|------------------|---------|----------------------|
+| `020.010.*` | Aluguel/Condomínio/Energia/IPTU | Ocupação |
+| `020.010.0050` | Manutenção e Conservação | → Despesas Gerais |
+| `020.020.*` | Telecom | Telecomunicações |
+| `020.030.*` | Despesas Gerais | Despesas Gerais |
+| `020.030.0150` | Relacionamento Institucional (Flores/Presentes) | → Endomarketing |
+| `020.040.0010` | Serviços de Informática | → Informática (Suporte) |
+| `020.040.0030` | Terceirização Limpeza (no area) | → Despesas Gerais (Limpeza e Copeira) |
+| `020.040.0050` | Contabilidade | → Consultoria |
+| `020.040.0060` | Servidor Externo | → Informática (Data Center) |
+| `020.050.*` | Salários Administração (NO Vale account here) | Salários Administração |
+| `020.050.0050/0060/0070/0160` | INSS/FGTS/IR/e-Social ADM | → Impostos (row 168, OUT of 198) |
+| `020.060.0010/0020` | Assinaturas/Associações | Administrativas (STAY; also per-area) |
+| `020.060.0040` | Seguros | → Ocupação (Seguro Locação) |
+| `020.070.*` | Financeiras | → Administrativas |
+| `020.080.0030` | Estacionamento (clientes) | → Despesas Gerais |
+| `020.080.0050/0060` | Vale Ref/Transp (area staff, tiny, area-tagged) | → Salários Adm (area) |
+| `020.090.*` | Investimento em Prospecção | Investimentos em Prospecção |
+| `020.090.0040` | Eventos e Happy Hour | → Endomarketing (05 book "Eventos Internos") |
+| `020.110.*` | Comissões | Comissão block (OUT of 198) |
+| `040.010.*` | Marketing / Assessoria de Imprensa | → Consultoria |
+| `040.030.*` | Investimentos:Consultoria Adm/Financeira | → Consultoria |
+| `040.040.*` | Licenças/Micros/Impressoras | Informática |
+| `040.050.*` | Biblioteca | → Gestão do Conhecimento |
+| `030.010.0180` | **Cursos / Treinamento Jurídico** | → **Gestão do Conhecimento** (lifted OUT of Custo Equipe; area-tagged part only) |
+
+### The `500.010.<SIGLA>` personal-debit namespace (DO NOT re-discover)
+
+Per-professional personal debits keyed by SIGLA in `FINANCE.CONTASPAGAR`
+(`PCTCNUMEROCONTA LIKE '500.010.%'`, gross in `CPGNVALORBASE`, memo in
+`CPGCHISTORICO`). **This is where ADM Vale Refeição/Transporte lives** — there is NO
+Vale account under `020.050.*` and no Vale in the summarised S/I views.
+
+- **Vale (histórico `%VALE%`/`%REFEI%`/`%TRANSP%`):** area-lawyer siglas → per-area
+  Custo Equipe (JVO Feb 1.249,40 → Contencioso). **ADM/non-area siglas → workbook
+  Salários Administração** (row 116, inside row 198). `500.010.MLA` Feb = 1.351,88 =
+  EXACTLY the workbook Feb Vale-ADM (Ref 1.014,20 + Transp 337,68). The custo-equipe
+  extract *excludes* MLA as "ex-lawyer"; the institutional side must *include* it.
+- **Convênio dependente** (`%CONVÊNIO%dependente%`): personal debt, NOT Custo equipe.
+- **GPS/INSS s/ folha** `178,31`: reciprocal of the gross-vs-net pró-labore gap; do
+  NOT add as Custo equipe (double-count).
+
+### Other durable facts
+
+- Gross "de folha" (pró-labore etc.) = `FINANCE.CONTASPAGAR.CPGNVALORBASE`, NOT the
+  net `VALOR` in the resumo view. Keys: `COD_ADVG`, `PCTCNUMEROCONTA`,
+  `CPGCHISTORICO`, `CPGDVECTO` (competence/vencimento).
+- Reserva de bônus = 10% da margem líquida (fixed, all months).
+- `RateioFaturaProfissionalViews` duplicates rows — de-dup by
+  `(FaturaNumero, ProfissionalSigla)` before summing.
+- `FINANCE.VW_RESULTADO_MENSAL_DET` carries `LANNCODIG`, `CONTA1/2/3`,
+  `TITULO1/2/3`, `SETOR`, `ORCAMENTO` — the account-keyed institutional detail.
+
 ## Access path (authorized — through the server, not direct)
 
 ```

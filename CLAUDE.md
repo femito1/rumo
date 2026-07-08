@@ -10,6 +10,12 @@
 
 1. Read `PROJECT_STATUS.md`.
 2. Skim `docs/DESIGN.md` (architecture) and `docs/LEGALDESK.md` (API + sacred numbers).
+3. **Before touching the SISJURI DB or writing a probe**, read the living account
+   index in `docs/SISJURI_DB.md` §"Known account facts — CHECK THIS BEFORE
+   PROBING". It records every discovered account→meaning→destination (e.g. ADM Vale
+   lives in `500.010.<SIGLA>`, not `020.050.*`). **When a probe teaches you a new DB
+   fact, add it to that index in the same commit.** This is how we avoid
+   re-discovering things we already learned.
 
 ## What this product is (one paragraph)
 
