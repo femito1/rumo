@@ -64,6 +64,18 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `040.050.*` | Biblioteca | → Gestão do Conhecimento |
 | `030.010.0180` | **Cursos / Treinamento Jurídico** | → **Gestão do Conhecimento** (lifted OUT of Custo Equipe; area-tagged part only) |
 
+### Vale Refeição/Transporte source — `FINANCE.LANCAMENTO`, NOT CONTASPAGAR
+
+The Vale postings live in **`FINANCE.LANCAMENTO`** on destination accounts
+**`030.010.0100`** (Vale Refeição) and **`030.010.0220`** (Vale Transporte), dated
+by **`LANDDATA`**, keyed by destination cost-center **`SIGLADEST`** and area group
+**`ID_GRUPOJURIDICODEST`** (join `LDESK.CAD_GRUPOJURIDICO`). They are NOT in
+`CONTASPAGAR` (that only has the tiny `500.010.AM` custas), NOT in `020.050.*`, and
+NOT in the summarised `GERENC_LANCAMENTORESUMO`. The **ADM slice** (group NOT one of
+the three areas) is what the workbook puts in **Salários Administração** (row 116,
+inside row 198); the area-tagged Vale flows to per-area Custo Equipe. Proof probe:
+`probe_vale_hunt.sql` / `probe_vale_lanc.sql`.
+
 ### The `500.010.<SIGLA>` personal-debit namespace (DO NOT re-discover)
 
 Per-professional personal debits keyed by SIGLA in `FINANCE.CONTASPAGAR`
