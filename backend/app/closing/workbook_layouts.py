@@ -114,9 +114,23 @@ def is_indirect(id_conta: str) -> bool:
     return id_conta.startswith("020.") or id_conta.startswith("040.")
 
 
+# A few 030.* accounts are NOT team cost in the workbook: it lifts them into an
+# institutional family. Verified vs 05.2026 (HANDOFF Appendix B): "Cursos /
+# Treinamento Jurídico" (030.010.0180) feeds "Gestão do Conhecimento" (row 158),
+# matching Mar 1.094,49 / Mai 1.600 to the centavo.
+_030_TO_SECTION: dict[str, str] = {
+    "030.010.0180": "Gestão do Conhecimento",  # Cursos / Treinamento Jurídico
+}
+
+
 def is_direct_team(id_conta: str) -> bool:
-    """030.* is Custo equipe (direct team cost)."""
-    return id_conta.startswith("030.")
+    """030.* is Custo equipe (direct team cost), except the institutional carve-outs."""
+    return id_conta.startswith("030.") and id_conta not in _030_TO_SECTION
+
+
+def institutional_030_section(id_conta: str) -> str | None:
+    """Return the institutional family for a 030.* carve-out, else None."""
+    return _030_TO_SECTION.get(id_conta)
 
 
 def is_imposto(row: dict[str, Any]) -> bool:

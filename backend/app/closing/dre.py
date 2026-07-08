@@ -22,6 +22,7 @@ from app.closing.workbook_layouts import (
     AREAS,
     BONUS_RESERVE_RATE,
     INSTITUCIONAL_SECTIONS,
+    institutional_030_section,
     is_direct_team,
     is_imposto,
     is_indirect,
@@ -181,6 +182,12 @@ class RealizadoInputs:
                 continue
             if is_direct_team(id_conta):
                 custo_equipe_from_accounts += total
+                continue
+            carveout = institutional_030_section(id_conta)
+            if carveout is not None:
+                sec = sec_map.setdefault(carveout, SectionBreakdown(carveout))
+                sec.total = round(sec.total + total, 2)
+                sec.accounts.append((nome, round(total, 2)))
                 continue
             if is_indirect(id_conta):
                 sec_name = section_for(row.get("nome_conta_pai"), id_conta)

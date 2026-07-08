@@ -7,7 +7,20 @@ Appendix B). They are keyed on the stable numeric CONTA3 codes, so a label chang
 upstream must not move them. If one of these assertions fails, the DRE
 institutional block no longer matches the workbook — treat it as a bug.
 """
-from app.closing.workbook_layouts import section_for
+from app.closing.workbook_layouts import (
+    institutional_030_section,
+    is_direct_team,
+    section_for,
+)
+
+
+def test_cursos_treinamento_030_carveout():
+    # 030.010.0180 is lifted OUT of Custo equipe into Gestão do Conhecimento.
+    assert not is_direct_team("030.010.0180")
+    assert institutional_030_section("030.010.0180") == "Gestão do Conhecimento"
+    # Ordinary 030.* stays team cost.
+    assert is_direct_team("030.010.0010")
+    assert institutional_030_section("030.010.0010") is None
 
 
 def test_conta3_overrides_win_over_parent_name():
