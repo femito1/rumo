@@ -64,17 +64,35 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `040.050.*` | Biblioteca | → Gestão do Conhecimento |
 | `030.010.0180` | **Cursos / Treinamento Jurídico** | → **Gestão do Conhecimento** (lifted OUT of Custo Equipe; area-tagged part only) |
 
-### Vale Refeição/Transporte source — `FINANCE.LANCAMENTO`, NOT CONTASPAGAR
+### Vale Refeição/Transporte source — `FINANCE.LANCAMENTO`, `500.010.<SIGLA>`
 
-The Vale postings live in **`FINANCE.LANCAMENTO`** on destination accounts
-**`030.010.0100`** (Vale Refeição) and **`030.010.0220`** (Vale Transporte), dated
-by **`LANDDATA`**, keyed by destination cost-center **`SIGLADEST`** and area group
-**`ID_GRUPOJURIDICODEST`** (join `LDESK.CAD_GRUPOJURIDICO`). They are NOT in
-`CONTASPAGAR` (that only has the tiny `500.010.AM` custas), NOT in `020.050.*`, and
-NOT in the summarised `GERENC_LANCAMENTORESUMO`. The **ADM slice** (group NOT one of
-the three areas) is what the workbook puts in **Salários Administração** (row 116,
-inside row 198); the area-tagged Vale flows to per-area Custo Equipe. Proof probe:
-`probe_vale_hunt.sql` / `probe_vale_lanc.sql`.
+CORRECTED after live probing (probe_vale_find.sql, 2026-07-08):
+
+- **NOT** on `030.010.0100/0220` (those have **zero** rows by `LANDDATA` in 2026).
+- **NOT** in `CONTASPAGAR` (only a tiny `500.010.AM` custas line).
+- There is **no `ID_GRUPOJURIDICODEST` column** on `LANCAMENTO`; the cost-center is
+  **`SIGLADEST`** and the professional is **`LANCPROFDEST`** (both often NULL on
+  these rows). Date axis that matches the workbook = **`LANDDATA`**.
+- The Vale lives in **`FINANCE.LANCAMENTO`** on **`500.010.<SIGLA>`** with historico
+  `Vale transporte` (bundles Refeição+Transporte). Siglas seen: **JVO** (Contencioso
+  — an AREA lawyer → per-area Custo Equipe), **MLA** and **VSR** (administrative).
+
+Reconciliation status (workbook Salários-Adm Vale = row 122 Ref + row 123 Transp):
+
+| month | wb Vale-ADM | MLA+VSR (500.010) | +other Vale postings | ties? |
+|------:|------------:|------------------:|---------------------:|:-----:|
+| Jan | 1 127,96 | 1 092,44 | — | ~ (Δ35,52) |
+| Feb | 1 351,88 | 1 351,88 (MLA only) | — | **yes** |
+| Mar | 3 983,22 | 2 249,32 | 3 335,76 | no |
+| Abr | 3 421,36 | 2 230,56 | — | no |
+| Mai | 3 326,94 | 1 121,94 | 2 090,04 | no |
+
+**Open:** only Feb reconstructs cleanly (MLA). Other months' workbook Vale-ADM is
+larger than any Vale-labelled DB posting we can find — the remainder appears bundled
+inside non-Vale-labelled `500.010`/`030.*` postings, i.e. it is a **payroll/benefit
+allocation the workbook author keys by hand**. Candidate not-yet-checked: the full
+`500.010.MLA`/`VSR` monthly movement (all historicos, not just `%VALE%`) and the
+`200.010.*` benefits account. **This is the single unresolved institutional line.**
 
 ### The `500.010.<SIGLA>` personal-debit namespace (DO NOT re-discover)
 
