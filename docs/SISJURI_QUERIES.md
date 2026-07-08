@@ -979,3 +979,79 @@ Options for the two manual lines (decision needed, none is "derive from DB"):
    accepting a ±few-thousand monthly variance vs the dashboard (NOT centavo-exact).
 3. Keep the workbook importer for these two lines only (status quo), retire it for
    Custo equipe + Comissão.
+
+## 13. The DB's OWN DRE engine — VW_RESULTADO_MENSAL (2026-07-08)
+
+Schema discovery (`probe_schema_inst.sql`) revealed LegalDesk ships a full DRE
+engine we had never queried: `FINANCE.VW_RESULTADO_MENSAL[CC]`,
+`LDESK.DB_RESULTADO_AREA`, `LDESK.DB_VW_DEMONSTRATIVO_RESULTADOS`,
+`LDESK.GERENC_LANCAMENTORESUMORATEIO` (resumo with rateio applied). These are the
+authoritative source and should be preferred over re-deriving from raw accounts.
+
+### 13a. `VW_RESULTADO_MENSAL` — the clean DRE skeleton (Feb 2026)
+
+Grouped by `TIPO` (DRE line class), with `TITULO1/2/3` hierarchy, `SETOR`
+(cost-center: ECT/EDE/ESP/ADM) and an `ORCAMENTO` column:
+
+| TIPO | Meaning | Feb total |
+|---|---|---|
+| E | Receitas | 319.234,91 |
+| C | Custos com Pessoal (Custo equipe) | 215.310,35 |
+| S | Despesas (institucional) | 68.771,58 |
+| I | Investimentos | 30.913,70 |
+| O | Obrigações Fiscais (impostos) | 11.687,83 |
+| L | Distribuição de Lucros | 94.696,15 |
+
+`TIPO='S'` NIVEL-2 titles ARE the workbook's institutional families exactly
+(Ocupação 34.596,91, Telecomunicações 807,16, Despesas Gerais 2.231,27, Serviços
+de Terceiros 13.474,08, Salários Administração 7.702,97, Administrativas
+7.292,44, Investimento em Prospecção 1.166,75, Comissões 1.500). `SETOR` splits
+each `TIPO` per cost-center (ECT/EDE/ESP), giving per-area Despesas directly:
+S by setor Feb = ECT 2.346,72 / EDE 3.629,32 (incl. 1.500 comissão) / ESP
+2.633,69 / ADM 1.469,06 / untagged 58.692,79.
+
+### 13b. Why the workbook total differs (and it's the workbook that drifts)
+
+Workbook "Despesa Institucional" (row 198) Feb = 95.047,39. The DB `S+I` pool
+minus comissão = 98.185,28 (Δ 3.137,89). The delta is NOT a clean account subset:
+the workbook **regroups** DB accounts into its own families (e.g. moves "Seguros"
+into Ocupação; splits Serviços de Terceiros between Consultoria/Informática) and
+carries hand-keyed lines with no DB row ("Seguro Locação 183", "Camera Ed.
+Lacerda"). The regroup nets ~0 within families, so the residual 3.137,89 is
+manual hand-keying drift, not a rule. Per the user's guidance (two workbooks to
+catch human error), the **DB `VW_RESULTADO_MENSAL` is the authoritative,
+internally-consistent number**; the workbook's row-198 has small manual drift.
+
+### 13c. Per-area allocation: DB uses per-capita/peso, workbook uses custo-share
+
+`GERENC_LANCAMENTORESUMORATEIO` and `DB_RESULTADO_AREA` allocate indirect cost
+per area by **per-capita + peso (headcount/effort weighting)**, e.g. Feb
+DESP_INDIRETA+INV: Cont 59.085,78 / Econ 50.519,53 / Arb 67.502,34. The workbook
+rateia by **custo-equipe share** instead. These are two legitimate methodologies
+that do NOT match each other. The dashboard the client presents follows the
+**workbook** methodology (rateio by custo share), which our `dre.py` already
+implements via `despesa_institucional_rateio`.
+
+### Verdict (institutional lines)
+
+- **Despesa Institucional TOTAL: derive from the DB** as `VW_RESULTADO_MENSAL`
+  `TIPO IN ('S','I')` minus `Comissões` (020.110) — authoritative, one query, no
+  workbook. (Accept that it differs from the workbook's hand-keyed row-198 by a
+  small manual-drift amount; the DB is the correct figure.)
+- **Per-area Despesas Área + rateio:** the DB gives per-SETOR `S` directly
+  (ECT/EDE/ESP), but the SETOR->DRE-area mapping needs the same treatment as
+  Custo equipe (home-area re-bucket), AND the dashboard's rateio is by custo
+  share (already implemented). Decision needed: match the dashboard's workbook
+  methodology (custo-share rateio on the DB total) vs adopt the DB's native
+  per-capita/peso allocation (`DB_RESULTADO_AREA`).
+
+### Extract-ready queries
+```sql
+-- Despesa Institucional total (authoritative), per competence month:
+SELECT ROUND(SUM(VALOR),2) FROM FINANCE.VW_RESULTADO_MENSAL
+ WHERE ANO_MES=:ano_mes AND TIPO IN ('S','I') AND NIVEL=1;   -- minus comissao below
+-- Comissao (already handled separately): TIPO='S' TITULO2='Comissões'.
+-- Per-cost-center despesas (Despesas Área candidate):
+SELECT SETOR, ROUND(SUM(VALOR),2) FROM FINANCE.VW_RESULTADO_MENSALCC
+ WHERE ANO_MES=:ano_mes AND TIPO='S' GROUP BY SETOR;
+```
