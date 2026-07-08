@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-03
+**Last updated:** 2026-07-07
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -135,14 +135,90 @@ Built on top of that:
 - **Meta dashboard:** new `meta_dashboard` tab (annual goal 8.060.000, monthly
   goal, this-month attainment, 12-month table) via `assemble_meta`.
 
-Still manual (no verified DB rule): per-area Comissão / Despesas Equipe /
-Despesa Institucional, the `area_transfers`, and `distribuicao_extras`.
+Still manual (no verified DB rule): the `area_transfers` and
+`distribuicao_extras`.
 
-**Blocked on more workbook samples:** automating the hand-built per-lawyer
-ledger (`Base_Resultado Mensal_V2`: Custo equipe / Comissão / Despesas Equipe,
-and the `Despesa Institucional` rateio allocation that depends on it). Those
-cells contain per-lawyer manual splits (`=12500-C8`, `=3182.83/2`); we need
-several months to confirm the structure is stable before automating.
+### Per-area Custo equipe — automation frontier (2026-07-07)
+
+> **Direction correction.** The end goal is **full automation**: the client
+> should do the *least* manual work possible. The workbook / dashboard /
+> Demonstrativo are **development aids only** (ground-truth to validate against),
+> **not** monthly inputs — nothing we ship may assume they arrive each month.
+> Per the operating rule, we **assume automation is possible and only accept a
+> manual artifact once impossibility is 100% proven.**
+>
+> The **workbook importer below mirrors the monthly workbook**, so it does NOT
+> reduce their manual work and is **not** the automation path. It is retained
+> only as an **offline validation harness** (it ties to the dashboard to the
+> centavo) and a temporary fallback.
+>
+> **PROVEN full-automatable (2026-07-07 probe).** The read-only probe
+> (`ops/sisjuri-agent/probe_distribuicao_area.sql`, results in
+> `docs/SISJURI_QUERIES.md` §11) confirmed per-area Custo equipe is **fully
+> derivable from SISJURI with no monthly manual input**: `FINANCE.LANCAMENTO`
+> books Distribuição Mensal Fixa (`030.010.0010`) per **lawyer (`COD_ADVG`) ×
+> area (`SIGLADEST` cost-center)**, ties to the centavo (Σ 172.129,96 Feb), and
+> **encodes cross-area splits in the DB** (Beatriz BBX split 518,40 Contencioso /
+> 7.537,40 Econômico — the "Aurelio ÷2" pattern, but booked at payment time). So
+> a **future lawyer's split flows through automatically**. Next: wire the
+> corrected extract (drop the bad `LANCHISTORICO` filter; fold distribuição by
+> `SIGLADEST`→area into `custo_equipe_prof`), validate the three area subtotals
+> to the centavo, then **remove the workbook importer** as a data path.
+
+#### Validation harness / temporary fallback: workbook ledger importer
+A **second workbook
+sample** (`Fechamento MBC 05.2026.xlsx`, alongside the earlier `02.2026`)
+confirmed the `Base_Resultado Mensal_V2` **structure is stable across months** —
+every section header (`Custo equipe - {area}`, `Participação/comissão`,
+`Repasse`, `Despesas Área`, `Despesas Institucional`, `Total saídas`) matches;
+only per-lawyer rows churn as staff change, and each still follows the
+`{Nome} - {TipoConta}` convention. The `05.2026` edition even formalized the
+rateio into a named block (`Despesa para ratear` / `Equipe` / `Comissão` /
+`CHECK`, rows 207-214), confirming the rule is deliberate.
+
+- **`app/closing/ledger_import.py`** — pure, label-driven parser. Locates section
+  anchors by column-A label (robust to row insertion) and reads their **cached
+  values** (never the formulas — sidesteps the manual `=12500-C8`, `=3182.83/2`
+  per-lawyer splits, which Excel has already resolved into the subtotal). Emits
+  per-area `custo_equipe`, `comissao` (Participação+Repasse), `despesas_equipe`
+  (Despesas Área). Derives per-area **Despesa Institucional** via the workbook
+  rateio: `desp_inst[area] = (DespInstTotal − ΣDespesasÁrea) × (CE[area]/ΣCE)`.
+- **`scripts/import_ledger.py`** — reads the workbook `Base_Resultado` sheet and
+  merges a `ledger` block into each competence month's snapshot
+  (read-modify-write, preserving all SISJURI data). Imports every month present
+  in the sheet (columns C..N).
+- **`dre.py` wired**: `RealizadoInputs.from_snapshot` reads the `ledger` block;
+  when present it **overrides** the SISJURI `custo_area` per-area Custo equipe
+  (the two do NOT reconcile — SISJURI is a raw DB aggregation, the ledger is the
+  hand-maintained figure the client dashboard uses) and drives Comissão /
+  Despesas Equipe / the derived Despesa Institucional. `_area_rows` prefers the
+  ledger; manual entry remains the fallback for months with no ledger.
+- **Parity: verified to the centavo** against the client dashboard `MBC Resultado
+  Jan a Mai 2026.pdf` (YTD Jan–Mai): Contencioso Custo equipe 372.279,42 (dash
+  372,3K), Despesas Equipe 11.996,28 (12,0K), Despesa Institucional 170.869,75
+  (170,9K); Econômico/Arbitragem Custo equipe 389.116,53 / 282.414,08 (389,1K /
+  282,4K). Institucional Faturamento/Receita still tie to the sacred numbers.
+- **Institutional row-198 map SOLVED (account-keyed).** `probe_inst_csv.sql`
+  dumped `FINANCE.VW_RESULTADO_MENSAL_DET` as CONTA3-keyed rows; reconciled to the
+  centavo against Fechamento MBC 02.2026 + 05.2026. Workbook "Despesas
+  Institucional" (row 198) = sum of 10 families (Ocupação, Telecom, Despesas
+  Gerais, Consultoria, Salários Adm, Administrativas, Invest. Prospecção, Gestão
+  do Conhecimento, Endomarketing, Informática); Impostos + Distribuição de Lucros
+  + area lines are excluded. The verified account→family overrides now live in
+  `workbook_layouts.py::section_for(nome_pai, id_conta)` (keyed on stable CONTA3
+  codes, e.g. Contabilidade 020.040.0050→Consultoria, Seguros 020.060.0040→
+  Ocupação). Locked by `tests/test_workbook_layouts.py`. The residual ≈5–7k
+  workbook drift is line-attributed to a manual annualization layer
+  (Administrativas/Gestão/Endomkt) that is NOT in the DB month — see
+  `docs/HANDOFF_DRE_AUTOMATION.md` Appendix B. These become optional manual inputs
+  now that the workbook is going away.
+
+**Demonstrativo Resultado Profissional** (`..._AR_20260623_....pdf`): the
+LegalDesk report the client now uses to allocate per-area recebimento — it
+replaced the workbook's `Resumo_Recebidas` + `FATURAS Analitico` tabs (both
+absent from `05.2026`). Per client direction it is used as **cross-validation**
+of our already-verified SISJURI-derived per-area recebimento, not (yet) wired as
+an ingestion source.
 
 ### Operator steps to finish the deploy
 1. Apply the new DDL in Supabase (`area_transfers` table + `budgets.
@@ -152,10 +228,17 @@ several months to confirm the structure is stable before automating.
    (see "When to re-run the backfill" below).
 3. Optionally verify `FAT_FATURA` columns with `probe_faturas_analitico.sql`
    before trusting `faturas_analitico`.
+4. **Import the per-area ledger** so area tabs match the dashboard:
+   `python -m scripts.import_ledger --workbook "reference/workbook/Fechamento MBC 05.2026.xlsx"
+   --client mbc --ano 2026` (idempotent; merges a `ledger` block into each
+   month's snapshot). Re-run whenever a new monthly workbook arrives.
 
 ### Test counts (as of last update)
-- Backend: **135 passing** (`cd backend && pytest`).
-- Frontend: **49 passing** (`cd frontend && npm run test`).
+- Backend: **150 passing** (`cd backend && pytest`) — +7 for the ledger parser
+  (`test_ledger_import.py`) and DRE ledger integration (`test_dre_assembler.py`).
+- Frontend: **49 passing** (`cd frontend && npm run test`). The area tabs are
+  data-driven, so no frontend change was needed — ledger values simply fill the
+  previously-blank `Realizado` cells.
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host

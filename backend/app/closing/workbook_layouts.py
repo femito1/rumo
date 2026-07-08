@@ -53,7 +53,57 @@ _PAI_TO_SECTION: dict[str, str] = {
 }
 
 
-def section_for(nome_conta_pai: str | None) -> str:
+# Account-code-level overrides for the workbook institutional families.
+#
+# Verified to the centavo against Fechamento MBC 02.2026 and 05.2026 by
+# reconciling FINANCE.VW_RESULTADO_MENSAL_DET (see docs/HANDOFF_DRE_AUTOMATION.md,
+# Appendix B). These are keyed on the STABLE numeric CONTA3 codes, never on the
+# accented ``nome_conta_pai`` text, so they survive label churn.
+#
+# The workbook re-buckets a handful of leaves away from their SISJURI parent:
+#   - "Serviços de Terceiros" (020.040.*) is split across three families.
+#   - Seguros (020.060.0040) moves into Ocupação as "Seguro Locação".
+#   - Financeiras (020.070.*) fold into Administrativas.
+#   - Manutenção e Conservação (020.010.0050) moves into Despesas Gerais.
+#   - Marketing/Assessoria (040.010.*) and Investimentos:Consultoria (040.030.*)
+#     both land in Consultoria; Biblioteca (040.050.*) is Gestão do Conhecimento.
+_CONTA3_TO_SECTION: dict[str, str] = {
+    "020.010.0050": "Despesas Gerais",  # Manut. e Conservação -> "Manut. do Escritório"
+    "020.030.0150": "Endomarketing",  # Relacionamento Institucional -> "Presentes"
+    "020.040.0010": "Informática",  # Serviços de Informática -> "Suporte de Informática"
+    "020.040.0030": "Despesas Gerais",  # Terceirização Limpeza -> "Limpeza e Copeira"
+    "020.040.0050": "Consultoria",  # Contabilidade
+    "020.040.0060": "Informática",  # Servidor Externo -> "Data Center"
+    "020.060.0040": "Ocupação",  # Seguros -> "Seguro Locação"
+    "020.080.0030": "Despesas Gerais",  # Estacionamento (clientes)
+    "020.080.0050": "Salários Administração",  # Vale Refeição - ADM
+    "020.080.0060": "Salários Administração",  # Vale Transporte
+    "020.090.0040": "Endomarketing",  # Eventos e Happy Hour -> "Eventos Internos" (05 book)
+}
+
+# Account-family prefixes that fold into a fixed institutional family regardless
+# of their SISJURI parent name.
+_PREFIX_TO_SECTION: tuple[tuple[str, str], ...] = (
+    ("020.070.", "Administrativas"),  # Financeiras -> Taxas / Despesas Financeiras
+    ("040.010.", "Consultoria"),  # Marketing / Assessoria de Imprensa
+    ("040.030.", "Consultoria"),  # Investimentos:Consultoria Adm. e Financeira
+    ("040.040.", "Informática"),  # Licenças / Micros / Impressoras
+    ("040.050.", "Gestão do Conhecimento"),  # Biblioteca
+)
+
+
+def section_for(nome_conta_pai: str | None, id_conta: str | None = None) -> str:
+    """Resolve the workbook institutional family for an expense leaf.
+
+    Prefers the verified account-code rules (``id_conta`` = SISJURI CONTA3) and
+    only falls back to the parent-name map when no code rule applies.
+    """
+    if id_conta:
+        if id_conta in _CONTA3_TO_SECTION:
+            return _CONTA3_TO_SECTION[id_conta]
+        for prefix, section in _PREFIX_TO_SECTION:
+            if id_conta.startswith(prefix):
+                return section
     if not nome_conta_pai:
         return "Despesas Gerais"
     return _PAI_TO_SECTION.get(nome_conta_pai, nome_conta_pai)

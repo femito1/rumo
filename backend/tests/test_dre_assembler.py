@@ -93,9 +93,15 @@ def test_institutional_sections_roll_up_by_family(snapshot):
     assert names[0] == "Ocupação"
     assert "Informática" in names
     ocup = next(s for s in r.sections if s.name == "Ocupação")
-    # Aluguel+Condominio+Energia+IPTU+Manutencao
-    assert ocup.total == pytest.approx(21707.78 + 4996 + 926.16 + 6916.97 + 50, abs=0.05)
+    # Verified vs Fechamento MBC 02.2026 (HANDOFF Appendix B): the workbook's
+    # Ocupação = Aluguel+Condomínio+Energia+IPTU + Seguros ("Seguro Locação"),
+    # and moves Manutenção e Conservação (020.010.0050) OUT to Despesas Gerais.
+    assert ocup.total == pytest.approx(
+        21707.78 + 4996 + 926.16 + 6916.97 + 182.71, abs=0.05
+    )
     assert any("Aluguel" == n for n, _ in ocup.accounts)
+    assert any("Seguros" == n for n, _ in ocup.accounts)
+    assert not any("Manutenção e Conservação" == n for n, _ in ocup.accounts)
 
 
 def test_resultado_bruto_and_liquido(snapshot):

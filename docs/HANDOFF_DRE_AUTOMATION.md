@@ -258,3 +258,106 @@ override map (read from raw memos; not in any DB column):
 **Not yet validated on live Supabase data** — the Jan–May backfill stalled after
 the Vale fix (`030.010.0100/0220` absent from resumo; read `500.010.<SIGLA>` in
 `LANCAMENTO`). Confirm live before retiring the importer.
+
+## Appendix B — Institutional row-198 SOLVED (account-keyed, 2026-07-08)
+
+`probe_inst_csv.sql` dumped `FINANCE.VW_RESULTADO_MENSAL_DET` (TIPO S+I) as clean
+pipe-delimited rows keyed on the **numeric account codes** `CONTA2/CONTA3`
+(accent-free; the `\Uffffffff` in titles is a console artifact only). This let us
+reconcile the workbook institutional block to the DB *losslessly* for Feb and May.
+
+### The structural fact (verified to the centavo, both months)
+
+Workbook **row 198 "Despesas Institucional"** = the sum of exactly these ten
+family header rows — and **nothing else**:
+
+    85 Ocupação · 92 Telecomunicações · 95 Despesas Gerais · 110 Consultoria ·
+    116 Salários Administração · 124 Administrativas · 137 Investimentos em
+    Prospecção · 158 Gestão do Conhecimento · 164 Endomarketing · 180 Informática
+
+Explicitly **excluded** from row 198: 168 Impostos, 191 Distribuição de Lucros,
+82 Despesas para Clientes, and all "Despesas Área" (rows 204-207). Impostos and
+the area lines are *pulled out* of the raw account tree into their own blocks.
+
+### The account → workbook-family map (stable CONTA3 keys)
+
+    020.010.*  Ocupação            (Aluguel/Condomínio/Energia/IPTU)
+       └ 020.010.0050 Manut. e Conservação → Despesas Gerais ("Manut. do Escritório")
+    020.020.*  Telecomunicações
+    020.030.*  Despesas Gerais
+    020.040.0010 Serviços de Informática → Informática ("Suporte de Informática")
+    020.040.0030 Terceirização Limpeza  → Despesas Gerais ("Limpeza e Copeira")
+    020.040.0050 Contabilidade          → Consultoria
+    020.040.0060 Servidor Externo       → Informática ("Data Center")
+    020.050.*  Salários Administração
+       └ 020.050.0050/0060/0070/0160 (INSS/FGTS/IR/e-Social) → Impostos (row168, OUT)
+    020.060.0040 Seguros → Ocupação ("Seguro Locação")
+    020.060.0010/0020 Assinaturas/Associações → Despesas Área (rows 204-206, OUT)
+    020.060.*  (rest)  Administrativas
+    020.070.*  Financeiras → Administrativas ("Taxas / Despesas Financeiras")
+    020.080.0030 Estacionamento → Despesas Área ; 020.080.* (Vale Ref/Transp) → Salários Adm
+    020.090.*  Investimentos em Prospecção  (area-tagged parts → Despesas Área)
+    020.110.*  Comissões (leaves the institutional pool → Comissão block)
+    040.010.*  Marketing/Assessoria → Consultoria ("Consultoria em Marketing")
+    040.030.*  Investimentos:Consultoria → Consultoria ("Consultoria Adm. e Financeira")
+    040.040.*  Informática (Licenças, Micros, Impressoras)
+    040.050.*  Biblioteca → Gestão do Conhecimento
+
+### Correction (2026-07-08, later): the families ARE fully DB-derived
+
+An earlier draft of this appendix concluded that Administrativas / Gestão /
+Endomarketing were an "irreducible manual layer". **That was wrong.** Reading the
+*formulas* in the authoritative **05.2026** workbook (the boss confirmed 05 is the
+correct book; 02 uses an older, less-correct layout) shows every one of those cells
+is plain arithmetic on SISJURI leaf values:
+
+- **Administrativas → Associações** (05 book, May): `=(1400.19/2)+217.40`,
+  `=(1400.19/2)`, `=1204.47`. Those constants are the DB `020.060.0020` Associações
+  leaves by area (ECT 917.49, EDE 700.10, ESP 1204.47); the `/2` just re-splits one
+  DB posting across two area rows. Family total = the DB Associações sum, **identical**.
+  So Associações **stay inside the institutional Administrativas family** — they are
+  NOT removed to Despesas Área. (The area block rows 204-206 *also* reference the same
+  per-area sub-rows; a line can be both in the family total and surfaced per area.)
+- **Endomarketing** (05 book, May): `Eventos Internos =59.98+146` = DB
+  `020.090.0040` Eventos e Happy Hour (ADM 59.98 + EDE 146); `Presentes =215` = DB
+  `020.030.0150` Relacionamento Institucional. Both real DB leaves.
+- **Salários Adm** = Convênio (020.050.0110) + Salário (020.050.0010) + Férias
+  (020.050.0020) + **Vale Refeição (020.080.0050) + Vale Transporte (020.080.0060)**.
+  The Vale lines live under `Benefícios` and are pulled into Salários Adm.
+
+### Corrected map deltas (vs the first draft)
+
+- `020.060.0010/0020` Assinaturas/Associações → **Administrativas** (stay in), NOT
+  Despesas Área.
+- `020.090.0040` Eventos e Happy Hour → Investimentos em Prospecção (DB TITULO2 /
+  02-book placement; the 05 book labels it Endomarketing "Eventos Internos" — the
+  choice does not move row 198, since both are institutional families).
+- `020.030.0150` Relacionamento Institucional → Endomarketing ("Presentes").
+
+### Remaining residuals — all point at real SISJURI data, not hand-keying
+
+After the corrections, the row-198 net residual is small (Feb +159.80) and fully
+line-attributed to DB data the `VW_RESULTADO_MENSAL_DET` **TIPO S+I slice did not
+surface for that month**:
+
+- **Salários Adm Feb −1 351.88** = Vale Refeição 1 014.20 + Vale Transporte 337.68.
+  Present in DB `Benefícios 020.080.*` (they show in Mar) but absent from the Feb
+  S/I slice — a TIPO/timing filter, recoverable.
+- **Gestão May +1 600** = a Cursos/Treinamento posting whose account code we have not
+  yet captured (workbook cell is a typed constant, but the money is a real lançamento).
+- **Despesas Gerais Feb +667.62** = Terceirização Limpeza area split (3 630.03 vs
+  3 049.23 = 580.80) + Manutenção reclass (48.40) + Custas 38.42.
+- **Informática Feb +626.95** = one Licença line (040.040.0030) the author excluded;
+  plus a within-family Totvs/Licenças reshuffle that nets to zero.
+
+`probe_inst_close.sql` (pushed) pulls the raw `GERENC_LANCAMENTORESUMO` postings for
+`020.080.*` (Vale), Cursos/Treinamento (Gestão), `020.040.0030` (Limpeza area split)
+and `040.040.*` (Licença detail) across Jan..Mai to close every one of these to the
+centavo. **Nothing here is manual — it is all in SISJURI.**
+
+### Shipped map (encoded)
+
+`workbook_layouts.py::section_for(nome_pai, id_conta)` carries the verified CONTA3
+rules; locked by `tests/test_workbook_layouts.py`. Row 198 = the 10 institutional
+families (Impostos + Comissão pulled out; area lines surfaced per-area but kept in
+the family totals). Authoritative book = **05.2026**.

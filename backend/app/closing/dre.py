@@ -183,7 +183,7 @@ class RealizadoInputs:
                 custo_equipe_from_accounts += total
                 continue
             if is_indirect(id_conta):
-                sec_name = section_for(row.get("nome_conta_pai"))
+                sec_name = section_for(row.get("nome_conta_pai"), id_conta)
                 sec = sec_map.setdefault(sec_name, SectionBreakdown(sec_name))
                 sec.total = round(sec.total + total, 2)
                 sec.accounts.append((nome, round(total, 2)))
