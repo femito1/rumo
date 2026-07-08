@@ -50,6 +50,58 @@ powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\run-agent.ps1 -AnoMes 2
 
 Snapshots are written to `C:\temp\sisjuri\closing_<AnoMes>.json`.
 
+## Ad-hoc probes over RDP (READ THIS FIRST — the well-worn path)
+
+We frequently need to run a one-off read-only `.sql` probe against the DB from
+the RDP box `MBC-LDESK01`. The box runs **Windows Server 2012 / PowerShell 3-4**,
+which has two hard gotchas that waste time every single session:
+
+1. **TLS 1.2 is OFF by default.** `Invoke-WebRequest` to GitHub fails with
+   *"The request was aborted: Could not create SSL/TLS secure channel"* until you
+   enable it. You MUST run this once per PowerShell window BEFORE any pull:
+
+   ```powershell
+   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+   ```
+
+2. **Multi-line / here-string commands are unreliable.** Paste **one command per
+   line, no line continuations** (no `` ` `` backtick-newline, no `\`). Build any
+   multi-line SQL wrapper with an inline `` `r`n `` inside a single `Set-Content`.
+
+### The fixed recipe (copy these one line at a time)
+
+The agent lives at **`C:\temp\sisjuri`**. The Oracle client is at
+`C:\oracle11\app\product\11.2.0\client_1\bin\sqlplus.exe`. The DB password is in
+`$env:SISJURI_PASSWORD`. Probes are pulled from the **public** GitHub raw URL
+`https://raw.githubusercontent.com/femito1/rumo/main/ops/sisjuri-agent/<file>.sql`.
+
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$env:SISJURI_PASSWORD = '<RGN password>'
+Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/femito1/rumo/main/ops/sisjuri-agent/probe_NAME.sql" -OutFile C:\temp\sisjuri\probe_NAME.sql
+Set-Content C:\temp\sisjuri\q.sql -Encoding ASCII -Value ("CONNECT RGN/""$($env:SISJURI_PASSWORD)""@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=172.16.237.9)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=cdbp01_pdb1.submbc.vcnmbc.oraclevcn.com)))`r`n" + (Get-Content C:\temp\sisjuri\probe_NAME.sql -Raw))
+& 'C:\oracle11\app\product\11.2.0\client_1\bin\sqlplus.exe' -S /nolog '@C:\temp\sisjuri\q.sql' *>&1 | Tee-Object C:\temp\sisjuri\out_NAME.txt
+```
+
+Replace `probe_NAME` with the actual probe filename; paste the `out_NAME.txt`
+contents back. To push a NEW probe first: commit + push to `main` (the repo is
+public), then pull it with the URL above — no base64, no clipboard paste.
+
+### Known query pitfalls (do not rediscover these)
+
+- **`FINANCE.LANCAMENTO` has NO `ID_GRUPOJURIDICODEST`.** Area for a cash
+  movement is `SIGLADEST` (cost-center) or, better, the destination
+  professional's home grupo — not a group column on the row. Probes that select
+  `ID_GRUPOJURIDICODEST` fail with `ORA-00904`.
+- **DB connection facts:** host `172.16.237.9:1521`, service
+  `cdbp01_pdb1.submbc.vcnmbc.oraclevcn.com`, user `RGN`. Only `MBC-LDESK01` can
+  route to the private VCN address (see `docs/SISJURI_QUERIES.md` §10).
+- **Accents render as `\Uffffffff`** in the sqlplus console; that is a display
+  artifact only — the extract's UTF-8 handling (`NLS_LANG=.AL32UTF8`) is fine.
+- **`GERENC_LANCAMENTORESUMO` does not carry every account.** Vale
+  (`030.010.0100/0220`) and some personal lines are absent; those live in the
+  `500.010.<SIGLA>` personal-debit namespace in `FINANCE.LANCAMENTO`.
+
 ## Historical backfill (one-shot)
 
 Populate every past month so any competence month shows real data in the UI.
