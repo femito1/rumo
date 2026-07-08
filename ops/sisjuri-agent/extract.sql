@@ -221,6 +221,41 @@ BEGIN
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
      )
   ),
+  -- Per-lawyer convênio memo: some lawyers (EHF, RB today) have a "parte MBC"
+  -- hand-net that the finance team documents in the LANCHISTORICO of the
+  -- 030.010.0110 row, e.g.: "3.520,31 - 1.956,21 (Parte MBC) = R$ 1.564,10".
+  -- The parsed final number IS the ledger figure to book instead of LANCAMENTO
+  -- 0110. Emit sigla + parsed value so the backend applies a set_account
+  -- override automatically. Falls back gracefully when the memo is absent or
+  -- stale (parse fails -> no override, LANCAMENTO value stands).
+  'convenio_memo' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'        VALUE sigla,
+        'parsed_valor' VALUE parsed_valor,
+        'raw_memo'     VALUE raw_memo
+     ) RETURNING CLOB)
+     FROM (
+        SELECT l.LANCPROFDEST sigla,
+               -- Capture the amount after "=" (with optional "R$"), Brazilian
+               -- notation (thousand-sep '.', decimal ','). Return NUMBER.
+               TO_NUMBER(
+                 REPLACE(REPLACE(
+                   REGEXP_SUBSTR(l.LANCHISTORICO,
+                     '\(\s*[Pp]arte\s*MBC\s*\)\s*=\s*R?\$?\s*([0-9.]+,[0-9]{2})',
+                     1, 1, NULL, 1),
+                   '.', ''),
+                   ',', '.'
+                 )
+               ) parsed_valor,
+               SUBSTR(l.LANCHISTORICO, 1, 300) raw_memo
+          FROM FINANCE.LANCAMENTO l
+         WHERE l.PCTCNUMEROCONTADEST='030.010.0110'
+           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+           AND l.LANCPROFDEST IS NOT NULL
+           AND UPPER(l.LANCHISTORICO) LIKE '%PARTE MBC%'
+     )
+     WHERE parsed_valor IS NOT NULL
+  ),
   -- Area-level Custo-equipe lines that the ledger books at the AREA level
   -- (a lawyer's Vale Refeição/Transporte becomes an area cost). These live in
   -- the personal-debit namespace ``500.010.<SIGLA>`` with histórico
@@ -250,6 +285,39 @@ BEGIN
                      AND cp2.COD_ADVG IS NOT NULL
               )
             GROUP BY SUBSTR(l.PCTCNUMEROCONTADEST, 9))
+  ),
+  -- Comissao (Participacao + Repasse) per area. Two DB sources, both verified to
+  -- the workbook to the centavo (docs/SISJURI_QUERIES.md 12a):
+  --  * 020.110.0010 "Participacao Externa (comissoes)": area-tagged via
+  --    ID_GRUPOJURIDICO (emit kind='area', area=grupo name).
+  --  * 030.010.0120 "Participacao Interna (comissoes)": per-lawyer via
+  --    LANCPROFDEST (emit kind='lawyer', sigla), folded to home area + rateio by
+  --    the backend the same way Custo equipe is. 030.010.0080 is always empty.
+  'comissao_deriv' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'kind'  VALUE kind,
+        'sigla' VALUE sigla,
+        'area'  VALUE area,
+        'valor' VALUE valor
+     ) RETURNING CLOB)
+     FROM (
+        -- Participacao Externa: area-level, keyed by ID_GRUPOJURIDICO.
+        SELECT 'area' kind, CAST(NULL AS VARCHAR2(20)) sigla,
+               g.NOME area, ROUND(SUM(r.VALOR),2) valor
+          FROM LDESK.GERENC_LANCAMENTORESUMO r
+          LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO=r.ID_GRUPOJURIDICO
+         WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA='020.110.0010'
+         GROUP BY g.NOME
+        UNION ALL
+        -- Participacao Interna: per-lawyer, keyed by LANCPROFDEST.
+        SELECT 'lawyer' kind, l.LANCPROFDEST sigla,
+               CAST(NULL AS VARCHAR2(60)) area, ROUND(SUM(l.LANNVALOR),2) valor
+          FROM FINANCE.LANCAMENTO l
+         WHERE l.PCTCNUMEROCONTADEST='030.010.0120'
+           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+           AND l.LANCPROFDEST IS NOT NULL
+         GROUP BY l.LANCPROFDEST
+     )
   ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses

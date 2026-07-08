@@ -234,8 +234,10 @@ class RealizadoInputs:
             overrides = _parse_custo_overrides(
                 snap.get("custo_equipe_overrides") or {}, LawyerOverride
             )
-            # Combine per-lawyer rows with area-level (blank-sigla) lines such as
-            # Vale Refeição/Transporte, which the fold routes straight to the area.
+            # Combine per-lawyer rows with the "area-level" personal-debit lines
+            # (Vale Refeição/Transporte on 500.010.<SIGLA>): those carry a sigla
+            # too, so the fold routes them via the lawyer's home area/rateio just
+            # like the 030.010.* components.
             all_rows = list(deriv_rows) + list(snap.get("custo_equipe_area") or [])
             derived = derive_area_custo_equipe(
                 all_rows, splits, overrides=overrides
@@ -243,6 +245,21 @@ class RealizadoInputs:
             if any(derived.values()):
                 area_custo = {a: round(v, 2) for a, v in derived.items()}
                 custo_equipe = round(sum(area_custo.values()), 2)
+
+        # Preferred: SISJURI-derived per-area Comissão (Participação Externa +
+        # Interna). When the ``comissao_deriv`` block is present it replaces the
+        # workbook ledger's per-area comissao (docs/SISJURI_QUERIES.md §12a).
+        comissao_rows = snap.get("comissao_deriv")
+        area_comissao_deriv: dict[str, float] | None = None
+        if comissao_rows is not None:
+            from app.closing.comissao_deriv import derive_area_comissao
+            from app.closing.custo_equipe_deriv import build_area_splits
+
+            com_splits = build_area_splits(
+                snap.get("rateio_grupo") or [],
+                {str(k): str(v) for k, v in (snap.get("home_area") or {}).items()},
+            )
+            area_comissao_deriv = derive_area_comissao(comissao_rows, com_splits)
 
         # Per-area recebimento: SISJURI splits the sacred receipt total by
         # CASO -> área jurídica. Names vary ("Direito Econômico", "Arbitragem
@@ -275,6 +292,9 @@ class RealizadoInputs:
             area_comissao = {
                 a: round(float(v), 2) for a, v in (ledger.get("comissao") or {}).items()
             }
+            # SISJURI-derived comissão wins over the workbook ledger when present.
+            if area_comissao_deriv is not None:
+                area_comissao = {a: round(v, 2) for a, v in area_comissao_deriv.items()}
             area_desp_equipe = {
                 a: round(float(v), 2)
                 for a, v in (ledger.get("despesas_equipe") or {}).items()
@@ -295,6 +315,10 @@ class RealizadoInputs:
             if lc and not deriv_rows:
                 area_custo = {a: round(v, 2) for a, v in lc.items()}
                 custo_equipe = round(sum(area_custo.values()), 2)
+
+        # No workbook ledger but SISJURI comissão present: use the derived values.
+        if not has_ledger and area_comissao_deriv is not None:
+            area_comissao = {a: round(v, 2) for a, v in area_comissao_deriv.items()}
 
         return cls(
             recebimento=recebimento,
