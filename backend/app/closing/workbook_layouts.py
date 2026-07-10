@@ -155,14 +155,22 @@ AREA_LINES: tuple[str, ...] = (
 
 def match_area(snapshot_area_name: str, area: str) -> bool:
     """Snapshot area names differ from workbook labels
-    ('Equipe Contencioso', 'Equipe Direito Econômico', 'Arbitragem')."""
+    ('Equipe Contencioso', 'Equipe Direito Econômico', 'Arbitragem').
+
+    Client-confirmed (2026-07-10): **Ambiental soma com Arbitragem** — they are
+    the same workbook area ('Arbitragem e Compliance'). The LegalDesk Demonstrativo
+    lists 'Equipe Ambiental' separately, but it folds into Arbitragem here.
+    'Não Alocados' is NOT an area and must never match one (it is its own line).
+    """
     low = (snapshot_area_name or "").lower()
+    if "alocad" in low:  # "Não Alocados" — never a workbook area
+        return False
     if area == "Econômico":
         return "econ" in low
     if area == "Contencioso":
         return "conten" in low
     if area == "Arbitragem":
-        return "arbitr" in low
+        return "arbitr" in low or "ambient" in low or "compliance" in low
     return False
 
 

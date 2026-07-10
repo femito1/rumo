@@ -10,8 +10,29 @@ institutional block no longer matches the workbook — treat it as a bug.
 from app.closing.workbook_layouts import (
     institutional_030_section,
     is_direct_team,
+    match_area,
     section_for,
 )
+
+
+def test_ambiental_folds_into_arbitragem():
+    # Client-confirmed (2026-07-10): Ambiental soma com Arbitragem (same area).
+    assert match_area("Equipe Ambiental", "Arbitragem") is True
+    assert match_area("Arbitragem e Compliance", "Arbitragem") is True
+    assert match_area("Equipe Ambiental", "Contencioso") is False
+    assert match_area("Equipe Ambiental", "Econômico") is False
+
+
+def test_nao_alocados_is_never_an_area():
+    # "Não Alocados" is its own recebimento line, not a workbook area.
+    for area in ("Contencioso", "Econômico", "Arbitragem"):
+        assert match_area("Não Alocados", area) is False
+
+
+def test_area_matching_basics():
+    assert match_area("Equipe Contencioso", "Contencioso") is True
+    assert match_area("Equipe Direito Econômico", "Econômico") is True
+    assert match_area("Equipe Contencioso", "Econômico") is False
 
 
 def test_cursos_treinamento_030_carveout():
