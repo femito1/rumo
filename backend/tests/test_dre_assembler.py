@@ -108,8 +108,6 @@ def test_custos_diretos_include_comissao(snapshot):
     # Client-confirmed (MEETING_2026-07-10): Custos Diretos = Custo equipe +
     # Participação/Comissão. Feb workbook: 216953.74 (equipe) + 1500 (comissão) =
     # 218453.74. The Institucional Resultado Bruto must subtract comissão too.
-    from app.closing.dre import assemble_dre_sections
-
     snap = dict(snapshot)
     snap["ledger"] = {
         "custo_equipe": {"Contencioso": 76342.35, "Econômico": 78817.05, "Arbitragem": 61794.34},
