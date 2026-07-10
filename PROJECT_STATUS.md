@@ -28,6 +28,21 @@ canonical. An agent must NOT ask the user about these again.
 > soma em Arbitragem, + linha "Não Alocados"); **Vale-ADM** está em `200.010.0010`
 > (transitória, por histórico VR/VT); rateio institucional usa só despesas de EQUIPE.
 > Também: **remover "Faturas emitidas"** do produto.
+>
+> **IMPLEMENTADO (2026-07-10):** (1) Imposto = 15% do recebimento
+> (`workbook_layouts.imposto_sobre_recebimento`; deixou de somar o razão) — fev
+> 47.885,04 / mai 62.389,20, bate com o dashboard; cadeia líquido/reserva
+> corrigida por consequência. (2) **Regra dura** `app/closing/verification.py`:
+> célula Realizado que divergir do alvo do workbook além de R$ 0,01 fica em branco
+> ("ainda não temos"); overlay `targets` passa por `assemble_dre_sections`.
+> (3) Recebimento por área agora funde **Ambiental→Arbitragem** e exclui
+> **"Não Alocados"** (`match_area`). (4) **Custos Diretos = Custo equipe +
+> Participação/Comissão** (`RealizadoInputs.custos_diretos`; Institucional
+> Resultado Bruto passa a subtrair comissão) — fev 218.453,74. (5) KPI "Faturas
+> emitidas" removido. Backend **179 testes**, frontend **49**; ruff/mypy/eslint/tsc
+> limpos. PENDENTE: alimentar o overlay `targets` a partir do workbook por mês;
+> custo equipe por área do SISJURI (Econômico mai alvo 79.436,24); rateio
+> institucional só de despesas de EQUIPE; DL extras; Vale-ADM (200.010.0010).
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
