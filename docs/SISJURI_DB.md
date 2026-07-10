@@ -466,6 +466,12 @@ So the rule is: **filter by account + histórico sub-type, then split the fixed
 distribution across the professional's cost-centers.** That reproduces the
 workbook's separate Distribuição / Pró-labore / Excedente lines exactly.
 
+> **Client-confirmed (2026-07-10):** a professional who works in **two areas is
+> ALWAYS split 50/50** between them (custo de equipe + comissão). Fixed rule, never
+> case-by-case. When the DB posts a partner's fixed distribution against multiple
+> cost-centers, the even split IS this rule; a two-area lawyer with a single
+> posting must still be halved across the two areas. See `PROJECT_STATUS.md` §0.
+
 ### What this proves
 
 - Revenue KPIs: exact (`GERENC_VW_POSFIN_RESULT*`).

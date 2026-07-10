@@ -8,7 +8,10 @@
 
 ## Start here
 
-1. Read `PROJECT_STATUS.md`.
+1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
+   must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
+   book = 05.2026; two-area lawyers always split 50/50; the workbook is the number
+   of record and finance never touches the DB).
 2. Skim `docs/DESIGN.md` (architecture) and `docs/LEGALDESK.md` (API + sacred numbers).
 3. **Before touching the SISJURI DB or writing a probe**, read the living account
    index in `docs/SISJURI_DB.md` §"Known account facts — CHECK THIS BEFORE

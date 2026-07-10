@@ -7,11 +7,31 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-07
+**Last updated:** 2026-07-10
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
+
+## 0. Client-confirmed business rules (DO NOT re-ask — 2026-07-10)
+
+These were confirmed directly by the client (RUMO/MBC finance) and are now
+canonical. An agent must NOT ask the user about these again.
+
+- **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
+  data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
+  Section 5's "when the Juritis API arrives" is therefore moot; the `JuritisSource`
+  placeholder will never be filled by an API. Treat the DB as the permanent source.
+- **Authoritative reference workbook = `Fechamento MBC 05.2026.xlsx`.** On any
+  conflict between books, 05.2026 wins. Its structure is the target layout.
+- **A lawyer who works in two areas is ALWAYS split 50/50** (divide em 2) between
+  the two areas — for custo de equipe and comissão. This is a fixed rule, never
+  case-by-case. (This is the "Aurélio ÷2 / Beatriz" pattern.)
+- **The workbook figure is the number of record.** Finance does not, and will not,
+  reconcile against the DB. When our DB-derived number and the workbook disagree,
+  the **workbook is the target** and any residual is ours to explain via the DB —
+  never something to raise with finance as a DB question. Finance are not DB users.
+
 
 ## 1. What this is
 
@@ -312,7 +332,12 @@ If a change moves any of these numbers, it is a bug until proven otherwise.
 > the expense side without waiting for the Juritis API. Revisit the paths below
 > in light of that. Reconciliation of exact per-line DRE definitions is still open.
 
-The Juritis / TOTVS Backoffice API is coming but its shape is **unknown**. The
+> **SUPERSEDED (2026-07-10, client-confirmed): there is NO Juritis/TOTVS API and
+> none is planned.** The only non-LegalDesk source is the SISJURI Oracle DB (see
+> §0 and §6b). The `JuritisSource` placeholder stays as a generic seam but will
+> never be backed by an API. The paths below are kept for historical context only.
+
+The Juritis / TOTVS Backoffice API ~~is coming but its shape is **unknown**~~. The
 data layer is built so integrating it is a localized change, never a frontend or
 contract rewrite. When access arrives, pick one path:
 
