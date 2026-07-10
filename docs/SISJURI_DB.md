@@ -64,6 +64,27 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `040.050.*` | Biblioteca | → Gestão do Conhecimento |
 | `030.010.0180` | **Cursos / Treinamento Jurídico** | → **Gestão do Conhecimento** (lifted OUT of Custo Equipe; area-tagged part only) |
 
+### Post-meeting facts (2026-07-10) — see `docs/MEETING_2026-07-10.md` for full detail
+
+- **Imposto do DRE = 15% do Recebimento** (número sacred do LegalDesk), NÃO a soma
+  do razão `050.010.*`. Maio: 0,15 × 415.928 = 62.389,20 (bate: Bruto 100.327 −
+  Imposto 62.389 − Amort 8.117 = Líquido 29.821).
+- **Amortização = 8.117,00/mês** (fixo). **Reserva de bônus = 10% do Resultado
+  Líquido** (por área). **Custo direto = Custo equipe + Participação + Comissão.**
+- **`050.010.*` "Impostos - Tributos" (TIPO O)** = IRRF/PIS/COFINS/CSLL/ISS — visão
+  de caixa/competência; **não** é a linha de imposto do DRE.
+- **`200.010.*` Transitórias** e **`300.010.*` Valor Agregado** = contas de
+  desdobramento automático (impostos de terceiros, VR/VT, associações etc.).
+- **Recebimento por área** = Demonstrativo Gerencial por Profissional (LegalDesk):
+  Contencioso + Econômico + (Arbitragem + **Ambiental**) + **Não Alocados** = total.
+- **Contas `Grupo='S'`** (plano de contas) = as despesas que o sistema **rateia por
+  área automaticamente** (Associações, Prospecção, Eventos/HH, Cursos, Material
+  Gráfico, Distribuição Fixa…). O `Contas a Pagar` traz a coluna `Grupo`
+  (ECT/EDE/ESP/ADM) já preenchida — usar essa, não rebucket à mão.
+- **`Pagtos maio.XLS.xlsx` = FINANCE.CONTASPAGAR detalhado**: colunas úteis
+  `Conta Destino`, `Valor Bruto`, `Valor Base`, `Grupo`(área), `Profissional
+  Destino`, `ORIENTAÇÃO`, `Histórico`. Plano de contas completo em `/tmp/plano_contas.csv`.
+
 ### Vale Refeição/Transporte source — `FINANCE.LANCAMENTO`, `500.010.<SIGLA>`
 
 CORRECTED after live probing (probe_vale_find.sql, 2026-07-08):
@@ -87,12 +108,16 @@ Reconciliation status (workbook Salários-Adm Vale = row 122 Ref + row 123 Trans
 | Abr | 3 421,36 | 2 230,56 | — | no |
 | Mai | 3 326,94 | 1 121,94 | 2 090,04 | no |
 
-**Open:** only Feb reconstructs cleanly (MLA). Other months' workbook Vale-ADM is
-larger than any Vale-labelled DB posting we can find — the remainder appears bundled
-inside non-Vale-labelled `500.010`/`030.*` postings, i.e. it is a **payroll/benefit
-allocation the workbook author keys by hand**. Candidate not-yet-checked: the full
-`500.010.MLA`/`VSR` monthly movement (all historicos, not just `%VALE%`) and the
-`200.010.*` benefits account. **This is the single unresolved institutional line.**
+**RESOLVED (2026-07-10) via `Pagtos maio.XLS.xlsx` (= CONTASPAGAR detail):** Vale-ADM
+is booked to **`200.010.0010 Transitória de Pagamentos`** with `ORIENTAÇÃO=
+"desdobramento - histórico"`, identified by the **histórico text** — May rows:
+`"Pagamento de VR Mensal para Jo..."` = **2.719,90** (= wb `G122` Vale Refeição-ADM)
+and `"Pagamento de VT Mensal para Jo..."` = **607,04** (= wb `G123` Vale Transporte).
+So it was never a `500.010`/`030.*` posting — it is a **transitory payment unfolded
+(desdobramento)**, keyed by histórico `%VR %`/`%VT %`/`Vale ... Mensal para`.
+Extract from `CONTASPAGAR`/`LANCAMENTO` on `200.010.0010` filtered by that histórico.
+(The earlier MLA/VSR `500.010` table below was a red herring for the ADM total, though
+those siglas ARE administrative.)
 
 ### The `500.010.<SIGLA>` personal-debit namespace (DO NOT re-discover)
 

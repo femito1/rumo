@@ -18,6 +18,17 @@
 These were confirmed directly by the client (RUMO/MBC finance) and are now
 canonical. An agent must NOT ask the user about these again.
 
+> **2026-07-10 follow-up meeting + source deep-dive:** the client was UNHAPPY with
+> the current site numbers. `docs/MEETING_2026-07-10.md` is now the authoritative
+> spec for the DRE fixes (all reconciled to the centavo against the May dashboard):
+> **Imposto = 15% do Recebimento** (maio 62.389,20, não 7.510); **Amortização
+> 8.117/mês**; **Resultado Líquido = Bruto − Imposto − Amortização** (maio 29.821);
+> **Reserva de bônus = 10% do líquido**; **Custo direto = Custo equipe + Participação
+> + Comissão**; **Recebimento por área** vem do Demonstrativo LegalDesk (Ambiental
+> soma em Arbitragem, + linha "Não Alocados"); **Vale-ADM** está em `200.010.0010`
+> (transitória, por histórico VR/VT); rateio institucional usa só despesas de EQUIPE.
+> Também: **remover "Faturas emitidas"** do produto.
+
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
   Section 5's "when the Juritis API arrives" is therefore moot; the `JuritisSource`
