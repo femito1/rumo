@@ -188,6 +188,24 @@ def test_hard_rule_keeps_realizado_when_it_matches_target(snapshot):
     assert receb["Realizado"]["value"] == pytest.approx(319233.58, abs=0.05)
 
 
+def test_hard_rule_uses_workbook_targets_for_the_month(snapshot):
+    # End-to-end: the workbook targets loader supplies Feb 2026 targets. The
+    # fixture's derived Imposto (15% * 319233.58 = 47885.04) matches the workbook
+    # target exactly, so it is shown; the Institucional Custo equipe (Custos
+    # Diretos) derived from the fixture (215310.35) does NOT match the workbook
+    # target (218453.74), so the hard rule blanks it.
+    from app.closing.workbook_targets import targets_for
+
+    targets = targets_for("2026-02")
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", targets=targets
+    )
+    inst = sections["institucional"]["rows"]
+    assert _row(inst, "imposto")["Realizado"]["value"] == pytest.approx(47885.04, abs=0.05)
+    # Custos Diretos differ from the workbook -> blanked (never show a wrong number).
+    assert _row(inst, "custo_equipe")["Realizado"]["value"] is None
+
+
 def test_hard_rule_shows_value_when_no_target_given(snapshot):
     # Where there is no known target, the derived value is shown as usual.
     sections = assemble_dre_sections(

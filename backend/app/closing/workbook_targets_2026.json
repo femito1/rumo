@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "_source": "Fechamento MBC 05.2026.xlsx",
+    "_sheet": "Areas Sintetico atualizado",
+    "_note": "Alvos Realizado por competencia (regra dura: divergencia > R$0,01 => celula em branco). Gerado por scripts/build_workbook_targets.py."
+  },
+  "targets": {
+    "2026-01": {
+      "institucional": {
+        "recebimento": 279821.07,
+        "custo_equipe": 211242.68,
+        "despesas": 100181.41,
+        "resultado_bruto": -31603.02,
+        "imposto": 41973.16,
+        "amortizacao": 8117.0,
+        "resultado_liquido": -81693.18,
+        "reserva_bonus": -8169.32
+      },
+      "contencioso": {
+        "recebimento": 38071.0,
+        "custo_equipe": 73576.32,
+        "resultado_bruto": -70386.79
+      },
+      "economico": {
+        "recebimento": 61844.0,
+        "custo_equipe": 75653.19,
+        "resultado_bruto": -50457.07
+      },
+      "arbitragem": {
+        "recebimento": 133169.0,
+        "custo_equipe": 62013.17,
+        "resultado_bruto": 42503.77
+      }
+    },
+    "2026-02": {
+      "institucional": {
+        "recebimento": 319233.58,
+        "custo_equipe": 218453.74,
+        "despesas": 95047.39,
+        "resultado_bruto": 5732.45,
+        "imposto": 47885.04,
+        "amortizacao": 8117.0,
+        "resultado_liquido": -50269.59,
+        "reserva_bonus": -5026.96
+      },
+      "contencioso": {
+        "recebimento": 159539.0,
+        "custo_equipe": 76342.35,
+        "resultado_bruto": 50457.62
+      },
+      "economico": {
+        "recebimento": 119667.0,
+        "custo_equipe": 78817.05,
+        "resultado_bruto": 4451.92
+      },
+      "arbitragem": {
+        "recebimento": 62506.0,
+        "custo_equipe": 61794.34,
+        "resultado_bruto": -26698.68
+      }
+    },
+    "2026-03": {
+      "institucional": {
+        "recebimento": 612501.76,
+        "custo_equipe": 198079.41,
+        "despesas": 101968.9,
+        "resultado_bruto": 312453.45,
+        "imposto": 91875.26,
+        "amortizacao": 8117.0,
+        "resultado_liquido": 212461.19,
+        "reserva_bonus": 21246.12
+      },
+      "contencioso": {
+        "recebimento": 159925.0,
+        "custo_equipe": 72845.49,
+        "resultado_bruto": 50249.98
+      },
+      "economico": {
+        "recebimento": 343893.0,
+        "custo_equipe": 76049.97,
+        "resultado_bruto": 229714.0
+      },
+      "arbitragem": {
+        "recebimento": 113444.0,
+        "custo_equipe": 49183.94,
+        "resultado_bruto": 37249.72
+      }
+    },
+    "2026-04": {
+      "institucional": {
+        "recebimento": 238327.46,
+        "custo_equipe": 209572.83,
+        "despesas": 110156.11,
+        "resultado_bruto": -81401.48,
+        "imposto": 35749.12,
+        "amortizacao": 8117.0,
+        "resultado_liquido": -125267.6,
+        "reserva_bonus": -12526.76
+      },
+      "contencioso": {
+        "recebimento": 56461.0,
+        "custo_equipe": 75374.05,
+        "resultado_bruto": -59497.43
+      },
+      "economico": {
+        "recebimento": 159921.0,
+        "custo_equipe": 79160.08,
+        "resultado_bruto": 40402.75
+      },
+      "arbitragem": {
+        "recebimento": 3476.0,
+        "custo_equipe": 55038.69,
+        "resultado_bruto": -80776.26
+      }
+    },
+    "2026-05": {
+      "institucional": {
+        "recebimento": 415928.0,
+        "custo_equipe": 210089.46,
+        "despesas": 105511.43,
+        "resultado_bruto": 100327.11,
+        "imposto": 62389.2,
+        "amortizacao": 8117.0,
+        "resultado_liquido": 29820.91,
+        "reserva_bonus": 2982.09
+      },
+      "contencioso": {
+        "recebimento": 240445.0,
+        "custo_equipe": 74141.21,
+        "resultado_bruto": 128472.17
+      },
+      "economico": {
+        "recebimento": 166876.0,
+        "custo_equipe": 79436.24,
+        "resultado_bruto": 44916.89
+      },
+      "arbitragem": {
+        "recebimento": 41860.0,
+        "custo_equipe": 54383.94,
+        "resultado_bruto": -39808.95
+      }
+    }
+  }
+}

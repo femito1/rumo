@@ -145,12 +145,24 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
             except Exception:  # pragma: no cover - transfers overlay is best-effort
                 transfers = None
 
+        # Workbook verification overlay (hard rule): blank any Realizado cell that
+        # diverges from the authoritative workbook target by more than R$0,01.
+        targets = None
+        if period is not None:
+            try:
+                from app.closing.workbook_targets import targets_for
+
+                targets = targets_for(period)
+            except Exception:  # pragma: no cover - targets overlay is best-effort
+                targets = None
+
         sources.append(
             AssemblerSource(
                 snapshot=snapshot,
                 budget=budget_monthly,
                 manual=manual_by_area,
                 transfers=transfers,
+                targets=targets,
             )
         )
         return ClosingProvider(sources=sources)

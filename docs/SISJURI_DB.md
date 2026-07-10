@@ -85,6 +85,54 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
   `Conta Destino`, `Valor Bruto`, `Valor Base`, `Grupo`(área), `Profissional
   Destino`, `ORIENTAÇÃO`, `Histórico`. Plano de contas completo em `/tmp/plano_contas.csv`.
 
+### Workbook targets (regra dura) — fonte, layout e números (2026-07-10)
+
+A **regra dura** (`backend/app/closing/verification.py`) exige que toda célula
+Realizado bata com o workbook (±R$0,01) ou fique em branco. Esses alvos foram
+extraídos do workbook **autoritativo** `Fechamento MBC 05.2026.xlsx`, aba
+**`Areas Sintetico atualizado`**, e congelados em
+`backend/app/closing/workbook_targets_2026.json` (regenerar com
+`python backend/scripts/build_workbook_targets.py`). **Nada lê o .xlsx em runtime.**
+
+Layout verificado da aba (1-based):
+- Linha 1 = cabeçalho de mês; cada mês ocupa 4 colunas (Orçado | Realizado |
+  Variação | Desvio%). **Colunas Realizado: Jan=3, Fev=7, Mar=11, Abr=15, Mai=19.**
+- Bloco Institucional: `4` Receita(recebimento), `6` **Custos Diretos** (=nossa
+  linha "Custo equipe" = equipe+comissão), `13` Despesas Indiretas(despesas),
+  `25` Resultado Bruto, `28` Impostos(=15% receb), `29` Amortização(8.117),
+  `30` Resultado Líquido, `32` Bonus(=10% líquido, segue o sinal).
+- Blocos por área começam em: **Contencioso=35, Econômico=53, Arbitragem=71**;
+  dentro do bloco Receita=+1, Custo Equipe=+4, Resultado Bruto=+8.
+
+Alvos Institucional Realizado (05.2026, ao centavo):
+
+| mês | Recebimento | Custos Diretos | Desp. Indir. | Result. Bruto | Imposto | Result. Líq. | Bônus |
+|----:|------------:|---------------:|-------------:|--------------:|--------:|-------------:|------:|
+| Jan | 279 821,07 | 211 242,68 | 100 181,41 | −31 603,02 | 41 973,16 | −81 693,18 | −8 169,32 |
+| Fev | 319 233,58 | 218 453,74 | 95 047,39 | 5 732,45 | 47 885,04 | −50 269,59 | −5 026,96 |
+| Mar | 612 501,76 | 198 079,41 | 101 968,90 | 312 453,45 | 91 875,26 | 212 461,19 | 21 246,12 |
+| Abr | 238 327,46 | 209 572,83 | 110 156,11 | −81 401,48 | 35 749,12 | −125 267,60 | −12 526,76 |
+| Mai | 415 928,00 | 210 089,46 | 105 511,43 | 100 327,11 | 62 389,20 | 29 820,91 | 2 982,09 |
+
+Alvos Custo equipe por área (05.2026):
+
+| mês | Contencioso | Econômico | Arbitragem |
+|----:|------------:|----------:|-----------:|
+| Jan | 73 576,32 | 75 653,19 | 62 013,17 |
+| Fev | 76 342,35 | 78 817,05 | 61 794,34 |
+| Mar | 72 845,49 | 76 049,97 | 49 183,94 |
+| Abr | 75 374,05 | 79 160,08 | 55 038,69 |
+| Mai | **74 141,21** | **79 436,24** | 54 383,94 |
+
+Alvos Recebimento por área (05.2026): Mai Contencioso 240 445, Econômico 166 876,
+Arbitragem 41 860 (Arbitragem já **inclui Ambiental**; "Não Alocados" não entra nas
+áreas — fica só no total). Meses anteriores no JSON.
+
+> Nota: o `Bonus` do workbook é 10% do Resultado Líquido **mesmo quando negativo**
+> (Jan −8 169,32 = 0,10×−81 693,18); nosso `bonus_reserve` faz o mesmo.
+> O `custos_diretos` da linha institucional já embute Participação/Comissão, por
+> isso o alvo Fev (218 453,74) = Σ custo equipe áreas (216 953,74) + comissão (1 500).
+
 ### Vale Refeição/Transporte source — `FINANCE.LANCAMENTO`, `500.010.<SIGLA>`
 
 CORRECTED after live probing (probe_vale_find.sql, 2026-07-08):

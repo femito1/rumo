@@ -40,9 +40,17 @@ canonical. An agent must NOT ask the user about these again.
 > Participação/Comissão** (`RealizadoInputs.custos_diretos`; Institucional
 > Resultado Bruto passa a subtrair comissão) — fev 218.453,74. (5) KPI "Faturas
 > emitidas" removido. Backend **179 testes**, frontend **49**; ruff/mypy/eslint/tsc
-> limpos. PENDENTE: alimentar o overlay `targets` a partir do workbook por mês;
-> custo equipe por área do SISJURI (Econômico mai alvo 79.436,24); rateio
-> institucional só de despesas de EQUIPE; DL extras; Vale-ADM (200.010.0010).
+> limpos.
+>
+> **REGRA DURA LIGADA (2026-07-10):** targets extraídos do workbook autoritativo
+> (`scripts/build_workbook_targets.py` → `app/closing/workbook_targets_2026.json`),
+> carregados por `app/closing/workbook_targets.py` e passados via `provider.py` →
+> `AssemblerSource` → `assemble_dre_sections(targets=...)`. Meses sem workbook =
+> no-op. Números/layout documentados em `docs/SISJURI_DB.md` ("Workbook targets")
+> e `docs/MEETING_2026-07-10.md` §VI. Backend **185 testes**.
+> PENDENTE: custo equipe por área do SISJURI (Econômico mai alvo 79.436,24) e
+> rateio institucional só de EQUIPE — para as células saírem do branco e exibirem
+> o valor; DL extras; Vale-ADM (200.010.0010).
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
