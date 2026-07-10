@@ -104,6 +104,25 @@ def test_institutional_sections_roll_up_by_family(snapshot):
     assert not any("Manutenção e Conservação" == n for n, _ in ocup.accounts)
 
 
+def test_custos_diretos_include_comissao(snapshot):
+    # Client-confirmed (MEETING_2026-07-10): Custos Diretos = Custo equipe +
+    # Participação/Comissão. Feb workbook: 216953.74 (equipe) + 1500 (comissão) =
+    # 218453.74. The Institucional Resultado Bruto must subtract comissão too.
+    from app.closing.dre import assemble_dre_sections
+
+    snap = dict(snapshot)
+    snap["ledger"] = {
+        "custo_equipe": {"Contencioso": 76342.35, "Econômico": 78817.05, "Arbitragem": 61794.34},
+        "comissao": {"Contencioso": 0.0, "Econômico": 1500.0, "Arbitragem": 0.0},
+        "despesas_equipe": {"Contencioso": 0.0, "Econômico": 0.0, "Arbitragem": 0.0},
+        "despesa_institucional_total": 0.0,
+    }
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.comissao_total == pytest.approx(1500.0, abs=0.05)
+    # Custos diretos = custo equipe (216953.74) + comissão (1500) = 218453.74
+    assert r.custos_diretos == pytest.approx(218453.74, abs=0.05)
+
+
 def test_imposto_is_fifteen_percent_of_recebimento(snapshot):
     # Client-confirmed (MEETING_2026-07-10): the DRE Imposto line is 15% of the
     # Recebimento (sacred), NOT the sum of the ledger tax accounts. Feb 2026:
@@ -115,8 +134,9 @@ def test_imposto_is_fifteen_percent_of_recebimento(snapshot):
 
 def test_resultado_bruto_and_liquido(snapshot):
     r = RealizadoInputs.from_snapshot(snapshot)
+    # Resultado Bruto = Recebimento − Custos Diretos (equipe + comissão) − Despesas.
     assert r.resultado_bruto == pytest.approx(
-        r.recebimento - r.custo_equipe - r.despesas, abs=0.05
+        r.recebimento - r.custos_diretos - r.despesas, abs=0.05
     )
     assert r.resultado_liquido == pytest.approx(
         r.resultado_bruto - r.imposto - r.amortizacao, abs=0.05

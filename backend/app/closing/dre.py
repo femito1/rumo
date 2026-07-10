@@ -358,8 +358,20 @@ class RealizadoInputs:
         )
 
     @property
+    def comissao_total(self) -> float:
+        """Σ per-area Participação/Comissão (part of Custos Diretos)."""
+        return round(sum(self.area_comissao.values()), 2)
+
+    @property
+    def custos_diretos(self) -> float:
+        """Custos Diretos = Custo equipe + Participação/Comissão (client-confirmed)."""
+        return round(self.custo_equipe + self.comissao_total, 2)
+
+    @property
     def resultado_bruto(self) -> float:
-        return round(self.recebimento - self.custo_equipe - self.despesas, 2)
+        # Resultado Bruto = Recebimento − Custos Diretos (equipe + comissão) −
+        # Despesas Indiretas (institucional overhead).
+        return round(self.recebimento - self.custos_diretos - self.despesas, 2)
 
     @property
     def resultado_liquido(self) -> float:
@@ -419,7 +431,9 @@ def _institucional_rows(
 
     rows: list[dict[str, Any]] = [
         dre("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
-        dre("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custo_equipe),
+        # Workbook's "Custo equipe" line on the Institucional tab is Custos
+        # Diretos = Custo equipe + Participação/Comissão (client-confirmed).
+        dre("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custos_diretos),
         dre("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
         dre(
             "Resultado Bruto", RESULTADO_BRUTO, od.resultado_bruto, r.resultado_bruto,
