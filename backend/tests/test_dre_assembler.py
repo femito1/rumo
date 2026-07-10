@@ -104,6 +104,15 @@ def test_institutional_sections_roll_up_by_family(snapshot):
     assert not any("Manutenção e Conservação" == n for n, _ in ocup.accounts)
 
 
+def test_imposto_is_fifteen_percent_of_recebimento(snapshot):
+    # Client-confirmed (MEETING_2026-07-10): the DRE Imposto line is 15% of the
+    # Recebimento (sacred), NOT the sum of the ledger tax accounts. Feb 2026:
+    # 0.15 * 319233.58 = 47885.04 (matches the official dashboard exactly).
+    r = RealizadoInputs.from_snapshot(snapshot)
+    assert r.imposto == pytest.approx(0.15 * r.recebimento, abs=0.01)
+    assert r.imposto == pytest.approx(47885.04, abs=0.05)
+
+
 def test_resultado_bruto_and_liquido(snapshot):
     r = RealizadoInputs.from_snapshot(snapshot)
     assert r.resultado_bruto == pytest.approx(

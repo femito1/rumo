@@ -181,5 +181,16 @@ INSTITUCIONAL_DRE_LINES: tuple[tuple[str, bool], ...] = (
 #: Fixed monthly institutional amortization installment (workbook 'Amortização').
 AMORTIZACAO_MENSAL = 8117.0
 
-#: Reserva de bônus = 10% da margem líquida (finance-confirmed, all months).
+#: Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10).
 BONUS_RESERVE_RATE = 0.10
+
+#: Imposto do DRE = 15% do Recebimento (client-confirmed 2026-07-10). This is a
+#: rate on gross receipts, NOT the sum of the ledger tax accounts (050.010.* /
+#: the 168-Impostos razão block). Verified to the centavo vs the official
+#: dashboard: Feb 0.15*319233.58 = 47885.04; May 0.15*415928 = 62389.20.
+IMPOSTO_RATE = 0.15
+
+
+def imposto_sobre_recebimento(recebimento: float) -> float:
+    """DRE tax line = 15% of Recebimento (gross receipts)."""
+    return round(recebimento * IMPOSTO_RATE, 2)

@@ -22,6 +22,7 @@ from app.closing.workbook_layouts import (
     AREAS,
     BONUS_RESERVE_RATE,
     INSTITUCIONAL_SECTIONS,
+    imposto_sobre_recebimento,
     institutional_030_section,
     is_direct_team,
     is_imposto,
@@ -79,9 +80,9 @@ def _pct(numer: float, denom: float) -> float | None:
     return round(numer / denom, 4)
 
 
-def bonus_reserve(net_margin_value: float) -> float:
-    """Reserva de bônus = fixed rate x margem líquida (finance-confirmed)."""
-    return round(net_margin_value * BONUS_RESERVE_RATE, 2)
+def bonus_reserve(resultado_liquido: float) -> float:
+    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10)."""
+    return round(resultado_liquido * BONUS_RESERVE_RATE, 2)
 
 
 @dataclass
@@ -168,7 +169,9 @@ class RealizadoInputs:
         faturamento = float(revenue.get("faturamento_bruto", 0.0) or 0.0)
 
         sec_map: dict[str, SectionBreakdown] = {}
-        imposto_total = 0.0
+        # The ledger tax accounts are kept only as an informational detail under
+        # the Impostos block; the DRE Imposto LINE is 15% of Recebimento (see
+        # ``imposto`` in the return below), per the client-confirmed rule.
         imposto_accounts: list[tuple[str, float]] = []
         custo_equipe_from_accounts = 0.0
 
@@ -177,7 +180,6 @@ class RealizadoInputs:
             total = float(row.get("total", 0.0) or 0.0)
             nome = str(row.get("nome_conta", "?"))
             if is_imposto(row):
-                imposto_total += total
                 imposto_accounts.append((nome, round(total, 2)))
                 continue
             if is_direct_team(id_conta):
@@ -332,7 +334,7 @@ class RealizadoInputs:
             faturamento=faturamento,
             custo_equipe=custo_equipe,
             despesas=despesas_total,
-            imposto=round(imposto_total, 2),
+            imposto=imposto_sobre_recebimento(recebimento),
             sections=ordered,
             area_custo_equipe=area_custo,
             area_recebimento=area_receb,
