@@ -47,7 +47,7 @@ canonical. An agent must NOT ask the user about these again.
 > carregados por `app/closing/workbook_targets.py` e passados via `provider.py` →
 > `AssemblerSource` → `assemble_dre_sections(targets=...)`. Meses sem workbook =
 > no-op. Números/layout documentados em `docs/SISJURI_DB.md` ("Workbook targets")
-> e `docs/MEETING_2026-07-10.md` §VI. Backend **185 testes**.
+> e `docs/MEETING_2026-07-10.md` §VI. Backend **183 testes**, frontend **49**.
 > PENDENTE: custo equipe por área do SISJURI (Econômico mai alvo 79.436,24) e
 > rateio institucional só de EQUIPE — para as células saírem do branco e exibirem
 > o valor; DL extras; Vale-ADM (200.010.0010).

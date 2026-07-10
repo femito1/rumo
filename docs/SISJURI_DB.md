@@ -715,3 +715,31 @@ fórmula fixa:
 Não há mais lacuna de **acesso a dados**. O que resta é modelagem: taxonomia
 conta→linha do DRE, escolha de `CPGNVALORBASE` (bruto) vs resumo (líquido) nas
 linhas de pessoal, e aplicar a fórmula fixa da reserva de bônus.
+
+### Custo equipe por área — estado e o que falta extrair (2026-07-10)
+
+A linha "Custo equipe" por área deve bater os alvos do workbook (ver tabela em
+"Workbook targets"). Hoje o cálculo local usa `snapshot["custo_equipe_deriv"]`
+(componentes por advogado) + `rateio_grupo` (CAD_RATEIO_GRUPO %) + `home_area`
+(sigla→grupo), com fallback para `custo_area`. **Não temos um snapshot real de
+maio localmente** — o único fixture SISJURI é `sisjuri_2026_02.json`, que só traz
+o `custo_area` antigo (ruidoso). Drift medido nesse fixture vs alvo Fev 05.2026:
+
+| área | `custo_area` (fixture) | alvo wb Fev | Δ |
+|------|-----------------------:|------------:|----:|
+| Contencioso | 49 941,93 | 76 342,35 | −26 400,42 |
+| Econômico | 94 571,59 | 78 817,05 | +15 754,54 |
+| Arbitragem | 70 796,83 | 61 794,34 | +9 002,49 |
+
+Ou seja: o `custo_area` cru **não serve**; precisamos do bloco
+`custo_equipe_deriv` (por advogado, contas `030.010.*`) + `rateio_grupo` +
+`home_area` **extraídos do SISJURI para o mês-alvo** e então validar contra os
+alvos. Regra de split confirmada: advogado em duas áreas **divide 50/50**
+(`build_area_splits`/`derive_area_custo_equipe` já implementam isso). Enquanto o
+extract correto não vier, a **regra dura mantém a célula em branco** (nunca um
+número errado) — comportamento coberto por
+`test_hard_rule_uses_workbook_targets_for_the_month`.
+
+**AÇÃO (RDP):** rodar o extract `ops/sisjuri-agent/extract.sql` para o mês-alvo e
+salvar o snapshot; conferir por área contra a tabela de alvos. Só então as células
+saem do branco.

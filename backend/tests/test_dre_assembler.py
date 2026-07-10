@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from app.closing.dre import (
+    CUSTO_EQUIPE,
     RECEBIMENTO,
     RealizadoInputs,
     assemble_dre_sections,
@@ -204,6 +205,11 @@ def test_hard_rule_uses_workbook_targets_for_the_month(snapshot):
     assert _row(inst, "imposto")["Realizado"]["value"] == pytest.approx(47885.04, abs=0.05)
     # Custos Diretos differ from the workbook -> blanked (never show a wrong number).
     assert _row(inst, "custo_equipe")["Realizado"]["value"] is None
+    # And per-area Custo equipe (noisy SISJURI custo_area) also blanks under the
+    # area target until we have the correct per-area SISJURI extract. This is the
+    # safety net: diverging cells go blank rather than showing a wrong number.
+    conten = sections["contencioso"]["rows"]
+    assert _row(conten, CUSTO_EQUIPE)["Realizado"]["value"] is None
 
 
 def test_hard_rule_shows_value_when_no_target_given(snapshot):
