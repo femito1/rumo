@@ -81,7 +81,6 @@ export function WorkspacePage() {
             <KpiCard label="Resultado bruto" value={data.kpis.resultado_bruto ?? null} signed />
             <KpiCard label="Margem bruta" value={data.kpis.margem_bruta ?? null} signed format="percent" />
             <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
-            <KpiCard label="Faturas emitidas" value={data.kpis.faturas_emitidas ?? null} format="number" />
           </section>
 
           <nav className="tab-rail">

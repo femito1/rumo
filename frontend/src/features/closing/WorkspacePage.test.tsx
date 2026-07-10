@@ -9,7 +9,7 @@ const payload = {
   client: { id: "mbc", name: "MBC" },
   period: { ano_mes: "2026-05", label: "Maio 2026", column_letter: "G" },
   day_range: { from: "2026-05-01", to: "2026-06-01", is_full_month: true },
-  kpis: { receita_honorarios: 415927.84, faturamento_realizado: 719988.05, faturas_emitidas: 53 },
+  kpis: { receita_honorarios: 415927.84, faturamento_realizado: 719988.05 },
   tab_order: ["meta"],
   tabs: { meta: { kind: "rich", name: "Meta", kpis: {} } },
   generated_at: "2026-06-01T00:00:00Z",
