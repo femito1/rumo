@@ -147,6 +147,38 @@ def test_orcado_and_desvio_when_budget_present(snapshot):
     assert receb["Desvio %"] == pytest.approx(319233.58 / 671666.67, abs=0.001)
 
 
+def test_hard_rule_blanks_realizado_when_it_diverges_from_workbook_target(snapshot):
+    # Client rule (MEETING_2026-07-10): NEVER show a Realizado number that does
+    # not match the workbook. If the derived value differs from a known target by
+    # more than R$0,01, the cell is blanked (null -> "ainda não temos").
+    # Here we force a target that disagrees with the derived recebimento.
+    targets = {"institucional": {RECEBIMENTO: 999999.0}}
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", targets=targets
+    )
+    receb = _row(sections["institucional"]["rows"], RECEBIMENTO)
+    assert receb["Realizado"]["value"] is None
+
+
+def test_hard_rule_keeps_realizado_when_it_matches_target(snapshot):
+    # When the derived value matches the workbook target within R$0,01, keep it.
+    targets = {"institucional": {RECEBIMENTO: 319233.58}}
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", targets=targets
+    )
+    receb = _row(sections["institucional"]["rows"], RECEBIMENTO)
+    assert receb["Realizado"]["value"] == pytest.approx(319233.58, abs=0.05)
+
+
+def test_hard_rule_shows_value_when_no_target_given(snapshot):
+    # Where there is no known target, the derived value is shown as usual.
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", targets={}
+    )
+    receb = _row(sections["institucional"]["rows"], RECEBIMENTO)
+    assert receb["Realizado"]["value"] == pytest.approx(319233.58, abs=0.05)
+
+
 def test_snapshot_missing_flag_and_zeroed():
     sections = assemble_dre_sections(snapshot=None, budget=None, period_label="Jan 2026")
     inst = sections["institucional"]

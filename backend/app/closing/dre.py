@@ -17,6 +17,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from app.closing.verification import Targets, verified_value
 from app.closing.workbook_layouts import (
     AMORTIZACAO_MENSAL,
     AREAS,
@@ -382,7 +383,11 @@ def _dre_row(
     indent: int = 0,
     is_total: bool = False,
     kind: str = "amount",
+    section_key: str = "",
+    targets: Targets | None = None,
 ) -> dict[str, Any]:
+    # Hard rule: blank the Realizado if it disagrees with the workbook target.
+    realizado = verified_value(realizado, section_key, key, targets)
     desvio = None
     if kind != "margin" and orcado is not None and realizado is not None:
         desvio = _pct(realizado, orcado)
@@ -399,35 +404,44 @@ def _dre_row(
 
 
 def _institucional_rows(
-    r: RealizadoInputs, orc: dict[str, float]
+    r: RealizadoInputs,
+    orc: dict[str, float],
+    targets: Targets | None = None,
+    section_key: str = "institucional",
 ) -> list[dict[str, Any]]:
     """Block 1 (DRE) + block 3 (expense sections) of the Institucional tab."""
     od = OrcadoDerived.from_budget(orc)
+
+    def dre(label: str, key: str, orcado: float | None, realizado: float | None,
+            **kw: Any) -> dict[str, Any]:
+        return _dre_row(label, key, orcado, realizado,
+                        section_key=section_key, targets=targets, **kw)
+
     rows: list[dict[str, Any]] = [
-        _dre_row("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
-        _dre_row("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custo_equipe),
-        _dre_row("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
-        _dre_row(
+        dre("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
+        dre("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custo_equipe),
+        dre("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
+        dre(
             "Resultado Bruto", RESULTADO_BRUTO, od.resultado_bruto, r.resultado_bruto,
             is_total=True, kind="subtotal",
         ),
-        _dre_row(
+        dre(
             "Margem Bruta", MARGEM_BRUTA, od.margem_bruta,
             _pct(r.resultado_bruto, r.recebimento),
             indent=1, kind="margin",
         ),
-        _dre_row("Imposto", IMPOSTO, orc.get(IMPOSTO), r.imposto),
-        _dre_row("Amortização", AMORTIZACAO, od.amortizacao, r.amortizacao),
-        _dre_row(
+        dre("Imposto", IMPOSTO, orc.get(IMPOSTO), r.imposto),
+        dre("Amortização", AMORTIZACAO, od.amortizacao, r.amortizacao),
+        dre(
             "Resultado Liquido", RESULTADO_LIQUIDO, od.resultado_liquido,
             r.resultado_liquido,
             is_total=True, kind="subtotal",
         ),
-        _dre_row(
+        dre(
             "Margem Liquida", MARGEM_LIQUIDA, od.margem_liquida,
             _pct(r.resultado_liquido, r.recebimento), indent=1, kind="margin",
         ),
-        _dre_row("Reserva de Bônus", RESERVA_BONUS, od.reserva_bonus, r.reserva_bonus),
+        dre("Reserva de Bônus", RESERVA_BONUS, od.reserva_bonus, r.reserva_bonus),
     ]
     # Block 3: expense sections + indented sub-accounts, % of recebimento.
     rows.append(_section_header_row("DESPESAS POR SEÇÃO"))
@@ -478,6 +492,8 @@ def _area_rows(
     r: RealizadoInputs,
     orc: dict[str, float],
     man: dict[str, float] | None = None,
+    targets: Targets | None = None,
+    section_key: str = "",
 ) -> list[dict[str, Any]]:
     """Contencioso/Econômico/Arbitragem tab: Recebimento, Custo equipe, Comissão,
     Despesas Equipe, Despesa Institucional, Resultado Bruto (Orçado|Realizado|%).
@@ -516,16 +532,21 @@ def _area_rows(
             - (desp_equipe or 0.0) - (desp_inst or 0.0),
             2,
         )
+    def dre(label: str, key: str, orcado: float | None, realizado: float | None,
+            **kw: Any) -> dict[str, Any]:
+        return _dre_row(label, key, orcado, realizado,
+                        section_key=section_key, targets=targets, **kw)
+
     return [
-        _dre_row("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), receb),
-        _dre_row("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), custo),
-        _dre_row("Comissão", COMISSAO, orc.get(COMISSAO), comissao),
-        _dre_row("Despesas Equipe", DESPESAS_EQUIPE, orc.get(DESPESAS_EQUIPE), desp_equipe),
-        _dre_row(
+        dre("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), receb),
+        dre("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), custo),
+        dre("Comissão", COMISSAO, orc.get(COMISSAO), comissao),
+        dre("Despesas Equipe", DESPESAS_EQUIPE, orc.get(DESPESAS_EQUIPE), desp_equipe),
+        dre(
             "Despesa Institucional", DESPESA_INSTITUCIONAL,
             orc.get(DESPESA_INSTITUCIONAL), desp_inst,
         ),
-        _dre_row(
+        dre(
             "Resultado Bruto", RESULTADO_BRUTO, None, resultado,
             is_total=True, kind="subtotal",
         ),
@@ -543,12 +564,15 @@ def assemble_dre_sections(
     manual: dict[str, dict[str, float]] | None = None,
     transfers: list[Any] | None = None,
     period_month: int | None = None,
+    targets: Targets | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
     ``manual`` carries per-area Realizado inputs (per-area Recebimento etc.);
     ``transfers`` are Resumo_Recebidas cross-area recebimento reclassifications
-    (``AreaTransfer``) that net onto the SISJURI-derived per-area base."""
+    (``AreaTransfer``) that net onto the SISJURI-derived per-area base.
+    ``targets`` is the workbook verification overlay: a Realizado cell that
+    diverges from its target by more than R$0,01 is blanked (the hard rule)."""
     r = RealizadoInputs.from_snapshot(snapshot) if snapshot is not None else RealizadoInputs.empty()
     missing = snapshot is None
     budget = budget or {}
@@ -567,24 +591,31 @@ def assemble_dre_sections(
         "kind": "rich",
         "name": "Institucional",
         "columns": _DRE_COLUMNS,
-        "rows": _institucional_rows(r, inst_orc),
+        "rows": _institucional_rows(r, inst_orc, targets, "institucional"),
         "snapshot_missing": missing,
     }
     for area in AREAS:
-        sections[_AREA_SECTION[area]] = {
+        area_key = _AREA_SECTION[area]
+        sections[area_key] = {
             "kind": "rich",
             "name": area,
             "columns": _DRE_COLUMNS,
-            "rows": _area_rows(area, r, budget.get(area, {}), manual.get(area, {})),
+            "rows": _area_rows(
+                area, r, budget.get(area, {}), manual.get(area, {}),
+                targets, area_key,
+            ),
             "snapshot_missing": missing,
         }
 
     # Areas Sintetico: consolidated block + the three area blocks stacked.
     sint: list[dict[str, Any]] = [_section_header_row("RESULTADO INSTITUCIONAL")]
-    sint.extend(_institucional_rows(r, inst_orc)[:10])  # DRE lines only
+    sint.extend(_institucional_rows(r, inst_orc, targets, "institucional")[:10])
     for area in AREAS:
         sint.append(_section_header_row(f"RESULTADO {area.upper()}"))
-        sint.extend(_area_rows(area, r, budget.get(area, {}), manual.get(area, {})))
+        sint.extend(_area_rows(
+            area, r, budget.get(area, {}), manual.get(area, {}),
+            targets, _AREA_SECTION[area],
+        ))
     sections["areas_sintetico"] = {
         "kind": "rich",
         "name": "Areas Sintetico atualizado",
