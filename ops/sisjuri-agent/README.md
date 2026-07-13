@@ -121,6 +121,25 @@ $h = @{ Authorization = "Bearer $env:INGEST_TOKEN" }
 Invoke-RestMethod -Headers $h "https://<vps>/api/ingest/2024-01/summary" | ConvertTo-Json -Depth 5
 ```
 
+## Environment / where the secrets live (2026-07-13)
+
+Real secrets are **not** committed. They live in two gitignored files:
+
+- `backend/.env` — full backend config (JWT, Supabase, LegalDesk, INGEST_TOKEN,
+  INGEST_URL, SISJURI_DSN/USER). Prod uses `USE_FAKE_REPO=0` → snapshots persist
+  to **Supabase** (`sisjuri_snapshots`), not `SNAPSHOT_DIR`.
+- `ops/sisjuri-agent/ingest.local.secrets` — the ingest target + token for the
+  agent on the RDP box, plus the ready-to-paste session setup.
+
+Ingest endpoint (full): **`http://187.127.29.178:3000/api/ingest`** (the operator
+may quote the base `.../:3000/` — always append `/api/ingest`). Token is the
+`INGEST_TOKEN`. Verify a landed month with the summary endpoint (§Historical
+backfill) using the same token.
+
+Backfill/daily now **fail fast** if `INGEST_URL`/`INGEST_TOKEN` are unset (they no
+longer silently produce snapshot-only runs). Pass `-SnapshotOnly` to `backfill.ps1`
+if you intentionally want extraction without upload.
+
 ## Backend side
 
 `POST /api/ingest` (bearer `INGEST_TOKEN`) stores the snapshot via `SnapshotStore`
