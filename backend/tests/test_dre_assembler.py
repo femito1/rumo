@@ -492,6 +492,38 @@ def test_custo_equipe_may_passes_hard_rule(snapshot_may):
     assert arb["Realizado"]["value"] == pytest.approx(54383.94, abs=0.01)
 
 
+def test_margin_blanks_when_base_result_is_blanked(snapshot_may):
+    # A margin (Margem Bruta / Líquida) must be hidden whenever its base result
+    # (Resultado Bruto / Líquido) is blanked by the hard rule — otherwise the UI
+    # shows a % for a value it is deliberately withholding (looks like a bug).
+    # May: despesas doesn't tie -> Resultado Bruto/Líquido blank -> margins blank.
+    from app.closing.workbook_targets import targets_for
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot_may, budget=None, period_label="Maio 2026",
+        targets=targets_for("2026-05"),
+    )
+    rows = sections["institucional"]["rows"]
+    rb = _row(rows, "resultado_bruto")["Realizado"]["value"]
+    mb = _row(rows, "margem_bruta")["Realizado"]["value"]
+    rl = _row(rows, "resultado_liquido")["Realizado"]["value"]
+    ml = _row(rows, "margem_liquida")["Realizado"]["value"]
+    # Base results are blanked (despesas gap), so their margins must be blank too.
+    assert rb is None and mb is None
+    assert rl is None and ml is None
+
+
+def test_margin_shows_when_base_result_shows(snapshot):
+    # Conversely, when the base result is shown (no targets => hard rule is a
+    # no-op), the margin is shown as usual.
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=None, period_label="Fev 2026", targets={},
+    )
+    rows = sections["institucional"]["rows"]
+    assert _row(rows, "resultado_bruto")["Realizado"]["value"] is not None
+    assert _row(rows, "margem_bruta")["Realizado"]["value"] is not None
+
+
 def test_expense_section_rows_in_institucional(snapshot):
     sections = assemble_dre_sections(snapshot=snapshot, budget=None, period_label="Fev 2026")
     rows = sections["institucional"]["rows"]

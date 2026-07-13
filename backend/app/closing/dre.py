@@ -495,31 +495,39 @@ def _institucional_rows(
         return _dre_row(label, key, orcado, realizado,
                         section_key=section_key, targets=targets, **kw)
 
+    # Verify the base results FIRST so a margin never survives when its base value
+    # is blanked by the hard rule (otherwise the UI shows a % for a number we are
+    # deliberately withholding — reads as a bug). Margem = pct(verified base, receb).
+    rb_row = dre(
+        "Resultado Bruto", RESULTADO_BRUTO, od.resultado_bruto, r.resultado_bruto,
+        is_total=True, kind="subtotal",
+    )
+    rl_row = dre(
+        "Resultado Liquido", RESULTADO_LIQUIDO, od.resultado_liquido,
+        r.resultado_liquido, is_total=True, kind="subtotal",
+    )
+    rb_shown = rb_row["Realizado"]["value"]
+    rl_shown = rl_row["Realizado"]["value"]
+    margem_bruta = _pct(rb_shown, r.recebimento) if rb_shown is not None else None
+    margem_liquida = _pct(rl_shown, r.recebimento) if rl_shown is not None else None
+
     rows: list[dict[str, Any]] = [
         dre("Recebimento", RECEBIMENTO, orc.get(RECEBIMENTO), r.recebimento),
         # Workbook's "Custo equipe" line on the Institucional tab is Custos
         # Diretos = Custo equipe + Participação/Comissão (client-confirmed).
         dre("Custo equipe", CUSTO_EQUIPE, orc.get(CUSTO_EQUIPE), r.custos_diretos),
         dre("Despesas", DESPESAS, orc.get(DESPESAS), r.despesas),
+        rb_row,
         dre(
-            "Resultado Bruto", RESULTADO_BRUTO, od.resultado_bruto, r.resultado_bruto,
-            is_total=True, kind="subtotal",
-        ),
-        dre(
-            "Margem Bruta", MARGEM_BRUTA, od.margem_bruta,
-            _pct(r.resultado_bruto, r.recebimento),
+            "Margem Bruta", MARGEM_BRUTA, od.margem_bruta, margem_bruta,
             indent=1, kind="margin",
         ),
         dre("Imposto", IMPOSTO, orc.get(IMPOSTO), r.imposto),
         dre("Amortização", AMORTIZACAO, od.amortizacao, r.amortizacao),
+        rl_row,
         dre(
-            "Resultado Liquido", RESULTADO_LIQUIDO, od.resultado_liquido,
-            r.resultado_liquido,
-            is_total=True, kind="subtotal",
-        ),
-        dre(
-            "Margem Liquida", MARGEM_LIQUIDA, od.margem_liquida,
-            _pct(r.resultado_liquido, r.recebimento), indent=1, kind="margin",
+            "Margem Liquida", MARGEM_LIQUIDA, od.margem_liquida, margem_liquida,
+            indent=1, kind="margin",
         ),
         dre("Reserva de Bônus", RESERVA_BONUS, od.reserva_bonus, r.reserva_bonus),
     ]
