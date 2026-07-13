@@ -456,6 +456,22 @@ def test_comissao_may_ehf_folds_to_economico(snapshot_may):
     assert r.custos_diretos == pytest.approx(210089.45, abs=0.01)
 
 
+def test_derived_comissao_shows_on_area_tab_without_ledger(snapshot_may):
+    # The SISJURI-derived comissão must surface on the area tab even when there is
+    # no hand-ledger (May is fully SISJURI-derived). Econômico shows 2.128,06.
+    snap = dict(snapshot_may)
+    snap["comissao_deriv"] = [
+        {"kind": "lawyer", "sigla": "EHF", "area": None, "valor": 2128.06},
+    ]
+    sections = assemble_dre_sections(
+        snapshot=snap, budget=None, period_label="Maio 2026"
+    )
+    econ = _row(sections["economico"]["rows"], "comissao")
+    conten = _row(sections["contencioso"]["rows"], "comissao")
+    assert econ["Realizado"]["value"] == pytest.approx(2128.06, abs=0.01)
+    assert conten["Realizado"]["value"] == pytest.approx(0.0, abs=0.01)
+
+
 def test_custo_equipe_may_passes_hard_rule(snapshot_may):
     # With the two fixes, the per-area Custo equipe now MATCHES the workbook
     # targets, so the hard rule shows the value instead of blanking it.

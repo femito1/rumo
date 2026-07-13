@@ -159,6 +159,9 @@ class RealizadoInputs:
     area_despesas_equipe: dict[str, float] = field(default_factory=dict)
     area_despesa_institucional: dict[str, float] = field(default_factory=dict)
     has_ledger: bool = False
+    #: True when the SISJURI ``comissao_deriv`` block was present (so per-area
+    #: Comissão is authoritative and should show even without a hand-ledger).
+    has_comissao_deriv: bool = False
 
     @classmethod
     def from_snapshot(
@@ -406,6 +409,7 @@ class RealizadoInputs:
             area_despesas_equipe=area_desp_equipe,
             area_despesa_institucional=area_desp_inst,
             has_ledger=has_ledger,
+            has_comissao_deriv=area_comissao_deriv is not None,
         )
 
     @classmethod
@@ -598,7 +602,10 @@ def _area_rows(
         desp_equipe = r.area_despesas_equipe.get(area)
         desp_inst = r.area_despesa_institucional.get(area)
     else:
-        comissao = man.get(COMISSAO)
+        # SISJURI-derived Comissão (comissao_deriv) is authoritative and shows even
+        # without a hand-ledger; Despesas Equipe / Despesa Institucional still fall
+        # back to manual entry until a ledger or a derived rule fills them.
+        comissao = r.area_comissao.get(area) if r.has_comissao_deriv else man.get(COMISSAO)
         desp_equipe = man.get(DESPESAS_EQUIPE)
         desp_inst = man.get(DESPESA_INSTITUCIONAL)
     resultado: float | None = None
