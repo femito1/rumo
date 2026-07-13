@@ -17,6 +17,7 @@ Only *structure* lives here; no IO, no math beyond summation helpers.
 """
 from __future__ import annotations
 
+import re
 from typing import Any
 
 # --- Institucional expense sections, in workbook display order ---------------
@@ -133,10 +134,32 @@ def institutional_030_section(id_conta: str) -> str | None:
     return _030_TO_SECTION.get(id_conta)
 
 
+# Comissão accounts (Participação Externa/Interna). These are derived per-area
+# separately (``comissao_deriv``); they are NOT institutional expenses and must not
+# be classified as team cost, imposto or a despesas-section leaf.
+_COMISSAO_ACCOUNTS: frozenset[str] = frozenset(
+    {"020.110.0010", "030.010.0120", "030.010.0080"}
+)
+
+
+def is_comissao_account(id_conta: str) -> bool:
+    """True for a Comissão (Participação) account, handled by ``comissao_deriv``."""
+    return id_conta in _COMISSAO_ACCOUNTS
+
+
 def is_imposto(row: dict[str, Any]) -> bool:
+    # Comissão accounts contain "iss" inside "comissões"; exclude them explicitly
+    # so they are never miscounted as a tax leaf (they are derived separately).
+    if is_comissao_account(str(row.get("id_conta", ""))):
+        return False
     pai = str(row.get("nome_conta_pai", "")).lower()
     nome = str(row.get("nome_conta", "")).lower()
-    return "imposto" in pai or "imposto" in nome or "iss" in nome or "inss" in nome
+    # Match "iss"/"inss" only as whole words (or hyphenated), never as a substring
+    # of "comissões". "imposto" anywhere still counts.
+    if "imposto" in pai or "imposto" in nome:
+        return True
+    tokens = re.split(r"[^a-zà-ú]+", nome)
+    return any(t in ("iss", "inss") for t in tokens)
 
 
 # --- The three cost-center areas, workbook labels + snapshot-name matching ----

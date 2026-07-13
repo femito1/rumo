@@ -25,6 +25,7 @@ from app.closing.workbook_layouts import (
     INSTITUCIONAL_SECTIONS,
     imposto_sobre_recebimento,
     institutional_030_section,
+    is_comissao_account,
     is_direct_team,
     is_imposto,
     is_indirect,
@@ -189,6 +190,11 @@ class RealizadoInputs:
             id_conta = str(row.get("id_conta", ""))
             total = float(row.get("total", 0.0) or 0.0)
             nome = str(row.get("nome_conta", "?"))
+            # Comissão (Participação) accounts are derived per-area separately
+            # (``comissao_deriv``); they are neither imposto nor team cost nor an
+            # institutional-expense leaf, so skip them here.
+            if is_comissao_account(id_conta):
+                continue
             if is_imposto(row):
                 imposto_accounts.append((nome, round(total, 2)))
                 continue

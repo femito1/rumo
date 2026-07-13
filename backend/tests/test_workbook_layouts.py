@@ -9,10 +9,35 @@ institutional block no longer matches the workbook — treat it as a bug.
 """
 from app.closing.workbook_layouts import (
     institutional_030_section,
+    is_comissao_account,
     is_direct_team,
+    is_imposto,
     match_area,
     section_for,
 )
+
+
+def test_comissao_not_misread_as_imposto():
+    # "Participação Interna (comissões)" must NOT match the tax filter just because
+    # "iss" is a substring of "comissões". Comissão is derived separately
+    # (comissao_deriv), so it must be excluded from both the imposto and the
+    # institutional-expense classification.
+    row = {
+        "nome_conta": "Participação Interna (comissões)",
+        "nome_conta_pai": "Custos com Pessoal Técnico",
+        "id_conta": "030.010.0120",
+    }
+    assert is_imposto(row) is False
+    assert is_comissao_account("030.010.0120") is True
+    assert is_comissao_account("030.010.0080") is True
+    assert is_comissao_account("020.110.0010") is True
+    assert is_comissao_account("030.010.0010") is False
+
+
+def test_imposto_still_matches_real_taxes():
+    assert is_imposto({"nome_conta": "ISS", "nome_conta_pai": "Impostos"}) is True
+    assert is_imposto({"nome_conta": "INSS - Jurídico", "nome_conta_pai": "x"}) is True
+    assert is_imposto({"nome_conta": "PIS", "nome_conta_pai": "Impostos"}) is True
 
 
 def test_ambiental_folds_into_arbitragem():
