@@ -76,6 +76,26 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
   Líquido** (por área). **Custo direto = Custo equipe + Participação + Comissão.**
 - **`050.010.*` "Impostos - Tributos" (TIPO O)** = IRRF/PIS/COFINS/CSLL/ISS — visão
   de caixa/competência; **não** é a linha de imposto do DRE.
+- **Contas Transitórias = uma CLASSE de contas (não um hub único).** Corrigido pelo
+  cliente 2026-07-13. `PLANO CONTAS` lista (TIPO B): `200.010.0010` Transitória de
+  **Pagamentos**, `.0020` Receitas, `.0030` Saldos Iniciais, `.0050` **Desdobramento
+  após Pagamento**, `.0060` Acerto, `200.020.0030` Repasse Sócios; e `300.010.*`
+  **Valor Agregado** (IRRF/INSS/ISS/PIS/COFINS/CSLL/Convênio de terceiros). Um
+  pagamento cai na transitória e o **sistema o DESDOBRA** (rebucket) nas contas de
+  despesa reais. A instrução de cada desdobramento vive no campo **`ORIENTAÇÃO`** de
+  cada linha `FINANCE.LANCAMENTO`/`CONTASPAGAR` ("desdobramento - histórico",
+  "suporte totvs", "suporte informática", "conta iss", "imposto terceiros", "não
+  lançar"…), NÃO numa tabela de rateio estática (coluna Rateio do plano = 'N' p/ todas
+  as 278 contas — o export não a carrega). É o "contas transitórias + desdobramento"
+  do chefe: **o dado ESTÁ no DB**, chaveado por ORIENTAÇÃO/histórico.
+  - Mapa desdobramento maio (Pagtos maio, `Conta Destino` × `ORIENTAÇÃO`, `Valor
+    Bruto`): `Serviços de Informática` → "suporte informática" 2.040,00 / "suporte
+    totvs" 3.108,97 / "vamos ajustar" 4.504,12; `200.010.0010` VR/VT Mensal 3.326,94
+    (Vale-ADM, ver T4); Licenças de Uso de Software 3.880,50 (+"não terá lanç" 3.461,48).
+    ⚠ O split que o workbook mostra (Informática Suporte Totvs 2.917,77) NÃO bate com o
+    mês de pagamento (3.108,97) — há **alocação multi-mês/accrual** no desdobramento;
+    reproduzir exige modelar o accrual, não só reetiquetar o mês. (Salários-Adm e as 7
+    outras famílias já batem ao centavo; faltam Informática −1.553 e Despesas Gerais.)
 - **`200.010.*` Transitórias** e **`300.010.*` Valor Agregado** = contas de
   desdobramento automático (impostos de terceiros, VR/VT, associações etc.).
 - **Recebimento por área** = Demonstrativo Gerencial por Profissional (LegalDesk):

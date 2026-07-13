@@ -433,8 +433,11 @@ def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
 
 def test_vale_adm_absent_leaves_salarios_unchanged(snapshot_may):
     # Without a vale_adm key the section is unchanged except FGTS still moves out
-    # (FGTS reclassification is account-driven, not gated on vale_adm).
-    r = RealizadoInputs.from_snapshot(snapshot_may)
+    # (FGTS reclassification is account-driven, not gated on vale_adm). The live
+    # fixture now carries vale_adm, so drop it here to test the absent case.
+    snap = dict(snapshot_may)
+    snap.pop("vale_adm", None)
+    r = RealizadoInputs.from_snapshot(snap)
     sal = next(s for s in r.sections if s.name == "Salários Administração")
     # 9417.97 (current) - 400 FGTS = 9017.97; no Vale added.
     assert sal.total == pytest.approx(9017.97, abs=0.01)
