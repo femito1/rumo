@@ -175,7 +175,7 @@ def test_orcado_and_desvio_when_budget_present(snapshot):
 def test_hard_rule_blanks_realizado_when_it_diverges_from_workbook_target(snapshot):
     # Client rule (MEETING_2026-07-10): NEVER show a Realizado number that does
     # not match the workbook. If the derived value differs from a known target by
-    # more than R$0,01, the cell is blanked (null -> "ainda não temos").
+    # more than the tolerance (R$1,00), the cell is blanked (-> "ainda não temos").
     # Here we force a target that disagrees with the derived recebimento.
     targets = {"institucional": {RECEBIMENTO: 999999.0}}
     sections = assemble_dre_sections(
@@ -186,7 +186,7 @@ def test_hard_rule_blanks_realizado_when_it_diverges_from_workbook_target(snapsh
 
 
 def test_hard_rule_keeps_realizado_when_it_matches_target(snapshot):
-    # When the derived value matches the workbook target within R$0,01, keep it.
+    # When the derived value matches the workbook target within tolerance, keep it.
     targets = {"institucional": {RECEBIMENTO: 319233.58}}
     sections = assemble_dre_sections(
         snapshot=snapshot, budget=None, period_label="Fev 2026", targets=targets

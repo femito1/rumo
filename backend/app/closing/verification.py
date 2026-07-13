@@ -11,11 +11,22 @@ showing a wrong number. Where no target is known, the derived value is shown.
 sourced from the workbook when one is available for the competence month. It is a
 verification overlay only — it never becomes the displayed value; it just gates
 whether the derived value may be shown.
+
+**Rounding (client-confirmed 2026-07-13):** the workbook rounds many cells to whole
+reais while our DB derivation carries centavos. E.g. May recebimento is typed as
+``415928`` in the workbook but the sacred LegalDesk value is ``415927,84`` (a R$0,16
+gap that used to cascade-blank the whole institucional tail: imposto, resultado
+bruto/líquido, reserva). The client confirmed this rounding "is fine". So the match
+tolerance is **R$1,00**, not R$0,01: large enough to absorb whole-real rounding on a
+single input plus the small compounding down the DRE chain, yet far below any real
+derivation bug (historically hundreds to thousands off), which still blanks. The
+purpose is unchanged — never show a number that materially disagrees with the book.
 """
 from __future__ import annotations
 
-#: Cents-level tolerance for "matches the workbook".
-MATCH_TOLERANCE = 0.01
+#: Tolerance for "matches the workbook". R$1,00 absorbs the workbook's whole-real
+#: rounding (the DB carries centavos); a real bug is orders of magnitude larger.
+MATCH_TOLERANCE = 1.00
 
 #: Nested targets: section key -> line key -> expected workbook value.
 Targets = dict[str, dict[str, float]]
