@@ -160,7 +160,16 @@ class RealizadoInputs:
     has_ledger: bool = False
 
     @classmethod
-    def from_snapshot(cls, snap: dict[str, Any]) -> "RealizadoInputs":
+    def from_snapshot(
+        cls, snap: dict[str, Any], *, amortizacao_mensal: float | None = None
+    ) -> "RealizadoInputs":
+        """Build realizado inputs from a SISJURI snapshot.
+
+        ``amortizacao_mensal`` (POINT 12): the per-month amortização, derived
+        from the client's ANNUAL amortização budget (annual / 12). When it is
+        ``None`` or falsy the fixed ``AMORTIZACAO_MENSAL`` default is used, so the
+        line never zeroes out when the budget is unset.
+        """
         revenue = snap.get("revenue", {}) or {}
         despesas_rows = snap.get("despesas_conta", []) or []
         custo_area = snap.get("custo_area", []) or []
@@ -330,12 +339,19 @@ class RealizadoInputs:
         if not has_ledger and area_comissao_deriv is not None:
             area_comissao = {a: round(v, 2) for a, v in area_comissao_deriv.items()}
 
+        amortizacao = (
+            round(float(amortizacao_mensal), 2)
+            if amortizacao_mensal
+            else AMORTIZACAO_MENSAL
+        )
+
         return cls(
             recebimento=recebimento,
             faturamento=faturamento,
             custo_equipe=custo_equipe,
             despesas=despesas_total,
             imposto=imposto_sobre_recebimento(recebimento),
+            amortizacao=amortizacao,
             sections=ordered,
             area_custo_equipe=area_custo,
             area_recebimento=area_receb,
@@ -587,10 +603,18 @@ def assemble_dre_sections(
     (``AreaTransfer``) that net onto the SISJURI-derived per-area base.
     ``targets`` is the workbook verification overlay: a Realizado cell that
     diverges from its target by more than R$0,01 is blanked (the hard rule)."""
-    r = RealizadoInputs.from_snapshot(snapshot) if snapshot is not None else RealizadoInputs.empty()
-    missing = snapshot is None
     budget = budget or {}
     manual = manual or {}
+    # POINT 12: annual amortização is a per-year budget input; the monthly DRE
+    # line = annual / 12 (the budget layer already split it). Falsy/unset budget
+    # falls back to the fixed 8.117/mês default inside ``from_snapshot``.
+    amort_mensal = (budget.get("institucional", {}) or {}).get(AMORTIZACAO)
+    r = (
+        RealizadoInputs.from_snapshot(snapshot, amortizacao_mensal=amort_mensal)
+        if snapshot is not None
+        else RealizadoInputs.empty()
+    )
+    missing = snapshot is None
 
     # Overlay Resumo_Recebidas transfers onto the SISJURI per-area recebimento
     # base (value conserved; sums back to the sacred total).

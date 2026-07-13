@@ -221,6 +221,48 @@ def test_hard_rule_shows_value_when_no_target_given(snapshot):
     assert receb["Realizado"]["value"] == pytest.approx(319233.58, abs=0.05)
 
 
+def test_amortizacao_defaults_to_fixed_monthly(snapshot):
+    # POINT 12: with no budgeted amortização, the DRE uses the fixed 8.117/mês
+    # default (workbook 'Amortização' line), preserving today's behavior.
+    from app.closing.workbook_layouts import AMORTIZACAO_MENSAL
+
+    r = RealizadoInputs.from_snapshot(snapshot)
+    assert r.amortizacao == pytest.approx(AMORTIZACAO_MENSAL, abs=0.01)
+
+
+def test_amortizacao_uses_budgeted_annual_over_twelve(snapshot):
+    # POINT 12: the client inputs ONE annual amortização per year; the monthly
+    # DRE line = annual / 12. The budget carries the monthly value already (the
+    # budget layer splits annual/12), so a budgeted institucional.amortizacao
+    # drives the Realizado amortização line instead of the 8.117 constant.
+    from app.closing.dre import AMORTIZACAO
+
+    # Annual 120000 -> monthly budget 10000 (budget splits before assembly).
+    budget = {"institucional": {AMORTIZACAO: 10000.0}}
+    r = RealizadoInputs.from_snapshot(snapshot, amortizacao_mensal=10000.0)
+    assert r.amortizacao == pytest.approx(10000.0, abs=0.01)
+    # And it flows through assemble_dre_sections via the budget.
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, period_label="Fev 2026"
+    )
+    amort = _row(sections["institucional"]["rows"], AMORTIZACAO)
+    assert amort["Realizado"]["value"] == pytest.approx(10000.0, abs=0.01)
+
+
+def test_amortizacao_budget_zero_falls_back_to_default(snapshot):
+    # A zero/unset budget amortização must fall back to the 8.117 default, never
+    # zero the line out.
+    from app.closing.dre import AMORTIZACAO
+    from app.closing.workbook_layouts import AMORTIZACAO_MENSAL
+
+    budget = {"institucional": {AMORTIZACAO: 0.0}}
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, period_label="Fev 2026"
+    )
+    amort = _row(sections["institucional"]["rows"], AMORTIZACAO)
+    assert amort["Realizado"]["value"] == pytest.approx(AMORTIZACAO_MENSAL, abs=0.01)
+
+
 def test_snapshot_missing_flag_and_zeroed():
     sections = assemble_dre_sections(snapshot=None, budget=None, period_label="Jan 2026")
     inst = sections["institucional"]
