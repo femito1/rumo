@@ -238,6 +238,7 @@ class RealizadoInputs:
         deriv_rows = snap.get("custo_equipe_deriv") or []
         if deriv_rows:
             from app.closing.custo_equipe_deriv import (
+                CONVENIO_ACCOUNT,
                 LawyerOverride,
                 build_area_splits,
                 derive_area_custo_equipe,
@@ -253,13 +254,35 @@ class RealizadoInputs:
             overrides = _parse_custo_overrides(
                 snap.get("custo_equipe_overrides") or {}, LawyerOverride
             )
-            # Combine per-lawyer rows with the "area-level" personal-debit lines
-            # (Vale Refeição/Transporte on 500.010.<SIGLA>): those carry a sigla
-            # too, so the fold routes them via the lawyer's home area/rateio just
-            # like the 030.010.* components.
-            all_rows = list(deriv_rows) + list(snap.get("custo_equipe_area") or [])
+            # FIX 2 (HANDOFF_2026-07-13) — Convênio médico (030.010.0110): use the
+            # parsed "Parte MBC" value from ``convenio_memo`` instead of the gross
+            # posted amount. The extract emits ``convenio_memo`` rows
+            # ``{sigla, parsed_valor, raw_memo}`` precisely for this. We turn each
+            # into a ``set_account`` override on the convênio account so the
+            # per-lawyer total uses the net MBC share (ties Econômico to the
+            # centavo). Any explicit ``custo_equipe_overrides`` still wins: only
+            # fill the convênio override when the sigla has none.
+            for memo in snap.get("convenio_memo") or []:
+                sigla = str(memo.get("sigla") or "").strip()
+                parsed = memo.get("parsed_valor")
+                if not sigla or parsed is None:
+                    continue
+                existing = overrides.get(sigla)
+                if existing is None:
+                    overrides[sigla] = LawyerOverride(
+                        set_account={CONVENIO_ACCOUNT: float(parsed)}
+                    )
+                elif CONVENIO_ACCOUNT not in existing.set_account:
+                    existing.set_account[CONVENIO_ACCOUNT] = float(parsed)
+            # FIX 1 (HANDOFF_2026-07-13) — Do NOT add Vale (``custo_equipe_area``,
+            # the 500.010.<SIGLA> personal-debit postings) to per-area Custo
+            # equipe. Vale belongs to the transitória / Salários-ADM path
+            # (200.010.0010, wired into the institutional Salários Administração
+            # section), never to team cost. Proof: JVO's Vale 1.236,90 was exactly
+            # Contencioso's old residual. Only the per-lawyer 030.010.* rows drive
+            # Custo equipe.
             derived = derive_area_custo_equipe(
-                all_rows, splits, overrides=overrides
+                list(deriv_rows), splits, overrides=overrides
             )
             if any(derived.values()):
                 area_custo = {a: round(v, 2) for a, v in derived.items()}

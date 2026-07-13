@@ -13,11 +13,17 @@ from app.closing.dre import (
 )
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sisjuri_2026_02.json"
+FIXTURE_MAY = Path(__file__).parent / "fixtures" / "sisjuri_2026_05.json"
 
 
 @pytest.fixture
 def snapshot() -> dict:
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
+
+
+@pytest.fixture
+def snapshot_may() -> dict:
+    return json.loads(FIXTURE_MAY.read_text(encoding="utf-8"))
 
 
 def _row(rows, key):
@@ -390,6 +396,39 @@ def test_derived_block_drives_area_custo_equipe(snapshot):
     assert conten == pytest.approx(23379.0 + 11689.5, abs=0.05)
     assert econ == pytest.approx(11689.5, abs=0.05)
     assert arb == pytest.approx(23379.0, abs=0.05)
+
+
+def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
+    # Real May 2026 SISJURI snapshot. Two fixes make per-area Custo equipe tie
+    # the workbook targets to the centavo (see HANDOFF_2026-07-13 "MAJOR WIN"):
+    #   FIX 1 — Vale (custo_equipe_area, the 500.010.<SIGLA> personal-debit
+    #           postings) must NOT be added to per-area Custo equipe; it belongs
+    #           to the transitória/Salários-ADM path (200.010.0010), not team cost.
+    #   FIX 2 — for convênio médico (030.010.0110) use the parsed "Parte MBC"
+    #           value from convenio_memo, not the gross posted amount.
+    r = RealizadoInputs.from_snapshot(snapshot_may)
+    assert r.area_custo_equipe["Contencioso"] == pytest.approx(74141.21, abs=0.01)
+    assert r.area_custo_equipe["Econômico"] == pytest.approx(79436.24, abs=0.01)
+    assert r.area_custo_equipe["Arbitragem"] == pytest.approx(54383.94, abs=0.01)
+    # Σ custo equipe = 207961.39; + comissão 2128.07 = Custos Diretos 210089.46.
+    assert r.custo_equipe == pytest.approx(207961.39, abs=0.01)
+
+
+def test_custo_equipe_may_passes_hard_rule(snapshot_may):
+    # With the two fixes, the per-area Custo equipe now MATCHES the workbook
+    # targets, so the hard rule shows the value instead of blanking it.
+    from app.closing.workbook_targets import targets_for
+
+    targets = targets_for("2026-05")
+    sections = assemble_dre_sections(
+        snapshot=snapshot_may, budget=None, period_label="Maio 2026", targets=targets
+    )
+    conten = _row(sections["contencioso"]["rows"], CUSTO_EQUIPE)
+    econ = _row(sections["economico"]["rows"], CUSTO_EQUIPE)
+    arb = _row(sections["arbitragem"]["rows"], CUSTO_EQUIPE)
+    assert conten["Realizado"]["value"] == pytest.approx(74141.21, abs=0.01)
+    assert econ["Realizado"]["value"] == pytest.approx(79436.24, abs=0.01)
+    assert arb["Realizado"]["value"] == pytest.approx(54383.94, abs=0.01)
 
 
 def test_expense_section_rows_in_institucional(snapshot):
