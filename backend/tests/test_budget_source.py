@@ -53,6 +53,18 @@ def test_budget_source_empty_when_no_entries():
     assert all(r["Anual (Orcado)"]["value"] is None for r in rows)
 
 
+def test_despesas_equipe_is_a_valid_budgetable_line():
+    # POINT 13: "Orçamento Despesa" per area = the Despesas Equipe budget line.
+    from app.budget.models import BUDGET_LINES, is_valid_area, is_valid_line
+    from app.closing.dre import DESPESAS_EQUIPE
+
+    assert is_valid_line(DESPESAS_EQUIPE)
+    assert any(k == DESPESAS_EQUIPE for k, _ in BUDGET_LINES)
+    # And per-area budgeting is valid for the three cost-center areas.
+    for area in ("Contencioso", "Econômico", "Arbitragem"):
+        assert is_valid_area(area)
+
+
 def test_legacy_line_keys_map_to_canonical():
     from app.budget.models import canonical_line_key, is_valid_line
 

@@ -221,6 +221,25 @@ def test_hard_rule_shows_value_when_no_target_given(snapshot):
     assert receb["Realizado"]["value"] == pytest.approx(319233.58, abs=0.05)
 
 
+def test_area_despesas_equipe_budget_flows_into_orcado(snapshot):
+    # POINT 13: the client inputs a per-area "Orçamento Despesa" (Despesas Equipe
+    # budget). It is keyed by (area, despesas_equipe) and must flow into the
+    # Orçado column of the corresponding area tab.
+    from app.closing.dre import DESPESAS_EQUIPE
+
+    budget = {
+        "Contencioso": {DESPESAS_EQUIPE: 2500.0},
+        "Econômico": {DESPESAS_EQUIPE: 3100.0},
+    }
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, period_label="Fev 2026"
+    )
+    conten = _row(sections["contencioso"]["rows"], DESPESAS_EQUIPE)
+    econ = _row(sections["economico"]["rows"], DESPESAS_EQUIPE)
+    assert conten["Orçado"]["value"] == pytest.approx(2500.0, abs=0.01)
+    assert econ["Orçado"]["value"] == pytest.approx(3100.0, abs=0.01)
+
+
 def test_amortizacao_defaults_to_fixed_monthly(snapshot):
     # POINT 12: with no budgeted amortização, the DRE uses the fixed 8.117/mês
     # default (workbook 'Amortização' line), preserving today's behavior.

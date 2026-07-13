@@ -12,6 +12,7 @@ from app.closing.dre import (
     AMORTIZACAO,
     CUSTO_EQUIPE,
     DESPESAS,
+    DESPESAS_EQUIPE,
     IMPOSTO,
     RECEBIMENTO,
     RESERVA_BONUS,
@@ -27,6 +28,10 @@ BUDGET_LINES: tuple[tuple[str, str], ...] = (
     (RECEBIMENTO, "Recebimento"),
     (CUSTO_EQUIPE, "Custo equipe"),
     (DESPESAS, "Despesas"),
+    # POINT 13: per-area "Orçamento Despesa" — the Despesas Equipe budget the
+    # client enters per team (Contencioso/Arbitragem/Econômico). Flows into the
+    # Orçado column of each area tab (dre.py ``_area_rows`` reads it).
+    (DESPESAS_EQUIPE, "Despesas Equipe"),
     (IMPOSTO, "Imposto"),
     (AMORTIZACAO, "Amortização"),
     (RESERVA_BONUS, "Reserva de Bônus"),

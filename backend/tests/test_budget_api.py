@@ -90,6 +90,30 @@ def test_admin_can_edit_any_budget(client):
     assert resp.status_code == 200
 
 
+def test_put_per_area_despesas_equipe_budget(client):
+    # POINT 13: the per-area "Orçamento Despesa" (Despesas Equipe) budget is
+    # stored per cost-center area and accepted by the API.
+    tok = _token(client, "financeiro@mbclaw.com.br", "mbc123")
+    payload = {
+        "entries": [
+            {"area": "Contencioso", "line_key": "despesas_equipe", "annual_amount": 30000},
+            {"area": "Econômico", "line_key": "despesas_equipe", "annual_amount": 36000},
+        ]
+    }
+    put = client.put(
+        "/api/clients/mbc/budget?ano=2026",
+        json=payload,
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    assert put.status_code == 200
+    got = client.get(
+        "/api/clients/mbc/budget?ano=2026", headers={"Authorization": f"Bearer {tok}"}
+    ).json()
+    keys = {(e["area"], e["line_key"]) for e in got["entries"]}
+    assert ("Contencioso", "despesas_equipe") in keys
+    assert ("Econômico", "despesas_equipe") in keys
+
+
 def test_invalid_line_key_rejected(client):
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.put(
