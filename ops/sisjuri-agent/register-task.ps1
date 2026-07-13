@@ -35,9 +35,21 @@ $ErrorActionPreference = 'Stop'
 $runAgent = Join-Path $AgentDir 'run-agent.ps1'
 if (-not (Test-Path $runAgent)) { throw "run-agent.ps1 not found at $runAgent" }
 
+# Validate the upload target is configured for the scope the task will run under
+# (SYSTEM -> Machine env; interactive/stored -> the resolved env below). Without a
+# reachable INGEST_URL the daily task would extract a snapshot but never upload it.
+$envScope = if ($AsSystem) { 'Machine' } else { 'User' }
+$ingestUrl = [Environment]::GetEnvironmentVariable('INGEST_URL', $envScope)
+if (-not $ingestUrl) { $ingestUrl = $env:INGEST_URL }
+if (-not $ingestUrl) {
+  throw "INGEST_URL is not set in $envScope scope (nor the current session). Set it before registering, e.g.: [Environment]::SetEnvironmentVariable('INGEST_URL','https://<vps>/api/ingest','$envScope')  — otherwise the daily task extracts but never uploads."
+}
+
 # The task computes last-closed month at runtime and passes it to the agent.
-# Secrets/URL are read from env by run-agent.ps1 itself.
-$command = "`$m=(Get-Date).AddMonths(-1); `$am=('{0:0000}-{1:00}' -f `$m.Year,`$m.Month); & '$runAgent' -AnoMes `$am"
+# We pass -IngestUrl EXPLICITLY (baked from the validated value) so the upload
+# never silently depends on the task account's env scope; the token/client id are
+# still read from env by run-agent.ps1 at run time (they must exist in $envScope).
+$command = "`$m=(Get-Date).AddMonths(-1); `$am=('{0:0000}-{1:00}' -f `$m.Year,`$m.Month); & '$runAgent' -AnoMes `$am -IngestUrl '$ingestUrl'"
 
 $action = New-ScheduledTaskAction -Execute 'powershell.exe' `
   -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"$command`""

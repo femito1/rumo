@@ -2,9 +2,15 @@
 -- Oracle 19c JSON functions. Read-only. Parameterised by &ANO_MES / &D_START / &D_END.
 -- Invoked by run-agent.ps1 which substitutes the DEFINE values below.
 --
--- Output contract: one JSON object with keys: meta, revenue, faturas,
--- rateio_prof, despesas_conta, custo_area, recebimento_area, faturamento_area,
--- faturas_analitico, prolabore, distribuicao_socio, custo_equipe_prof.
+-- Output contract: one JSON object with keys (KEEP THIS LIST IN SYNC WITH THE
+-- JSON_OBJECT BELOW — the previous header omitted the derived blocks):
+--   meta, revenue, faturas, rateio_prof, despesas_conta, custo_area,
+--   recebimento_area, faturamento_area, faturas_analitico, prolabore,
+--   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
+--   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof.
+-- The derived blocks feed the DRE assembler (app/closing/dre.py), NOT
+-- sisjuri_db.py: custo_equipe_deriv + rateio_grupo + home_area (+ custo_equipe_area)
+-- reconstruct per-area Custo equipe; comissao_deriv the per-area Comissão.
 --
 -- faturas_analitico is per-CASE faturamento detail built on the (verified)
 -- POSFIN_RESULTFAT view joined to CAD_CASO / CAD_AREAJURIDICA. FAT_FATURA was

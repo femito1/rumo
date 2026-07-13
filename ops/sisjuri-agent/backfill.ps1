@@ -23,13 +23,29 @@ param(
   # Optional explicit end (inclusive). Defaults to the last fully-closed month.
   [ValidatePattern('^\d{4}-\d{2}$')][string]$EndMonth,
   [int]$SleepSeconds = 3,
-  [string]$OutDir = 'C:\temp\sisjuri'
+  [string]$OutDir = 'C:\temp\sisjuri',
+  # Upload target. Default from env; pass -SnapshotOnly to skip upload on purpose.
+  [string]$IngestUrl   = $env:INGEST_URL,
+  [string]$IngestToken = $env:INGEST_TOKEN,
+  [string]$ClientId    = $(if($env:CLIENT_ID){$env:CLIENT_ID}else{'mbc'}),
+  [switch]$SnapshotOnly
 )
 
 $ErrorActionPreference = 'Stop'
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $agent = Join-Path $scriptDir 'run-agent.ps1'
 if (-not (Test-Path $agent)) { throw "run-agent.ps1 not found next to backfill.ps1 ($agent)" }
+
+# Fail fast if we intend to upload but the target/token are missing. Without this
+# the loop would silently produce snapshot files that never reach the backend
+# (run-agent only uploads when -IngestUrl is present).
+if (-not $SnapshotOnly) {
+  if (-not $IngestUrl)   { throw "INGEST_URL not set. Set `$env:INGEST_URL / pass -IngestUrl, or pass -SnapshotOnly to intentionally skip upload." }
+  if (-not $IngestToken) { throw "INGEST_TOKEN not set. Set `$env:INGEST_TOKEN / pass -IngestToken, or pass -SnapshotOnly." }
+  Write-Output "[backfill] uploading each month to $IngestUrl (client '$ClientId')."
+} else {
+  Write-Output "[backfill] SnapshotOnly: extracting to $OutDir, NOT uploading."
+}
 
 # Compute the inclusive end month: default = month before the current one.
 if ($EndMonth) {
@@ -47,7 +63,11 @@ while ($cur -le $end) {
   $am = ('{0:0000}-{1:00}' -f $cur.Year, $cur.Month)
   Write-Output "==== [backfill] $am ===="
   try {
-    & $agent -AnoMes $am -OutDir $OutDir
+    if ($SnapshotOnly) {
+      & $agent -AnoMes $am -OutDir $OutDir
+    } else {
+      & $agent -AnoMes $am -OutDir $OutDir -IngestUrl $IngestUrl -IngestToken $IngestToken -ClientId $ClientId
+    }
     $done++
   } catch {
     Write-Warning "[backfill] $am FAILED: $_"
