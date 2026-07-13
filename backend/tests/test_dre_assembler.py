@@ -414,6 +414,21 @@ def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
     assert r.custo_equipe == pytest.approx(207961.39, abs=0.01)
 
 
+def test_comissao_may_ehf_folds_to_economico(snapshot_may):
+    # T2: once the extract emits the EHF Participação Interna row (from
+    # CONTASPAGAR.COD_ADVG, since LANCAMENTO.LANCPROFDEST is NULL), the assembler
+    # folds it via EHF's home area (Econômico) -> Comissão total 2.128,06.
+    snap = dict(snapshot_may)
+    snap["comissao_deriv"] = [
+        {"kind": "lawyer", "sigla": "EHF", "area": None, "valor": 2128.06},
+    ]
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.area_comissao.get("Econômico") == pytest.approx(2128.06, abs=0.01)
+    assert r.comissao_total == pytest.approx(2128.06, abs=0.01)
+    # Custos Diretos = Σ custo equipe (207961.39) + comissão (2128.06) = 210089.45.
+    assert r.custos_diretos == pytest.approx(210089.45, abs=0.01)
+
+
 def test_custo_equipe_may_passes_hard_rule(snapshot_may):
     # With the two fixes, the per-area Custo equipe now MATCHES the workbook
     # targets, so the hard rule shows the value instead of blanking it.

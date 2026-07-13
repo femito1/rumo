@@ -9,11 +9,14 @@ DB sources, both verified against the workbook ``Base_Resultado`` to the centavo
   level (``ID_GRUPOJURIDICO``). The extract emits these as ``kind='area'`` rows
   carrying the grupo name; we fold them onto the three DRE areas via
   :func:`workbook_layouts.match_area` (e.g. Feb 1.500 → Econômico).
-* **``030.010.0120`` "Participação Interna (comissões)"** — booked per lawyer
-  (``LANCAMENTO.LANCPROFDEST``). The extract emits these as ``kind='lawyer'``
-  rows; we fold them to each lawyer's area using the SAME split machinery as
-  Custo equipe (home grupo + ``CAD_RATEIO_GRUPO`` %), so a multi-area lawyer's
-  comissão splits the same way (e.g. Mai EHF 2.128,06 → Econômico).
+* **``030.010.0120`` "Participação Interna (comissões)"** — booked per lawyer.
+  The sigla is read from ``CONTASPAGAR.COD_ADVG`` (the ``LANCAMENTO.LANCPROFDEST``
+  is NULL on these rows — the sigla lives only in the histórico "Comissão EHF" —
+  which is why the old LANCPROFDEST arm dropped it and ``comissao_deriv`` came
+  back null; see the 2026-07-13 probe). The extract emits these as
+  ``kind='lawyer'`` rows; we fold them to each lawyer's area using the SAME split
+  machinery as Custo equipe (home grupo + ``CAD_RATEIO_GRUPO`` %), so a multi-area
+  lawyer's comissão splits the same way (e.g. Mai EHF 2.128,06 → Econômico).
 
 ``030.010.0080`` "Participação E" is always empty and is not read.
 

@@ -57,7 +57,9 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `020.080.0050/0060` | Vale Ref/Transp (area staff, tiny, area-tagged) | → Salários Adm (area) |
 | `020.090.*` | Investimento em Prospecção | Investimentos em Prospecção |
 | `020.090.0040` | Eventos e Happy Hour | → Endomarketing (05 book "Eventos Internos") |
-| `020.110.*` | Comissões | Comissão block (OUT of 198) |
+| `020.110.0010` | Participação Externa (comissões), area-level via ID_GRUPOJURIDICO | Comissão block (kind='area', OUT of 198) |
+| `030.010.0120` | Participação Interna (comissões), **per-lawyer via `CONTASPAGAR.COD_ADVG`** — NÃO via `LANCAMENTO.LANCPROFDEST` (é NULL nessas linhas; a sigla só aparece no histórico "Comissão EHF"). Mai EHF 2.128,06 → Econômico. Foi o que zerava `comissao_deriv` (2026-07-13 probe). | Comissão block (kind='lawyer', folded by home area/rateio) |
+| `030.010.0080` | Participação E — sempre vazio (não lido) | — |
 | `040.010.*` | Marketing / Assessoria de Imprensa | → Consultoria |
 | `040.030.*` | Investimentos:Consultoria Adm/Financeira | → Consultoria |
 | `040.040.*` | Licenças/Micros/Impressoras | Informática |
@@ -89,7 +91,11 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 ### Workbook targets (regra dura) — fonte, layout e números (2026-07-10)
 
 A **regra dura** (`backend/app/closing/verification.py`) exige que toda célula
-Realizado bata com o workbook (±R$0,01) ou fique em branco. Esses alvos foram
+Realizado bata com o workbook (±R$1,00 — tolerância elevada de R$0,01 em
+2026-07-13 porque **o workbook arredonda muitas células para reais inteiros**
+enquanto o DB carrega centavos; ex.: Mai Recebimento = 415928 no book vs
+415927,84 sacred. O drift máx. em células diretamente deriváveis, Jan–Mai, é
+R$0,16; um bug real é ordens de grandeza maior) ou fique em branco. Esses alvos foram
 extraídos do workbook **autoritativo** `Fechamento MBC 05.2026.xlsx`, aba
 **`Areas Sintetico atualizado`**, e congelados em
 `backend/app/closing/workbook_targets_2026.json` (regenerar com

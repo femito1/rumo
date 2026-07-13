@@ -297,8 +297,12 @@ BEGIN
   --  * 020.110.0010 "Participacao Externa (comissoes)": area-tagged via
   --    ID_GRUPOJURIDICO (emit kind='area', area=grupo name).
   --  * 030.010.0120 "Participacao Interna (comissoes)": per-lawyer via
-  --    LANCPROFDEST (emit kind='lawyer', sigla), folded to home area + rateio by
-  --    the backend the same way Custo equipe is. 030.010.0080 is always empty.
+  --    CONTASPAGAR.COD_ADVG (emit kind='lawyer', sigla), folded to home area +
+  --    rateio by the backend the same way Custo equipe is. 030.010.0080 is empty.
+  --    NB (2026-07-13 probe): the LANCAMENTO row for 0120 carries LANCPROFDEST
+  --    NULL (sigla lives only in the histórico "Comissão EHF"), so the old
+  --    LANCPROFDEST arm dropped it and comissao_deriv came back null. CONTASPAGAR
+  --    carries COD_ADVG=EHF with the same 2.128,06, exactly as for custo equipe.
   'comissao_deriv' VALUE (
      SELECT JSON_ARRAYAGG(JSON_OBJECT(
         'kind'  VALUE kind,
@@ -315,14 +319,16 @@ BEGIN
          WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA='020.110.0010'
          GROUP BY g.NOME
         UNION ALL
-        -- Participacao Interna: per-lawyer, keyed by LANCPROFDEST.
-        SELECT 'lawyer' kind, l.LANCPROFDEST sigla,
-               CAST(NULL AS VARCHAR2(60)) area, ROUND(SUM(l.LANNVALOR),2) valor
-          FROM FINANCE.LANCAMENTO l
-         WHERE l.PCTCNUMEROCONTADEST='030.010.0120'
-           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
-           AND l.LANCPROFDEST IS NOT NULL
-         GROUP BY l.LANCPROFDEST
+        -- Participacao Interna: per-lawyer, keyed by CONTASPAGAR.COD_ADVG (gross
+        -- base). LANCAMENTO.LANCPROFDEST is NULL on these rows, so we mirror the
+        -- custo_equipe_deriv approach and read the payable ledger instead.
+        SELECT 'lawyer' kind, cp.COD_ADVG sigla,
+               CAST(NULL AS VARCHAR2(60)) area, ROUND(SUM(cp.CPGNVALORBASE),2) valor
+          FROM FINANCE.CONTASPAGAR cp
+         WHERE cp.PCTCNUMEROCONTA='030.010.0120'
+           AND cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+           AND cp.COD_ADVG IS NOT NULL
+         GROUP BY cp.COD_ADVG
      )
   ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
