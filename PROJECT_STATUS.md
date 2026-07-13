@@ -18,6 +18,12 @@
 These were confirmed directly by the client (RUMO/MBC finance) and are now
 canonical. An agent must NOT ask the user about these again.
 
+> **Product endgame (confirmed 2026-07-13):** the site must **fully replicate the
+> workbook** — every tab, faithful to the layout — not just the DRE/KPIs. The
+> workbook (`Fechamento MBC 05.2026.xlsx`) is the source of truth; every displayed
+> number must tie to it (hard rule: blank if it doesn't match). Data comes only
+> from LegalDesk (revenue) + the SISJURI Oracle DB (costs/expenses); no Juritis API.
+
 > **2026-07-10 follow-up meeting + source deep-dive:** the client was UNHAPPY with
 > the current site numbers. `docs/MEETING_2026-07-10.md` is now the authoritative
 > spec for the DRE fixes (all reconciled to the centavo against the May dashboard):
