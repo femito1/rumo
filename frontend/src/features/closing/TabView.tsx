@@ -1,4 +1,5 @@
 // frontend/src/features/closing/TabView.tsx
+import { useState } from "react";
 import { TableScroll } from "../../components/TableScroll";
 import { formatPercent } from "../../lib/format";
 
@@ -81,7 +82,6 @@ function RichTabView({ tab }: { tab: RichTab }) {
       </div>
     );
   }
-  const keys = rowKeys(rows[0], columns.length);
   return (
     <div className="tab rich-tab">
       <h2>{tab.name}</h2>
@@ -90,29 +90,106 @@ function RichTabView({ tab }: { tab: RichTab }) {
           Dados institucionais ainda não importados para este mês.
         </div>
       ) : null}
-      <TableScroll>
-        <table className="grid-table">
-          <thead>
-            <tr>{columns.map((c, ci) => <th key={ci} className={ci === 0 ? "" : "num"}>{c}</th>)}</tr>
-          </thead>
-          <tbody>
-            {rows.map((row, ri) => (
+      <RichRowsTable columns={columns} rows={rows} />
+    </div>
+  );
+}
+
+/** The rich-row table body. Owns the per-area drill-down state so the hook is
+ *  never called conditionally (it renders only once we have columns + rows). */
+function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }) {
+  const keys = rowKeys(rows[0], columns.length);
+  // POINT 18: per-area drill-down. Rows whose key starts with "custo_" are the
+  // per-area "Custo equipe - {área}" group headers in Base_Resultado; clicking
+  // one reveals/hides its per-professional child rows (indent === 1 following
+  // rows, until the next indent-0 row). Collapsed by default so the dashboard
+  // shows the area summary and expands into the per-lawyer breakdown on click.
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const childGroup = childGroupOf(rows);
+
+  return (
+    <TableScroll>
+      <table className="grid-table">
+        <thead>
+          <tr>{columns.map((c, ci) => <th key={ci} className={ci === 0 ? "" : "num"}>{c}</th>)}</tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => {
+            const groupKey = childGroup.get(ri);
+            // Hide children of a collapsed drill-down group.
+            if (groupKey != null && !expanded[groupKey]) return null;
+            const drillKey = drillDownKey(row);
+            const hasChildren = drillKey != null && childCount(childGroup, drillKey) > 0;
+            const isOpen = drillKey != null && !!expanded[drillKey];
+            return (
               <tr key={ri} className={rowClass(row)}>
                 {keys.map((k, ci) => (
                   <td
                     key={ci}
                     className={ci === 0 ? cellIndentClass(row) : "num"}
                   >
-                    {renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]))}
+                    {ci === 0 && hasChildren && drillKey != null ? (
+                      <button
+                        type="button"
+                        className="drilldown-toggle"
+                        aria-expanded={isOpen}
+                        onClick={() =>
+                          setExpanded((e) => ({ ...e, [drillKey]: !e[drillKey] }))
+                        }
+                      >
+                        <span className="drilldown-caret" aria-hidden="true">
+                          {isOpen ? "▾" : "▸"}
+                        </span>
+                        {renderRichValue(row[k], true, false)}
+                      </button>
+                    ) : (
+                      renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]))
+                    )}
                   </td>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </TableScroll>
-    </div>
+            );
+          })}
+        </tbody>
+      </table>
+    </TableScroll>
   );
+}
+
+/** A drill-down group header is a per-area "Custo equipe" section total whose
+ *  key starts with "custo_" (Base_Resultado). Returns its group key or null. */
+function drillDownKey(row: RichRow): string | null {
+  const key = typeof row.key === "string" ? row.key : null;
+  if (key && key.startsWith("custo_") && row.kind === "section_total") return key;
+  return null;
+}
+
+/** Map each child row index -> the group key it belongs to. Children are the
+ *  indent-1 rows immediately following a drill-down group header, up to the next
+ *  indent-0 row. */
+function childGroupOf(rows: RichRow[]): Map<number, string> {
+  const out = new Map<number, string>();
+  let current: string | null = null;
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const dk = drillDownKey(row);
+    if (dk != null) {
+      current = dk;
+      continue;
+    }
+    if (current != null && row.indent === 1) {
+      out.set(i, current);
+    } else if (row.indent !== 1) {
+      current = null;
+    }
+  }
+  return out;
+}
+
+function childCount(childGroup: Map<number, string>, groupKey: string): number {
+  let n = 0;
+  for (const v of childGroup.values()) if (v === groupKey) n++;
+  return n;
 }
 
 /** Row styling from DRE metadata (is_total/kind), ignored for plain tables. */

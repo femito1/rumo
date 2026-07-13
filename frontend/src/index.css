@@ -888,6 +888,28 @@ input::placeholder {
   color: var(--muted);
 }
 
+/* POINT 18: per-area drill-down toggle (Custo equipe - {área} groups). */
+.drilldown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.drilldown-toggle:hover {
+  color: var(--accent, #6ea8fe);
+}
+.drilldown-caret {
+  font-size: 10px;
+  color: var(--muted);
+}
+
 /* Missing-data banner (institutional/DRE tabs without a snapshot) */
 .missing-banner {
   display: flex;

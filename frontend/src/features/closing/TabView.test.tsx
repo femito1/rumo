@@ -1,6 +1,6 @@
 // frontend/src/features/closing/TabView.test.tsx
 import { describe, it, expect } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, within, fireEvent } from "@testing-library/react";
 import { TabView, MISSING_LABEL } from "./TabView";
 
 describe("TabView", () => {
@@ -110,6 +110,44 @@ describe("TabView", () => {
     ).toBeInTheDocument();
     // The Desvio % column renders as a PT-BR percentage.
     expect(screen.getByText("98,0%")).toBeInTheDocument();
+  });
+
+  it("drills down per professional when clicking an area section (collapsed by default)", () => {
+    render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Base_Resultado Mensal",
+          columns: ["Linha", "Valor"],
+          rows: [
+            {
+              Linha: "Custo equipe - Contencioso",
+              Valor: { value: 74141.21, source: "realizado" },
+              indent: 0,
+              is_total: true,
+              kind: "section_total",
+              key: "custo_Contencioso",
+            },
+            {
+              Linha: "IAC - Distribuição Mensal Fixa",
+              Valor: { value: 14039, source: "realizado" },
+              indent: 1,
+              is_total: false,
+              kind: "amount",
+              key: "prof::Contencioso::IAC::Distribuição Mensal Fixa",
+            },
+          ],
+        }}
+      />,
+    );
+    // The area group is clickable and its per-professional row is hidden until clicked.
+    const areaBtn = screen.getByRole("button", { name: /Custo equipe - Contencioso/ });
+    expect(screen.queryByText("IAC - Distribuição Mensal Fixa")).not.toBeInTheDocument();
+    fireEvent.click(areaBtn);
+    expect(screen.getByText("IAC - Distribuição Mensal Fixa")).toBeInTheDocument();
+    // Clicking again collapses it back.
+    fireEvent.click(areaBtn);
+    expect(screen.queryByText("IAC - Distribuição Mensal Fixa")).not.toBeInTheDocument();
   });
 
   it("indents sub-account rows in a grouped expense tree", () => {
