@@ -414,6 +414,33 @@ def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
     assert r.custo_equipe == pytest.approx(207961.39, abs=0.01)
 
 
+def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
+    # T4: Vale-ADM (VR 2.719,90 + VT 607,04 = 3.326,94) is paid via transitória
+    # 200.010.0010 (not 020.050.*). The extract emits a top-level ``vale_adm``
+    # total; the assembler adds it to the institutional "Salários Administração"
+    # section AND moves FGTS-ADM (020.050.0060 = 400) to Impostos, so the family
+    # ties the workbook to the centavo: 12.344,91.
+    snap = dict(snapshot_may)
+    snap["vale_adm"] = 3326.94
+    r = RealizadoInputs.from_snapshot(snap)
+    sal = next(s for s in r.sections if s.name == "Salários Administração")
+    assert sal.total == pytest.approx(12344.91, abs=0.01)
+    # FGTS-ADM must have left Salários Adm (it belongs to Impostos in the workbook).
+    assert not any("FGTS" in nome for nome, _ in sal.accounts)
+    # Vale-ADM appears as a leaf under Salários Administração.
+    assert any("Vale" in nome for nome, _ in sal.accounts)
+
+
+def test_vale_adm_absent_leaves_salarios_unchanged(snapshot_may):
+    # Without a vale_adm key the section is unchanged except FGTS still moves out
+    # (FGTS reclassification is account-driven, not gated on vale_adm).
+    r = RealizadoInputs.from_snapshot(snapshot_may)
+    sal = next(s for s in r.sections if s.name == "Salários Administração")
+    # 9417.97 (current) - 400 FGTS = 9017.97; no Vale added.
+    assert sal.total == pytest.approx(9017.97, abs=0.01)
+    assert not any("Vale" in nome for nome, _ in sal.accounts)
+
+
 def test_comissao_may_ehf_folds_to_economico(snapshot_may):
     # T2: once the extract emits the EHF Participação Interna row (from
     # CONTASPAGAR.COD_ADVG, since LANCAMENTO.LANCPROFDEST is NULL), the assembler

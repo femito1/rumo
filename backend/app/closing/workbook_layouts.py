@@ -147,11 +147,21 @@ def is_comissao_account(id_conta: str) -> bool:
     return id_conta in _COMISSAO_ACCOUNTS
 
 
+# Accounts the workbook books under Impostos (row 168), not their nominal family.
+# FGTS-ADM (020.050.0060) is a payroll charge that the workbook lists in the
+# Impostos block, NOT in Salários Administração — verified vs 05.2026 (row 172
+# "FGTS 400,00"). INSS-ADM (020.050.0050) already matches by name.
+_IMPOSTO_ACCOUNTS: frozenset[str] = frozenset({"020.050.0060"})
+
+
 def is_imposto(row: dict[str, Any]) -> bool:
+    id_conta = str(row.get("id_conta", ""))
     # Comissão accounts contain "iss" inside "comissões"; exclude them explicitly
     # so they are never miscounted as a tax leaf (they are derived separately).
-    if is_comissao_account(str(row.get("id_conta", ""))):
+    if is_comissao_account(id_conta):
         return False
+    if id_conta in _IMPOSTO_ACCOUNTS:
+        return True
     pai = str(row.get("nome_conta_pai", "")).lower()
     nome = str(row.get("nome_conta", "")).lower()
     # Match "iss"/"inss" only as whole words (or hyphenated), never as a substring

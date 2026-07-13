@@ -331,6 +331,23 @@ BEGIN
          GROUP BY cp.COD_ADVG
      )
   ),
+  -- Vale-ADM (Vale Refeição/Transporte administrativo). The workbook books it in
+  -- Salários Administração, but it is NOT under 020.050.* — it is paid via the
+  -- transitória de pagamentos 200.010.0010 ("desdobramento - histórico"),
+  -- identified by the histórico "VR/VT Mensal para ..." (confirmed vs
+  -- Pagtos maio.XLS.xlsx: VR 2.719,90 + VT 607,04 = 3.326,94 = workbook G122+G123).
+  -- Emit the total; the backend adds it to the institutional Salários Administração
+  -- section (and FGTS-ADM moves to Impostos to tie the family to the centavo).
+  'vale_adm' VALUE (
+     SELECT NVL(ROUND(SUM(l.LANNVALOR),2), 0)
+       FROM FINANCE.LANCAMENTO l
+      WHERE l.PCTCNUMEROCONTADEST='200.010.0010'
+        AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+        AND ( UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
+           OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%'
+           OR UPPER(l.LANCHISTORICO) LIKE '%VALE REFEI%MENSAL%'
+           OR UPPER(l.LANCHISTORICO) LIKE '%VALE TRANSP%MENSAL%' )
+  ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses
   -- home_area (100%) for everyone else.

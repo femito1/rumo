@@ -221,6 +221,23 @@ class RealizadoInputs:
                 ordered.append(SectionBreakdown(name, 0.0, []))
         ordered.extend(sec_map.values())
 
+        # Vale-ADM (Vale Refeição/Transporte administrativo): paid via the
+        # transitória 200.010.0010 ("desdobramento - histórico"), NOT 020.050.*,
+        # so it never appears in ``despesas_conta``. The extract emits a top-level
+        # ``vale_adm`` total; add it to Salários Administração as a leaf so the
+        # family ties the workbook (May 12.344,91). FGTS-ADM already left this
+        # family for Impostos via ``is_imposto`` (020.050.0060).
+        vale_adm = float(snap.get("vale_adm", 0.0) or 0.0)
+        if vale_adm:
+            sal = next(
+                (s for s in ordered if s.name == "Salários Administração"), None
+            )
+            if sal is None:
+                sal = SectionBreakdown("Salários Administração")
+                ordered.append(sal)
+            sal.total = round(sal.total + vale_adm, 2)
+            sal.accounts.append(("Vale Refeição/Transporte - ADM", round(vale_adm, 2)))
+
         despesas_total = round(sum(s.total for s in ordered), 2)
 
         area_custo: dict[str, float] = {}
