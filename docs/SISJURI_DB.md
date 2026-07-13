@@ -744,3 +744,32 @@ número errado) — comportamento coberto por
 **AÇÃO (RDP):** rodar o extract `ops/sisjuri-agent/extract.sql` para o mês-alvo e
 salvar o snapshot; conferir por área contra a tabela de alvos. Só então as células
 saem do branco.
+
+### Custo equipe por área — RESOLVIDO ao centavo com dados reais de maio (2026-07-13)
+
+Validado o snapshot real de 2026-05 (Supabase) contra os alvos do workbook. As três
+áreas batem **exatamente** com duas correções na derivação (`dre.py`):
+
+1. **Vale (`custo_equipe_area`, postings `500.010.<SIGLA>`) NÃO entra no custo de
+   equipe por área.** Prova: Vale do JVO = 1.236,90 = resíduo exato do Contencioso.
+   Vale pertence à transitória/Salários-ADM (`200.010.0010`), não ao custo direto.
+   Bug atual: `all_rows = deriv_rows + custo_equipe_area` em `RealizadoInputs.from_snapshot`.
+2. **Convênio médico (`030.010.0110`) usa a "Parte MBC" (de `convenio_memo.parsed_valor`),
+   não o valor bruto lançado.** Prova: substituir o `0110` pela Parte MBC zera o
+   resíduo de +1.459,69 do Econômico. O extract já emite `convenio_memo`
+   (sigla, parsed_valor, raw_memo) exatamente para isso; o assembler ignora hoje.
+
+Resultado (maio): Contencioso 74.141,21 · Econômico 79.436,24 · Arbitragem 54.383,94
+(todos = alvo). Total custo equipe 207.961,39; + comissão 2.128,07 = Custos Diretos
+210.089,46 (alvo exato).
+
+Componentes de `custo_equipe_deriv` por conta (maio): `030.010.0010` (pró-labore/
+distribuição) 166.323,80 · `030.010.0110` (convênio médico, usar Parte MBC) 20.266,29
+· `030.010.0130` 17.831,00 · `030.010.0140` 5.000,00.
+
+### Comissão — `comissao_deriv` voltou `null` em maio (2026-07-13) — INVESTIGAR
+
+O bloco `comissao_deriv` do extract retornou `null` para maio. A comissão implícita
+de maio é **2.128,07** (Custos Diretos 210.089,46 − custo equipe 207.961,39). Provável
+filtro de data/JOIN zerando o SELECT (externa `020.110.0010` por grupo + interna
+`030.010.0120` por `LANCPROFDEST`). Ver `probe_comissao.sql`.
