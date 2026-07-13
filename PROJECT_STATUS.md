@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-10
+**Last updated:** 2026-07-13
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -51,6 +51,31 @@ canonical. An agent must NOT ask the user about these again.
 > PENDENTE: custo equipe por área do SISJURI (Econômico mai alvo 79.436,24) e
 > rateio institucional só de EQUIPE — para as células saírem do branco e exibirem
 > o valor; DL extras; Vale-ADM (200.010.0010).
+>
+> **IMPLEMENTADO (2026-07-13) — pontos da reunião 10JUL2026:**
+> - **PONTO 12 — Amortização manual por ANO.** A amortização deixou de ser só a
+>   constante `AMORTIZACAO_MENSAL=8117`. O usuário informa UM valor anual (linha
+>   `amortizacao` do orçamento, já editável no `BudgetEditor` com preview `/mês`);
+>   a linha mensal do DRE = anual/12. `RealizadoInputs.from_snapshot` recebe
+>   `amortizacao_mensal` (do orçamento) e cai no default 8.117 quando ausente/zero.
+>   Regra dura do workbook intacta (alvo 8.117 em todos os meses do book).
+> - **PONTO 13 — Orçamento Despesa por equipe.** `despesas_equipe` virou linha
+>   orçável; `BudgetEditor` ganhou uma seção "Orçamento Despesa por equipe"
+>   (Contencioso/Econômico/Arbitragem). Armazenado por `(área, line_key)` no
+>   plumbing de orçamento existente; flui para a coluna Orçado de cada aba de área
+>   (`_area_rows` já lia `orc.get(DESPESAS_EQUIPE)`).
+> - **PONTO 16 — Bônus equipe da conta 150.000.0000.** `_base_resultado_rows` lê
+>   uma chave de snapshot `bonus_equipe` (Σ da conta 150.* — bloco novo no
+>   `extract.sql`), preenchendo a linha "Bônus equipe" do bloco "Distribuição de
+>   Lucros extras"; um `distribuicao_extras.bonus_equipe` explícito ainda vence.
+>   Em branco ("ainda não temos") quando ausente — robusto ao split de sócios
+>   (PONTO 17, tarefa do RUMO) chegar depois. Conta documentada em `SISJURI_DB.md`.
+> - **PONTO 18 — Drill-down por profissional.** Na aba Base_Resultado, as seções
+>   "Custo equipe - {área}" agora são clicáveis: expandem para as linhas por
+>   profissional daquela área (recolhidas por padrão). Drill-down genérico no
+>   `RichTabView` (chaveado nos grupos `custo_*`).
+>
+> Backend **192 testes**, frontend **52**; ruff/mypy/eslint/tsc limpos.
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
@@ -288,11 +313,12 @@ an ingestion source.
    month's snapshot). Re-run whenever a new monthly workbook arrives.
 
 ### Test counts (as of last update)
-- Backend: **150 passing** (`cd backend && pytest`) — +7 for the ledger parser
-  (`test_ledger_import.py`) and DRE ledger integration (`test_dre_assembler.py`).
-- Frontend: **49 passing** (`cd frontend && npm run test`). The area tabs are
-  data-driven, so no frontend change was needed — ledger values simply fill the
-  previously-blank `Realizado` cells.
+- Backend: **192 passing** (`cd backend && pytest`). +9 since 2026-07-10 for the
+  four meeting points: amortização budget (POINT 12), per-area Despesas Equipe
+  budget (POINT 13), Bônus equipe from account 150.* (POINT 16).
+- Frontend: **52 passing** (`cd frontend && npm run test`). +3 for the per-area
+  Orçamento Despesa editor section (POINT 13) and the Base_Resultado
+  per-professional drill-down (POINT 18).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host
