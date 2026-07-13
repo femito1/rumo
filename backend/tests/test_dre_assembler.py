@@ -430,6 +430,46 @@ def test_base_resultado_distribuicao_extras_block(snapshot):
     assert block["kind"] == "section_total"
 
 
+def test_bonus_equipe_from_account_150_snapshot_key():
+    # POINT 16: team bonus = sum of individual employee bonuses held in the
+    # accounting account 150.000.0000. The extract emits a top-level
+    # ``bonus_equipe`` key (Σ of GERENC_LANCAMENTORESUMO ID_CONTA like '150.%').
+    # It feeds the Base_Resultado "Bônus equipe" line and the block total.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {"bonus_equipe": 42000.0}
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(42000.0, abs=0.05)
+    total = next(r for r in tab["rows"] if r["key"] == "distrib_extras")
+    assert total["Valor"]["value"] == pytest.approx(42000.0, abs=0.05)
+
+
+def test_bonus_equipe_explicit_extras_wins_over_top_level():
+    # If the finance-entered distribuicao_extras.bonus_equipe is present it takes
+    # precedence over the derived top-level ``bonus_equipe`` (explicit override).
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "bonus_equipe": 42000.0,
+        "distribuicao_extras": {"bonus_equipe": 50000.0},
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(50000.0, abs=0.05)
+
+
+def test_bonus_equipe_blank_when_account_150_absent():
+    # POINT 16: robust to the partner-split (POINT 17) not having arrived — when
+    # no 150.* data is present, the line renders blank ("ainda não temos"),
+    # never an invented number.
+    from app.closing.dre import assemble_base_resultado
+
+    tab = assemble_base_resultado({}, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"] is None
+
+
 def test_base_resultado_extras_values_from_snapshot():
     from app.closing.dre import assemble_base_resultado
 

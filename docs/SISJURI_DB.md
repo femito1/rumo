@@ -63,6 +63,7 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `040.040.*` | Licenças/Micros/Impressoras | Informática |
 | `040.050.*` | Biblioteca | → Gestão do Conhecimento |
 | `030.010.0180` | **Cursos / Treinamento Jurídico** | → **Gestão do Conhecimento** (lifted OUT of Custo Equipe; area-tagged part only) |
+| `150.000.0000` (`150.%`) | **Bônus individuais dos funcionários** (Lucros/Bônus) | → Base_Resultado "Distribuição de Lucros extras" > **"Bônus equipe"** (POINT 16). ⚠ HOJE ainda inclui os sócios (Ricardo/Aurélio/Daniel/Martim), que serão separados numa conta distinta pelo RUMO (POINT 17). Extract emite `bonus_equipe` = Σ `GERENC_LANCAMENTORESUMO.VALOR` onde `ID_CONTA LIKE '150.%'`; NULL (linha em branco) quando não há lançamentos. Não verificado ao centavo (sem DB ao vivo). |
 
 ### Post-meeting facts (2026-07-10) — see `docs/MEETING_2026-07-10.md` for full detail
 

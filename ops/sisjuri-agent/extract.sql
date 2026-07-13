@@ -7,7 +7,7 @@
 --   meta, revenue, faturas, rateio_prof, despesas_conta, custo_area,
 --   recebimento_area, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
---   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof.
+--   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe.
 -- The derived blocks feed the DRE assembler (app/closing/dre.py), NOT
 -- sisjuri_db.py: custo_equipe_deriv + rateio_grupo + home_area (+ custo_equipe_area)
 -- reconstruct per-area Custo equipe; comissao_deriv the per-area Comissão.
@@ -374,6 +374,21 @@ BEGIN
              LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO = p.ID_GRUPOJURIDICO
             WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '030.%'
             GROUP BY NVL(p.SIGLA, r.ID_PROFISSIONAL), g.NOME, r.ID_CONTA)
+  ),
+  -- POINT 16 (2026-07-13): "Bônus equipe" = soma dos bônus individuais dos
+  -- funcionários, na conta contábil 150.000.0000 ('150.%'). Feeds the
+  -- Base_Resultado "Distribuição de Lucros extras" > "Bônus equipe" line.
+  -- IMPORTANT: hoje esta conta AINDA contém os bônus dos sócios (Ricardo,
+  -- Aurélio, Daniel, Martim), que devem ser EXCLUÍDOS do bônus de equipe. O RUMO
+  -- vai separar os sócios numa conta distinta (POINT 17 — tarefa deles); quando
+  -- isso ocorrer, este bloco passa a somar apenas o bônus de equipe. Até lá o
+  -- número inclui sócios; a linha só é exibida quando o snapshot traz a chave.
+  -- NVL para NULL (não 0) quando não há lançamentos, para a linha ficar em
+  -- branco ("ainda não temos") em vez de exibir zero inventado.
+  'bonus_equipe' VALUE (
+     SELECT ROUND(SUM(r.VALOR),2)
+       FROM LDESK.GERENC_LANCAMENTORESUMO r
+      WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '150.%'
   )
   RETURNING CLOB
 ) INTO doc FROM dual;

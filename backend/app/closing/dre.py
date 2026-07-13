@@ -790,7 +790,16 @@ def _base_resultado_rows(
     # bonus, extraordinary/excess partner distributions, MV excess, Cacione
     # pass-through. Values come from the snapshot's optional 'distribuicao_extras'
     # map when present; otherwise each line renders blank ('ainda não temos').
-    extras = (snap or {}).get("distribuicao_extras", {}) or {}
+    extras = dict((snap or {}).get("distribuicao_extras", {}) or {})
+    # POINT 16: "Bônus equipe" = Σ dos bônus individuais dos funcionários, na
+    # conta contábil 150.000.0000 (sócios Ricardo/Aurélio/Daniel/Martim são
+    # EXCLUÍDOS — hoje ainda partilham a conta; o split de sócios é do RUMO,
+    # POINT 17). O extract emite ``bonus_equipe`` no topo do snapshot (Σ de
+    # GERENC_LANCAMENTORESUMO ID_CONTA like '150.%'). Se o financeiro informar um
+    # ``distribuicao_extras.bonus_equipe`` explícito, este vence. Robusto ao
+    # split de sócios chegar depois: sem dado 150.*, a linha fica em branco.
+    if extras.get("bonus_equipe") is None and (snap or {}).get("bonus_equipe") is not None:
+        extras["bonus_equipe"] = (snap or {})["bonus_equipe"]
     extra_lines: tuple[tuple[str, str], ...] = (
         ("Bônus equipe", "bonus_equipe"),
         ("DL excedente dos sócios", "dl_excedente_socios"),
