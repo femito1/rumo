@@ -82,6 +82,42 @@ canonical. An agent must NOT ask the user about these again.
 >   `RichTabView` (chaveado nos grupos `custo_*`).
 >
 > Backend **192 testes**, frontend **52**; ruff/mypy/eslint/tsc limpos.
+>
+> **IMPLEMENTADO (2026-07-13, tarde) — validação com dados SISJURI ao vivo (maio):**
+> Sessão dedicada com o operador rodando probes/extract no RDP `MBC-LDESK01`. Tudo
+> commitado e no `main`; extract re-rodado ao vivo (HTTP 200, snapshot fresco no
+> Supabase). Contra o snapshot REAL de maio, batem ao centavo com o workbook:
+> - **T1 — Custo equipe por área** (2 correções): Vale (`custo_equipe_area`,
+>   `500.010.<SIGLA>`) NÃO entra no custo direto; convênio (`030.010.0110`) usa a
+>   "Parte MBC" de `convenio_memo`. Contencioso **74.141,21** · Econômico
+>   **79.436,24** · Arbitragem **54.383,94**; Σ 207.961,39.
+> - **T2 — Comissão** (bug null resolvido): a linha `030.010.0120` tem
+>   `LANCAMENTO.LANCPROFDEST` NULL (sigla só no histórico); o extract passou a ler
+>   `CONTASPAGAR.COD_ADVG`. Ao vivo: EHF 2.128,06 → Econômico. Custos Diretos
+>   **210.089,45** (wb 210.089,46). Comissão derivada agora aparece nas abas de área
+>   mesmo sem ledger (`has_comissao_deriv`).
+> - **Regra dura: tolerância R$0,01 → R$1,00.** O workbook arredonda para reais
+>   inteiros (mai Recebimento 415.928 vs sacred 415.927,84); a tolerância antiga
+>   zerava toda a cauda institucional. Drift máx. em células deriváveis = R$0,16.
+> - **T4 — Vale-ADM** de `200.010.0010` (transitória, histórico "VR/VT Mensal", ao
+>   vivo 3.326,94) + FGTS-ADM (`020.050.0060`) reclassificado p/ Impostos →
+>   **Salários Administração 12.344,91** (bate exato).
+> - **Bug de rótulo:** `030.010.0120` "com**iss**ões" era classificado como imposto
+>   (substring "iss"); `is_comissao_account` + match por palavra inteira corrigem.
+> - **T3/T6 — Bônus equipe (150.*) / DL extras:** bloco roda ao vivo (null em maio, correto —
+>   150.* só posta ~1×/ano em fev); linhas em branco quando ausentes.
+> - **Contas Transitórias (correção do cliente):** é uma CLASSE de contas
+>   (`200.010.0010/.0020/.0030/.0050/.0060`, `200.020.0030`, `300.010.*`), não um hub.
+>   O sistema **desdobra** cada uma nas contas de despesa via o campo `ORIENTAÇÃO`
+>   do LANCAMENTO/CONTASPAGAR. Documentado em `SISJURI_DB.md`.
+> - **Ainda em branco (correto):** `despesas` institucional (e Resultado Bruto/Líquido/
+>   Reserva que dela dependem) — o gap é o **desdobramento multi-mês** de Informática
+>   (Suporte Totvs/Informática de `020.040.0010`) e Despesas Gerais. Dado está no DB
+>   (chaveado por ORIENTAÇÃO); decodificar o accrual multi-mês é o próximo passo.
+>
+> Backend **208 testes**, frontend **52**; ruff/mypy limpos. CI: uma falha do
+> frontend foi blip de infra do GitHub ("Failed to resolve action download") — não
+> do nosso código; backend verde em todos os commits.
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
@@ -319,12 +355,11 @@ an ingestion source.
    month's snapshot). Re-run whenever a new monthly workbook arrives.
 
 ### Test counts (as of last update)
-- Backend: **192 passing** (`cd backend && pytest`). +9 since 2026-07-10 for the
-  four meeting points: amortização budget (POINT 12), per-area Despesas Equipe
-  budget (POINT 13), Bônus equipe from account 150.* (POINT 16).
-- Frontend: **52 passing** (`cd frontend && npm run test`). +3 for the per-area
-  Orçamento Despesa editor section (POINT 13) and the Base_Resultado
-  per-professional drill-down (POINT 18).
+- Backend: **208 passing** (`cd backend && pytest`). +16 on 2026-07-13 (tarde):
+  live SISJURI validation — custo equipe 2 fixes, comissão null fix + area-tab
+  display, R$1 tolerance (8 verification tests), Vale-ADM + FGTS reclass,
+  comissão/imposto label fix.
+- Frontend: **52 passing** (`cd frontend && npm run test`).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
 - **Frontend:** https://rumo-frontend.xem1qi.easypanel.host
