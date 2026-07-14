@@ -4,7 +4,8 @@
 --
 -- Output contract: one JSON object with keys (KEEP THIS LIST IN SYNC WITH THE
 -- JSON_OBJECT BELOW — the previous header omitted the derived blocks):
---   meta, revenue, faturas, rateio_prof, despesas_conta, custo_area,
+--   meta, revenue, faturas, rateio_prof, despesas_conta, despesas_liquido,
+--   despesas_desdobramento, custo_area,
 --   recebimento_area, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
 --   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe.
@@ -98,6 +99,48 @@ BEGIN
              LEFT JOIN LDESK.CAD_GRUPOJURIDICO g ON g.ID_GRUPOJURIDICO=r.ID_GRUPOJURIDICO
             WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '030.%'
             GROUP BY g.NOME)
+  ),
+  -- Institutional despesas at LÍQUIDO (net of retained 3rd-party tax) — the basis
+  -- the workbook uses (2026-07-13 client confirm + probe). GERENC gives GROSS;
+  -- CONTASPAGAR.CPGNVALORLIQUIDO gives the net paid to service providers. Direct
+  -- 020.*/040.* payments here; the desdobramento (card/transitória lumps) is in the
+  -- ``despesas_desdobramento`` block below. Reconciled to the workbook to R$129,17
+  -- (May, the residual is the client's own aluguel pending). Keyed by conta so the
+  -- assembler folds via section_for the same way as despesas_conta.
+  'despesas_liquido' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'id_conta' VALUE id_conta,
+        'liquido'  VALUE liquido,
+        'bruto'    VALUE bruto,
+        'n'        VALUE n
+     ) RETURNING CLOB)
+     FROM (SELECT cp.PCTCNUMEROCONTA id_conta,
+                  ROUND(SUM(cp.CPGNVALORLIQUIDO),2) liquido,
+                  ROUND(SUM(cp.CPGNVALORBRUTO),2) bruto, COUNT(*) n
+             FROM FINANCE.CONTASPAGAR cp
+            WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+              AND (cp.PCTCNUMEROCONTA LIKE '020.%' OR cp.PCTCNUMEROCONTA LIKE '040.%'
+                   OR cp.PCTCNUMEROCONTA='030.010.0180')
+            GROUP BY cp.PCTCNUMEROCONTA)
+  ),
+  -- Desdobramento of lump payments (cartão de crédito, transitória de pagamentos)
+  -- into their real destination expense accounts. FINANCE.CPDESDOBRAMENTO holds one
+  -- row per unfolded slice (DESCCONTADESTINO, DESNVALOR, DESCHISTORICO). We keep the
+  -- histórico so the assembler can apply the few known reclassifications (e.g. a
+  -- "Claude"/software line booked to Material de Copa must move to Informática).
+  'despesas_desdobramento' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'id_conta'  VALUE id_conta,
+        'valor'     VALUE valor,
+        'historico' VALUE historico
+     ) RETURNING CLOB)
+     FROM (SELECT d.DESCCONTADESTINO id_conta, ROUND(d.DESNVALOR,2) valor,
+                  SUBSTR(d.DESCHISTORICO,1,80) historico
+             FROM FINANCE.CPDESDOBRAMENTO d
+             JOIN FINANCE.CONTASPAGAR cp
+               ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
+            WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+              AND (d.DESCCONTADESTINO LIKE '020.%' OR d.DESCCONTADESTINO LIKE '040.%'))
   ),
   -- Per-area RECEBIMENTO (cash received), the workbook's per-area base.
   -- Split the sacred receipt view by CASO -> área jurídica. Verified to the

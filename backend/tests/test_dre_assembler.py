@@ -492,6 +492,44 @@ def test_custo_equipe_may_passes_hard_rule(snapshot_may):
     assert arb["Realizado"]["value"] == pytest.approx(54383.94, abs=0.01)
 
 
+def test_despesas_liquido_override_lowers_gross_when_present(snapshot):
+    # When the snapshot carries despesas_liquido, institutional accounts use the NET
+    # value (workbook basis) instead of the gross despesas_conta. Here we force a net
+    # for Contabilidade (020.040.0050) well below its gross and check it flows through.
+    snap = dict(snapshot)
+    # Feb fixture has no despesas_liquido; add a minimal one for one account.
+    gross_row = next(
+        (r for r in snap.get("despesas_conta", [])
+         if str(r.get("id_conta")) == "020.040.0050"), None
+    )
+    if gross_row is None:
+        pytest.skip("fixture lacks 020.040.0050")
+    snap["despesas_liquido"] = [
+        {"id_conta": "020.040.0050", "liquido": 1.0, "bruto": gross_row["total"]}
+    ]
+    snap["despesas_desdobramento"] = []
+    r = RealizadoInputs.from_snapshot(snap)
+    consult = next(s for s in r.sections if s.name == "Consultoria")
+    # Contabilidade now contributes its net (1.0), not the gross, to Consultoria.
+    assert any(abs(v - 1.0) < 0.01 for _, v in consult.accounts)
+
+
+def test_despesas_liquido_excludes_custas_and_transporte(snapshot):
+    # Accounts the workbook excludes from row-198 (Custas 020.030.0140, Transporte
+    # 020.030.0060) are dropped when the líquido override is active.
+    snap = dict(snapshot)
+    snap["despesas_liquido"] = [
+        {"id_conta": "020.030.0140", "liquido": 55.6, "bruto": 55.6},
+        {"id_conta": "020.030.0060", "liquido": 968.1, "bruto": 968.1},
+    ]
+    snap["despesas_desdobramento"] = []
+    r = RealizadoInputs.from_snapshot(snap)
+    dg = next((s for s in r.sections if s.name == "Despesas Gerais"), None)
+    if dg is not None:
+        assert not any("Custas" in n for n, _ in dg.accounts)
+        assert not any("Transporte" in n for n, _ in dg.accounts)
+
+
 def test_margin_blanks_when_base_result_is_blanked(snapshot_may):
     # A margin (Margem Bruta / Líquida) must be hidden whenever its base result
     # (Resultado Bruto / Líquido) is blanked by the hard rule — otherwise the UI

@@ -182,6 +182,36 @@ class RealizadoInputs:
         recebimento = float(revenue.get("recebimento_bruto", 0.0) or 0.0)
         faturamento = float(revenue.get("faturamento_bruto", 0.0) or 0.0)
 
+        # LÍQUIDO override (client-confirmed 2026-07-13): the workbook books
+        # institutional despesas net of retained 3rd-party tax, not the gross
+        # GERENC value. When the extract emits ``despesas_liquido`` +
+        # ``despesas_desdobramento`` (CONTASPAGAR.CPGNVALORLIQUIDO + CPDESDOBRAMENTO)
+        # we override each indirect account's total with its net value, apply the
+        # few workbook reclassifications (e.g. a "Claude" software slice out of
+        # Material de Copa into Informática) and drop accounts the workbook excludes
+        # from row-198 (Custas, Transporte). Ties to the centavo (residual R$129,17 =
+        # the client's own aluguel pending). Absent block ⇒ gross behavior (no-op).
+        net_override: dict[str, float] | None = None
+        despesas_liquido = snap.get("despesas_liquido")
+        if despesas_liquido:
+            from app.closing.despesas_liquido import EXCLUDED_ACCOUNTS, net_by_account
+
+            # Aluguel: GERENC (despesas_conta) is already net of the sublocação
+            # credit; pass it so the net map uses it over the CONTASPAGAR gross.
+            aluguel_net = next(
+                (
+                    float(r.get("total", 0.0) or 0.0)
+                    for r in despesas_rows
+                    if str(r.get("id_conta", "")) == "020.010.0010"
+                ),
+                None,
+            )
+            net_override = net_by_account(
+                despesas_liquido,
+                snap.get("despesas_desdobramento") or [],
+                aluguel_gerenco_net=aluguel_net,
+            )
+
         sec_map: dict[str, SectionBreakdown] = {}
         # The ledger tax accounts are kept only as an informational detail under
         # the Impostos block; the DRE Imposto LINE is 15% of Recebimento (see
@@ -204,6 +234,13 @@ class RealizadoInputs:
             if is_direct_team(id_conta):
                 custo_equipe_from_accounts += total
                 continue
+            # Apply the líquido override for institutional accounts when present.
+            is_inst = is_indirect(id_conta) or institutional_030_section(id_conta)
+            if net_override is not None and is_inst:
+                if id_conta in EXCLUDED_ACCOUNTS:
+                    continue
+                if id_conta in net_override:
+                    total = net_override[id_conta]
             carveout = institutional_030_section(id_conta)
             if carveout is not None:
                 sec = sec_map.setdefault(carveout, SectionBreakdown(carveout))
