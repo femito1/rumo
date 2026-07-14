@@ -10,6 +10,8 @@ from __future__ import annotations
 TAB_ORDER = ['meta',
  'meta_dashboard',
  'faturas_analitico',
+ 'nacional',
+ 'moedas',
  'base_resultado',
  'areas_sintetico',
  'resumo_recebidas',

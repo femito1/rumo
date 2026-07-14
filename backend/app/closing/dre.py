@@ -764,6 +764,7 @@ def assemble_dre_sections(
         assemble_amortizacao,
         assemble_dre_2026,
         assemble_faturas_analitico,
+        assemble_faturas_moeda,
         assemble_fluxo_consolidado,
         assemble_institucional_ano,
         assemble_meta,
@@ -802,6 +803,7 @@ def assemble_dre_sections(
         recebimento_realizado=r.recebimento if not missing else None,
     )
     sections["faturas_analitico"] = assemble_faturas_analitico(snapshot)
+    sections["nacional"], sections["moedas"] = assemble_faturas_moeda(snapshot)
     return sections
 
 

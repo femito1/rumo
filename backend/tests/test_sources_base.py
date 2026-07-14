@@ -5,10 +5,13 @@ from app.closing.period import Period
 def test_sectionkey_has_the_fifteen_tabs():
     assert SectionKey.META in SectionKey
     assert SectionKey.BASE_RESULTADO in SectionKey
-    # 15 workbook tabs + META_DASHBOARD + FATURAS_ANALITICO (derived views).
-    assert len(list(SectionKey)) == 17
+    # 15 workbook tabs + META_DASHBOARD + FATURAS_ANALITICO (derived views)
+    # + NACIONAL + MOEDAS (per-invoice faturamento tabs, from DB_VW_FATURASEMI_REC).
+    assert len(list(SectionKey)) == 19
     assert SectionKey.META_DASHBOARD in SectionKey
     assert SectionKey.FATURAS_ANALITICO in SectionKey
+    assert SectionKey.NACIONAL in SectionKey
+    assert SectionKey.MOEDAS in SectionKey
 
 def test_dayrange_full_month_from_period():
     p = Period.parse("2026-05")

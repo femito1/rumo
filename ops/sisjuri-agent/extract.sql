@@ -9,7 +9,7 @@
 --   recebimento_area, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
 --   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe,
---   bonus_equipe_030, convenio_extra_dl.
+--   bonus_equipe_030, convenio_extra_dl, faturas_moeda.
 -- The derived blocks feed the DRE assembler (app/closing/dre.py), NOT
 -- sisjuri_db.py: custo_equipe_deriv + rateio_grupo + home_area (+ custo_equipe_area)
 -- reconstruct per-area Custo equipe; comissao_deriv the per-area Comissão.
@@ -202,6 +202,55 @@ BEGIN
              LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
             WHERE r.ANO_MES = '&ANO_MES'
             GROUP BY r.ID_CASO)
+  ),
+  -- Per-invoice faturamento lists (workbook tabs 'Nacional' = BRL, 'Moedas' =
+  -- EUR/USD). Source CONFIRMED + VALIDATED to the centavo (2026-07-14):
+  -- LDESK.DB_VW_FATURASEMI_REC bounded by DATA (emission) within the month sums to
+  -- honorarios_nac = 719.988,05 = the sacred faturamento_bruto('2026-05') EXACTLY,
+  -- splitting R$ 708.659,18 (72) + US$ 11.328,87 (3). The view is per-invoice-LINE
+  -- (n=75 rows for ~53 invoices — e.g. invoice 4143 has 6 lines of 678 = 4.068),
+  -- so we GROUP BY NUMERO to the per-invoice grain the workbook uses. The sacred
+  -- cross-check (an INDEPENDENT view also = 719.988,05) proves the lines are real,
+  -- not a join fan-out, so summing is correct. Column map to the workbook:
+  --   NUMERO->Fatura# · CLIENTE(id)->Cliente · CASO->Histórico · DATA->Emissão ·
+  --   DATA_VENCIMENTO->Vencimento · DATA_RECEBIMENTO->Recebimento ·
+  --   SIGLA_MOEDA->Moeda · VALOR_HONORARIOS(+_NAC)->Honorários (moeda + BRL) ·
+  --   VALOR_DESPESAS(+_NAC)->Despesas · CR_HON(+_NAC)->Valor Recebido.
+  -- Backend splits Nacional (moeda_nac) vs Moedas (foreign SIGLA_MOEDA).
+  'faturas_moeda' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'numero'          VALUE numero,
+        'cliente'         VALUE cliente,
+        'caso'            VALUE caso,
+        'data_emissao'    VALUE data_emissao,
+        'vencimento'      VALUE vencimento,
+        'recebimento'     VALUE recebimento,
+        'moeda'           VALUE moeda,
+        'moeda_nac'       VALUE moeda_nac,
+        'honorarios'      VALUE honorarios,
+        'honorarios_nac'  VALUE honorarios_nac,
+        'despesas'        VALUE despesas,
+        'despesas_nac'    VALUE despesas_nac,
+        'recebido_hon'    VALUE recebido_hon,
+        'recebido_hon_nac' VALUE recebido_hon_nac
+     ) RETURNING CLOB)
+     FROM (SELECT v.NUMERO numero,
+                  MAX(v.CLIENTE) cliente,
+                  MAX(v.CASO) caso,
+                  TO_CHAR(MAX(v.DATA),'YYYY-MM-DD') data_emissao,
+                  TO_CHAR(MAX(v.DATA_VENCIMENTO),'YYYY-MM-DD') vencimento,
+                  TO_CHAR(MAX(v.DATA_RECEBIMENTO),'YYYY-MM-DD') recebimento,
+                  MAX(v.SIGLA_MOEDA) moeda,
+                  MAX(v.SIGLA_MOEDA_NACIONAL) moeda_nac,
+                  ROUND(SUM(v.VALOR_HONORARIOS),2) honorarios,
+                  ROUND(SUM(v.VALOR_HONORARIOS_NAC),2) honorarios_nac,
+                  ROUND(SUM(v.VALOR_DESPESAS),2) despesas,
+                  ROUND(SUM(v.VALOR_DESPESAS_NAC),2) despesas_nac,
+                  ROUND(SUM(v.CR_HON),2) recebido_hon,
+                  ROUND(SUM(v.CR_HON_NAC),2) recebido_hon_nac
+             FROM LDESK.DB_VW_FATURASEMI_REC v
+            WHERE v.DATA >= DATE '&D_START' AND v.DATA < DATE '&D_END'
+            GROUP BY v.NUMERO)
   ),
   'prolabore' VALUE (
      SELECT JSON_ARRAYAGG(JSON_OBJECT(

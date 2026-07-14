@@ -49,6 +49,8 @@ class AssemblerSource:
             SectionKey.FLUXO_CONSOLIDADO,
             SectionKey.META_DASHBOARD,
             SectionKey.FATURAS_ANALITICO,
+            SectionKey.NACIONAL,
+            SectionKey.MOEDAS,
         }
 
     def fetch(self, period: Period, day_range: DayRange) -> dict[SectionKey, SectionData]:

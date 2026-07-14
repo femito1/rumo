@@ -201,6 +201,97 @@ def assemble_faturas_analitico(
     }
 
 
+#: Columns for the per-invoice faturamento lists (Nacional / Moedas). Mirrors the
+#: workbook layout: invoice + client + dates + currency + honorários (foreign & BRL)
+#: + received.
+_FATURAS_MOEDA_COLUMNS = [
+    "Fatura", "Cliente", "Caso", "Emissão", "Vencimento", "Recebimento",
+    "Moeda", "Honorários", "Honorários (R$)", "Recebido (R$)",
+]
+
+
+def _faturas_moeda_tab(
+    name: str, rows_in: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Build one per-invoice faturamento tab (Nacional or Moedas) from already
+    currency-filtered rows. One row per invoice; a Total row sums the BRL columns."""
+
+    def cell(v: float | None) -> dict[str, Any]:
+        return {"value": v, "source": "realizado"}
+
+    rows: list[dict[str, Any]] = []
+    hon_nac_sum = 0.0
+    receb_nac_sum = 0.0
+    for r in sorted(
+        rows_in, key=lambda x: float(x.get("honorarios_nac", 0.0) or 0.0), reverse=True
+    ):
+        hon = round(float(r.get("honorarios", 0.0) or 0.0), 2)
+        hon_nac = round(float(r.get("honorarios_nac", 0.0) or 0.0), 2)
+        receb_nac = round(float(r.get("recebido_hon_nac", 0.0) or 0.0), 2)
+        hon_nac_sum += hon_nac
+        receb_nac_sum += receb_nac
+        rows.append(
+            {
+                "Fatura": r.get("numero"),
+                "Cliente": str(r.get("cliente", "") or ""),
+                "Caso": str(r.get("caso", "") or ""),
+                "Emissão": str(r.get("data_emissao", "") or ""),
+                "Vencimento": str(r.get("vencimento", "") or ""),
+                "Recebimento": str(r.get("recebimento", "") or ""),
+                "Moeda": str(r.get("moeda", "") or ""),
+                "Honorários": cell(hon),
+                "Honorários (R$)": cell(hon_nac),
+                "Recebido (R$)": cell(receb_nac),
+                "kind": "amount",
+            }
+        )
+    rows.append(
+        {
+            "Fatura": "",
+            "Cliente": "",
+            "Caso": "Total",
+            "Emissão": "",
+            "Vencimento": "",
+            "Recebimento": "",
+            "Moeda": "",
+            "Honorários": cell(None),
+            "Honorários (R$)": cell(round(hon_nac_sum, 2) if rows_in else None),
+            "Recebido (R$)": cell(round(receb_nac_sum, 2) if rows_in else None),
+            "kind": "total",
+            "is_total": True,
+        }
+    )
+    return {
+        "kind": "rich",
+        "name": name,
+        "columns": _FATURAS_MOEDA_COLUMNS,
+        "rows": rows,
+    }
+
+
+def assemble_faturas_moeda(
+    snapshot: dict[str, Any] | None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return ``(nacional, moedas)`` per-invoice faturamento tabs.
+
+    Source: the snapshot's ``faturas_moeda`` block (LDESK.DB_VW_FATURASEMI_REC,
+    per-invoice, validated to the centavo vs the sacred faturamento). A row is
+    "nacional" when its currency equals the office's nacional currency
+    (``moeda`` == ``moeda_nac``, i.e. R$); everything else is foreign ("Moedas").
+    """
+    rows_in = (snapshot or {}).get("faturas_moeda", []) or []
+    nacional_rows = [
+        r for r in rows_in if str(r.get("moeda", "")) == str(r.get("moeda_nac", ""))
+    ]
+    moedas_rows = [
+        r for r in rows_in if str(r.get("moeda", "")) != str(r.get("moeda_nac", ""))
+    ]
+    return (
+        _faturas_moeda_tab("Nacional", nacional_rows),
+        _faturas_moeda_tab("Moedas", moedas_rows),
+    )
+
+
 def assemble_meta(
     budget: dict[str, dict[str, float]] | None,
     *,
