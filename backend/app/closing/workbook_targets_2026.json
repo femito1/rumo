@@ -90,12 +90,12 @@
       "institucional": {
         "recebimento": 238327.46,
         "custo_equipe": 209572.83,
-        "despesas": 110156.11,
-        "resultado_bruto": -81401.48,
+        "despesas": 110285.28,
+        "resultado_bruto": -81530.65,
         "imposto": 35749.12,
         "amortizacao": 8117.0,
-        "resultado_liquido": -125267.6,
-        "reserva_bonus": -12526.76
+        "resultado_liquido": -125396.77,
+        "reserva_bonus": -12539.68
       },
       "contencioso": {
         "recebimento": 56461.0,
@@ -117,12 +117,12 @@
       "institucional": {
         "recebimento": 415928.0,
         "custo_equipe": 210089.46,
-        "despesas": 105511.43,
-        "resultado_bruto": 100327.11,
+        "despesas": 105640.6,
+        "resultado_bruto": 100197.94,
         "imposto": 62389.2,
         "amortizacao": 8117.0,
-        "resultado_liquido": 29820.91,
-        "reserva_bonus": 2982.09
+        "resultado_liquido": 29691.74,
+        "reserva_bonus": 2969.17
       },
       "contencioso": {
         "recebimento": 240445.0,

@@ -14,12 +14,17 @@ def test_targets_for_known_month_may():
     t = targets_for("2026-05")
     assert t is not None
     inst = t["institucional"]
-    # The exact meeting numbers, reconciled to the centavo (MEETING_2026-07-10).
+    # The exact meeting numbers, reconciled to the centavo (MEETING_2026-07-10),
+    # WITH the client-authorized aluguel–Belline override (Renata, 2026-07-14):
+    # the DB is authoritative for aluguel, so despesas rises by the +129,17 delta
+    # and the dependent tail drops by it (reserva recomputed as 10% of líquido).
+    # See build_workbook_targets.py::_apply_aluguel_override.
     assert inst["recebimento"] == pytest.approx(415928.0, abs=0.01)
     assert inst["imposto"] == pytest.approx(62389.20, abs=0.01)
-    assert inst["resultado_bruto"] == pytest.approx(100327.11, abs=0.01)
-    assert inst["resultado_liquido"] == pytest.approx(29820.91, abs=0.01)
-    assert inst["reserva_bonus"] == pytest.approx(2982.09, abs=0.01)
+    assert inst["despesas"] == pytest.approx(105640.60, abs=0.01)
+    assert inst["resultado_bruto"] == pytest.approx(100197.94, abs=0.01)
+    assert inst["resultado_liquido"] == pytest.approx(29691.74, abs=0.01)
+    assert inst["reserva_bonus"] == pytest.approx(2969.17, abs=0.01)
     # Custo equipe Econômico maio = 79.436,24 (client-confirmed target).
     assert t["economico"]["custo_equipe"] == pytest.approx(79436.24, abs=0.01)
     assert t["contencioso"]["custo_equipe"] == pytest.approx(74141.21, abs=0.01)

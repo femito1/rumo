@@ -47,6 +47,34 @@ INST_ROWS = {
 AREA_BASE = {"contencioso": 35, "economico": 53, "arbitragem": 71}
 AREA_LINES = {"recebimento": 1, "custo_equipe": 4, "resultado_bruto": 8}
 
+# Client-authorized target overrides (Renata, 2026-07-14): "assume the DB is
+# correct for the aluguel–Belline numbers (ONLY those)". Our GERENC-net aluguel
+# (net of the Belline sublet credit) is authoritative; the workbook typed a value
+# R$129,17 lower. For the months where the ONLY divergence from the workbook is
+# this aluguel delta (Apr + May 2026 — verified per-family to the centavo), bump
+# the ``despesas`` target by the delta and propagate through the dependent tail so
+# the hard rule stops blanking Despesas / Resultado Bruto / Líquido / Reserva.
+# This is aluguel-scoped ONLY; do NOT extend it to absorb other residuals.
+ALUGUEL_BELLINE_DELTA = 129.17
+ALUGUEL_TARGET_OVERRIDE_MONTHS = ("2026-04", "2026-05")
+
+
+def _apply_aluguel_override(inst: dict[str, float]) -> None:
+    """In place: raise despesas by the authorized aluguel delta and recompute the
+    tail (resultado_bruto/liquido drop by the same delta; reserva = 10% of líquido).
+    Imposto (15% of recebimento) and amortização are unaffected by a despesa change.
+    """
+    d = ALUGUEL_BELLINE_DELTA
+    if "despesas" in inst:
+        inst["despesas"] = round(inst["despesas"] + d, 2)
+    if "resultado_bruto" in inst:
+        inst["resultado_bruto"] = round(inst["resultado_bruto"] - d, 2)
+    if "resultado_liquido" in inst:
+        inst["resultado_liquido"] = round(inst["resultado_liquido"] - d, 2)
+        # Reserva de bônus = 10% do líquido (segue o sinal), recomputed from the
+        # corrected líquido so the whole chain stays internally consistent.
+        inst["reserva_bonus"] = round(inst["resultado_liquido"] * 0.10, 2)
+
 
 def main() -> None:
     wb = openpyxl.load_workbook(WORKBOOK, data_only=True, read_only=True)
@@ -69,6 +97,9 @@ def main() -> None:
                 for k, off in AREA_LINES.items()
                 if (v := cell(base + off, col)) is not None
             }
+        # Client-authorized aluguel-Belline override (see constants above).
+        if month in ALUGUEL_TARGET_OVERRIDE_MONTHS:
+            _apply_aluguel_override(sec["institucional"])
         targets[month] = sec
 
     final = {
