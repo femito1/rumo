@@ -7,7 +7,7 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-13
+**Last updated:** 2026-07-14
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
@@ -146,6 +146,38 @@ canonical. An agent must NOT ask the user about these again.
 >   `docs/HANDOFF_2026-07-13-despesas.md`.
 >
 > Backend **218 testes**, frontend **52**; ruff/mypy limpos.
+>
+> **IMPLEMENTADO (2026-07-14) — despesas ao vivo, backfill validado, DL/convênio
+> provados, Nacional/Moedas automatizadas:** sessão com o operador no RDP.
+> - **T5 despesas ao vivo:** re-rodado o extract (net blocks `despesas_liquido` +
+>   `despesas_desdobramento`) para mai; snapshot fresco no Supabase reproduz a receita
+>   ao centavo (aluguel 24.359,77, contabilidade 8.042,94, licenças 7.239,10 etc.).
+>   Despesas mai = **105.640,60**.
+> - **Gargalo do daily job RESOLVIDO:** o `extract.sql` da box ficara defasado um dia
+>   inteiro (rodava a versão pré-T5). `run-agent.ps1` agora **auto-atualiza o
+>   extract.sql do `main`** a cada run (sanity-checked + fail-safe → nunca para).
+> - **Autorização da Renata (aluguel–Belline é DB-autoritativo, só ele):** override
+>   dos alvos abr+mai (+129,17 em despesas, propagado ao bruto/líquido/reserva). **Mai
+>   agora renderiza a cauda inteira** (bruto 100.197,94, líquido 29.691,74, reserva
+>   2.969,17) — deixou de ficar em branco.
+> - **Backfill jan–mai + validação multi-mês:** só **mai bate ao centavo**; jan/fev/mar
+>   divergem no **layer manual do cliente** (Vale-ADM batido à mão, splits de Associações
+>   ÷2/÷3) — NÃO é bug de DB; documentado. Nossos números são discutivelmente *mais*
+>   corretos que as células antigas do workbook.
+> - **DL/convênio provados ao vivo:** convênio extra por advogado deduzido da DL
+>   (DC 3.796,78 / RB 5.151,75 / EHF 1.398,01, em `500.010.<SIGLA>`); **Bônus equipe**
+>   fev = 94.696,15 (`150.010.0010`) + 7.009,84 JGS (`030.010.0010`) = 101.705,84 (bate
+>   o workbook). Blocos aditivos `convenio_extra_dl` + `bonus_equipe_030` no extract;
+>   `bonus_equipe` no dre.py agora soma os dois.
+> - **T8 — abas Nacional/Moedas AUTOMATIZADAS:** fonte `LDESK.DB_VW_FATURASEMI_REC`
+>   **validada ao centavo** (Σ `VALOR_HONORARIOS_NAC` mai = 719.988,05 = sacred, split
+>   R$ 708.659,18 + US$ 11.328,87). Bloco `faturas_moeda` (GROUP BY NUMERO, per-fatura)
+>   + `SectionKey.NACIONAL/MOEDAS` + `assemble_faturas_moeda`. Falta só um re-run p/ o
+>   snapshot carregar o bloco e as abas irem ao ar.
+> - **PENDENTE:** re-run final (self-update pega o `faturas_moeda`); wire do
+>   `convenio_extra_dl` no split de DL (depende do POINT 17 do RUMO); jan–abr = layer
+>   manual (esperar cliente / aceitar número do DB). **Só o Orçamento fica fora.**
+> Backend **224 testes**, frontend **52**; ruff/mypy/tsc limpos.
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
@@ -383,7 +415,8 @@ an ingestion source.
    month's snapshot). Re-run whenever a new monthly workbook arrives.
 
 ### Test counts (as of last update)
-- Backend: **218 passing** (`cd backend && pytest`). +26 on 2026-07-13:
+- Backend: **224 passing** (`cd backend && pytest`). +6 on 2026-07-14: bonus_equipe
+  from 030.010.0010 (2), Nacional/Moedas tabs (4), SectionKey count. Earlier +26 on 2026-07-13:
   live SISJURI validation — custo equipe 2 fixes, comissão null fix + area-tab
   display, R$1 tolerance (8 verification tests), Vale-ADM + FGTS reclass,
   comissão/imposto label fix, margin-blanking, and **T5 despesas at líquido +

@@ -8,9 +8,11 @@
 
 ## Start here
 
-0. **Active work order: `docs/HANDOFF_2026-07-13-despesas.md`** — current state
-   (~85% automated, DRE spine ties to the centavo), the one bottleneck (re-run the
-   net extract), and the remaining items with their known paths. Read it first.
+0. **Active work order: `docs/HANDOFF_2026-07-14-automation.md`** — current state
+   (~95% automated; May DRE ties end-to-end, daily job self-updates, Nacional/Moedas
+   automated), the one bottleneck (one extract re-run to populate `faturas_moeda`),
+   and the remaining items with their known paths. Read it first.
+   (Prior: `docs/HANDOFF_2026-07-13-despesas.md`.)
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number
