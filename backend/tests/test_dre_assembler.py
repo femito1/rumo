@@ -679,6 +679,58 @@ def test_base_resultado_extras_values_from_snapshot():
     assert total["Valor"]["value"] == pytest.approx(266183.18, abs=0.05)
 
 
+def test_dl_excedente_socios_from_top_level_key():
+    # POINT 17 (automated by us, 2026-07-14): the partners' excess distribution
+    # is booked in 030.010.0010 with histórico "DL excedente <SIGLA> - Reserva".
+    # The extract splits it by CAD_PROFISSIONAL.SOCIO into a top-level
+    # ``dl_excedente_socios`` (the 3 core sócios: AM/DC/RB) and ``dl_excedente_mv``
+    # (Martim, kept separate to mirror the workbook). Proven vs the 05.2026 book:
+    # Jan sócios = 164.477,34 (row 193), Mar MV = 6.627 (row 194).
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {"dl_excedente_socios": 164477.34}
+    tab = assemble_base_resultado(snap, "Jan 2026")
+    socios = next(r for r in tab["rows"] if r["key"] == "extra::dl_excedente_socios")
+    assert socios["Valor"]["value"] == pytest.approx(164477.34, abs=0.05)
+    total = next(r for r in tab["rows"] if r["key"] == "distrib_extras")
+    assert total["Valor"]["value"] == pytest.approx(164477.34, abs=0.05)
+
+
+def test_dl_excedente_mv_from_top_level_key():
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {"dl_excedente_mv": 6627.0}
+    tab = assemble_base_resultado(snap, "Mar 2026")
+    mv = next(r for r in tab["rows"] if r["key"] == "extra::dl_excedente_mv")
+    assert mv["Valor"]["value"] == pytest.approx(6627.0, abs=0.05)
+
+
+def test_dl_excedente_explicit_extras_wins_over_top_level():
+    # A finance-entered distribuicao_extras value still overrides the derived
+    # top-level key, exactly like bonus_equipe.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "dl_excedente_socios": 164477.34,
+        "distribuicao_extras": {"dl_excedente_socios": 200000.0},
+    }
+    tab = assemble_base_resultado(snap, "Jan 2026")
+    socios = next(r for r in tab["rows"] if r["key"] == "extra::dl_excedente_socios")
+    assert socios["Valor"]["value"] == pytest.approx(200000.0, abs=0.05)
+
+
+def test_dl_excedente_blank_when_absent():
+    # Robust to months with no excedente (e.g. May): the lines stay blank
+    # ("ainda não temos"), never an invented zero.
+    from app.closing.dre import assemble_base_resultado
+
+    tab = assemble_base_resultado({}, "Mai 2026")
+    socios = next(r for r in tab["rows"] if r["key"] == "extra::dl_excedente_socios")
+    mv = next(r for r in tab["rows"] if r["key"] == "extra::dl_excedente_mv")
+    assert socios["Valor"] is None
+    assert mv["Valor"] is None
+
+
 def test_base_resultado_lump_distribution_row(snapshot):
     from app.closing.dre import assemble_base_resultado
 

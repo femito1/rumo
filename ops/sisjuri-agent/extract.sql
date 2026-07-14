@@ -9,7 +9,8 @@
 --   recebimento_area, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
 --   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe,
---   bonus_equipe_030, convenio_extra_dl, faturas_moeda.
+--   bonus_equipe_030, convenio_extra_dl, faturas_moeda,
+--   dl_excedente_socios, dl_excedente_mv.
 -- The derived blocks feed the DRE assembler (app/closing/dre.py), NOT
 -- sisjuri_db.py: custo_equipe_deriv + rateio_grupo + home_area (+ custo_equipe_area)
 -- reconstruct per-area Custo equipe; comissao_deriv the per-area Comissão.
@@ -491,20 +492,29 @@ BEGIN
             WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '030.%'
             GROUP BY NVL(p.SIGLA, r.ID_PROFISSIONAL), g.NOME, r.ID_CONTA)
   ),
-  -- POINT 16 (2026-07-13): "Bônus equipe" = soma dos bônus individuais dos
-  -- funcionários, na conta contábil 150.000.0000 ('150.%'). Feeds the
+  -- POINT 16 + 17 (2026-07-14): "Bônus equipe" = soma dos bônus individuais dos
+  -- FUNCIONÁRIOS, na conta contábil 150.000.0000 ('150.%'). Feeds the
   -- Base_Resultado "Distribuição de Lucros extras" > "Bônus equipe" line.
-  -- IMPORTANT: hoje esta conta AINDA contém os bônus dos sócios (Ricardo,
-  -- Aurélio, Daniel, Martim), que devem ser EXCLUÍDOS do bônus de equipe. O RUMO
-  -- vai separar os sócios numa conta distinta (POINT 17 — tarefa deles); quando
-  -- isso ocorrer, este bloco passa a somar apenas o bônus de equipe. Até lá o
-  -- número inclui sócios; a linha só é exibida quando o snapshot traz a chave.
-  -- NVL para NULL (não 0) quando não há lançamentos, para a linha ficar em
-  -- branco ("ainda não temos") em vez de exibir zero inventado.
+  -- ⚠ FONTE CORRIGIDA (probe_socio_split_validate #G/#L): os lançamentos 150.*
+  -- vivem em FINANCE.LANCAMENTO, NÃO em GERENC_LANCAMENTORESUMO (que retornava
+  -- NULL/vazio para fev — era o bug). Fev FINANCE.LANCAMENTO 150.% = 94.696,15 =
+  -- workbook (150.* part) exato. A sigla vem como 2º token do histórico ("Bônus
+  -- FSM ..."). POINT 17 automatizado por NÓS: excluímos qualquer sigla que seja
+  -- SÓCIO (CAD_PROFISSIONAL.SOCIO='S'); hoje é no-op (as 6 siglas em 150.* —
+  -- FSM/EHF/BMP/IAC/BBX/ASG — são todas SOCIO='N', provado por #LSIG), mas
+  -- future-proof: se um sócio for lançado em 150.* no futuro, ele NÃO entra no
+  -- bônus de equipe. O ``bonus_equipe_030`` abaixo soma os bônus de FUNCIONÁRIO
+  -- lançados em 030.010.0010 (JGS). NVL → NULL (não 0) quando não há lançamentos,
+  -- para a linha ficar em branco ("ainda não temos") em vez de zero inventado.
   'bonus_equipe' VALUE (
-     SELECT ROUND(SUM(r.VALOR),2)
-       FROM LDESK.GERENC_LANCAMENTORESUMO r
-      WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '150.%'
+     SELECT ROUND(SUM(l.LANNVALOR),2)
+       FROM FINANCE.LANCAMENTO l
+      WHERE l.PCTCNUMEROCONTADEST LIKE '150.%'
+        AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+        AND NOT EXISTS (
+          SELECT 1 FROM LDESK.CAD_PROFISSIONAL p
+           WHERE p.SIGLA = UPPER(TRIM(REGEXP_SUBSTR(l.LANCHISTORICO, '\S+\s+(\S+)', 1, 1, NULL, 1)))
+             AND p.SOCIO = 'S' )
   ),
   -- Bônus booked in 030.010.0010 (NOT 150.*). Proven vs Feb (2026-07-14 probe):
   -- the workbook "Bônus equipe" D192 = 94.696,15 (150.010.0010) + 7.009,84 JGS,
@@ -513,8 +523,9 @@ BEGIN
   -- (its %B_NUS%/%BONUS% filter), so adding them here does NOT double-count team
   -- cost. The backend adds this to ``bonus_equipe`` so Feb ties to the centavo.
   -- NULL when none (line stays blank). DL-excedente-sócios also lands in 0010
-  -- (histórico "excedente"/"Reserva"), intentionally EXCLUDED here — it feeds the
-  -- separate "DL excedente sócios" line, still RUMO's partner-split task (POINT 17).
+  -- (histórico "DL excedente <SIGLA> - Reserva"), intentionally EXCLUDED here — it
+  -- feeds the separate ``dl_excedente_socios`` / ``dl_excedente_mv`` blocks below,
+  -- which we now derive from the DB (POINT 17 automated by us, 2026-07-14).
   'bonus_equipe_030' VALUE (
      SELECT ROUND(SUM(l.LANNVALOR),2)
        FROM FINANCE.LANCAMENTO l
@@ -545,6 +556,37 @@ BEGIN
                  OR UPPER(l.LANCHISTORICO) LIKE '%SA_DE%'    OR UPPER(l.LANCHISTORICO) LIKE '%SAUDE%'
                  OR UPPER(l.LANCHISTORICO) LIKE '%PLANO%' )
             GROUP BY SUBSTR(l.PCTCNUMEROCONTADEST, 9))
+  ),
+  -- POINT 17 (automatizado por NÓS, 2026-07-14 — NÃO é tarefa do RUMO): split do
+  -- "DL excedente" dos sócios, derivado do próprio DB. Os excedentes vivem em
+  -- 030.010.0010 com histórico "DL excedente <SIGLA> - Reserva ...". Classificamos
+  -- a sigla (token após "excedente") pelo flag ESTRUTURAL CAD_PROFISSIONAL.SOCIO:
+  --   * dl_excedente_socios = Σ onde SOCIO='S' E sigla<>'MV' (os 3 sócios núcleo:
+  --     AM/DC/RB). Provado vs 05.2026: jan = 164.477,34 = Base_Resultado D193.
+  --   * dl_excedente_mv     = Σ da sigla 'MV' (Martim, mantido separado como no
+  --     workbook). Provado: mar = 6.627 = Base_Resultado D194.
+  -- NVL → NULL quando não há excedente no mês (linha em branco, nunca zero).
+  -- Ver probe_socio_split.sql / probe_socio_split_validate.sql (#X/#XS/#XM).
+  'dl_excedente_socios' VALUE (
+     SELECT ROUND(SUM(valor),2) FROM (
+        SELECT l.LANNVALOR valor,
+               UPPER(TRIM(REGEXP_SUBSTR(l.LANCHISTORICO, 'excedente\s+(\S+)', 1, 1, 'i', 1))) sig
+          FROM FINANCE.LANCAMENTO l
+         WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
+           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+           AND UPPER(l.LANCHISTORICO) LIKE '%EXCEDENTE%'
+     ) x
+     WHERE x.sig <> 'MV'
+       AND EXISTS (SELECT 1 FROM LDESK.CAD_PROFISSIONAL p
+                    WHERE p.SIGLA = x.sig AND p.SOCIO='S')
+  ),
+  'dl_excedente_mv' VALUE (
+     SELECT ROUND(SUM(l.LANNVALOR),2)
+       FROM FINANCE.LANCAMENTO l
+      WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
+        AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+        AND UPPER(l.LANCHISTORICO) LIKE '%EXCEDENTE%'
+        AND UPPER(TRIM(REGEXP_SUBSTR(l.LANCHISTORICO, 'excedente\s+(\S+)', 1, 1, 'i', 1))) = 'MV'
   )
   RETURNING CLOB
 ) INTO doc FROM dual;

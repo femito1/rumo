@@ -910,6 +910,20 @@ def _base_resultado_rows(
             extras["bonus_equipe"] = round(
                 float(_b150 or 0.0) + float(_b030 or 0.0), 2
             )
+    # POINT 17 (automated by us, 2026-07-14 — NOT a RUMO chart-of-accounts task):
+    # the partners' excess distribution is booked in 030.010.0010 with histórico
+    # "DL excedente <SIGLA> - Reserva". The extract splits it by the structural
+    # ``CAD_PROFISSIONAL.SOCIO`` flag ('S' → AM/DC/RB, 'N'+sigla MV → Martim),
+    # emitting top-level ``dl_excedente_socios`` (the 3 core sócios) and
+    # ``dl_excedente_mv`` (Martim, kept separate to mirror the workbook). Proven to
+    # the centavo vs Fechamento MBC 05.2026: Jan sócios = 164.477,34 (Base_Resultado
+    # row 193), Mar MV = 6.627 (row 194). A finance-entered distribuicao_extras
+    # value still wins; absent months stay blank ("ainda não temos"), never zero.
+    for _pt_key in ("dl_excedente_socios", "dl_excedente_mv"):
+        if extras.get(_pt_key) is None:
+            _v = (snap or {}).get(_pt_key)
+            if _v is not None:
+                extras[_pt_key] = round(float(_v), 2)
     extra_lines: tuple[tuple[str, str], ...] = (
         ("Bônus equipe", "bonus_equipe"),
         ("DL excedente dos sócios", "dl_excedente_socios"),
