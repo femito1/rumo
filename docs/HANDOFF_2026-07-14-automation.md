@@ -118,20 +118,70 @@ generically — no frontend change needed. +4 tests in `tests/test_faturas_moeda
 1. **[BOTTLENECK] The one manual pull + re-run above** so `faturas_moeda` /
    `bonus_equipe_030` / `convenio_extra_dl` land in the snapshot and go live. Nothing
    ships these blocks until a re-run with the new files.
-2. **Wire `convenio_extra_dl` into the DL split** — the block is emitted but not yet
-   consumed. Subtract each sigla's extra from that partner's Distribuição de Lucros.
-   Depends on RUMO's partner-split of account 150.* / the DL block (POINT 17, their task).
-   See `transitoria-desdobramento-mechanism` memory for the mechanism.
+2. **[NEXT — automate POINT 17 ourselves] Split sócio vs employee bonus from the DB.**
+   See the dedicated section below. This unblocks both the "Bônus equipe" vs "DL
+   excedente sócios" lines AND wiring `convenio_extra_dl` into each partner's DL. Do
+   NOT treat the partner split as RUMO's task — derive it from the DB.
 3. **Jan–Abr manual layer** — decide with the client: accept the DB number (add per-month
    `despesas` target overrides like the aluguel one) or leave those cells blank. Our
    numbers are DB-correct; the workbook cells carry hand-entry. See
    `multimonth-despesas-validation`.
 4. **DL extras (Feb)** — decomposed & proven (Bônus equipe = 101.705,84; DL-excedente-sócios
-   folds into 030.010.0010). Wire the partner/MV split when POINT 17 lands. See
-   `dl-extras-bonus-rules`.
-5. **Multi-month re-validation** after POINT 17 / any target decisions.
+   folds into 030.010.0010). Finish the partner/MV split via §POINT 17 below (NOT waiting
+   on RUMO). See `dl-extras-bonus-rules`.
+5. **Multi-month re-validation** after the POINT 17 split / any target decisions.
 6. **Orçamento** — intentionally OUT of scope (client fills the ORÇAMENTO tab; already an
    editable budget in the product via `BudgetEditor`).
+
+---
+
+## ⭐ NEXT SUBSTANTIVE TASK — automate POINT 17 (sócio/employee bonus split) ourselves
+
+**The user explicitly overrode the meeting note here (2026-07-14):** POINT 17 was written
+as "tarefa da RUMO" (have RUMO book the partners' bonus to a separate accounting account),
+but that pushes a manual chart-of-accounts dependency onto the client — contrary to the
+operating rule (assume automation until impossibility is *proven*). We cracked harder
+splits than this (desdobramento, convênio-extra, Vale-ADM). **Derive the split from the DB.**
+
+**Why this is very likely DB-derivable (evidence already in hand):** the Feb probe
+(`probe_dl_extras_clientes`) showed the `150.010.0010` bonus lines carry the **sigla in the
+histórico** — `"Bônus FSM referente a 2025 (22,20%)"`, `"Bônus EHF ..."`, etc. — the exact
+same pattern we already exploit elsewhere. So the split is really "classify each sigla as
+sócio vs employee," not "separate the accounts." Notably, the siglas that appeared in Feb's
+150.* (FSM, EHF, BMP, IAC, BBX, ASG) are all **employees** — the 4 partners (Ricardo,
+Aurélio=AM, Daniel=DC, Martim=MV) did NOT appear, which hints 150.* may ALREADY be
+employees-only (their excedente posting to `030.010.0010` instead). The probe confirms this.
+
+**The probe is written, committed, and pushed:** `ops/sisjuri-agent/probe_socio_split.sql`.
+Run it on the RDP box (standard recipe — TLS 1.2, pull with `?nocache=`, wrap with CONNECT,
+`sqlplus -S /nolog`, paste back `out_socio.txt`). It hunts, in priority order:
+- **#A/#B/#B2** — a STRUCTURAL sócio flag (a `tipo`/`categoria`/`cargo`/`sócio` column on
+  `CAD_PROFISSIONAL`, or a dedicated Sócios table/object). **Best outcome** → classify by a
+  DB field, zero hardcoding (which is exactly what the meeting note said to avoid).
+- **#C/#C2** — full `CAD_PROFISSIONAL` rows for AM/DC/MV/RB vs employees, to spot which
+  column value separates partners.
+- **#D** — every 150.* bonus line for 2026 w/ histórico + `LANCPROFDEST`: shows which siglas
+  are actually in 150.* (if partners are absent, "Bônus equipe" is already correct and
+  POINT 17 collapses to a confirmation).
+- **#E** — where the partners' DL-excedente posts (`030.010.0010` "excedente/reserva").
+- **#F** — the grupo list, in case a "Sócios" grupo exists to key on.
+
+**Decision tree after the probe:**
+- If #A/#B finds a structural flag → wire the split by that field (ideal).
+- Else if #D shows 150.* excludes partners → `bonus_equipe` is already employees-only; just
+  document it and drop the RUMO dependency. The partners' bonus is the `030.010.0010`
+  excedente (block #E) → feeds "DL excedente sócios" (still needs the per-partner/MV split).
+- Only if NEITHER works (no flag AND partners mixed into 150.* with no separable signal)
+  is a small hardcoded sócio-sigla set `{AM, DC, MV, <Ricardo>}` justified — and even then
+  it's OUR code, not a client task. Confirm Ricardo's sigla from #C first.
+
+**Then:** wire the classification into the `extract.sql` bonus blocks + `dre.py`
+(`bonus_equipe` = employees only; a new `dl_excedente_socios` derived from #E), add tests,
+and — importantly — **update this file, `PROJECT_STATUS.md`, `docs/SISJURI_DB.md`
+(the `150.%` row still says "serão separados pelo RUMO"), and `dl-extras-bonus-rules` /
+`multimonth-despesas-validation` memories** to reflect that POINT 17 is automated by us.
+Once the partner split exists, wire `convenio_extra_dl` (DC/RB/EHF) to deduct from each
+partner's DL line.
 
 ---
 
@@ -184,7 +234,8 @@ sum = sacred 719.988,05.
 - **Quality gates:** `cd backend && ruff check . && mypy app && pytest` (224);
   `cd frontend && npm run lint && npm run typecheck && npm run test` (52).
 - **New probes committed this session** (pushable, on `main`): `probe_nacional_moedas.sql`,
-  `probe_convenio_extra_dl.sql`, `probe_faturas_moeda_validate.sql`.
+  `probe_convenio_extra_dl.sql`, `probe_faturas_moeda_validate.sql`,
+  `probe_socio_split.sql` (POINT 17 — NOT yet run; see §NEXT SUBSTANTIVE TASK).
 
 ## Files touched this session (all on `main`)
 - `ops/sisjuri-agent/run-agent.ps1` — self-update extract.sql (fail-safe).

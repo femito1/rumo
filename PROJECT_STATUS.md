@@ -174,9 +174,13 @@ canonical. An agent must NOT ask the user about these again.
 >   R$ 708.659,18 + US$ 11.328,87). Bloco `faturas_moeda` (GROUP BY NUMERO, per-fatura)
 >   + `SectionKey.NACIONAL/MOEDAS` + `assemble_faturas_moeda`. Falta só um re-run p/ o
 >   snapshot carregar o bloco e as abas irem ao ar.
-> - **PENDENTE:** re-run final (self-update pega o `faturas_moeda`); wire do
->   `convenio_extra_dl` no split de DL (depende do POINT 17 do RUMO); jan–abr = layer
->   manual (esperar cliente / aceitar número do DB). **Só o Orçamento fica fora.**
+> - **PENDENTE:** re-run final (self-update pega o `faturas_moeda`); **POINT 17 —
+>   automatizar o split sócio/funcionário do bônus NÓS (não é tarefa do RUMO —
+>   decisão do usuário 2026-07-14):** probe `probe_socio_split.sql` (commitada, não
+>   rodada) procura flag estrutural de sócio no DB; a sigla já vem no histórico do
+>   150.* e as siglas vistas são todas funcionárias → 150.* pode já excluir sócios.
+>   Depois: wire do `convenio_extra_dl` no split de DL. jan–abr = layer manual
+>   (esperar cliente / aceitar número do DB). **Só o Orçamento fica fora.**
 > Backend **224 testes**, frontend **52**; ruff/mypy/tsc limpos.
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
