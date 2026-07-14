@@ -110,14 +110,42 @@ canonical. An agent must NOT ask the user about these again.
 >   (`200.010.0010/.0020/.0030/.0050/.0060`, `200.020.0030`, `300.010.*`), não um hub.
 >   O sistema **desdobra** cada uma nas contas de despesa via o campo `ORIENTAÇÃO`
 >   do LANCAMENTO/CONTASPAGAR. Documentado em `SISJURI_DB.md`.
-> - **Ainda em branco (correto):** `despesas` institucional (e Resultado Bruto/Líquido/
->   Reserva que dela dependem) — o gap é o **desdobramento multi-mês** de Informática
->   (Suporte Totvs/Informática de `020.040.0010`) e Despesas Gerais. Dado está no DB
->   (chaveado por ORIENTAÇÃO); decodificar o accrual multi-mês é o próximo passo.
->
 > Backend **208 testes**, frontend **52**; ruff/mypy limpos. CI: uma falha do
 > frontend foi blip de infra do GitHub ("Failed to resolve action download") — não
 > do nosso código; backend verde em todos os commits.
+>
+> **IMPLEMENTADO (2026-07-13, noite) — DESPESAS INSTITUCIONAL DECODIFICADA (T5):**
+> A reunião com o financeiro (Renata) + probes fecharam o mistério das despesas. A
+> regra, provada ao centavo contra o workbook (**10/10 famílias**, resíduo total
+> **R$129,17** = pendência do próprio cliente com a Malu, não nossa):
+> - **Despesa = LÍQUIDO, não bruto.** O workbook lança o valor líquido (net do
+>   imposto retido de terceiros) dos prestadores; o `GERENC` dá o bruto. Fonte do
+>   líquido = **`FINANCE.CONTASPAGAR.CPGNVALORLIQUIDO`**. Ex.: Contabilidade Ozai
+>   bruto 8.570 → líquido **8.042,94** (bate exato); Suporte Totvs bruto 3.108,97 →
+>   líquido **2.917,77**; Terceirização Limpeza **3.346,68**.
+> - **Desdobramento de lumps** (cartão de crédito Itaú 32.408, plano de saúde 31.882,
+>   transitórias) → tabela **`FINANCE.CPDESDOBRAMENTO`** (`DESCCONTADESTINO`,
+>   `DESNVALOR`, `DESCHISTORICO`), 1 linha por fatia desdobrada.
+> - **Aluguel líquido de sublocação:** bruto 27.477,67 − crédito Belline 3.117,90 =
+>   **24.359,77** (já é o valor da conta `020.010.0010` no GERENC — usar esse, não o
+>   bruto do CONTASPAGAR). Workbook tem 24.230,60 → os **R$129,17** que a Renata vai
+>   conferir com a Malu (provável defasagem da planilha).
+> - **Reclassificações** (confirmadas pelo cliente): "Contratação do Claude" 2.166,53
+>   é licença de software → Informática (não Material de Copa); Custas (`020.030.0140`)
+>   e Transporte e Frete (`020.030.0060`) saem do row-198; Cursos `030.010.0180` →
+>   Gestão do Conhecimento.
+> - **Implementação:** `extract.sql` ganhou blocos aditivos `despesas_liquido`
+>   (CONTASPAGAR net por conta) + `despesas_desdobramento` (CPDESDOBRAMENTO). Módulo
+>   puro `app/closing/despesas_liquido.py::net_by_account` aplica a receita.
+>   `dre.py::from_snapshot` sobrepõe o bruto de cada conta institucional pelo líquido
+>   quando os blocos existem (no-op caso contrário — seguro até o re-run). Locked por
+>   `tests/test_despesas_liquido.py` + 2 testes de integração.
+> - **PENDENTE (o gargalo):** rodar o `extract.sql` atualizado no RDP para maio (e
+>   demais meses) popular os blocos; então a linha Despesas fecha e **Resultado
+>   Bruto/Líquido/Reserva/margens deixam de ficar em branco**. Ver
+>   `docs/HANDOFF_2026-07-13-despesas.md`.
+>
+> Backend **218 testes**, frontend **52**; ruff/mypy limpos.
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).
@@ -355,10 +383,11 @@ an ingestion source.
    month's snapshot). Re-run whenever a new monthly workbook arrives.
 
 ### Test counts (as of last update)
-- Backend: **208 passing** (`cd backend && pytest`). +16 on 2026-07-13 (tarde):
+- Backend: **218 passing** (`cd backend && pytest`). +26 on 2026-07-13:
   live SISJURI validation — custo equipe 2 fixes, comissão null fix + area-tab
   display, R$1 tolerance (8 verification tests), Vale-ADM + FGTS reclass,
-  comissão/imposto label fix.
+  comissão/imposto label fix, margin-blanking, and **T5 despesas at líquido +
+  desdobramento** (`test_despesas_liquido.py` + 2 integration tests).
 - Frontend: **52 passing** (`cd frontend && npm run test`).
 
 ### Production (EasyPanel + Supabase) — live 2026-06-22
