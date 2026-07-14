@@ -29,7 +29,15 @@ param(
   [string]$IngestUrl   = $env:INGEST_URL,
   [string]$IngestToken = $env:INGEST_TOKEN,
   [string]$ClientId    = $(if($env:CLIENT_ID){$env:CLIENT_ID}else{'mbc'}),
-  [string]$OutDir      = 'C:\temp\sisjuri'
+  [string]$OutDir      = 'C:\temp\sisjuri',
+  # Self-update extract.sql from GitHub main before each run so the daily task
+  # can never drift from the committed version (root cause of a stale snapshot
+  # on 2026-07-14: the box carried a pre-T5 extract for a full day). The pull is
+  # fail-SAFE: on any network/HTTP error it logs a warning and falls back to the
+  # local extract.sql, so the job keeps running with the last-known-good query.
+  # Pass -NoSelfUpdate to force the on-disk copy (e.g. when testing a local edit).
+  [switch]$NoSelfUpdate,
+  [string]$ExtractRawUrl = 'https://raw.githubusercontent.com/femito1/rumo/main/ops/sisjuri-agent/extract.sql'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -50,6 +58,29 @@ $dEnd   = ('{0:0000}-{1:00}-01' -f $next.Year, $next.Month)
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $extractSql = Join-Path $scriptDir 'extract.sql'
+
+# Self-update extract.sql from main (fail-safe). Downloads to a temp file first
+# and only replaces the on-disk copy once the payload looks like our extract
+# (contains the JSON_OBJECT header + the T5 net blocks), so a truncated/HTML
+# error page from the CDN can never overwrite a good query.
+if (-not $NoSelfUpdate) {
+  try {
+    $url = "$ExtractRawUrl`?nocache=$([Guid]::NewGuid().ToString('N'))"
+    $tmp = Join-Path $OutDir 'extract.sql.new'
+    Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $tmp -TimeoutSec 30
+    $body = Get-Content $tmp -Raw
+    if ($body -match "JSON_OBJECT" -and $body -match "'despesas_liquido'" -and $body.Length -gt 4000) {
+      Copy-Item $tmp $extractSql -Force
+      Write-Output "[agent] extract.sql self-updated from main ($([math]::Round(($body.Length/1kb),1)) KB)."
+    } else {
+      Write-Output "[agent] WARN: fetched extract.sql failed sanity check; keeping local copy."
+    }
+    Remove-Item $tmp -ErrorAction SilentlyContinue
+  } catch {
+    Write-Output "[agent] WARN: extract.sql self-update failed ($($_.Exception.Message)); using local copy."
+  }
+}
+
 if (-not (Test-Path $extractSql)) { throw "extract.sql not found next to run-agent.ps1 ($extractSql)" }
 
 # Build a wrapper .sql that CONNECTs (password quoted, inline descriptor) and

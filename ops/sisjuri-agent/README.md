@@ -10,8 +10,13 @@ no inbound firewall rule or VPN is needed.
 - `extract.sql` — one read-only query emitting the whole closing extract as a
   single JSON document (Oracle 19c `JSON_OBJECT`/`JSON_ARRAYAGG`). Parameterised
   by `&ANO_MES` / `&D_START` / `&D_END`.
-- `run-agent.ps1` — PowerShell wrapper: connects via the existing `sqlplus`,
-  runs `extract.sql`, validates the JSON, writes a snapshot, optionally uploads.
+- `run-agent.ps1` — PowerShell wrapper: **self-updates `extract.sql` from `main`**
+  (fail-safe — falls back to the on-disk copy if the pull fails or the payload
+  fails a sanity check), connects via the existing `sqlplus`, runs `extract.sql`,
+  validates the JSON, writes a snapshot, optionally uploads. The self-update means
+  the daily task always runs the committed query — no more manual file copies to
+  keep the box in sync (root cause of the 2026-07-14 stale snapshot). Pass
+  `-NoSelfUpdate` to force the local copy when testing an uncommitted edit.
 - `register-task.ps1` — installs a daily Scheduled Task (run once, elevated).
 - `backfill.ps1` — one-shot historical catch-up: loops months from a start
   through the last closed month, calling `run-agent.ps1` for each.
