@@ -8,7 +8,8 @@
 --   despesas_desdobramento, custo_area,
 --   recebimento_area, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
---   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe.
+--   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe,
+--   bonus_equipe_030, convenio_extra_dl.
 -- The derived blocks feed the DRE assembler (app/closing/dre.py), NOT
 -- sisjuri_db.py: custo_equipe_deriv + rateio_grupo + home_area (+ custo_equipe_area)
 -- reconstruct per-area Custo equipe; comissao_deriv the per-area Comissão.
@@ -455,6 +456,46 @@ BEGIN
      SELECT ROUND(SUM(r.VALOR),2)
        FROM LDESK.GERENC_LANCAMENTORESUMO r
       WHERE r.ANO_MES='&ANO_MES' AND r.ID_CONTA LIKE '150.%'
+  ),
+  -- Bônus booked in 030.010.0010 (NOT 150.*). Proven vs Feb (2026-07-14 probe):
+  -- the workbook "Bônus equipe" D192 = 94.696,15 (150.010.0010) + 7.009,84 JGS,
+  -- and the JGS bônus is a 030.010.0010 LANCAMENTO with histórico "Bônus JGS
+  -- referente a 2025". These are exactly the lines custo_equipe_deriv EXCLUDES
+  -- (its %B_NUS%/%BONUS% filter), so adding them here does NOT double-count team
+  -- cost. The backend adds this to ``bonus_equipe`` so Feb ties to the centavo.
+  -- NULL when none (line stays blank). DL-excedente-sócios also lands in 0010
+  -- (histórico "excedente"/"Reserva"), intentionally EXCLUDED here — it feeds the
+  -- separate "DL excedente sócios" line, still RUMO's partner-split task (POINT 17).
+  'bonus_equipe_030' VALUE (
+     SELECT ROUND(SUM(l.LANNVALOR),2)
+       FROM FINANCE.LANCAMENTO l
+      WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
+        AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+        AND (UPPER(l.LANCHISTORICO) LIKE '%B_NUS%' OR UPPER(l.LANCHISTORICO) LIKE '%BONUS%')
+  ),
+  -- Convênio extra por advogado (upgrade/dependentes) — deduzido da DL do sócio,
+  -- NÃO é despesa do escritório. Proven Jan–Mai (2026-07-14 probe_convenio_extra_dl):
+  -- constante DC 3.796,78 / RB 5.151,75 / EHF 1.398,01 no namespace 500.010.<SIGLA>
+  -- (LANCPROFDEST NULL → sigla = sufixo da conta). Aurélio/AM: extra já embutido na
+  -- base 030.010.0110, não em 500.010. Emitimos per-sigla; o backend subtrai da DL
+  -- do sócio correspondente. Ver [[transitoria-desdobramento-mechanism]].
+  'convenio_extra_dl' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'     VALUE sigla,
+        'valor'     VALUE valor,
+        'historico' VALUE historico
+     ) RETURNING CLOB)
+     FROM (SELECT SUBSTR(l.PCTCNUMEROCONTADEST, 9) sigla,
+                  ROUND(SUM(l.LANNVALOR),2) valor,
+                  SUBSTR(MAX(l.LANCHISTORICO),1,60) historico
+             FROM FINANCE.LANCAMENTO l
+            WHERE l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+              AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+              AND ( UPPER(l.LANCHISTORICO) LIKE '%CONV_NIO%' OR UPPER(l.LANCHISTORICO) LIKE '%CONVENIO%'
+                 OR UPPER(l.LANCHISTORICO) LIKE '%DEPENDENTE%' OR UPPER(l.LANCHISTORICO) LIKE '%UPGRADE%'
+                 OR UPPER(l.LANCHISTORICO) LIKE '%SA_DE%'    OR UPPER(l.LANCHISTORICO) LIKE '%SAUDE%'
+                 OR UPPER(l.LANCHISTORICO) LIKE '%PLANO%' )
+            GROUP BY SUBSTR(l.PCTCNUMEROCONTADEST, 9))
   )
   RETURNING CLOB
 ) INTO doc FROM dual;

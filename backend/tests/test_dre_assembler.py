@@ -640,6 +640,29 @@ def test_bonus_equipe_blank_when_account_150_absent():
     assert bonus["Valor"] is None
 
 
+def test_bonus_equipe_adds_030_010_0010_lines():
+    # Proven vs Feb (2026-07-14 probe): the workbook "Bônus equipe" = 94.696,15
+    # (150.*) + 7.009,84 (a bonus booked in 030.010.0010, e.g. JGS) = 101.705,84.
+    # The extract emits both ``bonus_equipe`` (Σ 150.%) and ``bonus_equipe_030``
+    # (Bônus histórico lines in 030.010.0010); the assembler sums them.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {"bonus_equipe": 94696.15, "bonus_equipe_030": 7009.84}
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(101705.99, abs=0.05)
+
+
+def test_bonus_equipe_030_alone_still_shows():
+    # If only the 030.010.0010 bonus is present (no 150.* that month) the line
+    # still renders that amount rather than blanking.
+    from app.closing.dre import assemble_base_resultado
+
+    tab = assemble_base_resultado({"bonus_equipe_030": 7009.84}, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(7009.84, abs=0.05)
+
+
 def test_base_resultado_extras_values_from_snapshot():
     from app.closing.dre import assemble_base_resultado
 

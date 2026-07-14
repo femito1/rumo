@@ -896,8 +896,18 @@ def _base_resultado_rows(
     # GERENC_LANCAMENTORESUMO ID_CONTA like '150.%'). Se o financeiro informar um
     # ``distribuicao_extras.bonus_equipe`` explícito, este vence. Robusto ao
     # split de sócios chegar depois: sem dado 150.*, a linha fica em branco.
-    if extras.get("bonus_equipe") is None and (snap or {}).get("bonus_equipe") is not None:
-        extras["bonus_equipe"] = (snap or {})["bonus_equipe"]
+    # ``bonus_equipe`` (Σ 150.%) + ``bonus_equipe_030`` (Bônus lines booked in
+    # 030.010.0010, e.g. the JGS bonus). Proven vs Feb (2026-07-14): the workbook
+    # "Bônus equipe" = 94.696,15 (150.*) + 7.009,84 (030.010.0010) = 101.705,84.
+    # Both are optional; sum whichever the snapshot carries. Explicit
+    # ``distribuicao_extras.bonus_equipe`` still wins over the derived total.
+    if extras.get("bonus_equipe") is None:
+        _b150 = (snap or {}).get("bonus_equipe")
+        _b030 = (snap or {}).get("bonus_equipe_030")
+        if _b150 is not None or _b030 is not None:
+            extras["bonus_equipe"] = round(
+                float(_b150 or 0.0) + float(_b030 or 0.0), 2
+            )
     extra_lines: tuple[tuple[str, str], ...] = (
         ("Bônus equipe", "bonus_equipe"),
         ("DL excedente dos sócios", "dl_excedente_socios"),
