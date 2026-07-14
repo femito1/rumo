@@ -897,10 +897,10 @@ def _base_resultado_rows(
     # map when present; otherwise each line renders blank ('ainda não temos').
     extras = dict((snap or {}).get("distribuicao_extras", {}) or {})
     # POINT 16: "Bônus equipe" = Σ dos bônus individuais dos funcionários, na
-    # conta contábil 150.000.0000 (sócios Ricardo/Aurélio/Daniel/Martim são
-    # EXCLUÍDOS — hoje ainda partilham a conta; o split de sócios é do RUMO,
-    # POINT 17). O extract emite ``bonus_equipe`` no topo do snapshot (Σ de
-    # GERENC_LANCAMENTORESUMO ID_CONTA like '150.%'). Se o financeiro informar um
+    # conta contábil 150.000.0000 (sócios EXCLUÍDOS via CAD_PROFISSIONAL.SOCIO='S'
+    # no extract — POINT 17 automatizado por NÓS, 2026-07-14, NÃO é tarefa do RUMO).
+    # O extract emite ``bonus_equipe`` no topo do snapshot (Σ de FINANCE.LANCAMENTO
+    # PCTCNUMEROCONTADEST like '150.%', excluindo sócios). Se o financeiro informar um
     # ``distribuicao_extras.bonus_equipe`` explícito, este vence. Robusto ao
     # split de sócios chegar depois: sem dado 150.*, a linha fica em branco.
     # ``bonus_equipe`` (Σ 150.%) + ``bonus_equipe_030`` (Bônus lines booked in
