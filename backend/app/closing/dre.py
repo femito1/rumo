@@ -83,8 +83,13 @@ def _pct(numer: float, denom: float) -> float | None:
 
 
 def bonus_reserve(resultado_liquido: float) -> float:
-    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10)."""
-    return round(resultado_liquido * BONUS_RESERVE_RATE, 2)
+    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10).
+
+    Floored at zero: a negative result reserves nothing (you cannot set aside a
+    negative bonus). This guards the workbook-free future, where no target blanks
+    a nonsensical value — a loss month (e.g. June 2026) must show reserve 0, not a
+    negative number."""
+    return round(max(resultado_liquido, 0.0) * BONUS_RESERVE_RATE, 2)
 
 
 @dataclass

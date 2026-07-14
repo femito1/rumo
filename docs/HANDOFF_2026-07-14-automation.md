@@ -14,20 +14,38 @@
 
 ---
 
-## STATE: ~95% automated. May DRE ties end-to-end. One manual file-pull + re-run away
-## from Nacional/Moedas going live. Everything committed + pushed to `main`,
-## backend **224 tests**, ruff/mypy/tsc clean, prod redeployed.
+## STATE: ~95% automated *in code* for May. May DRE ties end-to-end from the LIVE
+## snapshot; Nacional/Moedas + convênio-extra already live. Everything committed +
+## pushed to `main`, backend **228 tests**, ruff/mypy/tsc clean, prod live.
+
+> **⚠ CORRECTION (independent validation, 2026-07-14 end of day).** Two things in the
+> sections below are now STALE — read this first:
+> 1. **The "one file-pull bottleneck" below is ALREADY RESOLVED.** A re-run after this
+>    doc was written populated `faturas_moeda` (45–59 rows/mo), `convenio_extra_dl`
+>    (DC/RB/EHF) and `bonus_equipe_030` (Feb 7.009,84) across all live snapshots.
+>    Nacional/Moedas tie EXACTLY live (708.659,18 + 11.328,87 = 719.988,05 sacred).
+> 2. **A NEW bottleneck replaced it.** The POINT 17 fix (commit `a0537b4`, 16:55)
+>    repointed the `150.%` bonus block to `FINANCE.LANCAMENTO` + sócio exclusion —
+>    but it landed AFTER the last re-run. So in the live snapshots RIGHT NOW:
+>    `bonus_equipe`(150.*), `dl_excedente_socios`, `dl_excedente_mv` are all **None**.
+>    The code + 17 tests pass, but Feb's 101.705,84 bonus and the sócio split do NOT
+>    render in prod until **another re-run of the corrected `extract.sql`**. "POINT
+>    17 done" is true in code, not yet live.
+>
+> Net: run the recipe below ONE more time (with the current `extract.sql`) and the
+> POINT 17 blocks go live. Everything else validated green.
 
 ---
 
-## ⭐ DO THIS FIRST — the one open bottleneck (5 min on the RDP box)
+## ⭐ DO THIS FIRST — re-run the corrected extract (5 min on the RDP box)
 
 The self-update fix for the daily job (commit 60731b1) lives INSIDE `run-agent.ps1`,
 so it only kicks in after the box pulls the NEW `run-agent.ps1` **one time by hand**.
-As of the last re-run the box still ran the OLD `run-agent.ps1` + OLD `extract.sql`:
-the fresh May snapshot (generated 11:01) has the T5 net blocks but NOT the three new
-blocks (`faturas_moeda`, `bonus_equipe_030`, `convenio_extra_dl`). Fix = pull both
-files once, then re-run.
+The `faturas_moeda`/`bonus_equipe_030`/`convenio_extra_dl` blocks are ALREADY live
+(a prior re-run picked them up), but the **POINT 17 correction to the `150.%` block
+is not** — it needs one more re-run with the current `extract.sql` to populate
+`bonus_equipe`(150.*), `dl_excedente_socios`, `dl_excedente_mv`. Pull both files
+once (idempotent — safe even if already current), then re-run Feb + May.
 
 On `MBC-LDESK01`, a fresh PowerShell window, one line at a time:
 ```powershell
@@ -46,9 +64,12 @@ invoice rows). Then confirm from the dev box:
 cd backend && set -a && source .env && set +a
 curl -s -H "apikey: $SUPABASE_SERVICE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
   "$SUPABASE_URL/rest/v1/sisjuri_snapshots?client_id=eq.mbc&ano_mes=eq.2026-05&select=payload" \
-  | python3 -c "import json,sys; p=json.loads(sys.stdin.read())[0]['payload']; p=json.loads(p) if isinstance(p,str) else p; print('faturas_moeda:', len(p.get('faturas_moeda') or [])); print('bonus_equipe_030:', p.get('bonus_equipe_030')); print('convenio_extra_dl:', len(p.get('convenio_extra_dl') or []))"
+  | python3 -c "import json,sys; p=json.loads(sys.stdin.read())[0]['payload']; p=json.loads(p) if isinstance(p,str) else p; print('faturas_moeda:', len(p.get('faturas_moeda') or [])); print('bonus_equipe(150.*):', p.get('bonus_equipe')); print('bonus_equipe_030:', p.get('bonus_equipe_030')); print('dl_excedente_socios:', p.get('dl_excedente_socios')); print('dl_excedente_mv:', p.get('dl_excedente_mv')); print('convenio_extra_dl:', len(p.get('convenio_extra_dl') or []))"
 ```
-Expect `faturas_moeda` ~53 rows. Then validate Nacional/Moedas tie (script in §Verify).
+Expect `faturas_moeda` ~53 rows (May), and — the POINT 17 acceptance test — **Feb**
+`bonus_equipe`(150.*) = **94696.15** (currently None → proves the re-run picked up the
+corrected block) and `dl_excedente_socios`/`dl_excedente_mv` populated. Then validate
+Nacional/Moedas tie (script in §Verify).
 Optionally re-run `backfill.ps1 -StartMonth 2026-01` so Jan–Abr carry the new blocks too.
 
 After this ONE manual pull, the daily 06:00 task is self-maintaining forever (it

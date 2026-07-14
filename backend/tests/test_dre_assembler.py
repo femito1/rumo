@@ -152,6 +152,14 @@ def test_bonus_reserve_is_ten_percent():
     assert bonus_reserve(100000.0) == pytest.approx(10000.0)
 
 
+def test_bonus_reserve_floors_at_zero_when_result_is_negative():
+    # A negative resultado líquido must NOT produce a negative bonus reserve —
+    # you cannot reserve negative money for bonuses. Guard for the workbook-free
+    # future (e.g. June 2026 had a real loss month with no target to blank it).
+    assert bonus_reserve(-99564.41) == 0.0
+    assert bonus_reserve(0.0) == 0.0
+
+
 def test_institucional_tab_uses_workbook_vocabulary(snapshot):
     sections = assemble_dre_sections(snapshot=snapshot, budget=None, period_label="Fevereiro 2026")
     inst = sections["institucional"]
