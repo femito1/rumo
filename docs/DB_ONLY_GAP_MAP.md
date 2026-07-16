@@ -73,20 +73,23 @@ was wrong: it IS in the DB, exactly as the directive said.
   extracted yet. Conservation (Σ areas == total) is a tautology and proves nothing here.
 - **Action:** land GAP 2 → the xfail flips to pass and the row ties to the centavo.
 
-### GAP 2 — Per-area **Despesas Equipe**. NEEDS ONE PROBE + extract block.
+### GAP 2 — Per-area **Despesas Equipe** (~5.78k/mo). PROBED 4×; DB does NOT cleanly tie.
 - **Today:** only from imported `ledger` or `manual_actuals` (both empty in prod)
   → blank without a workbook.
-- **Derivation (documented in `SISJURI_DB.md`):** `CONTASPAGAR` carries a **`Grupo`**
-  column (ECT/EDE/ESP/ADM) already mapped to área — the same grupo dimension used
-  for `Grupo='S'` auto-rateio accounts. The current `despesas_liquido` block groups
-  by `PCTCNUMEROCONTA` only; it drops the grupo. Add a grupo/área dimension to the
-  net-despesa aggregation.
-- **Probe first (never push an untested extract):** confirm the CONTASPAGAR column
-  name for grupo/área (likely `COD_GRUPO`/`SIGLA` → `CAD_GRUPOJURIDICO`), that área
-  despesas (Despesas Área) are separable from institutional overhead, and that they
-  tie to the workbook per-area Despesas Equipe (YTD dash: Contencioso 11.996,28).
-- **Then:** emit `despesas_equipe_area` (area × net) and read it in
-  `RealizadoInputs.from_snapshot` unconditionally.
+- **Finding (4 probes, 2026-07-14 — see memory `despesas-area-split-gap`):** CONTASPAGAR
+  has NO área column, only a SPARSE `SIGLA` cost-center (ECT=Contencioso/EDE=Econômico/
+  ESP=Arbitragem) on some lines; CPDESDOBRAMENTO slices carry `DESCSETOR` (same codes) +
+  `DESCPROFISSIONAL` (EMPTY on every slice). Combined SIGLA+DESCSETOR rollup for May:
+  ECT 995,03 / EDE 2.204,82 / ESP 1.272,47 vs targets 2.276,22 / 2.300,10 / 1.204,47 —
+  **does NOT tie.** AASP "AM, DC" (217,40) is booked fully ECT in the DB but the workbook
+  splits it ÷2 by professional (AM=Econ, DC=Conten) — a HAND layer the DB doesn't carry
+  (DESCPROFISSIONAL empty). Only Arbitragem = 1 clean account (020.060.0020 Patrocínio).
+- **Untried leads:** (a) competência/accrual basis — test DB_RESULTADO_PROF
+  `DESPESAS_INCORRIDAS_REC` / `DESPESAS_CUSTO_REC` per grupo vs these targets (the workbook
+  may accrue, not pay-month); (b) a Demonstrativo per-prof despesa line that already applies
+  the ÷2. This is the SMALLEST line on the board — weigh RDP round-trips vs value.
+- **Blocks:** GAP 1's May-workbook tie (its xfail). Until GAP 2 lands, per-area Despesa
+  Institucional overshoots by the ΣDespesasÁrea (~5.78k).
 
 ### GAP 3 — `dl_extraordinaria` + `repasse_cacione` (Base_Resultado only). NEEDS PROBE.
 - **Today:** the only two `distribuicao_extras` lines with NO DB emission and no
