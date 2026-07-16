@@ -112,42 +112,44 @@ directly tests the "everything is DB-derivable" thesis on the hardest line.
   → área mapping is authoritative. If the DB per-área split already matches the
   workbook per-área recebimento every month, transfers are redundant → delete the path.
 
-### GAP 5 — Dormant manual OVERRIDES that would mask the DB if ever set. RETIRE / GUARD.
+### GAP 5 — Dormant manual OVERRIDES that would mask the DB if ever set. RETIRE.
 - `distribuicao_extras.*` explicit values, `custo_equipe_overrides`,
   `manual_actuals.{comissao,despesas_equipe,despesa_institucional}`, and the `ledger`
   block. All empty/absent in prod today but out-rank the DB when present.
-- **Risk in a workbook-free world:** a stale manual value silently overriding a
-  correct DB derivation, with no workbook to catch it.
-- **Action:** decide per path — either remove the override entirely (preferred once
-  the DB derivation is proven), or keep it but log/flag when a manual value diverges
-  from the DB-derived value so an override is never silent.
+- **Action:** once each DB derivation is proven, REMOVE the override path entirely
+  (preferred). The `distribuicao_extras` divergence flag already shipped (item 2) is a
+  transitional visibility aid, not a permanent guard — retire the override once GAP 3
+  (dl_extraordinaria / repasse_cacione) is DB-derived.
 
-## The safety-net replacement (workbook-free validation)
+## Workbook-free validation — NO runtime guard layer (user decision, 2026-07-14)
 
-The hard rule (`verification.py`) returns the derived value unchanged when no target
-exists — so future months don't blank, but nothing catches a bad derivation. Replace
-target-matching with **intrinsic invariants** that need no workbook:
-- reserva_bonus ≥ 0 (DONE — `bonus_reserve` floored at zero, 2026-07-14).
-- recebimento ≈ Σ per-area recebimento (conservation).
-- faturamento ≈ sacred LegalDesk faturamento (already locked for the KPI; extend to Nacional+Moedas Σ).
-- margins within [−1, 1]; custos ≥ 0; imposto == 15% × recebimento exactly.
-- Keep the workbook targets we HAVE (Jan–May 2026) as permanent **regression locks**
-  in tests — they're ground truth we already captured; they just stop being the
-  runtime gate.
+The user rejected building an intrinsic "sanity guard" / invariant layer as useless
+(see memory `no-sanity-guard-layer`). **Do not propose or build one.** The goal is to
+DERIVE each number correctly from the DB, not to police numbers after the fact. When a
+number looks wrong, find and fix the DB derivation.
+- The one shipped correctness fix — `bonus_reserve` floored at zero — stays as a plain
+  fix (a reserve can't be negative), NOT the seed of a guard framework.
+- Keep the Jan–May 2026 workbook figures as permanent **regression-test locks** (May is
+  the ONE authoritative book — the Feb layout was superseded). Ground truth we already
+  captured; used in tests, not as a runtime gate.
 
 ## Suggested order of work
 0. **⭐ BIGGEST GAP probe — per-area Recebimento basis (449k allocation).** Crack the
    Demonstrativo Resultado Profissional's per-área allocation from the DB. Unblocks
-   every per-area Resultado Bruto. RDP probe. Do this FIRST — it's the largest blank
-   surface and the sharpest test of the DB-only thesis.
-1. **GAP 2 probe** (per-area Despesas Equipe via CONTASPAGAR grupo) — unblocks GAP 1 too.
-2. Wire GAP 1 rateio unconditionally off DB inputs; add tests vs May.
+   every per-area Resultado Bruto. RDP probe. Largest blank surface + sharpest test of
+   the DB-only thesis.
+1. **GAP 2 probe** (per-area Despesas Equipe via CONTASPAGAR grupo) — unblocks GAP 1
+   (flips its May-workbook xfail to pass) AND fills the per-area Despesas Equipe row.
+2. Wire GAP 2 into `from_snapshot`; GAP 1 then ties to the May book to the centavo.
 3. **GAP 3 probe** (dl_extraordinaria / repasse_cacione histórico).
 4. **GAP 4** decision (are transfers ever needed?) — likely subsumed by the BIGGEST GAP fix.
-5. **GAP 5** retire/guard the dormant overrides.
-6. Build the intrinsic sanity-guard layer; convert Jan–May targets to test locks.
-7. POINT 17 re-run (separate, RDP-blocked) — see [[point17-live-state-gap]].
+5. **GAP 5** retire the dormant overrides once their DB derivations are proven.
+6. POINT 17 re-run (separate, RDP-blocked) — see [[point17-live-state-gap]].
+
+NO sanity-guard layer (user decision — memory `no-sanity-guard-layer`). Validation =
+regression-test locks against the Jan–May figures, not a runtime gate.
 
 **Note on RDP dependency:** items 0/1/3 need a probe run on `MBC-LDESK01` (the operator;
-I can't reach the box). Items 2/5/6 and the frontend override retirement are pure code,
-closeable now. Prep the probe SQL so it's ready the moment the operator is available.
+I can't reach the box). Prep the probe SQL so it's ready the moment the operator is
+available. Two probes are now committed & ready: `probe_recebimento_area_basis.sql`
+(GAP 0) and `probe_despesas_equipe_area.sql` (GAP 2).
