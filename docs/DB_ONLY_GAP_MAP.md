@@ -91,16 +91,19 @@ was wrong: it IS in the DB, exactly as the directive said.
 - **Blocks:** GAP 1's May-workbook tie (its xfail). Until GAP 2 lands, per-area Despesa
   Institucional overshoots by the ΣDespesasÁrea (~5.78k).
 
-### GAP 3 — `dl_extraordinaria` + `repasse_cacione` (Base_Resultado only). NEEDS PROBE.
-- **Today:** the only two `distribuicao_extras` lines with NO DB emission and no
-  writer — always blank. Base_Resultado "Distribuição de Lucros extras" block only;
-  does NOT feed any DRE total.
-- **Derivation hypothesis:** like the other DL lines, these are LANCAMENTO postings
-  on a `030.010.*` / DL account keyed by histórico ("Extraordinária", "Cacione"/
-  "Repasse"). Same pattern already cracked for bonus/excedente.
-- **Probe:** hunt `030.010.*` (and DL-excedente 0010) histórico for "extraordinár"
-  and "cacione"/"repasse"; confirm the account + sign; tie to a month where the
-  workbook shows a value.
+### GAP 3 — `dl_extraordinaria` + `repasse_cacione`. ✅ CLOSED (confirmed no-op, 2026-07-14).
+- **Probed all history 2024-01 → 2026-06** (`probe_dl_extraordinaria_cacione.sql`):
+  - **Extraordinária** occurs exactly ONCE: 2024-05 "Distribuição extraordinária êxito
+    WM referente a fatura 2945" (a one-off success fee, `030.010.0010` + `150.010.0010`
+    per lawyer). NOT present in any 2026 month → correctly blank in the 05.2026 book.
+  - **Cacione** appears NOWHERE (the only `%CACIONE%` hits were false matches on
+    "manifesta**ção**"). No such repasse exists in the data window.
+- **Conclusion:** both lines are correctly always-blank in the current data; nothing to
+  wire. If a future month books an Extraordinária (like the 2024 WM êxito), the histórico
+  pattern is known — add it then. Do NOT invent a value when absent.
+- **Bonus:** the probe's block #C dumped the full `030.010.0010` DL vocabulary and
+  **confirmed POINT 17's split live** — `"DL excedente <SIGLA> - Reserva <month>"` (Jan:
+  DC/RB 46.843,20 + AM 70.790,94 = 164.477,34; Mar: MV 6.627) + `"Bônus JGS"` 7.009,84.
 
 ### GAP 4 — `area_transfers` (Resumo_Recebidas cross-area reclassification). LIKELY DERIVABLE.
 - **Today:** empty in prod (0 rows). A delta overlay on per-area recebimento; never
