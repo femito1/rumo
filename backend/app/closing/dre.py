@@ -17,7 +17,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from app.closing.verification import Targets, verified_value
+from app.closing.verification import MATCH_TOLERANCE, Targets, verified_value
 from app.closing.workbook_layouts import (
     AMORTIZACAO_MENSAL,
     AREAS,
@@ -83,8 +83,13 @@ def _pct(numer: float, denom: float) -> float | None:
 
 
 def bonus_reserve(resultado_liquido: float) -> float:
-    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10)."""
-    return round(resultado_liquido * BONUS_RESERVE_RATE, 2)
+    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10).
+
+    Floored at zero: a negative result reserves nothing (you cannot set aside a
+    negative bonus). This guards the workbook-free future, where no target blanks
+    a nonsensical value — a loss month (e.g. June 2026) must show reserve 0, not a
+    negative number."""
+    return round(max(resultado_liquido, 0.0) * BONUS_RESERVE_RATE, 2)
 
 
 @dataclass
@@ -366,16 +371,35 @@ class RealizadoInputs:
             )
             area_comissao_deriv = derive_area_comissao(comissao_rows, com_splits)
 
-        # Per-area recebimento: SISJURI splits the sacred receipt total by
-        # CASO -> área jurídica. Names vary ("Direito Econômico", "Arbitragem
-        # MV"); fold them onto the workbook's three areas via ``match_area``.
+        # Per-area recebimento. PREFERRED (2026-07-14, proven vs the authoritative
+        # May book to R$1): the DEMONSTRATIVO per-profissional basis —
+        # ``recebimento_area_prof`` = DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO,
+        # i.e. the sacred cash re-attributed to each lawyer by participation % and
+        # rolled to the home grupo. This is what the workbook actually shows (it is
+        # NOT cash-by-case). "Não Alocados"/"Administração" grupos are excluded by
+        # ``match_area`` (the area tabs omit them, exactly like the workbook), so the
+        # three areas intentionally do NOT sum to the sacred total. Falls back to the
+        # legacy cash-by-case ``recebimento_area`` when the prof block is absent.
+        receb_area_prof = snap.get("recebimento_area_prof") or []
         area_receb: dict[str, float] = {}
-        for a in receb_area:
-            for area in AREAS:
-                if match_area(str(a.get("area", "")), area):
-                    area_receb[area] = round(
-                        area_receb.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
-                    )
+        if receb_area_prof:
+            for a in receb_area_prof:
+                for area in AREAS:
+                    if match_area(str(a.get("grupo", "")), area):
+                        area_receb[area] = round(
+                            area_receb.get(area, 0.0)
+                            + float(a.get("total", 0.0) or 0.0),
+                            2,
+                        )
+        else:
+            for a in receb_area:
+                for area in AREAS:
+                    if match_area(str(a.get("area", "")), area):
+                        area_receb[area] = round(
+                            area_receb.get(area, 0.0)
+                            + float(a.get("total", 0.0) or 0.0),
+                            2,
+                        )
 
         # Hand-built ledger (workbook Base_Resultado) overlay, when imported.
         # It supplies per-area Custo equipe / Comissão / Despesas Equipe (which
@@ -424,6 +448,44 @@ class RealizadoInputs:
         # No workbook ledger but SISJURI comissão present: use the derived values.
         if not has_ledger and area_comissao_deriv is not None:
             area_comissao = {a: round(v, 2) for a, v in area_comissao_deriv.items()}
+
+        # Per-area Despesas Equipe (workbook "Despesas Área") from the DB (GAP 2,
+        # DB-only). The extract's ``despesas_equipe_area`` block tags each Grupo='S'
+        # auto-rateio family line by its cost-center (ECT=Contencioso / EDE=Econômico /
+        # ESP=Arbitragem) via SIGLA (direct) or DESCSETOR (unfolded slice). These
+        # amounts already sit inside the institutional despesa total; tagging their
+        # área lets the per-area tabs show Despesas Equipe AND lets the Despesa
+        # Institucional rateio carve them out first. No manual input. Ledger still
+        # wins when imported.
+        if not has_ledger:
+            _cc_area = {"ECT": "Contencioso", "EDE": "Econômico", "ESP": "Arbitragem"}
+            for row in snap.get("despesas_equipe_area") or []:
+                _de_area = _cc_area.get(str(row.get("cc", "")))
+                if _de_area is not None:
+                    area_desp_equipe[_de_area] = round(
+                        area_desp_equipe.get(_de_area, 0.0)
+                        + float(row.get("total", 0.0) or 0.0),
+                        2,
+                    )
+
+        # Workbook-free per-area Despesa Institucional (GAP 1, DB-only). Without a
+        # ledger, apportion the total institutional despesa across areas by each
+        # area's share of total Custo equipe — the same rateio the workbook uses,
+        # now driven purely by DB inputs (`despesas_total` + per-area `custo_equipe`,
+        # both SISJURI-derived). ``area_desp_equipe`` (per-area team expenses) is
+        # subtracted first when present (GAP 2); until that block exists it is empty,
+        # so the rateio splits the whole institutional despesa and CONSERVES (Σ areas
+        # == despesas_total). No-op when a ledger already filled ``area_desp_inst``.
+        if not area_desp_inst and area_custo:
+            _tot_ce = sum(area_custo.values())
+            if _tot_ce:
+                _ratear = round(
+                    despesas_total - sum(area_desp_equipe.values()), 2
+                )
+                area_desp_inst = {
+                    a: round(_ratear * (area_custo.get(a, 0.0) / _tot_ce), 2)
+                    for a in AREAS
+                }
 
         amortizacao = (
             round(float(amortizacao_mensal), 2)
@@ -648,11 +710,15 @@ def _area_rows(
         desp_inst = r.area_despesa_institucional.get(area)
     else:
         # SISJURI-derived Comissão (comissao_deriv) is authoritative and shows even
-        # without a hand-ledger; Despesas Equipe / Despesa Institucional still fall
-        # back to manual entry until a ledger or a derived rule fills them.
+        # without a hand-ledger. Despesa Institucional is DB-derived via the rateio
+        # (GAP 1, filled in RealizadoInputs.from_snapshot) — prefer it over manual
+        # entry. Despesas Equipe still falls back to manual until GAP 2's per-area
+        # block exists.
         comissao = r.area_comissao.get(area) if r.has_comissao_deriv else man.get(COMISSAO)
-        desp_equipe = man.get(DESPESAS_EQUIPE)
-        desp_inst = man.get(DESPESA_INSTITUCIONAL)
+        desp_equipe = r.area_despesas_equipe.get(area) or man.get(DESPESAS_EQUIPE)
+        desp_inst = r.area_despesa_institucional.get(area)
+        if desp_inst is None:
+            desp_inst = man.get(DESPESA_INSTITUCIONAL)
     resultado: float | None = None
     if receb is not None:
         resultado = round(
@@ -891,11 +957,17 @@ def _base_resultado_rows(
     # pass-through. Values come from the snapshot's optional 'distribuicao_extras'
     # map when present; otherwise each line renders blank ('ainda não temos').
     extras = dict((snap or {}).get("distribuicao_extras", {}) or {})
+    # Item 2 (workbook-free guard): remember which lines carry an EXPLICIT manual
+    # override and what the DB would have derived, so an override that diverges from
+    # the DB is flagged (never silent). The override still wins as the displayed
+    # value — finance can correct — but a stale one can no longer quietly mask the DB.
+    _explicit_override = {k for k in extras}
+    _db_value: dict[str, float] = {}
     # POINT 16: "Bônus equipe" = Σ dos bônus individuais dos funcionários, na
-    # conta contábil 150.000.0000 (sócios Ricardo/Aurélio/Daniel/Martim são
-    # EXCLUÍDOS — hoje ainda partilham a conta; o split de sócios é do RUMO,
-    # POINT 17). O extract emite ``bonus_equipe`` no topo do snapshot (Σ de
-    # GERENC_LANCAMENTORESUMO ID_CONTA like '150.%'). Se o financeiro informar um
+    # conta contábil 150.000.0000 (sócios EXCLUÍDOS via CAD_PROFISSIONAL.SOCIO='S'
+    # no extract — POINT 17 automatizado por NÓS, 2026-07-14, NÃO é tarefa do RUMO).
+    # O extract emite ``bonus_equipe`` no topo do snapshot (Σ de FINANCE.LANCAMENTO
+    # PCTCNUMEROCONTADEST like '150.%', excluindo sócios). Se o financeiro informar um
     # ``distribuicao_extras.bonus_equipe`` explícito, este vence. Robusto ao
     # split de sócios chegar depois: sem dado 150.*, a linha fica em branco.
     # ``bonus_equipe`` (Σ 150.%) + ``bonus_equipe_030`` (Bônus lines booked in
@@ -903,13 +975,12 @@ def _base_resultado_rows(
     # "Bônus equipe" = 94.696,15 (150.*) + 7.009,84 (030.010.0010) = 101.705,84.
     # Both are optional; sum whichever the snapshot carries. Explicit
     # ``distribuicao_extras.bonus_equipe`` still wins over the derived total.
-    if extras.get("bonus_equipe") is None:
-        _b150 = (snap or {}).get("bonus_equipe")
-        _b030 = (snap or {}).get("bonus_equipe_030")
-        if _b150 is not None or _b030 is not None:
-            extras["bonus_equipe"] = round(
-                float(_b150 or 0.0) + float(_b030 or 0.0), 2
-            )
+    _b150 = (snap or {}).get("bonus_equipe")
+    _b030 = (snap or {}).get("bonus_equipe_030")
+    if _b150 is not None or _b030 is not None:
+        _db_value["bonus_equipe"] = round(float(_b150 or 0.0) + float(_b030 or 0.0), 2)
+    if extras.get("bonus_equipe") is None and "bonus_equipe" in _db_value:
+        extras["bonus_equipe"] = _db_value["bonus_equipe"]
     # POINT 17 (automated by us, 2026-07-14 — NOT a RUMO chart-of-accounts task):
     # the partners' excess distribution is booked in 030.010.0010 with histórico
     # "DL excedente <SIGLA> - Reserva". The extract splits it by the structural
@@ -920,10 +991,11 @@ def _base_resultado_rows(
     # row 193), Mar MV = 6.627 (row 194). A finance-entered distribuicao_extras
     # value still wins; absent months stay blank ("ainda não temos"), never zero.
     for _pt_key in ("dl_excedente_socios", "dl_excedente_mv"):
-        if extras.get(_pt_key) is None:
-            _v = (snap or {}).get(_pt_key)
-            if _v is not None:
-                extras[_pt_key] = round(float(_v), 2)
+        _v = (snap or {}).get(_pt_key)
+        if _v is not None:
+            _db_value[_pt_key] = round(float(_v), 2)
+        if extras.get(_pt_key) is None and _pt_key in _db_value:
+            extras[_pt_key] = _db_value[_pt_key]
     extra_lines: tuple[tuple[str, str], ...] = (
         ("Bônus equipe", "bonus_equipe"),
         ("DL excedente dos sócios", "dl_excedente_socios"),
@@ -941,8 +1013,16 @@ def _base_resultado_rows(
                     kind="section_total", key="distrib_extras"))
     for label, k in extra_lines:
         val = extras.get(k)
-        rows.append(row(label, float(val) if val is not None else None,
-                        indent=1, key=f"extra::{k}"))
+        r_row = row(label, float(val) if val is not None else None,
+                    indent=1, key=f"extra::{k}")
+        # Flag a manual override that diverges from the DB-derived value (item 2):
+        # the override is still shown, but the DB value it replaced is preserved so
+        # the divergence is visible, never silent.
+        if k in _explicit_override and k in _db_value and val is not None:
+            if abs(float(val) - _db_value[k]) > MATCH_TOLERANCE:
+                r_row["override"] = True
+                r_row["db_value"] = _db_value[k]
+        rows.append(r_row)
 
     return rows
 

@@ -182,6 +182,31 @@ canonical. An agent must NOT ask the user about these again.
 >   Depois: wire do `convenio_extra_dl` no split de DL. jan–abr = layer manual
 >   (esperar cliente / aceitar número do DB). **Só o Orçamento fica fora.**
 > Backend **224 testes**, frontend **52**; ruff/mypy/tsc limpos.
+>
+> **VALIDAÇÃO INDEPENDENTE (2026-07-14, fim de dia) — estado ao vivo corrigido:**
+> Auditoria contra o Supabase ao vivo + testes + prod (não só os docs). O que
+> **confere ao vivo**: gates verdes (backend **228** testes — não 224, agora são
+> *mais* —, ruff/mypy limpos; frontend **52**, lint/tsc limpos); números sagrados
+> travados; **maio fecha ponta a ponta a partir do snapshot REAL** (bruto 100.197,79,
+> líquido 29.691,61, reserva 2.969,16 — dentro da tolerância R$1); **Nacional/Moedas
+> batem EXATO ao vivo** (708.659,18 + 11.328,87 = 719.988,05 sagrado); `faturas_moeda`
+> (45–59 linhas/mês), `convenio_extra_dl` (DC 3.796,78 / RB 5.151,75 / EHF 1.398,01)
+> e `bonus_equipe_030` (fev 7.009,84) **já estão nos snapshots** — o "gargalo do
+> file-pull" do handoff de 16:04 **já foi resolvido** por um re-run posterior.
+> - **⚠ NOVO GARGALO (não sinalizado no handoff):** a correção do PONTO 17 (commit
+>   `a0537b4`, 16:55 — repontou o bloco `150.%` para `FINANCE.LANCAMENTO` + exclusão
+>   de sócio via `CAD_PROFISSIONAL.SOCIO`) entrou **DEPOIS** do último re-run. Logo,
+>   nos snapshots ao vivo hoje: `bonus_equipe`(150.*) = **None** em TODOS os meses,
+>   e `dl_excedente_socios` / `dl_excedente_mv` = **None**. O código + 17 testes
+>   passam, mas **o número não aparece em produção até um NOVO re-run** do
+>   `extract.sql` corrigido. A afirmação "PONTO 17 feito" é verdade *em código*, não
+>   *ao vivo*. O bônus de fev 101.705,84 NÃO é reproduzível do snapshot atual (só a
+>   parte JGS 7.009,84 está lá).
+> - **Correção de rótulo:** "~95% automatizado" descreve a *capacidade do código* para
+>   *maio*, não o estado ao vivo de todos os meses. Falta 1 re-run para o bônus/split
+>   de sócio de fato renderizarem; jan–abr seguem no layer manual do cliente.
+> Backend **228 testes**, frontend **52**; ruff/mypy/tsc limpos; prod no ar
+> (`/api/health` → 200, frontend → 200).
 
 - **No Juritis/TOTVS API exists — and none is planned.** The *only* non-LegalDesk
   data path is the **direct SISJURI Oracle DB** (read-only, via `MBC-LDESK01`).

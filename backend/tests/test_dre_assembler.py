@@ -60,6 +60,40 @@ def test_area_tab_recebimento_from_sisjuri(snapshot):
     assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
 
 
+def test_recebimento_area_prof_is_preferred_and_ties_may_workbook():
+    # 2026-07-14: the workbook's per-area Recebimento is the DEMONSTRATIVO
+    # per-profissional basis (DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO), NOT
+    # cash-by-case. Proven vs the authoritative May book to R$1. The prof block
+    # must take precedence over any legacy cash-by-case recebimento_area, and
+    # "Não Alocados"/"Administração" grupos must be excluded (so the areas do NOT
+    # sum to the sacred total — the workbook omits them too).
+    snap = {
+        "revenue": {"recebimento_bruto": 415927.84, "faturamento_bruto": 719988.05},
+        # Real May grupo rollup from probe_recebimento_area_prof.sql:
+        "recebimento_area_prof": [
+            {"grupo": "Equipe Contencioso", "total": 240444.72, "fat": 336677.36},
+            {"grupo": "Equipe Direito Econômico", "total": 166875.57, "fat": 177649.16},
+            {"grupo": "Arbitragem", "total": 41997.50, "fat": 219430.24},
+            {"grupo": "Equipe Ambiental", "total": -138.15, "fat": 5.97},
+            {"grupo": "Não Alocados", "total": -33251.80, "fat": -13774.67},
+            {"grupo": "Administração", "total": -0.01, "fat": -0.01},
+        ],
+        # A stray legacy cash-by-case block must NOT win over the prof basis.
+        "recebimento_area": [
+            {"area": "Contencioso", "total": 205157.46},
+            {"area": "Direito Econômico", "total": 162472.56},
+            {"area": "Arbitragem MV", "total": 48297.82},
+        ],
+    }
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.area_recebimento["Contencioso"] == pytest.approx(240444.72, abs=1.0)
+    assert r.area_recebimento["Econômico"] == pytest.approx(166875.57, abs=1.0)
+    # Arbitragem folds in Equipe Ambiental: 41997.50 + (-138.15) = 41859.35.
+    assert r.area_recebimento["Arbitragem"] == pytest.approx(41859.35, abs=1.0)
+    # Não Alocados / Administração are excluded → areas do NOT sum to sacred cash.
+    assert sum(r.area_recebimento.values()) == pytest.approx(449179.64, abs=1.0)
+
+
 def test_transfers_overlay_applied_to_area_recebimento(snapshot):
     # Resumo_Recebidas transfers net onto the SISJURI base per area.
     from app.manual.transfers import AreaTransfer
@@ -150,6 +184,14 @@ def test_resultado_bruto_and_liquido(snapshot):
 
 def test_bonus_reserve_is_ten_percent():
     assert bonus_reserve(100000.0) == pytest.approx(10000.0)
+
+
+def test_bonus_reserve_floors_at_zero_when_result_is_negative():
+    # A negative resultado líquido must NOT produce a negative bonus reserve —
+    # you cannot reserve negative money for bonuses. Guard for the workbook-free
+    # future (e.g. June 2026 had a real loss month with no target to blank it).
+    assert bonus_reserve(-99564.41) == 0.0
+    assert bonus_reserve(0.0) == 0.0
 
 
 def test_institucional_tab_uses_workbook_vocabulary(snapshot):
@@ -359,6 +401,97 @@ def test_ledger_derived_despesa_institucional_overrides_manual(snapshot):
     )
     di = _row(sections["contencioso"]["rows"], DESPESA_INSTITUCIONAL)
     assert di["Realizado"]["value"] == pytest.approx(30609.71, abs=0.05)
+
+
+def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may):
+    # Workbook-free path: with no `ledger` block, per-area Despesa Institucional
+    # must still be DB-derived via the rateio rule (institutional overhead
+    # apportioned by each area's share of total Custo equipe), NOT left blank.
+    # NOTE: this checks the derivation runs and is self-consistent; it does NOT
+    # prove the split matches the workbook — that needs GAP 2 (see xfail below).
+    from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
+
+    r = RealizadoInputs.from_snapshot(snapshot_may)
+    assert not r.has_ledger  # the May fixture carries no workbook ledger
+    total_desp = r.despesas
+    tot_ce = sum(r.area_custo_equipe.values())
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot_may, budget=None, period_label="Maio 2026"
+    )
+    got = {}
+    for area, key in (("Contencioso", "contencioso"), ("Econômico", "economico"),
+                      ("Arbitragem", "arbitragem")):
+        di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
+        assert di is not None, f"{area} Despesa Institucional blanked without a ledger"
+        expected = round(total_desp * r.area_custo_equipe[area] / tot_ce, 2)
+        assert di == pytest.approx(expected, abs=0.05)
+        got[area] = di
+    # Conservation is a TAUTOLOGY (shares sum to 1), NOT a correctness check: the
+    # parts summing to the whole only proves no money leaks, not that the split is
+    # right. The real ground-truth check is the xfail below.
+    assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
+
+
+# Real May cost-center rollup of the Grupo='S' Despesas Área families — the AUTHORITATIVE
+# live values from the re-run extract's ``despesas_equipe_area`` block (Σ 5.994,78):
+#   ECT = AASP 217,40 + IBRAC 700,09 = 917,49
+#   EDE = IBRAC 700,10 + Cursos 1.600 + passagens 1.358,72 + pão-de-queijo/reunião WM 146 = 3.804,82
+#   ESP = Patrocínio 1.204,47 + assento 68 = 1.272,47
+MAY_DESPESAS_EQUIPE_AREA = [
+    {"cc": "ECT", "total": 917.49, "n": 2},
+    {"cc": "EDE", "total": 3804.82, "n": 4},
+    {"cc": "ESP", "total": 1272.47, "n": 2},
+]
+
+
+def test_despesas_equipe_area_from_db_cost_center(snapshot_may):
+    # GAP 2 (DB-only): per-area Despesas Equipe is the Grupo='S' family lines tagged
+    # by cost-center (ECT=Contencioso / EDE=Econômico / ESP=Arbitragem), from the
+    # extract's ``despesas_equipe_area`` block. No manual input, no ledger.
+    from app.closing.dre import DESPESAS_EQUIPE, RealizadoInputs
+
+    snap = dict(snapshot_may)
+    snap["despesas_equipe_area"] = MAY_DESPESAS_EQUIPE_AREA
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.area_despesas_equipe["Contencioso"] == pytest.approx(917.49, abs=0.05)
+    assert r.area_despesas_equipe["Econômico"] == pytest.approx(3804.82, abs=0.05)
+    assert r.area_despesas_equipe["Arbitragem"] == pytest.approx(1272.47, abs=0.05)
+
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Maio 2026")
+    de = _row(sections["contencioso"]["rows"], DESPESAS_EQUIPE)["Realizado"]["value"]
+    assert de == pytest.approx(917.49, abs=0.05)
+
+
+def test_area_despesa_institucional_carves_out_despesas_equipe(snapshot_may):
+    # With per-area Despesas Equipe present (GAP 2), the Despesa Institucional rateio
+    # apportions only the REMAINDER (despesas_total − ΣDespesasÁrea), and the whole
+    # institutional despesa is still conserved: ΣDespesasEquipe + ΣDespesaInstitucional
+    # == despesas_total. (The centavo-tie to the May book — 35.555 / 38.095 / 26.081 —
+    # is validated against the LIVE snapshot, whose despesas total is 105.640,60; this
+    # fixture predates the líquido re-run so its total differs, hence structural checks
+    # here rather than the book's exact numbers.) The workbook's own ΣDespesasÁrea
+    # (5.780,79) differs from the DB's self-consistent 5.848,78 due to a spreadsheet
+    # quirk (a mis-referenced Viagens row + a dropped R$68 line); DB is authoritative.
+    from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
+
+    snap = dict(snapshot_may)
+    snap["despesas_equipe_area"] = MAY_DESPESAS_EQUIPE_AREA
+    r = RealizadoInputs.from_snapshot(snap)
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Maio 2026")
+
+    di_sum = 0.0
+    tot_ce = sum(r.area_custo_equipe.values())
+    ratear = r.despesas - sum(r.area_despesas_equipe.values())
+    for area, key in (("Contencioso", "contencioso"), ("Econômico", "economico"),
+                      ("Arbitragem", "arbitragem")):
+        di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
+        assert di is not None
+        # rateio is of the REMAINDER, by CE share
+        assert di == pytest.approx(ratear * r.area_custo_equipe[area] / tot_ce, abs=0.05)
+        di_sum += di
+    # Conservation across the full institutional despesa.
+    assert di_sum + sum(r.area_despesas_equipe.values()) == pytest.approx(r.despesas, abs=0.05)
 
 
 def test_derived_block_drives_area_custo_equipe(snapshot):
@@ -627,6 +760,42 @@ def test_bonus_equipe_explicit_extras_wins_over_top_level():
     tab = assemble_base_resultado(snap, "Fev 2026")
     bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
     assert bonus["Valor"]["value"] == pytest.approx(50000.0, abs=0.05)
+
+
+def test_manual_override_diverging_from_db_is_flagged_not_silent():
+    # Workbook-free guard (item 2): an explicit distribuicao_extras override still
+    # WINS (finance can correct), but when it diverges from the DB-derived value it
+    # must NOT be silent — the row carries an ``override`` marker with the DB value
+    # it replaced, so a stale manual number can never quietly mask the DB.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "bonus_equipe": 94696.15,       # DB-derived (150.*)
+        "bonus_equipe_030": 7009.84,    # DB-derived (030.010.0010) -> DB total 101705.99
+        "distribuicao_extras": {"bonus_equipe": 50000.0},  # stale/diverging override
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    # The override still wins as the displayed value.
+    assert bonus["Valor"]["value"] == pytest.approx(50000.0, abs=0.05)
+    # ...but it is flagged, and the DB value it diverged from is preserved.
+    assert bonus["override"] is True
+    assert bonus["db_value"] == pytest.approx(101705.99, abs=0.05)
+
+
+def test_manual_override_matching_db_is_not_flagged():
+    # When the override equals the DB value (no real divergence) there is nothing to
+    # warn about — no override flag.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "bonus_equipe": 42000.0,
+        "distribuicao_extras": {"bonus_equipe": 42000.0},
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(42000.0, abs=0.05)
+    assert bonus.get("override") is not True
 
 
 def test_bonus_equipe_blank_when_account_150_absent():

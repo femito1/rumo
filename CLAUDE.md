@@ -8,12 +8,13 @@
 
 ## Start here
 
-0. **Active work order: `docs/HANDOFF_2026-07-14-automation.md`** — current state
-   (~95% automated; May DRE ties end-to-end, daily job self-updates, Nacional/Moedas
-   automated), the one bottleneck (a one-time manual pull of `run-agent.ps1` +
-   `extract.sql` to the RDP box, then a re-run, to populate `faturas_moeda` /
-   `bonus_equipe_030` / `convenio_extra_dl`), and the remaining items with their known
-   paths. Read it first. (Prior: `docs/HANDOFF_2026-07-13-despesas.md`.)
+0. **Active work order: `docs/HANDOFF_2026-07-16-per-area.md`** — per-área DRE now
+   DB-derived (Recebimento via DB_RESULTADO_PROF, Despesas Equipe by cost-center, Despesa
+   Institucional rateio), POINT 17 confirmed live, GAP 3 closed. #1 open item: **merge
+   branch `fix/workbook-free-guards` → main + redeploy** (extract blocks are on main so
+   prod snapshots carry the data, but the `dre.py` that reads them is branch-only, so prod
+   doesn't render it yet). Also awaiting Renata on the Despesas Área split. Read it first.
+   (Prior: `docs/HANDOFF_2026-07-14-automation.md`, `docs/HANDOFF_2026-07-13-despesas.md`.)
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number
