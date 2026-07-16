@@ -433,12 +433,14 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
     assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
 
 
-# Real May cost-center rollup of the Grupo='S' Despesas Área families (from
-# probe_despesas_area_key: AASP 217,40 + IBRAC 700,09 = ECT; IBRAC 700,10 + Cursos
-# 1.600 + passagens 1.358,72 = EDE; Patrocínio 1.204,47 + assento 68 = ESP).
+# Real May cost-center rollup of the Grupo='S' Despesas Área families — the AUTHORITATIVE
+# live values from the re-run extract's ``despesas_equipe_area`` block (Σ 5.994,78):
+#   ECT = AASP 217,40 + IBRAC 700,09 = 917,49
+#   EDE = IBRAC 700,10 + Cursos 1.600 + passagens 1.358,72 + pão-de-queijo/reunião WM 146 = 3.804,82
+#   ESP = Patrocínio 1.204,47 + assento 68 = 1.272,47
 MAY_DESPESAS_EQUIPE_AREA = [
     {"cc": "ECT", "total": 917.49, "n": 2},
-    {"cc": "EDE", "total": 3658.82, "n": 3},
+    {"cc": "EDE", "total": 3804.82, "n": 4},
     {"cc": "ESP", "total": 1272.47, "n": 2},
 ]
 
@@ -453,7 +455,7 @@ def test_despesas_equipe_area_from_db_cost_center(snapshot_may):
     snap["despesas_equipe_area"] = MAY_DESPESAS_EQUIPE_AREA
     r = RealizadoInputs.from_snapshot(snap)
     assert r.area_despesas_equipe["Contencioso"] == pytest.approx(917.49, abs=0.05)
-    assert r.area_despesas_equipe["Econômico"] == pytest.approx(3658.82, abs=0.05)
+    assert r.area_despesas_equipe["Econômico"] == pytest.approx(3804.82, abs=0.05)
     assert r.area_despesas_equipe["Arbitragem"] == pytest.approx(1272.47, abs=0.05)
 
     sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Maio 2026")
