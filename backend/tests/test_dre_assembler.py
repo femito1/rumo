@@ -373,8 +373,8 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
     # Workbook-free path: with no `ledger` block, per-area Despesa Institucional
     # must still be DB-derived via the rateio rule (institutional overhead
     # apportioned by each area's share of total Custo equipe), NOT left blank.
-    # It must CONSERVE: the three areas sum back to the total institutional
-    # despesa (since per-area Despesas Equipe is 0 and Σ CE-shares = 1).
+    # NOTE: this checks the derivation runs and is self-consistent; it does NOT
+    # prove the split matches the workbook — that needs GAP 2 (see xfail below).
     from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
 
     r = RealizadoInputs.from_snapshot(snapshot_may)
@@ -393,8 +393,38 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
         expected = round(total_desp * r.area_custo_equipe[area] / tot_ce, 2)
         assert di == pytest.approx(expected, abs=0.05)
         got[area] = di
-    # Conservation: the rateio splits the whole institutional despesa, no more/less.
+    # Conservation is a TAUTOLOGY (shares sum to 1), NOT a correctness check: the
+    # parts summing to the whole only proves no money leaks, not that the split is
+    # right. The real ground-truth check is the xfail below.
     assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
+
+
+# May 2026 is the ONE authoritative workbook (the Feb layout was superseded by the
+# May style — PROJECT_STATUS §0). These are the true per-area Despesa Institucional
+# figures parsed from Fechamento MBC 05.2026.xlsx (Base_Resultado_V2, rateio rule).
+MAY_WORKBOOK_DESP_INST = {
+    "contencioso": 35555.40,
+    "economico": 38094.70,
+    "arbitragem": 26080.54,
+}
+
+
+@pytest.mark.xfail(
+    reason="GAP 2: per-area Despesas Equipe not yet extracted from the DB. The "
+    "workbook subtracts ΣDespesasÁrea (~5.78k for May) from the pool BEFORE rateio; "
+    "until that block exists our rateio splits the full despesa and overshoots each "
+    "area by ~1.5-2.3k. Starts passing once GAP 2 lands.",
+    strict=True,
+)
+def test_area_despesa_institucional_ties_may_workbook(snapshot_may):
+    from app.closing.dre import DESPESA_INSTITUCIONAL
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot_may, budget=None, period_label="Maio 2026"
+    )
+    for key, expected in MAY_WORKBOOK_DESP_INST.items():
+        di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
+        assert di == pytest.approx(expected, abs=1.0)
 
 
 def test_derived_block_drives_area_custo_equipe(snapshot):

@@ -63,17 +63,18 @@ directly tests the "everything is DB-derivable" thesis on the hardest line.
 
 ## The real gaps (not yet DB-derived) — ranked by closeability
 
-### GAP 1 — Per-area **Despesa Institucional** (rateio). CLOSEABLE NOW, no RDP.
-- **Today:** populated only inside `if has_ledger` (`dre.py:421`); empty `{}` without
-  a workbook ledger → the per-area tabs' "Despesa Institucional" row blanks in the future.
-- **Derivation (all inputs already in the snapshot except GAP 2):**
+### GAP 1 — Per-area **Despesa Institucional** (rateio). STRUCTURE DONE, ties pending GAP 2.
+- **Done (commit on `fix/workbook-free-guards`):** the rateio now runs off DB inputs
+  unconditionally (no longer gated on `has_ledger`); the per-area row renders instead
+  of blanking. `dre.py::from_snapshot` fills `area_desp_inst` via
   `desp_inst[area] = (despesas_total − Σ despesas_equipe_area) × (CE[area] / Σ CE)`.
-  `despesas_total` and per-area `CE` are already DB-derived. The ONLY missing input
-  is per-area Despesas Equipe (GAP 2). The rateio formula already exists
-  (`ledger_import.py::despesa_institucional_rateio`) — just needs to run off DB
-  inputs instead of the ledger.
-- **Action:** once GAP 2 lands, compute this rateio unconditionally (not gated on
-  `has_ledger`). If GAP 2's ΣDespesasÁrea is 0, the rateio is simply `despesas × CE-share`.
+- **⚠ Does NOT yet tie to the workbook.** Validated against the ONE authoritative book
+  (May 2026, `test_area_despesa_institucional_ties_may_workbook`, currently **xfail**):
+  ours overshoots each area by ~1.5–2.3k (Contencioso 37.662 vs wb 35.555 etc.).
+  Root cause: the workbook subtracts per-area **Despesas Equipe** (~5.78k for May)
+  from the pool BEFORE rateio; our `Σ despesas_equipe_area` is 0 because GAP 2 isn't
+  extracted yet. Conservation (Σ areas == total) is a tautology and proves nothing here.
+- **Action:** land GAP 2 → the xfail flips to pass and the row ties to the centavo.
 
 ### GAP 2 — Per-area **Despesas Equipe**. NEEDS ONE PROBE + extract block.
 - **Today:** only from imported `ledger` or `manual_actuals` (both empty in prod)
