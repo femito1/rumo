@@ -449,6 +449,25 @@ class RealizadoInputs:
         if not has_ledger and area_comissao_deriv is not None:
             area_comissao = {a: round(v, 2) for a, v in area_comissao_deriv.items()}
 
+        # Per-area Despesas Equipe (workbook "Despesas Área") from the DB (GAP 2,
+        # DB-only). The extract's ``despesas_equipe_area`` block tags each Grupo='S'
+        # auto-rateio family line by its cost-center (ECT=Contencioso / EDE=Econômico /
+        # ESP=Arbitragem) via SIGLA (direct) or DESCSETOR (unfolded slice). These
+        # amounts already sit inside the institutional despesa total; tagging their
+        # área lets the per-area tabs show Despesas Equipe AND lets the Despesa
+        # Institucional rateio carve them out first. No manual input. Ledger still
+        # wins when imported.
+        if not has_ledger:
+            _cc_area = {"ECT": "Contencioso", "EDE": "Econômico", "ESP": "Arbitragem"}
+            for row in snap.get("despesas_equipe_area") or []:
+                _de_area = _cc_area.get(str(row.get("cc", "")))
+                if _de_area is not None:
+                    area_desp_equipe[_de_area] = round(
+                        area_desp_equipe.get(_de_area, 0.0)
+                        + float(row.get("total", 0.0) or 0.0),
+                        2,
+                    )
+
         # Workbook-free per-area Despesa Institucional (GAP 1, DB-only). Without a
         # ledger, apportion the total institutional despesa across areas by each
         # area's share of total Custo equipe — the same rateio the workbook uses,

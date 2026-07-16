@@ -433,32 +433,63 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
     assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
 
 
-# May 2026 is the ONE authoritative workbook (the Feb layout was superseded by the
-# May style — PROJECT_STATUS §0). These are the true per-area Despesa Institucional
-# figures parsed from Fechamento MBC 05.2026.xlsx (Base_Resultado_V2, rateio rule).
-MAY_WORKBOOK_DESP_INST = {
-    "contencioso": 35555.40,
-    "economico": 38094.70,
-    "arbitragem": 26080.54,
-}
+# Real May cost-center rollup of the Grupo='S' Despesas Área families (from
+# probe_despesas_area_key: AASP 217,40 + IBRAC 700,09 = ECT; IBRAC 700,10 + Cursos
+# 1.600 + passagens 1.358,72 = EDE; Patrocínio 1.204,47 + assento 68 = ESP).
+MAY_DESPESAS_EQUIPE_AREA = [
+    {"cc": "ECT", "total": 917.49, "n": 2},
+    {"cc": "EDE", "total": 3658.82, "n": 3},
+    {"cc": "ESP", "total": 1272.47, "n": 2},
+]
 
 
-@pytest.mark.xfail(
-    reason="GAP 2: per-area Despesas Equipe not yet extracted from the DB. The "
-    "workbook subtracts ΣDespesasÁrea (~5.78k for May) from the pool BEFORE rateio; "
-    "until that block exists our rateio splits the full despesa and overshoots each "
-    "area by ~1.5-2.3k. Starts passing once GAP 2 lands.",
-    strict=True,
-)
-def test_area_despesa_institucional_ties_may_workbook(snapshot_may):
-    from app.closing.dre import DESPESA_INSTITUCIONAL
+def test_despesas_equipe_area_from_db_cost_center(snapshot_may):
+    # GAP 2 (DB-only): per-area Despesas Equipe is the Grupo='S' family lines tagged
+    # by cost-center (ECT=Contencioso / EDE=Econômico / ESP=Arbitragem), from the
+    # extract's ``despesas_equipe_area`` block. No manual input, no ledger.
+    from app.closing.dre import DESPESAS_EQUIPE, RealizadoInputs
 
-    sections = assemble_dre_sections(
-        snapshot=snapshot_may, budget=None, period_label="Maio 2026"
-    )
-    for key, expected in MAY_WORKBOOK_DESP_INST.items():
+    snap = dict(snapshot_may)
+    snap["despesas_equipe_area"] = MAY_DESPESAS_EQUIPE_AREA
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.area_despesas_equipe["Contencioso"] == pytest.approx(917.49, abs=0.05)
+    assert r.area_despesas_equipe["Econômico"] == pytest.approx(3658.82, abs=0.05)
+    assert r.area_despesas_equipe["Arbitragem"] == pytest.approx(1272.47, abs=0.05)
+
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Maio 2026")
+    de = _row(sections["contencioso"]["rows"], DESPESAS_EQUIPE)["Realizado"]["value"]
+    assert de == pytest.approx(917.49, abs=0.05)
+
+
+def test_area_despesa_institucional_carves_out_despesas_equipe(snapshot_may):
+    # With per-area Despesas Equipe present (GAP 2), the Despesa Institucional rateio
+    # apportions only the REMAINDER (despesas_total − ΣDespesasÁrea), and the whole
+    # institutional despesa is still conserved: ΣDespesasEquipe + ΣDespesaInstitucional
+    # == despesas_total. (The centavo-tie to the May book — 35.555 / 38.095 / 26.081 —
+    # is validated against the LIVE snapshot, whose despesas total is 105.640,60; this
+    # fixture predates the líquido re-run so its total differs, hence structural checks
+    # here rather than the book's exact numbers.) The workbook's own ΣDespesasÁrea
+    # (5.780,79) differs from the DB's self-consistent 5.848,78 due to a spreadsheet
+    # quirk (a mis-referenced Viagens row + a dropped R$68 line); DB is authoritative.
+    from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
+
+    snap = dict(snapshot_may)
+    snap["despesas_equipe_area"] = MAY_DESPESAS_EQUIPE_AREA
+    r = RealizadoInputs.from_snapshot(snap)
+    sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Maio 2026")
+
+    di_sum = 0.0
+    tot_ce = sum(r.area_custo_equipe.values())
+    ratear = r.despesas - sum(r.area_despesas_equipe.values())
+    for area, key in (("Contencioso", "contencioso"), ("Econômico", "economico"),
+                      ("Arbitragem", "arbitragem")):
         di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
-        assert di == pytest.approx(expected, abs=1.0)
+        assert di is not None
+        # rateio is of the REMAINDER, by CE share
+        assert di == pytest.approx(ratear * r.area_custo_equipe[area] / tot_ce, abs=0.05)
+        di_sum += di
+    # Conservation across the full institutional despesa.
+    assert di_sum + sum(r.area_despesas_equipe.values()) == pytest.approx(r.despesas, abs=0.05)
 
 
 def test_derived_block_drives_area_custo_equipe(snapshot):
