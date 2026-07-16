@@ -28,38 +28,35 @@ per area (`custo_equipe_deriv` + `rateio_grupo` + `home_area`), Comissão per ar
 (`bonus_equipe` 150.*, `bonus_equipe_030`, `dl_excedente_socios`, `dl_excedente_mv`)
 — the last four pending the POINT 17 re-run (see [[point17-live-state-gap]]).
 
-## ⭐ BIGGEST GAP (found 2026-07-14) — per-area **Recebimento** basis. The area tabs are mostly BLANK even for May.
+## ✅ BIGGEST GAP — SOLVED (2026-07-14) — per-area **Recebimento** = DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO
 
-Validated live: with the hard-rule targets applied, the Contencioso/Econômico/Arbitragem
-tabs render only Custo equipe + Comissão. **Recebimento, Despesas Equipe, Despesa
-Institucional and Resultado Bruto all BLANK** — because the DB per-area recebimento
-base does not match the workbook per-area target:
+The area tabs were mostly blank even for May because the cash-by-case per-área base
+(205.157 / 162.473 / 48.298, Σ = sacred 415.928) did not match the workbook per-área
+target (240.445 / 166.876 / 41.860, Σ 449.181). **Probes cracked it:** the workbook uses
+the **Demonstrativo per-profissional basis** — `LDESK.DB_RESULTADO_PROF.RECEITA_REC`
+summed by `NOMEGRUPO` (the sacred cash re-attributed to each lawyer by participation %,
+rolled to the home grupo). Ties the authoritative May book to R$1:
 
-| area | DB base (case→área) | workbook target | gap |
+| grupo | RECEITA_REC | workbook | Δ |
 |---|---|---|---|
-| Contencioso | 205.157,46 | 240.445,00 | **+35.287,54** |
-| Econômico | 162.472,56 | 166.876,00 | +4.403,44 |
-| Arbitragem | 48.297,82 | 41.860,00 | −6.437,82 |
-| **TOTAL** | **415.927,84** (= sacred) | **449.181,00** | **+33.253** |
+| Equipe Contencioso | 240.444,72 | 240.445 | 0,28 |
+| Equipe Direito Econômico | 166.875,57 | 166.876 | 0,43 |
+| Arbitragem + Equipe Ambiental | 41.997,50 − 138,15 = 41.859,35 | 41.860 | 0,65 |
 
-The DB base ties to the sacred total (415.927,84); the workbook per-area sums to
-**449.181** — 33k MORE than the cash actually received. So the workbook's per-area
-Recebimento is a **different allocation** than "cash received per case's área." The
-old note "the difference is Resumo_Recebidas manual transfers (no DB rule)" is (a)
-too big to be minor reclassifications here, and (b) contrary to the directive —
-**it IS in the DB.** The `Resumo_Recebidas` tab is gone from 05.2026; the client now
-allocates per-area via the **Demonstrativo Resultado Profissional** (a LegalDesk
-report generated FROM the DB — so its allocation logic is reproducible).
+Grand total over ALL grupos (incl. "Não Alocados" −33.251,80, "Administração") =
+**415.927,84 = sacred cash** — confirming RECEITA_REC is the cash, re-split by prof.
 
-**Derivation to find (needs a probe on the RDP box):** reproduce the Demonstrativo's
-per-área allocation. Candidates to test against the workbook per-área targets:
-- per-área **faturamento** share applied to total recebimento (excluding "Não Alocados");
-- a `Demonstrativo`/`VW_RESULTADO*` LegalDesk view that already emits per-área receita
-  with the same 449k basis (the extra 33k vs cash suggests it's a competence/accrual
-  or faturado-basis allocation, not cash);
-- `CAD_CASO.ID_SUBAREAJURIDICA` sub-splits.
-This gap **blocks every per-area Resultado Bruto** — highest priority to crack, and it
-directly tests the "everything is DB-derivable" thesis on the hardest line.
+**Shipped (branch `fix/workbook-free-guards`):** extract block `recebimento_area_prof`
+(the validated query) + `dre.py` prefers it over the legacy cash-by-case
+`recebimento_area`, folding "Equipe Ambiental"→Arbitragem and excluding "Não Alocados"/
+"Administração" (so the three areas do NOT sum to sacred — the workbook omits them too).
+Test `test_recebimento_area_prof_is_preferred_and_ties_may_workbook`. **Not live until a
+re-run** populates the block (live falls back to cash-by-case, no regression). This also
+subsumes GAP 4 (area_transfers): the "Resumo_Recebidas" reclassification WAS the
+prof-participation re-split, now DB-derived.
+
+The old cash-by-case note ("difference = Resumo_Recebidas manual transfers, no DB rule")
+was wrong: it IS in the DB, exactly as the directive said.
 
 ## The real gaps (not yet DB-derived) — ranked by closeability
 

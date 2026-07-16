@@ -371,16 +371,35 @@ class RealizadoInputs:
             )
             area_comissao_deriv = derive_area_comissao(comissao_rows, com_splits)
 
-        # Per-area recebimento: SISJURI splits the sacred receipt total by
-        # CASO -> área jurídica. Names vary ("Direito Econômico", "Arbitragem
-        # MV"); fold them onto the workbook's three areas via ``match_area``.
+        # Per-area recebimento. PREFERRED (2026-07-14, proven vs the authoritative
+        # May book to R$1): the DEMONSTRATIVO per-profissional basis —
+        # ``recebimento_area_prof`` = DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO,
+        # i.e. the sacred cash re-attributed to each lawyer by participation % and
+        # rolled to the home grupo. This is what the workbook actually shows (it is
+        # NOT cash-by-case). "Não Alocados"/"Administração" grupos are excluded by
+        # ``match_area`` (the area tabs omit them, exactly like the workbook), so the
+        # three areas intentionally do NOT sum to the sacred total. Falls back to the
+        # legacy cash-by-case ``recebimento_area`` when the prof block is absent.
+        receb_area_prof = snap.get("recebimento_area_prof") or []
         area_receb: dict[str, float] = {}
-        for a in receb_area:
-            for area in AREAS:
-                if match_area(str(a.get("area", "")), area):
-                    area_receb[area] = round(
-                        area_receb.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
-                    )
+        if receb_area_prof:
+            for a in receb_area_prof:
+                for area in AREAS:
+                    if match_area(str(a.get("grupo", "")), area):
+                        area_receb[area] = round(
+                            area_receb.get(area, 0.0)
+                            + float(a.get("total", 0.0) or 0.0),
+                            2,
+                        )
+        else:
+            for a in receb_area:
+                for area in AREAS:
+                    if match_area(str(a.get("area", "")), area):
+                        area_receb[area] = round(
+                            area_receb.get(area, 0.0)
+                            + float(a.get("total", 0.0) or 0.0),
+                            2,
+                        )
 
         # Hand-built ledger (workbook Base_Resultado) overlay, when imported.
         # It supplies per-area Custo equipe / Comissão / Despesas Equipe (which

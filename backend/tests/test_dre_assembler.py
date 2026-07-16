@@ -60,6 +60,40 @@ def test_area_tab_recebimento_from_sisjuri(snapshot):
     assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
 
 
+def test_recebimento_area_prof_is_preferred_and_ties_may_workbook():
+    # 2026-07-14: the workbook's per-area Recebimento is the DEMONSTRATIVO
+    # per-profissional basis (DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO), NOT
+    # cash-by-case. Proven vs the authoritative May book to R$1. The prof block
+    # must take precedence over any legacy cash-by-case recebimento_area, and
+    # "Não Alocados"/"Administração" grupos must be excluded (so the areas do NOT
+    # sum to the sacred total — the workbook omits them too).
+    snap = {
+        "revenue": {"recebimento_bruto": 415927.84, "faturamento_bruto": 719988.05},
+        # Real May grupo rollup from probe_recebimento_area_prof.sql:
+        "recebimento_area_prof": [
+            {"grupo": "Equipe Contencioso", "total": 240444.72, "fat": 336677.36},
+            {"grupo": "Equipe Direito Econômico", "total": 166875.57, "fat": 177649.16},
+            {"grupo": "Arbitragem", "total": 41997.50, "fat": 219430.24},
+            {"grupo": "Equipe Ambiental", "total": -138.15, "fat": 5.97},
+            {"grupo": "Não Alocados", "total": -33251.80, "fat": -13774.67},
+            {"grupo": "Administração", "total": -0.01, "fat": -0.01},
+        ],
+        # A stray legacy cash-by-case block must NOT win over the prof basis.
+        "recebimento_area": [
+            {"area": "Contencioso", "total": 205157.46},
+            {"area": "Direito Econômico", "total": 162472.56},
+            {"area": "Arbitragem MV", "total": 48297.82},
+        ],
+    }
+    r = RealizadoInputs.from_snapshot(snap)
+    assert r.area_recebimento["Contencioso"] == pytest.approx(240444.72, abs=1.0)
+    assert r.area_recebimento["Econômico"] == pytest.approx(166875.57, abs=1.0)
+    # Arbitragem folds in Equipe Ambiental: 41997.50 + (-138.15) = 41859.35.
+    assert r.area_recebimento["Arbitragem"] == pytest.approx(41859.35, abs=1.0)
+    # Não Alocados / Administração are excluded → areas do NOT sum to sacred cash.
+    assert sum(r.area_recebimento.values()) == pytest.approx(449179.64, abs=1.0)
+
+
 def test_transfers_overlay_applied_to_area_recebimento(snapshot):
     # Resumo_Recebidas transfers net onto the SISJURI base per area.
     from app.manual.transfers import AreaTransfer

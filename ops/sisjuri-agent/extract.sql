@@ -6,7 +6,7 @@
 -- JSON_OBJECT BELOW — the previous header omitted the derived blocks):
 --   meta, revenue, faturas, rateio_prof, despesas_conta, despesas_liquido,
 --   despesas_desdobramento, custo_area,
---   recebimento_area, faturamento_area, faturas_analitico, prolabore,
+--   recebimento_area, recebimento_area_prof, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
 --   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe,
 --   bonus_equipe_030, convenio_extra_dl, faturas_moeda,
@@ -161,6 +161,28 @@ BEGIN
              LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
             WHERE r.ANO_MES = '&ANO_MES'
             GROUP BY a.NOME)
+  ),
+  -- Per-area RECEBIMENTO on the DEMONSTRATIVO (per-profissional) basis — the
+  -- workbook's ACTUAL per-area Recebimento (2026-07-14 probe_recebimento_area_prof).
+  -- ⚠ This, NOT recebimento_area (cash-by-case), is what the workbook shows. It is
+  -- the same sacred cash re-attributed to each lawyer by participation %, rolled to
+  -- the lawyer's home grupo (NOMEGRUPO). Proven vs the authoritative May book to R$1:
+  -- Equipe Contencioso 240.444,72 / Equipe Direito Econômico 166.875,57 / Arbitragem
+  -- 41.997,50 + Equipe Ambiental −138,15 = 41.859,35. Grand total over ALL grupos
+  -- (incl. "Não Alocados"/"Administração", which the area tabs EXCLUDE) = 415.927,84
+  -- = sacred cash. Source: LDESK.DB_RESULTADO_PROF.RECEITA_REC by NOMEGRUPO.
+  'recebimento_area_prof' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'grupo' VALUE grupo,
+        'total' VALUE total,
+        'fat'   VALUE fat
+     ) RETURNING CLOB)
+     FROM (SELECT NVL(NOMEGRUPO,'(sem grupo)') grupo,
+                  ROUND(SUM(RECEITA_REC),2) total,
+                  ROUND(SUM(RECEITA_FAT),2) fat
+             FROM LDESK.DB_RESULTADO_PROF
+            WHERE ANO_MES = '&ANO_MES'
+            GROUP BY NOMEGRUPO)
   ),
   -- Per-area FATURAMENTO (invoices issued), the 'FATURAS Analitico' rollup.
   -- Same CASO -> área jurídica split as recebimento_area, but on the faturamento
