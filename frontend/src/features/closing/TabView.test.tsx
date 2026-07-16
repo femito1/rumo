@@ -47,6 +47,44 @@ describe("TabView", () => {
     expect(screen.getByText(MISSING_LABEL)).toBeInTheDocument();
   });
 
+  it("renders a total row's empty text cells as blank, not the missing placeholder", () => {
+    const { container } = render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Moedas",
+          columns: ["Fatura", "Cliente", "Caso", "Moeda", "Honorários (R$)"],
+          rows: [
+            {
+              Fatura: 4160,
+              Cliente: "87",
+              Caso: "2",
+              Moeda: "US$",
+              "Honorários (R$)": { value: 5083.65, source: "realizado" },
+              kind: "amount",
+            },
+            {
+              Fatura: "",
+              Cliente: "",
+              Caso: "Total",
+              Moeda: "",
+              "Honorários (R$)": { value: 11328.87, source: "realizado" },
+              kind: "total",
+              is_total: true,
+            },
+          ],
+        }}
+      />,
+    );
+    // The Total row's structurally-empty cells (Fatura/Cliente/Moeda) must be
+    // blank, never the "ainda não temos" placeholder.
+    const totalRow = container.querySelector("tr.row-total") as HTMLElement;
+    expect(totalRow).not.toBeNull();
+    expect(within(totalRow).queryByText(MISSING_LABEL)).toBeNull();
+    expect(within(totalRow).getByText("Total")).toBeInTheDocument();
+    expect(within(totalRow).getByText("11.328,87")).toBeInTheDocument();
+  });
+
   it("renders a grid tab with a sticky header row in a thead", () => {
     const { container } = render(
       <TabView

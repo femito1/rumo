@@ -4,7 +4,7 @@
 One row per ``(client_id, ano_mes)`` in ``sisjuri_snapshots`` with the full
 extraction payload in a ``jsonb`` column. Durable + backed up + multi-tenant,
 replacing the earlier per-VPS filesystem store. Mirrors the repository pattern
-used by budgets / manual_actuals.
+used by budgets.
 """
 from __future__ import annotations
 

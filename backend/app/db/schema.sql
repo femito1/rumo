@@ -36,22 +36,9 @@ create table if not exists budgets (
   primary key (client_id, ano, area, line_key)
 );
 
--- Manually-entered Realizado inputs that SISJURI cannot derive. Per-area
--- Recebimento is NO LONGER here — it is now derived from SISJURI (receipt view
--- split by CASO -> área jurídica, verified to the centavo vs the workbook).
--- What remains manual: per-area Comissão, Despesas Equipe, Despesa
--- Institucional. Grain is per competence month; `line_key` matches
--- app/closing/dre. A manual per-area Recebimento row still overrides the derived
--- value if one is entered (later-overrides-earlier).
-create table if not exists manual_actuals (
-  client_id text not null references clients(id),
-  ano_mes text not null,
-  area text not null,
-  line_key text not null,
-  valor numeric not null default 0,
-  updated_at timestamptz not null default now(),
-  primary key (client_id, ano_mes, area, line_key)
-);
+-- (Removed: the `manual_actuals` table. Per-area Recebimento, Comissão, Despesas
+-- Equipe and Despesa Institucional are now ALL SISJURI-derived — there is no
+-- manual per-area entry. Any existing prod table is simply left unused.)
 
 -- Cross-area recebimento reclassifications ('Resumo_Recebidas' overlay). The
 -- per-area recebimento BASE is derived from SISJURI; finance then moves cash

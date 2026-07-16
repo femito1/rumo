@@ -678,47 +678,34 @@ def _area_rows(
     area: str,
     r: RealizadoInputs,
     orc: dict[str, float],
-    man: dict[str, float] | None = None,
     targets: Targets | None = None,
     section_key: str = "",
 ) -> list[dict[str, Any]]:
     """Contencioso/Econômico/Arbitragem tab: Recebimento, Custo equipe, Comissão,
     Despesas Equipe, Despesa Institucional, Resultado Bruto (Orçado|Realizado|%).
 
-    Recebimento realizado comes from SISJURI per-area (via CASO -> área
-    jurídica, verified to the centavo vs the workbook, with Resumo_Recebidas
-    cross-area transfers applied upstream); it is never hand-filled. Custo
-    equipe, Comissão and Despesas Equipe come from the imported hand-ledger
-    (workbook Base_Resultado) when present, and Despesa Institucional is then
-    derived via the workbook rateio — ties the area tabs to the client
-    dashboard. Without a ledger, Custo equipe falls back to the SISJURI
-    ``custo_area`` aggregation and Comissão/Despesas Equipe/Despesa
-    Institucional to manual entry (``man``); when absent they render blank.
-    Resultado Bruto is computed once Recebimento is present."""
-    man = man or {}
+    Every Realizado figure is SISJURI-derived — there is no manual per-area entry.
+    Recebimento comes from SISJURI per-area (via CASO -> área jurídica, verified to
+    the centavo vs the workbook, with Resumo_Recebidas cross-area transfers applied
+    upstream). Custo equipe, Comissão and Despesas Equipe come from the imported
+    hand-ledger (workbook Base_Resultado) when present, and Despesa Institucional is
+    then derived via the workbook rateio — ties the area tabs to the client
+    dashboard. Without a ledger, Custo equipe falls back to the SISJURI ``custo_area``
+    aggregation, Comissão to ``comissao_deriv``, Despesas Equipe to the
+    ``despesas_equipe_area`` cost-center block, and Despesa Institucional to the
+    DB-derived rateio; when a value is absent it renders blank. Resultado Bruto is
+    computed once Recebimento is present."""
     custo = r.area_custo_equipe.get(area)
     # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
-    # transfers already applied upstream; it is never hand-filled anymore.
+    # transfers already applied upstream; it is never hand-filled.
     receb = r.area_recebimento.get(area)
     # When the hand-built ledger is imported it is authoritative for Comissão,
     # Despesas Equipe and the derived Despesa Institucional (rateio); it ties the
-    # area tabs to the client dashboard. Manual entry only fills the gaps when no
-    # ledger exists for the month (future-proof fallback).
-    if r.has_ledger:
-        comissao = r.area_comissao.get(area)
-        desp_equipe = r.area_despesas_equipe.get(area)
-        desp_inst = r.area_despesa_institucional.get(area)
-    else:
-        # SISJURI-derived Comissão (comissao_deriv) is authoritative and shows even
-        # without a hand-ledger. Despesa Institucional is DB-derived via the rateio
-        # (GAP 1, filled in RealizadoInputs.from_snapshot) — prefer it over manual
-        # entry. Despesas Equipe still falls back to manual until GAP 2's per-area
-        # block exists.
-        comissao = r.area_comissao.get(area) if r.has_comissao_deriv else man.get(COMISSAO)
-        desp_equipe = r.area_despesas_equipe.get(area) or man.get(DESPESAS_EQUIPE)
-        desp_inst = r.area_despesa_institucional.get(area)
-        if desp_inst is None:
-            desp_inst = man.get(DESPESA_INSTITUCIONAL)
+    # area tabs to the client dashboard. Otherwise each figure comes from its
+    # dedicated DB derivation (comissao_deriv / despesas_equipe_area / rateio).
+    comissao = r.area_comissao.get(area)
+    desp_equipe = r.area_despesas_equipe.get(area)
+    desp_inst = r.area_despesa_institucional.get(area)
     resultado: float | None = None
     if receb is not None:
         resultado = round(
@@ -755,20 +742,18 @@ def assemble_dre_sections(
     snapshot: dict[str, Any] | None,
     budget: dict[str, dict[str, float]] | None,
     period_label: str,
-    manual: dict[str, dict[str, float]] | None = None,
     transfers: list[Any] | None = None,
     period_month: int | None = None,
     targets: Targets | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
-    ``manual`` carries per-area Realizado inputs (per-area Recebimento etc.);
+    Every Realizado figure is SISJURI-derived — there is no manual per-area input.
     ``transfers`` are Resumo_Recebidas cross-area recebimento reclassifications
     (``AreaTransfer``) that net onto the SISJURI-derived per-area base.
     ``targets`` is the workbook verification overlay: a Realizado cell that
     diverges from its target by more than R$0,01 is blanked (the hard rule)."""
     budget = budget or {}
-    manual = manual or {}
     # POINT 12: annual amortização is a per-year budget input; the monthly DRE
     # line = annual / 12 (the budget layer already split it). Falsy/unset budget
     # falls back to the fixed 8.117/mês default inside ``from_snapshot``.
@@ -803,8 +788,7 @@ def assemble_dre_sections(
             "name": area,
             "columns": _DRE_COLUMNS,
             "rows": _area_rows(
-                area, r, budget.get(area, {}), manual.get(area, {}),
-                targets, area_key,
+                area, r, budget.get(area, {}), targets, area_key,
             ),
             "snapshot_missing": missing,
         }
@@ -815,8 +799,7 @@ def assemble_dre_sections(
     for area in AREAS:
         sint.append(_section_header_row(f"RESULTADO {area.upper()}"))
         sint.extend(_area_rows(
-            area, r, budget.get(area, {}), manual.get(area, {}),
-            targets, _AREA_SECTION[area],
+            area, r, budget.get(area, {}), targets, _AREA_SECTION[area],
         ))
     sections["areas_sintetico"] = {
         "kind": "rich",
@@ -844,7 +827,7 @@ def assemble_dre_sections(
         snapshot, budget, period_label
     )
     sections["fluxo_consolidado"] = assemble_fluxo_consolidado(
-        snapshot, manual, period_label
+        snapshot, period_label
     )
     sections["base_resultado"] = {
         "kind": "rich",

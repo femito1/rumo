@@ -121,6 +121,10 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
             const drillKey = drillDownKey(row);
             const hasChildren = drillKey != null && childCount(childGroup, drillKey) > 0;
             const isOpen = drillKey != null && !!expanded[drillKey];
+            // In a total/header row, empty text cells are structural (a Total row
+            // has no invoice number/date) — render them blank, not the missing
+            // placeholder.
+            const emptyIsBlank = row.is_total === true || row.kind === "total" || row.kind === "header";
             return (
               <tr key={ri} className={rowClass(row)}>
                 {keys.map((k, ci) => (
@@ -140,10 +144,10 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
                         <span className="drilldown-caret" aria-hidden="true">
                           {isOpen ? "▾" : "▸"}
                         </span>
-                        {renderRichValue(row[k], true, false)}
+                        {renderRichValue(row[k], true, false, emptyIsBlank)}
                       </button>
                     ) : (
-                      renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]))
+                      renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]), emptyIsBlank)
                     )}
                   </td>
                 ))}
@@ -249,16 +253,21 @@ function rowKeys(sample: RichRow, columnCount: number): string[] {
   return keys.slice(0, columnCount);
 }
 
-function renderRichValue(v: unknown, isFirstColumn: boolean, isPercent = false): string {
+function renderRichValue(
+  v: unknown,
+  isFirstColumn: boolean,
+  isPercent = false,
+  emptyIsBlank = false,
+): string {
   if (isPercent) {
     if (isSourcedCell(v)) return v.value == null ? MISSING_LABEL : formatPercent(v.value);
     if (typeof v === "number") return formatPercent(v);
     return v == null ? MISSING_LABEL : String(v);
   }
-  if (isSourcedCell(v)) return moneyOrMissing(v.value);
+  if (isSourcedCell(v)) return v.value == null && emptyIsBlank ? "" : moneyOrMissing(v.value);
   if (typeof v === "number") return numberFmt.format(v);
-  if (typeof v === "string") return v === "" ? MISSING_LABEL : v;
-  if (v == null) return isFirstColumn ? "" : MISSING_LABEL;
+  if (typeof v === "string") return v === "" ? (emptyIsBlank ? "" : MISSING_LABEL) : v;
+  if (v == null) return isFirstColumn || emptyIsBlank ? "" : MISSING_LABEL;
   return String(v);
 }
 

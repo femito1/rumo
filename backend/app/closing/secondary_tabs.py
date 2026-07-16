@@ -363,40 +363,38 @@ def assemble_meta(
 
 def assemble_fluxo_consolidado(
     snapshot: dict[str, Any] | None,
-    manual: dict[str, dict[str, float]] | None,
     period_label: str,
 ) -> dict[str, Any]:
     """Per-area cash flow (workbook 'Fluxo consolidado'): Recebimento, Equipe,
-    Despesas, Impostos, Amortização, Margem líquida per area. Recebimento and
-    Despesas come from manual per-area actuals; Equipe from SISJURI."""
-    from app.closing.dre import (
-        COMISSAO,
-        DESPESA_INSTITUCIONAL,
-        DESPESAS_EQUIPE,
-        RECEBIMENTO,
-        RealizadoInputs,
-    )
+    Despesas, Impostos, Amortização, Margem líquida per area. All per-area figures
+    are SISJURI-derived (the same basis as the area DRE tabs): Recebimento from
+    ``area_recebimento``; Despesas = Comissão + Despesas Equipe + Despesa
+    Institucional (ledger when present, else the DB-derived rateio/cost-center
+    values); Equipe from ``area_custo_equipe``."""
+    from app.closing.dre import RealizadoInputs
 
     r = (
         RealizadoInputs.from_snapshot(snapshot)
         if snapshot is not None
         else RealizadoInputs.empty()
     )
-    manual = manual or {}
     amort_area = round(AMORTIZACAO_MENSAL / len(AREAS), 2)
 
     rows: list[dict[str, Any]] = []
     for area in AREAS:
-        man = manual.get(area, {})
-        receb = man.get(RECEBIMENTO)
+        # Recebimento is SISJURI-derived (area tabs' basis).
+        receb = r.area_recebimento.get(area)
         equipe = r.area_custo_equipe.get(area)
+        # Despesas = Comissão + Despesas Equipe + Despesa Institucional, each
+        # DB-derived (ledger/rateio/cost-center) — mirrors the precedence in
+        # ``dre._area_rows`` so the two tabs never disagree.
+        comissao = r.area_comissao.get(area)
+        desp_equipe = r.area_despesas_equipe.get(area)
+        desp_inst = r.area_despesa_institucional.get(area)
         despesas = None
-        if any(k in man for k in (COMISSAO, DESPESAS_EQUIPE, DESPESA_INSTITUCIONAL)):
+        if any(v is not None for v in (comissao, desp_equipe, desp_inst)):
             despesas = round(
-                (man.get(COMISSAO) or 0.0)
-                + (man.get(DESPESAS_EQUIPE) or 0.0)
-                + (man.get(DESPESA_INSTITUCIONAL) or 0.0),
-                2,
+                (comissao or 0.0) + (desp_equipe or 0.0) + (desp_inst or 0.0), 2
             )
         margem = None
         if receb is not None:
@@ -404,10 +402,10 @@ def assemble_fluxo_consolidado(
                 receb - (equipe or 0.0) - (despesas or 0.0) - amort_area, 2
             )
         rows.append({"Linha": area, "Valor": None, "is_total": True, "kind": "header", "key": f"hdr::{area}"})
-        rows.append({"Linha": "Recebimento", "Valor": {"value": receb, "source": "manual"}, "indent": 1, "key": f"{area}::receb"})
+        rows.append({"Linha": "Recebimento", "Valor": {"value": receb, "source": "realizado"}, "indent": 1, "key": f"{area}::receb"})
         rows.append({"Linha": "Equipe", "Valor": {"value": equipe, "source": "realizado"}, "indent": 1, "key": f"{area}::equipe"})
-        rows.append({"Linha": "Despesas", "Valor": {"value": despesas, "source": "manual"}, "indent": 1, "key": f"{area}::despesas"})
-        rows.append({"Linha": "Amortização", "Valor": {"value": amort_area, "source": "manual"}, "indent": 1, "key": f"{area}::amort"})
+        rows.append({"Linha": "Despesas", "Valor": {"value": despesas, "source": "realizado"}, "indent": 1, "key": f"{area}::despesas"})
+        rows.append({"Linha": "Amortização", "Valor": {"value": amort_area, "source": "realizado"}, "indent": 1, "key": f"{area}::amort"})
         rows.append({"Linha": "Margem líquida", "Valor": {"value": margem, "source": "calc"}, "indent": 1, "is_total": True, "key": f"{area}::margem"})
     return {
         "kind": "rich",

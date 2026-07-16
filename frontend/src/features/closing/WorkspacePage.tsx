@@ -11,7 +11,6 @@ import { Skeleton } from "../../components/Skeleton";
 import { Loader } from "../../components/Loader";
 import { TabView } from "./TabView";
 import { BudgetEditor } from "./BudgetEditor";
-import { ManualActualsEditor } from "./ManualActualsEditor";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
 
@@ -51,7 +50,6 @@ export function WorkspacePage() {
           <div className="toolbar-actions">
             <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
             <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
-            <ManualActualsEditor clientId={id} anoMes={month} />
             <div className="toolbar-divider" aria-hidden="true" />
             <ExportMenu
               disabled={!data || loading}

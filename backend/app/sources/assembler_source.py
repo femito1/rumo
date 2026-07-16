@@ -24,13 +24,11 @@ class AssemblerSource:
         *,
         snapshot: dict[str, Any] | None,
         budget: dict[str, dict[str, float]] | None,
-        manual: dict[str, dict[str, float]] | None = None,
         transfers: list[Any] | None = None,
         targets: dict[str, dict[str, float]] | None = None,
     ) -> None:
         self._snapshot = snapshot
         self._budget = budget
-        self._manual = manual
         self._transfers = transfers
         self._targets = targets
 
@@ -58,7 +56,6 @@ class AssemblerSource:
             snapshot=self._snapshot,
             budget=self._budget,
             period_label=period.label,
-            manual=self._manual,
             transfers=self._transfers,
             period_month=period.month,
             targets=self._targets,

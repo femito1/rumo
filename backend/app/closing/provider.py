@@ -79,13 +79,6 @@ def _budget_repo():
     return get_budget_repo()
 
 
-def _manual_repo():
-    """Lazy manual-actuals repo lookup; imported lazily to avoid import cycles."""
-    from app.api.providers import get_manual_repo
-
-    return get_manual_repo()
-
-
 def _transfers_repo():
     """Lazy area-transfers repo lookup; imported lazily to avoid import cycles."""
     from app.api.providers import get_transfers_repo
@@ -128,16 +121,6 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
                 budget_monthly = None
         sources.append(BudgetSource(entries))
 
-        manual_by_area: dict[str, dict[str, float]] | None = None
-        if period is not None:
-            try:
-                from app.manual.models import by_area
-
-                man_entries = _manual_repo().get_actuals(client.id, period.ano_mes)
-                manual_by_area = by_area(man_entries) if man_entries else None
-            except Exception:  # pragma: no cover - manual overlay is best-effort
-                manual_by_area = None
-
         transfers = None
         if period is not None:
             try:
@@ -160,7 +143,6 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
             AssemblerSource(
                 snapshot=snapshot,
                 budget=budget_monthly,
-                manual=manual_by_area,
                 transfers=transfers,
                 targets=targets,
             )

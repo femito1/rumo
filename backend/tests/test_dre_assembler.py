@@ -117,12 +117,11 @@ def test_transfers_overlay_applied_to_area_recebimento(snapshot):
     assert econ["Realizado"]["value"] == pytest.approx(118661.26, abs=0.05)
 
 
-def test_manual_recebimento_is_ignored_sisjuri_wins(snapshot):
+def test_recebimento_is_sisjuri_derived(snapshot):
     # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
-    # transfers applied upstream; a stray manual recebimento must NOT override it.
+    # transfers applied upstream — there is no manual per-area entry anymore.
     sections = assemble_dre_sections(
         snapshot=snapshot, budget=None, period_label="Fev 2026",
-        manual={"Contencioso": {RECEBIMENTO: 138600.13}},
     )
     receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
     assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
@@ -383,9 +382,8 @@ def test_ledger_block_drives_area_custo_comissao_despesas(snapshot):
     assert _row(econ, COMISSAO)["Realizado"]["value"] == pytest.approx(1500.0, abs=0.05)
 
 
-def test_ledger_derived_despesa_institucional_overrides_manual(snapshot):
-    # A ledger block makes Despesa Institucional derived; a stray manual value
-    # must not shadow the rateio.
+def test_ledger_derived_despesa_institucional_uses_rateio(snapshot):
+    # A ledger block makes Despesa Institucional derived via the rateio rule.
     from app.closing.dre import DESPESA_INSTITUCIONAL
 
     snap = dict(snapshot)
@@ -397,7 +395,6 @@ def test_ledger_derived_despesa_institucional_overrides_manual(snapshot):
     }
     sections = assemble_dre_sections(
         snapshot=snap, budget=None, period_label="Fev 2026",
-        manual={"Contencioso": {DESPESA_INSTITUCIONAL: 999999.0}},
     )
     di = _row(sections["contencioso"]["rows"], DESPESA_INSTITUCIONAL)
     assert di["Realizado"]["value"] == pytest.approx(30609.71, abs=0.05)
@@ -936,13 +933,21 @@ def test_dre_2026_has_twelve_month_columns_all_orcado():
     assert row["Janeiro"]["value"] == pytest.approx(671666.67, abs=0.05)
 
 
-def test_fluxo_consolidado_per_area_margin():
+def test_fluxo_consolidado_fills_from_db_without_manual(snapshot_may):
+    """Fluxo consolidado must render per-area Recebimento/Despesas/Margem from the
+    SISJURI-derived values (like the area tabs), NOT require manual entry. With a
+    real snapshot every per-area line is populated."""
     sections = assemble_dre_sections(
-        snapshot=None,
-        budget=None,
-        period_label="x",
-        manual={"Contencioso": {RECEBIMENTO: 100000.0}},
+        snapshot=snapshot_may, budget=None, period_label="Mai 2026"
     )
     rows = sections["fluxo_consolidado"]["rows"]
-    margem = next(r for r in rows if r["key"] == "Contencioso::margem")
-    assert margem["Valor"]["value"] is not None
+    for area in ("Contencioso", "Econômico", "Arbitragem"):
+        receb = next(r for r in rows if r["key"] == f"{area}::receb")
+        despesas = next(r for r in rows if r["key"] == f"{area}::despesas")
+        margem = next(r for r in rows if r["key"] == f"{area}::margem")
+        assert receb["Valor"]["value"] is not None, f"{area} recebimento blank"
+        assert despesas["Valor"]["value"] is not None, f"{area} despesas blank"
+        assert margem["Valor"]["value"] is not None, f"{area} margem blank"
+    # Recebimento ties the SISJURI per-area base (Contencioso, stale fixture basis).
+    receb_c = next(r for r in rows if r["key"] == "Contencioso::receb")
+    assert receb_c["Valor"]["value"] == pytest.approx(205157.46, abs=0.01)
