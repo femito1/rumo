@@ -6,7 +6,7 @@
 -- JSON_OBJECT BELOW — the previous header omitted the derived blocks):
 --   meta, revenue, faturas, rateio_prof, despesas_conta, despesas_liquido,
 --   despesas_desdobramento, custo_area,
---   recebimento_area, recebimento_area_prof, faturamento_area, faturas_analitico, prolabore,
+--   despesas_equipe_area, recebimento_area, recebimento_area_prof, faturamento_area, faturas_analitico, prolabore,
 --   distribuicao_socio, custo_equipe_deriv, convenio_memo, custo_equipe_area,
 --   comissao_deriv, rateio_grupo, home_area, custo_equipe_prof, bonus_equipe,
 --   bonus_equipe_030, convenio_extra_dl, faturas_moeda,
@@ -143,6 +143,48 @@ BEGIN
                ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
             WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
               AND (d.DESCCONTADESTINO LIKE '020.%' OR d.DESCCONTADESTINO LIKE '040.%'))
+  ),
+  -- Per-area "Despesas Área" (workbook Despesas Equipe per area) — the Grupo='S'
+  -- auto-rateio families {Associações 020.060.*, Viagens/Prospecção 020.090.*, Cursos
+  -- 030.010.0180, Assinaturas, Eventos/HH, Material Gráfico}, attributed to área by the
+  -- line's cost-center: direct CONTASPAGAR line -> SIGLA, unfolded slice -> DESCSETOR
+  -- (ECT=Contencioso, EDE=Econômico, ESP=Arbitragem; anything else = institutional, kept
+  -- out of the area buckets). Proven vs May (2026-07-14 probe_despesas_area_key): AASP
+  -- 217,40 + IBRAC 700,09 = ECT 917,49; IBRAC 700,10 = EDE; Patrocínio 1.204,47 = ESP;
+  -- Cursos ASG 1.600 = EDE; passagens 1.358,72 = EDE (the DB is self-consistent — the
+  -- workbook's Contencioso cell mis-references that EDE row, a spreadsheet quirk; DB wins
+  -- per the "SISJURI is authoritative" rule). These amounts already live inside the
+  -- institutional despesas total; this block only tags their ÁREA so the per-area tabs
+  -- can show Despesas Equipe and the Despesa Institucional rateio carves them out first.
+  -- direct lines (no desdobramento) tagged by SIGLA + slices tagged by DESCSETOR.
+  'despesas_equipe_area' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'cc'    VALUE cc,
+        'total' VALUE total,
+        'n'     VALUE n
+     ) RETURNING CLOB)
+     FROM (
+        SELECT cc, ROUND(SUM(v),2) total, COUNT(*) n FROM (
+           -- direct 020.060/090.* + Cursos 030.010.0180 lines that are NOT desdobradas
+           SELECT NVL(cp.SIGLA,'?') cc, cp.CPGNVALORLIQUIDO v
+             FROM FINANCE.CONTASPAGAR cp
+            WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+              AND (cp.PCTCNUMEROCONTA LIKE '020.060.%' OR cp.PCTCNUMEROCONTA LIKE '020.090.%'
+                   OR cp.PCTCNUMEROCONTA = '030.010.0180')
+              AND NOT EXISTS (SELECT 1 FROM FINANCE.CPDESDOBRAMENTO d2
+                               WHERE d2.EMPNCOD=cp.EMPNCOD AND d2.CPGCNUMEROPAGAR=cp.CPGCNUMEROPAGAR)
+           UNION ALL
+           -- unfolded slices destined for the same family accounts, tagged by DESCSETOR
+           SELECT NVL(d.DESCSETOR,'?') cc, d.DESNVALOR v
+             FROM FINANCE.CPDESDOBRAMENTO d
+             JOIN FINANCE.CONTASPAGAR cp
+               ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
+            WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+              AND (d.DESCCONTADESTINO LIKE '020.060.%' OR d.DESCCONTADESTINO LIKE '020.090.%'
+                   OR d.DESCCONTADESTINO = '030.010.0180')
+        )
+        WHERE cc IN ('ECT','EDE','ESP')
+        GROUP BY cc)
   ),
   -- Per-area RECEBIMENTO (cash received), the workbook's per-area base.
   -- Split the sacred receipt view by CASO -> área jurídica. Verified to the
