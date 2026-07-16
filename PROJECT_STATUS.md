@@ -37,6 +37,18 @@ ties to the centavo (receb 415.927,84, líquido 29.691,61, reserva 2.969,16). Th
 - **Jan/Feb/Mar institutional classification (item C)** — earlier months still gate
   `custo_equipe`/`despesas`; May (the authoritative book) is clean.
 
+## 2026-07-16 (later) — Meta dashboard fills full YTD
+
+Commit `adf728b` (main, backend deployed + verified live). The Meta 2026 tab showed
+realized Recebimento only for the competence month; now it fills **every closed month**
+of the competence year. New `recebimento_by_year(year, *, client_id)` on both snapshot
+stores (Supabase = one projected jsonb query; fs = per-month loop); the provider gathers
+the map, filters to `is_closeable` months, threads `ytd_recebimento` through
+AssemblerSource → assemble_dre_sections → assemble_meta. Total row fixed for YTD (Σ /
+meta_anual / falta). Live 2026: Jan–Jun filled, Jul–Dec blank, Total 2.130.830,27,
+%Meta 0,2644. Goal column stays budget-derived (BudgetEditor already provides the manual
+goal input). Backend 234 tests.
+
 ## 2026-07-16 (later) — cleanup: manual editor removed + fluxo/total-row fixes
 
 Commit `d8e8f6b` (main, deployed backend + frontend), in response to a user review of
