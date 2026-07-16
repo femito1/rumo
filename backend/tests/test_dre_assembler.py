@@ -369,6 +369,34 @@ def test_ledger_derived_despesa_institucional_overrides_manual(snapshot):
     assert di["Realizado"]["value"] == pytest.approx(30609.71, abs=0.05)
 
 
+def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may):
+    # Workbook-free path: with no `ledger` block, per-area Despesa Institucional
+    # must still be DB-derived via the rateio rule (institutional overhead
+    # apportioned by each area's share of total Custo equipe), NOT left blank.
+    # It must CONSERVE: the three areas sum back to the total institutional
+    # despesa (since per-area Despesas Equipe is 0 and Σ CE-shares = 1).
+    from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
+
+    r = RealizadoInputs.from_snapshot(snapshot_may)
+    assert not r.has_ledger  # the May fixture carries no workbook ledger
+    total_desp = r.despesas
+    tot_ce = sum(r.area_custo_equipe.values())
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot_may, budget=None, period_label="Maio 2026"
+    )
+    got = {}
+    for area, key in (("Contencioso", "contencioso"), ("Econômico", "economico"),
+                      ("Arbitragem", "arbitragem")):
+        di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
+        assert di is not None, f"{area} Despesa Institucional blanked without a ledger"
+        expected = round(total_desp * r.area_custo_equipe[area] / tot_ce, 2)
+        assert di == pytest.approx(expected, abs=0.05)
+        got[area] = di
+    # Conservation: the rateio splits the whole institutional despesa, no more/less.
+    assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
+
+
 def test_derived_block_drives_area_custo_equipe(snapshot):
     # The SISJURI-derived custo_equipe_deriv block (per-lawyer components +
     # rateio_grupo + home_area) is authoritative for per-area Custo equipe,
@@ -635,6 +663,42 @@ def test_bonus_equipe_explicit_extras_wins_over_top_level():
     tab = assemble_base_resultado(snap, "Fev 2026")
     bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
     assert bonus["Valor"]["value"] == pytest.approx(50000.0, abs=0.05)
+
+
+def test_manual_override_diverging_from_db_is_flagged_not_silent():
+    # Workbook-free guard (item 2): an explicit distribuicao_extras override still
+    # WINS (finance can correct), but when it diverges from the DB-derived value it
+    # must NOT be silent — the row carries an ``override`` marker with the DB value
+    # it replaced, so a stale manual number can never quietly mask the DB.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "bonus_equipe": 94696.15,       # DB-derived (150.*)
+        "bonus_equipe_030": 7009.84,    # DB-derived (030.010.0010) -> DB total 101705.99
+        "distribuicao_extras": {"bonus_equipe": 50000.0},  # stale/diverging override
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    # The override still wins as the displayed value.
+    assert bonus["Valor"]["value"] == pytest.approx(50000.0, abs=0.05)
+    # ...but it is flagged, and the DB value it diverged from is preserved.
+    assert bonus["override"] is True
+    assert bonus["db_value"] == pytest.approx(101705.99, abs=0.05)
+
+
+def test_manual_override_matching_db_is_not_flagged():
+    # When the override equals the DB value (no real divergence) there is nothing to
+    # warn about — no override flag.
+    from app.closing.dre import assemble_base_resultado
+
+    snap = {
+        "bonus_equipe": 42000.0,
+        "distribuicao_extras": {"bonus_equipe": 42000.0},
+    }
+    tab = assemble_base_resultado(snap, "Fev 2026")
+    bonus = next(r for r in tab["rows"] if r["key"] == "extra::bonus_equipe")
+    assert bonus["Valor"]["value"] == pytest.approx(42000.0, abs=0.05)
+    assert bonus.get("override") is not True
 
 
 def test_bonus_equipe_blank_when_account_150_absent():
