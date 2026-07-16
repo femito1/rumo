@@ -7,9 +7,35 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-14
+**Last updated:** 2026-07-16
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
+
+---
+
+## ⭐ 2026-07-16 — per-área DRE is LIVE in prod (branch merged + deployed)
+
+`fix/workbook-free-guards` was merged to `main` (merge commit `d056713`) and the
+backend redeployed via `ops/easypanel-deploy.sh backend`. **Verified live** against
+the prod closing endpoint (`/api/clients/mbc/closing?month=2026-05`): the per-área
+tabs now render the DB-derived values that were blank before —
+Contencioso recebimento **240.444,72** / desp.equipe **917,49**, Econômico
+**166.875,57** / **3.804,82**, Arbitragem **41.859,35** / **1.272,47**; Institucional
+ties to the centavo (receb 415.927,84, líquido 29.691,61, reserva 2.969,16). This
+**closes handoff item A** (the former #1 blocker).
+
+**Remaining "ainda não temos" on live May, and why (all EXPECTED, not regressions):**
+- **Per-área `resultado_bruto` (3 cells)** — gated by the hard rule because the
+  derived value diverges from the workbook target by the ~R$1.359 Despesas-Área
+  split (Viagens G156 label-vs-subtotal offset). **This is the ONLY thing waiting on
+  Renata** (handoff item B; question sent 2026-07-16 in the WhatsApp thread).
+- **`base_resultado` (per-lawyer ledger: INSS/Convênio/Pró-Labores per sigla)** —
+  the hand-built ledger detail; deferred by decision (needs a Base_Resultado ledger
+  parser, not DB-derivable to the centavo). Not a bug.
+- **`dre_2026` / annual budget rows** — budget-source tab, populated only when the
+  Orçamento is imported for the client.
+- **Jan/Feb/Mar institutional classification (item C)** — earlier months still gate
+  `custo_equipe`/`despesas`; May (the authoritative book) is clean.
 
 ---
 
