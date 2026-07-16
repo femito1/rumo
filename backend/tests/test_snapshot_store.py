@@ -50,3 +50,20 @@ def test_invalid_client_id_rejected(tmp_path):
     store = SnapshotStore(tmp_path)
     with pytest.raises(ValueError):
         store.put("2026-02", {}, client_id="../etc")
+
+
+def test_recebimento_by_year_maps_stored_months(tmp_path):
+    store = SnapshotStore(tmp_path)
+    store.put("2026-01", {"revenue": {"recebimento_bruto": 279821.07}}, client_id="mbc")
+    store.put("2026-03", {"revenue": {"recebimento_bruto": 612501.76}}, client_id="mbc")
+    got = store.recebimento_by_year(2026, client_id="mbc")
+    # Only stored months appear; a month with no file (Feb) is omitted.
+    assert got == {1: pytest.approx(279821.07), 3: pytest.approx(612501.76)}
+
+
+def test_recebimento_by_year_is_client_scoped(tmp_path):
+    store = SnapshotStore(tmp_path)
+    store.put("2026-01", {"revenue": {"recebimento_bruto": 100.0}}, client_id="mbc")
+    store.put("2026-01", {"revenue": {"recebimento_bruto": 200.0}}, client_id="acme")
+    assert store.recebimento_by_year(2026, client_id="mbc") == {1: pytest.approx(100.0)}
+    assert store.recebimento_by_year(2026, client_id="acme") == {1: pytest.approx(200.0)}

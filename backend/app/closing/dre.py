@@ -745,6 +745,7 @@ def assemble_dre_sections(
     transfers: list[Any] | None = None,
     period_month: int | None = None,
     targets: Targets | None = None,
+    ytd_recebimento: dict[int, float] | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
@@ -752,7 +753,10 @@ def assemble_dre_sections(
     ``transfers`` are Resumo_Recebidas cross-area recebimento reclassifications
     (``AreaTransfer``) that net onto the SISJURI-derived per-area base.
     ``targets`` is the workbook verification overlay: a Realizado cell that
-    diverges from its target by more than R$0,01 is blanked (the hard rule)."""
+    diverges from its target by more than R$0,01 is blanked (the hard rule).
+    ``ytd_recebimento`` is a ``{month_index: recebimento}`` map for the Meta
+    dashboard's 12-month table (fills every closed month, not just the competence
+    one); when None only the competence month is filled."""
     budget = budget or {}
     # POINT 12: annual amortização is a per-year budget input; the monthly DRE
     # line = annual / 12 (the budget layer already split it). Falsy/unset budget
@@ -850,6 +854,7 @@ def assemble_dre_sections(
         budget,
         month=month,
         recebimento_realizado=r.recebimento if not missing else None,
+        ytd_recebimento=ytd_recebimento,
     )
     sections["faturas_analitico"] = assemble_faturas_analitico(snapshot)
     sections["nacional"], sections["moedas"] = assemble_faturas_moeda(snapshot)

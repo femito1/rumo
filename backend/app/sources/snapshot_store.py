@@ -56,3 +56,26 @@ class SnapshotStore:
 
     def has(self, ano_mes: str, *, client_id: str = _DEFAULT_CLIENT) -> bool:
         return self.get(ano_mes, client_id=client_id) is not None
+
+    def recebimento_by_year(
+        self, year: int, *, client_id: str = _DEFAULT_CLIENT
+    ) -> dict[int, float]:
+        """Return ``{month_index: recebimento_bruto}`` for each stored month of ``year``.
+
+        Local-dev mirror of the Supabase store's method: iterate the 12 months and
+        read ``revenue.recebimento_bruto`` from whatever snapshots exist. Months with
+        no file (or no recebimento) are omitted.
+        """
+        out: dict[int, float] = {}
+        for m in range(1, 13):
+            snap = self.get(f"{year:04d}-{m:02d}", client_id=client_id)
+            if snap is None:
+                continue
+            raw = (snap.get("revenue") or {}).get("recebimento_bruto")
+            if raw is None:
+                continue
+            try:
+                out[m] = float(raw)
+            except (TypeError, ValueError):
+                continue
+        return out

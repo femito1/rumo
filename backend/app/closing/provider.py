@@ -1,6 +1,7 @@
 # backend/app/closing/provider.py
 from __future__ import annotations
 from datetime import datetime, timezone
+from app.closing.available import is_closeable
 from app.closing.period import Period
 from app.closing.tab_layouts import TAB_ORDER
 from app.sources.assembler_source import AssemblerSource
@@ -139,12 +140,30 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
             except Exception:  # pragma: no cover - targets overlay is best-effort
                 targets = None
 
+        # Meta dashboard: per-month realized recebimento for the whole competence
+        # year, so the 12-month table fills every CLOSED month (not just the
+        # competence one). Future months are absent from the map -> blank.
+        ytd_recebimento: dict[int, float] | None = None
+        if period is not None:
+            try:
+                full = _snapshot_store().recebimento_by_year(
+                    period.year, client_id=client.id
+                )
+                ytd_recebimento = {
+                    m: v
+                    for m, v in full.items()
+                    if is_closeable(f"{period.year:04d}-{m:02d}")
+                }
+            except Exception:  # pragma: no cover - meta YTD is best-effort overlay
+                ytd_recebimento = None
+
         sources.append(
             AssemblerSource(
                 snapshot=snapshot,
                 budget=budget_monthly,
                 transfers=transfers,
                 targets=targets,
+                ytd_recebimento=ytd_recebimento,
             )
         )
         return ClosingProvider(sources=sources)

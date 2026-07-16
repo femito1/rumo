@@ -54,3 +54,29 @@ def test_meta_tab_missing_goal_is_blank():
     )
     meta = sections["meta_dashboard"]
     assert meta["meta_anual"]["value"] is None
+
+
+def test_meta_table_fills_all_ytd_months(snapshot):
+    budget = {"institucional": {"recebimento": 671666.67}}
+    ytd = {1: 279821.07, 2: 319233.58, 3: 612501.76}
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, period_label="Maio 2026",
+        ytd_recebimento=ytd,
+    )
+    meta = sections["meta_dashboard"]
+    rows = {r["Mês"]: r for r in meta["rows"]}
+    # Each YTD month is filled from the map...
+    assert rows["Janeiro"]["Recebimento"]["value"] == pytest.approx(279821.07, abs=0.01)
+    assert rows["Fevereiro"]["Recebimento"]["value"] == pytest.approx(319233.58, abs=0.01)
+    assert rows["Março"]["Recebimento"]["value"] == pytest.approx(612501.76, abs=0.01)
+    # ...and per-month % Meta = month / meta_mensal.
+    assert rows["Janeiro"]["% Meta"] == pytest.approx(279821.07 / 671666.67, abs=0.001)
+    # Months without data stay blank.
+    assert rows["Abril"]["Recebimento"]["value"] is None
+    # Total = YTD sum; Total % Meta = sum / meta_anual (not month/mensal).
+    total = next(r for r in meta["rows"] if r.get("is_total"))
+    ytd_sum = 279821.07 + 319233.58 + 612501.76
+    assert total["Recebimento"]["value"] == pytest.approx(ytd_sum, abs=0.01)
+    assert total["% Meta"] == pytest.approx(ytd_sum / 8060000.04, abs=0.001)
+    # Headline "falta" = annual goal − YTD realized.
+    assert meta["falta"]["value"] == pytest.approx(8060000.04 - ytd_sum, abs=1.0)

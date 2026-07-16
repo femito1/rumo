@@ -297,14 +297,18 @@ def assemble_meta(
     *,
     month: int | None,
     recebimento_realizado: float | None,
+    ytd_recebimento: dict[int, float] | None = None,
 ) -> dict[str, Any]:
     """Meta goal-tracking dashboard (workbook 'Meta' sheet).
 
     Headline: annual recebimento goal (budget monthly * 12), monthly goal, this
     month's realized recebimento + attainment %, and remaining vs goal. Plus a
-    12-month table with per-month goal and the competence month's realized
-    recebimento filled in. A full YTD requires multi-month data the single
-    snapshot flow lacks; only the competence month is populated for now."""
+    12-month table with per-month goal and each closed month's realized recebimento.
+
+    ``ytd_recebimento`` is a ``{month_index: recebimento}`` map covering every closed
+    month of the competence year (built by the provider from the per-month snapshots);
+    each present month is filled and the Total row aggregates them. When it is None
+    only the competence ``month`` is filled (single-snapshot fallback)."""
     from app.closing.dre import RECEBIMENTO
 
     inst = (budget or {}).get("institucional", {})
@@ -314,16 +318,30 @@ def assemble_meta(
     def cell(v: float | None, source: str = "orcado") -> dict[str, Any]:
         return {"value": v, "source": source}
 
-    attainment = None
-    remaining = None
-    if meta_anual is not None and recebimento_realizado is not None:
-        remaining = round(meta_anual - recebimento_realizado, 2)
+    # Per-month realized: prefer the YTD map; else just the competence month.
+    ytd = dict(ytd_recebimento) if ytd_recebimento is not None else None
+    if ytd is None and month is not None and recebimento_realizado is not None:
+        ytd = {month: recebimento_realizado}
+    ytd = ytd or {}
+
+    # Competence-month attainment (headline KPI) stays month-based.
+    attainment_mes = None
     if meta_mensal and recebimento_realizado is not None:
-        attainment = round(recebimento_realizado / meta_mensal, 4)
+        attainment_mes = round(recebimento_realizado / meta_mensal, 4)
+
+    total_realizado = round(sum(ytd.values()), 2) if ytd else None
+    remaining = None
+    if meta_anual is not None and total_realizado is not None:
+        remaining = round(meta_anual - total_realizado, 2)
+    total_pct = (
+        round(total_realizado / meta_anual, 4)
+        if (total_realizado is not None and meta_anual)
+        else None
+    )
 
     rows: list[dict[str, Any]] = []
     for idx, mes in enumerate(_MESES, start=1):
-        realized = recebimento_realizado if (month is not None and idx == month) else None
+        realized = ytd.get(idx)
         rows.append(
             {
                 "Mês": mes,
@@ -337,13 +355,12 @@ def assemble_meta(
                 "kind": "amount",
             }
         )
-    total_realizado = recebimento_realizado if recebimento_realizado is not None else None
     rows.append(
         {
             "Mês": "Total",
             "Meta": cell(meta_anual),
             "Recebimento": cell(total_realizado, "realizado"),
-            "% Meta": attainment,
+            "% Meta": total_pct,
             "kind": "total",
             "is_total": True,
         }
@@ -356,7 +373,7 @@ def assemble_meta(
         "rows": rows,
         "meta_anual": cell(meta_anual),
         "meta_mensal": cell(meta_mensal),
-        "atingimento_mes": attainment,
+        "atingimento_mes": attainment_mes,
         "falta": cell(remaining, "realizado"),
     }
 

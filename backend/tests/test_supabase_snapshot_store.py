@@ -18,21 +18,47 @@ class _FakeQuery:
     def __init__(self, table):
         self._table = table
         self._filters = {}
+        self._gte = {}
+        self._lte = {}
+        self._select = ""
 
-    def select(self, *_a, **_k):
+    def select(self, cols="", *_a, **_k):
+        self._select = cols
         return self
 
     def eq(self, col, val):
         self._filters[col] = val
         return self
 
+    def gte(self, col, val):
+        self._gte[col] = val
+        return self
+
+    def lte(self, col, val):
+        self._lte[col] = val
+        return self
+
+    def _project(self, row):
+        # Emulate the jsonb-path alias projection used by recebimento_by_year:
+        # "ano_mes, recebimento:payload->revenue->>recebimento_bruto".
+        if "recebimento:payload->revenue->>recebimento_bruto" not in self._select:
+            return row
+        raw = (row.get("payload") or {}).get("revenue", {}).get("recebimento_bruto")
+        return {
+            "ano_mes": row.get("ano_mes"),
+            # ->> yields TEXT in PostgREST; mirror that so the store must float-parse.
+            "recebimento": None if raw is None else str(raw),
+        }
+
     def execute(self):
         rows = [
             r
             for r in self._table.rows
             if all(r.get(k) == v for k, v in self._filters.items())
+            and all(str(r.get(k)) >= v for k, v in self._gte.items())
+            and all(str(r.get(k)) <= v for k, v in self._lte.items())
         ]
-        return _FakeResult(rows)
+        return _FakeResult([self._project(r) for r in rows])
 
 
 class _FakeTable:
@@ -106,3 +132,24 @@ def test_invalid_ano_mes_rejected():
     store = SupabaseSnapshotStore(_FakeClient())
     with pytest.raises(ValueError):
         store.put("nope", {}, client_id="mbc")
+
+
+def test_recebimento_by_year_maps_months_and_parses_text():
+    store = SupabaseSnapshotStore(_FakeClient())
+    store.put("2026-01", {"revenue": {"recebimento_bruto": 279821.07}}, client_id="mbc")
+    store.put("2026-02", {"revenue": {"recebimento_bruto": 319233.58}}, client_id="mbc")
+    # Another client and another year must not leak in.
+    store.put("2026-03", {"revenue": {"recebimento_bruto": 999.0}}, client_id="acme")
+    store.put("2025-05", {"revenue": {"recebimento_bruto": 111.0}}, client_id="mbc")
+
+    got = store.recebimento_by_year(2026, client_id="mbc")
+    assert got == {1: pytest.approx(279821.07), 2: pytest.approx(319233.58)}
+    assert all(isinstance(v, float) for v in got.values())
+
+
+def test_recebimento_by_year_skips_missing_recebimento():
+    store = SupabaseSnapshotStore(_FakeClient())
+    store.put("2026-01", {"revenue": {"recebimento_bruto": 100.0}}, client_id="mbc")
+    store.put("2026-02", {"revenue": {}}, client_id="mbc")  # no recebimento key
+    got = store.recebimento_by_year(2026, client_id="mbc")
+    assert got == {1: pytest.approx(100.0)}

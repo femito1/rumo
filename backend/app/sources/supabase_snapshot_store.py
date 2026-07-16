@@ -47,3 +47,31 @@ class SupabaseSnapshotStore:
 
     def has(self, ano_mes: str, *, client_id: str) -> bool:
         return self.get(ano_mes, client_id=client_id) is not None
+
+    def recebimento_by_year(self, year: int, *, client_id: str) -> dict[int, float]:
+        """Return ``{month_index: recebimento_bruto}`` for every snapshot of ``year``.
+
+        Used to fill the Meta dashboard's 12-month table without loading each
+        month's full ~100KB payload: a single PostgREST call projects just the
+        ``revenue.recebimento_bruto`` jsonb path (``->>`` yields text, so parse
+        with ``float``). Months without a snapshot are simply absent from the map.
+        """
+        res = (
+            self._c.table(_TABLE)
+            .select("ano_mes, recebimento:payload->revenue->>recebimento_bruto")
+            .eq("client_id", client_id)
+            .gte("ano_mes", f"{year:04d}-01")
+            .lte("ano_mes", f"{year:04d}-12")
+            .execute()
+        )
+        out: dict[int, float] = {}
+        for row in res.data or []:
+            ano_mes = row.get("ano_mes")
+            raw = row.get("recebimento")
+            if not ano_mes or raw is None:
+                continue
+            try:
+                out[int(str(ano_mes)[-2:])] = float(raw)
+            except (TypeError, ValueError):
+                continue
+        return out
