@@ -29,13 +29,29 @@ ties to the centavo (receb 415.927,84, líquido 29.691,61, reserva 2.969,16). Th
   derived value diverges from the workbook target by the ~R$1.359 Despesas-Área
   split (Viagens G156 label-vs-subtotal offset). **This is the ONLY thing waiting on
   Renata** (handoff item B; question sent 2026-07-16 in the WhatsApp thread).
-- **`base_resultado` (per-lawyer ledger: INSS/Convênio/Pró-Labores per sigla)** —
-  the hand-built ledger detail; deferred by decision (needs a Base_Resultado ledger
-  parser, not DB-derivable to the centavo). Not a bug.
+- **`base_resultado` DL-extras (6 lines: Bônus equipe / DL excedente / Cacione)** —
+  correctly blank in May (bonus is a Feb event, DL excedente posts Jan/Mar,
+  Extraordinária is a 2024 one-off, Cacione never occurs). Not a bug.
 - **`dre_2026` / annual budget rows** — budget-source tab, populated only when the
   Orçamento is imported for the client.
 - **Jan/Feb/Mar institutional classification (item C)** — earlier months still gate
   `custo_equipe`/`despesas`; May (the authoritative book) is clean.
+
+## 2026-07-16 (later) — cleanup: manual editor removed + fluxo/total-row fixes
+
+Commit `d8e8f6b` (main, deployed backend + frontend), in response to a user review of
+the live UI:
+- **Removed the manual "Lançamentos por área" editor entirely.** Comissão / Despesas
+  Equipe / Despesa Institucional are all SISJURI-derived now, so hand-entry was
+  vestigial. Backend (`manual_router`, `manual/models`, `manual/repository`, provider
+  wiring, `AssemblerSource.manual`, `_area_rows`/`assemble_dre_sections` `man` params,
+  `manual_actuals` DDL) + frontend (`ManualActualsEditor`, `useManualActuals`,
+  WorkspacePage) + tests. **`area_transfers` (Resumo_Recebidas) is separate and kept.**
+- **`fluxo_consolidado` now DB-derived** (was manual-only, blanked 9 cells on live May;
+  now Recebimento/Despesas/Margem all fill from the same basis as the area DRE tabs).
+- **Total/header rows no longer show "ainda não temos"** in structurally-empty text
+  cells (the Moedas/Nacional Total-row placeholder bug). Frontend `TabView`.
+- Tests: backend **227**, frontend **51**; ruff/mypy/eslint/tsc clean.
 
 ---
 
