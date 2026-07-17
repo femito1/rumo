@@ -935,6 +935,45 @@ def test_dre_2026_has_twelve_month_columns_all_orcado():
     assert row["Janeiro"]["value"] == pytest.approx(671666.67, abs=0.05)
 
 
+def test_dre_2026_has_amortizacao_row_defaulting_to_worksheet(snapshot):
+    # Amortização is a fixed worksheet value (8.117/mês); the DRE 2026 tab must
+    # carry it even when the client budgeted no amortização, so the row never blanks.
+    from app.closing.workbook_layouts import AMORTIZACAO_MENSAL
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget={"institucional": {RECEBIMENTO: 671666.67}},
+        period_label="x",
+    )
+    dre = sections["dre_2026"]
+    amort = next(r for r in dre["rows"] if r.get("key") == "amortizacao")
+    assert amort["Anual"]["value"] == pytest.approx(AMORTIZACAO_MENSAL * 12, abs=0.5)
+    assert amort["Janeiro"]["value"] == pytest.approx(AMORTIZACAO_MENSAL, abs=0.01)
+
+
+def test_institucional_ano_amortizacao_orcado_defaults_to_worksheet(snapshot):
+    # The annual Institucional tab's Orçado amortização must show the worksheet
+    # value (8.117 * 12), not "ainda não temos" — WITH or WITHOUT a budget amort.
+    from app.closing.workbook_layouts import AMORTIZACAO_MENSAL
+
+    # No amort in the budget: still defaults to the worksheet annual.
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget={"institucional": {RECEBIMENTO: 671666.67}},
+        period_label="Fev 2026",
+    )
+    amort = _row(sections["institucional_ano"]["rows"], "amortizacao")
+    assert amort["Orçado (ano)"]["value"] == pytest.approx(AMORTIZACAO_MENSAL * 12, abs=0.5)
+    assert amort["Realizado"]["value"] == pytest.approx(AMORTIZACAO_MENSAL, abs=0.01)
+
+    # An explicit budget amort overrides the default.
+    sections2 = assemble_dre_sections(
+        snapshot=snapshot,
+        budget={"institucional": {RECEBIMENTO: 671666.67, "amortizacao": 10000.0}},
+        period_label="Fev 2026",
+    )
+    amort2 = _row(sections2["institucional_ano"]["rows"], "amortizacao")
+    assert amort2["Orçado (ano)"]["value"] == pytest.approx(120000.0, abs=0.5)
+
+
 def test_fluxo_consolidado_fills_from_db_without_manual(snapshot_may):
     """Fluxo consolidado must render per-area Recebimento/Despesas/Margem from the
     SISJURI-derived values (like the area tabs), NOT require manual entry. With a

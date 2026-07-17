@@ -115,6 +115,7 @@ def assemble_dre_2026(
     """Annual budget projection with 12 monthly columns (all Orçado), mirroring
     the workbook 'DRE 2026'. Each line = annual budget split evenly per month."""
     from app.closing.dre import (
+        AMORTIZACAO,
         CUSTO_EQUIPE,
         DESPESAS,
         IMPOSTO,
@@ -125,8 +126,13 @@ def assemble_dre_2026(
     columns = ["Linha", "Anual", *_MESES]
 
     def line(label: str, key: str, *, is_total: bool = False,
-             kind: str = "amount") -> dict[str, Any]:
+             kind: str = "amount", default_monthly: float | None = None) -> dict[str, Any]:
+        # ``default_monthly`` is a fixed worksheet value used when the client
+        # budgeted nothing for this line (amortização = 8.117/mês); the budget
+        # entry remains the manual override when present.
         monthly = inst.get(key)
+        if monthly is None:
+            monthly = default_monthly
         annual = round(monthly * 12, 2) if monthly is not None else None
         # Display columns first (Linha, Anual, 12 months), metadata last, so the
         # frontend's rowKeys slice (== column count) never grabs metadata.
@@ -146,6 +152,7 @@ def assemble_dre_2026(
         line("Custo equipe", CUSTO_EQUIPE),
         line("Despesas", DESPESAS),
         line("Imposto", IMPOSTO),
+        line("Amortização", AMORTIZACAO, default_monthly=AMORTIZACAO_MENSAL),
     ]
     return {
         "kind": "rich",
@@ -442,6 +449,7 @@ def assemble_institucional_ano(
     anual vs Realizado acumulado for the headline DRE lines. With single-month
     snapshots, Realizado is the month; Orçado is the annual budget."""
     from app.closing.dre import (
+        AMORTIZACAO,
         CUSTO_EQUIPE,
         DESPESAS,
         IMPOSTO,
@@ -460,13 +468,18 @@ def assemble_institucional_ano(
         m = inst.get(key)
         return round(m * 12, 2) if m is not None else None
 
+    # Amortização is a fixed worksheet value (8.117/mês); default to it when the
+    # client budgeted no amortização, so the Orçado never blanks. The budget entry
+    # (BudgetEditor) remains the manual override when present.
+    amort_annual = round((inst.get(AMORTIZACAO) or AMORTIZACAO_MENSAL) * 12, 2)
+
     rows = [
         {"Linha": "Recebimento", "Orçado (ano)": {"value": orc_annual(RECEBIMENTO), "source": "orcado"}, "Realizado": {"value": r.recebimento, "source": "realizado"}, "key": RECEBIMENTO},
         {"Linha": "Custo equipe", "Orçado (ano)": {"value": orc_annual(CUSTO_EQUIPE), "source": "orcado"}, "Realizado": {"value": r.custo_equipe, "source": "realizado"}, "key": CUSTO_EQUIPE},
         {"Linha": "Despesas", "Orçado (ano)": {"value": orc_annual(DESPESAS), "source": "orcado"}, "Realizado": {"value": r.despesas, "source": "realizado"}, "key": DESPESAS},
         {"Linha": "Resultado Bruto", "Orçado (ano)": None, "Realizado": {"value": r.resultado_bruto, "source": "realizado"}, "is_total": True, "kind": "subtotal", "key": "resultado_bruto"},
         {"Linha": "Imposto", "Orçado (ano)": {"value": orc_annual(IMPOSTO), "source": "orcado"}, "Realizado": {"value": r.imposto, "source": "realizado"}, "key": IMPOSTO},
-        {"Linha": "Amortização", "Orçado (ano)": None, "Realizado": {"value": r.amortizacao, "source": "manual"}, "key": "amortizacao"},
+        {"Linha": "Amortização", "Orçado (ano)": {"value": amort_annual, "source": "orcado"}, "Realizado": {"value": r.amortizacao, "source": "manual"}, "key": "amortizacao"},
         {"Linha": "Resultado Liquido", "Orçado (ano)": None, "Realizado": {"value": r.resultado_liquido, "source": "realizado"}, "is_total": True, "kind": "subtotal", "key": "resultado_liquido"},
     ]
     return {
