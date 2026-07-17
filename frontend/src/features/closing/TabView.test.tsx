@@ -1,7 +1,7 @@
 // frontend/src/features/closing/TabView.test.tsx
 import { describe, it, expect } from "vitest";
 import { render, screen, within, fireEvent } from "@testing-library/react";
-import { TabView, MISSING_LABEL } from "./TabView";
+import { TabView, MISSING_LABEL, NA_LABEL } from "./TabView";
 
 describe("TabView", () => {
   it("renders a rich tab as a table with its columns and live values", () => {
@@ -83,6 +83,38 @@ describe("TabView", () => {
     expect(within(totalRow).queryByText(MISSING_LABEL)).toBeNull();
     expect(within(totalRow).getByText("Total")).toBeInTheDocument();
     expect(within(totalRow).getByText("11.328,87")).toBeInTheDocument();
+  });
+
+  it("shows '—' for null Orçado/Desvio% but 'ainda não temos' for null Realizado", () => {
+    const { container } = render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Contencioso",
+          columns: ["Linha", "Orçado", "Realizado", "Desvio %"],
+          rows: [
+            {
+              Linha: "Comissão",
+              // Orçado not budgeted at this grain → "not applicable" (dash).
+              "Orçado": { value: null, source: "orcado" },
+              // Realizado genuinely missing → keep the "ainda não temos" label.
+              Realizado: { value: null, source: "realizado" },
+              // Desvio % can't be computed without Orçado → dash.
+              "Desvio %": null,
+              key: "comissao",
+            },
+          ],
+        }}
+      />,
+    );
+    const row = container.querySelector("tbody tr") as HTMLElement;
+    const cells = within(row).getAllByRole("cell");
+    // cells: [Linha, Orçado, Realizado, Desvio %]
+    expect(cells[1]).toHaveTextContent(NA_LABEL); // Orçado → —
+    expect(cells[2]).toHaveTextContent(MISSING_LABEL); // Realizado → ainda não temos
+    expect(cells[3]).toHaveTextContent(NA_LABEL); // Desvio % → —
+    // The dash and the missing-label are distinct.
+    expect(NA_LABEL).not.toEqual(MISSING_LABEL);
   });
 
   it("renders a grid tab with a sticky header row in a thead", () => {

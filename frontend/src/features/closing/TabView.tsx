@@ -3,8 +3,20 @@ import { useState } from "react";
 import { TableScroll } from "../../components/TableScroll";
 import { formatPercent } from "../../lib/format";
 
-/** Shown wherever a value isn't available from the source yet (was MANUAL/blank). */
+/** Shown for a genuinely-missing Realizado actual (a number we should derive but don't). */
 export const MISSING_LABEL = "ainda não temos";
+
+/** Shown for a cell that was never meant to hold a value — an unbudgeted Orçado line
+ *  or a Desvio % that can't be computed without it. "Not applicable", not "missing". */
+export const NA_LABEL = "—";
+
+/** Budget/derived columns where a null means "not applicable" (→ NA_LABEL), NOT a
+ *  missing actual. Everything else (Realizado, Valor) keeps MISSING_LABEL when null. */
+function isNaColumn(header: string | undefined): boolean {
+  if (typeof header !== "string") return false;
+  const h = header.trim().toLowerCase();
+  return h.includes("orçado") || h.includes("orcado") || h === "desvio %";
+}
 
 interface GridCell { t: "label" | "number" | "formula" | "empty"; v?: string | null; n?: number | null }
 interface RichTab { kind: "rich"; name: string; columns?: string[]; rows?: RichRow[]; invoices?: RichInvoice[]; [k: string]: unknown }
@@ -147,7 +159,13 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
                         {renderRichValue(row[k], true, false, emptyIsBlank)}
                       </button>
                     ) : (
-                      renderRichValue(row[k], ci === 0, isPercentColumn(columns[ci]), emptyIsBlank)
+                      renderRichValue(
+                        row[k],
+                        ci === 0,
+                        isPercentColumn(columns[ci]),
+                        emptyIsBlank,
+                        isNaColumn(columns[ci]),
+                      )
                     )}
                   </td>
                 ))}
@@ -258,16 +276,21 @@ function renderRichValue(
   isFirstColumn: boolean,
   isPercent = false,
   emptyIsBlank = false,
+  emptyDash = false,
 ): string {
+  // A null in a "not applicable" column (unbudgeted Orçado, uncomputable Desvio %)
+  // shows a neutral dash — never "ainda não temos", which is reserved for a
+  // genuinely-missing Realizado actual.
+  const nullLabel = emptyIsBlank ? "" : emptyDash ? NA_LABEL : MISSING_LABEL;
   if (isPercent) {
-    if (isSourcedCell(v)) return v.value == null ? MISSING_LABEL : formatPercent(v.value);
+    if (isSourcedCell(v)) return v.value == null ? nullLabel : formatPercent(v.value);
     if (typeof v === "number") return formatPercent(v);
-    return v == null ? MISSING_LABEL : String(v);
+    return v == null ? nullLabel : String(v);
   }
-  if (isSourcedCell(v)) return v.value == null && emptyIsBlank ? "" : moneyOrMissing(v.value);
+  if (isSourcedCell(v)) return v.value == null ? nullLabel : numberFmt.format(v.value);
   if (typeof v === "number") return numberFmt.format(v);
   if (typeof v === "string") return v === "" ? (emptyIsBlank ? "" : MISSING_LABEL) : v;
-  if (v == null) return isFirstColumn || emptyIsBlank ? "" : MISSING_LABEL;
+  if (v == null) return isFirstColumn ? "" : nullLabel;
   return String(v);
 }
 
