@@ -37,6 +37,24 @@ ties to the centavo (receb 415.927,84, líquido 29.691,61, reserva 2.969,16). Th
 - **Jan/Feb/Mar institutional classification (item C)** — earlier months still gate
   `custo_equipe`/`despesas`; May (the authoritative book) is clean.
 
+## 2026-07-17 — per-área Orçado derived + amortização default (Orçado blanks cleared)
+
+Two commits (main, backend deployed + verified live) addressing the "ainda não temos"
+spread in the **Orçado** column:
+- `e59dd5a` — **per-área Orçado is now derived from the institucional budget** (the workbook
+  doesn't type a per-área budget; it derives it by formula). New `_per_area_orcado(budget)`:
+  Recebimento = inst budget × 37,5/37,5/25 (ties workbook to the centavo); Custo/DespEq =
+  pass-through; Despesa Institucional = pool × custo-equipe share (pool = OUR inst despesas
+  budget − Σ per-área DespEq — DB-derivable, not the workbook's account subset); Resultado
+  Bruto derived. Fills all 3 area tabs + areas_sintetico Orçado. Comissão/DespEq Orçado stay
+  blank where no budget exists (correct).
+- `d9d84dc` — **amortização Orçado defaults to the worksheet constant** (8.117/mês, 97.404/ano)
+  in `institucional_ano` (was hard-coded None) and `dre_2026` (row was missing). Manual
+  override already exists via BudgetEditor.
+- **Key reframing:** almost every remaining "ainda não temos" is an **unentered BUDGET cell**
+  (per-account Orçado — workbook budgets at family level; per-área Comissão/DespEq — no budget),
+  NOT a missing actual. The Realizado side is complete (May ties, June 0-blank). Backend 239 tests.
+
 ## 2026-07-16 (later) — item B CLOSED (Renata's Despesas Área ruling)
 
 Commit `824b1ca` (main, backend deployed). Renata confirmed Despesas Área is allocated
