@@ -37,6 +37,20 @@ ties to the centavo (receb 415.927,84, líquido 29.691,61, reserva 2.969,16). Th
 - **Jan/Feb/Mar institutional classification (item C)** — earlier months still gate
   `custo_equipe`/`despesas`; May (the authoritative book) is clean.
 
+## 2026-07-16 (later) — item B CLOSED (Renata's Despesas Área ruling)
+
+Commit `824b1ca` (main, backend deployed). Renata confirmed Despesas Área is allocated
+by each line's label/cost-center area (Viagens-Econômico → Econômico, assento →
+Arbitragem); the workbook subtotal formula's 1-row offset was a spreadsheet mistake. The
+DB already allocated this way, so only the workbook per-área `resultado_bruto` TARGETS
+(extracted from the buggy formula) were wrong and were blanking our correct values.
+Corrected the three **May** targets via `_apply_despesas_area_override` in
+`build_workbook_targets.py` (Contencioso 129.860,86 / Econômico 43.444,15 / Arbitragem
+−39.855,42), mirroring the aluguel-override precedent. Scoped to May only. All 6 per-área
+`resultado_bruto` cells now render live. **This was the last thing waiting on Renata.**
+Remaining per-área blanks are Jan–Apr only, gated by the separate item-C classification
+gap. Backend 235 tests.
+
 ## 2026-07-16 (later) — Meta dashboard fills full YTD
 
 Commit `adf728b` (main, backend deployed + verified live). The Meta 2026 tab showed
