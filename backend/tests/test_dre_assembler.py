@@ -404,8 +404,10 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
     # Workbook-free path: with no `ledger` block, per-area Despesa Institucional
     # must still be DB-derived via the rateio rule (institutional overhead
     # apportioned by each area's share of total Custo equipe), NOT left blank.
-    # NOTE: this checks the derivation runs and is self-consistent; it does NOT
-    # prove the split matches the workbook — that needs GAP 2 (see xfail below).
+    # NOTE: this checks the derivation runs and is self-consistent. The per-área
+    # Despesas Área allocation (GAP 2) was RESOLVED by Renata (2026-07-16): allocate
+    # by label/cost-center, which the DB already does; see
+    # test_workbook_targets.test_may_per_area_resultado_bruto_uses_renata_despesas_area_ruling.
     from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
 
     r = RealizadoInputs.from_snapshot(snapshot_may)

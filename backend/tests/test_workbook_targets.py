@@ -30,6 +30,18 @@ def test_targets_for_known_month_may():
     assert t["contencioso"]["custo_equipe"] == pytest.approx(74141.21, abs=0.01)
 
 
+def test_may_per_area_resultado_bruto_uses_renata_despesas_area_ruling():
+    # Renata (2026-07-16) confirmed Despesas Área is allocated by label/cost-center
+    # (Viagens-Econômico -> Econômico, assento -> Arbitragem); the workbook's
+    # off-by-one Viagens subtotal formula was a spreadsheet mistake. The DB already
+    # allocates this way, so the per-área Resultado Bruto targets are corrected to
+    # the DB-derived values (build_workbook_targets._apply_despesas_area_override).
+    t = targets_for("2026-05")
+    assert t["contencioso"]["resultado_bruto"] == pytest.approx(129860.86, abs=0.01)
+    assert t["economico"]["resultado_bruto"] == pytest.approx(43444.15, abs=0.01)
+    assert t["arbitragem"]["resultado_bruto"] == pytest.approx(-39855.42, abs=0.01)
+
+
 def test_targets_for_unknown_month_is_none():
     assert targets_for("2026-12") is None
     assert targets_for("2099-01") is None

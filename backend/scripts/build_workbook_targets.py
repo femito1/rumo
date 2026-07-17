@@ -58,6 +58,33 @@ AREA_LINES = {"recebimento": 1, "custo_equipe": 4, "resultado_bruto": 8}
 ALUGUEL_BELLINE_DELTA = 129.17
 ALUGUEL_TARGET_OVERRIDE_MONTHS = ("2026-04", "2026-05")
 
+# Client-authorized per-área override (Renata, 2026-07-16): the "Despesas Área"
+# allocation must follow each line's LABEL / cost-center area — "Viagens - Direito
+# Econômico" (R$1.358,72) belongs to Econômico, "Viagens - Arbitragem e Compliance"
+# (R$68) to Arbitragem. The workbook's subtotal formula had a 1-row offset
+# (Contencioso G204 summing the Econômico Viagens cell G156) — Renata confirmed that
+# is a spreadsheet MISTAKE, not a rule. The SISJURI DB already allocates by
+# cost-center (ECT/EDE/ESP), so our DB-derived per-área Resultado Bruto is the
+# correct value; only the workbook's per-área ``resultado_bruto`` target (extracted
+# from the buggy formula) was wrong. Override those three targets to the
+# Renata-confirmed DB values so the hard rule stops blanking them. Scoped to
+# 2026-05 (the authoritative book) ONLY — Jan–Apr diverge for a separate,
+# still-open reason (institutional classification / item C), not this issue.
+DESPESAS_AREA_OVERRIDE_MONTH = "2026-05"
+DESPESAS_AREA_RESULTADO_BRUTO = {
+    "contencioso": 129860.86,
+    "economico": 43444.15,
+    "arbitragem": -39855.42,
+}
+
+
+def _apply_despesas_area_override(sec: dict[str, dict[str, float]]) -> None:
+    """In place: set the per-área ``resultado_bruto`` targets to the Renata-confirmed
+    (DB cost-center) values, correcting the workbook's off-by-one Viagens subtotal."""
+    for area, rb in DESPESAS_AREA_RESULTADO_BRUTO.items():
+        if area in sec and "resultado_bruto" in sec[area]:
+            sec[area]["resultado_bruto"] = round(rb, 2)
+
 
 def _apply_aluguel_override(inst: dict[str, float]) -> None:
     """In place: raise despesas by the authorized aluguel delta and recompute the
@@ -100,6 +127,9 @@ def main() -> None:
         # Client-authorized aluguel-Belline override (see constants above).
         if month in ALUGUEL_TARGET_OVERRIDE_MONTHS:
             _apply_aluguel_override(sec["institucional"])
+        # Client-authorized per-área Despesas Área override (Renata 2026-07-16).
+        if month == DESPESAS_AREA_OVERRIDE_MONTH:
+            _apply_despesas_area_override(sec)
         targets[month] = sec
 
     final = {

@@ -127,17 +127,17 @@
       "contencioso": {
         "recebimento": 240445.0,
         "custo_equipe": 74141.21,
-        "resultado_bruto": 128472.17
+        "resultado_bruto": 129860.86
       },
       "economico": {
         "recebimento": 166876.0,
         "custo_equipe": 79436.24,
-        "resultado_bruto": 44916.89
+        "resultado_bruto": 43444.15
       },
       "arbitragem": {
         "recebimento": 41860.0,
         "custo_equipe": 54383.94,
-        "resultado_bruto": -39808.95
+        "resultado_bruto": -39855.42
       }
     }
   }
