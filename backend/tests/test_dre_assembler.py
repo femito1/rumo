@@ -287,6 +287,77 @@ def test_area_despesas_equipe_budget_flows_into_orcado(snapshot):
     assert econ["Orçado"]["value"] == pytest.approx(3100.0, abs=0.01)
 
 
+def test_per_area_orcado_derived_from_institucional_budget(snapshot):
+    # The workbook derives every per-area Orçado from the single institucional
+    # budget (it does NOT type a per-area budget). Replicate:
+    #  - Recebimento: 37.5% Contencioso, 37.5% Econômico, 25% Arbitragem
+    #  - Custo equipe: the per-area custo_equipe budget (monthly)
+    #  - Despesa Institucional: pool * (area custo share), pool = inst despesas
+    #    budget − Σ per-area despesas_equipe budget
+    #  - Resultado Bruto: derived (Recb − Custo − Comissão − DespEq − DespInst)
+    #  - Comissão: no workbook budget → blank
+    from app.closing.dre import (
+        COMISSAO,
+        CUSTO_EQUIPE,
+        DESPESA_INSTITUCIONAL,
+        DESPESAS,
+        DESPESAS_EQUIPE,
+        RECEBIMENTO,
+        RESULTADO_BRUTO,
+    )
+
+    # Monthly budget (assemble_dre_sections receives annual/12 already split).
+    recb_m = 8060000.04 / 12
+    desp_m = 1331793.83 / 12
+    ce = {"Contencioso": 881797.78 / 12, "Econômico": 914114.79 / 12,
+          "Arbitragem": 607970.17 / 12}
+    de = {"Contencioso": 2110.49, "Econômico": 3174.82, "Arbitragem": 1901.49}
+    budget = {
+        "institucional": {RECEBIMENTO: recb_m, DESPESAS: desp_m},
+        "Contencioso": {CUSTO_EQUIPE: ce["Contencioso"], DESPESAS_EQUIPE: de["Contencioso"]},
+        "Econômico": {CUSTO_EQUIPE: ce["Econômico"], DESPESAS_EQUIPE: de["Econômico"]},
+        "Arbitragem": {CUSTO_EQUIPE: ce["Arbitragem"], DESPESAS_EQUIPE: de["Arbitragem"]},
+    }
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, period_label="Fev 2026"
+    )
+
+    def orc(area_key, line):
+        return _row(sections[area_key]["rows"], line)["Orçado"]["value"]
+
+    # Recebimento split 37.5 / 37.5 / 25.
+    assert orc("contencioso", RECEBIMENTO) == pytest.approx(recb_m * 0.375, abs=0.02)
+    assert orc("economico", RECEBIMENTO) == pytest.approx(recb_m * 0.375, abs=0.02)
+    assert orc("arbitragem", RECEBIMENTO) == pytest.approx(recb_m * 0.25, abs=0.02)
+
+    # Despesa Institucional: pool * custo-equipe share.
+    pool = desp_m - sum(de.values())
+    tot_ce = sum(ce.values())
+    for area_key, area in (("contencioso", "Contencioso"), ("economico", "Econômico"),
+                           ("arbitragem", "Arbitragem")):
+        exp_di = pool * ce[area] / tot_ce
+        assert orc(area_key, DESPESA_INSTITUCIONAL) == pytest.approx(exp_di, abs=0.02)
+        # Resultado Bruto Orçado = Recb − Custo − DespEq − DespInst (Comissão 0).
+        recb_o = recb_m * (0.25 if area == "Arbitragem" else 0.375)
+        exp_rb = round(recb_o - ce[area] - de[area] - exp_di, 2)
+        assert orc(area_key, RESULTADO_BRUTO) == pytest.approx(exp_rb, abs=0.05)
+        # Comissão Orçado stays blank (no per-area comissão budget).
+        assert _row(sections[area_key]["rows"], COMISSAO)["Orçado"]["value"] is None
+
+
+def test_per_area_orcado_blank_without_institucional_recebimento_budget(snapshot):
+    # No institucional recebimento budget → per-area Recebimento Orçado is blank
+    # (no crash), and Resultado Bruto Orçado stays blank too.
+    from app.closing.dre import RECEBIMENTO, RESULTADO_BRUTO
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget={"Contencioso": {"custo_equipe": 70000.0}},
+        period_label="Fev 2026",
+    )
+    assert _row(sections["contencioso"]["rows"], RECEBIMENTO)["Orçado"]["value"] is None
+    assert _row(sections["contencioso"]["rows"], RESULTADO_BRUTO)["Orçado"]["value"] is None
+
+
 def test_amortizacao_defaults_to_fixed_monthly(snapshot):
     # POINT 12: with no budgeted amortização, the DRE uses the fixed 8.117/mês
     # default (workbook 'Amortização' line), preserving today's behavior.

@@ -674,6 +674,67 @@ def _section_header_row(title: str) -> dict[str, Any]:
     }
 
 
+#: Per-área Recebimento Orçado split of the institucional recebimento budget
+#: (workbook 'Areas Sintetico': Contencioso & Econômico = (recb − recb/4)/2 = 37.5%,
+#: Arbitragem = recb/4 = 25%). Fixed plan split, DB/budget-derivable (no workbook).
+_RECEBIMENTO_ORCADO_SHARE = {"Contencioso": 0.375, "Econômico": 0.375, "Arbitragem": 0.25}
+
+
+def _per_area_orcado(
+    budget: dict[str, dict[str, float]],
+) -> dict[str, dict[str, float]]:
+    """Derive each área's Orçado from the single institucional budget, mirroring
+    the workbook's per-área formulas (no per-área budget is typed):
+
+    - Recebimento = inst recebimento budget × área share (37.5/37.5/25).
+    - Custo equipe / Despesas Equipe = the área's own budgeted values (pass-through).
+    - Despesa Institucional = pool × (área custo-equipe share), where
+      ``pool = inst despesas budget − Σ per-área Despesas Equipe budget`` and the
+      share = área custo-equipe budget / Σ área custo-equipe budget. Uses OUR
+      institucional despesas budget as the pool (fully DB-derivable; the workbook's
+      hand-picked account subset is a spreadsheet artifact we deliberately don't copy).
+    - Resultado Bruto = Recebimento − Custo − Comissão − Despesas Equipe − Despesa
+      Institucional (Comissão has no per-área budget → treated as 0, shown blank).
+
+    Returns ``{area: {line_key: orcado}}``; a line is omitted (→ blank) when its
+    inputs aren't budgeted."""
+    inst = budget.get("institucional", {})
+    recb_inst = inst.get(RECEBIMENTO)
+    desp_inst = inst.get(DESPESAS)
+
+    custo = {a: budget.get(a, {}).get(CUSTO_EQUIPE) for a in AREAS}
+    despeq = {a: budget.get(a, {}).get(DESPESAS_EQUIPE) for a in AREAS}
+    tot_custo = sum(v for v in custo.values() if v is not None)
+    pool = None
+    if desp_inst is not None:
+        pool = round(desp_inst - sum(v for v in despeq.values() if v is not None), 2)
+
+    out: dict[str, dict[str, float]] = {}
+    for area in AREAS:
+        row: dict[str, float] = {}
+        area_custo = custo[area]
+        area_despeq = despeq[area]
+        if recb_inst is not None:
+            row[RECEBIMENTO] = round(recb_inst * _RECEBIMENTO_ORCADO_SHARE[area], 2)
+        if area_custo is not None:
+            row[CUSTO_EQUIPE] = round(area_custo, 2)
+        if area_despeq is not None:
+            row[DESPESAS_EQUIPE] = round(area_despeq, 2)
+        if pool is not None and area_custo is not None and tot_custo:
+            row[DESPESA_INSTITUCIONAL] = round(pool * area_custo / tot_custo, 2)
+        # Resultado Bruto: only when Recebimento is budgeted (its base).
+        if RECEBIMENTO in row:
+            row[RESULTADO_BRUTO] = round(
+                row[RECEBIMENTO]
+                - row.get(CUSTO_EQUIPE, 0.0)
+                - row.get(DESPESAS_EQUIPE, 0.0)
+                - row.get(DESPESA_INSTITUCIONAL, 0.0),
+                2,
+            )
+        out[area] = row
+    return out
+
+
 def _area_rows(
     area: str,
     r: RealizadoInputs,
@@ -728,7 +789,7 @@ def _area_rows(
             orc.get(DESPESA_INSTITUCIONAL), desp_inst,
         ),
         dre(
-            "Resultado Bruto", RESULTADO_BRUTO, None, resultado,
+            "Resultado Bruto", RESULTADO_BRUTO, orc.get(RESULTADO_BRUTO), resultado,
             is_total=True, kind="subtotal",
         ),
     ]
@@ -776,6 +837,10 @@ def assemble_dre_sections(
 
         r.area_recebimento = apply_to_base(r.area_recebimento, transfers)
     inst_orc = budget.get("institucional", {})
+    # Per-área Orçado is derived from the institucional budget (workbook-faithful);
+    # it supersedes the raw per-área budget map so Recebimento/Despesa Institucional/
+    # Resultado Bruto Orçado fill (Custo equipe / Despesas Equipe pass through).
+    area_orcado = _per_area_orcado(budget)
 
     sections: dict[str, dict[str, Any]] = {}
     sections["institucional"] = {
@@ -792,7 +857,7 @@ def assemble_dre_sections(
             "name": area,
             "columns": _DRE_COLUMNS,
             "rows": _area_rows(
-                area, r, budget.get(area, {}), targets, area_key,
+                area, r, area_orcado.get(area, {}), targets, area_key,
             ),
             "snapshot_missing": missing,
         }
@@ -803,7 +868,7 @@ def assemble_dre_sections(
     for area in AREAS:
         sint.append(_section_header_row(f"RESULTADO {area.upper()}"))
         sint.extend(_area_rows(
-            area, r, budget.get(area, {}), targets, _AREA_SECTION[area],
+            area, r, area_orcado.get(area, {}), targets, _AREA_SECTION[area],
         ))
     sections["areas_sintetico"] = {
         "kind": "rich",
