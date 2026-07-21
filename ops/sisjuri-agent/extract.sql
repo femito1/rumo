@@ -384,25 +384,25 @@ BEGIN
            AND l.LANCPROFDEST IS NOT NULL
          GROUP BY l.LANCPROFDEST, l.PCTCNUMEROCONTADEST
         UNION ALL
-        -- ISS jurídico (030.010.0160) — TRIMESTRAL (Jan/Apr/Jul/Oct only), per
-        -- lawyer via GERENC ID_PROFISSIONAL -> sigla. Folded to areas by the SAME
-        -- home-grupo + CAD_RATEIO_GRUPO %s as the other team lines. This ties the
-        -- ISS TOTAL (Jan 5.350,24) and Contencioso (1.719,72) to the centavo, and
-        -- stops ISS being dropped (named just "ISS" -> is_imposto would misfire;
-        -- guarded: is_direct_team => not tax). ⚠ The workbook's Econ↔Arb split is
-        -- NOT reproduced: probe_iss_jgs proved JGS's two ISS rows are BOTH
-        -- grupo=Arbitragem in the DB, but the workbook books one to Econômico
-        -- (Jan Econ=382,16*5+191,08 / Arb=382,16*4). So in quarter months our Econ
-        -- is ~382,16 short and Arb ~382,16 over — a documented manual reclass, not
-        -- a DB rule (see docs/FINDINGS_2026-07-21-manuais-refutados.md).
-        SELECT p.SIGLA sigla, r.ID_CONTA id_conta,
-               ROUND(SUM(r.VALOR),2) valor
-          FROM LDESK.GERENC_LANCAMENTORESUMO r
-          LEFT JOIN LDESK.CAD_PROFISSIONAL p ON p.ID_PROFISSIONAL = r.ID_PROFISSIONAL
-         WHERE r.ID_CONTA = '030.010.0160'
-           AND r.ANO_MES = '&ANO_MES'
-           AND p.SIGLA IS NOT NULL
-         GROUP BY p.SIGLA, r.ID_CONTA
+        -- ISS jurídico (030.010.0160) — TRIMESTRAL (Jan/Apr/Jul/Oct). A flat
+        -- per-professional rateio (histórico "rateado para N profissionais") of the
+        -- firm's quarterly ISS, one FINANCE.LANCAMENTO posting per unit. ⭐ The
+        -- area of each unit = its **LANCSOLICITANTE** (requester), NOT LANCPROFDEST:
+        -- proven 2026-07-21 (probe_iss_jgs_allcols + probe_iss_solicitante) — JGS's
+        -- two Jan units are identical except LANCSOLICITANTE (JGS vs MAM); MAM's
+        -- home is Econômico, so that unit lands in Econômico, exactly reproducing
+        -- the workbook "ISS Trimestral" (Jan Conten 1.719,72 / Econ 2.101,88 / Arb
+        -- 1.528,64) once the standard AM 50/50 rateio is applied by the fold. So we
+        -- key ISS by the SOLICITANTE sigla and let build_area_splits/rateio handle
+        -- the rest — fully DB-derivable, no manual reclass. Guarded from is_imposto
+        -- via is_direct_team. Uses LANDDATA to match the other LANCAMENTO blocks.
+        SELECT l.LANCSOLICITANTE sigla, l.PCTCNUMEROCONTADEST id_conta,
+               ROUND(SUM(l.LANNVALOR),2) valor
+          FROM FINANCE.LANCAMENTO l
+         WHERE l.PCTCNUMEROCONTADEST = '030.010.0160'
+           AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
+           AND l.LANCSOLICITANTE IS NOT NULL
+         GROUP BY l.LANCSOLICITANTE, l.PCTCNUMEROCONTADEST
      )
   ),
   -- Per-lawyer convênio memo: some lawyers (EHF, RB today) have a "parte MBC"

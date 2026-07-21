@@ -145,32 +145,46 @@ def test_reconciles_reconciled_lawyers_to_the_centavo():
     assert out["Contencioso"] == 20356.08
 
 
-def test_iss_juridico_folds_per_lawyer_via_splits():
-    """ISS jurídico (030.010.0160, TRIMESTRAL) is a per-lawyer team-cost line: it
-    must fold to areas through the SAME home-grupo + AM 50/50 rateio as every other
-    030 team component (probe_iss_area #B, 2026-07-21). It is NOT grouped by the
-    raw ID_GRUPOJURIDICO (#A), which ignores the rateio and mismatches the workbook.
+def test_iss_juridico_ties_workbook_via_solicitante():
+    """ISS jurídico (030.010.0160, TRIMESTRAL) is a flat per-professional rateio of
+    the firm's quarterly ISS. Proven 2026-07-21 (probe_iss_solicitante) that each
+    unit's AREA = its LANCSOLICITANTE (requester)'s home area — NOT LANCPROFDEST —
+    then folded through the standard AM 50/50 rateio. This reproduces the workbook
+    "ISS Trimestral" split (Base_Resultado rows 25/54/79) to the CENTAVO.
 
-    Mechanism check (roster-independent): a per-lawyer ISS row lands in the lawyer's
-    home area, and AM's ISS splits 50/50 — exactly like distribuição/pró-labore.
-    (A centavo-exact Jan total is NOT asserted here because it depends on the Jan
-    roster's home areas for JCT/VC, which this Feb fixture does not carry; the
-    end-to-end tie is validated by re-running the extract for a quarter month.)
+    Real Jan 2026 roster (14 units, keyed by solicitante; JGS has 2 postings, one
+    solicited by JGS→Arbitragem and one by MAM→Econômico — the DB-derived cross-area
+    move that made the earlier "manual residual" verdict WRONG):
+        Contencioso 1.719,72 | Econômico 2.101,88 | Arbitragem 1.528,64  (Σ 5.350,24)
     """
     u = 382.16
-    rows = [
-        {"sigla": "DC", "id_conta": "030.010.0160", "valor": u},   # Contencioso home
-        {"sigla": "RB", "id_conta": "030.010.0160", "valor": u},   # Econômico home
-        {"sigla": "MV", "id_conta": "030.010.0160", "valor": u},   # Arbitragem home
-        {"sigla": "AM", "id_conta": "030.010.0160", "valor": u},   # 50/50 split
+    # (solicitante_sigla, unit). Extract keys ISS by LANCSOLICITANTE.
+    solic = [
+        "AM",              # Econômico home, but AM splits 50/50 via rateio
+        "BBX", "DC", "IAC", "JCT",           # Contencioso homes (4)
+        "BMP", "EHF", "RB", "VC",            # Econômico homes (4)
+        "EMC", "FSM", "MV", "JGS",           # Arbitragem homes (4, incl. JGS's own unit)
+        "MAM",             # JGS's 2nd ISS unit was solicited by MAM (Econômico home)
     ]
-    out = derive_area_custo_equipe(rows, _splits())
-    # DC -> Contencioso u; RB -> Econômico u; MV -> Arbitragem u; AM -> u/2 each side.
-    assert out["Contencioso"] == pytest.approx(u + u / 2, abs=0.01)
-    assert out["Econômico"] == pytest.approx(u + u / 2, abs=0.01)
-    assert out["Arbitragem"] == pytest.approx(u, abs=0.01)
-    # Total is conserved (nothing dropped as "imposto").
-    assert round(sum(out.values()), 2) == pytest.approx(4 * u, abs=0.01)
+    rows = [{"sigla": s, "id_conta": "030.010.0160", "valor": u} for s in solic]
+
+    # Jan home-area map for every solicitante above (from the live snapshot).
+    ECON = "Equipe Direito Econômico"; CONT = "Equipe Contencioso"; ARB = "Arbitragem"
+    home = {
+        "AM": ECON, "BBX": CONT, "DC": CONT, "IAC": CONT, "JCT": CONT,
+        "BMP": ECON, "EHF": ECON, "RB": ECON, "VC": ECON,
+        "EMC": ARB, "FSM": ARB, "MV": ARB, "JGS": ARB, "MAM": ECON,
+    }
+    rateio = [
+        {"sigla": "AM", "grupo": ECON, "percentual": 50},
+        {"sigla": "AM", "grupo": CONT, "percentual": 50},
+    ]
+    splits = build_area_splits(rateio, home)
+    out = derive_area_custo_equipe(rows, splits)
+    assert out["Contencioso"] == pytest.approx(1719.72, abs=0.01)
+    assert out["Econômico"] == pytest.approx(2101.88, abs=0.01)
+    assert out["Arbitragem"] == pytest.approx(1528.64, abs=0.01)
+    assert round(sum(out.values()), 2) == pytest.approx(5350.24, abs=0.01)
 
 
 def test_per_lawyer_override_caps_total():

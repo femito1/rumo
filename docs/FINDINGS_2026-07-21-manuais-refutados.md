@@ -191,16 +191,29 @@ folds through the existing home-grupo + AM-50/50 rateio. Result verified against
 Jan snapshot: **ISS total ties to the centavo (5.350,24) and Contencioso ties exactly
 (1.719,72)** — ISS is now inside Custo equipe instead of vanishing.
 
-**⚠ Known residual (NOT DB-derivable — do not force it):** the workbook's **Econômico vs
-Arbitragem** ISS split does not match any DB grouping. `probe_iss_jgs.sql` proved **both**
-of JGS's two ISS postings are tagged `grupo=Arbitragem` in the DB, but the workbook books
-one to Arbitragem and one to **Econômico** (Jan formula `Econ =382,16*5+191,08`,
-`Arb =382,16*4`). So vs the raw DB the workbook makes two moves: AM split 50/50 (we
-reproduce this via `rateio_grupo`) **and** JGS's 2nd ISS unit Arb→Econ (a manual reclass
-the DB does not encode). Net effect in quarter months (Jan/Apr/Jul/Oct): our Econômico is
-**~382,16 short** and Arbitragem **~382,16 over** vs the workbook, even though the total and
-Contencioso tie. This is the same class as the vale ADM/área manual choice — leave it as a
-documented residual, not a hardcoded rule. Non-quarter months (Feb/Mar/May/Jun) unaffected.
+**✅ FULLY SOLVED — the Econ/Arb split IS DB-derivable (nothing manual).** My first
+verdict ("manual residual") was WRONG and is retracted. It came from reading the rolled-up
+`GERENC_LANCAMENTORESUMO`, which collapses every ISS posting to the lawyer's HOME group —
+so both of JGS's units looked like Arbitragem. Drilling into the RAW `FINANCE.LANCAMENTO`
+and diffing all 70 columns of JGS's two Jan rows (`probe_iss_jgs_allcols`) showed they are
+identical **except `LANCSOLICITANTE`** (requester): one unit solicited by **JGS**, one by
+**MAM**. Both are `DESNITEM` slices of the same payable `CPGCNUMEROPAGAR=18172`.
+
+**The rule (proven to the centavo, `probe_iss_solicitante`):** each ISS rateio unit's area
+= its **`LANCSOLICITANTE`**'s home area (NOT `LANCPROFDEST`), then folded through the same
+AM-50/50 rateio as all custo equipe. MAM's home is Econômico → JGS's MAM-solicited unit
+lands in Econômico. Result (Jan):
+
+| area | by solicitante home | + AM 50/50 rateio | workbook |
+|---|---:|---:|---:|
+| Contencioso | 1.528,64 (4u) | **1.719,72** | 1.719,72 ✓ |
+| Econômico | 2.292,96 (6u incl. AM+MAM) | **2.101,88** | 2.101,88 ✓ |
+| Arbitragem | 1.528,64 (4u) | **1.528,64** | 1.528,64 ✓ |
+
+**All three tie to the centavo.** Fix wired: the `custo_equipe_deriv` extract keys ISS by
+`LANCSOLICITANTE` from `FINANCE.LANCAMENTO` (commit pending), and `build_area_splits` does
+the rest. Locked by `test_iss_juridico_ties_workbook_via_solicitante`. This removes ISS
+from the "manual" list entirely — every quarter month (Jan/Apr/Jul/Oct) now derives.
 
 ### Everything else = confirmed complete (no drop)
 - **#B stray 150.\***: only `150.010.0010` (Feb bonus 94.696,15) — bonus block is complete.
