@@ -80,8 +80,61 @@ Financial income `010.020.0020` (Rendimentos, 13.744,98) is correctly excluded (
 no financial-income line — below-the-line investment yield). Seasonal ADM payroll (13º,
 rescisões) hasn't posted in 2026 yet but is prefix-swept when it does.
 
+## Current repo state (as of this handoff)
+- **Branch:** all work is on `main`, pushed, tree clean. Head = the docs commit
+  (`1de987c` at handoff time). ~18 commits this session (`0f7cc4d` → `1de987c`): the ISS
+  arc, the probes, `lint_probe.py`, and docs.
+- **Backend:** 241 tests pass; `ruff check` + `mypy app` clean. The code changes are just
+  two files: `app/closing/workbook_layouts.py` (`is_imposto` guard) and the extract; plus
+  two test files. Nothing else in `app/` moved.
+- **Snapshots (Supabase, prod):** backfilled 2026-07-21 ~08:42–08:45 for **2024-01 →
+  2026-05** (verified: every month's `meta.generated_at` is `2026-07-21T08:4x`). **2026-06
+  is stamped `06:00`** — that is the *daily scheduled task*, NOT the backfill (backfill
+  stops at the last CLOSED month = May), so June is fresh too and this is expected, not a
+  miss. All snapshots carry `custo_equipe_deriv` (now with the solicitante-keyed ISS).
+- **`fix/workbook-free-guards` branch still exists** locally/remote — it was merged long ago
+  (`d056713`, per PROJECT_STATUS §top); it is stale and can be deleted. Not used this session.
+
+## ⚠ DEPLOY STATUS — VERIFY BEFORE TRUSTING LIVE NUMBERS
+The ISS fix has **two halves** and only one is auto-live:
+- **Snapshots** (extract change) — LIVE: the backfill repopulated them with solicitante-keyed ISS.
+- **Backend code** (`is_imposto` guard in `workbook_layouts.py`) — **needs a manual prod
+  redeploy.** EasyPanel does NOT auto-deploy on push to `main`. Until the backend is
+  redeployed, the *deployed* `dre.py` path may still classify ISS as imposto and drop it —
+  so the fresh snapshot's ISS would NOT render in the live closing. **I could not confirm the
+  deployed code version** (the closing endpoint needs login auth; `/api/health` only returns
+  `{"status":"ok"}`). **Next agent: redeploy and verify (below).**
+
+```bash
+# from the repo root, after confirming main is pushed:
+ops/easypanel-deploy.sh backend        # rebuild+deploy backend from main
+# (creds in ops/easypanel.local.secrets, gitignored)
+```
+
+## How to validate EVERYTHING (next-agent playbook)
+1. **Gates:** `cd backend && ruff check . && mypy app && pytest` → expect 241 pass. The ISS
+   tie is locked by `test_custo_equipe_deriv::test_iss_juridico_ties_workbook_via_solicitante`
+   and `test_workbook_layouts::test_iss_juridico_is_team_cost_not_imposto`.
+2. **Reproduce the ISS finding offline (no DB needed):** the raw ledger is committed —
+   `reference/workbook/lancextrato de contas.xls` (May) + `Pagtos maio.XLS.xlsx`. Parse with
+   openpyxl/xlrd (pandas NOT installed). The `probe_iss_*.sql` outputs are quoted verbatim in
+   `docs/FINDINGS_2026-07-21-manuais-refutados.md` — re-derive Jan Conten 1.719,72 / Econ
+   2.101,88 / Arb 1.528,64 from the solicitante+rateio rule.
+3. **Re-run any probe live (RDP `MBC-LDESK01`):** lint first (`python3 ops/sisjuri-agent/
+   lint_probe.py probe_x.sql`), then pull by **commit SHA** (not `/main/` — CDN caches ~5min)
+   and run via the recipe in `ops/sisjuri-agent/README.md`. All probes are read-only.
+4. **Confirm snapshots landed:** `GET /api/ingest/<ano_mes>/summary` with the bearer
+   `INGEST_TOKEN` — check `meta.generated_at` and that `custo_equipe_deriv` is in
+   `top_level_keys`. For ISS specifically, pull the local `closing_<m>.json` on the box and
+   grep `custo_equipe_deriv` for `030.010.0160` — a quarter month (Jan/Apr/Jul) should show
+   one row per solicitante (Jan: 14 rows incl. `JGS|382.16` **and** `MAM|382.16`).
+5. **Confirm live rendering (after redeploy):** log into the prod frontend / hit the
+   authenticated closing endpoint for `2026-01`; per-área Custo equipe should include ISS
+   (Jan is ~5.350 higher than a no-ISS derivation). If it doesn't, the backend wasn't
+   redeployed (step "DEPLOY STATUS").
+
 ## Operator actions
-1. **Full backfill (done this session / re-run any time):**
+1. **Full backfill (DONE 2026-07-21; re-run any time):**
    ```powershell
    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
    $env:SISJURI_PASSWORD = '<RGN password>'
@@ -90,7 +143,8 @@ rescisões) hasn't posted in 2026 yet but is prefix-swept when it does.
    powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\backfill.ps1 -StartMonth 2024-01
    ```
    (Use `-StartMonth 2026-01` to refresh only the validated year.)
-2. The daily scheduled task keeps the latest month fresh with the same (self-updating) extract.
+2. **Redeploy the backend** so the deployed code has the `is_imposto` fix (see DEPLOY STATUS).
+3. The daily scheduled task keeps the latest month fresh with the same (self-updating) extract.
 
 ## Open / next (decision, not blocked)
 - **Un-blank Jan–Apr from the DB.** Now that every family derives, the Jan–Apr cells the

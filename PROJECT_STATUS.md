@@ -7,13 +7,41 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-16
+**Last updated:** 2026-07-21
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
-## ⭐ 2026-07-16 — per-área DRE is LIVE in prod (branch merged + deployed)
+## ⭐ 2026-07-21 — "lançamentos manuais" REFUTED; ISS decoded; full backfill
+
+Full handoff: `docs/HANDOFF_2026-07-21-manuais-refutados.md`. Findings +
+per-family reconciliation: `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
+
+- **Every DRE family is DB-derived** — the old "lançamentos manuais não deriváveis"
+  claim is refuted (proven against the raw `lancextrato de contas.xls` / `Pagtos maio`
+  system exports): Vale-ADM (transitória desdobramento → `500.010.<SIGLA>`),
+  Associações (split in the histórico; Jan/Feb the *workbook* omitted AASP/Canal —
+  DB is more complete), DL extras (150.*/030.010.0010, tie), and ISS Trimestral.
+- **ISS Trimestral (`030.010.0160`) BUG FIXED.** It was named just "ISS" → `is_imposto`
+  dropped it (DRE Imposto line is 15%×receb, not a sum of tax accounts); trimestral, so
+  May (reconciliation month) was zero and it hid the whole project. **Rule (proven to the
+  centavo):** each ISS unit's area = its **`LANCSOLICITANTE`** home area (not profD),
+  folded through the AM 50/50 rateio → Jan Conten 1.719,72 / Econ 2.101,88 / Arb 1.528,64.
+  Fix: `workbook_layouts.is_imposto` excludes any `is_direct_team` account; extract keys
+  ISS by `LANCSOLICITANTE` in `custo_equipe_deriv`. Locked by 2 tests. Backend **241**.
+- **Full backfill run** (2024-01 → 2026-05, snapshots stamped 2026-07-21 ~08:4x). June is
+  the daily task's (06:00), also fresh. All snapshots carry the corrected `custo_equipe_deriv`.
+- **⚠ DEPLOY:** the extract half is live (backfill); the **backend `is_imposto` code needs a
+  manual prod redeploy** (`ops/easypanel-deploy.sh backend`) — EasyPanel does not auto-deploy
+  on push. Until then the deployed `dre.py` may still drop ISS. Verify per the handoff playbook.
+- **Tooling:** `ops/sisjuri-agent/lint_probe.py` (sqlglot, oracle) — lint every probe before
+  the RDP round-trip (catches ORA-01785 positional ORDER BY + ORA-00904 XMLTYPE-on-alias).
+- **#1 open (decision, not blocked):** un-blank Jan–Abr from the DB (targets change in
+  `build_workbook_targets.py` + finance decision: DB numbers vs historical workbook cells).
+- Superseded handoffs moved to `docs/archive/`.
+
+## 2026-07-16 — per-área DRE is LIVE in prod (branch merged + deployed)
 
 `fix/workbook-free-guards` was merged to `main` (merge commit `d056713`) and the
 backend redeployed via `ops/easypanel-deploy.sh backend`. **Verified live** against
