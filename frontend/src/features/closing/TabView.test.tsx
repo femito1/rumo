@@ -117,6 +117,32 @@ describe("TabView", () => {
     expect(NA_LABEL).not.toEqual(MISSING_LABEL);
   });
 
+  it("renders '—' (not 'ainda não temos') for a null value on an empty_dash row", () => {
+    // Event-driven DL-extras lines (Bônus equipe, DL excedente, Repasse Cacione)
+    // are correctly empty in months where the event didn't occur — the backend
+    // flags them empty_dash, so a null renders as a neutral dash, not pending.
+    const { container } = render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Base_Resultado Mensal",
+          columns: ["Linha", "Valor"],
+          rows: [
+            { Linha: "Bônus equipe", Valor: null, key: "extra::bonus_equipe", empty_dash: true },
+            { Linha: "Comissão", Valor: null, key: "comissao" },
+          ],
+        }}
+      />,
+    );
+    const rows = container.querySelectorAll("tbody tr");
+    const bonusCells = within(rows[0] as HTMLElement).getAllByRole("cell");
+    expect(bonusCells[1]).toHaveTextContent(NA_LABEL); // empty_dash → —
+    expect(within(rows[0] as HTMLElement).queryByText(MISSING_LABEL)).toBeNull();
+    // A normal row with a null Realizado still shows the pending placeholder.
+    const comCells = within(rows[1] as HTMLElement).getAllByRole("cell");
+    expect(comCells[1]).toHaveTextContent(MISSING_LABEL);
+  });
+
   it("renders a grid tab with a sticky header row in a thead", () => {
     const { container } = render(
       <TabView

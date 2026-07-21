@@ -803,6 +803,24 @@ def test_base_resultado_distribuicao_extras_block(snapshot):
     assert block["kind"] == "section_total"
 
 
+def test_distribuicao_extras_absent_lines_are_dash_not_missing():
+    # DL extras are discretionary, event-driven distributions (team bonus ~1x/yr
+    # in Feb; DL excedente Jan/Mar; DL Extraordinária a 2024 one-off; Cacione
+    # never). When a line is absent for the month it is *correctly* empty (the
+    # event did not happen), NOT data we are still waiting for. So each extras
+    # child row must carry ``empty_dash`` → the UI renders "—", never the
+    # "ainda não temos" pending-data placeholder.
+    from app.closing.dre import assemble_base_resultado
+
+    # A month with no extras at all (e.g. May): every extras child is dash-empty.
+    tab = assemble_base_resultado({}, "Mai 2026")
+    extras = [r for r in tab["rows"] if r["key"].startswith("extra::")]
+    assert len(extras) == 5
+    for r in extras:
+        assert r["Valor"] is None
+        assert r["empty_dash"] is True, f"{r['Linha']} should be dash-empty when absent"
+
+
 def test_bonus_equipe_from_account_150_snapshot_key():
     # POINT 16: team bonus = sum of individual employee bonuses held in the
     # accounting account 150.000.0000. The extract emits a top-level

@@ -946,8 +946,8 @@ def _base_resultado_rows(
 
     def row(label: str, valor: float | None, *, indent: int = 0,
             is_total: bool = False, kind: str = "amount",
-            key: str = "") -> dict[str, Any]:
-        return {
+            key: str = "", empty_dash: bool = False) -> dict[str, Any]:
+        r: dict[str, Any] = {
             "Linha": label,
             "Valor": {"value": valor, "source": "realizado"} if valor is not None else None,
             "indent": indent,
@@ -955,6 +955,12 @@ def _base_resultado_rows(
             "kind": kind,
             "key": key or label,
         }
+        # ``empty_dash`` marks a row whose empty Valor is correct-by-design (an
+        # event that simply did not occur this month), not data pending import.
+        # The UI renders "—" for such a null instead of "ainda não temos".
+        if empty_dash:
+            r["empty_dash"] = True
+        return r
 
     rows: list[dict[str, Any]] = []
     rows.append(row("Movimentação de Entrada", r.recebimento, is_total=True, kind="section_total", key="mov_entrada"))
@@ -1066,8 +1072,12 @@ def _base_resultado_rows(
                     kind="section_total", key="distrib_extras"))
     for label, k in extra_lines:
         val = extras.get(k)
+        # These distributions are event-driven (Bônus ~1x/yr in Feb; DL excedente
+        # Jan/Mar; DL Extraordinária a 2024 one-off; Cacione never). An absent
+        # line is correct-by-design, not pending data → render "—", not the
+        # "ainda não temos" placeholder.
         r_row = row(label, float(val) if val is not None else None,
-                    indent=1, key=f"extra::{k}")
+                    indent=1, key=f"extra::{k}", empty_dash=True)
         # Flag a manual override that diverges from the DB-derived value (item 2):
         # the override is still shown, but the DB value it replaced is preserved so
         # the divergence is visible, never silent.

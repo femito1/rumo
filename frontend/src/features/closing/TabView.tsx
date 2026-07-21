@@ -137,6 +137,10 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
             // has no invoice number/date) — render them blank, not the missing
             // placeholder.
             const emptyIsBlank = row.is_total === true || row.kind === "total" || row.kind === "header";
+            // A row may declare that its empty value is correct-by-design (an
+            // event that didn't occur this month) → render "—", not "ainda não
+            // temos". Set by the backend on DL-extras lines.
+            const rowEmptyDash = row.empty_dash === true;
             return (
               <tr key={ri} className={rowClass(row)}>
                 {keys.map((k, ci) => (
@@ -164,7 +168,7 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
                         ci === 0,
                         isPercentColumn(columns[ci]),
                         emptyIsBlank,
-                        isNaColumn(columns[ci]),
+                        isNaColumn(columns[ci]) || rowEmptyDash,
                       )
                     )}
                   </td>

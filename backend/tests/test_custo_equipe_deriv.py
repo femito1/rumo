@@ -169,7 +169,9 @@ def test_iss_juridico_ties_workbook_via_solicitante():
     rows = [{"sigla": s, "id_conta": "030.010.0160", "valor": u} for s in solic]
 
     # Jan home-area map for every solicitante above (from the live snapshot).
-    ECON = "Equipe Direito Econômico"; CONT = "Equipe Contencioso"; ARB = "Arbitragem"
+    ECON = "Equipe Direito Econômico"
+    CONT = "Equipe Contencioso"
+    ARB = "Arbitragem"
     home = {
         "AM": ECON, "BBX": CONT, "DC": CONT, "IAC": CONT, "JCT": CONT,
         "BMP": ECON, "EHF": ECON, "RB": ECON, "VC": ECON,
