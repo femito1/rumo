@@ -13,6 +13,37 @@
 
 ---
 
+## 2026-07-21 (later) — confirmation sweep + DL-extras dash + prod redeploy
+
+A full-state confirmation sweep of the ISS/backfill handoff, plus two fixes.
+
+- **Gates re-verified:** backend now **242** (was 241; +1 test below), mypy clean,
+  frontend **53** (was 52), eslint/tsc clean. **Fixed a real defect the handoff
+  mislabeled "ruff clean":** two committed `E702` (semicolons) in
+  `test_custo_equipe_deriv.py:172` — `ruff check` had been failing (exit 1).
+- **Snapshots re-confirmed live** via `/api/ingest/<m>/summary`: Jan/May stamped
+  `2026-07-21 08:4x` (backfill), June `06:00` (daily), all carry
+  `custo_equipe_deriv`; sacred recebimento intact (Jan 279.821,07 / May 415.927,84).
+  Feb carries `bonus_equipe`, `dl_excedente_socios/mv`, `convenio_extra_dl`.
+- **DEPLOY (was the #1 unconfirmed item): backend + frontend REDEPLOYED from
+  `main` (390832a)** via `ops/easypanel-deploy.sh` (both returned `ok`). This lands
+  the `is_imposto` ISS guard (`b850300`, which post-dated the last 07-16 deploy) and
+  the dash change below. NOTE the deployed SHA still can't be read back — the
+  EasyPanel API here only exposes POST mutations (deploy/restart); GET query procs
+  return `Method Not Supported`/`Not found`, and the closing endpoint needs
+  prod-overridden login. Verified indirectly (frontend bundle-hash change; backend
+  health). The ISS guard is **not** load-bearing for May (ISS is trimestral →
+  May=0) and per-área ISS renders via `custo_equipe_deriv` (never consults
+  `is_imposto`); it matters for **Jan** per-área Custo equipe (~5.350).
+- **DL-extras absent lines now render "—", not "ainda não temos"** (`390832a`).
+  The five "Distribuição de Lucros extras" lines (Bônus equipe, DL excedente
+  sócios/MV, DL Extraordinária, Repasse Cacione) are event-driven; an absent line
+  is correct-by-design, not pending data. Backend `row()` gained `empty_dash`;
+  the frontend `RichRowsTable` honors a row-level `empty_dash` → `NA_LABEL` ("—"),
+  distinct from the pending `MISSING_LABEL`. Locked by 1 backend + 1 frontend test.
+
+---
+
 ## ⭐ 2026-07-21 — "lançamentos manuais" REFUTED; ISS decoded; full backfill
 
 Full handoff: `docs/HANDOFF_2026-07-21-manuais-refutados.md`. Findings +
