@@ -1,121 +1,82 @@
--- probe_janapr_reconcile.sql
+-- probe_janapr_reconcile.sql  (v2 — 2026-07-21)
 -- =====================================================================
--- UNFORGIVING Jan–Apr 2026 reconciliation of the three families the
--- NOTA_CLIENTE currently calls "lançamentos manuais / não derivável do banco":
---   (1) Vale-ADM  (Vale Refeição/Transporte administrativo)
---   (2) Associações (020.060.0020: ICC / IBRAC / AASP / Canal Arbitragem)
---   (3) DL extras  (Bônus equipe 150.* + 030.010.0010; DL excedente sócios/MV)
+-- Jan-Apr 2026 reconciliation of the three families the NOTA_CLIENTE calls
+-- "lançamentos manuais": Vale-ADM, Associações (020.060.0020), DL extras.
 --
--- WHY THIS EXISTS (2026-07-21 finding):
---   The RAW May system export "lancextrato de contas.xls" (Extrato de Contas,
---   built from FINANCE.LANCAMENTO) PROVES all three are ordinary system postings,
---   not hand-entries:
---     * Vale: transitória 200.010.0010 unfolds the "VR Mensal"/"VT Mensal" parent
---       (May 2.719,90 + 607,04 = 3.326,94 = workbook G122+G123) into per-person
---       destinations 500.010.MLA / .JVO / .VSR AND a slice to 020.030.0060. The
---       per-person ADM-vs-área split the prior note said "the DB doesn't store"
---       is literally in the desdobramento destination accounts + histórico.
---     * Associações 020.060.0020 = 2.822,06 with the AREA SPLIT written in the
---       histórico: "AASP AM, DC" (Contencioso), IBRAC "Dividido em Contencioso e
---       Econômico" (posted as TWO rows 700,09 + 700,10), "Patrocínio ... 100%
---       Arbitragem (MV)". Not invented by finance — transcribed from the system.
---     * DL extras post ~1x/yr in specific months; already DB-wired (bonus_equipe,
---       dl_excedente_socios/mv) and tie Feb/Jan/Mar to the centavo.
+-- v2 FIXES (v1 tripped two SQL*Plus gotchas):
+--   * NO line may END in a hyphen — a trailing "-" is SQL*Plus line-continuation,
+--     so a "PROMPT ... ---" ate the SELECT that followed it (SP2-0734). All PROMPT
+--     headers below end in ":" or a letter.
+--   * #1b used "ORDER BY 1,2" on a single concatenated column (ORA-01785); fixed.
+--   * SET SQLBLANKLINES ON so blank lines inside a statement don't terminate it.
 --
--- The OPEN question this probe settles: for Jan–Apr, do these same system
--- postings REPRODUCE the workbook cell to the centavo? If yes, the "manual /
--- not derivable" framing is wrong and Jan–Apr can be un-blanked from the DB.
--- The prior vale probe under-counted because it summed the wrong leg; this one
--- reconstructs the PARENT VR/VT Mensal amount the way the desdobramento does.
+-- v1 LIVE RESULTS worth keeping in view (workbook targets in parens):
+--   #1a Vale-ADM parent: jan 2090,24 (1127,96) feb 2601,28 (1351,88)
+--       mar 3440,12 (3983,22) abr 3421,36 (3421,36 TIE) mai 3326,94 (3326,94 TIE)
+--   #2a Associações: jan 2800,06 feb/mar/abr 7109,73 (constant!) mai 2822,06 (TIE)
+--   #4 inst despesas GROSS: within ~4,6k of every month's row-198 target.
+-- Hypothesis this v2 tests: Jan/Feb Vale differs only because the OLD workbook
+-- hand-split vale into an ADM row + an área row (r26/27, filled jan/feb, empty
+-- mar+); the DB carries the full parent AND the per-person destination (MLA/VSR
+-- =ADM, JVO=área lawyer), so the split is DB-derivable — arguably more correct.
 --
 -- SAFE: read-only SELECTs. Pipe-delimited, block-prefixed output.
--- Column facts (docs/SISJURI_DB.md): FINANCE.LANCAMENTO is double-entry with
--- PCTCNUMEROCONTAORG / PCTCNUMEROCONTADEST, LANNVALOR, LANCHISTORICO, LANDDATA,
--- LANCPROFDEST, SIGLADEST. Date axis matching the workbook = LANDDATA.
 SET DEFINE OFF
 SET PAGESIZE 0
 SET LINESIZE 32767
 SET TRIMOUT ON
 SET FEEDBACK OFF
 SET HEADING OFF
+SET SQLBLANKLINES ON
 WHENEVER SQLERROR CONTINUE
 
 PROMPT ============================================================
-PROMPT #1 VALE-ADM per month — reconstruct the VR/VT "Mensal" PARENT
+PROMPT #1 VALE-ADM per month
 PROMPT ============================================================
-PROMPT Workbook Vale-ADM targets: jan 1.127,96 | fev 1.351,88 | mar 3.983,22 | abr 3.421,36 | mai 3.326,94
-PROMPT --- 1a: the PARENT postings (the amount the desdobramento unfolds) ---
--- The May export shows VR Mensal + VT Mensal booked into 200.010.0010 as the
--- positive parent leg (dest=100.010.0010, i.e. paid from Itaú). Sum the parent
--- "Pagamento de VR/VT Mensal para ..." lines per month. This is the true ADM Vale.
-SELECT '1a|'||TO_CHAR(l.LANDDATA,'YYYY-MM')
-       ||'|vr_vt_mensal_parent='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
-       ||'|n='||COUNT(*)
-  FROM FINANCE.LANCAMENTO l
- WHERE l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
-   AND ( UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
-      OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%'
-      OR UPPER(l.LANCHISTORICO) LIKE 'PAGAMENTO DE VR%'
-      OR UPPER(l.LANCHISTORICO) LIKE 'PAGAMENTO DE VT%' )
-   AND l.LANNVALOR > 0
- GROUP BY TO_CHAR(l.LANDDATA,'YYYY-MM')
- ORDER BY 1;
-
-PROMPT --- 1b: the DESDOBRAMENTO legs (per-person split) that sum to the parent ---
--- Vale unfolded to 500.010.<SIGLA> personal accounts + the 020.030.0060 slice.
--- Sums here (abs) should reconcile to 1a. Shows WHO is ADM vs área per month:
---   ADM (rateado): MLA, VSR, JVO(area lawyer -> per-area), etc.
+PROMPT targets jan 1127,96 fev 1351,88 mar 3983,22 abr 3421,36 mai 3326,94
+PROMPT [1b] per-person desdobramento legs (500.010.SIGLA + the 020.030.0060 slice) by month.
+PROMPT These sum to the #1a parent. MLA/VSR=ADM, JVO=area lawyer (Contencioso):
 SELECT '1b|'||TO_CHAR(l.LANDDATA,'YYYY-MM')
-       ||'|dest='||NVL(l.PCTCNUMEROCONTADEST,'-')
+       ||'|dest='||NVL(l.PCTCNUMEROCONTADEST,'?')
        ||'|val='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
-       ||'|n='||COUNT(*)
+       ||'|n='||COUNT(*) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
    AND ( UPPER(l.LANCHISTORICO) LIKE '%VALE REFEI%'
       OR UPPER(l.LANCHISTORICO) LIKE '%VALE TRANSP%'
       OR UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
       OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%' )
-   AND l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+   AND ( l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+      OR l.PCTCNUMEROCONTADEST = '020.030.0060' )
  GROUP BY TO_CHAR(l.LANDDATA,'YYYY-MM'), l.PCTCNUMEROCONTADEST
- ORDER BY 1,2;
+ ORDER BY 1;
 
-PROMPT --- 1c: EVERY vale/refeição/transporte line Jan..Apr (eyeball the wording per month) ---
+PROMPT [1c] EVERY vale line jan..abr with full histórico (see the wording per month):
 SELECT '1c|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
-       ||'|org='||NVL(l.PCTCNUMEROCONTAORG,'-')
-       ||'|dest='||NVL(l.PCTCNUMEROCONTADEST,'-')
+       ||'|org='||NVL(l.PCTCNUMEROCONTAORG,'?')
+       ||'|dest='||NVL(l.PCTCNUMEROCONTADEST,'?')
        ||'|val='||TO_CHAR(ROUND(l.LANNVALOR,2))
-       ||'|'||SUBSTR(l.LANCHISTORICO,1,70)
+       ||'|'||SUBSTR(l.LANCHISTORICO,1,75) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-05-01'
    AND ( UPPER(l.LANCHISTORICO) LIKE '%VALE%'
       OR UPPER(l.LANCHISTORICO) LIKE '%REFEI%'
-      OR UPPER(l.LANCHISTORICO) LIKE '%VR %'
-      OR UPPER(l.LANCHISTORICO) LIKE '%VT %' )
+      OR UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
+      OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%' )
    AND ( l.PCTCNUMEROCONTADEST LIKE '500.010.%'
       OR l.PCTCNUMEROCONTADEST = '200.010.0010'
       OR l.PCTCNUMEROCONTADEST = '020.030.0060' )
  ORDER BY 1;
 
 PROMPT ============================================================
-PROMPT #2 ASSOCIAÇÕES 020.060.0020 per month — total + per-line histórico
+PROMPT #2 ASSOCIACOES 020.060.0020 per month
 PROMPT ============================================================
-PROMPT Workbook Associações totals (C..F): jan 1.400,19 | fev 3.829,42 | mar 4.046,82 | abr 4.046,82
-PROMPT (workbook = Conten + Econ + Arb rows; verify the DB total AND the area split in histórico)
-SELECT '2a|'||TO_CHAR(l.LANDDATA,'YYYY-MM')
-       ||'|assoc_total='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
-       ||'|n='||COUNT(*)
-  FROM FINANCE.LANCAMENTO l
- WHERE l.PCTCNUMEROCONTADEST='020.060.0020'
-   AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
-   AND l.LANNVALOR <> 0
- GROUP BY TO_CHAR(l.LANDDATA,'YYYY-MM')
- ORDER BY 1;
-
-PROMPT --- 2b: every Associações line Jan..Apr with histórico (the area split is written here) ---
+PROMPT workbook totals jan 1400,19 fev 3829,42 mar 4046,82 abr 4046,82 mai 2822,06
+PROMPT [2b] every line jan..abr with date + value + setor + histórico (diagnose the constant 7109,73):
 SELECT '2b|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
        ||'|val='||TO_CHAR(ROUND(l.LANNVALOR,2))
-       ||'|setor='||NVL(l.SIGLADEST,'-')
-       ||'|'||SUBSTR(l.LANCHISTORICO,1,90)
+       ||'|setor='||NVL(l.SIGLADEST,'?')
+       ||'|'||SUBSTR(l.LANCHISTORICO,1,90) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.PCTCNUMEROCONTADEST='020.060.0020'
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-05-01'
@@ -123,23 +84,23 @@ SELECT '2b|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
  ORDER BY 1;
 
 PROMPT ============================================================
-PROMPT #3 DL EXTRAS per month — Bônus (150.* + 030.010.0010) and DL excedente
+PROMPT #3 DL EXTRAS per month
 PROMPT ============================================================
-PROMPT Workbook: Bônus equipe fev D192; DL excedente sócios jan C193; DL excedente MV mar E194
-PROMPT --- 3a: Bônus 150.% by month (should be ~fev only) ---
+PROMPT [3a] Bônus 150.% by month (expect ~fev only):
 SELECT '3a|'||TO_CHAR(l.LANDDATA,'YYYY-MM')
-       ||'|bonus_150='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))||'|n='||COUNT(*)
+       ||'|bonus_150='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
+       ||'|n='||COUNT(*) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.PCTCNUMEROCONTADEST LIKE '150.%'
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
  GROUP BY TO_CHAR(l.LANDDATA,'YYYY-MM')
  ORDER BY 1;
 
-PROMPT --- 3b: 030.010.0010 lines whose histórico mentions Bônus / DL excedente / DL / Reserva, by month ---
+PROMPT [3b] 030.010.0010 lines mentioning Bônus / excedente / Reserva / Cacione, by month:
 SELECT '3b|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
        ||'|val='||TO_CHAR(ROUND(l.LANNVALOR,2))
-       ||'|sig='||NVL(l.SIGLADEST,'-')
-       ||'|'||SUBSTR(l.LANCHISTORICO,1,70)
+       ||'|sig='||NVL(l.SIGLADEST,'?')
+       ||'|'||SUBSTR(l.LANCHISTORICO,1,70) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.PCTCNUMEROCONTADEST='030.010.0010'
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
@@ -151,17 +112,20 @@ SELECT '3b|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
  ORDER BY 1;
 
 PROMPT ============================================================
-PROMPT #4 FULL institutional despesas per month, GROSS from the ledger (family roll-up)
+PROMPT #5 Workbook area-split of Vale: is r26/27 (area) filled jan/feb only?
 PROMPT ============================================================
-PROMPT Compare Σ to workbook row-198 targets: jan 100.181,41 | fev 95.047,39 | mar 101.968,90 | abr 110.285,28 | mai 105.640,60
-PROMPT (this is GROSS/competence via GERENC-style roll-up; net adj + reclass applied in code)
-SELECT '4|'||r.ANO_MES
-       ||'|inst_020_040_gross='||TO_CHAR(ROUND(SUM(r.VALOR),2))||'|n='||COUNT(*)
-  FROM LDESK.GERENC_LANCAMENTORESUMO r
- WHERE r.ANO_MES BETWEEN '2026-01' AND '2026-05'
-   AND (r.ID_CONTA LIKE '020.%' OR r.ID_CONTA LIKE '040.%')
-   AND r.ID_CONTA NOT IN ('020.030.0140','020.030.0060')
- GROUP BY r.ANO_MES
+PROMPT [5] ALL 500.010 vale legs by SIGLA across jan..mai (classify ADM vs area by sigla):
+SELECT '5|'||NVL(l.PCTCNUMEROCONTADEST,'?')
+       ||'|jan..mai_total='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
+       ||'|n='||COUNT(*) AS out
+  FROM FINANCE.LANCAMENTO l
+ WHERE l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-06-01'
+   AND ( UPPER(l.LANCHISTORICO) LIKE '%VALE REFEI%'
+      OR UPPER(l.LANCHISTORICO) LIKE '%VALE TRANSP%'
+      OR UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
+      OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%' )
+   AND l.PCTCNUMEROCONTADEST LIKE '500.010.%'
+ GROUP BY l.PCTCNUMEROCONTADEST
  ORDER BY 1;
 
 PROMPT #END
