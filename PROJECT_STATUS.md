@@ -229,7 +229,7 @@ canonical. An agent must NOT ask the user about these again.
 > - **PENDENTE (o gargalo):** rodar o `extract.sql` atualizado no RDP para maio (e
 >   demais meses) popular os blocos; então a linha Despesas fecha e **Resultado
 >   Bruto/Líquido/Reserva/margens deixam de ficar em branco**. Ver
->   `docs/HANDOFF_2026-07-13-despesas.md`.
+>   `docs/archive/HANDOFF_2026-07-13-despesas.md`.
 >
 > Backend **218 testes**, frontend **52**; ruff/mypy limpos.
 >
@@ -506,7 +506,7 @@ rateio into a named block (`Despesa para ratear` / `Equipe` / `Comissão` /
   Ocupação). Locked by `tests/test_workbook_layouts.py`. The residual ≈5–7k
   workbook drift is line-attributed to a manual annualization layer
   (Administrativas/Gestão/Endomkt) that is NOT in the DB month — see
-  `docs/HANDOFF_DRE_AUTOMATION.md` Appendix B. These become optional manual inputs
+  `docs/archive/HANDOFF_DRE_AUTOMATION.md` Appendix B. These become optional manual inputs
   now that the workbook is going away.
 
 **Demonstrativo Resultado Profissional** (`..._AR_20260623_....pdf`): the

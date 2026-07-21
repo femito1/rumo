@@ -34,7 +34,7 @@ Gestão do Conhecimento, Endomarketing, Informática). **Excludes** Impostos (ro
 168), Distribuição de Lucros (191), Despesas para Clientes (82). Area lines are
 surfaced per-area (rows 204-206) **and** kept in the family totals. Authoritative
 book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account map
-+ formula proof: `HANDOFF_DRE_AUTOMATION.md` Appendix B/C. Encoded in
++ formula proof: `archive/HANDOFF_DRE_AUTOMATION.md` Appendix B/C. Encoded in
 `app/closing/workbook_layouts.py::section_for` (keyed on stable CONTA3 codes).
 
 | account (CONTA3) | meaning | workbook destination |

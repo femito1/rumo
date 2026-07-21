@@ -8,13 +8,13 @@
 
 ## Start here
 
-0. **Active work order: `docs/HANDOFF_2026-07-16-per-area.md`** — per-área DRE now
-   DB-derived (Recebimento via DB_RESULTADO_PROF, Despesas Equipe by cost-center, Despesa
-   Institucional rateio), POINT 17 confirmed live, GAP 3 closed. #1 open item: **merge
-   branch `fix/workbook-free-guards` → main + redeploy** (extract blocks are on main so
-   prod snapshots carry the data, but the `dre.py` that reads them is branch-only, so prod
-   doesn't render it yet). Also awaiting Renata on the Despesas Área split. Read it first.
-   (Prior: `docs/HANDOFF_2026-07-14-automation.md`, `docs/HANDOFF_2026-07-13-despesas.md`.)
+0. **Active work order: `docs/HANDOFF_2026-07-21-manuais-refutados.md`** — proved every
+   DRE family is DB-derived (the "lançamentos manuais" claim is refuted); decoded + fixed
+   ISS Trimestral (area = `LANCSOLICITANTE`, ties to the centavo); added `lint_probe.py`
+   for probe SQL. Full backfill run. #1 open item (decision, not blocked): **un-blank
+   Jan–Abr from the DB** (targets change + finance decision — DB numbers vs historical
+   workbook cells). See also `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
+   (Older handoffs archived under `docs/archive/`.)
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number

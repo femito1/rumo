@@ -38,3 +38,6 @@ backend/data/snapshots/
 .idea/
 .vscode/
 *.swp
+
+# Cursor chat export (local scratch, not a project doc)
+cursor_financial_report_integration.md
