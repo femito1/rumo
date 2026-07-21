@@ -145,6 +145,34 @@ def test_reconciles_reconciled_lawyers_to_the_centavo():
     assert out["Contencioso"] == 20356.08
 
 
+def test_iss_juridico_folds_per_lawyer_via_splits():
+    """ISS jurídico (030.010.0160, TRIMESTRAL) is a per-lawyer team-cost line: it
+    must fold to areas through the SAME home-grupo + AM 50/50 rateio as every other
+    030 team component (probe_iss_area #B, 2026-07-21). It is NOT grouped by the
+    raw ID_GRUPOJURIDICO (#A), which ignores the rateio and mismatches the workbook.
+
+    Mechanism check (roster-independent): a per-lawyer ISS row lands in the lawyer's
+    home area, and AM's ISS splits 50/50 — exactly like distribuição/pró-labore.
+    (A centavo-exact Jan total is NOT asserted here because it depends on the Jan
+    roster's home areas for JCT/VC, which this Feb fixture does not carry; the
+    end-to-end tie is validated by re-running the extract for a quarter month.)
+    """
+    u = 382.16
+    rows = [
+        {"sigla": "DC", "id_conta": "030.010.0160", "valor": u},   # Contencioso home
+        {"sigla": "RB", "id_conta": "030.010.0160", "valor": u},   # Econômico home
+        {"sigla": "MV", "id_conta": "030.010.0160", "valor": u},   # Arbitragem home
+        {"sigla": "AM", "id_conta": "030.010.0160", "valor": u},   # 50/50 split
+    ]
+    out = derive_area_custo_equipe(rows, _splits())
+    # DC -> Contencioso u; RB -> Econômico u; MV -> Arbitragem u; AM -> u/2 each side.
+    assert out["Contencioso"] == pytest.approx(u + u / 2, abs=0.01)
+    assert out["Econômico"] == pytest.approx(u + u / 2, abs=0.01)
+    assert out["Arbitragem"] == pytest.approx(u, abs=0.01)
+    # Total is conserved (nothing dropped as "imposto").
+    assert round(sum(out.values()), 2) == pytest.approx(4 * u, abs=0.01)
+
+
 def test_per_lawyer_override_caps_total():
     rows = [
         {"sigla": "JGS", "id_conta": "030.010.0010", "valor": 9379},
