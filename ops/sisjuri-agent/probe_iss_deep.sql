@@ -1,18 +1,17 @@
--- probe_iss_deep.sql  (2026-07-21)
+-- probe_iss_deep.sql  (v2 — 2026-07-21)
 -- =====================================================================
--- EXHAUSTIVE test of the hypothesis: the workbook's per-area ISS split is
--- NOT manual — ISS (a tax on billed services) follows the ÁREA OF THE CASE/MATTER
--- it was charged on, so a lawyer who bills across areas gets ISS in each. The
--- rolled-up GERENC_LANCAMENTORESUMO collapses every ISS row to the lawyer's HOME
--- group (that's why both JGS rows showed grupo=Arbitragem). The RAW
--- FINANCE.LANCAMENTO should carry the real per-posting caso/cliente/area.
+-- Test: is the workbook's per-area ISS split DB-derivable (ISS follows the CASE
+-- area of the billed service), or genuinely manual? GERENC rolls ISS to the
+-- lawyer's HOME group (both JGS rows showed Arbitragem); the RAW FINANCE.LANCAMENTO
+-- may carry the real per-posting case/area.
 --
--- Target to reproduce (Jan, workbook "ISS Trimestral" formulas):
---   Contencioso 4,5u=1.719,72 | Econômico 5,5u=2.101,88 | Arbitragem 4u=1.528,64  (u=382,16)
--- Fixed home payers give Conten 3,5 / Econ 4,5 / Arb 3; the 3 "free" units are
--- JCT (1) + JGS (2), and the workbook needs +1 to EACH area — i.e. JCT and JGS's
--- two units land in three DIFFERENT areas. If ISS-follows-case is real, the raw
--- ledger will SHOW those three units in three different case-areas.
+-- v2 FIXES (v1 hit two schema errors):
+--   * CAD_PROFISSIONAL has no NOME column -> use SIGLA/grupo only.
+--   * ORA-01722: some LANC*/LANN* columns aren't the type assumed, and CAD_CASO's
+--     key is likely a GUID string (like ID_GRUPOJURIDICO) not a number, so the
+--     join coerced and failed. v2 (a) DISCOVERS the real columns first, and
+--     (b) TO_CHAR-wraps every projected field so nothing can throw. The case
+--     join is deferred until #F tells us the right key.
 --
 -- SAFE: read-only. Pipe-delimited, block-prefixed. No trailing-hyphen PROMPTs.
 SET DEFINE OFF
@@ -25,14 +24,37 @@ SET SQLBLANKLINES ON
 WHENEVER SQLERROR CONTINUE
 
 PROMPT ============================================================
-PROMPT #A RAW FINANCE.LANCAMENTO ISS rows (Jan) — every column that could carry area
+PROMPT #F1 FINANCE.LANCAMENTO columns mentioning CASO / CLIENTE / GRUPO / AREA / SETOR
 PROMPT ============================================================
-PROMPT dest acct, prof org/dest, sigla org/dest, caso, cliente, value, histórico:
+SELECT 'F1|'||COLUMN_NAME||'|'||DATA_TYPE||'('||DATA_LENGTH||')' AS out
+  FROM ALL_TAB_COLUMNS
+ WHERE OWNER='FINANCE' AND TABLE_NAME='LANCAMENTO'
+   AND ( COLUMN_NAME LIKE '%CASO%' OR COLUMN_NAME LIKE '%CLIENTE%'
+      OR COLUMN_NAME LIKE '%GRUPO%' OR COLUMN_NAME LIKE '%AREA%'
+      OR COLUMN_NAME LIKE '%SETOR%' OR COLUMN_NAME LIKE '%PROF%' )
+ ORDER BY COLUMN_NAME;
+
+PROMPT ============================================================
+PROMPT #F2 LDESK.CAD_CASO key/area columns (find the join key type + area column)
+PROMPT ============================================================
+SELECT 'F2|'||COLUMN_NAME||'|'||DATA_TYPE||'('||DATA_LENGTH||')' AS out
+  FROM ALL_TAB_COLUMNS
+ WHERE OWNER='LDESK' AND TABLE_NAME='CAD_CASO'
+   AND ( COLUMN_NAME LIKE '%ID%' OR COLUMN_NAME LIKE '%CASO%'
+      OR COLUMN_NAME LIKE '%AREA%' OR COLUMN_NAME LIKE '%NUMERO%'
+      OR COLUMN_NAME LIKE '%CODIGO%' )
+ ORDER BY COLUMN_NAME;
+
+PROMPT ============================================================
+PROMPT #A RAW FINANCE.LANCAMENTO ISS rows (Jan) — all fields TO_CHAR'd (cannot throw)
+PROMPT ============================================================
 SELECT 'A|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
-       ||'|profO='||NVL(l.LANCPROFORG,'-')||'|profD='||NVL(l.LANCPROFDEST,'-')
-       ||'|sigO='||NVL(l.SIGLAORG,'-')||'|sigD='||NVL(l.SIGLADEST,'-')
-       ||'|caso='||NVL(TO_CHAR(l.LANNCASODEST),'-')
-       ||'|cli='||NVL(TO_CHAR(l.LANNCLIENTEDEST),'-')
+       ||'|profO='||NVL(TO_CHAR(l.LANCPROFORG),'-')
+       ||'|profD='||NVL(TO_CHAR(l.LANCPROFDEST),'-')
+       ||'|sigO='||NVL(TO_CHAR(l.SIGLAORG),'-')
+       ||'|sigD='||NVL(TO_CHAR(l.SIGLADEST),'-')
+       ||'|casoD='||NVL(TO_CHAR(l.LANNCASODEST),'-')
+       ||'|cliD='||NVL(TO_CHAR(l.LANNCLIENTEDEST),'-')
        ||'|val='||TO_CHAR(ROUND(l.LANNVALOR,2))
        ||'|h='||SUBSTR(l.LANCHISTORICO,1,45) AS out
   FROM FINANCE.LANCAMENTO l
@@ -41,25 +63,9 @@ SELECT 'A|'||TO_CHAR(l.LANDDATA,'YYYY-MM-DD')
  ORDER BY l.LANNVALOR, l.LANDDATA;
 
 PROMPT ============================================================
-PROMPT #B Each ISS posting resolved to CASE AREA (LANNCASODEST -> CAD_CASO -> área)
-PROMPT ============================================================
-PROMPT If ISS-follows-case is real, grouping by case-area reproduces 4,5/5,5/4:
-SELECT 'B|caseArea='||NVL(a.NOME,'(sem caso/area)')
-       ||'|total='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
-       ||'|n='||COUNT(*) AS out
-  FROM FINANCE.LANCAMENTO l
-  LEFT JOIN LDESK.CAD_CASO c ON c.ID_CASO = l.LANNCASODEST
-  LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
- WHERE l.PCTCNUMEROCONTADEST='030.010.0160'
-   AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-02-01'
- GROUP BY a.NOME
- ORDER BY a.NOME;
-
-PROMPT ============================================================
-PROMPT #C Who is JCT? profile + home grupo
+PROMPT #C Who is JCT / JGS? sigla + home grupo + sócio flag (no NOME column)
 PROMPT ============================================================
 SELECT 'C|sigla='||NVL(p.SIGLA,'-')
-       ||'|nome='||SUBSTR(NVL(p.NOME,'-'),1,40)
        ||'|grupo='||NVL(g.NOME,'-')
        ||'|socio='||NVL(p.SOCIO,'-') AS out
   FROM LDESK.CAD_PROFISSIONAL p
@@ -67,34 +73,17 @@ SELECT 'C|sigla='||NVL(p.SIGLA,'-')
  WHERE p.SIGLA IN ('JCT','JGS');
 
 PROMPT ============================================================
-PROMPT #D JGS's TWO ISS rows side by side — do caso/cliente/area DIFFER between them?
+PROMPT #G ISS grouped by SIGLADEST cost-center (the tag despesas_equipe_area uses)
 PROMPT ============================================================
-SELECT 'D|val='||TO_CHAR(ROUND(l.LANNVALOR,2))
-       ||'|caso='||NVL(TO_CHAR(l.LANNCASODEST),'-')
-       ||'|cli='||NVL(TO_CHAR(l.LANNCLIENTEDEST),'-')
-       ||'|caseArea='||NVL(a.NOME,'-')
-       ||'|h='||SUBSTR(l.LANCHISTORICO,1,55) AS out
-  FROM FINANCE.LANCAMENTO l
-  LEFT JOIN LDESK.CAD_PROFISSIONAL p ON p.ID_PROFISSIONAL = l.LANCPROFDEST
-  LEFT JOIN LDESK.CAD_CASO c ON c.ID_CASO = l.LANNCASODEST
-  LEFT JOIN LDESK.CAD_AREAJURIDICA a ON a.ID_AREAJURIDICA = c.ID_AREAJURIDICA
- WHERE l.PCTCNUMEROCONTADEST='030.010.0160'
-   AND p.SIGLA='JGS'
-   AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-02-01'
- ORDER BY l.LANNVALOR;
-
-PROMPT ============================================================
-PROMPT #E Fallback: if LANNCASODEST is null, does the ISS row carry a caso/area on the ORG side?
-PROMPT ============================================================
-SELECT 'E|profD='||NVL(l.LANCPROFDEST,'-')
-       ||'|casoD='||NVL(TO_CHAR(l.LANNCASODEST),'-')
-       ||'|cliD='||NVL(TO_CHAR(l.LANNCLIENTEDEST),'-')
-       ||'|orgAcct='||NVL(l.PCTCNUMEROCONTAORG,'-')
-       ||'|val='||TO_CHAR(ROUND(l.LANNVALOR,2)) AS out
+PROMPT SIGLADEST may carry ECT/EDE/ESP per posting even when GERENC rolls to home:
+SELECT 'G|sigD='||NVL(TO_CHAR(l.SIGLADEST),'(null)')
+       ||'|total='||TO_CHAR(ROUND(SUM(l.LANNVALOR),2))
+       ||'|n='||COUNT(*) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.PCTCNUMEROCONTADEST='030.010.0160'
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-02-01'
- ORDER BY l.LANCPROFDEST, l.LANNVALOR;
+ GROUP BY l.SIGLADEST
+ ORDER BY l.SIGLADEST;
 
 PROMPT #END
 EXIT
