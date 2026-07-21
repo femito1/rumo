@@ -27,13 +27,11 @@ SELECT 'J|'||COLUMN_NAME||'|'||DATA_TYPE AS out
  ORDER BY COLUMN_ID;
 
 PROMPT ============================================================
-PROMPT #K The TWO JGS Jan ISS rows, EVERY scalar column via XML (spot the differentiator)
+PROMPT #K The TWO JGS Jan ISS rows, EVERY column via XMLTYPE(row) (spot the differentiator)
 PROMPT ============================================================
 PROMPT If any column differs between the two rows, that is the DB area signal.
-SELECT 'K|'||ROWIDTOCHAR(l.ROWID)||'|'||
-       SUBSTR(XMLTYPE(DBMS_XMLGEN.GETXML(
-         'SELECT * FROM FINANCE.LANCAMENTO WHERE ROWID='''||ROWIDTOCHAR(l.ROWID)||''''
-       )).getClobVal(), 1, 3500) AS out
+SELECT 'K|'||ROWIDTOCHAR(l.ROWID)||'|'
+       ||SUBSTR(XMLTYPE(l).getClobVal(), 1, 3500) AS out
   FROM FINANCE.LANCAMENTO l
  WHERE l.PCTCNUMEROCONTADEST='030.010.0160'
    AND l.LANCPROFDEST='JGS'
@@ -52,7 +50,7 @@ SELECT 'L|'||TO_CHAR(l.LANDDATA,'YYYY-MM')
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-08-01'
  GROUP BY TO_CHAR(l.LANDDATA,'YYYY-MM'), l.LANCPROFDEST
  HAVING COUNT(*) > 1
- ORDER BY 1,2;
+ ORDER BY TO_CHAR(l.LANDDATA,'YYYY-MM'), l.LANCPROFDEST;
 
 PROMPT #END
 EXIT
