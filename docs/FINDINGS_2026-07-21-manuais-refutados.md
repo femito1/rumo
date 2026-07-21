@@ -109,6 +109,63 @@ total emerges from a completely separate system export → the recipe is sound.
   un-blank Jan–Apr straight from the DB and retire the "aceitar número do banco vs manter
   planilha" decision entirely.
 
+## ⭐ LIVE RESULTS (2026-07-21, `probe_janapr_reconcile.sql` on MBC-LDESK01)
+
+The probe ran against the live DB. **It confirms the thesis and goes further: for these
+families the DB is frequently MORE COMPLETE than the old workbook cell.** The Jan/Feb
+"divergences" are the workbook's own hand-omissions, not missing DB data.
+
+### Vale — the per-person split IS in the DB (destination account = who)
+`FINANCE.LANCAMENTO`: the VR/VT Mensal parent posts to `200.010.0010`, then unfolds to
+per-person `500.010.<SIGLA>` (JVO = área lawyer/Contencioso; MLA = secretária/ADM; VSR = ADM):
+
+| month | wb Vale-ADM | DB parent | MLA+VSR (ADM) | JVO (área) | intern |
+|---|---:|---:|---:|---:|---:|
+| jan | 1.127,96 | 2.090,24 | 1.092,44 | 997,80 | — |
+| fev | 1.351,88 | 2.601,28 | **1.351,88** | 1.249,40 | — |
+| mar | 3.983,22 | 3.440,12 | 2.249,32 | 1.190,80 | 543,22 |
+| abr | 3.421,36 | 3.421,36 | 2.230,56 | 1.190,80 | — |
+| mai | 3.326,94 | 3.326,94 | — | — | — |
+
+Reading: **Feb wb ADM 1.351,88 == DB MLA 1.351,88 to the centavo** — in Jan/Feb the workbook
+put JVO's vale (an área lawyer) in the área rows (r26/27, filled only Jan/Feb) and kept MLA in
+ADM. From Mar the workbook lumped everyone into the ADM cell. **The ADM-vs-área split is the
+DB destination account** (`PCTCNUMEROCONTADEST` → sigla → home área); the month-to-month wobble
+the NOTA blamed on "regra que mudava" is the *workbook's own inconsistent hand-treatment of
+JVO*, not absent DB data. Apr+May the workbook lumped everyone → tie the full parent exactly.
+
+### Associações — Mar/Apr tie to the centavo; the split is in the histórico + SIGLADEST
+| month | wb total | DB `020.060.0020` | Δ(DB−wb) |
+|---|---:|---:|---:|
+| jan | 1.400,20 | 2.800,06 | **+1.399,86** |
+| fev | 6.892,33 | 7.109,73 | +217,40 |
+| mar | 7.109,73 | 7.109,73 | **0,00** |
+| abr | 7.109,73 | 7.109,73 | **0,00** |
+| mai | 2.822,07 | 2.822,06 | −0,01 |
+
+Every DB line carries its área in `SIGLADEST` (ECT/EDE/ESP) AND spells the split in the
+histórico ("IBRAC … Dividido em Contencioso e Econômico" posts as 700,09+700,10; the annual
+"4.287,67/3" splits three ways ECT/EDE/ESP; "AASP AM, DC" → Contencioso; "Canal 100% Arbitragem
+(MV)"). **Jan the workbook simply OMITTED AASP 195,40 + Canal 1.204,47; Feb omitted AASP
+217,40.** The DB has them → the DB is *more* correct. Mar/Apr already reconcile exactly.
+
+### DL extras — fully DB-derived, tie to the centavo
+- Jan `030.010.0010` "DL excedente … Reserva": AM 70.790,94 + DC 46.843,20 + RB 46.843,20 =
+  **164.477,34 = workbook C193 exactly**.
+- Feb Bônus: `150.%` = 94.696,15 (6 funcionários) + JGS `030.010.0010` 7.009,84 = **101.705,99**
+  (workbook D192 = 94.696+7.009,84 = 101.705,84; Δ0,15 rounding, known).
+- Mar `030.010.0010` "DL excedente MV" = **6.627,00 = workbook E194 exactly**. May: none (correct).
+
+### Institutional despesas (gross, pre net/líquido+reclass)
+DB gross vs workbook row-198: jan +4.583,65 · fev +4.599,47 · mar −987,55 · abr −1.043,88 ·
+mai −880,04. The Jan/Feb DB being *higher* is consistent with the Associações items (AASP+Canal)
+the workbook left out. May closes to the centavo after the net/líquido + reclass step already in code.
+
+**Verdict: the "lançamentos manuais não deriváveis" framing is refuted by live data.** These are
+recurring system postings; where the DB and the old workbook disagree (Jan/Feb), the DB is the
+more complete/correct number. Jan–Apr can be un-blanked straight from the DB — accepting that the
+DB-derived Jan/Feb will differ from (and improve on) the old hand-entered cells.
+
 ## How to run the probe (RDP recipe, from ops/sisjuri-agent/README.md)
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
