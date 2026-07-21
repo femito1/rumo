@@ -46,7 +46,7 @@ SELECT 'A|'||r.ID_CONTA
                           '030.010.0120','030.010.0130','030.010.0140','030.010.0180','030.020.0010')
  GROUP BY r.ID_CONTA, r.ANO_MES
  HAVING ROUND(SUM(r.VALOR),2) <> 0
- ORDER BY 1,3;
+ ORDER BY r.ID_CONTA, r.ANO_MES;
 
 PROMPT ============================================================
 PROMPT #B Any 150.* leaf OTHER than the bonus/adiant leaves, by month
@@ -59,7 +59,7 @@ SELECT 'B|'||l.PCTCNUMEROCONTADEST
  WHERE l.PCTCNUMEROCONTADEST LIKE '150.%'
    AND l.LANDDATA >= DATE '2026-01-01' AND l.LANDDATA < DATE '2026-07-01'
  GROUP BY l.PCTCNUMEROCONTADEST, TO_CHAR(l.LANDDATA,'YYYY-MM')
- ORDER BY 1,2;
+ ORDER BY l.PCTCNUMEROCONTADEST, TO_CHAR(l.LANDDATA,'YYYY-MM');
 
 PROMPT ============================================================
 PROMPT #C Seasonal ADM payroll leaves (13o, rescisões, home office, exames, bolsa estag ADM)
@@ -76,7 +76,7 @@ SELECT 'C|'||r.ID_CONTA
                       '020.050.0150','020.050.0160')
  GROUP BY r.ID_CONTA, r.ANO_MES
  HAVING ROUND(SUM(r.VALOR),2) <> 0
- ORDER BY 1,3;
+ ORDER BY r.ID_CONTA, r.ANO_MES;
 
 PROMPT ============================================================
 PROMPT #D FULL GERENC account list for a NON-May month (2026-04) — catch anything unmapped
@@ -90,7 +90,7 @@ SELECT 'D|'||r.ID_CONTA
  WHERE r.ANO_MES = '2026-04'
  GROUP BY r.ID_CONTA
  HAVING ROUND(SUM(r.VALOR),2) <> 0
- ORDER BY 1;
+ ORDER BY r.ID_CONTA;
 
 PROMPT ============================================================
 PROMPT #E Sanity: does GERENC carry any account family we never mapped? (prefix census, Apr)
@@ -101,7 +101,7 @@ SELECT 'E|'||SUBSTR(r.ID_CONTA,1,3)
   FROM LDESK.GERENC_LANCAMENTORESUMO r
  WHERE r.ANO_MES = '2026-04'
  GROUP BY SUBSTR(r.ID_CONTA,1,3)
- ORDER BY 1;
+ ORDER BY SUBSTR(r.ID_CONTA,1,3);
 
 PROMPT #END
 EXIT
