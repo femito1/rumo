@@ -160,6 +160,13 @@ def is_imposto(row: dict[str, Any]) -> bool:
     # so they are never miscounted as a tax leaf (they are derived separately).
     if is_comissao_account(id_conta):
         return False
+    # ISS jurídico (030.010.0160) is named just "ISS" but is TEAM COST in the
+    # workbook (per-area "ISS Trimestral"), not a tax. Without this guard the
+    # "iss" token below would misclassify it as imposto and drop it entirely (the
+    # DRE Imposto line is 15% of recebimento, not a sum of tax accounts). It is
+    # trimestral, so May (the reconciliation month) was zero — hence long unseen.
+    if is_direct_team(id_conta):
+        return False
     if id_conta in _IMPOSTO_ACCOUNTS:
         return True
     pai = str(row.get("nome_conta_pai", "")).lower()

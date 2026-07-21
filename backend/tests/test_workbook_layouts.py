@@ -40,6 +40,25 @@ def test_imposto_still_matches_real_taxes():
     assert is_imposto({"nome_conta": "PIS", "nome_conta_pai": "Impostos"}) is True
 
 
+def test_iss_juridico_is_team_cost_not_imposto():
+    # 030.010.0160 "ISS" (jurídico, TRIMESTRAL) is booked by the workbook INSIDE
+    # per-area Custo equipe ("ISS Trimestral", Base_Resultado rows 25/54/79), NOT
+    # in the Impostos block. It posts only at quarter-ends (Jan/Apr/Jul/Oct), so
+    # May — the reconciliation month — was zero and never exercised this path.
+    # It must be treated as team cost, never as a tax (which would drop it, since
+    # the DRE Imposto line is 15% of recebimento, not a sum of tax accounts).
+    row = {
+        "nome_conta": "ISS",
+        "nome_conta_pai": "Custos com Pessoal Técnico",
+        "id_conta": "030.010.0160",
+    }
+    assert is_imposto(row) is False
+    assert is_direct_team("030.010.0160") is True
+    assert institutional_030_section("030.010.0160") is None
+    # The FGTS-ADM reclass and real 050/300 taxes are unaffected.
+    assert is_imposto({"nome_conta": "FGTS", "id_conta": "020.050.0060"}) is True
+
+
 def test_ambiental_folds_into_arbitragem():
     # Client-confirmed (2026-07-10): Ambiental soma com Arbitragem (same area).
     assert match_area("Equipe Ambiental", "Arbitragem") is True
