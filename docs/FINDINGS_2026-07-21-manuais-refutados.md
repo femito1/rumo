@@ -166,6 +166,46 @@ recurring system postings; where the DB and the old workbook disagree (Jan/Feb),
 more complete/correct number. Jan–Apr can be un-blanked straight from the DB — accepting that the
 DB-derived Jan/Feb will differ from (and improve on) the old hand-entered cells.
 
+## ⭐ DB blind-spot hunt (2026-07-21, `probe_unknown_accounts.sql` live)
+
+Beyond the three "manuais" families, I swept every account that had NO May movement
+(the month we reconciled to the centavo) but posts in other months — the classic
+place a bug hides. Result: the model is **complete except for one real bug**.
+
+### 🐛 BUG — ISS jurídico (`030.010.0160`) is silently dropped from Custo equipe
+It is **trimestral** (posts only at quarter-ends), so it was **zero in May** and our
+centavo-tie never exercised it. Live values:
+- Jan `030.010.0160` = **5.350,24**  (workbook Base_Resultado "ISS Trimestral":
+  Contencioso 1.719,72 + Econômico 2.101,88 + Arbitragem 1.528,64 = 5.350,24 ✓)
+- Apr `030.010.0160` = **5.578,58**  (wb 2.028,56 + 2.028,56 + 1.521,42 = 5.578,54)
+
+The workbook books it **inside per-area Custo equipe** (rows 25/54/79). Our code drops
+it: `is_imposto()` returns True (the "iss" token in the name) → it is NOT counted as
+team cost; but the DRE **Imposto line is a 15%-of-recebimento formula**, so it is NOT
+added there either. Net: in Jan & Apr, per-area + institutional **Custo equipe is short
+by ~5k**, and the derived-vs-target gate blanks those cells.
+**Fix options:** (a) add `030.010.0160` to the `custo_equipe_deriv` extract (per-area by
+SIGLADEST, like the other 030 team lines) and exclude it from `is_imposto`; OR (b) treat
+it as an institutional line. (a) matches the workbook (per-area ISS Trimestral). Only
+Jan/Apr/Jul/Oct-type quarter months are affected; May/Jun clean.
+
+### Everything else = confirmed complete (no drop)
+- **#B stray 150.\***: only `150.010.0010` (Feb bonus 94.696,15) — bonus block is complete.
+- **#C seasonal ADM payroll**: only tiny one-offs so far (IR-Fonte-ADM Jan 169,52;
+  e-Social Feb 1.032,35) — both `020.050.*`, auto-swept into institutional despesas by the
+  `020.%` scan; classified under Salários Adm. The big seasonal ones (13º, rescisões) have
+  not posted in 2026 yet — watch Nov/Dec, but they're prefix-covered when they do.
+- **#D April full census**: every account maps to a known family via `section_for`; the
+  only 030.* non-team leaf with value is the ISS above and `030.010.0200 Seguro de Vida`
+  (Mar 92,45 — tiny; workbook has a per-lawyer "Seguro de Vida" row, currently `manual`).
+- **#E prefix census (Apr)**: 020 / 030 / 040 only — no unmapped account family exists.
+- `030.010.0200 Seguro de Vida` (Mar 92,45) — same class as ISS (a non-team 030 leaf) but
+  ~R$92; low priority, note it. `020.060.0010 Assinaturas` (Apr 85) is `020.%` → swept.
+
+**Verdict of the hunt:** one fixable bug (ISS Trimestral, ~5k in quarter months),
+everything else accounted for. This is the last known DB-derivation gap outside
+orçamento/amortização.
+
 ## How to run the probe (RDP recipe, from ops/sisjuri-agent/README.md)
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
