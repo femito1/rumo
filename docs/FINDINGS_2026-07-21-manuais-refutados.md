@@ -210,10 +210,14 @@ lands in Econômico. Result (Jan):
 | Econômico | 2.292,96 (6u incl. AM+MAM) | **2.101,88** | 2.101,88 ✓ |
 | Arbitragem | 1.528,64 (4u) | **1.528,64** | 1.528,64 ✓ |
 
-**All three tie to the centavo.** Fix wired: the `custo_equipe_deriv` extract keys ISS by
-`LANCSOLICITANTE` from `FINANCE.LANCAMENTO` (commit pending), and `build_area_splits` does
-the rest. Locked by `test_iss_juridico_ties_workbook_via_solicitante`. This removes ISS
-from the "manual" list entirely — every quarter month (Jan/Apr/Jul/Oct) now derives.
+**All three tie to the centavo.** Fix wired + **verified LIVE (2026-07-21):** re-ran the
+Jan extract on MBC-LDESK01; the fresh snapshot's `custo_equipe_deriv` now shows the ISS
+rows keyed by solicitante — `JGS|382.16` **and** `MAM|382.16` (previously a single
+`JGS|764.32`). Running the backend fold (`derive_area_custo_equipe`) on that live data
+reproduces Contencioso 1.719,72 / Econômico 2.101,88 / Arbitragem 1.528,64 exactly.
+Locked by `test_iss_juridico_ties_workbook_via_solicitante` (backend 241, ruff/mypy clean).
+This removes ISS from the "manual" list entirely — every quarter month (Jan/Apr/Jul/Oct)
+now derives. **Apr & Jul need one more extract re-run** (their snapshots predate this fix).
 
 ### Everything else = confirmed complete (no drop)
 - **#B stray 150.\***: only `150.010.0010` (Feb bonus 94.696,15) — bonus block is complete.
