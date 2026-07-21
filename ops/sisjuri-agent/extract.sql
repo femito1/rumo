@@ -386,13 +386,15 @@ BEGIN
         UNION ALL
         -- ISS jurídico (030.010.0160) — TRIMESTRAL (Jan/Apr/Jul/Oct only), per
         -- lawyer via GERENC ID_PROFISSIONAL -> sigla. Folded to areas by the SAME
-        -- home-grupo + CAD_RATEIO_GRUPO %s as the other team lines, which is what
-        -- the workbook does: per-lawyer 382,16 (Jan) with AM's 50/50 split gives
-        -- Contencioso 4,5u=1.719,72 / Econômico 5,5u=2.101,88 / Arbitragem
-        -- 4u=1.528,64 = "ISS Trimestral" rows 25/54/79 to the centavo
-        -- (probe_iss_area #B, 2026-07-21). The raw ID_GRUPOJURIDICO group (#A) is
-        -- WRONG here because it ignores the rateio. Named just "ISS", so
-        -- is_imposto() would otherwise drop it (guarded: is_direct_team => not tax).
+        -- home-grupo + CAD_RATEIO_GRUPO %s as the other team lines. This ties the
+        -- ISS TOTAL (Jan 5.350,24) and Contencioso (1.719,72) to the centavo, and
+        -- stops ISS being dropped (named just "ISS" -> is_imposto would misfire;
+        -- guarded: is_direct_team => not tax). ⚠ The workbook's Econ↔Arb split is
+        -- NOT reproduced: probe_iss_jgs proved JGS's two ISS rows are BOTH
+        -- grupo=Arbitragem in the DB, but the workbook books one to Econômico
+        -- (Jan Econ=382,16*5+191,08 / Arb=382,16*4). So in quarter months our Econ
+        -- is ~382,16 short and Arb ~382,16 over — a documented manual reclass, not
+        -- a DB rule (see docs/FINDINGS_2026-07-21-manuais-refutados.md).
         SELECT p.SIGLA sigla, r.ID_CONTA id_conta,
                ROUND(SUM(r.VALOR),2) valor
           FROM LDESK.GERENC_LANCAMENTORESUMO r

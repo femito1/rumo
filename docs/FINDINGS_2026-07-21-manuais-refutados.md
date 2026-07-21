@@ -184,10 +184,23 @@ it: `is_imposto()` returns True (the "iss" token in the name) → it is NOT coun
 team cost; but the DRE **Imposto line is a 15%-of-recebimento formula**, so it is NOT
 added there either. Net: in Jan & Apr, per-area + institutional **Custo equipe is short
 by ~5k**, and the derived-vs-target gate blanks those cells.
-**Fix options:** (a) add `030.010.0160` to the `custo_equipe_deriv` extract (per-area by
-SIGLADEST, like the other 030 team lines) and exclude it from `is_imposto`; OR (b) treat
-it as an institutional line. (a) matches the workbook (per-area ISS Trimestral). Only
-Jan/Apr/Jul/Oct-type quarter months are affected; May/Jun clean.
+**FIXED (2026-07-21, commits b850300 + 73ef7a3):** (1) `is_imposto` now excludes any
+`is_direct_team` account, so ISS is no longer dropped; (2) `030.010.0160` is added
+per-lawyer to the `custo_equipe_deriv` extract (GERENC by `ID_PROFISSIONAL`→sigla) and
+folds through the existing home-grupo + AM-50/50 rateio. Result verified against the live
+Jan snapshot: **ISS total ties to the centavo (5.350,24) and Contencioso ties exactly
+(1.719,72)** — ISS is now inside Custo equipe instead of vanishing.
+
+**⚠ Known residual (NOT DB-derivable — do not force it):** the workbook's **Econômico vs
+Arbitragem** ISS split does not match any DB grouping. `probe_iss_jgs.sql` proved **both**
+of JGS's two ISS postings are tagged `grupo=Arbitragem` in the DB, but the workbook books
+one to Arbitragem and one to **Econômico** (Jan formula `Econ =382,16*5+191,08`,
+`Arb =382,16*4`). So vs the raw DB the workbook makes two moves: AM split 50/50 (we
+reproduce this via `rateio_grupo`) **and** JGS's 2nd ISS unit Arb→Econ (a manual reclass
+the DB does not encode). Net effect in quarter months (Jan/Apr/Jul/Oct): our Econômico is
+**~382,16 short** and Arbitragem **~382,16 over** vs the workbook, even though the total and
+Contencioso tie. This is the same class as the vale ADM/área manual choice — leave it as a
+documented residual, not a hardcoded rule. Non-quarter months (Feb/Mar/May/Jun) unaffected.
 
 ### Everything else = confirmed complete (no drop)
 - **#B stray 150.\***: only `150.010.0010` (Feb bonus 94.696,15) — bonus block is complete.
