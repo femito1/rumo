@@ -146,6 +146,26 @@ ops/easypanel-deploy.sh backend        # rebuild+deploy backend from main
 2. **Redeploy the backend** so the deployed code has the `is_imposto` fix (see DEPLOY STATUS).
 3. The daily scheduled task keeps the latest month fresh with the same (self-updating) extract.
 
+## May proof-of-match artifact (client-facing, built this session)
+For the finance meeting: a **3-way** comparison proving our DB reproduces the client's May book.
+- `docs/NOTA_MAIO_2026.md` — baby-clear PT-BR explainer with per-line tables + Renata's
+  confirmations. Core message: May ties to the centavo except the aluguel-Belline **+129,17**
+  (bruto 27.477,67 − Belline credit 3.117,90 = 24.359,77; Renata: use DB); per-area RB diffs are
+  the Despesas-Área label regrouping (net-zero across areas, Renata-confirmed). Jan–Apr note: DB
+  is **additive** (finds real lines the old planilha omitted, e.g. Jan Associações +AASP +Canal).
+- `reference/comparativo/Comparativo_MBC_Maio_2026.xlsx` — color-coded (green=tie, amber=DB
+  more correct, grey=regroup/rounding), institucional + 3 areas.
+- **Regenerate:** `cd backend && python -m scripts.build_may_comparison` (committed, ruff-clean,
+  self-asserts sacred 415.927,84 + live RL 29.691,61). The three legs are: raw `.xlsx` cell
+  (leg "Planilha"), `targets_for("2026-05")` (leg "Alvo" — the workbook target the hard rule
+  checks, with the aluguel override baked in), and `assemble_dre_sections(targets=None)` (leg
+  "Sistema" — pure DB). ⚠ The script rebuilds the May snapshot from `_MAY_OVERRIDES` (values
+  captured off the live box 2026-07-21) because the test fixture `sisjuri_2026_05.json` is STALE
+  (lacks líquido/desdobramento/prof blocks → false +2.854 gap). To refresh: replace
+  `_MAY_OVERRIDES` with a fresh `closing_2026-05.json`'s blocks. "targets"/"Alvo" is transitional
+  scaffolding — a workbook-derived safety net the hard rule checks against; it disappears in the
+  workbook-free endgame (the DB is the source of truth, not the target).
+
 ## Open / next (decision, not blocked)
 - **Un-blank Jan–Apr from the DB.** Now that every family derives, the Jan–Apr cells the
   hard rule blanks can be filled from the DB — accepting that DB Jan/Feb will differ from
