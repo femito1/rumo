@@ -1,7 +1,8 @@
 # Maio/2026 — nossos números batem com a planilha de vocês (e onde diferem, o sistema está mais correto)
 
 **Para:** Financeiro MBC / RUMO · **Competência:** 05.2026 (planilha oficial) · **Data:** 21/07/2026
-**Acompanha:** `Comparativo_MBC_Maio_2026.xlsx` (comparação lado a lado, colorida)
+**Acompanha:** `Comparativo_MBC_Maio_2026.xlsx` (comparação lado a lado, colorida) ·
+`docs/REFERENCIA_CELULAS_MAIO_2026.md` (em qual célula da planilha cada número está)
 
 ## Resumo em uma frase
 
