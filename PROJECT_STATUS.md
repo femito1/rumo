@@ -72,33 +72,44 @@ ways. Backend **263** tests, frontend **59**; ruff/mypy/eslint/tsc clean; `npm r
   `BudgetEditor`, but `available_months` spans 24 months *back* only — 2027 becomes
   reachable in Jan 2027. Out of scope.
 
-**DEPLOY (pushed `686d2b5` to `main`):**
+**DEPLOY: ✅ BOTH SERVICES LIVE** (`13b12e7`).
 
-- ✅ **Backend is LIVE and verified.** `ops/easypanel-deploy.sh backend` → ok. Proven, not
-  inferred: **`/openapi.json` is PUBLIC** (200, no auth) and reflects the *deployed* route
-  signatures — the `mode` Query param is gone from `/api/clients/{client_id}/closing`. Use
-  this as the backend deploy check from now on (it supersedes "backend = indirect only").
-- ❌ **Frontend BLOCKED — server-side build failure, not our code.**
-  `ops/easypanel-deploy.sh frontend` fails reproducibly with
-  `Command failed with exit code 1: docker buildx build … /frontend`. Ruled out: TS/lint
-  errors (all gates clean), Node version (`node:20-alpine` = 20.20.2, satisfies vite 8's
-  `^20.19.0 || >=22.12.0`; builds on 20 *and* 22), lockfile/`npm ci`, musl bindings
-  (`@rolldown/binding-linux-x64-musl` + lightningcss musl are in the lock), and OOM
-  (passes at `--memory=512m`). **The exact server command run locally against the exact
-  git tree (`git archive 686d2b5 frontend`) builds fine** — same `--network host`, same
-  `--build-arg`s. So it's a host condition (most likely Docker disk/build-cache pressure,
-  or a registry pull for one of the frontend's *two* base images — the backend needs one).
-  **Needs operator action on the box: prune Docker images/build cache, then re-trigger.**
-  The panel exposes no build logs (every log/inspect tRPC proc returns `Bad Request` on
-  GET *and* POST). `restart` works — the service is healthy, it just keeps serving the old
-  image.
-- ⚠ **Prod frontend therefore still serves `assets/index-BSDA_8fR.js`** — the
-  pre-`8941598` bundle. So the July checkpoint UI (presentation panel, tab cleanup, PDF)
-  **and** the cumulative tab are all unshipped, even though their backend halves are live.
-- Fixed a real bug in `ops/easypanel-deploy.sh` found doing this: it **exited 0 on the
-  FAILED path** (grep status consumed by the `if`), so callers/CI couldn't trust `$?`.
-  Now compares the response directly; also raised the curl timeout 60s→300s (a rebuild
-  takes longer than 60s, so a slow-but-successful build looked like a failure).
+- ✅ **Backend live and verified.** Proven, not inferred: **`/openapi.json` is PUBLIC**
+  (200, no auth) and reflects the *deployed* route signatures — the `mode` Query param is
+  gone from `/api/clients/{client_id}/closing`. Use this as the backend deploy check from
+  now on (it supersedes the old "backend = indirect only" note).
+- ✅ **Frontend live and verified.** Live bundle went `index-BSDA_8fR.js` (pre-`8941598`)
+  → **`index-Cl_KK7s7.js`**, byte-identical to a local clean Docker build of the same
+  tree. Confirmed in the shipped JS: `mode-toggle` and the `Período` group are **absent**
+  (toggle gone), presentation strings present. So the July checkpoint UI *and* the
+  cumulative tab are now both shipped.
+- **The frontend had been failing to deploy since `8941598` — two real host-side bugs,
+  now both fixed.** My first pass misdiagnosed this as "Docker disk pressure, needs
+  operator action"; that was wrong. Root causes, from the actual build log:
+  1. **`build: null`** on the frontend service — no build configuration at all (backend
+     had `{"type":"dockerfile","file":"Dockerfile"}`). Fixed via
+     `services/app/updateBuild`; both services now match.
+  2. **Poisoned buildkit cache** — `failed to commit <id> … snapshot <id> does not
+     exist: not found`, with every earlier step `CACHED`.
+     `dockerBuilders/stopDockerBuilder` does *not* clear it. Two fixes:
+     `services/app/updateSourceGithub` to force a fresh archive (the checkout was stale —
+     the build was transferring the **336B old Dockerfile** while `main` had 968B), and
+     `frontend/Dockerfile` now consumes the `GIT_SHA` build-arg EasyPanel already passes,
+     above `RUN npm run build`, so the layer's cache key changes per commit. **Keep that
+     ARG where it is.**
+- **⭐ The panel API is oRPC at `/api/rpc/<ns>/<proc>`** (POST-only, `{"json":…}`-wrapped)
+  — **not** tRPC at `/api/trpc`, which the deploy script had used. `/api/trpc` answers
+  *everything* with a generic `{"error":"Bad Request"}`, valid procs included, which is
+  what produced the earlier false conclusions that "only POST mutations work" and "the
+  panel exposes no build logs". **Build logs are available**:
+  `actions/listActions` → `actions/getAction` → `.log`. Full recipe + proc table in
+  `ops/README.md`.
+- `ops/easypanel-deploy.sh` rewritten onto the working API, plus a new
+  **`ops/easypanel-deploy.sh <svc> logs`** subcommand (prints the last build log; also
+  dumped automatically on a failed deploy). Also fixed: it **exited 0 on the FAILED path**
+  (grep status consumed by the `if`) so `$?` was untrustworthy, and a naive
+  `grep KEY= | cut` was pulling a comment line into the API key — the deploy "worked" only
+  because that variable was unused on the success path.
 
 ---
 
