@@ -31,15 +31,23 @@ case "$ACTION" in
 esac
 
 echo "[easypanel] $ACTION $EASYPANEL_PROJECT/$SERVICE ..."
-resp=$(curl -s -m 60 -X POST "$EASYPANEL_URL/api/trpc/$PROC" \
+resp=$(curl -s -m 300 -X POST "$EASYPANEL_URL/api/trpc/$PROC" \
   -H "Authorization: Bearer $EASYPANEL_API_KEY" \
   -H "Content-Type: application/json" \
   -d "{\"json\":{\"projectName\":\"$EASYPANEL_PROJECT\",\"serviceName\":\"$SERVICE\"}}")
 
 # A successful mutation returns {"result":{"data":{"json":...}}} or {"json":...};
-# an error returns {"error"...} or {"json":{"code":...}}.
-if echo "$resp" | grep -q '"code"\|"error"'; then
+# an error returns {"error"...} or {"json":{"code":...}}. NOTE `deploy` can return
+# an error AFTER the build starts (e.g. "Command failed ... docker buildx build") —
+# an accepted trigger is not a successful build.
+#
+# `set -o pipefail` + `grep -q` used to make this exit 0 on the FAILED path (grep's
+# status was consumed by the `if`, and the earlier `echo | grep` short-circuit lost
+# the intended non-zero). Compare against the string directly so `exit 1` is real —
+# CI/callers must be able to trust `$?`.
+if [[ "$resp" == *'"code"'* || "$resp" == *'"error"'* ]]; then
   echo "[easypanel] FAILED: $resp" >&2
+  echo "[easypanel] NOTE: the service keeps serving its previous image." >&2
   exit 1
 fi
 echo "[easypanel] ok: $resp"
