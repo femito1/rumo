@@ -52,7 +52,8 @@ def test_accumulate_sums_realizado_and_orcado_per_line():
         _amount("Recebimento", "recebimento", 100.0, 110.0),
         _amount("Custo equipe", "custo_equipe", 40.0, 50.0),
     ])}
-    annual = {"institucional": {"recebimento": 1200.0}}
+    # One annual map per BLOCK, per section (institucional has a single block).
+    annual = {"institucional": [{"recebimento": 1200.0}]}
     out = accumulate_ytd({1: jan, 2: fev}, annual_budget=annual, up_to_month=2)
     rows = {r["key"]: r for r in out["institucional"]["rows"]}
     assert out["institucional"]["columns"] == YTD_COLUMNS
@@ -141,6 +142,38 @@ def test_only_allowlisted_dre_sections_are_accumulated():
     }
 
 
+def test_annual_columns_fill_per_block_in_the_stacked_view():
+    """``Orçado Anual`` / ``Falta p/ meta`` must fill for EVERY block.
+
+    Regression: the annual budget was looked up by *section id* (``areas_sintetico``)
+    while ``annual_budget`` is keyed by *área* (``institucional``/``Contencioso``/…),
+    so the lookup always missed and both columns rendered "—" everywhere. The
+    accumulator now takes one annual map PER BLOCK, in block order.
+    """
+    rows = []
+    for title, receb in (("INSTITUCIONAL", 100.0), ("CONTENCIOSO", 40.0),
+                         ("ECONOMICO", 35.0), ("ARBITRAGEM", 25.0)):
+        rows.append(_header(f"RESULTADO {title}"))
+        rows.append(_amount("Recebimento", "recebimento", None, receb))
+    out = accumulate_ytd(
+        {1: {"areas_sintetico": _rich(rows)}},
+        annual_budget={"areas_sintetico": [
+            {"recebimento": 1200.0},   # institucional
+            {"recebimento": 450.0},    # Contencioso
+            {"recebimento": 450.0},    # Econômico
+            {"recebimento": 300.0},    # Arbitragem
+        ]},
+        up_to_month=1,
+    )
+    got = [
+        (r["Orçado Anual"]["value"], r["Falta p/ meta"]["value"])
+        for r in out["areas_sintetico"]["rows"]
+        if r["key"] == "recebimento"
+    ]
+    # Falta = anual − realizado YTD, per block.
+    assert got == [(1200.0, 1100.0), (450.0, 410.0), (450.0, 415.0), (300.0, 275.0)]
+
+
 def test_falta_para_meta_is_annual_minus_realizado():
     """Locks the workbook's real year-to-go (06.2026 'Areas Sintetico' AE3).
 
@@ -150,7 +183,7 @@ def test_falta_para_meta_is_annual_minus_realizado():
     jan = {"institucional": _rich([
         _amount("Faturamento", "recebimento", 4030000.02, 3463471.64),
     ])}
-    annual = {"institucional": {"recebimento": 8060000.04}}
+    annual = {"institucional": [{"recebimento": 8060000.04}]}
     out = accumulate_ytd({1: jan}, annual_budget=annual, up_to_month=1)
     row = out["institucional"]["rows"][0]
     assert row["Orçado Anual"]["value"] == pytest.approx(8060000.04)

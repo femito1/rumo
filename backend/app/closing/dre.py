@@ -685,7 +685,7 @@ def _section_header_row(title: str) -> dict[str, Any]:
 #: Per-área Recebimento Orçado split of the institucional recebimento budget
 #: (workbook 'Areas Sintetico': Contencioso & Econômico = (recb − recb/4)/2 = 37.5%,
 #: Arbitragem = recb/4 = 25%). Fixed plan split, DB/budget-derivable (no workbook).
-_RECEBIMENTO_ORCADO_SHARE = {"Contencioso": 0.375, "Econômico": 0.375, "Arbitragem": 0.25}
+RECEBIMENTO_ORCADO_SHARE = {"Contencioso": 0.375, "Econômico": 0.375, "Arbitragem": 0.25}
 
 
 def _per_area_orcado(
@@ -740,7 +740,7 @@ def _per_area_orcado(
         area_despeq = despeq[area]
         area_share = share_basis[area]
         if recb_inst is not None:
-            row[RECEBIMENTO] = round(recb_inst * _RECEBIMENTO_ORCADO_SHARE[area], 2)
+            row[RECEBIMENTO] = round(recb_inst * RECEBIMENTO_ORCADO_SHARE[area], 2)
         if area_custo is not None:
             row[CUSTO_EQUIPE] = round(area_custo, 2)
         if area_despeq is not None:

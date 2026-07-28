@@ -155,7 +155,7 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict] | Non
         from app.budget.models import annual_budget, monthly_budget
         from app.closing.available import is_closeable
         from app.closing.dre import assemble_dre_sections
-        from app.closing.ytd_accumulate import accumulate_ytd
+        from app.closing.ytd_accumulate import accumulate_ytd, annual_by_block
 
         entries = _budget_repo().get_budget(client.id, period.year)
         ann = annual_budget(entries) if entries else {}
@@ -182,7 +182,13 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict] | Non
                 period_month=m,
                 targets=None,
             )
-        ytd = accumulate_ytd(months, annual_budget=ann, up_to_month=period.month)
+        ytd = accumulate_ytd(
+            months,
+            # Reshape área-keyed annuals into per-block maps; passing `ann` raw
+            # made every Orçado Anual / Falta p/ meta cell blank.
+            annual_budget=annual_by_block(ann),
+            up_to_month=period.month,
+        )
         return ytd or None
     except Exception:  # pragma: no cover - acumulado is a best-effort overlay
         return None

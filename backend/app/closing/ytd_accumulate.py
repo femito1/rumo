@@ -63,6 +63,50 @@ _MARGIN_NUMERATOR = {
 _AccKey = tuple[int, str, int]
 
 
+def annual_by_block(
+    annual_budget: dict[str, dict[str, float]] | None,
+) -> dict[str, list[dict[str, float]]]:
+    """Reshape the área-keyed annual budget into per-section, per-block maps.
+
+    ``budget.models.annual_budget`` returns ``{área: {line: annual}}`` — only
+    ``institucional`` is typed in practice. The accumulator needs one map per BLOCK
+    of each section, so:
+
+    - single-block sections (``institucional``, ``contencioso``, ``economico``,
+      ``arbitragem``) get a one-element list;
+    - ``areas_sintetico`` gets ``[institucional, Contencioso, Econômico, Arbitragem]``.
+
+    Per-área annuals are DERIVED, mirroring the workbook (06.2026 'Areas Sintetico'
+    ``Z36 = ($Z$3-($Z$3/4))/2``, ``Z54`` same, ``Z72 = $Z$3/4``): the institucional
+    annual split 37,5 / 37,5 / 25 — the same fixed plan split ``dre._per_area_orcado``
+    already uses for the monthly Orçado. Lines the workbook doesn't split per área
+    are left out (→ the cell renders "—", which is correct: no per-área annual plan).
+    """
+    from app.closing.dre import RECEBIMENTO, RECEBIMENTO_ORCADO_SHARE
+
+    ann = annual_budget or {}
+    inst = ann.get("institucional", {})
+
+    def area_map(area: str) -> dict[str, float]:
+        out: dict[str, float] = {}
+        recb = inst.get(RECEBIMENTO)
+        if recb is not None:
+            out[RECEBIMENTO] = round(recb * RECEBIMENTO_ORCADO_SHARE[area], 2)
+        # The área's own typed annual lines (e.g. custo_equipe) pass through.
+        for line, v in (ann.get(area) or {}).items():
+            out[line] = v
+        return out
+
+    areas = [area_map(a) for a in ("Contencioso", "Econômico", "Arbitragem")]
+    return {
+        "institucional": [inst],
+        "contencioso": [areas[0]],
+        "economico": [areas[1]],
+        "arbitragem": [areas[2]],
+        "areas_sintetico": [inst, *areas],
+    }
+
+
 def _cell_value(row: dict[str, Any], col: str) -> float | None:
     v = row.get(col)
     if isinstance(v, dict):
@@ -103,7 +147,7 @@ def _walk(rows: list[dict[str, Any]]) -> list[tuple[dict[str, Any], _AccKey | No
 def accumulate_ytd(
     months: dict[int, dict[str, dict[str, Any]]],
     *,
-    annual_budget: dict[str, dict[str, float]] | None,
+    annual_budget: dict[str, list[dict[str, float]]] | None,
     up_to_month: int,
 ) -> dict[str, dict[str, Any]]:
     """Return accumulated DRE sections (Jan→``up_to_month``) with YTD columns.
@@ -111,6 +155,13 @@ def accumulate_ytd(
     ``months`` is ``{month_index: assembled_sections}`` (as ``assemble_dre_sections``
     returns). Only months ``<= up_to_month`` that are present contribute. Section /
     row structure is taken from the latest present month so labels/order are current.
+
+    ``annual_budget`` is ``{section_id: [annual line map PER BLOCK]}`` — one map per
+    block, in block order (for ``areas_sintetico``: institucional, Contencioso,
+    Econômico, Arbitragem). It is NOT the raw ``budget.models.annual_budget`` output:
+    that is keyed by *área*, so indexing it by *section id* missed on every section
+    and left ``Orçado Anual`` / ``Falta p/ meta`` blank everywhere. Build it with
+    ``annual_by_block``.
     """
     annual_budget = annual_budget or {}
     present = sorted(m for m in months if m <= up_to_month)
@@ -142,9 +193,21 @@ def accumulate_ytd(
                 if ov is not None:
                     acc_orc[acc_key] = round(acc_orc.get(acc_key, 0.0) + ov, 2)
 
-        ann_sec = annual_budget.get(section_key, {})
+        ann_blocks = annual_budget.get(section_key) or []
+        walked = _walk(section.get("rows", []))
+        # Map each raw block id to a dense 0-based ordinal, so `ann_blocks` is
+        # simply "one map per block, in order" regardless of whether the section
+        # opens with a header (areas_sintetico) or not (institucional, áreas).
+        ordinals = {
+            b: i
+            for i, b in enumerate(
+                sorted({k[0] for _, k in walked if k is not None})
+            )
+        }
         rows_out: list[dict[str, Any]] = []
-        for tmpl, acc_key in _walk(section.get("rows", [])):
+        for tmpl, acc_key in walked:
+            idx = ordinals.get(acc_key[0], -1) if acc_key else -1
+            ann_sec = ann_blocks[idx] if 0 <= idx < len(ann_blocks) else {}
             rows_out.append(
                 _ytd_row(tmpl, acc_key, acc_real, acc_orc, ann_sec)
             )
