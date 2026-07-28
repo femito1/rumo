@@ -75,3 +75,30 @@ class SupabaseSnapshotStore:
             except (TypeError, ValueError):
                 continue
         return out
+
+    def snapshots_by_year(self, year: int, *, client_id: str) -> dict[int, dict]:
+        """Return ``{month_index: full payload}`` for every snapshot of ``year``.
+
+        Loads full payloads (one PostgREST call, all months of the year) so the
+        provider can accumulate a whole-DRE YTD. Heavier than the recebimento
+        projection but bounded to ≤12 rows; only used for the acumulado view.
+        """
+        res = (
+            self._c.table(_TABLE)
+            .select("ano_mes, payload")
+            .eq("client_id", client_id)
+            .gte("ano_mes", f"{year:04d}-01")
+            .lte("ano_mes", f"{year:04d}-12")
+            .execute()
+        )
+        out: dict[int, dict] = {}
+        for row in res.data or []:
+            ano_mes = row.get("ano_mes")
+            payload = row.get("payload")
+            if not ano_mes or payload is None:
+                continue
+            try:
+                out[int(str(ano_mes)[-2:])] = payload
+            except (TypeError, ValueError):
+                continue
+        return out

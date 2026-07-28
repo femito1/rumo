@@ -48,6 +48,11 @@ RESERVA_BONUS = "reserva_bonus"
 COMISSAO = "comissao"
 DESPESAS_EQUIPE = "despesas_equipe"
 DESPESA_INSTITUCIONAL = "despesa_institucional"
+#: Institucional budget pool that is rateado (split) across the areas as each
+#: area's Despesa Institucional Orçado. In the workbook this is the "Despesa
+#: para ratear" line (Orçamento 2026 row 196); each area gets pool × its custo-
+#: equipe rateio share. Budget-only line key (no Realizado counterpart).
+DESPESA_PARA_RATEAR = "despesa_para_ratear"
 
 
 def _parse_custo_overrides(raw: dict[str, Any], cls: Any) -> dict[str, Any]:
@@ -83,13 +88,16 @@ def _pct(numer: float, denom: float) -> float | None:
 
 
 def bonus_reserve(resultado_liquido: float) -> float:
-    """Reserva de bônus = 10% do Resultado Líquido (client-confirmed 2026-07-10).
+    """Reserva de bônus = signed 10% do Resultado Líquido (client-confirmed).
 
-    Floored at zero: a negative result reserves nothing (you cannot set aside a
-    negative bonus). This guards the workbook-free future, where no target blanks
-    a nonsensical value — a loss month (e.g. June 2026) must show reserve 0, not a
-    negative number."""
-    return round(max(resultado_liquido, 0.0) * BONUS_RESERVE_RATE, 2)
+    Follows the sign of the líquido: a profit month ACCRUES provision (positive),
+    a loss month CONSUMES it (negative). This is the client's own model — Rumo's
+    Jan–Jun 2026 report (PPTX slide 13) states it verbatim ("Positivo = acúmulo de
+    provisão; Negativo = consumo") and accumulates the signed monthly values into
+    its printed YTD. Verified against the June 2026 book: líquido -99.559,25 →
+    reserva -9.955,93 (workbook + PPTX). Do NOT floor at zero — an earlier version
+    did, which diverged from the book by suppressing the negative consumption."""
+    return round(resultado_liquido * BONUS_RESERVE_RATE, 2)
 
 
 @dataclass
@@ -682,17 +690,20 @@ _RECEBIMENTO_ORCADO_SHARE = {"Contencioso": 0.375, "Econômico": 0.375, "Arbitra
 
 def _per_area_orcado(
     budget: dict[str, dict[str, float]],
+    budget_annual: dict[str, dict[str, float]] | None = None,
 ) -> dict[str, dict[str, float]]:
-    """Derive each área's Orçado from the single institucional budget, mirroring
-    the workbook's per-área formulas (no per-área budget is typed):
+    """Derive each área's Orçado, mirroring the workbook's per-área formulas
+    (proven to the centavo vs Fechamento MBC 05/06.2026):
 
     - Recebimento = inst recebimento budget × área share (37.5/37.5/25).
     - Custo equipe / Despesas Equipe = the área's own budgeted values (pass-through).
-    - Despesa Institucional = pool × (área custo-equipe share), where
-      ``pool = inst despesas budget − Σ per-área Despesas Equipe budget`` and the
-      share = área custo-equipe budget / Σ área custo-equipe budget. Uses OUR
-      institucional despesas budget as the pool (fully DB-derivable; the workbook's
-      hand-picked account subset is a spreadsheet artifact we deliberately don't copy).
+      Despesas Equipe is the workbook "Despesas Área" per-team budget.
+    - Despesa Institucional = **pool × área custo-equipe rateio share**, where the
+      pool is the workbook "Despesa para ratear" (``DESPESA_PARA_RATEAR`` budget
+      line) — falling back to ``inst despesas − Σ per-área Despesas Equipe`` when
+      that line isn't budgeted — and the share is the área's ANNUAL custo-equipe
+      budget / Σ ANNUAL custo-equipe budget (the workbook's fixed "Rateio anual";
+      falls back to the monthly custo ratio when no annual budget is supplied).
     - Resultado Bruto = Recebimento − Custo − Comissão − Despesas Equipe − Despesa
       Institucional (Comissão has no per-área budget → treated as 0, shown blank).
 
@@ -700,28 +711,42 @@ def _per_area_orcado(
     inputs aren't budgeted."""
     inst = budget.get("institucional", {})
     recb_inst = inst.get(RECEBIMENTO)
-    desp_inst = inst.get(DESPESAS)
 
     custo = {a: budget.get(a, {}).get(CUSTO_EQUIPE) for a in AREAS}
     despeq = {a: budget.get(a, {}).get(DESPESAS_EQUIPE) for a in AREAS}
-    tot_custo = sum(v for v in custo.values() if v is not None)
-    pool = None
-    if desp_inst is not None:
-        pool = round(desp_inst - sum(v for v in despeq.values() if v is not None), 2)
+
+    # Rateio share: the workbook keys Despesa Institucional off the ANNUAL custo-
+    # equipe plan (a fixed share), not one month's custo. Prefer the annual budget;
+    # fall back to the monthly custo ratio when no annual figures are supplied.
+    ann = (budget_annual or {})
+    ann_custo = {a: ann.get(a, {}).get(CUSTO_EQUIPE) for a in AREAS}
+    share_basis = ann_custo if any(v is not None for v in ann_custo.values()) else custo
+    tot_share = sum(v for v in share_basis.values() if v is not None)
+
+    # Pool for Despesa Institucional: prefer the explicit "Despesa para ratear"
+    # budget line; else derive it as inst despesas − Σ per-área Despesas Equipe.
+    pool = inst.get(DESPESA_PARA_RATEAR)
+    if pool is None:
+        desp_inst = inst.get(DESPESAS)
+        if desp_inst is not None:
+            pool = round(
+                desp_inst - sum(v for v in despeq.values() if v is not None), 2
+            )
 
     out: dict[str, dict[str, float]] = {}
     for area in AREAS:
         row: dict[str, float] = {}
         area_custo = custo[area]
         area_despeq = despeq[area]
+        area_share = share_basis[area]
         if recb_inst is not None:
             row[RECEBIMENTO] = round(recb_inst * _RECEBIMENTO_ORCADO_SHARE[area], 2)
         if area_custo is not None:
             row[CUSTO_EQUIPE] = round(area_custo, 2)
         if area_despeq is not None:
             row[DESPESAS_EQUIPE] = round(area_despeq, 2)
-        if pool is not None and area_custo is not None and tot_custo:
-            row[DESPESA_INSTITUCIONAL] = round(pool * area_custo / tot_custo, 2)
+        if pool is not None and area_share is not None and tot_share:
+            row[DESPESA_INSTITUCIONAL] = round(pool * area_share / tot_share, 2)
         # Resultado Bruto: only when Recebimento is budgeted (its base).
         if RECEBIMENTO in row:
             row[RESULTADO_BRUTO] = round(
@@ -774,6 +799,27 @@ def _area_rows(
             - (desp_equipe or 0.0) - (desp_inst or 0.0),
             2,
         )
+
+    # Extend past Resultado Bruto to the area's tail (Imposto → Reserva), matching
+    # the workbook area tabs + Rumo's PPTX slide 13 (reserva by área × mês):
+    #  - Imposto = 15% × área recebimento (same 15%-of-recebimento rule as inst).
+    #  - Amortização = total monthly amort × área custo-equipe share of total custo.
+    #  - Resultado Líquido = Resultado Bruto − Imposto − Amortização.
+    #  - Reserva = signed 10% × líquido (a loss month consumes provision; see
+    #    ``bonus_reserve``). All blank when Recebimento/Resultado Bruto is absent.
+    imposto: float | None = None
+    amort: float | None = None
+    liquido: float | None = None
+    reserva: float | None = None
+    if receb is not None and resultado is not None:
+        imposto = imposto_sobre_recebimento(receb)
+        tot_custo = sum(r.area_custo_equipe.values())
+        amort = (
+            round(r.amortizacao * (custo or 0.0) / tot_custo, 2) if tot_custo else 0.0
+        )
+        liquido = round(resultado - imposto - amort, 2)
+        reserva = bonus_reserve(liquido)
+
     def dre(label: str, key: str, orcado: float | None, realizado: float | None,
             **kw: Any) -> dict[str, Any]:
         return _dre_row(label, key, orcado, realizado,
@@ -792,6 +838,13 @@ def _area_rows(
             "Resultado Bruto", RESULTADO_BRUTO, orc.get(RESULTADO_BRUTO), resultado,
             is_total=True, kind="subtotal",
         ),
+        dre("Imposto", IMPOSTO, orc.get(IMPOSTO), imposto),
+        dre("Amortização", AMORTIZACAO, orc.get(AMORTIZACAO), amort),
+        dre(
+            "Resultado Líquido", RESULTADO_LIQUIDO, orc.get(RESULTADO_LIQUIDO), liquido,
+            is_total=True, kind="subtotal",
+        ),
+        dre("Reserva de Bônus", RESERVA_BONUS, orc.get(RESERVA_BONUS), reserva),
     ]
 
 
@@ -802,6 +855,7 @@ def assemble_dre_sections(
     *,
     snapshot: dict[str, Any] | None,
     budget: dict[str, dict[str, float]] | None,
+    budget_annual: dict[str, dict[str, float]] | None = None,
     period_label: str,
     transfers: list[Any] | None = None,
     period_month: int | None = None,
@@ -811,6 +865,11 @@ def assemble_dre_sections(
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
     Every Realizado figure is SISJURI-derived — there is no manual per-area input.
+    ``budget`` is the current month's Orçado (annual/12 or workbook per-month).
+    ``budget_annual`` is the full-year Orçado totals per line, used where the
+    workbook keys off the ANNUAL plan (the per-área custo-equipe rateio share for
+    Despesa Institucional Orçado). When absent, per-área Orçado falls back to the
+    monthly custo ratio (small drift vs the workbook's fixed annual share).
     ``transfers`` are Resumo_Recebidas cross-area recebimento reclassifications
     (``AreaTransfer``) that net onto the SISJURI-derived per-area base.
     ``targets`` is the workbook verification overlay: a Realizado cell that
@@ -840,7 +899,7 @@ def assemble_dre_sections(
     # Per-área Orçado is derived from the institucional budget (workbook-faithful);
     # it supersedes the raw per-área budget map so Recebimento/Despesa Institucional/
     # Resultado Bruto Orçado fill (Custo equipe / Despesas Equipe pass through).
-    area_orcado = _per_area_orcado(budget)
+    area_orcado = _per_area_orcado(budget, budget_annual)
 
     sections: dict[str, dict[str, Any]] = {}
     sections["institucional"] = {

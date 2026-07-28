@@ -79,3 +79,19 @@ class SnapshotStore:
             except (TypeError, ValueError):
                 continue
         return out
+
+    def snapshots_by_year(
+        self, year: int, *, client_id: str = _DEFAULT_CLIENT
+    ) -> dict[int, dict]:
+        """Return ``{month_index: full snapshot}`` for each stored month of ``year``.
+
+        Full payloads (unlike ``recebimento_by_year``'s scalar projection) so the
+        provider can accumulate a whole-DRE YTD. Months without a snapshot are
+        omitted; the caller filters to CLOSED months ≤ competence.
+        """
+        out: dict[int, dict] = {}
+        for m in range(1, 13):
+            snap = self.get(f"{year:04d}-{m:02d}", client_id=client_id)
+            if snap is not None:
+                out[m] = snap
+        return out

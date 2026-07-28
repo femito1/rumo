@@ -185,11 +185,14 @@ def test_bonus_reserve_is_ten_percent():
     assert bonus_reserve(100000.0) == pytest.approx(10000.0)
 
 
-def test_bonus_reserve_floors_at_zero_when_result_is_negative():
-    # A negative resultado líquido must NOT produce a negative bonus reserve —
-    # you cannot reserve negative money for bonuses. Guard for the workbook-free
-    # future (e.g. June 2026 had a real loss month with no target to blank it).
-    assert bonus_reserve(-99564.41) == 0.0
+def test_bonus_reserve_is_signed_for_a_loss_month():
+    # Reserva de bônus = signed 10% do Resultado Líquido — NOT floored at zero.
+    # A loss month CONSUMES accumulated provision (a negative reserva), matching
+    # the client's model. Proven against the June 2026 book: líquido -99.559,25 →
+    # reserva -9.955,93 (workbook + Rumo's PPTX slide 13, which states outright
+    # "Positivo = acúmulo de provisão; Negativo = consumo" and accumulates the
+    # signed monthly values to its printed YTD of -11,5K).
+    assert bonus_reserve(-99559.25) == pytest.approx(-9955.93)
     assert bonus_reserve(0.0) == 0.0
 
 
@@ -345,6 +348,46 @@ def test_per_area_orcado_derived_from_institucional_budget(snapshot):
         assert _row(sections[area_key]["rows"], COMISSAO)["Orçado"]["value"] is None
 
 
+def test_area_rows_compute_imposto_amort_liquido_reserva(snapshot):
+    # Per-area DRE now extends past Resultado Bruto to Imposto (15% x área
+    # recebimento), Amortização (área custo-equipe share of total amort), Resultado
+    # Líquido (RB − Imposto − Amort) and signed Reserva (10% x líquido) — matching
+    # the workbook area tabs + Rumo's PPTX slide 13 (reserva by área × mês).
+    from app.closing.dre import (
+        AMORTIZACAO,
+        IMPOSTO,
+        RESERVA_BONUS,
+        RESULTADO_LIQUIDO,
+    )
+    from app.closing.workbook_layouts import IMPOSTO_RATE
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget={}, period_label="Fev 2026"
+    )
+    r = RealizadoInputs.from_snapshot(snapshot)
+    tot_custo = sum(r.area_custo_equipe.values())
+
+    for area_key, area in (("contencioso", "Contencioso"),
+                           ("economico", "Econômico"), ("arbitragem", "Arbitragem")):
+        rows = sections[area_key]["rows"]
+        receb = _row(rows, "recebimento")["Realizado"]["value"]
+        rb = _row(rows, "resultado_bruto")["Realizado"]["value"]
+        if receb is None or rb is None:
+            continue  # blanked cell — skip (still must not crash)
+        imposto = _row(rows, IMPOSTO)["Realizado"]["value"]
+        amort = _row(rows, AMORTIZACAO)["Realizado"]["value"]
+        liq = _row(rows, RESULTADO_LIQUIDO)["Realizado"]["value"]
+        res = _row(rows, RESERVA_BONUS)["Realizado"]["value"]
+        # Imposto = 15% x área recebimento.
+        assert imposto == pytest.approx(round(receb * IMPOSTO_RATE, 2), abs=0.02)
+        # Amortização = total amort x área custo share.
+        exp_amort = round(r.amortizacao * r.area_custo_equipe.get(area, 0.0) / tot_custo, 2)
+        assert amort == pytest.approx(exp_amort, abs=0.02)
+        # Líquido = RB − Imposto − Amort; Reserva = signed 10% (loss → negative).
+        assert liq == pytest.approx(round(rb - imposto - amort, 2), abs=0.02)
+        assert res == pytest.approx(round(liq * 0.10, 2), abs=0.02)
+
+
 def test_per_area_orcado_blank_without_institucional_recebimento_budget(snapshot):
     # No institucional recebimento budget → per-area Recebimento Orçado is blank
     # (no crash), and Resultado Bruto Orçado stays blank too.
@@ -356,6 +399,64 @@ def test_per_area_orcado_blank_without_institucional_recebimento_budget(snapshot
     )
     assert _row(sections["contencioso"]["rows"], RECEBIMENTO)["Orçado"]["value"] is None
     assert _row(sections["contencioso"]["rows"], RESULTADO_BRUTO)["Orçado"]["value"] is None
+
+
+def test_per_area_orcado_ties_june_workbook_with_despesa_para_ratear(snapshot):
+    # The BUG found live in the 2026-07 meeting: per-area Despesa Equipe + Despesa
+    # Institucional Orçado were zero/wrong, so per-area Orçado Resultado Bruto
+    # diverged (Econ 134.637 vs workbook 136.199). The workbook's real formula
+    # (proven to the centavo vs Fechamento MBC 06.2026, June):
+    #   DespEq[area]   = typed per-area Despesas Área budget
+    #   DespInst[area] = "Despesa para ratear" pool × area custo-equipe rateio share
+    #                    (share = area custo budget / Σ area custo budgets)
+    #   RB[area]       = Recb(37.5/37.5/25) − Custo − DespEq − DespInst
+    from app.closing.dre import (
+        CUSTO_EQUIPE,
+        DESPESA_INSTITUCIONAL,
+        DESPESA_PARA_RATEAR,
+        DESPESAS,
+        DESPESAS_EQUIPE,
+        RESULTADO_BRUTO,
+    )
+
+    # June monthly budget values (Orçamento 2026, col Jun).
+    recb_m = 671666.67
+    pool = 99043.94  # Despesa para ratear (June)
+    ce = {"Contencioso": 74454.07, "Econômico": 75379.17, "Arbitragem": 49236.38}
+    de = {"Contencioso": 2110.49, "Econômico": 3174.41, "Arbitragem": 1901.49}
+    # Annual custo-equipe budget drives the FIXED rateio share (workbook "Rateio
+    # anual"): C=0.369672 / E=0.374805 / A=0.255523.
+    ce_annual = {"Contencioso": 901597.73, "Econômico": 914114.75, "Arbitragem": 623198.16}
+    budget = {
+        "institucional": {DESPESA_PARA_RATEAR: pool, DESPESAS: 106230.33,
+                          "recebimento": recb_m},
+        "Contencioso": {CUSTO_EQUIPE: ce["Contencioso"], DESPESAS_EQUIPE: de["Contencioso"]},
+        "Econômico": {CUSTO_EQUIPE: ce["Econômico"], DESPESAS_EQUIPE: de["Econômico"]},
+        "Arbitragem": {CUSTO_EQUIPE: ce["Arbitragem"], DESPESAS_EQUIPE: de["Arbitragem"]},
+    }
+    budget_annual = {
+        "Contencioso": {CUSTO_EQUIPE: ce_annual["Contencioso"]},
+        "Econômico": {CUSTO_EQUIPE: ce_annual["Econômico"]},
+        "Arbitragem": {CUSTO_EQUIPE: ce_annual["Arbitragem"]},
+    }
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, budget_annual=budget_annual,
+        period_label="Jun 2026",
+    )
+
+    def orc(area_key, line):
+        return _row(sections[area_key]["rows"], line)["Orçado"]["value"]
+
+    # Despesa Equipe Orçado now fills (was blank) and ties the workbook.
+    assert orc("economico", DESPESAS_EQUIPE) == pytest.approx(3174.41, abs=0.01)
+    # Despesa Institucional Orçado uses the pool × custo share (not a self pool).
+    for ak, want_di, want_rb in (
+        ("contencioso", 36613.80, 138696.64),
+        ("economico", 37122.12, 136199.31),
+        ("arbitragem", 25308.02, 91470.78),
+    ):
+        assert orc(ak, DESPESA_INSTITUCIONAL) == pytest.approx(want_di, abs=0.10)
+        assert orc(ak, RESULTADO_BRUTO) == pytest.approx(want_rb, abs=0.15)
 
 
 def test_amortizacao_defaults_to_fixed_monthly(snapshot):
@@ -416,6 +517,7 @@ def test_area_tabs_present_with_workbook_lines(snapshot):
         assert labels == [
             "Recebimento", "Custo equipe", "Comissão",
             "Despesas Equipe", "Despesa Institucional", "Resultado Bruto",
+            "Imposto", "Amortização", "Resultado Líquido", "Reserva de Bônus",
         ]
 
 

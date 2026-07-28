@@ -1,14 +1,20 @@
 // frontend/src/features/closing/useClosing.ts
 import { useEffect, useState } from "react";
 import { apiFetch } from "../../lib/api";
-import type { ClosingPayload } from "../../lib/types";
+import type { ClosingMode, ClosingPayload } from "../../lib/types";
 
-export function useClosing(clientId: string, month: string, from: number | null, to: number | null) {
+export function useClosing(
+  clientId: string,
+  month: string,
+  from: number | null,
+  to: number | null,
+  mode: ClosingMode = "mensal",
+) {
   const [data, setData] = useState<ClosingPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const requestKey = `${clientId}|${month}|${from}|${to}`;
+  const requestKey = `${clientId}|${month}|${from}|${to}|${mode}`;
   const [prevKey, setPrevKey] = useState(requestKey);
   if (prevKey !== requestKey) {
     // Inputs changed: reset to a loading state during render (not in an effect)
@@ -28,6 +34,7 @@ export function useClosing(clientId: string, month: string, from: number | null,
       q.set("from", String(from));
       q.set("to", String(to));
     }
+    if (mode !== "mensal") q.set("mode", mode);
     apiFetch<ClosingPayload>(`/api/clients/${clientId}/closing?${q.toString()}`)
       .then((d) => {
         if (ignore) return;
@@ -41,6 +48,6 @@ export function useClosing(clientId: string, month: string, from: number | null,
         setLoading(false);
       });
     return () => { ignore = true; };
-  }, [clientId, month, from, to]);
+  }, [clientId, month, from, to, mode]);
   return { data, error, loading };
 }

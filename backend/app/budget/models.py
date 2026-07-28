@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from app.closing.dre import (
     AMORTIZACAO,
     CUSTO_EQUIPE,
+    DESPESA_PARA_RATEAR,
     DESPESAS,
     DESPESAS_EQUIPE,
     IMPOSTO,
@@ -32,6 +33,10 @@ BUDGET_LINES: tuple[tuple[str, str], ...] = (
     # client enters per team (Contencioso/Arbitragem/Econômico). Flows into the
     # Orçado column of each area tab (dre.py ``_area_rows`` reads it).
     (DESPESAS_EQUIPE, "Despesas Equipe"),
+    # Institucional pool split across areas as each area's Despesa Institucional
+    # Orçado (workbook "Despesa para ratear", Orçamento 2026 row 196). Feeds
+    # ``_per_area_orcado``; institucional-area only.
+    (DESPESA_PARA_RATEAR, "Despesa para ratear"),
     (IMPOSTO, "Imposto"),
     (AMORTIZACAO, "Amortização"),
     (RESERVA_BONUS, "Reserva de Bônus"),
@@ -87,6 +92,28 @@ def is_valid_line(line_key: str) -> bool:
 
 def is_valid_area(area: str) -> bool:
     return area in BUDGET_AREAS
+
+
+def annual_budget(entries: list[BudgetEntry]) -> dict[str, dict[str, float]]:
+    """Fold entries into ``{area: {canonical_line_key: effective_annual}}``.
+
+    Unlike ``monthly_budget``, this returns each line's full-year total
+    (``effective_annual`` = Σ monthly detail when present, else the annual field).
+    Used for figures the workbook keys off the ANNUAL plan rather than one month:
+    the per-área custo-equipe rateio share (Despesa Institucional Orçado) and the
+    year-to-go (annual − YTD). Legacy keys are normalized; a detailed entry wins
+    over a legacy annual-only entry on the same canonical key."""
+    out: dict[str, dict[str, float]] = {}
+    has_detail: set[tuple[str, str]] = set()
+    for e in entries:
+        area_map = out.setdefault(e.area, {})
+        line = canonical_line_key(e.line_key)
+        if (e.area, line) in has_detail and not e.monthly_amounts:
+            continue
+        area_map[line] = e.effective_annual()
+        if e.monthly_amounts:
+            has_detail.add((e.area, line))
+    return out
 
 
 def monthly_budget(

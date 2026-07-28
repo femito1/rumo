@@ -7,9 +7,94 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-21
+**Last updated:** 2026-07-28
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
+
+---
+
+## 2026-07-28 (later) — checkpoint action points implemented (deploy pending)
+
+Implemented every action point from the 2026-07 client checkpoint
+(`reference/meeting_transcript.MD`). Backend **253** tests, frontend **55**;
+ruff/mypy/eslint/tsc clean; `npm run build` OK. **One deploy at the end** (see below).
+
+- **#4 Per-área Orçado bug FIXED (proven to the centavo, May+June).** The Orçado column
+  showed zero per-área Despesa Equipe/Institucional → wrong per-área Orçado Resultado Bruto
+  (Adriana/Renata caught it live). Real formula: DespEq = typed per-área budget (Orçamento
+  2026 rows 192/193/194); Despesa Institucional = "Despesa para ratear" pool (row 196) ×
+  área **annual** custo-equipe rateio share (share = área annual custo budget ÷ Σ). New
+  budget line key `despesa_para_ratear` (`budget/models.py`); importer reads the Orçamento
+  sheet (`workbook_import.parse_orcamento_area_budget` + `scripts/import_budget`); rewrote
+  `dre._per_area_orcado` (threads `budget_annual` via provider→AssemblerSource). **Persisted
+  to prod Supabase (13 budget rows).** Ties June Conten 138.696,64 / Econ 136.199,31 / Arb
+  91.470,78. Locked by tests.
+- **Jan–Abr un-blanked ("segue com o sistema").** Hard rule now applies ONLY to 2026-05
+  (`provider._HARD_RULE_MONTHS`); earlier months render raw DB numbers (the old hand-entered
+  workbook cells omitted real lines — DB is more complete). `targets_for` unchanged (raw
+  lookup kept for the comparison harness); gate is in the provider.
+- **#1 YTD / acumulado view.** `mensal↔acumulado` toggle (`?mode=acumulado`). New
+  `snapshots_by_year` on both snapshot stores + `closing.ytd_accumulate.accumulate_ytd`
+  (row-level sum of each closed month's assembled sections → Orçado YTD / Realizado YTD /
+  Variação / Orçado YTG columns; margins recomputed, not summed; reserva YTD = signed sum).
+  `build_closing(mode=...)`; frontend toolbar toggle + `useClosing` param. Columns respect
+  the positional-binding contract (value keys before metadata).
+- **Per-área reserva computed** (feeds YTD + presentation). `_area_rows` extended past
+  Resultado Bruto to Imposto (15%×receb) / Amortização (área custo share) / Resultado Líquido
+  / Reserva (signed 10%). Ties June per-área; Σareas vs institucional differ only by the
+  "Não Alocados" recebimento (same as the client's PPTX).
+- **#3 Tab cleanup + server-side role boundary.** `TAB_ORDER`-filtered KEEP set
+  (base_resultado, areas_sintetico, dre_2026, orcamento_2026, rateio_mensal, amortizacao);
+  removed Institucional/áreas/Meta/Nacional/Moedas/Faturas Analítico from the rail
+  (institucional still ASSEMBLED so KPIs lift). **CLIENT sees ONLY the presentation panel**
+  — detail `tabs`/`tab_order` withheld server-side in `build_closing(role=...)`, not hidden.
+- **#2 Presentation panel + PDF.** Server assembles a `presentation` payload (headline +
+  per-área cards + monthly recebimento series) from the existing sections — no new endpoint.
+  New `PresentationPanel.tsx` (reuses KpiCard/tokens/format); ADMIN gets an "Apresentação"
+  tab + detail tabs, CLIENT gets only the panel. PDF via `window.print()` + a scoped
+  `@media print` light theme (`exportPresentation.ts`) — **zero new deps**, one slide/page.
+- **#5 Equipe splits highlighted.** Per-professional drill-down rows were muted gray; now
+  full-contrast text + `--api` left-accent + faint tint (`index.css .cell-indent`).
+
+**⚠ DEPLOY (single, at end): backend + frontend both need a prod redeploy** via
+`ops/easypanel-deploy.sh` (EasyPanel doesn't auto-deploy). The budget rows are already live
+in Supabase; the signed reserva + all the above render only after redeploy.
+
+---
+
+## 2026-07-28 — June book validates (untuned month); reserva de bônus is SIGNED
+
+The June docs landed (`Fechamento MBC 06.2026.xlsx`, `lancextrato de contas junho.pdf`,
+`MBC_JanJun_2026.pptx`). June is the strongest possible test: **no targets exist for
+2026-06** (`targets_for("2026-06")` is `None`), so the hard rule masks nothing — the site
+renders raw DB. Validated our live June snapshot (fresh, daily job 06:01) via
+`assemble_dre_sections(targets=None)` against all three artifacts.
+
+- **Headline lines tie to the centavo across workbook + raw ledger + PPTX:** Faturamento
+  1.090.965, Recebimento **265.018,56** (ledger "TOTAL DE ENTRADA" 265.018,57; PPTX
+  265.019), Res.Bruto −51.694 (wb −51.689), Res.Líquido −99.564 (wb −99.559), Imposto
+  39.752,78 (15%), Amortização 8.117. June was a **loss month** (recebimento fell to 265K).
+- **All residuals identified and net to zero:** (1) Vale/VR-VT ±2.383,60 — June wb moved
+  VR/VT into per-área Custo Equipe; we keep it in Salários-ADM (dre.py "FIX 1", by design);
+  net-zero on institucional. (2) Software-license ±10.340 reclass Informática↔Administrativas
+  (net R$4,80). (3) Per-área Resultado Bruto (−3.068/−3.680/+6.743, Σ −5,22) = the same
+  net-zero Despesas-Área cost-center allocation Renata ruled on. These are **classification
+  choices, not correctness wins** — where the DB and the book bucket differently, the
+  workbook is the reference (§0).
+- **⭐ Reserva de bônus is SIGNED — removed the zero-floor (real fix).** Earlier code floored
+  `bonus_reserve` at zero ("can't reserve a negative bonus"). The June book **refutes** that:
+  wb reserva = **−9.955,93** (signed 10% × negative líquido), and the client's own PPTX
+  (slide 13) states the model verbatim — *"Positivo = acúmulo de provisão; Negativo =
+  consumo"* — accumulating the SIGNED monthly values to its printed YTD (−11,5K). The floor
+  was our own invented assumption, made before we had this book. `dre.py::bonus_reserve` now
+  returns `resultado_liquido * 0.10` (signed); June renders −9.956,44 (ties within R$0,51
+  rounding); May profit month unaffected (2.969,16). Test flipped
+  (`test_bonus_reserve_is_signed_for_a_loss_month`). Also un-blanks Jan/Feb/Apr reserva cells
+  whose *targets* were already signed negatives (verification uses sign-correct abs-diff).
+  Reinforces the "no sanity-guard layer" directive — don't clamp DB outputs on invented
+  "business sense". Backend **242** tests, ruff/mypy clean; frontend unchanged (`formatBRL`
+  already renders negatives). **⚠ Not yet redeployed to prod** — the signed reserva needs a
+  backend redeploy (`ops/easypanel-deploy.sh backend`) to render live.
 
 ---
 

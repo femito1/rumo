@@ -38,3 +38,58 @@ def test_last_valid_day_of_february_accepted(client):
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.get("/api/clients/demo/closing?month=2026-02&from=1&to=28", headers={"Authorization": f"Bearer {tok}"})
     assert resp.status_code == 200
+
+
+def test_admin_sees_only_the_kept_tabs(client):
+    # 2026-07 cleanup: the removed detail tabs (institucional, per-área, meta,
+    # nacional, moedas, faturas_analitico) are no longer in tab_order.
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    body = client.get(
+        "/api/clients/demo/closing?month=2026-05",
+        headers={"Authorization": f"Bearer {tok}"},
+    ).json()
+    removed = {"institucional", "contencioso", "economico", "arbitragem",
+               "meta", "meta_dashboard", "nacional", "moedas", "faturas_analitico"}
+    assert not (set(body["tab_order"]) & removed)
+    # Only KEEP-set tabs survive (the fixture demo emits base_resultado).
+    keep = {"base_resultado", "areas_sintetico", "dre_2026", "orcamento_2026",
+            "rateio_mensal", "amortizacao"}
+    assert set(body["tab_order"]) <= keep
+    assert "base_resultado" in body["tab_order"]
+
+
+def test_client_role_gets_no_detail_tabs(client):
+    # A CLIENT sees the presentation panel only; the detail tabs/data are withheld
+    # server-side (not merely hidden). KPIs + presentation still ship (panel renders).
+    tok = _token(client, "demo@cliente.com.br", "demo123")
+    body = client.get(
+        "/api/clients/demo/closing?month=2026-05",
+        headers={"Authorization": f"Bearer {tok}"},
+    ).json()
+    assert body["tab_order"] == []
+    assert body["tabs"] == {}
+    assert "kpis" in body
+    # The presentation panel data is always present (both roles).
+    pres = body["presentation"]
+    assert pres["titulo"]
+    assert "headline" in pres and "areas" in pres
+    assert len(pres["areas"]) == 3
+
+
+def test_acumulado_mode_accepted(client):
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    resp = client.get(
+        "/api/clients/demo/closing?month=2026-05&mode=acumulado",
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    assert resp.status_code == 200
+    assert resp.json()["mode"] == "acumulado"
+
+
+def test_invalid_mode_rejected(client):
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    resp = client.get(
+        "/api/clients/demo/closing?month=2026-05&mode=bogus",
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    assert resp.status_code == 422

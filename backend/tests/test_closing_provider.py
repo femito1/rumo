@@ -87,6 +87,34 @@ def test_legaldesk_plus_sisjuri_falls_back_when_no_snapshot(tmp_path, monkeypatc
     assert names == ["legaldesk", "budget", "assembler"]
 
 
+def test_hard_rule_applies_only_to_may_not_jan_apr(tmp_path, monkeypatch):
+    # "segue com o sistema" (2026-07 checkpoint): Jan–Abr render the DB-derived
+    # numbers directly (no workbook target blanking). The hard rule applies ONLY to
+    # the authoritative reconciliation month 2026-05. Assert on the targets the
+    # AssemblerSource receives per month.
+    from app.budget.repository import InMemoryBudgetRepository
+    from app.sources.assembler_source import AssemblerSource
+    from app.sources.snapshot_store import SnapshotStore
+
+    store = SnapshotStore(tmp_path)  # empty is fine; targets are period-gated
+    monkeypatch.setattr("app.closing.provider._snapshot_store", lambda: store)
+    monkeypatch.setattr(
+        "app.closing.provider._budget_repo", lambda: InMemoryBudgetRepository.seeded()
+    )
+    mbc = Client(id="mbc", name="MBC", provider="legaldesk+sisjuri", provider_config={})
+
+    def assembler_targets(ano_mes: str):
+        provider = build_provider_for(mbc, period=Period.parse(ano_mes))
+        asm = next(s for s in provider.sources if isinstance(s, AssemblerSource))
+        return asm._targets
+
+    # May: hard rule ON (targets present).
+    assert assembler_targets("2026-05") is not None
+    # Jan–Abr: hard rule OFF (targets withheld → raw DB numbers render).
+    for m in ("2026-01", "2026-02", "2026-03", "2026-04"):
+        assert assembler_targets(m) is None
+
+
 def test_provider_gathers_closeable_ytd_recebimento_map(tmp_path, monkeypatch):
     # The provider builds the {month: recebimento} map for the year from the
     # per-month snapshots, filtered to CLOSED months, and hands it to the

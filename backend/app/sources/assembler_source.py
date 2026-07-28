@@ -24,12 +24,14 @@ class AssemblerSource:
         *,
         snapshot: dict[str, Any] | None,
         budget: dict[str, dict[str, float]] | None,
+        budget_annual: dict[str, dict[str, float]] | None = None,
         transfers: list[Any] | None = None,
         targets: dict[str, dict[str, float]] | None = None,
         ytd_recebimento: dict[int, float] | None = None,
     ) -> None:
         self._snapshot = snapshot
         self._budget = budget
+        self._budget_annual = budget_annual
         self._transfers = transfers
         self._targets = targets
         self._ytd_recebimento = ytd_recebimento
@@ -57,6 +59,7 @@ class AssemblerSource:
         sections = assemble_dre_sections(
             snapshot=self._snapshot,
             budget=self._budget,
+            budget_annual=self._budget_annual,
             period_label=period.label,
             transfers=self._transfers,
             period_month=period.month,

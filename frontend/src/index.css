@@ -381,6 +381,29 @@ input::placeholder {
   background: var(--border);
   margin: 0 2px;
 }
+/* Segmented mensal ↔ acumulado control. */
+.mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.mode-toggle button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.mode-toggle button + button {
+  border-left: 1px solid var(--border);
+}
+.mode-toggle button.active {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+}
 .export-actions {
   display: flex;
   flex-wrap: wrap;
@@ -883,9 +906,18 @@ input::placeholder {
   color: var(--muted);
   font-style: italic;
 }
+/* Per-professional equipe-split rows (drill-down children). Previously muted gray
+   and hard to read; the client asked for them to stand out. Full-contrast text +
+   a left accent bar + faint tint so the splits are legible under their área group. */
 .grid-table td.cell-indent {
   padding-left: 26px;
-  color: var(--muted);
+  color: var(--text);
+}
+.grid-table tbody tr:has(td.cell-indent) {
+  background: rgba(255, 255, 255, 0.02);
+}
+.grid-table td.cell-indent:first-child {
+  border-left: 2px solid var(--api);
 }
 
 /* POINT 18: per-area drill-down toggle (Custo equipe - {área} groups). */
@@ -1006,4 +1038,65 @@ input::placeholder {
   .topbar-user {
     max-width: 120px;
   }
+}
+
+/* ── Presentation panel (client-facing PPTX mirror) ─────────────────────── */
+.presentation { display: flex; flex-direction: column; gap: 24px; }
+.pres-slide {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.pres-head { margin-bottom: 16px; }
+.pres-eyebrow {
+  text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px;
+  color: var(--muted); font-weight: 700;
+}
+.pres-head h2 { margin: 4px 0 0; font-size: 22px; }
+.pres-period { color: var(--muted); font-size: 13px; }
+.pres-area-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.pres-area-card {
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+}
+.pres-area-card h3 { margin: 0 0 12px; font-size: 16px; }
+.pres-area-card dl { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.pres-area-card dl > div {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px;
+}
+.pres-area-card dt { color: var(--muted); }
+.pres-area-card dd { margin: 0; font-weight: 600; }
+.pres-table { width: 100%; }
+@media (max-width: 720px) {
+  .pres-area-cards { grid-template-columns: 1fr; }
+}
+
+/* ── Print → PDF: show ONLY the presentation, light theme, one slide/page ── */
+@media print {
+  body.printing-presentation * { visibility: hidden; }
+  body.printing-presentation #presentation-root,
+  body.printing-presentation #presentation-root * { visibility: visible; }
+  body.printing-presentation #presentation-root {
+    position: absolute; left: 0; top: 0; width: 100%;
+    background: #ffffff; color: #111111;
+  }
+  body.printing-presentation #presentation-root .pres-slide {
+    background: #ffffff; border: 1px solid #dddddd;
+    break-after: page; page-break-after: always;
+  }
+  body.printing-presentation #presentation-root .pres-eyebrow,
+  body.printing-presentation #presentation-root .pres-period,
+  body.printing-presentation #presentation-root .pres-area-card dt {
+    color: #555555;
+  }
+  body.printing-presentation #presentation-root .kpi,
+  body.printing-presentation #presentation-root .pres-area-card,
+  body.printing-presentation #presentation-root .grid-table th,
+  body.printing-presentation #presentation-root .grid-table td {
+    background: #ffffff; color: #111111; border-color: #dddddd;
+  }
+  @page { margin: 12mm; }
 }

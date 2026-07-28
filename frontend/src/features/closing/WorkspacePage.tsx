@@ -11,15 +11,24 @@ import { Skeleton } from "../../components/Skeleton";
 import { Loader } from "../../components/Loader";
 import { TabView } from "./TabView";
 import { BudgetEditor } from "./BudgetEditor";
+import { PresentationPanel } from "./PresentationPanel";
+import { exportPresentationPdf } from "./exportPresentation";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
+import { useAuth } from "../auth/useAuth";
+import type { ClosingMode } from "../../lib/types";
+
+const PRESENTATION_TAB = "__apresentacao__";
 
 export function WorkspacePage() {
   const { id = "" } = useParams();
+  const { user } = useAuth();
+  const isClient = user?.role === "CLIENT";
   const [months, setMonths] = useState<string[]>([]);
   const [month, setMonth] = useState<string>("");
   const [from, setFrom] = useState<number | null>(null);
   const [to, setTo] = useState<number | null>(null);
+  const [mode, setMode] = useState<ClosingMode>("mensal");
   const [activeTab, setActiveTab] = useState<string>("");
 
   useEffect(() => {
@@ -29,11 +38,11 @@ export function WorkspacePage() {
     });
   }, [id]);
 
-  const { data, error, loading } = useClosing(id, month, from, to);
-  if (data && !activeTab && data.tab_order[0]) {
-    // Default to the first tab once data loads; render-phase update avoids
-    // a setState-in-effect cascade and applies before paint.
-    setActiveTab(data.tab_order[0]);
+  const { data, error, loading } = useClosing(id, month, from, to, mode);
+  if (data && !activeTab) {
+    // Default tab once data loads (render-phase update, applies before paint).
+    // The presentation view leads for everyone; ADMIN also gets the detail tabs.
+    setActiveTab(PRESENTATION_TAB);
   }
 
   if (!month) return <div className="workspace"><Skeleton rows={6} /></div>;
@@ -48,15 +57,49 @@ export function WorkspacePage() {
         <div className="workspace-toolbar">
           <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
           <div className="toolbar-actions">
-            <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
-            <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
-            <div className="toolbar-divider" aria-hidden="true" />
-            <ExportMenu
-              disabled={!data || loading}
-              pageEnabled={!!activeTab}
-              onExportAll={() => data && exportAllSheets(data)}
-              onExportPage={() => data && activeTab && exportSingleSheet(data, activeTab)}
-            />
+            {!isClient ? (
+              <div className="mode-toggle" role="group" aria-label="Período">
+                <button
+                  type="button"
+                  className={mode === "mensal" ? "active" : ""}
+                  aria-pressed={mode === "mensal"}
+                  onClick={() => setMode("mensal")}
+                >
+                  Mensal
+                </button>
+                <button
+                  type="button"
+                  className={mode === "acumulado" ? "active" : ""}
+                  aria-pressed={mode === "acumulado"}
+                  onClick={() => setMode("acumulado")}
+                >
+                  Acumulado
+                </button>
+              </div>
+            ) : null}
+            {!isClient ? (
+              <>
+                <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
+                <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
+                <div className="toolbar-divider" aria-hidden="true" />
+              </>
+            ) : null}
+            <button
+              type="button"
+              className="btn btn-sm"
+              disabled={!data?.presentation}
+              onClick={exportPresentationPdf}
+            >
+              Baixar apresentação (PDF)
+            </button>
+            {!isClient ? (
+              <ExportMenu
+                disabled={!data || loading}
+                pageEnabled={!!activeTab && activeTab !== PRESENTATION_TAB}
+                onExportAll={() => data && exportAllSheets(data)}
+                onExportPage={() => data && activeTab && activeTab !== PRESENTATION_TAB && exportSingleSheet(data, activeTab)}
+              />
+            ) : null}
           </div>
         </div>
       </header>
@@ -66,29 +109,48 @@ export function WorkspacePage() {
         <Loader />
       ) : (
         <>
-          {!data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
+          {!isClient && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
+          {!isClient && mode === "acumulado" ? <div className="filter-chip">Acumulado no ano (YTD) · KPIs referem-se ao mês</div> : null}
 
-          <section className="kpis kpis-hero">
-            <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} hero />
-            <KpiCard label="Faturamento realizado" value={data.kpis.faturamento_realizado ?? null} hero />
-            <KpiCard label="Resultado líquido" value={data.kpis.resultado_liquido ?? null} hero signed />
-            <KpiCard label="Margem líquida" value={data.kpis.margem_liquida ?? null} hero signed format="percent" />
+          {!isClient ? (
+            <>
+              <section className="kpis kpis-hero">
+                <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} hero />
+                <KpiCard label="Faturamento realizado" value={data.kpis.faturamento_realizado ?? null} hero />
+                <KpiCard label="Resultado líquido" value={data.kpis.resultado_liquido ?? null} hero signed />
+                <KpiCard label="Margem líquida" value={data.kpis.margem_liquida ?? null} hero signed format="percent" />
+              </section>
+
+              <section className="kpis kpis-secondary">
+                <KpiCard label="Resultado bruto" value={data.kpis.resultado_bruto ?? null} signed />
+                <KpiCard label="Margem bruta" value={data.kpis.margem_bruta ?? null} signed format="percent" />
+                <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
+              </section>
+
+              <nav className="tab-rail">
+                <button className={activeTab === PRESENTATION_TAB ? "active" : ""} onClick={() => setActiveTab(PRESENTATION_TAB)}>
+                  Apresentação
+                </button>
+                {data.tab_order.map((t) => (
+                  <button key={t} className={t === activeTab ? "active" : ""} onClick={() => setActiveTab(t)}>
+                    {(data.tabs[t] as { name?: string })?.name ?? t}
+                  </button>
+                ))}
+              </nav>
+            </>
+          ) : null}
+
+          <section className="tab-content">
+            {activeTab === PRESENTATION_TAB || isClient ? (
+              data.presentation ? (
+                <PresentationPanel data={data.presentation} />
+              ) : (
+                <div className="empty-state">Apresentação indisponível para este mês.</div>
+              )
+            ) : (
+              <TabView tab={data.tabs[activeTab]} />
+            )}
           </section>
-
-          <section className="kpis kpis-secondary">
-            <KpiCard label="Resultado bruto" value={data.kpis.resultado_bruto ?? null} signed />
-            <KpiCard label="Margem bruta" value={data.kpis.margem_bruta ?? null} signed format="percent" />
-            <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
-          </section>
-
-          <nav className="tab-rail">
-            {data.tab_order.map((t) => (
-              <button key={t} className={t === activeTab ? "active" : ""} onClick={() => setActiveTab(t)}>
-                {(data.tabs[t] as { name?: string })?.name ?? t}
-              </button>
-            ))}
-          </nav>
-          <section className="tab-content"><TabView tab={data.tabs[activeTab]} /></section>
         </>
       )}
     </div>

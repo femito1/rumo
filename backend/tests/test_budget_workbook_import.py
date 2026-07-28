@@ -5,8 +5,18 @@ Values below are the verified first-three-months from
 "Copy of Fechamento MBC 02.2026.xlsx" (2026-07 audit); the parser must map rows
 to (area, line_key) and emit 12-length monthly_amounts.
 """
-from app.budget.models import CUSTO_EQUIPE, DESPESAS, RECEBIMENTO
-from app.budget.workbook_import import DRE_ROW_MAP, parse_dre_budget
+from app.budget.models import (
+    CUSTO_EQUIPE,
+    DESPESA_PARA_RATEAR,
+    DESPESAS,
+    DESPESAS_EQUIPE,
+    RECEBIMENTO,
+)
+from app.budget.workbook_import import (
+    DRE_ROW_MAP,
+    parse_orcamento_area_budget,
+    parse_dre_budget,
+)
 
 # Minimal fixture: row -> 12 monthly Orçado values (Jan..Dez). Only a few rows
 # need realistic values for the assertions; the rest are filled with a constant.
@@ -62,3 +72,38 @@ def test_parse_dre_budget_blank_months_coerce_to_zero():
     receb = by[("institucional", RECEBIMENTO)]
     assert receb.monthly_amounts == (671666.67,) + (0.0,) * 11
     assert receb.month_amount(2) == 0.0
+
+
+# --- Orçamento 2026 sheet: per-area Despesas Equipe + the "Despesa para ratear"
+# pool. Verified from Fechamento MBC 06.2026 (Orçamento 2026 sheet), month cols
+# Jan=4..Dez=15; the values below are May (col 8) and June (col 9), which the
+# per-área Orçado derivation must reproduce to the centavo.
+_ORC_ROWS = {
+    192: {8: 2110.49, 9: 2110.49},  # Contencioso Despesas Área
+    193: {8: 4674.41, 9: 3174.41},  # Econômico
+    194: {8: 1901.49, 9: 1901.49},  # Arbitragem e Compliance
+    196: {8: 94475.68, 9: 99043.94},  # Despesa para ratear (pool)
+}
+
+
+def _orc_cell(row: int, col: int):
+    return _ORC_ROWS.get(row, {}).get(col)
+
+
+def test_parse_orcamento_area_budget_maps_despeq_and_pool():
+    entries = parse_orcamento_area_budget(_orc_cell, client_id="mbc", ano=2026)
+    by = {(e.area, e.line_key): e for e in entries}
+
+    # Per-area Despesas Equipe (workbook "Despesas Área").
+    econ = by[("Econômico", DESPESAS_EQUIPE)]
+    assert econ.month_amount(5) == 4674.41
+    assert econ.month_amount(6) == 3174.41
+    cont = by[("Contencioso", DESPESAS_EQUIPE)]
+    assert cont.month_amount(6) == 2110.49
+    arb = by[("Arbitragem", DESPESAS_EQUIPE)]
+    assert arb.month_amount(6) == 1901.49
+
+    # Institucional pool split across areas.
+    pool = by[("institucional", DESPESA_PARA_RATEAR)]
+    assert pool.month_amount(5) == 94475.68
+    assert pool.month_amount(6) == 99043.94

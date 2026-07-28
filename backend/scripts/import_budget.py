@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import argparse
 
-from app.budget.workbook_import import parse_dre_budget
+from app.budget.workbook_import import parse_dre_budget, parse_orcamento_area_budget
 
 
 def _load_cell_reader(workbook_path: str, sheet: str = "DRE 2026"):
@@ -42,7 +42,19 @@ def main() -> None:
     cell = _load_cell_reader(args.workbook, args.sheet)
     entries = parse_dre_budget(cell, client_id=args.client, ano=args.ano)
 
-    print(f"Parsed {len(entries)} budget line(s) from '{args.sheet}':")
+    # Also import the per-área Despesas Área budget + the "Despesa para ratear"
+    # pool from the Orçamento sheet — these feed the per-área Orçado derivation
+    # (Despesa Institucional Orçado, Resultado Bruto Orçado). Best-effort: if the
+    # sheet/rows are absent, keep the DRE-only import.
+    try:
+        orc_cell = _load_cell_reader(args.workbook, "Orçamento 2026")
+        entries += parse_orcamento_area_budget(
+            orc_cell, client_id=args.client, ano=args.ano
+        )
+    except Exception as exc:  # noqa: BLE001 - optional sheet
+        print(f"[warn] skipped 'Orçamento 2026' per-área budget: {exc}")
+
+    print(f"Parsed {len(entries)} budget line(s) from '{args.sheet}' + 'Orçamento 2026':")
     for e in entries:
         m = e.monthly_amounts or ()
         preview = ", ".join(f"{x:,.2f}" for x in m[:3])
