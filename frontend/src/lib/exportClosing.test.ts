@@ -49,6 +49,59 @@ describe("tabToAoA", () => {
   });
 });
 
+describe("tabToAoA on the cumulative tab", () => {
+  // richToAoA derives its keys from Object.keys(rows[0]) — and row 0 of the
+  // stacked cumulative view is a section header. If a header keeps the monthly
+  // keys, every value cell exports blank and the row `key` leaks into the last
+  // column.
+  const ytdTab = {
+    kind: "rich",
+    name: "Acumulado (Jan → Junho)",
+    columns: [
+      "Linha", "Orçado YTD", "Realizado YTD", "Variação", "Desvio %",
+      "Orçado Anual", "Falta p/ meta",
+    ],
+    rows: [
+      {
+        Linha: "RESULTADO INSTITUCIONAL",
+        "Orçado YTD": null,
+        "Realizado YTD": null,
+        "Variação": null,
+        "Desvio %": null,
+        "Orçado Anual": null,
+        "Falta p/ meta": null,
+        key: "hdr::RESULTADO INSTITUCIONAL",
+        kind: "header",
+      },
+      {
+        Linha: "Receita",
+        "Orçado YTD": { value: 4030000.02, source: "orcado" },
+        "Realizado YTD": { value: 2130830.87, source: "realizado" },
+        "Variação": { value: -1899169.15, source: "realizado" },
+        "Desvio %": 0.5287,
+        "Orçado Anual": { value: 8060000.04, source: "orcado" },
+        "Falta p/ meta": { value: 5929169.17, source: "realizado" },
+        key: "recebimento",
+        kind: "amount",
+      },
+    ],
+  };
+
+  it("exports all seven columns with numbers, not row keys", () => {
+    const aoa = tabToAoA(ytdTab) as unknown[][];
+    expect(aoa[0]).toEqual([
+      "Linha", "Orçado YTD", "Realizado YTD", "Variação", "Desvio %",
+      "Orçado Anual", "Falta p/ meta",
+    ]);
+    const receita = aoa.find((r) => r[0] === "Receita")!;
+    expect(receita).toHaveLength(7);
+    expect(receita[2]).toBe(2130830.87);
+    expect(receita[6]).toBe(5929169.17);
+    // The metadata `key` must never land in a cell.
+    expect(receita).not.toContain("recebimento");
+  });
+});
+
 describe("buildWorkbook", () => {
   it("creates one sheet per tab in tab_order", () => {
     const payload = {

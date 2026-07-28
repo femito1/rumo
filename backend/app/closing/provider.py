@@ -3,7 +3,6 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from app.closing.available import is_closeable
 from app.closing.period import Period
-from app.closing.tab_layouts import TAB_ORDER
 from app.sources.assembler_source import AssemblerSource
 from app.sources.base import SectionKey, DayRange, Source, SectionData
 from app.sources.budget_source import BudgetSource
@@ -18,13 +17,20 @@ from app.tenancy.models import Client
 #: sistema", 2026-07 checkpoint), later months have no workbook target anyway.
 _HARD_RULE_MONTHS = frozenset({"2026-05"})
 
+#: Synthetic tab id for the cumulative (Jan→competence) view. Not a workbook sheet
+#: and not emitted by any ``Source`` — the provider composes it from the per-month
+#: assemblies (see ``_accumulate_dre_ytd``), so it deliberately has no ``SectionKey``.
+ACUMULADO_TAB = "acumulado"
+
 #: Tabs kept in the product after the 2026-07 cleanup (the per-área/Meta/Nacional/
-#: Moedas/Institucional detail tabs were removed). Everything else is still
-#: assembled (KPIs lift from ``institucional``) but not shown as a tab.
-_KEEP_TABS = frozenset({
-    "base_resultado", "areas_sintetico", "dre_2026", "orcamento_2026",
-    "rateio_mensal", "amortizacao",
-})
+#: Moedas/Institucional detail tabs were removed), in display order. Everything else
+#: is still assembled (KPIs lift from ``institucional``) but not shown as a tab.
+#: ``acumulado`` sits right after the monthly stacked tab it mirrors.
+_KEEP_TAB_ORDER = (
+    "base_resultado", "areas_sintetico", ACUMULADO_TAB, "dre_2026",
+    "orcamento_2026", "rateio_mensal", "amortizacao",
+)
+_KEEP_TABS = frozenset(_KEEP_TAB_ORDER)
 
 
 def _visible_tabs(role: str | None) -> frozenset[str]:
@@ -35,15 +41,25 @@ def _visible_tabs(role: str | None) -> frozenset[str]:
     return _KEEP_TABS
 
 
+def _num(v: object) -> float | None:
+    """Unwrap a sourced cell (``{"value": …, "source": …}``) or a bare number.
+
+    Several assemblers return sourced cells (``assemble_meta``'s ``meta_anual`` /
+    ``meta_mensal`` / ``falta``); handing one straight to the frontend rendered
+    "R$ NaN". Everything the presentation exposes goes through here.
+    """
+    if isinstance(v, dict):
+        v = v.get("value")
+    return v if isinstance(v, (int, float)) else None
+
+
 def _row_value(section: SectionData | None, key: str, col: str = "Realizado"):
     """Read a numeric cell from an assembled rich section's row, or None."""
     if not isinstance(section, dict):
         return None
     for row in section.get("rows", []):
         if row.get("key") == key:
-            cell = row.get(col)
-            v = cell.get("value") if isinstance(cell, dict) else cell
-            return v if isinstance(v, (int, float)) else None
+            return _num(row.get(col))
     return None
 
 
@@ -52,26 +68,29 @@ def _build_presentation(
     period: Period,
     kpis: dict,
     sections: dict,
-    tabs: dict,
 ) -> dict:
     """Assemble the client-facing presentation panel data (mirrors the monthly PPTX).
 
-    Pure projection of the already-assembled sections: institucional headline,
-    per-área cards (Receita / Resultado Bruto / Resultado Líquido / Reserva, with
-    Orçado for meta attainment), and the monthly recebimento series. Both roles
-    receive this; a CLIENT receives ONLY this (detail tabs withheld)."""
+    Pure projection of the already-assembled MONTHLY sections: institucional
+    headline, per-área cards (Receita / Resultado Bruto / Resultado Líquido /
+    Reserva, with Orçado for meta attainment), and the monthly recebimento series.
+    Both roles receive this; a CLIENT receives ONLY this (detail tabs withheld).
+
+    Takes ``sections`` (keyed by ``SectionKey``) rather than the display ``tabs``
+    map on purpose: it must read the monthly ``Realizado``/``Orçado`` columns, so a
+    view added to ``tabs`` later can never silently blank these cards."""
     inst = sections.get(SectionKey.INSTITUCIONAL)
     areas = []
     for area_key, label in (
-        ("contencioso", "Contencioso"),
-        ("economico", "Econômico"),
-        ("arbitragem", "Arbitragem"),
+        (SectionKey.CONTENCIOSO, "Contencioso"),
+        (SectionKey.ECONOMICO, "Econômico"),
+        (SectionKey.ARBITRAGEM, "Arbitragem"),
     ):
-        sec = tabs.get(area_key)
+        sec = sections.get(area_key)
         receita = _row_value(sec, "recebimento")
         receita_orc = _row_value(sec, "recebimento", "Orçado")
         areas.append({
-            "key": area_key,
+            "key": area_key.value,
             "label": label,
             "receita": receita,
             "receita_orcado": receita_orc,
@@ -85,11 +104,9 @@ def _build_presentation(
             ),
         })
 
-    md = tabs.get("meta_dashboard") or {}
+    md = sections.get(SectionKey.META_DASHBOARD) or {}
     monthly = [
-        {"mes": r.get("Mês"),
-         "recebimento": (r.get("Recebimento") or {}).get("value")
-         if isinstance(r.get("Recebimento"), dict) else r.get("Recebimento")}
+        {"mes": r.get("Mês"), "recebimento": _num(r.get("Recebimento"))}
         for r in md.get("rows", [])
         if r.get("kind") != "total"
     ]
@@ -113,18 +130,27 @@ def _build_presentation(
             "amortizacao": _row_value(inst, "amortizacao"),
         },
         "areas": areas,
-        "meta_anual": md.get("meta_anual"),
-        "atingimento_mes": md.get("atingimento_mes"),
+        # ``meta_anual`` is a SOURCED CELL in assemble_meta — unwrap it, or the
+        # frontend's formatBRL renders "R$ NaN". ``atingimento_mes`` is a bare float.
+        "meta_anual": _num(md.get("meta_anual")),
+        "atingimento_mes": _num(md.get("atingimento_mes")),
         "recebimento_mensal": monthly,
     }
 
 
-def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict]:
+def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict] | None:
     """Assemble every CLOSED month Jan→competence and accumulate into a YTD view.
 
     Reuses the per-month assembler (so per-área reserva/imposto/expense breakdown
-    accumulate correctly), then folds them via ``accumulate_ytd``. Best-effort:
-    returns {} on any error so the mensal payload still renders."""
+    accumulate correctly), then folds them via ``accumulate_ytd``.
+
+    ``targets=None`` on purpose: the cumulative shows the DB-derived sums. The
+    2026-05 hard rule blanks individual diverging cells, which cannot be expressed
+    in a sum without poisoning the whole line — and the client chose "segue com o
+    sistema" for everything but that one reconciliation month.
+
+    Returns None (not {}) when it can't be built, so the caller omits the tab
+    entirely rather than showing a visibly empty one."""
     try:
         from app.budget.models import annual_budget, monthly_budget
         from app.closing.available import is_closeable
@@ -136,21 +162,30 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict]:
         snaps = _snapshot_store().snapshots_by_year(period.year, client_id=client.id)
         months: dict[int, dict] = {}
         for m, snap in snaps.items():
-            if m > period.month or not is_closeable(f"{period.year:04d}-{m:02d}"):
+            ano_mes = f"{period.year:04d}-{m:02d}"
+            if m > period.month or not is_closeable(ano_mes):
                 continue
             bud_m = monthly_budget(entries, month=m) if entries else None
-            bud_a = ann or None
+            # Cross-área recebimento reclassifications are per month, same as the
+            # monthly path — without them per-área YTD wouldn't equal the sum of
+            # the monthly tabs (the institucional total ties either way).
+            try:
+                transfers = _transfers_repo().get_transfers(client.id, ano_mes)
+            except Exception:  # pragma: no cover - transfers overlay is best-effort
+                transfers = None
             months[m] = assemble_dre_sections(
                 snapshot=snap,
                 budget=bud_m,
-                budget_annual=bud_a,
-                period_label=f"{period.year:04d}-{m:02d}",
+                budget_annual=ann or None,
+                transfers=transfers,
+                period_label=ano_mes,
                 period_month=m,
-                targets=None,  # YTD shows DB-derived numbers, no per-cell blanking
+                targets=None,
             )
-        return accumulate_ytd(months, annual_budget=ann, up_to_month=period.month)
+        ytd = accumulate_ytd(months, annual_budget=ann, up_to_month=period.month)
+        return ytd or None
     except Exception:  # pragma: no cover - acumulado is a best-effort overlay
-        return {}
+        return None
 
 
 class ClosingProvider:
@@ -170,38 +205,40 @@ class ClosingProvider:
         client: Client,
         period: Period,
         day_range: DayRange,
-        mode: str = "mensal",
         role: str | None = None,
     ) -> dict:
         sections = self._merge(period, day_range)
         meta_kpis = dict(sections.get(SectionKey.META, {}).get("kpis", {}))
         meta_kpis.update(_headline_kpis_from_dre(sections.get(SectionKey.INSTITUCIONAL)))
-        tabs = {k.value: v for k, v in sections.items()}
-
-        # Acumulado (YTD) mode: overlay the DRE tabs with Jan→competence accumulated
-        # values + YTD/YTG/Variação columns. KPIs stay monthly (headline is the
-        # month; the YTD lives in the tables/presentation), matching the workbook.
-        if mode == "acumulado":
-            ytd = _accumulate_dre_ytd(client, period)
-            for key, section in ytd.items():
-                tabs[key] = section
+        tabs: dict[str, SectionData] = {k.value: v for k, v in sections.items()}
 
         # Presentation panel data (mirrors the monthly PPTX): headline + per-área +
         # monthly series. Built server-side from the assembled sections so BOTH roles
         # get exactly the panel's data — a CLIENT sees ONLY this (detail tabs withheld).
-        presentation = _build_presentation(client, period, meta_kpis, sections, tabs)
+        presentation = _build_presentation(client, period, meta_kpis, sections)
+
+        # Cumulative (acumulado) TAB — the workbook's own cumulative view is the
+        # right-hand column group of 'Areas Sintetico atualizado' over the same
+        # stacked rows, so it is one additive tab, not a second render mode. Skipped
+        # for a CLIENT (which gets no detail tabs) to avoid the ≤12 assemblies.
+        if role != "CLIENT":
+            ytd = _accumulate_dre_ytd(client, period)
+            if ytd and (stacked := ytd.get("areas_sintetico")):
+                tabs[ACUMULADO_TAB] = {
+                    **stacked,
+                    "name": f"Acumulado (Jan → {period.month_name_pt})",
+                }
 
         # Tab visibility: only the KEEP set is shown, and a CLIENT sees none of the
         # detail tabs (they get the presentation panel only). Boundary is server-side.
         visible = _visible_tabs(role)
-        order = [t for t in TAB_ORDER if t in tabs and t in visible]
+        order = [t for t in _KEEP_TAB_ORDER if t in tabs and t in visible]
 
         return {
             "client": {"id": client.id, "name": client.name},
             "period": {"ano_mes": period.ano_mes, "label": period.label, "column_letter": period.column_letter},
             "day_range": {"from": day_range.start, "to": day_range.end, "is_full_month": day_range.is_full_month},
             "kpis": meta_kpis,
-            "mode": mode,
             "presentation": presentation,
             "tab_order": order,
             "tabs": {t: tabs[t] for t in order} if role == "CLIENT" else tabs,

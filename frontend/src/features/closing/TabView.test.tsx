@@ -246,6 +246,80 @@ describe("TabView", () => {
     expect(screen.queryByText("IAC - Distribuição Mensal Fixa")).not.toBeInTheDocument();
   });
 
+  // --- Cumulative (acumulado) tab -----------------------------------------
+  // Its columns come from the backend accumulator; rows bind POSITIONALLY off
+  // Object.keys(rows[0]), and row 0 of the stacked view IS a section header.
+  const YTD_COLUMNS = [
+    "Linha", "Orçado YTD", "Realizado YTD", "Variação", "Desvio %",
+    "Orçado Anual", "Falta p/ meta",
+  ];
+  function ytdRow(
+    linha: string,
+    vals: (number | null)[],
+    meta: Record<string, unknown> = {},
+  ) {
+    const [orc, real, vari, desvio, anual, falta] = vals;
+    return {
+      Linha: linha,
+      "Orçado YTD": { value: orc, source: "orcado" },
+      "Realizado YTD": { value: real, source: "realizado" },
+      "Variação": { value: vari, source: "realizado" },
+      "Desvio %": desvio,
+      "Orçado Anual": { value: anual, source: "orcado" },
+      "Falta p/ meta": { value: falta, source: "realizado" },
+      key: "recebimento",
+      indent: 0,
+      is_total: false,
+      kind: "amount",
+      ...meta,
+    };
+  }
+
+  it("binds the cumulative tab's columns when the first row is a section header", () => {
+    // Regression: a header row that kept the MONTHLY keys made every value row
+    // resolve undefined ("ainda não temos") and leaked the row `key` string
+    // ("recebimento") into the last column.
+    render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Acumulado (Jan → Junho)",
+          columns: YTD_COLUMNS,
+          rows: [
+            ytdRow("RESULTADO INSTITUCIONAL", [null, null, null, null, null, null], {
+              key: "hdr::RESULTADO INSTITUCIONAL", is_total: true, kind: "header",
+            }),
+            ytdRow("Receita", [4030000.02, 2130830.87, -1899169.15, 0.5287, 8060000.04, 5929169.17]),
+          ],
+        }}
+      />,
+    );
+    const row = screen.getByText("Receita").closest("tr")!;
+    expect(within(row).getByText("2.130.830,87")).toBeInTheDocument();
+    expect(within(row).getByText("5.929.169,17")).toBeInTheDocument();
+    // The metadata `key` must never surface as a cell value.
+    expect(screen.queryByText("recebimento")).not.toBeInTheDocument();
+    expect(screen.queryByText(MISSING_LABEL)).not.toBeInTheDocument();
+  });
+
+  it("renders derived cumulative cells as '—' when they can't be computed", () => {
+    // Variação / Falta p/ meta are derived from Orçado + Realizado: a null means
+    // "not applicable" (no budget typed), not a missing actual.
+    render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Acumulado (Jan → Junho)",
+          columns: YTD_COLUMNS,
+          rows: [ytdRow("Receita", [null, 2130830.87, null, null, null, null])],
+        }}
+      />,
+    );
+    const row = screen.getByText("Receita").closest("tr")!;
+    expect(within(row).getAllByText(NA_LABEL).length).toBe(5);
+    expect(within(row).queryByText(MISSING_LABEL)).not.toBeInTheDocument();
+  });
+
   it("indents sub-account rows in a grouped expense tree", () => {
     const { container } = render(
       <TabView

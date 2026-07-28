@@ -56,24 +56,49 @@ describe("WorkspacePage", () => {
     });
   });
 
-  it("admin sees the mode toggle and detail tab rail", async () => {
-    mockApi();
+  it("admin sees the acumulado TAB in the rail, not a mensal/acumulado toggle", async () => {
+    // The cumulative view is a tab served by the backend (tab_order), so it needs
+    // no toolbar control and no second request.
+    mockApi({
+      tab_order: ["meta", "acumulado"],
+      tabs: {
+        meta: { kind: "rich", name: "Meta", kpis: {} },
+        acumulado: { kind: "rich", name: "Acumulado (Jan → Maio)", rows: [] },
+      },
+    });
     renderAs("ADMIN");
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Acumulado" })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Meta" })).toBeInTheDocument();
     });
+    expect(
+      screen.getByRole("button", { name: "Acumulado (Jan → Maio)" }),
+    ).toBeInTheDocument();
+    // No segmented period control any more.
+    expect(screen.queryByRole("group", { name: "Período" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Mensal" })).not.toBeInTheDocument();
   });
 
-  it("client sees only the presentation panel (no mode toggle, no detail tabs)", async () => {
+  it("client sees only the presentation panel (no detail tabs)", async () => {
     mockApi({ tab_order: [], tabs: {} });
     renderAs("CLIENT");
     await waitFor(() => {
       expect(screen.getByRole("heading", { level: 1, name: "MBC" })).toBeInTheDocument();
     });
-    expect(screen.queryByRole("button", { name: "Acumulado" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Meta" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Acumulado/ })).not.toBeInTheDocument();
     // The PDF download is available to the client.
     expect(screen.getByRole("button", { name: /Baixar apresentação/ })).toBeInTheDocument();
+  });
+
+  it("renders the annual goal as money, never NaN", async () => {
+    // Regression: the backend returned meta_anual as a sourced cell
+    // ({value, source}); formatBRL of an object rendered "R$ NaN".
+    mockApi();
+    renderAs("ADMIN");
+    await waitFor(() => {
+      expect(screen.getByText(/Meta anual/)).toBeInTheDocument();
+    });
+    expect(screen.getByText("Meta anual R$ 8.060.000,04")).toBeInTheDocument();
+    expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
   });
 });

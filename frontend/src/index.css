@@ -381,29 +381,6 @@ input::placeholder {
   background: var(--border);
   margin: 0 2px;
 }
-/* Segmented mensal ↔ acumulado control. */
-.mode-toggle {
-  display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.mode-toggle button {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 6px 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.mode-toggle button + button {
-  border-left: 1px solid var(--border);
-}
-.mode-toggle button.active {
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 600;
-}
 .export-actions {
   display: flex;
   flex-wrap: wrap;

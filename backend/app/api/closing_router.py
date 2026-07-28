@@ -18,7 +18,6 @@ def get_closing(
     month: str = Query(..., pattern=r"^\d{4}-\d{2}$"),
     from_: int | None = Query(default=None, alias="from", ge=1, le=31),
     to: int | None = Query(default=None, ge=1, le=31),
-    mode: str = Query(default="mensal", pattern=r"^(mensal|acumulado)$"),
     user: User = Depends(require_user),
     repo: Repository = Depends(get_repo),
 ) -> dict:
@@ -43,6 +42,5 @@ def get_closing(
         day_range = DayRange.full_month(period)
     provider = build_provider_for(client, period=period)
     return provider.build_closing(
-        client=client, period=period, day_range=day_range,
-        mode=mode, role=user.role.value,
+        client=client, period=period, day_range=day_range, role=user.role.value,
     )

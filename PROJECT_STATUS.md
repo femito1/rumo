@@ -13,6 +13,70 @@
 
 ---
 
+## ⭐ 2026-07-28 (latest) — cumulative is a TAB; 7 defects in the checkpoint fixed
+
+Review of the checkpoint commit (`8941598`) against the full transcript. **Six of the
+seven action points held up**; #1 (cumulative) was the wrong *shape* and broken in five
+ways. Backend **263** tests, frontend **59**; ruff/mypy/eslint/tsc clean; `npm run build` OK.
+
+- **⭐ The cumulative is now a TAB, not a render mode** (client ruling, overriding the
+  transcript's "botãozinho" at 17:10). Rationale that makes it the *more* faithful
+  reading: the workbook's cumulative view **is not a sheet or a mode** — it is the
+  right-hand column group of `Areas Sintetico atualizado` (06.2026 cols Z..AE) over the
+  *same* 44 stacked rows (institucional + 3 áreas). So it is ONE additive tab
+  (`ACUMULADO_TAB`, ordered right after `areas_sintetico`), built from the per-month
+  assemblies. Purely additive → no existing tab changes shape. **Removed:** the toolbar
+  toggle, `?mode=`, `ClosingMode`, `build_closing(mode=…)`, the mode filter chip, the
+  dead `.mode-toggle` CSS. A stale `?mode=…` URL still returns 200 (verified live).
+- **Columns tie to the workbook to the centavo** (validated by folding the six 2026
+  months): `Linha | Orçado YTD | Realizado YTD | Variação | Desvio % | Orçado Anual |
+  Falta p/ meta` = workbook `A | AA | AB | AC | AD | Z | AE`. Receita YTD 2.130.830,87 ·
+  Orçado YTD 4.030.000,02 · Variação −1.899.169,15 · Desvio 0,5287 · Res.Bruto YTD
+  253.819,11 — all exact. **Names are corrected, values verbatim:** the sheet's own
+  headers mislead (its "Orçado YTG" holds the *annual* budget; its "Variação Mensal"
+  holds a *ratio*), so shipping them literally would mean two near-duplicate headers.
+- **D1 — repeated line keys collapsed (corrupted the cumulative).** `accumulate_ytd`
+  accumulated into a flat `{key: total}`, but `areas_sintetico` stacks four blocks that
+  all repeat `recebimento`/`resultado_bruto`/… → **every block showed the sum of all
+  four** (1000/500/300/200 all rendered 2000). Now keyed by `(block, line, occurrence)`,
+  partitioning at `kind == "header"`. Verified live: 735.161,42 / 338.360,20 / 280.099,27
+  / 116.701,95, Σáreas = institucional exactly.
+- **D2 — non-DRE sections force-fitted and destroyed.** It rewrote *every* `rich`
+  section: `rateio_mensal`/`amortizacao`/`meta_dashboard`/`nacional` came out as `{}`
+  rows; `base_resultado` (`Linha, Valor` — no Realizado) and `dre_2026` (12 month
+  columns) came out all-null. Now an explicit `_YTD_SECTIONS` allowlist.
+- **D3 — "Meta anual R$ NaN" (user-reported).** `assemble_meta` returns `meta_anual` as a
+  *sourced cell*; `_build_presentation` passed the dict to `formatBRL`. New `_num()`
+  unwrap on every presentation field (`atingimento_mes` is a bare float — left alone).
+- **D4 — the presentation silently emptied in acumulado mode.** It was built from the
+  *overlaid* `tabs`, so `_row_value(…, "Realizado")` missed the YTD columns → all áreas,
+  `meta_anual` and the monthly series went null. `_build_presentation` now takes
+  `sections` (keyed by `SectionKey`), so no future overlay can re-break it.
+- **D5 — header rows broke the positional-column contract.** Headers passed through as
+  `dict(tmpl)`, keeping the *monthly* keys — and `TabView.rowKeys` samples **`rows[0]`
+  only**, which in `areas_sintetico` *is* a header. Every value row resolved `undefined`
+  → "ainda não temos", and the last column rendered the literal string `recebimento`.
+  `richToAoA` in `exportClosing.ts` had the same bug, so exports were corrupt too. All
+  rows (headers included) now emit the 7 display keys first.
+- **D6 — `Orçado YTG` matched no workbook column.** It computed `annual − Orçado YTD`;
+  the workbook's real year-to-go is `AE = Z − AB` = **annual − Realizado**. Now
+  `Falta p/ meta`, locked to workbook `AE3` (8.060.000,04 − 3.463.471,64 = 4.596.528,40).
+- **D7 — `transfers` never threaded into the YTD path**, so per-área Recebimento YTD
+  wouldn't equal the sum of the monthly tabs. Now fetched per month.
+- **Decision: no hard rule in the cumulative** (`targets=None`). A YTD *sum* can't be
+  blanked per-cell without poisoning the whole line, and the client chose "segue com o
+  sistema" for every month but the 2026-05 reconciliation.
+- Accumulation is **skipped for CLIENT** (no detail tabs anyway), and a failure now omits
+  the tab rather than rendering an empty one.
+- **Not a defect, noted:** 2027 budget entry (transcript 20:14) works per-`ano` in
+  `BudgetEditor`, but `available_months` spans 24 months *back* only — 2027 becomes
+  reachable in Jan 2027. Out of scope.
+
+**⚠ DEPLOY still pending** (this + the whole checkpoint below): `ops/easypanel-deploy.sh`
+for backend **and** frontend — EasyPanel does not auto-deploy.
+
+---
+
 ## 2026-07-28 (later) — checkpoint action points implemented (deploy pending)
 
 Implemented every action point from the 2026-07 client checkpoint
@@ -33,12 +97,10 @@ ruff/mypy/eslint/tsc clean; `npm run build` OK. **One deploy at the end** (see b
   (`provider._HARD_RULE_MONTHS`); earlier months render raw DB numbers (the old hand-entered
   workbook cells omitted real lines — DB is more complete). `targets_for` unchanged (raw
   lookup kept for the comparison harness); gate is in the provider.
-- **#1 YTD / acumulado view.** `mensal↔acumulado` toggle (`?mode=acumulado`). New
-  `snapshots_by_year` on both snapshot stores + `closing.ytd_accumulate.accumulate_ytd`
-  (row-level sum of each closed month's assembled sections → Orçado YTD / Realizado YTD /
-  Variação / Orçado YTG columns; margins recomputed, not summed; reserva YTD = signed sum).
-  `build_closing(mode=...)`; frontend toolbar toggle + `useClosing` param. Columns respect
-  the positional-binding contract (value keys before metadata).
+- **#1 YTD / acumulado view.** First shipped as a `mensal↔acumulado` toggle; **superseded
+  the same day by the "Acumulado" TAB** — see the review section at the top of this file.
+  New `snapshots_by_year` on both snapshot stores + `closing.ytd_accumulate.accumulate_ytd`
+  survive; the toggle, the `?mode=` param and `build_closing(mode=…)` are gone.
 - **Per-área reserva computed** (feeds YTD + presentation). `_area_rows` extended past
   Resultado Bruto to Imposto (15%×receb) / Amortização (área custo share) / Resultado Líquido
   / Reserva (signed 10%). Ties June per-área; Σareas vs institucional differ only by the

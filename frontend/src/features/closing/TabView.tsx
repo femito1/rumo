@@ -11,11 +11,19 @@ export const MISSING_LABEL = "ainda não temos";
 export const NA_LABEL = "—";
 
 /** Budget/derived columns where a null means "not applicable" (→ NA_LABEL), NOT a
- *  missing actual. Everything else (Realizado, Valor) keeps MISSING_LABEL when null. */
+ *  missing actual. Everything else (Realizado, Valor) keeps MISSING_LABEL when null.
+ *  "Variação" / "Falta p/ meta" (cumulative tab) are derived from Orçado + Realizado,
+ *  so an uncomputable one is not-applicable too. */
 function isNaColumn(header: string | undefined): boolean {
   if (typeof header !== "string") return false;
   const h = header.trim().toLowerCase();
-  return h.includes("orçado") || h.includes("orcado") || h === "desvio %";
+  return (
+    h.includes("orçado") ||
+    h.includes("orcado") ||
+    h === "desvio %" ||
+    h.includes("variação") ||
+    h.includes("falta")
+  );
 }
 
 interface GridCell { t: "label" | "number" | "formula" | "empty"; v?: string | null; n?: number | null }

@@ -174,6 +174,90 @@ def test_meta_dashboard_fills_ytd_via_assembler_source():
     assert rows["Março"]["Recebimento"]["value"] is None
 
 
+def _acumulado_provider(tmp_path, monkeypatch, *, months=(1, 2)):
+    """A provider whose snapshot store holds ``months`` of 2026, wired so the
+    acumulado tab can be built without touching the live LegalDesk API."""
+    import json
+
+    from app.budget.repository import InMemoryBudgetRepository
+    from app.sources.assembler_source import AssemblerSource
+    from app.sources.snapshot_store import SnapshotStore
+
+    fixtures = __import__("pathlib").Path(__file__).parent / "fixtures"
+    snap = json.loads((fixtures / "sisjuri_2026_02.json").read_text(encoding="utf-8"))
+    store = SnapshotStore(tmp_path)
+    for m in months:
+        store.put(f"2026-{m:02d}", snap)
+    monkeypatch.setattr("app.closing.provider._snapshot_store", lambda: store)
+    monkeypatch.setattr(
+        "app.closing.provider._budget_repo", lambda: InMemoryBudgetRepository.seeded()
+    )
+    budget = {"institucional": {"recebimento": 671666.67, "amortizacao": 8117.0}}
+    return ClosingProvider(
+        sources=[AssemblerSource(snapshot=snap, budget=budget, ytd_recebimento=None)]
+    )
+
+
+def _closing(tmp_path, monkeypatch, *, role="ADMIN", months=(1, 2)):
+    provider = _acumulado_provider(tmp_path, monkeypatch, months=months)
+    p = Period.parse("2026-02")
+    return provider.build_closing(
+        client=Client(id="mbc", name="MBC", provider="legaldesk+sisjuri",
+                      provider_config={}),
+        period=p,
+        day_range=DayRange.full_month(p),
+        role=role,
+    )
+
+
+def test_acumulado_tab_present_and_ordered_after_areas_sintetico(tmp_path, monkeypatch):
+    # The cumulative view is a TAB (not a render mode): it sits next to the monthly
+    # stacked tab it mirrors, and carries the YTD columns.
+    from app.closing.ytd_accumulate import YTD_COLUMNS
+
+    body = _closing(tmp_path, monkeypatch)
+    order = body["tab_order"]
+    assert "acumulado" in order
+    assert order.index("acumulado") == order.index("areas_sintetico") + 1
+    assert body["tabs"]["acumulado"]["columns"] == YTD_COLUMNS
+    assert body["tabs"]["acumulado"]["rows"]
+
+
+def test_monthly_tabs_are_not_overlaid_by_the_acumulado_tab(tmp_path, monkeypatch):
+    # The monthly sections keep their own columns — the cumulative is additive.
+    body = _closing(tmp_path, monkeypatch)
+    assert body["tabs"]["areas_sintetico"]["columns"] == [
+        "Linha", "Orçado", "Realizado", "Desvio %",
+    ]
+
+
+def test_presentation_survives_alongside_acumulado(tmp_path, monkeypatch):
+    # The presentation reads the MONTHLY sections; adding the cumulative tab must
+    # not blank its per-área cards or the monthly recebimento series.
+    body = _closing(tmp_path, monkeypatch)
+    pres = body["presentation"]
+    assert len(pres["areas"]) == 3
+    assert any(a["receita"] is not None for a in pres["areas"])
+    assert any(m["recebimento"] is not None for m in pres["recebimento_mensal"])
+
+
+def test_presentation_meta_anual_is_a_number_not_a_sourced_cell(tmp_path, monkeypatch):
+    # ``assemble_meta`` returns meta_anual as {"value": ..., "source": ...}; passing
+    # the dict through made the frontend render "Meta anual R$ NaN".
+    body = _closing(tmp_path, monkeypatch)
+    meta_anual = body["presentation"]["meta_anual"]
+    assert isinstance(meta_anual, (int, float))
+    assert meta_anual == pytest.approx(671666.67 * 12, abs=0.01)
+
+
+def test_client_role_gets_no_acumulado_tab(tmp_path, monkeypatch):
+    # A CLIENT receives only the presentation panel; the boundary is server-side.
+    body = _closing(tmp_path, monkeypatch, role="CLIENT")
+    assert body["tab_order"] == []
+    assert body["tabs"] == {}
+    assert body["presentation"]["titulo"] == "MBC"
+
+
 def test_assembler_populates_dre_and_flags_missing_snapshot():
     # With no snapshot, the assembler still emits institucional (DRE) but with
     # snapshot_missing=True so the UI can show a banner. Test the assembler

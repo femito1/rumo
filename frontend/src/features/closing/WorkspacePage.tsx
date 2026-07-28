@@ -16,7 +16,6 @@ import { exportPresentationPdf } from "./exportPresentation";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
 import { useAuth } from "../auth/useAuth";
-import type { ClosingMode } from "../../lib/types";
 
 const PRESENTATION_TAB = "__apresentacao__";
 
@@ -28,7 +27,6 @@ export function WorkspacePage() {
   const [month, setMonth] = useState<string>("");
   const [from, setFrom] = useState<number | null>(null);
   const [to, setTo] = useState<number | null>(null);
-  const [mode, setMode] = useState<ClosingMode>("mensal");
   const [activeTab, setActiveTab] = useState<string>("");
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export function WorkspacePage() {
     });
   }, [id]);
 
-  const { data, error, loading } = useClosing(id, month, from, to, mode);
+  const { data, error, loading } = useClosing(id, month, from, to);
   if (data && !activeTab) {
     // Default tab once data loads (render-phase update, applies before paint).
     // The presentation view leads for everyone; ADMIN also gets the detail tabs.
@@ -57,26 +55,6 @@ export function WorkspacePage() {
         <div className="workspace-toolbar">
           <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
           <div className="toolbar-actions">
-            {!isClient ? (
-              <div className="mode-toggle" role="group" aria-label="Período">
-                <button
-                  type="button"
-                  className={mode === "mensal" ? "active" : ""}
-                  aria-pressed={mode === "mensal"}
-                  onClick={() => setMode("mensal")}
-                >
-                  Mensal
-                </button>
-                <button
-                  type="button"
-                  className={mode === "acumulado" ? "active" : ""}
-                  aria-pressed={mode === "acumulado"}
-                  onClick={() => setMode("acumulado")}
-                >
-                  Acumulado
-                </button>
-              </div>
-            ) : null}
             {!isClient ? (
               <>
                 <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
@@ -110,7 +88,6 @@ export function WorkspacePage() {
       ) : (
         <>
           {!isClient && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
-          {!isClient && mode === "acumulado" ? <div className="filter-chip">Acumulado no ano (YTD) · KPIs referem-se ao mês</div> : null}
 
           {!isClient ? (
             <>

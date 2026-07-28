@@ -76,20 +76,13 @@ def test_client_role_gets_no_detail_tabs(client):
     assert len(pres["areas"]) == 3
 
 
-def test_acumulado_mode_accepted(client):
+def test_closing_carries_no_render_mode(client):
+    # The cumulative view is a TAB, not a render mode — there is no ``mode`` param
+    # and no ``mode`` in the payload. A stale ``?mode=`` URL is simply ignored.
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.get(
         "/api/clients/demo/closing?month=2026-05&mode=acumulado",
         headers={"Authorization": f"Bearer {tok}"},
     )
     assert resp.status_code == 200
-    assert resp.json()["mode"] == "acumulado"
-
-
-def test_invalid_mode_rejected(client):
-    tok = _token(client, "admin@rumo.com.br", "admin123")
-    resp = client.get(
-        "/api/clients/demo/closing?month=2026-05&mode=bogus",
-        headers={"Authorization": f"Bearer {tok}"},
-    )
-    assert resp.status_code == 422
+    assert "mode" not in resp.json()

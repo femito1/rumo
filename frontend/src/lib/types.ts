@@ -20,8 +20,6 @@ export interface Cell {
   origin: Origin;
 }
 
-export type ClosingMode = "mensal" | "acumulado";
-
 export interface PresentationArea {
   key: string;
   label: string;
@@ -62,7 +60,6 @@ export interface ClosingPayload {
   period: { ano_mes: string; label: string; column_letter: string };
   day_range: { from: string; to: string; is_full_month: boolean };
   kpis: Record<string, number | null>;
-  mode?: ClosingMode;
   presentation?: Presentation;
   tab_order: string[];
   tabs: Record<string, unknown>;
