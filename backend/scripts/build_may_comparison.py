@@ -6,7 +6,7 @@
   * Sistema   — assemble_dre_sections(...) on the real May snapshot (targets=None -> raw DB numbers)
 
 Output: reference/comparativo/Comparativo_MBC_Maio_2026.xlsx (color-coded).
-Companion narrative: docs/NOTA_MAIO_2026.md.
+Companion narrative: docs/NOTA_CLIENTE.md.
 
 ⚠ SNAPSHOT SOURCE: the local test fixture (tests/fixtures/sisjuri_2026_05.json) is STALE —
 it predates the líquido/desdobramento/prof blocks, so it produces a false +2.854 despesas

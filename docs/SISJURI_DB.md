@@ -208,7 +208,7 @@ account** (`PCTCNUMEROCONTADEST`, NOT `LANCPROFDEST`/`SIGLADEST`, which are NULL
 The prior probe summed the wrong leg. ⚠ The same VR/VT slice ALSO appears in `400.010.0040
 Repasse` (the double-entry counter-leg) — do NOT sum both or you double-count. The correct
 Vale-ADM = the **VR/VT Mensal parent** (positive leg). `probe_janapr_reconcile.sql` #1 verifies
-this per month for Jan–Apr. See `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
+this per month for Jan–Apr.
 
 ### The `500.010.<SIGLA>` personal-debit namespace (DO NOT re-discover)
 

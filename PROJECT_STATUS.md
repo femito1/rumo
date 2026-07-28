@@ -131,8 +131,9 @@ A full-state confirmation sweep of the ISS/backfill handoff, plus two fixes.
 
 ## ⭐ 2026-07-21 — "lançamentos manuais" REFUTED; ISS decoded; full backfill
 
-Full handoff: `docs/HANDOFF_2026-07-21-manuais-refutados.md`. Findings +
-per-family reconciliation: `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
+(Detailed handoff + per-family findings docs consolidated away 2026-07-28; the durable
+account facts live in the `docs/SISJURI_DB.md` account index, the client-facing summary in
+`docs/NOTA_CLIENTE.md`.)
 
 - **Every DRE family is DB-derived** — the old "lançamentos manuais não deriváveis"
   claim is refuted (proven against the raw `lancextrato de contas.xls` / `Pagtos maio`
@@ -155,7 +156,9 @@ per-family reconciliation: `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
   the RDP round-trip (catches ORA-01785 positional ORDER BY + ORA-00904 XMLTYPE-on-alias).
 - **#1 open (decision, not blocked):** un-blank Jan–Abr from the DB (targets change in
   `build_workbook_targets.py` + finance decision: DB numbers vs historical workbook cells).
-- Superseded handoffs moved to `docs/archive/`.
+  **RESOLVED 2026-07-28** — client chose "segue com o sistema"; hard rule now applies to
+  2026-05 only (see the top checkpoint section).
+- Superseded handoffs removed 2026-07-28 (were under `docs/archive/`).
 
 ## 2026-07-16 — per-área DRE is LIVE in prod (branch merged + deployed)
 
@@ -372,8 +375,8 @@ canonical. An agent must NOT ask the user about these again.
 >   `tests/test_despesas_liquido.py` + 2 testes de integração.
 > - **PENDENTE (o gargalo):** rodar o `extract.sql` atualizado no RDP para maio (e
 >   demais meses) popular os blocos; então a linha Despesas fecha e **Resultado
->   Bruto/Líquido/Reserva/margens deixam de ficar em branco**. Ver
->   `docs/archive/HANDOFF_2026-07-13-despesas.md`.
+>   Bruto/Líquido/Reserva/margens deixam de ficar em branco**. (Handoff detalhado
+>   removido em 2026-07-28; regra provada vive em `docs/SISJURI_DB.md`.)
 >
 > Backend **218 testes**, frontend **52**; ruff/mypy limpos.
 >
@@ -649,9 +652,8 @@ rateio into a named block (`Despesa para ratear` / `Equipe` / `Comissão` /
   codes, e.g. Contabilidade 020.040.0050→Consultoria, Seguros 020.060.0040→
   Ocupação). Locked by `tests/test_workbook_layouts.py`. The residual ≈5–7k
   workbook drift is line-attributed to a manual annualization layer
-  (Administrativas/Gestão/Endomkt) that is NOT in the DB month — see
-  `docs/archive/HANDOFF_DRE_AUTOMATION.md` Appendix B. These become optional manual inputs
-  now that the workbook is going away.
+  (Administrativas/Gestão/Endomkt) that is NOT in the DB month. These become optional manual
+  inputs now that the workbook is going away.
 
 **Demonstrativo Resultado Profissional** (`..._AR_20260623_....pdf`): the
 LegalDesk report the client now uses to allocate per-area recebimento — it

@@ -8,13 +8,11 @@
 
 ## Start here
 
-0. **Active work order: `docs/HANDOFF_2026-07-21-manuais-refutados.md`** — proved every
-   DRE family is DB-derived (the "lançamentos manuais" claim is refuted); decoded + fixed
-   ISS Trimestral (area = `LANCSOLICITANTE`, ties to the centavo); added `lint_probe.py`
-   for probe SQL. Full backfill run. #1 open item (decision, not blocked): **un-blank
-   Jan–Abr from the DB** (targets change + finance decision — DB numbers vs historical
-   workbook cells). See also `docs/FINDINGS_2026-07-21-manuais-refutados.md`.
-   (Older handoffs archived under `docs/archive/`.)
+0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-07-28 checkpoint) — the
+   July client checkpoint is implemented and deployed: YTD/acumulado toggle, presentation
+   panel + PDF, per-área Orçado fix, Jan–Abr un-blanked (hard rule = May only), per-área
+   reserva, tab cleanup + a **server-side CLIENT-only boundary**. June validated the DB
+   derivation (untuned month). Read that section first for what changed and why.
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number
