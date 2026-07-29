@@ -753,6 +753,12 @@ def _per_area_orcado(
       falls back to the monthly custo ratio when no annual budget is supplied).
     - Resultado Bruto = Recebimento − Custo − Comissão − Despesas Equipe − Despesa
       Institucional (Comissão has no per-área budget → treated as 0, shown blank).
+    - Imposto = área Recebimento Orçado × 15% (workbook ``=V36*$A$34``).
+    - Amortização = inst Amortização Orçado × área rateio share (workbook
+      ``=V29*'Rateio Mensal'!M2``, and M = ``L/$L$5`` over the **annual** custo
+      budget — the same fixed share Despesa Institucional uses above).
+    - Resultado Líquido = Resultado Bruto − Imposto − Amortização; Reserva = 10%
+      of it (signed), mirroring the realizado tail in ``_area_rows``.
 
     Returns ``{area: {line_key: orcado}}``; a line is omitted (→ blank) when its
     inputs aren't budgeted."""
@@ -803,6 +809,22 @@ def _per_area_orcado(
                 - row.get(DESPESA_INSTITUCIONAL, 0.0),
                 2,
             )
+            # Imposto = 15% of the área's budgeted Recebimento (workbook =V36*$A$34).
+            row[IMPOSTO] = imposto_sobre_recebimento(row[RECEBIMENTO])
+        # Amortização = inst Amortização Orçado × the área's rateio share (workbook
+        # =V29*'Rateio Mensal'!M2). No fallback to AMORTIZACAO_MENSAL: that 8.117 is
+        # the *realizado* worksheet default, and inventing a budget from it would show
+        # a planned figure the client never entered.
+        amort_inst = inst.get(AMORTIZACAO)
+        if amort_inst is not None and area_share is not None and tot_share:
+            row[AMORTIZACAO] = round(amort_inst * area_share / tot_share, 2)
+        # Tail: líquido and reserva, only once their whole base is budgeted (the
+        # workbook derives them the same way on the Orçado side as on the realizado).
+        if RESULTADO_BRUTO in row and IMPOSTO in row and AMORTIZACAO in row:
+            row[RESULTADO_LIQUIDO] = round(
+                row[RESULTADO_BRUTO] - row[IMPOSTO] - row[AMORTIZACAO], 2
+            )
+            row[RESERVA_BONUS] = bonus_reserve(row[RESULTADO_LIQUIDO])
         out[area] = row
     return out
 

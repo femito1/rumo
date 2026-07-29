@@ -485,6 +485,85 @@ def test_per_area_orcado_ties_june_workbook_with_despesa_para_ratear(snapshot):
         assert orc(ak, RESULTADO_BRUTO) == pytest.approx(want_rb, abs=0.15)
 
 
+def test_per_area_orcado_imposto_and_amortizacao_tie_june_workbook(snapshot):
+    """Adriana, 2026-07-28 14:30: *"Por que não está puxando aqui o orçado? O orçado
+    amortização e impostos."* Present for Institucional, blank for all three áreas
+    (Areas Sintetico AND the presentation deck, 30:30).
+
+    The workbook types no per-área budget for either line — it derives both, and its
+    formulas are explicit (``Areas Sintetico atualizado``, June Orçado col V):
+
+        Impostos     =V36*$A$34             → área Recebimento Orçado × 15%
+        Amortização  =V29*'Rateio Mensal'!M2 → inst Amortização Orçado × área share
+
+    where ``Rateio Mensal`` M2:M4 = ``L/$L$5`` and L is the **annual** custo-equipe
+    budget ('Rateio anual', L2 = 'DRE 2026'!B6) — the SAME fixed annual share that
+    already drives Despesa Institucional here, not the month's custo. Verified to the
+    centavo against Fechamento MBC 06.2026 for all three áreas.
+    """
+    from app.closing.dre import (
+        AMORTIZACAO,
+        CUSTO_EQUIPE,
+        DESPESA_PARA_RATEAR,
+        DESPESAS,
+        DESPESAS_EQUIPE,
+        IMPOSTO,
+    )
+
+    recb_m = 671666.67
+    ce = {"Contencioso": 74454.07, "Econômico": 75379.17, "Arbitragem": 49236.38}
+    de = {"Contencioso": 2110.49, "Econômico": 3174.41, "Arbitragem": 1901.49}
+    ce_annual = {"Contencioso": 901597.73, "Econômico": 914114.75, "Arbitragem": 623198.16}
+    budget = {
+        "institucional": {
+            DESPESA_PARA_RATEAR: 99043.94, DESPESAS: 106230.33,
+            "recebimento": recb_m, AMORTIZACAO: 8117.0,
+        },
+        "Contencioso": {CUSTO_EQUIPE: ce["Contencioso"], DESPESAS_EQUIPE: de["Contencioso"]},
+        "Econômico": {CUSTO_EQUIPE: ce["Econômico"], DESPESAS_EQUIPE: de["Econômico"]},
+        "Arbitragem": {CUSTO_EQUIPE: ce["Arbitragem"], DESPESAS_EQUIPE: de["Arbitragem"]},
+    }
+    budget_annual = {a: {CUSTO_EQUIPE: v} for a, v in ce_annual.items()}
+    sections = assemble_dre_sections(
+        snapshot=snapshot, budget=budget, budget_annual=budget_annual,
+        period_label="Jun 2026",
+    )
+
+    def orc(area_key, line):
+        return _row(sections[area_key]["rows"], line)["Orçado"]["value"]
+
+    # Workbook June Orçado: rows 46/47 (Conten), 64/65 (Econ), 82/83 (Arb).
+    for ak, want_imposto, want_amort in (
+        ("contencioso", 37781.25, 3000.63),
+        ("economico", 37781.25, 3042.29),
+        ("arbitragem", 25187.50, 2074.08),
+    ):
+        assert orc(ak, IMPOSTO) == pytest.approx(want_imposto, abs=0.01)
+        assert orc(ak, AMORTIZACAO) == pytest.approx(want_amort, abs=0.01)
+
+
+def test_per_area_orcado_amortizacao_blank_without_institucional_amort_budget(snapshot):
+    # Amortização Orçado has no per-área fallback: without an institucional
+    # amortização budget the line stays blank rather than inventing a share of the
+    # 8.117 worksheet default (which is a *realizado* default, not a budget).
+    from app.closing.dre import AMORTIZACAO, CUSTO_EQUIPE, IMPOSTO, RECEBIMENTO
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot,
+        budget={
+            "institucional": {RECEBIMENTO: 671666.67},
+            "Contencioso": {CUSTO_EQUIPE: 74454.07},
+        },
+        budget_annual={"Contencioso": {CUSTO_EQUIPE: 901597.73}},
+        period_label="Jun 2026",
+    )
+    rows = sections["contencioso"]["rows"]
+    # Imposto still derives (its base, área Recebimento Orçado, is budgeted)...
+    assert _row(rows, IMPOSTO)["Orçado"]["value"] == pytest.approx(37781.25, abs=0.01)
+    # ...but Amortização has no input, so it stays blank.
+    assert _row(rows, AMORTIZACAO)["Orçado"]["value"] is None
+
+
 def test_amortizacao_defaults_to_fixed_monthly(snapshot):
     # POINT 12: with no budgeted amortização, the DRE uses the fixed 8.117/mês
     # default (workbook 'Amortização' line), preserving today's behavior.
