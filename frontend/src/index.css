@@ -1118,7 +1118,7 @@ input::placeholder {
   border-radius: 6px; padding: 14px 16px; background: var(--surface);
 }
 .stat-label { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
-.stat-value { font-size: 24px; font-weight: 800; margin-top: 6px; letter-spacing: -0.01em; }
+.stat-value { font-size: 24px; font-weight: 800; margin-top: 6px; letter-spacing: -0.01em; white-space: nowrap; }
 .stat-foot { color: var(--muted); font-size: 12px; margin-top: 4px; }
 
 /* Deck tables (near-black band header like the PDF) */
@@ -1157,8 +1157,14 @@ input::placeholder {
 .att-gap { font-size: 12px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* Area split (mês | DRE) */
-.area-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.area-split .stat-value { font-size: 19px; }
+.area-split { display: grid; grid-template-columns: 5fr 7fr; gap: 20px; align-items: start; }
+.area-split .stat-value { font-size: 16px; }
+.area-split .stat { padding: 12px; }
+/* The per-área DRE is a 6-col table in a half-width column — let it scroll on
+   screen rather than clip; print widens the page so it fits. */
+.area-split .deck-table { font-size: 12px; display: block; overflow-x: auto; }
+.area-split .deck-table th,
+.area-split .deck-table td { padding: 7px 9px; }
 
 @media (max-width: 900px) {
   .slide { aspect-ratio: auto; }
