@@ -126,6 +126,12 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
   // shows the area summary and expands into the per-lawyer breakdown on click.
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const childGroup = childGroupOf(rows);
+  // Section-header collapse (Areas Sintetico / any header-delimited stack): each
+  // ``kind: "header"`` row owns the rows beneath it up to the next header. Blocks
+  // are OPEN by default; clicking a header hides its body. State stores the
+  // COLLAPSED headers so the default (empty) = everything open.
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const sectionGroup = sectionGroupOf(rows);
 
   return (
     <TableScroll>
@@ -138,6 +144,13 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
             const groupKey = childGroup.get(ri);
             // Hide children of a collapsed drill-down group.
             if (groupKey != null && !expanded[groupKey]) return null;
+            // Hide rows under a collapsed section header.
+            const sectionKey = sectionGroup.get(ri);
+            if (sectionKey != null && collapsed[sectionKey]) return null;
+            // A header row is a collapse toggle when it owns ≥1 body row.
+            const headerKey = row.kind === "header" && typeof row.key === "string" ? row.key : null;
+            const headerHasBody = headerKey != null && sectionMemberCount(sectionGroup, headerKey) > 0;
+            const headerCollapsed = headerKey != null && !!collapsed[headerKey];
             const drillKey = drillDownKey(row);
             const hasChildren = drillKey != null && childCount(childGroup, drillKey) > 0;
             const isOpen = drillKey != null && !!expanded[drillKey];
@@ -160,7 +173,21 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
                         : `num ${signClass(row[k], row, isPercentColumn(columns[ci]))}`.trim()
                     }
                   >
-                    {ci === 0 && hasChildren && drillKey != null ? (
+                    {ci === 0 && headerHasBody && headerKey != null ? (
+                      <button
+                        type="button"
+                        className="drilldown-toggle"
+                        aria-expanded={!headerCollapsed}
+                        onClick={() =>
+                          setCollapsed((c) => ({ ...c, [headerKey]: !c[headerKey] }))
+                        }
+                      >
+                        <span className="drilldown-caret" aria-hidden="true">
+                          {headerCollapsed ? "▸" : "▾"}
+                        </span>
+                        {renderRichValue(row[k], true, false, emptyIsBlank)}
+                      </button>
+                    ) : ci === 0 && hasChildren && drillKey != null ? (
                       <button
                         type="button"
                         className="drilldown-toggle"
@@ -227,6 +254,30 @@ function childGroupOf(rows: RichRow[]): Map<number, string> {
 function childCount(childGroup: Map<number, string>, groupKey: string): number {
   let n = 0;
   for (const v of childGroup.values()) if (v === groupKey) n++;
+  return n;
+}
+
+/** Map each row index -> the section-header key it lives under, for header-
+ *  delimited stacks (Areas Sintetico). A ``kind: "header"`` row opens a section;
+ *  every following row belongs to it until the next header. Header rows and rows
+ *  before the first header are unmapped. Powers block collapse. */
+function sectionGroupOf(rows: RichRow[]): Map<number, string> {
+  const out = new Map<number, string>();
+  let current: string | null = null;
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    if (row.kind === "header") {
+      current = typeof row.key === "string" ? row.key : null;
+      continue;
+    }
+    if (current != null) out.set(i, current);
+  }
+  return out;
+}
+
+function sectionMemberCount(sectionGroup: Map<number, string>, headerKey: string): number {
+  let n = 0;
+  for (const v of sectionGroup.values()) if (v === headerKey) n++;
   return n;
 }
 

@@ -246,6 +246,36 @@ describe("TabView", () => {
     expect(screen.queryByText("IAC - Distribuição Mensal Fixa")).not.toBeInTheDocument();
   });
 
+  it("collapses a block when its section header is clicked (Areas Sintetico)", () => {
+    // The stacked Areas Sintetico view groups rows under header rows
+    // (RESULTADO INSTITUCIONAL / CONTENCIOSO / …). The client asked for each
+    // block to expand/collapse like Base_Resultado. Blocks are open by default.
+    render(
+      <TabView
+        tab={{
+          kind: "rich",
+          name: "Areas Sintetico",
+          columns: ["Linha", "Realizado"],
+          rows: [
+            { Linha: "RESULTADO INSTITUCIONAL", Realizado: null, kind: "header", is_total: true, key: "hdr::RESULTADO INSTITUCIONAL" },
+            { Linha: "Recebimento", Realizado: { value: 100, source: "realizado" }, kind: "amount", key: "recebimento" },
+            { Linha: "RESULTADO CONTENCIOSO", Realizado: null, kind: "header", is_total: true, key: "hdr::RESULTADO CONTENCIOSO" },
+            { Linha: "Recebimento", Realizado: { value: 40, source: "realizado" }, kind: "amount", key: "recebimento" },
+          ],
+        }}
+      />,
+    );
+    // Both blocks' bodies are visible initially.
+    expect(screen.getAllByText("Recebimento").length).toBe(2);
+    // Collapsing the institucional header hides only its child, not the other block.
+    const hdr = screen.getByRole("button", { name: /RESULTADO INSTITUCIONAL/ });
+    fireEvent.click(hdr);
+    expect(screen.getAllByText("Recebimento").length).toBe(1);
+    // Re-expanding restores it.
+    fireEvent.click(hdr);
+    expect(screen.getAllByText("Recebimento").length).toBe(2);
+  });
+
   // --- Cumulative (acumulado) tab -----------------------------------------
   // Its columns come from the backend accumulator; rows bind POSITIONALLY off
   // Object.keys(rows[0]), and row 0 of the stacked view IS a section header.
