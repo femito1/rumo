@@ -17,7 +17,21 @@
 
 All of HANDOFF_2026-07-29 §5.1–§5.5 implemented, TDD, each verified against the
 workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
-**⚠ NOT YET DEPLOYED** — needs `ops/easypanel-deploy.sh` for both services.
+
+**DEPLOY: ✅ BOTH SERVICES LIVE** (`fb0a183`), verified rather than assumed:
+- Backend build log `Success` at 17:13:32Z; `/api/health` 200. (Note `/openapi.json`
+  could NOT prove this one — the route set didn't change, so the build log is the
+  check here. Prod also overrides the seed logins, so an authenticated probe is out.)
+- Frontend live bundle went `index-k5sXq9Xg.js` → **`index-D55MiXXw.js`**, and a local
+  `VITE_API_URL=<prod> vite build` of this tree produces a **byte-identical** file
+  (`cmp` clean). The new strings are confirmed present in the *downloaded* bundle:
+  `Mês em aberto · parcial`, `não são um fechamento`, `available_months_detail`,
+  `Mês no futuro`, `custo equipe + institucionais`, `stat-row-5`.
+
+⚠ **Still needs the operator on MBC-LDESK01** (no route from here): re-run
+`register-task.ps1` so the daily job also extracts the OPEN month, and run
+`backfill.ps1` to lift Jan–May off extract v1. Until the former, the new open-month
+view will render empty — prod has no 2026-07 snapshot at all.
 
 - **§5.2 — the per-área YTD ~7k gap is a WORKBOOK formula bug, not ours.** See the
   section below; the headline is that `Base_Resultado` r204/205/206 are off by one row
