@@ -174,14 +174,24 @@ BEGIN
               AND NOT EXISTS (SELECT 1 FROM FINANCE.CPDESDOBRAMENTO d2
                                WHERE d2.EMPNCOD=cp.EMPNCOD AND d2.CPGCNUMEROPAGAR=cp.CPGCNUMEROPAGAR)
            UNION ALL
-           -- unfolded slices destined for the same family accounts, tagged by DESCSETOR
+           -- unfolded slices destined for the same family accounts, tagged by DESCSETOR.
+           -- 040.040.0030 (Licenças de Uso de Software) is included ONLY for slices
+           -- whose histórico marks a CLIENT-platform licence: the workbook books those
+           -- as "Assinaturas - <área>" inside Despesas Área (June 2026: 10.340,35 →
+           -- Arbitragem, H127), which is what makes H203 = 15.115,27 and therefore the
+           -- "Despesa para ratear" pool H207 = 90.812,09 tie. The backend reclassifies
+           -- the same slice 040.040.0030 → 020.060.0010 (despesas_liquido), so keep the
+           -- two filters in step. Ordinary licences (Claude, Adobe) must NOT match.
            SELECT NVL(d.DESCSETOR,'?') cc, d.DESNVALOR v
              FROM FINANCE.CPDESDOBRAMENTO d
              JOIN FINANCE.CONTASPAGAR cp
                ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
             WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
               AND (d.DESCCONTADESTINO LIKE '020.060.%' OR d.DESCCONTADESTINO LIKE '020.090.%'
-                   OR d.DESCCONTADESTINO = '030.010.0180')
+                   OR d.DESCCONTADESTINO = '030.010.0180'
+                   OR (d.DESCCONTADESTINO = '040.040.0030'
+                       AND UPPER(d.DESCHISTORICO) LIKE '%PLATAFORMA%'
+                       AND UPPER(d.DESCHISTORICO) LIKE '%CLIENTE%'))
         )
         WHERE cc IN ('ECT','EDE','ESP')
         GROUP BY cc)
@@ -516,6 +526,22 @@ BEGIN
   -- Pagtos maio.XLS.xlsx: VR 2.719,90 + VT 607,04 = 3.326,94 = workbook G122+G123).
   -- Emit the total; the backend adds it to the institutional Salários Administração
   -- section (and FGTS-ADM moves to Impostos to tie the family to the centavo).
+  --
+  -- ⚠ ADM-ONLY: subtract the per-person Vale that ALSO lands on 500.010.<SIGLA>.
+  -- Two different bookkeeping shapes exist, so filtering by histórico alone is not
+  -- enough (2026-07-29, proven against both raw extratos):
+  --   May  — ONE lump pair on the transitória (VR 2.719,90 + VT 607,04), no
+  --          500.010.* counterpart. All of it is ADM. Workbook G122+G123 = 3.326,94.
+  --   June — the transitória MIRRORS per-person 500.010.<SIGLA> lines:
+  --          JVO 1.283,00 + VSR 1.100,60 (lawyers) + MLA 1.333,12 (ADM) = 3.716,72,
+  --          and workbook H122+H123 = 1.333,12 — i.e. ONLY the ADM person.
+  -- The lawyers' slice is already counted in per-área Custo equipe (custo_equipe_area,
+  -- 500.010.<SIGLA>), so leaving it here double-counted it into Despesa Institucional
+  -- and inflated every área's rateio share. Excluding rows whose (histórico, valor)
+  -- has a same-month 500.010.* twin keeps May whole (no twins) and drops exactly the
+  -- lawyer pairs in June. Do NOT "simplify" this to subtracting Σ custo_equipe_area:
+  -- that block is sourced from 030.010.0100/0220 and is NOT inside the transitória in
+  -- May, so blanket subtraction breaks May by 1.312,50.
   'vale_adm' VALUE (
      SELECT NVL(ROUND(SUM(l.LANNVALOR),2), 0)
        FROM FINANCE.LANCAMENTO l
@@ -525,6 +551,16 @@ BEGIN
            OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%'
            OR UPPER(l.LANCHISTORICO) LIKE '%VALE REFEI%MENSAL%'
            OR UPPER(l.LANCHISTORICO) LIKE '%VALE TRANSP%MENSAL%' )
+        AND NOT EXISTS (
+              SELECT 1
+                FROM FINANCE.LANCAMENTO p
+                JOIN LDESK.CAD_PROFISSIONAL cp2
+                  ON cp2.SIGLA = SUBSTR(p.PCTCNUMEROCONTADEST, 9)
+               WHERE p.PCTCNUMEROCONTADEST LIKE '500.010.%'
+                 AND p.LANDDATA >= DATE '&D_START' AND p.LANDDATA < DATE '&D_END'
+                 AND p.LANCHISTORICO = l.LANCHISTORICO
+                 AND ABS(ABS(p.LANNVALOR) - ABS(l.LANNVALOR)) < 0.005
+            )
   ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses

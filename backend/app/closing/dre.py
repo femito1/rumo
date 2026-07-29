@@ -207,7 +207,11 @@ class RealizadoInputs:
         net_override: dict[str, float] | None = None
         despesas_liquido = snap.get("despesas_liquido")
         if despesas_liquido:
-            from app.closing.despesas_liquido import EXCLUDED_ACCOUNTS, net_by_account
+            from app.closing.despesas_liquido import (
+                EXCLUDED_ACCOUNTS,
+                RECLASS_ACCOUNT_META,
+                net_by_account,
+            )
 
             # Aluguel: GERENC (despesas_conta) is already net of the sublocação
             # credit; pass it so the net map uses it over the CONTASPAGAR gross.
@@ -266,6 +270,31 @@ class RealizadoInputs:
                 sec.total = round(sec.total + total, 2)
                 sec.accounts.append((nome, round(total, 2)))
 
+        # A reclass in ``net_by_account`` can move a slice to an account that the
+        # GERENC ``despesas_conta`` rollup does not list at all (it only carries
+        # accounts with their OWN postings). The loop above can only adjust accounts
+        # it already saw, so such a slice would be silently dropped from the section
+        # tree — and from ``despesas_total``, which starves the "Despesa para ratear"
+        # pool and skews every área's rateio. June 2026: the client-platform licence
+        # 10.340,35 reclassed 040.040.0030 → 020.060.0010 (Assinaturas), an account
+        # with no GERENC row of its own. Fold those orphans in here.
+        if net_override is not None:
+            _seen = {str(r.get("id_conta", "")) for r in despesas_rows}
+            for _conta, _valor in net_override.items():
+                if _conta in _seen or _conta in EXCLUDED_ACCOUNTS:
+                    continue
+                if not (is_indirect(_conta) or institutional_030_section(_conta)):
+                    continue
+                _label, _family = RECLASS_ACCOUNT_META.get(_conta, (_conta, ""))
+                _sec_name = (
+                    _family
+                    or institutional_030_section(_conta)
+                    or section_for(None, _conta)
+                )
+                _sec = sec_map.setdefault(_sec_name, SectionBreakdown(_sec_name))
+                _sec.total = round(_sec.total + _valor, 2)
+                _sec.accounts.append((_label, round(_valor, 2)))
+
         ordered: list[SectionBreakdown] = []
         for name in INSTITUCIONAL_SECTIONS:
             if name in sec_map:
@@ -280,6 +309,16 @@ class RealizadoInputs:
         # ``vale_adm`` total; add it to Salários Administração as a leaf so the
         # family ties the workbook (May 12.344,91). FGTS-ADM already left this
         # family for Impostos via ``is_imposto`` (020.050.0060).
+        #
+        # ``vale_adm`` must arrive ADM-ONLY. The transitória also carries the
+        # LAWYERS' Vale in some months (June 2026: JVO + VSR alongside the ADM
+        # person), and that slice is already inside per-área Custo equipe via
+        # ``custo_equipe_area`` (500.010.<SIGLA>) — counting it here too inflated
+        # Despesa Institucional and every área's rateio share. The split is done in
+        # the EXTRACT (``vale_adm`` excludes rows having a 500.010.* twin), not here:
+        # the two cases are indistinguishable from the snapshot alone, since May
+        # books one ADM lump while June mirrors per-person lines under the same
+        # histórico and the same ``custo_equipe_area`` id_conta.
         vale_adm = float(snap.get("vale_adm", 0.0) or 0.0)
         if vale_adm:
             sal = next(

@@ -42,6 +42,31 @@ _SOFTWARE_MARKERS: tuple[str, ...] = ("claude", "software", "saas", "licen", "cl
 INFORMATICA_ACCOUNT = "020.040.0010"
 MATERIAL_COPA_ACCOUNT = "020.030.0020"
 
+#: Software-licence account whose CLIENT-PLATFORM slices are really per-área
+#: assinaturas, not institutional Informática (workbook reclass, June 2026).
+LICENCAS_SOFTWARE_ACCOUNT = "040.040.0030"
+
+#: Where those slices land: Assinaturas (→ Administrativas, and inside the
+#: ``020.060.%`` family the per-área Despesas Área query scans).
+ASSINATURAS_ACCOUNT = "020.060.0010"
+
+#: Histórico markers for a licence bought to run a CLIENT's billing platform. The
+#: workbook books these as "Assinaturas - <área>" (e.g. June's 10.340,35 →
+#: "Assinaturas - Arbitragem e Compliance", H127). Deliberately narrow: ordinary
+#: software licences on the same account (Claude, Adobe) must stay in Informática.
+_CLIENT_PLATFORM_MARKERS: tuple[str, ...] = ("plataforma", "cliente")
+
+#: Accounts a reclass can CREATE → their (display label, institutional family).
+#: GERENC ``despesas_conta`` only lists accounts with their own postings, so a
+#: reclass target may have no row to borrow ``nome_conta``/``nome_conta_pai`` from.
+#: The family is spelled out here rather than left to ``section_for(None, conta)``,
+#: whose no-parent fallback is "Despesas Gerais" — which silently mis-filed the
+#: June Assinaturas slice.
+RECLASS_ACCOUNT_META: dict[str, tuple[str, str]] = {
+    ASSINATURAS_ACCOUNT: ("Assinaturas", "Administrativas"),
+    INFORMATICA_ACCOUNT: ("Serviços de Informática", "Informática"),
+}
+
 
 def net_by_account(
     despesas_liquido: Sequence[Mapping[str, object]],
@@ -79,6 +104,14 @@ def net_by_account(
         # Reclass: a software/SaaS slice booked to Material de Copa -> Informática.
         if conta == MATERIAL_COPA_ACCOUNT and any(m in hist for m in _SOFTWARE_MARKERS):
             add(INFORMATICA_ACCOUNT, valor)
+            continue
+        # Reclass: a licence bought to run a CLIENT's platform is a per-área
+        # assinatura, not institutional Informática. Requires BOTH markers so
+        # ordinary licences on this account (Claude, Adobe) are untouched.
+        if conta == LICENCAS_SOFTWARE_ACCOUNT and all(
+            m in hist for m in _CLIENT_PLATFORM_MARKERS
+        ):
+            add(ASSINATURAS_ACCOUNT, valor)
             continue
         add(conta, valor)
 

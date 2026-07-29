@@ -48,6 +48,39 @@ def test_software_slice_reclassified_from_copa_to_informatica():
     assert net["020.040.0010"] == 2166.53
 
 
+def test_client_platform_licence_reclassified_to_assinaturas():
+    """June: the "Licenças para uso da plataforma de faturamento do cliente" slice
+    is an ASSINATURA per área, not institutional Informática.
+
+    10.340,35 is booked to 040.040.0030 (Licenças de Uso de Software), which our
+    ``040.040.`` prefix folds into Informática. The workbook books it as
+    "Assinaturas - Arbitragem e Compliance" (Base_Resultado Mensal_V2 H127, inside
+    Administrativas H124) — and that matters twice over: it is what makes the
+    Despesas Área total tie (H203 = 15.115,27, giving the "Despesa para ratear"
+    pool H207 = 90.812,09), which in turn drives every área's Despesa Institucional
+    rateio share. Left in Informática it also starved that pool by 10.340,35.
+
+    Only client-platform licences move; ordinary software licences (Claude, Adobe)
+    stay in Informática.
+    """
+    net = net_by_account(
+        [{"id_conta": "040.040.0030", "liquido": 4527.12, "bruto": 4569.5, "n": 4}],
+        [
+            {"id_conta": "040.040.0030", "valor": 10340.35,
+             "historico": "Licenças para uso da plataforma de faturamento do "
+                          "cliente 136 - O valor pago em "},
+            {"id_conta": "040.040.0030", "valor": 2122.02,
+             "historico": "Contratação do Claude para toda a equipe"},
+            {"id_conta": "040.040.0030", "valor": 110.0,
+             "historico": "PPRO*Adobe R$110,00 referente maio 2026"},
+        ],
+    )
+    # The client-platform slice becomes an Assinaturas (020.060.0010) line.
+    assert net["020.060.0010"] == 10340.35
+    # Claude + Adobe + the direct líquido stay put: 4527.12 + 2122.02 + 110 = 6759.14
+    assert net["040.040.0030"] == 6759.14
+
+
 def test_custas_and_transporte_excluded():
     net = net_by_account(
         [

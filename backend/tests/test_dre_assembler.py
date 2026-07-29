@@ -748,6 +748,47 @@ def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
     assert r.custo_equipe == pytest.approx(209273.90, abs=0.01)
 
 
+def test_per_area_despesa_institucional_ratears_only_the_pool_june(snapshot_jun):
+    """Per-área Despesa Institucional splits the "Despesa para ratear" POOL, not
+    the whole institutional despesa.
+
+    Client-reported (June validation): Contencioso should be ~32.563, we showed
+    36.913,79. The workbook carves the per-área Despesas Área OUT first
+    (Base_Resultado Mensal_V2 H198 − H203 = H207):
+
+        Despesa Institucional  105.927,36
+        − Despesas Área         15.115,27   (Conten 2.442,49 · Econ 1.075,09 · Arb 11.597,70)
+        = Despesa para ratear    90.812,09
+
+    then splits the pool by each área's custo-equipe share (35,8574 / 38,2880 /
+    25,8546 %) → Conten 32.562,84 · Econ 34.770,11 · Arb 23.479,14.
+
+    The code already subtracted ``area_desp_equipe``; what starved the pool was the
+    Arbitragem Assinatura (client-platform licence, 10.340,35) being filed under
+    institutional Informática instead of Despesas Área — Σ was 4.774,92, not
+    15.115,27. Tolerance is 2,00: an unresolved 4,80 remains in Administrativas
+    (pending Renata on 040.030.0020) which shifts each share slightly.
+    """
+    from app.closing.dre import DESPESA_INSTITUCIONAL, DESPESAS_EQUIPE
+
+    sections = assemble_dre_sections(
+        snapshot=snapshot_jun, budget=None, period_label="Jun 2026", period_month=6,
+    )
+    expected = {
+        "contencioso": (2442.48, 32562.84),
+        "economico": (1075.09, 34770.11),
+        "arbitragem": (11597.70, 23479.14),
+    }
+    for sec, (desp_eq, desp_inst) in expected.items():
+        rows = sections[sec]["rows"]
+        assert _row(rows, DESPESAS_EQUIPE)["Realizado"]["value"] == pytest.approx(
+            desp_eq, abs=0.02
+        ), sec
+        assert _row(rows, DESPESA_INSTITUCIONAL)["Realizado"]["value"] == pytest.approx(
+            desp_inst, abs=2.0
+        ), sec
+
+
 def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
     # T4: Vale-ADM (VR 2.719,90 + VT 607,04 = 3.326,94) is paid via transitória
     # 200.010.0010 (not 020.050.*). The extract emits a top-level ``vale_adm``
@@ -763,6 +804,37 @@ def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
     assert not any("FGTS" in nome for nome, _ in sal.accounts)
     # Vale-ADM appears as a leaf under Salários Administração.
     assert any("Vale" in nome for nome, _ in sal.accounts)
+
+
+def test_vale_adm_excludes_lawyer_vale_already_in_custo_equipe(snapshot_jun):
+    """June: ``vale_adm`` must NOT double-count the lawyers' Vale.
+
+    The extract's ``vale_adm`` sums every "VR/VT Mensal" line on transitória
+    200.010.0010, which catches the LAWYERS' Vale as well as the ADM one — and the
+    lawyers' slice is already inside per-área Custo equipe (``custo_equipe_area``,
+    500.010.<SIGLA>). June 2026 is the first month with both, so the old ADM-only
+    assumption silently inflated Despesa Institucional by the lawyer share:
+
+        vale_adm 3.716,72 = lawyer 2.383,60 + ADM 1.333,12
+                            └ = Σ custo_equipe_area (Conten 1.283 + Econ 1.100,60)
+                                                     ADM = workbook r122+r123
+
+    So Salários Administração must carry only 1.333,12 of Vale. Workbook June
+    (Base_Resultado Mensal_V2 H116) = 6.312,19.
+    """
+    snap = dict(snapshot_jun)
+    # The extract emits vale_adm ADM-ONLY (it drops rows having a 500.010.* twin),
+    # so the June fixture carries MLA's 1.333,12 — not the 3.716,72 raw transitória
+    # total, which also held the lawyers' JVO 1.283,00 + VSR 1.100,60.
+    assert snap["vale_adm"] == pytest.approx(1333.12, abs=0.01)  # guards the fixture
+    r = RealizadoInputs.from_snapshot(snap)
+    sal = next(s for s in r.sections if s.name == "Salários Administração")
+    assert sal.total == pytest.approx(6312.19, abs=0.01)
+    vale = next(v for nome, v in sal.accounts if "Vale" in nome)
+    assert vale == pytest.approx(1333.12, abs=0.01)
+    # And the lawyer slice stays where it belongs — per-área Custo equipe.
+    assert r.area_custo_equipe["Contencioso"] == pytest.approx(75424.21, abs=0.01)
+    assert r.area_custo_equipe["Econômico"] == pytest.approx(80536.85, abs=0.01)
 
 
 def test_vale_adm_absent_leaves_salarios_unchanged(snapshot_may):
