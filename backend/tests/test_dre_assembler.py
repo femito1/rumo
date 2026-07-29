@@ -14,6 +14,7 @@ from app.closing.dre import (
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sisjuri_2026_02.json"
 FIXTURE_MAY = Path(__file__).parent / "fixtures" / "sisjuri_2026_05.json"
+FIXTURE_JUN = Path(__file__).parent / "fixtures" / "sisjuri_2026_06.json"
 
 
 @pytest.fixture
@@ -24,6 +25,11 @@ def snapshot() -> dict:
 @pytest.fixture
 def snapshot_may() -> dict:
     return json.loads(FIXTURE_MAY.read_text(encoding="utf-8"))
+
+
+@pytest.fixture
+def snapshot_jun() -> dict:
+    return json.loads(FIXTURE_JUN.read_text(encoding="utf-8"))
 
 
 def _row(rows, key):
@@ -142,6 +148,26 @@ def test_institutional_sections_roll_up_by_family(snapshot):
     assert any("Aluguel" == n for n, _ in ocup.accounts)
     assert any("Seguros" == n for n, _ in ocup.accounts)
     assert not any("Manutenção e Conservação" == n for n, _ in ocup.accounts)
+
+
+def test_per_area_custo_equipe_folds_lawyer_vale_june_workbook(snapshot_jun):
+    """Lawyer Vale Refeição/Transporte (``custo_equipe_area``, 500.010.<SIGLA>)
+    is part of per-área Custo equipe — folded by the lawyer's home area, exactly
+    like the 030.010.* components.
+
+    Client decision (2026-07 June validation): always include Vale. The June book
+    is the proof — it books lawyer Vale where May left those rows blank:
+      Contencioso 75.424,215 = 74.141,21 (030.010.*) + JVO Vale 1.283,00
+      Econômico   80.536,845 = ... + VSR Vale 1.100,60
+      Total das Áreas 210.345,00  (was 207.961,39 without Vale)
+    Regression: without folding Vale, June rendered May's stale totals — the
+    030.010.* components happen to be identical month-to-month, so Vale was the
+    only mover, and dropping it made June == May."""
+    r = RealizadoInputs.from_snapshot(snapshot_jun)
+    assert r.area_custo_equipe["Contencioso"] == pytest.approx(75424.21, abs=0.05)
+    assert r.area_custo_equipe["Econômico"] == pytest.approx(80536.85, abs=0.05)
+    assert r.area_custo_equipe["Arbitragem"] == pytest.approx(54383.94, abs=0.05)
+    assert sum(r.area_custo_equipe.values()) == pytest.approx(210345.00, abs=0.05)
 
 
 def test_custos_diretos_include_comissao(snapshot):
@@ -704,19 +730,22 @@ def test_derived_block_drives_area_custo_equipe(snapshot):
 
 
 def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
-    # Real May 2026 SISJURI snapshot. Two fixes make per-area Custo equipe tie
-    # the workbook targets to the centavo (see HANDOFF_2026-07-13 "MAJOR WIN"):
-    #   FIX 1 — Vale (custo_equipe_area, the 500.010.<SIGLA> personal-debit
-    #           postings) must NOT be added to per-area Custo equipe; it belongs
-    #           to the transitória/Salários-ADM path (200.010.0010), not team cost.
-    #   FIX 2 — for convênio médico (030.010.0110) use the parsed "Parte MBC"
-    #           value from convenio_memo, not the gross posted amount.
+    # Real May 2026 SISJURI snapshot. Per-area Custo equipe = 030.010.* per-lawyer
+    # components + lawyer Vale (custo_equipe_area) folded by home area, with the
+    # convênio médico (030.010.0110) using the parsed "Parte MBC" value from
+    # convenio_memo (not the gross posted amount).
+    #
+    # RE-BASELINED 2026-07 (client "always include Vale"): May now folds JVO Vale
+    # 1.236,90 → Contencioso and VSR Vale 75,60 → Econômico, matching the JUNE
+    # methodology. The May book's Custo-equipe cells left Vale blank, so these
+    # exceed the old May-book targets by exactly the Vale amounts — the targets
+    # file was re-baselined in lock-step (workbook_targets_2026.json).
     r = RealizadoInputs.from_snapshot(snapshot_may)
-    assert r.area_custo_equipe["Contencioso"] == pytest.approx(74141.21, abs=0.01)
-    assert r.area_custo_equipe["Econômico"] == pytest.approx(79436.24, abs=0.01)
+    assert r.area_custo_equipe["Contencioso"] == pytest.approx(75378.11, abs=0.01)
+    assert r.area_custo_equipe["Econômico"] == pytest.approx(79511.85, abs=0.01)
     assert r.area_custo_equipe["Arbitragem"] == pytest.approx(54383.94, abs=0.01)
-    # Σ custo equipe = 207961.39; + comissão 2128.07 = Custos Diretos 210089.46.
-    assert r.custo_equipe == pytest.approx(207961.39, abs=0.01)
+    # Σ custo equipe = 209273.90; + comissão 2128.06 = Custos Diretos 211401.96.
+    assert r.custo_equipe == pytest.approx(209273.90, abs=0.01)
 
 
 def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
@@ -760,8 +789,9 @@ def test_comissao_may_ehf_folds_to_economico(snapshot_may):
     r = RealizadoInputs.from_snapshot(snap)
     assert r.area_comissao.get("Econômico") == pytest.approx(2128.06, abs=0.01)
     assert r.comissao_total == pytest.approx(2128.06, abs=0.01)
-    # Custos Diretos = Σ custo equipe (207961.39) + comissão (2128.06) = 210089.45.
-    assert r.custos_diretos == pytest.approx(210089.45, abs=0.01)
+    # Custos Diretos = Σ custo equipe (209273.90, Vale-inclusive) + comissão
+    # (2128.06) = 211401.96.
+    assert r.custos_diretos == pytest.approx(211401.96, abs=0.01)
 
 
 def test_derived_comissao_shows_on_area_tab_without_ledger(snapshot_may):
@@ -781,7 +811,7 @@ def test_derived_comissao_shows_on_area_tab_without_ledger(snapshot_may):
 
 
 def test_custo_equipe_may_passes_hard_rule(snapshot_may):
-    # With the two fixes, the per-area Custo equipe now MATCHES the workbook
+    # The Vale-inclusive per-area Custo equipe MATCHES the re-baselined workbook
     # targets, so the hard rule shows the value instead of blanking it.
     from app.closing.workbook_targets import targets_for
 
@@ -792,8 +822,8 @@ def test_custo_equipe_may_passes_hard_rule(snapshot_may):
     conten = _row(sections["contencioso"]["rows"], CUSTO_EQUIPE)
     econ = _row(sections["economico"]["rows"], CUSTO_EQUIPE)
     arb = _row(sections["arbitragem"]["rows"], CUSTO_EQUIPE)
-    assert conten["Realizado"]["value"] == pytest.approx(74141.21, abs=0.01)
-    assert econ["Realizado"]["value"] == pytest.approx(79436.24, abs=0.01)
+    assert conten["Realizado"]["value"] == pytest.approx(75378.11, abs=0.01)
+    assert econ["Realizado"]["value"] == pytest.approx(79511.85, abs=0.01)
     assert arb["Realizado"]["value"] == pytest.approx(54383.94, abs=0.01)
 
 

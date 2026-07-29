@@ -78,6 +78,33 @@ DESPESAS_AREA_RESULTADO_BRUTO = {
 }
 
 
+# Client-authorized Vale re-baseline (2026-07 June validation): "always include
+# lawyer Vale (refeição/transporte) in per-área Custo equipe". The MAY workbook
+# left those Vale rows blank, so the extracted May custo_equipe targets exclude
+# Vale — but from June on the book includes it, and the client confirmed that is
+# the correct methodology. The DB carries Vale in every month (custo_equipe_area,
+# 500.010.<SIGLA>), so our pipeline now folds it always. Re-baseline the May
+# custo_equipe targets by the per-area lawyer Vale so the hard rule stops blanking
+# them: JVO 1.236,90 → Contencioso, VSR 75,60 → Econômico (Arbitragem had none in
+# May). Institucional custo_equipe (= Custos Diretos) rises by the total 1.312,50.
+# Scoped to 2026-05 (the only month with hard-rule targets); Jun+ has no targets.
+VALE_REBASELINE_MONTH = "2026-05"
+VALE_PER_AREA = {"contencioso": 1236.90, "economico": 75.60}
+
+
+def _apply_vale_rebaseline(sec: dict[str, dict[str, float]]) -> None:
+    """In place: add lawyer Vale to the May per-área + institucional custo_equipe
+    targets (client-confirmed Vale-inclusive methodology)."""
+    total = 0.0
+    for area, vale in VALE_PER_AREA.items():
+        if area in sec and "custo_equipe" in sec[area]:
+            sec[area]["custo_equipe"] = round(sec[area]["custo_equipe"] + vale, 2)
+            total += vale
+    inst = sec.get("institucional", {})
+    if "custo_equipe" in inst:
+        inst["custo_equipe"] = round(inst["custo_equipe"] + total, 2)
+
+
 def _apply_despesas_area_override(sec: dict[str, dict[str, float]]) -> None:
     """In place: set the per-área ``resultado_bruto`` targets to the Renata-confirmed
     (DB cost-center) values, correcting the workbook's off-by-one Viagens subtotal."""
@@ -130,6 +157,9 @@ def main() -> None:
         # Client-authorized per-área Despesas Área override (Renata 2026-07-16).
         if month == DESPESAS_AREA_OVERRIDE_MONTH:
             _apply_despesas_area_override(sec)
+        # Client-authorized Vale re-baseline (2026-07 June validation).
+        if month == VALE_REBASELINE_MONTH:
+            _apply_vale_rebaseline(sec)
         targets[month] = sec
 
     final = {

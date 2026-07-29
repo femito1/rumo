@@ -25,9 +25,12 @@ def test_targets_for_known_month_may():
     assert inst["resultado_bruto"] == pytest.approx(100197.94, abs=0.01)
     assert inst["resultado_liquido"] == pytest.approx(29691.74, abs=0.01)
     assert inst["reserva_bonus"] == pytest.approx(2969.17, abs=0.01)
-    # Custo equipe Econômico maio = 79.436,24 (client-confirmed target).
-    assert t["economico"]["custo_equipe"] == pytest.approx(79436.24, abs=0.01)
-    assert t["contencioso"]["custo_equipe"] == pytest.approx(74141.21, abs=0.01)
+    # Custo equipe targets are Vale-inclusive (client "always include Vale",
+    # 2026-07 June validation): the May book left the lawyer-Vale rows blank, so
+    # these = workbook value + per-área lawyer Vale (Contencioso + JVO 1.236,90,
+    # Econômico + VSR 75,60). See build_workbook_targets._apply_vale_rebaseline.
+    assert t["economico"]["custo_equipe"] == pytest.approx(79511.84, abs=0.01)
+    assert t["contencioso"]["custo_equipe"] == pytest.approx(75378.11, abs=0.01)
 
 
 def test_may_per_area_resultado_bruto_uses_renata_despesas_area_ruling():

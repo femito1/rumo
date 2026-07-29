@@ -350,15 +350,23 @@ class RealizadoInputs:
                     )
                 elif CONVENIO_ACCOUNT not in existing.set_account:
                     existing.set_account[CONVENIO_ACCOUNT] = float(parsed)
-            # FIX 1 (HANDOFF_2026-07-13) — Do NOT add Vale (``custo_equipe_area``,
-            # the 500.010.<SIGLA> personal-debit postings) to per-area Custo
-            # equipe. Vale belongs to the transitória / Salários-ADM path
-            # (200.010.0010, wired into the institutional Salários Administração
-            # section), never to team cost. Proof: JVO's Vale 1.236,90 was exactly
-            # Contencioso's old residual. Only the per-lawyer 030.010.* rows drive
-            # Custo equipe.
+            # Lawyer Vale Refeição/Transporte (``custo_equipe_area``, the
+            # 500.010.<SIGLA> personal-debit postings) IS part of per-área Custo
+            # equipe — fold it by the lawyer's home area alongside the 030.010.*
+            # components. Client decision (2026-07 June validation): "always
+            # include Vale". The June book proves it — it books lawyer Vale where
+            # May left those rows blank, so Contencioso 74.141,21 → 75.424,21
+            # (+ JVO 1.283,00) and Econômico gains VSR 1.100,60; Total das Áreas
+            # 207.961,39 → 210.345,00, tying the workbook to the centavo.
+            #
+            # (Reverses the old HANDOFF_2026-07-13 "FIX 1", which excluded Vale.
+            # That tied May only because May's book *also* excluded it; May is now
+            # re-baselined — see workbook_targets_2026.json. Vale-ADM stays a
+            # SEPARATE block (``vale_adm`` → Salários Administração); no double
+            # count — custo_equipe_area is the per-lawyer 500.010.<SIGLA> slice.)
+            vale_rows = snap.get("custo_equipe_area") or []
             derived = derive_area_custo_equipe(
-                list(deriv_rows), splits, overrides=overrides
+                [*deriv_rows, *vale_rows], splits, overrides=overrides
             )
             if any(derived.values()):
                 area_custo = {a: round(v, 2) for a, v in derived.items()}

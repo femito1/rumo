@@ -116,7 +116,7 @@
     "2026-05": {
       "institucional": {
         "recebimento": 415928.0,
-        "custo_equipe": 210089.46,
+        "custo_equipe": 211401.96,
         "despesas": 105640.6,
         "resultado_bruto": 100197.94,
         "imposto": 62389.2,
@@ -126,12 +126,12 @@
       },
       "contencioso": {
         "recebimento": 240445.0,
-        "custo_equipe": 74141.21,
+        "custo_equipe": 75378.11,
         "resultado_bruto": 129860.86
       },
       "economico": {
         "recebimento": 166876.0,
-        "custo_equipe": 79436.24,
+        "custo_equipe": 79511.84,
         "resultado_bruto": 43444.15
       },
       "arbitragem": {
