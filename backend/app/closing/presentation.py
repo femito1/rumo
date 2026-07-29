@@ -132,6 +132,7 @@ def build_presentation(
     month_sections: dict[int, dict[str, Any]],
     ytd_sections: dict[str, Any] | None,
     meta: dict[str, Any] | None,
+    faturamento_by_month: dict[int, float] | None = None,
 ) -> dict[str, Any]:
     """Return the full presentation payload (see module docstring)."""
     present_months = sorted(m for m in month_sections if m <= period_month)
@@ -149,27 +150,33 @@ def build_presentation(
     )
     inst_ytd = _rows((ytd_sections or {}).get("institucional"))
 
+    # Faturamento is not a DRE row, so it cannot come from the sections or the YTD
+    # accumulator. ``faturamento_by_month`` carries it per month, read straight off
+    # each snapshot's ``revenue.faturamento_bruto`` by the provider (all six 2026
+    # months tie Fechamento MBC 06.2026 exactly). Client, 2026-07-28 19:49: *"ele não
+    # está puxando janeiro, fevereiro, março, abril no faturamento embaixo."*
+    fat_months = dict(faturamento_by_month or {})
+
     def inst_month_value(m: int, key: str) -> float | None:
-        rows = _rows(month_sections.get(m, {}).get("institucional"))
         if key == "faturamento":
-            # Faturamento isn't a DRE row; the KPI carries it only for the
-            # competence month, so per-month faturamento falls back to None.
-            return None
-        return _cell(rows, key)
+            return fat_months.get(m)
+        return _cell(_rows(month_sections.get(m, {}).get("institucional")), key)
 
     detail_rows: list[dict[str, Any]] = []
     for key, label in inst_lines:
         by_month = {m: inst_month_value(m, key) for m in present_months}
-        ytd_val = _cell(inst_ytd, key, "Realizado YTD")
+        if key == "faturamento":
+            # The competence month's KPI is the authoritative faturamento (it is the
+            # sacred LegalDesk figure); keep it winning over the snapshot copy.
+            by_month[period_month] = (
+                _num(kpis.get("faturamento_realizado")) or by_month.get(period_month)
+            )
+            # No DRE row to accumulate ⇒ sum what we show.
+            present = [v for v in by_month.values() if v is not None]
+            ytd_val = round(sum(present), 2) if present else None
+        else:
+            ytd_val = _cell(inst_ytd, key, "Realizado YTD")
         detail_rows.append({"key": key, "label": label, "months": by_month, "ytd": ytd_val})
-
-    # Faturamento per-month: pull from each month's KPI-equivalent (institucional
-    # recebimento is Receita; faturamento only reliably exists on the competence
-    # KPI). Fill the competence column from kpis so p.3's Faturamento row isn't
-    # empty; other months stay blank rather than guess.
-    for r in detail_rows:
-        if r["key"] == "faturamento":
-            r["months"][period_month] = _num(kpis.get("faturamento_realizado"))
 
     # ── Slide 4: YTD vs Meta + per-month attainment + reserva column ─────────
     meta = meta or {}

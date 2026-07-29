@@ -249,6 +249,29 @@ def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
     assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
+def test_presentation_faturamento_fills_every_month_not_just_competence(tmp_path, monkeypatch):
+    """2026-07-28, 19:49 — *"ele não está puxando janeiro, fevereiro, março, abril no
+    faturamento embaixo."* Receita filled but Faturamento only ever showed the
+    competence month: ``inst_month_value`` returned ``None`` for the faturamento key
+    outright and a second pass filled ``months[period_month]`` from the KPI alone.
+
+    It was never a data gap — every snapshot carries ``revenue.faturamento_bruto``
+    (verified against Fechamento MBC 06.2026: all six 2026 months tie exactly). So
+    the deck now sources per-month faturamento from the snapshots.
+    """
+    body = _closing(tmp_path, monkeypatch, months=(1, 2))
+    fat = next(
+        r for r in body["presentation"]["institucional_detalhe"]["linhas"]
+        if r["key"] == "faturamento"
+    )
+    # Both closed months present in the store must carry a value, not just Feb
+    # (the competence month, which the old KPI-only path already filled).
+    assert fat["months"][1] is not None, "January faturamento still blank"
+    assert fat["months"][2] is not None
+    # And the YTD cell is the sum of the months shown, not a single month.
+    assert fat["ytd"] == pytest.approx(fat["months"][1] + fat["months"][2], abs=0.02)
+
+
 def test_presentation_meta_anual_is_a_number_not_a_sourced_cell(tmp_path, monkeypatch):
     # ``assemble_meta`` returns meta.anual as {"value": ..., "source": ...}; passing
     # the dict through made the frontend render "R$ NaN".

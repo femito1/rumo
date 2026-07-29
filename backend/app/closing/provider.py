@@ -71,6 +71,7 @@ def _build_presentation(
     sections: dict,
     ytd_sections: dict | None,
     month_sections: dict[int, dict] | None,
+    faturamento_by_month: dict[int, float] | None = None,
 ) -> dict:
     """Assemble the client-facing presentation DECK (mirrors the monthly PPTX,
     slide by slide). Both roles receive it; a CLIENT receives ONLY this.
@@ -99,6 +100,7 @@ def _build_presentation(
         month_sections=months,
         ytd_sections=ytd_sections,
         meta=md,
+        faturamento_by_month=faturamento_by_month,
     )
 
 
@@ -116,6 +118,12 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
     in a sum without poisoning the whole line — and the client chose "segue com o
     sistema" for everything but that one reconciliation month.
 
+    Also returns ``faturamento`` — ``{month: revenue.faturamento_bruto}`` straight
+    off each snapshot. Faturamento is not a DRE row, so the deck previously had no
+    per-month source and showed it only for the competence month (client, 19:49:
+    *"ele não está puxando janeiro, fevereiro, março, abril no faturamento"*). We
+    read it here because this is the one place that already opens every snapshot.
+
     Returns None (not {}) when it can't be built, so the caller omits the tab
     entirely rather than showing a visibly empty one."""
     try:
@@ -128,10 +136,15 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
         ann = annual_budget(entries) if entries else {}
         snaps = _snapshot_store().snapshots_by_year(period.year, client_id=client.id)
         months: dict[int, dict] = {}
+        faturamento: dict[int, float] = {}
         for m, snap in snaps.items():
             ano_mes = f"{period.year:04d}-{m:02d}"
             if m > period.month or not is_closeable(ano_mes):
                 continue
+            # Faturamento is not a DRE line, so grab it off the snapshot here.
+            fat = ((snap.get("revenue") or {}).get("faturamento_bruto"))
+            if fat is not None:
+                faturamento[m] = round(float(fat), 2)
             bud_m = monthly_budget(entries, month=m) if entries else None
             # Cross-área recebimento reclassifications are per month, same as the
             # monthly path — without them per-área YTD wouldn't equal the sum of
@@ -158,8 +171,9 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
         )
         # Return BOTH the accumulated view and the per-month sections: the
         # presentation deck needs the monthly series (per-month attainment,
-        # reserva matrix) as well as the YTD columns.
-        return {"ytd": ytd or None, "months": months}
+        # reserva matrix) as well as the YTD columns — plus per-month faturamento,
+        # which has no DRE row to accumulate from.
+        return {"ytd": ytd or None, "months": months, "faturamento": faturamento}
     except Exception:  # pragma: no cover - acumulado is a best-effort overlay
         return None
 
@@ -201,7 +215,8 @@ class ClosingProvider:
         # per-área (mês/YTD/DRE), reserva matrix. Pure projection of the assembled
         # monthly + YTD sections. Built server-side so the ADMIN/CLIENT boundary holds.
         presentation = _build_presentation(
-            client, period, meta_kpis, sections, ytd_sections, month_sections
+            client, period, meta_kpis, sections, ytd_sections, month_sections,
+            (accumulated or {}).get("faturamento"),
         )
 
         # Cumulative (acumulado) TAB — the workbook's own cumulative view is the
