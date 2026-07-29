@@ -7,13 +7,45 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-28
+**Last updated:** 2026-07-29
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
-## ⭐ 2026-07-28 (latest) — cumulative is a TAB; 7 defects in the checkpoint fixed
+## ⭐ 2026-07-29 (latest) — June validation: custo-equipe fix, deck, re-theme
+
+Client meeting validating June numbers. Delivered:
+
+1. **Per-área Custo equipe fixed — ties the June workbook to the centavo.** June was
+   rendering MAY's numbers (Contencioso 74.141,21, Total 207.961,39). Root cause: the
+   `030.010.*` per-lawyer components are identical month-to-month, so the only mover is
+   **lawyer Vale (refeição/transporte)** — which the old `FIX 1` dropped. Client ruled
+   **"always include Vale"**; `dre.py` now folds `custo_equipe_area` into the derivation.
+   June: Contencioso 75.424,21 / Econômico 80.536,85 / Total **210.345,00** (workbook to
+   the centavo). May re-baselined (+1.236,90 / +75,60) via a generator override. Also
+   resolves the "Rateio total ≠ Areas Sintetico custo equipe" report. See
+   [[vale-in-custo-equipe-and-despinst-gap]].
+2. **Presentation is now a full slide-by-slide deck** mirroring the monthly PPTX
+   (`reference/workbook/MBC Resultado Jan a Mai 2026.pdf`): capa, índice, institucional
+   (mês + monthly detail), YTD×Meta + **Atingimento da Meta** bars, análise YTD with
+   status dots, per-área (mês/YTD/DRE), reserva matrix. `app/closing/presentation.py` is
+   a pure projection; renders for both roles (CLIENT sees only it) and exports to PDF.
+3. **Light re-theme to the PPTX palette** — white bg, black/gray, orange accent; green/red
+   reserved for numbers. **All negatives red** app-wide; positives green on result rows.
+4. **Areas Sintetico blocks expand/collapse** by section header, like Base_Resultado.
+
+**OPEN (needs a client rule, not a code bug):** per-área **Despesa Institucional** is
+over-rateized — we split 100% of the institucional pool by custo share, but the workbook
+holds ~R$18.939 back as institutional-only and splits the remainder on a *different* ratio.
+Client's cited 32.563 matches neither workbook realizado (30.609,71) nor orçado (33.821,38).
+Ask Renata for the hold-back rule before touching it.
+
+Backend 265 tests, frontend 60; ruff + mypy + lint clean. June snapshot added as a fixture.
+
+---
+
+## 2026-07-28 — cumulative is a TAB; 7 defects in the checkpoint fixed
 
 Review of the checkpoint commit (`8941598`) against the full transcript. **Six of the
 seven action points held up**; #1 (cumulative) was the wrong *shape* and broken in five
