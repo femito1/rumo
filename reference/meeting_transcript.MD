@@ -1,2647 +1,3802 @@
-Fernando Rimoli
-0 minutes 3 seconds0:03
-Fernando Rimoli 0 minutes 3 seconds
-Para minha, para minha tese de graduação, eu fiz um sistema que pega gravações e transforma em transcritos e tipo resumo e.
-A
+AM
 
-Adriana Ramos | Rumo Gestão
-0 minutes 7 seconds0:07
-Adriana Ramos | Rumo Gestão 0 minutes 7 seconds
-Uh-huh.
-Adriana Ramos | Rumo Gestão 0 minutes 9 seconds
-Mm.
-Adriana Ramos | Rumo Gestão 0 minutes 17 seconds
-Okay.
+Adriana Mendes
+0 minutes 3 seconds0:03
+Adriana Mendes 0 minutes 3 seconds
+Isa, vamos lá.
+Adriana Mendes 0 minutes 5 seconds
+Conseguiu? Foi muito pouco tempo, não é, Fernanda? Ela conseguiu avançar alguma coisa.
 FR
 
 Fernando Rimoli
-0 minutes 18 seconds0:18
-Fernando Rimoli 0 minutes 18 seconds
-E um mapa mental assim, tudo mais, então até podia usar isso aí, mas por enquanto do time está de boa.
+0 minutes 10 seconds0:10
+Fernando Rimoli 0 minutes 10 seconds
+Foi pouco tempo, mas eu consegui avançar assim. É, e eu estou nesse momento. Eu só estou esperando para o para a última coisa que eu fiz cair lá. Vai demorar, sei lá, um minuto, 2 minutos. Enquanto isso, a gente vai falando.
+AM
+
+Adriana Mendes
+0 minutes 14 seconds0:14
+Adriana Mendes 0 minutes 14 seconds
+Pacheco.
 A
 
 Adriana Ramos | Rumo Gestão
 0 minutes 21 seconds0:21
 Adriana Ramos | Rumo Gestão 0 minutes 21 seconds
-I think you can, yeah.
-Adriana Ramos | Rumo Gestão 0 minutes 26 seconds
-Legal.
-Adriana Ramos | Rumo Gestão 0 minutes 28 seconds
-Ela não me respondeu aqui não, Fernando, se você quiser ir começando só por causa do horário aí que a gente está.
-FR
+Mhm.
+Adriana Ramos | Rumo Gestão 0 minutes 22 seconds
+That.
+R
 
-Fernando Rimoli
-0 minutes 35 seconds0:35
-Fernando Rimoli 0 minutes 35 seconds
-Tá bom, vou compartilhar então.
+Renata Oliva | Rumo Gestão
+0 minutes 24 seconds0:24
+Renata Oliva | Rumo Gestão 0 minutes 24 seconds
+Um
 A
+
 Adriana Ramos | Rumo Gestão
-0 minutes 37 seconds0:37
-Adriana Ramos | Rumo Gestão 0 minutes 37 seconds
-So.
+0 minutes 25 seconds0:25
+Adriana Ramos | Rumo Gestão 0 minutes 25 seconds
+Double.
+AM
+
+Adriana Mendes
+0 minutes 25 seconds0:25
+Adriana Mendes 0 minutes 25 seconds
+Maravilha.
+R
+
+Renata Oliva | Rumo Gestão
+0 minutes 27 seconds0:27
+Renata Oliva | Rumo Gestão 0 minutes 27 seconds
+Quer levantar aquela questão que você que a gente ficou de trazer para a reunião?
 FR
 Fernando Rimoli
-0 minutes 41 seconds0:41
-Fernando Rimoli 0 minutes 41 seconds
-Power system banged.
+0 minutes 31 seconds0:31
+Fernando Rimoli 0 minutes 31 seconds
+Uh-huh.
+Fernando Rimoli 0 minutes 33 seconds
+Sim, é. Então eu estava falando com a Renata Adriana, é sobre uma categoria lá de despesa, que é a reforma, que é da conta. Como é que era a conta? Era zero 40030.
 A
 Adriana Ramos | Rumo Gestão
 0 minutes 43 seconds0:43
 Adriana Ramos | Rumo Gestão 0 minutes 43 seconds
-Ainda não foi.
+No.
 R
 Renata Oliva | Rumo Gestão
-0 minutes 45 seconds0:45
-Renata Oliva | Rumo Gestão 0 minutes 45 seconds
-Boy.
+0 minutes 48 seconds0:48
+Renata Oliva | Rumo Gestão 0 minutes 48 seconds
+Okay.
 FR
 Fernando Rimoli
-0 minutes 46 seconds0:46
-Fernando Rimoli 0 minutes 46 seconds
-Então, aí seguinte, é pelo que eu consigo ver.
-Fernando Rimoli 0 minutes 51 seconds
-Tudo de maio está batendo que eu tenho, tá? E algumas coisas que estão diferentes da planilha são coisas que eu falei com a Renata.
+0 minutes 49 seconds0:49
+Fernando Rimoli 0 minutes 49 seconds
+0030. Porque eu ainda não vi ela, né? Mas para o futuro, se acontecer. É, eu queria saber onde colocar ela e as 2 opções que eu acho que eu entendi seriam uma despesas gerais.
 A
 Adriana Ramos | Rumo Gestão
-0 minutes 54 seconds0:54
-Adriana Ramos | Rumo Gestão 0 minutes 54 seconds
-Tá.
-Adriana Ramos | Rumo Gestão 1 minute 1 second
+0 minutes 50 seconds0:50
+Adriana Ramos | Rumo Gestão 0 minutes 50 seconds
+Hmm.
+R
+Renata Oliva | Rumo Gestão
+0 minutes 50 seconds0:50
+Renata Oliva | Rumo Gestão 0 minutes 50 seconds
+I don't know.
+A
+Adriana Ramos | Rumo Gestão
+0 minutes 57 seconds0:57
+Adriana Ramos | Rumo Gestão 0 minutes 57 seconds
+Mhm.
+R
+Renata Oliva | Rumo Gestão
+1 minute1:00
+Renata Oliva | Rumo Gestão 1 minute
+Yes.
+Renata Oliva | Rumo Gestão 1 minute 5 seconds
+This Santos Cardoso.
+FR
+Fernando Rimoli
+1 minute 6 seconds1:06
+Fernando Rimoli 1 minute 6 seconds
+Yeah.
+A
+Adriana Ramos | Rumo Gestão
+1 minute 6 seconds1:06
+Adriana Ramos | Rumo Gestão 1 minute 6 seconds
 Mhm.
 FR
 Fernando Rimoli
-1 minute 2 seconds1:02
-Fernando Rimoli 1 minute 2 seconds
-É que são exatamente, deixa eu achar elas aqui, são é o aluguel da Bellini, né?
+1 minute 8 seconds1:08
+Fernando Rimoli 1 minute 8 seconds
+É aí que seria tipo manutenção do escritório ou investimentos institucionais, investimento institucional.
 R
 Renata Oliva | Rumo Gestão
-1 minute 6 seconds1:06
-Renata Oliva | Rumo Gestão 1 minute 6 seconds
-Okay.
+1 minute 9 seconds1:09
+Renata Oliva | Rumo Gestão 1 minute 9 seconds
+Thank you.
 A
 Adriana Ramos | Rumo Gestão
 1 minute 10 seconds1:10
 Adriana Ramos | Rumo Gestão 1 minute 10 seconds
 Mhm.
-Adriana Ramos | Rumo Gestão 1 minute 12 seconds
-Mhm.
+Adriana Ramos | Rumo Gestão 1 minute 15 seconds
+então aí vai depender do que a gente vai fazer então vamos lá não sei se a gente pode ter a opção de direcionar tá porque o que que acontece se for uma manutenção do escritório vamos lá uma pintura né
 FR
 Fernando Rimoli
-1 minute 13 seconds1:13
-Fernando Rimoli 1 minute 13 seconds
-No meu sistema estava dando um valor e aí na planilha de maio que vocês mandaram, estava dando outro. Aí eu pedi para a Renata checar e tal. Aí ela falou que o sistema que estava certo, não é, Renata?
-A
-Adriana Ramos | Rumo Gestão
-1 minute 16 seconds1:16
-Adriana Ramos | Rumo Gestão 1 minute 16 seconds
-Mhm.
-Adriana Ramos | Rumo Gestão 1 minute 22 seconds
-So.
+1 minute 15 seconds1:15
+Fernando Rimoli 1 minute 15 seconds
+And.
 R
 Renata Oliva | Rumo Gestão
-1 minute 26 seconds1:26
-Renata Oliva | Rumo Gestão 1 minute 26 seconds
-Isso, lembra que eu falei com o Mendes com você, é?
-A
-Adriana Ramos | Rumo Gestão
-1 minute 28 seconds1:28
-Adriana Ramos | Rumo Gestão 1 minute 28 seconds
-Léo, a gente vai. Não sei se a gente já corrigiu na planilha, mas a gente vai corrigir na planilha para ficar tudo certinho.
-R
-Renata Oliva | Rumo Gestão
-1 minute 34 seconds1:34
-Renata Oliva | Rumo Gestão 1 minute 34 seconds
-No.
-FR
-Fernando Rimoli
-1 minute 35 seconds1:35
-Fernando Rimoli 1 minute 35 seconds
-Tá aí isso era sim, 129 reais, 129 reais, bem pequeno.
-A
-Adriana Ramos | Rumo Gestão
-1 minute 36 seconds1:36
-Adriana Ramos | Rumo Gestão 1 minute 36 seconds
-How much diferença pequena?
-R
-Renata Oliva | Rumo Gestão
-1 minute 38 seconds1:38
-Renata Oliva | Rumo Gestão 1 minute 38 seconds
-Yeah.
-A
-Adriana Ramos | Rumo Gestão
-1 minute 39 seconds1:39
-Adriana Ramos | Rumo Gestão 1 minute 39 seconds
-Está não. Então está bom. Não é só para saber o que daria de efeito lá nos caras, mas OK, beleza, quase.
-R
-Renata Oliva | Rumo Gestão
-1 minute 40 seconds1:40
-Renata Oliva | Rumo Gestão 1 minute 40 seconds
-Isso.
-Renata Oliva | Rumo Gestão 1 minute 43 seconds
-That.
-FR
-Fernando Rimoli
-1 minute 44 seconds1:44
-Fernando Rimoli 1 minute 44 seconds
-E aí tá aí, essa é a única coisa que tava divergindo e tá tudo certo. Então se vocês quiserem checar uns números aqui, vocês vão me falando.
-R
-Renata Oliva | Rumo Gestão
-1 minute 45 seconds1:45
-Renata Oliva | Rumo Gestão 1 minute 45 seconds
+1 minute 24 seconds1:24
+Renata Oliva | Rumo Gestão 1 minute 24 seconds
 Okay.
 A
 Adriana Ramos | Rumo Gestão
-1 minute 48 seconds1:48
-Adriana Ramos | Rumo Gestão 1 minute 48 seconds
-Santos.
-R
-Renata Oliva | Rumo Gestão
-1 minute 49 seconds1:49
-Renata Oliva | Rumo Gestão 1 minute 49 seconds
-Hey.
-A
-Adriana Ramos | Rumo Gestão
-1 minute 51 seconds1:51
-Adriana Ramos | Rumo Gestão 1 minute 51 seconds
-Mhm.
-R
-Renata Oliva | Rumo Gestão
-1 minute 51 seconds1:51
-Renata Oliva | Rumo Gestão 1 minute 51 seconds
-Mm.
+1 minute 34 seconds1:34
+Adriana Ramos | Rumo Gestão 1 minute 34 seconds
+Uma nesse sentido, de.
+Adriana Ramos | Rumo Gestão 1 minute 39 seconds
+De manutenção mesmo. A palavra acho que é essa mesmo. Agora, se for uma obra de investimento, uma é, vou fazer uma sala de reunião, vou botar uma acústica aqui, aí é ligado a.
 FR
 Fernando Rimoli
-1 minute 53 seconds1:53
-Fernando Rimoli 1 minute 53 seconds
-E a gente vai checando juntos.
-A
-Adriana Ramos | Rumo Gestão
-1 minute 56 seconds1:56
-Adriana Ramos | Rumo Gestão 1 minute 56 seconds
-Tá, deixa eu perguntar, esse é o analítico?
+1 minute 42 seconds1:42
+Fernando Rimoli 1 minute 42 seconds
+Uh-huh.
+R
+Renata Oliva | Rumo Gestão
+1 minute 44 seconds1:44
+Renata Oliva | Rumo Gestão 1 minute 44 seconds
+Melhoria de melhoria.
 FR
 Fernando Rimoli
+1 minute 45 seconds1:45
+Fernando Rimoli 1 minute 45 seconds
+Okay.
+A
+Adriana Ramos | Rumo Gestão
+1 minute 55 seconds1:55
+Adriana Ramos | Rumo Gestão 1 minute 55 seconds
+Investimento está mais.
+AM
+Adriana Mendes
 1 minute 56 seconds1:56
-Fernando Rimoli 1 minute 56 seconds
-E uma coisa, de janeiro a abril.
+Adriana Mendes 1 minute 56 seconds
+Mas o nome da categoria não é despesa?
 R
 Renata Oliva | Rumo Gestão
 1 minute 57 seconds1:57
 Renata Oliva | Rumo Gestão 1 minute 57 seconds
 Okay.
-FR
-Fernando Rimoli
-2 minutes 2 seconds2:02
-Fernando Rimoli 2 minutes 2 seconds
-Eu IA falar de janeiro a abril, estava diferente porque de janeiro a abril estava usando uma lógica diferente para o para o vale vale ADM estava usando uma lógica diferente que eu vi de Ibrac.
 A
 Adriana Ramos | Rumo Gestão
-2 minutes 4 seconds2:04
-Adriana Ramos | Rumo Gestão 2 minutes 4 seconds
-Mm.
+2 minutes2:00
+Adriana Ramos | Rumo Gestão 2 minutes
+Não é despesa, mas lá dentro ela abre. Tem despesa de material de escritório, tem despesa com copa.
+AM
+Adriana Mendes
+2 minutes 6 seconds2:06
+Adriana Mendes 2 minutes 6 seconds
+Não, mas se o nome da categoria já é despesa, como é que vai classificar alguma coisa ali dentro para investimento?
+A
+Adriana Ramos | Rumo Gestão
+2 minutes 13 seconds2:13
+Adriana Ramos | Rumo Gestão 2 minutes 13 seconds
+Não, veja só, ela abre a despesa, ela abre em vários itens.
 R
 Renata Oliva | Rumo Gestão
-2 minutes 4 seconds2:04
-Renata Oliva | Rumo Gestão 2 minutes 4 seconds
-I.
-Renata Oliva | Rumo Gestão 2 minutes 11 seconds
-All right.
-FR
-Fernando Rimoli
-2 minutes 18 seconds2:18
-Fernando Rimoli 2 minutes 18 seconds
-AASP essas coisas tipo não estavam mostrando na planilha de maio, por exemplo, em fevereiro faltou o ASP, certo? Mas março e abril já bateu.
-A
-Adriana Ramos | Rumo Gestão
-2 minutes 21 seconds2:21
-Adriana Ramos | Rumo Gestão 2 minutes 21 seconds
+2 minutes 13 seconds2:13
+Renata Oliva | Rumo Gestão 2 minutes 13 seconds
 No.
-Adriana Ramos | Rumo Gestão 2 minutes 24 seconds
-Uh
+AM
+Adriana Mendes
+2 minutes 17 seconds2:17
+Adriana Mendes 2 minutes 17 seconds
+Então, uma despesa abre em vários itens, ok, mas como é que uma despesa que está categorizada como despesa vira investimento? Ela ainda deveria estar ali então.
 R
 Renata Oliva | Rumo Gestão
-2 minutes 27 seconds2:27
-Renata Oliva | Rumo Gestão 2 minutes 27 seconds
-Okay.
-Renata Oliva | Rumo Gestão 2 minutes 32 seconds
-H.
-FR
-Fernando Rimoli
-2 minutes 33 seconds2:33
-Fernando Rimoli 2 minutes 33 seconds
-Então eu lembro que eu tinha mencionado essas coisas com vocês na reunião, não passada mais na antes. Aí vocês falam, tá bom, tipo, foca na de maio, por enquanto. Então eu fiquei na de maio, mas depois a gente pode também falar dessas divergências entre janeiro e abril.
-A
-Adriana Ramos | Rumo Gestão
-2 minutes 34 seconds2:34
-Adriana Ramos | Rumo Gestão 2 minutes 34 seconds
-Yeah.
-Adriana Ramos | Rumo Gestão 2 minutes 40 seconds
-Uh-huh.
-Adriana Ramos | Rumo Gestão 2 minutes 44 seconds
-Yeah.
+2 minutes 26 seconds2:26
+Renata Oliva | Rumo Gestão 2 minutes 26 seconds
+É porque o que acontece? O grupo de contas principal, que é o zero 40, ela é associada a investimento. Aí dentro do grupo de contas zero 40, ela tem vários desdobramentos, que tudo ali pode ser relacionado a investimento. Então você tem.
+Renata Oliva | Rumo Gestão 2 minutes 41 seconds
+Ali dentro, consultoria, tem despesa.
+AM
+Adriana Mendes
+2 minutes 44 seconds2:44
+Adriana Mendes 2 minutes 44 seconds
+Não, investimento eu entendo, mas isso aí não investimento, OK, mas eu entendi que o nome da categoria é despesa reforma.
+Adriana Mendes 2 minutes 52 seconds
+Pô, entendi errado também.
 R
 Renata Oliva | Rumo Gestão
-2 minutes 47 seconds2:47
-Renata Oliva | Rumo Gestão 2 minutes 47 seconds
-Okay.
-A
-Adriana Ramos | Rumo Gestão
-2 minutes 48 seconds2:48
-Adriana Ramos | Rumo Gestão 2 minutes 48 seconds
-Tá, deixa eu abrir aqui maio, estou abrindo aqui só pra gente bater. É, vamos lá, é que eu só estou com.
-FR
-Fernando Rimoli
 2 minutes 54 seconds2:54
-Fernando Rimoli 2 minutes 54 seconds
-Yeah.
-R
-Renata Oliva | Rumo Gestão
-2 minutes 57 seconds2:57
-Renata Oliva | Rumo Gestão 2 minutes 57 seconds
-Acho que eu estou com, não estou com a time sheet aberta para fazer outra coisa.
-A
-Adriana Ramos | Rumo Gestão
-3 minutes 2 seconds3:02
-Adriana Ramos | Rumo Gestão 3 minutes 2 seconds
-Tá, é que eu estou com só. Eu estou com uma tela só que eu estou. Agora eu me atrasei aqui. É, eu vi que eu quero, por favor, Renata, o resultado eu vi que bateu a reserva de bônus.
-R
-Renata Oliva | Rumo Gestão
-3 minutes 2 seconds3:02
-Renata Oliva | Rumo Gestão 3 minutes 2 seconds
-Yeah.
-Renata Oliva | Rumo Gestão 3 minutes 6 seconds
-Take a cobra aqui, Daniel, take a cobra.
-A
-Adriana Ramos | Rumo Gestão
-3 minutes 19 seconds3:19
-Adriana Ramos | Rumo Gestão 3 minutes 19 seconds
-de maio.
-Adriana Ramos | Rumo Gestão 3 minutes 23 seconds
-Okay, aí só uma dúvida aqui, a gente tá, a gente tem um acu, onde é que tá o acumulado, Fernando?
+Renata Oliva | Rumo Gestão 2 minutes 54 seconds
+É reforma. A conta é reforma. Não é isso? O Fernando, ela é reforma? É. E a só reforma não é reforma.
 FR
 Fernando Rimoli
-3 minutes 35 seconds3:35
-Fernando Rimoli 3 minutes 35 seconds
-Como assim um acumulado?
+2 minutes 59 seconds2:59
+Fernando Rimoli 2 minutes 59 seconds
+Sim, sim, sim, é só reforma.
 A
 Adriana Ramos | Rumo Gestão
-3 minutes 36 seconds3:36
-Adriana Ramos | Rumo Gestão 3 minutes 36 seconds
-É nessa área sintética aqui, atualizado, deve ser. Veja aqui.
-FR
-Fernando Rimoli
-3 minutes 41 seconds3:41
-Fernando Rimoli 3 minutes 41 seconds
-Company.
+3 minutes 1 second3:01
+Adriana Ramos | Rumo Gestão 3 minutes 1 second
+É só reforma, é só reforma.
+AM
+Adriana Mendes
+3 minutes 2 seconds3:02
+Adriana Mendes 3 minutes 2 seconds
+Ai, só que não é despesa de reforma, OK?
 R
 Renata Oliva | Rumo Gestão
-3 minutes 41 seconds3:41
-Renata Oliva | Rumo Gestão 3 minutes 41 seconds
-O lado ele vai somando todos os meses.
+3 minutes 7 seconds3:07
+Renata Oliva | Rumo Gestão 3 minutes 7 seconds
+E a reforma, dependendo do viés dela, ela pode ser ou de despesa ou de investimento. É, entendeu?
+AM
+Adriana Mendes
+3 minutes 10 seconds3:10
+Adriana Mendes 3 minutes 10 seconds
+OK, agora sim, agora OK, agora OK.
 A
 Adriana Ramos | Rumo Gestão
+3 minutes 13 seconds3:13
+Adriana Ramos | Rumo Gestão 3 minutes 13 seconds
+That.
+R
+Renata Oliva | Rumo Gestão
+3 minutes 15 seconds3:15
+Renata Oliva | Rumo Gestão 3 minutes 15 seconds
+Tanto que ela está dentro desse grupo de investimento, que ela começa com 0,40. Todo o grupo 0,40 é relacionado a investimento. Só que aí não tem despesas gerais ali dentro. Ela só tem dentro do plano de contas. Ela é relacionada a investimento, não a despesas gerais.
+Renata Oliva | Rumo Gestão 3 minutes 34 seconds
+Aí a gente na hora de categorizar ali que joga em despesas gerais.
+Renata Oliva | Rumo Gestão 3 minutes 39 seconds
+L, L, L, L. Yeah, entendeu?
+AM
+Adriana Mendes
+3 minutes 39 seconds3:39
+Adriana Mendes 3 minutes 39 seconds
+Tá, mas como é que vai? Então agora eu entendi, volta a pergunta do Fernando, o que ele achar ali do zero 40 de reforma ele joga para despesas de como que ele vai saber se joga para despesa geral ou se joga para investimento institucional?
+Renata Oliva | Rumo Gestão
 3 minutes 44 seconds3:44
-Adriana Ramos | Rumo Gestão 3 minutes 44 seconds
-É o acumulado é que ele soma todos os meses, é o year to date e o year to go, que tem no finalzinho da planilha. São 2 colunas lá no final dessa área do sintético.
-FR
-Fernando Rimoli
-3 minutes 55 seconds3:55
-Fernando Rimoli 3 minutes 55 seconds
-I don't have talking.
+Renata Oliva | Rumo Gestão 3 minutes 44 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 3 minutes 50 seconds
+Yeah, but
 A
 Adriana Ramos | Rumo Gestão
+3 minutes 51 seconds3:51
+Adriana Ramos | Rumo Gestão 3 minutes 51 seconds
+Joga para despesa geral, pronto, joga para despesa geral. Não vai ter investimento agora, pode jogar para despesa geral e tão pouco vai ter investimento. Pode jogar para despesa geral. Pronto, tá?
+FR
+Fernando Rimoli
 4 minutes4:00
-Adriana Ramos | Rumo Gestão 4 minutes
-Deixa eu ver, desce mais um pouquinho.
-FR
-Fernando Rimoli
-4 minutes 3 seconds4:03
-Fernando Rimoli 4 minutes 3 seconds
-Esse aqui é o final.
-A
-Adriana Ramos | Rumo Gestão
-4 minutes 11 seconds4:11
-Adriana Ramos | Rumo Gestão 4 minutes 11 seconds
-Não, então sobe, por favor, para eu ver o institucional.
-FR
-Fernando Rimoli
-4 minutes 19 seconds4:19
-Fernando Rimoli 4 minutes 19 seconds
-Dah, I can.
-A
-Adriana Ramos | Rumo Gestão
-4 minutes 19 seconds4:19
-Adriana Ramos | Rumo Gestão 4 minutes 19 seconds
-Aqui não, é aqui, parou aqui, é não, tá vendo realizado aqui, você dá reserva de bônus, você tá trazendo orçado ver se realizado só do mês de maio, é só de maio. E aí na se você for na nossa planilha de trabalho,
+Fernando Rimoli 4 minutes
+Tá bom.
 R
 Renata Oliva | Rumo Gestão
-4 minutes 29 seconds4:29
-Renata Oliva | Rumo Gestão 4 minutes 29 seconds
-Told you like, it's Souza Kings there.
+4 minutes 1 second4:01
+Renata Oliva | Rumo Gestão 4 minutes 1 second
+Oh.
 FR
 Fernando Rimoli
-4 minutes 29 seconds4:29
-Fernando Rimoli 4 minutes 29 seconds
-Same.
+4 minutes 2 seconds4:02
+Fernando Rimoli 4 minutes 2 seconds
+Tá bom, tudo bem.
+Fernando Rimoli 4 minutes 5 seconds
+Vanu Taki.
 A
 Adriana Ramos | Rumo Gestão
-4 minutes 36 seconds4:36
-Adriana Ramos | Rumo Gestão 4 minutes 36 seconds
-Você vê lá que no final, esses aqui são os dos meses, a gente está olhando para maio. Só que a gente tem um acumulado, que é o orçamento. Você está com a planilha aberta ou quer que a gente compartilhe para você ver?
+4 minutes 6 seconds4:06
+Adriana Ramos | Rumo Gestão 4 minutes 6 seconds
+Mhm.
+AM
+Adriana Mendes
+4 minutes 7 seconds4:07
+Adriana Mendes 4 minutes 7 seconds
+Porque se um dia aparecer alguma coisa de reforma para investimentos, deve estar em outra conta para facilitar, talvez.
+A
+Adriana Ramos | Rumo Gestão
+4 minutes 13 seconds4:13
+Adriana Ramos | Rumo Gestão 4 minutes 13 seconds
+É, aí destaca, a gente destaca em outro lugar.
+AM
+Adriana Mendes
+4 minutes 15 seconds4:15
+Adriana Mendes 4 minutes 15 seconds
+Yeah.
 R
 Renata Oliva | Rumo Gestão
-4 minutes 38 seconds4:38
-Renata Oliva | Rumo Gestão 4 minutes 38 seconds
-Okay.
-Renata Oliva | Rumo Gestão 4 minutes 44 seconds
-Thank you.
+4 minutes 16 seconds4:16
+Renata Oliva | Rumo Gestão 4 minutes 16 seconds
+E também vai ser um valor bem mais expressivo, né? É. Então a gente acaba que a gente vai ter que administrar isso, é.
+A
+Adriana Ramos | Rumo Gestão
+4 minutes 20 seconds4:20
+Adriana Ramos | Rumo Gestão 4 minutes 20 seconds
+É, exatamente, é.
+AM
+Adriana Mendes
+4 minutes 20 seconds4:20
+Adriana Mendes 4 minutes 20 seconds
+Ah, sim, verdade.
+A
+Adriana Ramos | Rumo Gestão
+4 minutes 24 seconds4:24
+Adriana Ramos | Rumo Gestão 4 minutes 24 seconds
+é não vai ser não vai ser uma coisa vai ser diferenciado que nem tem esse negócio dessa amortização essa amortização que que é uma planilha a par né que a gente que a gente acaba fazendo destacado ali ela ela é uma coisa de uma obra que eles fizeram a sei lá 4 anos
+Adriana Ramos | Rumo Gestão 4 minutes 42 seconds
+3 anos atrás, 4 anos atrás, logo depois da pandemia, quando eles foram para esse imóvel novo, entendeu? E aí está ali na linha de amortização.
+R
+Renata Oliva | Rumo Gestão
+4 minutes 47 seconds4:47
 Renata Oliva | Rumo Gestão 4 minutes 47 seconds
-Thank you.
+Good.
 FR
 Fernando Rimoli
-4 minutes 49 seconds4:49
-Fernando Rimoli 4 minutes 49 seconds
-Não, compartilha aí, por favor.
+4 minutes 52 seconds4:52
+Fernando Rimoli 4 minutes 52 seconds
+Então, aí eu vou mostrar para vocês agora. Tem um erro que era que eu precisava fazer, tipo ir lá no servidor do CJUR e fazer uma coisa lá. Eu já sei o que, e que está fazendo essa reserva de bônus ficar um pouco maior.
 A
 Adriana Ramos | Rumo Gestão
-4 minutes 51 seconds4:51
-Adriana Ramos | Rumo Gestão 4 minutes 51 seconds
-Então pera aí deixa eu deixa eu compartilhar
-R
-Renata Oliva | Rumo Gestão
-4 minutes 53 seconds4:53
-Renata Oliva | Rumo Gestão 4 minutes 53 seconds
-Eu estou aqui, você também está?
-A
-Adriana Ramos | Rumo Gestão
-4 minutes 55 seconds4:55
+4 minutes 52 seconds4:52
+Adriana Ramos | Rumo Gestão 4 minutes 52 seconds
+That.
 Adriana Ramos | Rumo Gestão 4 minutes 55 seconds
-Então vai, estou, estou. Deixa eu abrir aqui. Eu estou com ela aqui, já vou abrir aqui. Olha só, Fernando, o que eu estou falando é o seguinte, beleza, o de maio compartilhou.
+Mhm.
+Adriana Ramos | Rumo Gestão 5 minutes 3 seconds
+The.
+FR
+Fernando Rimoli
+5 minutes 7 seconds5:07
+Fernando Rimoli 5 minutes 7 seconds
+Porque tem uma coisa que é dobrada.
+A
+Adriana Ramos | Rumo Gestão
+5 minutes 8 seconds5:08
+Adriana Ramos | Rumo Gestão 5 minutes 8 seconds
+Gostei já do layout, já ficou mais, já ficou mais claro, é.
 R
 Renata Oliva | Rumo Gestão
-4 minutes 58 seconds4:58
-Renata Oliva | Rumo Gestão 4 minutes 58 seconds
+5 minutes 10 seconds5:10
+Renata Oliva | Rumo Gestão 5 minutes 10 seconds
+Yeah, but.
+FR
+Fernando Rimoli
+5 minutes 11 seconds5:11
+Fernando Rimoli 5 minutes 11 seconds
+Mhm.
+AM
+Adriana Mendes
+5 minutes 12 seconds5:12
+Adriana Mendes 5 minutes 12 seconds
+Muito bom.
+FR
+Fernando Rimoli
+5 minutes 12 seconds5:12
+Fernando Rimoli 5 minutes 12 seconds
+Aí, mas o eu queria mostrar aqui como é que está a apresentação agora, se liga.
+A
+Adriana Ramos | Rumo Gestão
+5 minutes 17 seconds5:17
+Adriana Ramos | Rumo Gestão 5 minutes 17 seconds
+Ah, legal!
+AM
+Adriana Mendes
+5 minutes 18 seconds5:18
+Adriana Mendes 5 minutes 18 seconds
+68.
+A
+Adriana Ramos | Rumo Gestão
+5 minutes 22 seconds5:22
+Adriana Ramos | Rumo Gestão 5 minutes 22 seconds
+ficou ótimo Fernando e puxa de lá né exatamente naquele layout perfeito
+R
+Renata Oliva | Rumo Gestão
+5 minutes 23 seconds5:23
+Renata Oliva | Rumo Gestão 5 minutes 23 seconds
+Bye. Someone.
+FR
+Fernando Rimoli
+5 minutes 25 seconds5:25
+Fernando Rimoli 5 minutes 25 seconds
+Uh-huh.
+AM
+Adriana Mendes
+5 minutes 28 seconds5:28
+Adriana Mendes 5 minutes 28 seconds
+Nossa, tell me.
+A
+Adriana Ramos | Rumo Gestão
+5 minutes 28 seconds5:28
+Adriana Ramos | Rumo Gestão 5 minutes 28 seconds
+Porque é isso aqui que a gente está excelente, que é isso aqui que a gente bate com eles, não é? É show.
+R
+Renata Oliva | Rumo Gestão
+5 minutes 30 seconds5:30
+Renata Oliva | Rumo Gestão 5 minutes 30 seconds
+Oh, I'd show my silage.
+FR
+Fernando Rimoli
+5 minutes 33 seconds5:33
+Fernando Rimoli 5 minutes 33 seconds
+Uhum, isso aqui vai estar mostrando todo mês agora. Aí outra coisa, eu consertei o rateio, né?
+R
+Renata Oliva | Rumo Gestão
+5 minutes 42 seconds5:42
+Renata Oliva | Rumo Gestão 5 minutes 42 seconds
 A.
-Renata Oliva | Rumo Gestão 5 minutes 5 seconds
-Dying the afraid.
-FR
-Fernando Rimoli
-5 minutes 5 seconds5:05
-Fernando Rimoli 5 minutes 5 seconds
-Sim, estou vendo.
 A
 Adriana Ramos | Rumo Gestão
-5 minutes 6 seconds5:06
-Adriana Ramos | Rumo Gestão 5 minutes 6 seconds
-Tá beleza, o de maio tá aqui, o de juiz, a gente está trabalhando agora. O de maio tá aqui, batidinho, 29. Eu não olhei ainda para as áreas, tá? Mas vamos focar primeiro aqui no institucional. O que eu estou falando é que essa aba aqui, ela traz uma presença, essa aba não, essas colunas aqui.
-Adriana Ramos | Rumo Gestão 5 minutes 23 seconds
-A gente usa elas para também fazer uma apresentação, que foi a que eu mandei para vocês. Eu mandei para vocês 22 arquivos, esse de Excel e a apresentação que a gente está fazendo agora para eles. Então, na apresentação, quando eles olham.
-R
-Renata Oliva | Rumo Gestão
-5 minutes 24 seconds5:24
-Renata Oliva | Rumo Gestão 5 minutes 24 seconds
-Okay.
+5 minutes 42 seconds5:42
+Adriana Ramos | Rumo Gestão 5 minutes 42 seconds
+Tá, eu não abri aqui, não sei se a Renata está com ele aberto aí só para a gente bater.
 FR
 Fernando Rimoli
-5 minutes 35 seconds5:35
-Fernando Rimoli 5 minutes 35 seconds
-Sing, sing, Tom.
-A
-Adriana Ramos | Rumo Gestão
-5 minutes 40 seconds5:40
-Adriana Ramos | Rumo Gestão 5 minutes 40 seconds
-É, por exemplo, amanhã a gente tem reunião com eles. Eu não passo tudo aberto, então eu passo também o resultado de maio, mostrando um overview e mostro aqui o resultado do year to go, que é o orçamento e quanto que está no orçado.
+5 minutes 43 seconds5:43
+Fernando Rimoli 5 minutes 43 seconds
+Achei onde tinha lá e agora os rateios estão, os rateios estão batendo também, não é?
 R
 Renata Oliva | Rumo Gestão
 5 minutes 49 seconds5:49
 Renata Oliva | Rumo Gestão 5 minutes 49 seconds
-Okay.
+Não, mas eu abro aqui. Mas era isso aí, 210 345. Acho que era isso.
 A
 Adriana Ramos | Rumo Gestão
-5 minutes 56 seconds5:56
-Adriana Ramos | Rumo Gestão 5 minutes 56 seconds
-De janeiro, no caso aqui que você está mostrando de janeiro a maio e o realizado.
-Adriana Ramos | Rumo Gestão 6 minutes 2 seconds
-Para comparar o que estava orçado de janeiro a maio e o que a gente realizou de janeiro a maio, e aí eu não sei onde você está mostrando aí no seu, nesse trabalho que está montando.
-R
-Renata Oliva | Rumo Gestão
-6 minutes 5 seconds6:05
-Renata Oliva | Rumo Gestão 6 minutes 5 seconds
-Okay.
+5 minutes 50 seconds5:50
+Adriana Ramos | Rumo Gestão 5 minutes 50 seconds
+So.
+Adriana Ramos | Rumo Gestão 5 minutes 51 seconds
+Tá.
+Adriana Ramos | Rumo Gestão 5 minutes 55 seconds
+O Fernando, onde a gente esqueceu de te perguntar uma coisa, e aí eu, para só para eu não esquecer, eu queria te perguntar uma coisa, e isso aqui ele vai ficar, é?
+Adriana Ramos | Rumo Gestão 6 minutes 7 seconds
+Não sei se a palavra certa é online, tá? Mas quando você a gente já está em julho, em julho, você vai, você já automaticamente você vai alimentando isso porque ele puxa do sistema, então ele é online, é isso.
 FR
 Fernando Rimoli
-6 minutes 14 seconds6:14
-Fernando Rimoli 6 minutes 14 seconds
-Mm-hmm. Down.
-R
-Renata Oliva | Rumo Gestão
-6 minutes 15 seconds6:15
-Renata Oliva | Rumo Gestão 6 minutes 15 seconds
-Sure.
-A
-Adriana Ramos | Rumo Gestão
 6 minutes 20 seconds6:20
-Adriana Ramos | Rumo Gestão 6 minutes 20 seconds
-Que é isso aqui, né? Que são essas três colunas aqui.
-FR
-Fernando Rimoli
-6 minutes 25 seconds6:25
-Fernando Rimoli 6 minutes 25 seconds
-Eu tenho o DRE orçado, que não mostra a variação, né? Deixa eu ver.
-R
-Renata Oliva | Rumo Gestão
-6 minutes 30 seconds6:30
-Renata Oliva | Rumo Gestão 6 minutes 30 seconds
-Yes.
+Fernando Rimoli 6 minutes 20 seconds
+Isso no primeiro dia de agosto é o fechamento de julho já vai estar aqui.
 A
 Adriana Ramos | Rumo Gestão
-6 minutes 31 seconds6:31
-Adriana Ramos | Rumo Gestão 6 minutes 31 seconds
-Beleza, que é essa daqui, a year to date você vai ter também, porque é só pegar de janeiro ao mês que a gente está falando, né? E o realizado também é o acumulado de janeiro ao mês que a gente estiver falando.
+6 minutes 22 seconds6:22
+Adriana Ramos | Rumo Gestão 6 minutes 22 seconds
+O.
+Adriana Ramos | Rumo Gestão 6 minutes 26 seconds
+Tá, queria entender como é que é essa dinâmica. Então é sempre no D1 do mês que está começando. É isso. No D0, desculpa, no D0 do mês que está começando.
 FR
 Fernando Rimoli
-6 minutes 34 seconds6:34
-Fernando Rimoli 6 minutes 34 seconds
-O.
-R
-Renata Oliva | Rumo Gestão
-6 minutes 34 seconds6:34
-Renata Oliva | Rumo Gestão 6 minutes 34 seconds
-Yeah, yeah.
+6 minutes 33 seconds6:33
+Fernando Rimoli 6 minutes 33 seconds
+Yes, exact.
+Fernando Rimoli 6 minutes 37 seconds
+Isso aí.
+A
+Adriana Ramos | Rumo Gestão
+6 minutes 38 seconds6:38
+Adriana Ramos | Rumo Gestão 6 minutes 38 seconds
+Yeah.
+Adriana Ramos | Rumo Gestão 6 minutes 41 seconds
+Okay.
 FR
 Fernando Rimoli
 6 minutes 41 seconds6:41
 Fernando Rimoli 6 minutes 41 seconds
-Sing.
-Fernando Rimoli 6 minutes 51 seconds
-É, acho que eu não inclui essas 3 colunas aqui porque eu mais fiz tipo para cada. É porque eu tenho os filtros por mês, não é? Aí eu fiz para cada mês os valores e não pus o cumulativo.
-R
-Renata Oliva | Rumo Gestão
-6 minutes 54 seconds6:54
-Renata Oliva | Rumo Gestão 6 minutes 54 seconds
-Okay.
+É, e alguns números não estão batendo ainda, exatamente porque.
 A
 Adriana Ramos | Rumo Gestão
-6 minutes 55 seconds6:55
-Adriana Ramos | Rumo Gestão 6 minutes 55 seconds
-Uh-huh.
-Adriana Ramos | Rumo Gestão 7 minutes 2 seconds
-Sing.
+6 minutes 45 seconds6:45
+Adriana Ramos | Rumo Gestão 6 minutes 45 seconds
+Por que ele não é online, Fernando? Só para uma desculpa, só uma dúvida. Porque se ele está lá linkado, ele não poderia já estar pegando esses números no diário.
 R
 Renata Oliva | Rumo Gestão
-7 minutes 3 seconds7:03
-Renata Oliva | Rumo Gestão 7 minutes 3 seconds
-Okay.
-A
-Adriana Ramos | Rumo Gestão
-7 minutes 7 seconds7:07
-Adriana Ramos | Rumo Gestão 7 minutes 7 seconds
-É, mas é importante.
-R
-Renata Oliva | Rumo Gestão
-7 minutes 7 seconds7:07
-Renata Oliva | Rumo Gestão 7 minutes 7 seconds
-Essa acumulada é o mais simples de fazer uma, que é um somatório.
-A
-Adriana Ramos | Rumo Gestão
-7 minutes 10 seconds7:10
-Adriana Ramos | Rumo Gestão 7 minutes 10 seconds
-F.
+6 minutes 45 seconds6:45
+Renata Oliva | Rumo Gestão 6 minutes 45 seconds
+That.
+Renata Oliva | Rumo Gestão 6 minutes 48 seconds
+Ohh yeah.
 FR
 Fernando Rimoli
-7 minutes 10 seconds7:10
-Fernando Rimoli 7 minutes 10 seconds
-Sim.
+6 minutes 52 seconds6:52
+Fernando Rimoli 6 minutes 52 seconds
+Pode, é sim, pode. Eu só fiz essa regra porque na minha cabeça isso era sempre um fechamento mensal, mas.
+R
+Renata Oliva | Rumo Gestão
+6 minutes 55 seconds6:55
+Renata Oliva | Rumo Gestão 6 minutes 55 seconds
+O.
 A
 Adriana Ramos | Rumo Gestão
-7 minutes 12 seconds7:12
-Adriana Ramos | Rumo Gestão 7 minutes 12 seconds
-É, mas aí.
-Adriana Ramos | Rumo Gestão 7 minutes 15 seconds
-É o mais simples. E mas aí, Fernando, o que eu queria também complementar está aqui nesse nosso papo, volta para apresentação, por favor, eu vou parar aqui de compartilhar. Volta você para o para o dash.
+6 minutes 59 seconds6:59
+Adriana Ramos | Rumo Gestão 6 minutes 59 seconds
+Não é um fechamento mensal, mas para a gente aproveitar muito mais as informações e como está linkado.
+R
+Renata Oliva | Rumo Gestão
+6 minutes 59 seconds6:59
+Renata Oliva | Rumo Gestão 6 minutes 59 seconds
+Think.
+Renata Oliva | Rumo Gestão 7 minutes 1 second
+There's anything date for the problem.
+Renata Oliva | Rumo Gestão 7 minutes 5 seconds
+Thank you.
+FR
+Fernando Rimoli
+7 minutes 7 seconds7:07
+Fernando Rimoli 7 minutes 7 seconds
+Pode ser tipo sempre do dia um do, sei lá, dia um de julho. O julho já vai dar para ver. Pode ser assim também.
+R
+Renata Oliva | Rumo Gestão
+7 minutes 8 seconds7:08
+Renata Oliva | Rumo Gestão 7 minutes 8 seconds
+That.
+A
+Adriana Ramos | Rumo Gestão
+7 minutes 8 seconds7:08
+Adriana Ramos | Rumo Gestão 7 minutes 8 seconds
+Eu acho que não.
+R
+Renata Oliva | Rumo Gestão
+7 minutes 9 seconds7:09
+Renata Oliva | Rumo Gestão 7 minutes 9 seconds
+Okay.
+Renata Oliva | Rumo Gestão 7 minutes 15 seconds
+I think that.
+A
+Adriana Ramos | Rumo Gestão
+7 minutes 17 seconds7:17
+Adriana Ramos | Rumo Gestão 7 minutes 17 seconds
+Done.
+FR
+Fernando Rimoli
+7 minutes 18 seconds7:18
+Fernando Rimoli 7 minutes 18 seconds
+Stop, show not aqui.
+A
+Adriana Ramos | Rumo Gestão
+7 minutes 21 seconds7:21
+Adriana Ramos | Rumo Gestão 7 minutes 21 seconds
+Que aí a gente vai acompanhando, né?
 FR
 Fernando Rimoli
 7 minutes 21 seconds7:21
 Fernando Rimoli 7 minutes 21 seconds
+Mm.
+AM
+Adriana Mendes
+7 minutes 21 seconds7:21
+Adriana Mendes 7 minutes 21 seconds
+Hung Santos.
+Adriana Mendes 7 minutes 23 seconds
+Com isso a atualização vira diária, Fernando?
+FR
+Fernando Rimoli
+7 minutes 23 seconds7:23
+Fernando Rimoli 7 minutes 23 seconds
 Mm-hmm.
 R
 Renata Oliva | Rumo Gestão
-7 minutes 29 seconds7:29
-Renata Oliva | Rumo Gestão 7 minutes 29 seconds
-Material.
+7 minutes 25 seconds7:25
+Renata Oliva | Rumo Gestão 7 minutes 25 seconds
+Okay.
+FR
+Fernando Rimoli
+7 minutes 27 seconds7:27
+Fernando Rimoli 7 minutes 27 seconds
+Tipo, a atualização dos dados já é diária todo dia, todo dia às 6 da manhã eu pego os dados lá que mudaram, então para mostrar é só mudar a regra.
+R
+Renata Oliva | Rumo Gestão
+7 minutes 30 seconds7:30
+Renata Oliva | Rumo Gestão 7 minutes 30 seconds
+Okay.
 A
 Adriana Ramos | Rumo Gestão
 7 minutes 30 seconds7:30
 Adriana Ramos | Rumo Gestão 7 minutes 30 seconds
-The material.
-FR
-Fernando Rimoli
-7 minutes 32 seconds7:32
-Fernando Rimoli 7 minutes 32 seconds
-It's done.
+That's the I.
+AM
+Adriana Mendes
+7 minutes 30 seconds7:30
+Adriana Mendes 7 minutes 30 seconds
+Ah, tá bom.
+Adriana Mendes 7 minutes 34 seconds
+Down.
+Adriana Mendes 7 minutes 38 seconds
+O.
 A
 Adriana Ramos | Rumo Gestão
-7 minutes 41 seconds7:41
-Adriana Ramos | Rumo Gestão 7 minutes 41 seconds
-Está beleza, estou vendo, estou vendo. A gente precisa ter neste material aqui, está um sobe lá quando você inicia a análise, isso aqui, esse receitas.
-FR
-Fernando Rimoli
-7 minutes 41 seconds7:41
-Fernando Rimoli 7 minutes 41 seconds
-Estão vendo?
+7 minutes 39 seconds7:39
+Adriana Ramos | Rumo Gestão 7 minutes 39 seconds
+É porque isso que eu imagino, porque você, como você pega lá, vai pegando diariamente, não é?
+rnando Rimoli
+7 minutes 45 seconds7:45
+Fernando Rimoli 7 minutes 45 seconds
+Uh-huh.
+A
+Adriana Ramos | Rumo Gestão
+7 minutes 46 seconds7:46
+Adriana Ramos | Rumo Gestão 7 minutes 46 seconds
+Oh, double.
 R
 Renata Oliva | Rumo Gestão
-7 minutes 48 seconds7:48
-Renata Oliva | Rumo Gestão 7 minutes 48 seconds
-Yeah.
+7 minutes 49 seconds7:49
+Renata Oliva | Rumo Gestão 7 minutes 49 seconds
+Os 210 é o institucional, não é isso?
 A
 Adriana Ramos | Rumo Gestão
+7 minutes 54 seconds7:54
+Adriana Ramos | Rumo Gestão 7 minutes 54 seconds
+Yeah.
+FR
+Fernando Rimoli
+7 minutes 54 seconds7:54
+Fernando Rimoli 7 minutes 54 seconds
+É o curso da equipe institucional realizado.
+R
+Renata Oliva | Rumo Gestão
 7 minutes 56 seconds7:56
-Adriana Ramos | Rumo Gestão 7 minutes 56 seconds
-É, a gente tem do mês e exatamente esses cards aqui precisa ter no acumulado, que é, deixa eu mostrar para você a apresentação que a gente mandou, tá? Então olha aqui a apresentação que a gente mandou e aí já vou te mostrar.
+Renata Oliva | Rumo Gestão 7 minutes 56 seconds
+210.
+AM
+Adriana Mendes
+7 minutes 58 seconds7:58
+Adriana Mendes 7 minutes 58 seconds
+Uh-huh.
+FR
+Fernando Rimoli
+7 minutes 59 seconds7:59
+Fernando Rimoli 7 minutes 59 seconds
+Mas eu percebi que o rateio mensal está falando 345, mas o sintético está falando 781, então eu não sei porque.
 R
 Renata Oliva | Rumo Gestão
-8 minutes 5 seconds8:05
+8 minutes 2 seconds8:02
+Renata Oliva | Rumo Gestão 8 minutes 2 seconds
+So.
 Renata Oliva | Rumo Gestão 8 minutes 5 seconds
+Exato, é 2107.
+A
+Adriana Ramos | Rumo Gestão
+8 minutes 8 seconds8:08
+Adriana Ramos | Rumo Gestão 8 minutes 8 seconds
+Eu sei porque é a comissão, é a comissão, é a comissão e a participação que não entra lá no rateio e entra nessa linha de custo de equipe.
+FR
+Fernando Rimoli
+8 minutes 12 seconds8:12
+Fernando Rimoli 8 minutes 12 seconds
+Ah tá.
+R
+Renata Oliva | Rumo Gestão
+8 minutes 16 seconds8:16
+Renata Oliva | Rumo Gestão 8 minutes 16 seconds
 Yeah.
 FR
 Fernando Rimoli
-8 minutes 9 seconds8:09
-Fernando Rimoli 8 minutes 9 seconds
-Done.
+8 minutes 18 seconds8:18
+Fernando Rimoli 8 minutes 18 seconds
+Tá, tá, tá, tá, sim, tá bom, tá certo.
 A
 Adriana Ramos | Rumo Gestão
-8 minutes 12 seconds8:12
-Adriana Ramos | Rumo Gestão 8 minutes 12 seconds
-Aqui a gente está mostrando o de junho, só para você. Eu posso te reenviar novamente, mas é só para a gente ter aqui na conversa e você ter o visual do que eu estou falando, tá? Hoje, o que a gente vai apresentar para eles, tá?
-FR
-Fernando Rimoli
+8 minutes 20 seconds8:20
+Adriana Ramos | Rumo Gestão 8 minutes 20 seconds
+Star.
+R
+Renata Oliva | Rumo Gestão
+8 minutes 21 seconds8:21
+Renata Oliva | Rumo Gestão 8 minutes 21 seconds
+Então tá certo, conferir.
+A
+Adriana Ramos | Rumo Gestão
+8 minutes 23 seconds8:23
+Adriana Ramos | Rumo Gestão 8 minutes 23 seconds
+Tá, vamos ver OA por área, desculpa aqui por área, resultado contencioso.
+R
+Renata Oliva | Rumo Gestão
 8 minutes 25 seconds8:25
-Fernando Rimoli 8 minutes 25 seconds
-Billism.
-R
-Renata Oliva | Rumo Gestão
-8 minutes 30 seconds8:30
-Renata Oliva | Rumo Gestão 8 minutes 30 seconds
-P.
-A
-Adriana Ramos | Rumo Gestão
+Renata Oliva | Rumo Gestão 8 minutes 25 seconds
+Oh.
+FR
+Fernando Rimoli
 8 minutes 31 seconds8:31
-Adriana Ramos | Rumo Gestão 8 minutes 31 seconds
-Vê se compartilhou aí, compartilhou, não?
-FR
-Fernando Rimoli
-8 minutes 33 seconds8:33
-Fernando Rimoli 8 minutes 33 seconds
-CC.
+Fernando Rimoli 8 minutes 31 seconds
+Ah, uma coisa que eu adicionei também foi tipo, poder fazer isso aqui.
 A
 Adriana Ramos | Rumo Gestão
-8 minutes 34 seconds8:34
-Adriana Ramos | Rumo Gestão 8 minutes 34 seconds
-Deixa eu aumentar para ficar melhor. Hoje a gente vai trazer para eles, na reunião que eu faço todo mês, eu tenho que ter um consolidado. Então o que que é o consolidado? É o faturamento, a receita. Isso aqui eu estou falando de julho.
+8 minutes 32 seconds8:32
+Adriana Ramos | Rumo Gestão 8 minutes 32 seconds
+A abertura, né? Que a gente pediu, né?
+AM
+Adriana Mendes
+8 minutes 35 seconds8:35
+Adriana Mendes 8 minutes 35 seconds
+Ah, muito bom.
+FR
+Fernando Rimoli
+8 minutes 36 seconds8:36
+Fernando Rimoli 8 minutes 36 seconds
+É, mas eu ainda não adicionei a custo da equipe. Vou adicionar hoje ainda para ficar que nem o resultado mensal aqui, tipo bom.
 R
 Renata Oliva | Rumo Gestão
-8 minutes 49 seconds8:49
-Renata Oliva | Rumo Gestão 8 minutes 49 seconds
-Santos.
+8 minutes 42 seconds8:42
+Renata Oliva | Rumo Gestão 8 minutes 42 seconds
+Tá.
+A
 Adriana Ramos | Rumo Gestão
+8 minutes 43 seconds8:43
+Adriana Ramos | Rumo Gestão 8 minutes 43 seconds
+Tá, e deixa eu perguntar, e abre também o despesa também abre?
+FR
+Fernando Rimoli
 8 minutes 49 seconds8:49
-Adriana Ramos | Rumo Gestão 8 minutes 49 seconds
-Aí depois eu tenho aqui o do janeiro a junho, que é tudo que a gente tem. Eu estou mostrando para você o visual, porque é baseado na construção desses dados, é que esse visual fica pronto, que é a apresentação que eu mandei para vocês.
-R
-Renata Oliva | Rumo Gestão
+Fernando Rimoli 8 minutes 49 seconds
+Aqui nada está abrindo, mas aqui deixa eu ver. Sim, vai. O beleza é que nem está no Excel.
+A
+Adriana Ramos | Rumo Gestão
 8 minutes 52 seconds8:52
-Renata Oliva | Rumo Gestão 8 minutes 52 seconds
-I.
-A
-Adriana Ramos | Rumo Gestão
-9 minutes 7 seconds9:07
-Adriana Ramos | Rumo Gestão 9 minutes 7 seconds
-It was a dame.
-Adriana Ramos | Rumo Gestão 9 minutes 9 seconds
-O Excel que busca e que atualiza, e depois esses cards aqui que precisam ter a informação analítica para eles, entendeu? Baseado naquele Excel, eu monto isso daqui.
-R
-Renata Oliva | Rumo Gestão
-9 minutes 10 seconds9:10
-Renata Oliva | Rumo Gestão 9 minutes 10 seconds
-Yes.
+Adriana Ramos | Rumo Gestão 8 minutes 52 seconds
+Vai abrir que nem está no Excel.
+Adriana Ramos | Rumo Gestão 8 minutes 57 seconds
+Tá.
 FR
 Fernando Rimoli
-9 minutes 20 seconds9:20
-Fernando Rimoli 9 minutes 20 seconds
-Uh-huh, uh-huh.
+8 minutes 58 seconds8:58
+Fernando Rimoli 8 minutes 58 seconds
+Table.
+A
+Adriana Ramos | Rumo Gestão
+9 minutes9:00
+Adriana Ramos | Rumo Gestão 9 minutes
+Ele reflete exatamente o que está no Excel.
+FR
+Fernando Rimoli
+9 minutes9:00
+Fernando Rimoli 9 minutes
+É, tá bom, então vamos.
+Fernando Rimoli 9 minutes 2 seconds
+Quer bater institucional ou contencioso?
+A
+Adriana Ramos | Rumo Gestão
+9 minutes 5 seconds9:05
+Adriana Ramos | Rumo Gestão 9 minutes 5 seconds
+Pode ser o vamos bater. Vamos começar aí com o institucional. Renato, você está é porque eu estou só com uma tela. Você está com 2 telas ou está?
+R
+Renata Oliva | Rumo Gestão
+9 minutes 7 seconds9:07
+Renata Oliva | Rumo Gestão 9 minutes 7 seconds
+Okay.
+Renata Oliva | Rumo Gestão 9 minutes 10 seconds
+Estou, eu não estou com uma só, mas eu abro aqui, já está aberto.
+A
+Adriana Ramos | Rumo Gestão
+9 minutes 13 seconds9:13
+Adriana Ramos | Rumo Gestão 9 minutes 13 seconds
+Então tá, então.
+Adriana Ramos | Rumo Gestão 9 minutes 15 seconds
+Está, você abre aí, a gente vê, está bom? Então aqui, recebimento 210, 781.
 R
 Renata Oliva | Rumo Gestão
 9 minutes 21 seconds9:21
 Renata Oliva | Rumo Gestão 9 minutes 21 seconds
 Yeah.
-FR
-Fernando Rimoli
-9 minutes 25 seconds9:25
-Fernando Rimoli 9 minutes 25 seconds
-Tá bom.
 A
 Adriana Ramos | Rumo Gestão
-9 minutes 26 seconds9:26
-Adriana Ramos | Rumo Gestão 9 minutes 26 seconds
-Tá? E aí, por exemplo, você vê aqui no year to date, a gente mostra uma variação do que está ruim, que está, que tem ponto de atenção.
+9 minutes 22 seconds9:22
+Adriana Ramos | Rumo Gestão 9 minutes 22 seconds
+OPA, e também você aí, bom, tá é 210, 781.
 R
 Renata Oliva | Rumo Gestão
-9 minutes 33 seconds9:33
-Renata Oliva | Rumo Gestão 9 minutes 33 seconds
-I.
-FR
-Fernando Rimoli
-9 minutes 39 seconds9:39
-Fernando Rimoli 9 minutes 39 seconds
-Ah, entendi, tá bom.
+9 minutes 22 seconds9:22
+Renata Oliva | Rumo Gestão 9 minutes 22 seconds
+Santos of ice.
+Renata Oliva | Rumo Gestão 9 minutes 26 seconds
+But
+Renata Oliva | Rumo Gestão 9 minutes 27 seconds
+7 8 1 cursos diretos institucional até mais
 A
 Adriana Ramos | Rumo Gestão
-9 minutes 40 seconds9:40
-Adriana Ramos | Rumo Gestão 9 minutes 40 seconds
-Entendeu?
-FR
-Fernando Rimoli
-9 minutes 42 seconds9:42
-Fernando Rimoli 9 minutes 42 seconds
-Mm-hmm.
-A
-Adriana Ramos | Rumo Gestão
-9 minutes 42 seconds9:42
-Adriana Ramos | Rumo Gestão 9 minutes 42 seconds
-E aí isso aqui, tudo bem, eu estou falando de semestre, então você não está indo naquele de maio, mas aqui a gente está falando do semestre. Esse aqui é um plus, tá? Esse aqui não se preocupa não. Aí a gente vem em cada área, trazendo também.
+9 minutes 30 seconds9:30
+Adriana Ramos | Rumo Gestão 9 minutes 30 seconds
+É custo de equipe, despesa, despesa. Acho que estava 110, aqui está 108 315, se eu não me engano, era 110 ou eu que estou confundindo.
+Adriana Ramos | Rumo Gestão 9 minutes 41 seconds
+Quanto está despesa no institucional?
 R
 Renata Oliva | Rumo Gestão
-9 minutes 46 seconds9:46
-Renata Oliva | Rumo Gestão 9 minutes 46 seconds
-He.
+9 minutes 47 seconds9:47
+Renata Oliva | Rumo Gestão 9 minutes 47 seconds
+Hey.
+Renata Oliva | Rumo Gestão 9 minutes 50 seconds
+Puxo de equipe.
 A
 Adriana Ramos | Rumo Gestão
-9 minutes 59 seconds9:59
-Adriana Ramos | Rumo Gestão 9 minutes 59 seconds
-O julho e o year to date. Está vendo? A gente traz o mês, o mês que a gente está falando e como está de janeiro a junho, acumulado.
-Adriana Ramos | Rumo Gestão 10 minutes 11 seconds
-Isso eu a gente tinha mandado, eu posso mandar o de junho aí para você ter e é aham.
-FR
-Fernando Rimoli
-10 minutes 12 seconds10:12
-Fernando Rimoli 10 minutes 12 seconds
-Entendi.
-Fernando Rimoli 10 minutes 17 seconds
-Sim, acho que seria muito bom você mandar esse de junho e também mandar a planilha de junho.
-A
-Adriana Ramos | Rumo Gestão
-10 minutes 21 seconds10:21
-Adriana Ramos | Rumo Gestão 10 minutes 21 seconds
-Yeah.
-Adriana Ramos | Rumo Gestão 10 minutes 24 seconds
-The.
-FR
-Fernando Rimoli
-10 minutes 25 seconds10:25
-Fernando Rimoli 10 minutes 25 seconds
-Se vocês já terminaram a planilha da última vez, tá perfeito. Aí mandar esse de junho, a planilha de junho. E aí eu já posso também começar a pensar primeiramente, adicionar o cumulativo. É adicionar o cumulativo em todos os meses, certo? Então é tipo do começo do ano até certo mês.
-A
-Adriana Ramos | Rumo Gestão
-10 minutes 26 seconds10:26
-Adriana Ramos | Rumo Gestão 10 minutes 26 seconds
-Já.
+9 minutes 52 seconds9:52
+Adriana Ramos | Rumo Gestão 9 minutes 52 seconds
+Love you, I'm back, can you?
 R
 Renata Oliva | Rumo Gestão
-10 minutes 28 seconds10:28
-Renata Oliva | Rumo Gestão 10 minutes 28 seconds
-Book.
+9 minutes 54 seconds9:54
+Renata Oliva | Rumo Gestão 9 minutes 54 seconds
+Embaixon now.
 A
 Adriana Ramos | Rumo Gestão
-10 minutes 31 seconds10:31
-Adriana Ramos | Rumo Gestão 10 minutes 31 seconds
-Tá.
-Adriana Ramos | Rumo Gestão 10 minutes 36 seconds
-Uh-huh. Uh-huh.
+9 minutes 56 seconds9:56
+Adriana Ramos | Rumo Gestão 9 minutes 56 seconds
+A.
+Adriana Ramos | Rumo Gestão 10 minutes 5 seconds
+A.
 R
 Renata Oliva | Rumo Gestão
-10 minutes 39 seconds10:39
-Renata Oliva | Rumo Gestão 10 minutes 39 seconds
-Okay.
-FR
-Fernando Rimoli
-10 minutes 43 seconds10:43
-Fernando Rimoli 10 minutes 43 seconds
-Vai ter o cumulativo naquela janela, é isso?
+10 minutes 5 seconds10:05
+Renata Oliva | Rumo Gestão 10 minutes 5 seconds
+Indireta é 105 927.
 A
 Adriana Ramos | Rumo Gestão
+10 minutes 10 seconds10:10
+Adriana Ramos | Rumo Gestão 10 minutes 10 seconds
+É, então não sei porque que está puxando 108.
+FR
+Fernando Rimoli
+10 minutes 13 seconds10:13
+Fernando Rimoli 10 minutes 13 seconds
+105 despesas.
+A
+Adriana Ramos | Rumo Gestão
+10 minutes 14 seconds10:14
+Adriana Ramos | Rumo Gestão 10 minutes 14 seconds
+deixa eu abrir aqui também só para a gente ficar junto
+R
+Renata Oliva | Rumo Gestão
+10 minutes 16 seconds10:16
+Renata Oliva | Rumo Gestão 10 minutes 16 seconds
+É as indiretas.
+AM
+Adriana Mendes
+10 minutes 19 seconds10:19
+Adriana Mendes 10 minutes 19 seconds
+Aqui não tem discriminação se é direto ou indireto, só mais 2, vê o que que daria?
+A
+Adriana Ramos | Rumo Gestão
+10 minutes 23 seconds10:23
+Adriana Ramos | Rumo Gestão 10 minutes 23 seconds
+Espera aí, deixa eu ver aqui só um minuto, só eu vou abrir aqui para só para também ajudar aí.
+Adriana Ramos | Rumo Gestão 10 minutes 33 seconds
+Pera aí que o meu está abrindo também.
+Adriana Ramos | Rumo Gestão 10 minutes 37 seconds
+Julio, Julio, Julio, Julio.
+Adriana Ramos | Rumo Gestão 10 minutes 41 seconds
+É 105927 a despesas.
+R
+Renata Oliva | Rumo Gestão
+10 minutes 44 seconds10:44
+Renata Oliva | Rumo Gestão 10 minutes 44 seconds
+Oh.
+A
+Adriana Ramos | Rumo Gestão
+10 minutes 46 seconds10:46
+Adriana Ramos | Rumo Gestão 10 minutes 46 seconds
+210 781 e 105 927. Pode é tem que bater na linha que você tá com a linha, você tá com ela aberta na despesa, não. Se você abrir aqui, a gente veria qual é a diferença, mas aqui não tá, tá?
+FR
+Fernando Rimoli
 10 minutes 47 seconds10:47
-Adriana Ramos | Rumo Gestão 10 minutes 47 seconds
-É, a gente tem, é, a gente traz, a gente traz, a gente vai mostrando. É, na verdade, é porque como a gente já está em julho, junho, desculpa, a gente está mostrando o resultado de junho, a gente mostra de janeiro a junho. Então, assim.
+Fernando Rimoli 10 minutes 47 seconds
+So.
 R
 Renata Oliva | Rumo Gestão
-10 minutes 48 seconds10:48
-Renata Oliva | Rumo Gestão 10 minutes 48 seconds
-Yeah, yeah.
+10 minutes 49 seconds10:49
+Renata Oliva | Rumo Gestão 10 minutes 49 seconds
+Pode, qual a diferença que está dando?
 FR
 Fernando Rimoli
-10 minutes 48 seconds10:48
-Fernando Rimoli 10 minutes 48 seconds
-Sim.
+10 minutes 59 seconds10:59
+Fernando Rimoli 10 minutes 59 seconds
+É, ela não abre aqui.
 A
 Adriana Ramos | Rumo Gestão
 11 minutes 1 second11:01
 Adriana Ramos | Rumo Gestão 11 minutes 1 second
-Não sei, não sei o quanto.
+É, mas é 105 e o 106, está certo?
 R
 Renata Oliva | Rumo Gestão
-11 minutes 2 seconds11:02
-Renata Oliva | Rumo Gestão 11 minutes 2 seconds
-Se fosse o esforço para isso, é uma coisa que a gente não vai trabalhar para trás, é.
-A
-Adriana Ramos | Rumo Gestão
-11 minutes 4 seconds11:04
-Adriana Ramos | Rumo Gestão 11 minutes 4 seconds
-É, não precisa ter um esforço, porque a gente não vai mostrar o janeiro a abril, por exemplo, a gente vai mostrar de janeiro a junho, agora que a gente está.
-R
-Renata Oliva | Rumo Gestão
+11 minutes 6 seconds11:06
+Renata Oliva | Rumo Gestão 11 minutes 6 seconds
+Ver os maiores ocupação 37251.
+FR
+Fernando Rimoli
 11 minutes 10 seconds11:10
-Renata Oliva | Rumo Gestão 11 minutes 10 seconds
-Okay.
-Renata Oliva | Rumo Gestão 11 minutes 12 seconds
-Yeah.
-Renata Oliva | Rumo Gestão 11 minutes 14 seconds
-Se for só replicar, né? Se for só replicar.
+Fernando Rimoli 11 minutes 10 seconds
+Ah, sabe o que é possível? A mesma coisa que está aquela coisa dobrada que está fazendo a reserva de bônus ficar errada, talvez, tipo, porque acho que é o valor é tipo uns 2400.
+R
+Renata Oliva | Rumo Gestão
+11 minutes 11 seconds11:11
+Renata Oliva | Rumo Gestão 11 minutes 11 seconds
+So.
+Renata Oliva | Rumo Gestão 11 minutes 13 seconds
+Well.
 A
 Adriana Ramos | Rumo Gestão
-11 minutes 17 seconds11:17
-Adriana Ramos | Rumo Gestão 11 minutes 17 seconds
-M.
-Adriana Ramos | Rumo Gestão 11 minutes 19 seconds
-Eu não sei qual é o esforço do seu trabalho, dela.
-FR
-Fernando Rimoli
+11 minutes 13 seconds11:13
+Adriana Ramos | Rumo Gestão 11 minutes 13 seconds
+Mm.
+R
+Renata Oliva | Rumo Gestão
 11 minutes 19 seconds11:19
-Fernando Rimoli 11 minutes 19 seconds
-Sim, é só replicar, é só replicar, tipo a regra vai ser tipo até esse mês mostra isso. Então isso conta para todos os meses já.
-R
-Renata Oliva | Rumo Gestão
-11 minutes 22 seconds11:22
-Renata Oliva | Rumo Gestão 11 minutes 22 seconds
-Yeah.
+Renata Oliva | Rumo Gestão 11 minutes 19 seconds
+Esteja.
+FR
+Fernando Rimoli
+11 minutes 23 seconds11:23
+Fernando Rimoli 11 minutes 23 seconds
+Uh, stop it.
+AM
+Adriana Mendes
+11 minutes 24 seconds11:24
+Adriana Mendes 11 minutes 24 seconds
+O que bateria somaria o centro é, pode ser.
 A
 Adriana Ramos | Rumo Gestão
+11 minutes 25 seconds11:25
+Adriana Ramos | Rumo Gestão 11 minutes 25 seconds
+Que valor é esse?
+R
+Renata Oliva | Rumo Gestão
 11 minutes 27 seconds11:27
-Adriana Ramos | Rumo Gestão 11 minutes 27 seconds
-É, eu acho que não faz diferença para você, porque você vai montar, não é? E vai deixar pronto, não é isso? Então não faz diferença.
+Renata Oliva | Rumo Gestão 11 minutes 27 seconds
+108 315
+FR
+Fernando Rimoli
+11 minutes 27 seconds11:27
+Fernando Rimoli 11 minutes 27 seconds
+Deixa eu ver se ele caiu aqui.
 R
 Renata Oliva | Rumo Gestão
-11 minutes 28 seconds11:28
-Renata Oliva | Rumo Gestão 11 minutes 28 seconds
-Yeah, entendi.
+11 minutes 39 seconds11:39
+Renata Oliva | Rumo Gestão 11 minutes 39 seconds
+Santos.
 FR
 Fernando Rimoli
-11 minutes 33 seconds11:33
-Fernando Rimoli 11 minutes 33 seconds
-Mas uma coisa, uma coisa que então é importante para esse cumulativo é entender as diferenças que tinham de janeiro a abril, não é que.
+11 minutes 40 seconds11:40
+Fernando Rimoli 11 minutes 40 seconds
+Oh, agora.
 A
 Adriana Ramos | Rumo Gestão
-11 minutes 38 seconds11:38
-Adriana Ramos | Rumo Gestão 11 minutes 38 seconds
-Mhm.
-ernando Rimoli
-11 minutes 44 seconds11:44
-Fernando Rimoli 11 minutes 44 seconds
-Que a gente ainda não tinha falado, mas tipo que tinha umas diferenças entre o sistema e a planilha.
-A
-Adriana Ramos | Rumo Gestão
-11 minutes 50 seconds11:50
-Adriana Ramos | Rumo Gestão 11 minutes 50 seconds
-Kiso.
+11 minutes 40 seconds11:40
+Adriana Ramos | Rumo Gestão 11 minutes 40 seconds
+É, esse é o valor. É isso aí. Aí, ó, bateu.
 FR
 Fernando Rimoli
-11 minutes 51 seconds11:51
-Fernando Rimoli 11 minutes 51 seconds
-Vou dar um exemplo, é, por exemplo, é na planilha.
+11 minutes 42 seconds11:42
+Fernando Rimoli 11 minutes 42 seconds
+É pronto, 105 932.
 A
 Adriana Ramos | Rumo Gestão
+11 minutes 48 seconds11:48
+Adriana Ramos | Rumo Gestão 11 minutes 48 seconds
+É 105 9 é até 927, pode ser alguma.
+FR
+Fernando Rimoli
 11 minutes 52 seconds11:52
-Adriana Ramos | Rumo Gestão 11 minutes 52 seconds
-That.
-Adriana Ramos | Rumo Gestão 11 minutes 57 seconds
-Mm-hmm.
-FR
-Fernando Rimoli
-11 minutes 58 seconds11:58
-Fernando Rimoli 11 minutes 58 seconds
-É, tem de vez em tem meses que vocês colocam é em associações e brac e ASP, certo?
+Fernando Rimoli 11 minutes 52 seconds
+Eu sei exatamente onde 5 reais a mais estão vindo. É, acho que é 4 e 80. É uma coisa que eu tinha visto antes, que é uma taxa.
 A
 Adriana Ramos | Rumo Gestão
-12 minutes 7 seconds12:07
-Adriana Ramos | Rumo Gestão 12 minutes 7 seconds
-O.
+11 minutes 54 seconds11:54
+Adriana Ramos | Rumo Gestão 11 minutes 54 seconds
+Oh.
+Adriana Ramos | Rumo Gestão 11 minutes 56 seconds
+Oh, yeah.
+FR
+Fernando Rimoli
+12 minutes 3 seconds12:03
+Fernando Rimoli 12 minutes 3 seconds
+É uma taxa de banco, deixa eu achar. Eu fiz uma anotação aqui, mas é tipo, era 5 reais. Aí eu nem liguei, mas eu anotei.
+A
+Adriana Ramos | Rumo Gestão
+12 minutes 9 seconds
+driana Ramos | Rumo Gestão
+12 minutes 9 seconds12:09
+Adriana Ramos | Rumo Gestão 12 minutes 9 seconds
+Não tá não também não vamos ligar não tá se a diferença é essa é e eu vou e o seu obviamente está muito mais certo porque você tá puxando direto do sistema né essas diferenças de ajuste de 4 5 reais eu vou
+Adriana Ramos | Rumo Gestão 12 minutes 25 seconds
+Dá para a gente passar, entendeu? Porque é você pega do sistema e a gente não.
+FR
+Fernando Rimoli
+12 minutes 27 seconds12:27
+Fernando Rimoli 12 minutes 27 seconds
+Uh-huh.
+Fernando Rimoli 12 minutes 30 seconds
+Tá, era 4 e 80 de uma taxa bancária que não estavam almoçando.
+A
+Adriana Ramos | Rumo Gestão
+12 minutes 33 seconds12:33
+Adriana Ramos | Rumo Gestão 12 minutes 33 seconds
+É a taxa bancária, a gente está zerado no Excel, tudo bem?
+FR
+Fernando Rimoli
+12 minutes 37 seconds12:37
+Fernando Rimoli 12 minutes 37 seconds
+Tá, beleza.
+A
+Adriana Ramos | Rumo Gestão
+12 minutes 39 seconds12:39
+Adriana Ramos | Rumo Gestão 12 minutes 39 seconds
+Que eu até perguntei, mas Renato, a gente não está lançando taxa bancário. É, tá bom, tá certo. Vamos lá, tá? E aí, vamos bater então aqui em impostos. Tá aí, Renato, vê aí então impostos 39752.
 R
 Renata Oliva | Rumo Gestão
-12 minutes 11 seconds12:11
-Renata Oliva | Rumo Gestão 12 minutes 11 seconds
+12 minutes 42 seconds12:42
+Renata Oliva | Rumo Gestão 12 minutes 42 seconds
+Boy.
+Renata Oliva | Rumo Gestão 12 minutes 44 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 12 minutes 58 seconds
+Lá embaixo, lá embaixo.
+Renata Oliva | Rumo Gestão 13 minutes 3 seconds
+Postels.
+Renata Oliva | Rumo Gestão 13 minutes 6 seconds
+All right.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 12 seconds13:12
+Adriana Ramos | Rumo Gestão 13 minutes 12 seconds
+Está aqui na linha 28.
+R
+Renata Oliva | Rumo Gestão
+13 minutes 12 seconds13:12
+Renata Oliva | Rumo Gestão 13 minutes 12 seconds
+Você está por horário, então eu ia no imposto total lá no HS.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 14 seconds13:14
+Adriana Ramos | Rumo Gestão 13 minutes 14 seconds
+39.
+Adriana Ramos | Rumo Gestão 13 minutes 18 seconds
+Não, no institucional, tô no institucional.
+R
+Renata Oliva | Rumo Gestão
+13 minutes 21 seconds13:21
+Renata Oliva | Rumo Gestão 13 minutes 21 seconds
+Ela estava no lá de baixo, que dá 15407.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 25 seconds13:25
+Adriana Ramos | Rumo Gestão 13 minutes 25 seconds
+Não, no institucional.
+R
+Renata Oliva | Rumo Gestão
+13 minutes 26 seconds13:26
+Renata Oliva | Rumo Gestão 13 minutes 26 seconds
+No, no, that I am.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 27 seconds13:27
+Adriana Ramos | Rumo Gestão 13 minutes 27 seconds
+39753.
+Adriana Ramos | Rumo Gestão 13 minutes 31 seconds
+Você não está beleza?
+Adriana Ramos | Rumo Gestão 13 minutes 35 seconds
+aqui tá batido tá vamos para as áreas agora agora vamos para as áreas
+R
+Renata Oliva | Rumo Gestão
+13 minutes 40 seconds13:40
+Renata Oliva | Rumo Gestão 13 minutes 40 seconds
+That.
+AM
+Adriana Mendes
+13 minutes 41 seconds13:41
+Adriana Mendes 13 minutes 41 seconds
+É, mas não vai bater o imposto?
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 43 seconds13:43
+Adriana Ramos | Rumo Gestão 13 minutes 43 seconds
+Já bati 39753.
+R
+Renata Oliva | Rumo Gestão
+13 minutes 43 seconds13:43
+Renata Oliva | Rumo Gestão 13 minutes 43 seconds
+É, 39, já bateu, 39, 753. É.
+AM
+Adriana Mendes
+13 minutes 45 seconds13:45
+Adriana Mendes 13 minutes 45 seconds
+Ah, tá bom, tá bom.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 46 seconds13:46
+Adriana Ramos | Rumo Gestão 13 minutes 46 seconds
+Tá? Eu estava batido. As áreas agora.
+FR
+Fernando Rimoli
+13 minutes 48 seconds13:48
+Fernando Rimoli 13 minutes 48 seconds
+Tá, agora as áreas, então.
+Fernando Rimoli 13 minutes 51 seconds
+Vamos ver contencioso.
+A
+Adriana Ramos | Rumo Gestão
+13 minutes 56 seconds13:56
+Adriana Ramos | Rumo Gestão 13 minutes 56 seconds
+Santos.
+Adriana Ramos | Rumo Gestão 13 minutes 59 seconds
+Vai lá, achou aí que contencioso 36380?
+R
+Renata Oliva | Rumo Gestão
+14 minutes 1 second14:01
+Renata Oliva | Rumo Gestão 14 minutes 1 second
+Fala, achei, tô no contencioso. Puxa.
+Renata Oliva | Rumo Gestão 14 minutes 7 seconds
+Receita.
+A
+Adriana Ramos | Rumo Gestão
+14 minutes 8 seconds14:08
+Adriana Ramos | Rumo Gestão 14 minutes 8 seconds
+7542421 curso de equipe.
+R
+Renata Oliva | Rumo Gestão
+14 minutes 11 seconds14:11
+Renata Oliva | Rumo Gestão 14 minutes 11 seconds
+Pusto de equipe, ok.
+AM
+Adriana Mendes
+14 minutes 12 seconds14:12
+Adriana Mendes 14 minutes 12 seconds
+He.
+A
+Adriana Ramos | Rumo Gestão
+14 minutes 14 seconds14:14
+Adriana Ramos | Rumo Gestão 14 minutes 14 seconds
+Despesa 2442.
+R
+Renata Oliva | Rumo Gestão
+14 minutes 17 seconds14:17
+Renata Oliva | Rumo Gestão 14 minutes 17 seconds
 Okay.
 A
 Adriana Ramos | Rumo Gestão
-12 minutes 12 seconds12:12
-Adriana Ramos | Rumo Gestão 12 minutes 12 seconds
-That.
-FR
-Fernando Rimoli
-12 minutes 13 seconds12:13
-Fernando Rimoli 12 minutes 13 seconds
-Mas, por exemplo, em fevereiro não tinha a ASP, ou em janeiro também não tinha a ASP, mas o banco de dados mostra a ASP para esses meses, sabe?
-Fernando Rimoli 12 minutes 27 seconds
-E a planilha não tem, mas outros meses a planilha tem o ASP.
-Fernando Rimoli 12 minutes 33 seconds
-Então isso muda um pouco o resultado final, sabe?
-A
-Adriana Ramos | Rumo Gestão
-12 minutes 38 seconds12:38
-Adriana Ramos | Rumo Gestão 12 minutes 38 seconds
-Está, mas não deve ser nada que a gente vai verificar porque que não tinha nos meses.
-Adriana Ramos | Rumo Gestão 12 minutes 48 seconds
-Engraçado aqui Ibrac
+14 minutes 18 seconds14:18
+Adriana Ramos | Rumo Gestão 14 minutes 18 seconds
+e despesa institucional 32564.
 R
 Renata Oliva | Rumo Gestão
-12 minutes 49 seconds12:49
-Renata Oliva | Rumo Gestão 12 minutes 49 seconds
-A esse peso só tem realmente em janeiro.
-Renata Oliva | Rumo Gestão 12 minutes 55 seconds
-Agora, o Ibraquio.
+14 minutes 21 seconds14:21
+Renata Oliva | Rumo Gestão 14 minutes 21 seconds
+So.
+Renata Oliva | Rumo Gestão 14 minutes 23 seconds
+Go ahead.
 A
 Adriana Ramos | Rumo Gestão
-12 minutes 55 seconds12:55
-Adriana Ramos | Rumo Gestão 12 minutes 55 seconds
-A SP só tem em janeiro e o Ibrac tem em janeiro.
-Adriana Ramos | Rumo Gestão 13 minutes 1 second
-Tem janeiro na planilha.
+14 minutes 24 seconds14:24
+Adriana Ramos | Rumo Gestão 14 minutes 24 seconds
+Tá aí o resultado bruto 74050.
 R
 Renata Oliva | Rumo Gestão
-13 minutes 1 second13:01
-Renata Oliva | Rumo Gestão 13 minutes 1 second
-É porque, na verdade, eu não sei porque a coluna que vem em brack pode vir também o ASP e o ICC dentro de contencioso. Ele muda de área para área, entendeu?
+14 minutes 28 seconds14:28
+Renata Oliva | Rumo Gestão 14 minutes 28 seconds
+74050, OK?
 A
 Adriana Ramos | Rumo Gestão
-13 minutes 10 seconds13:10
-Adriana Ramos | Rumo Gestão 13 minutes 10 seconds
-Fernando.
+14 minutes 30 seconds14:30
+Adriana Ramos | Rumo Gestão 14 minutes 30 seconds
+O imposto 5457 amortização. Por que não está puxando aqui o orçado? O Fernando, o orçado amortização e impostos.
 R
 Renata Oliva | Rumo Gestão
-13 minutes 15 seconds13:15
-Renata Oliva | Rumo Gestão 13 minutes 15 seconds
-Tem meses que tem um, tem meses que não tem outro, não tem uma regra muito fixa nisso.
-A
-Adriana Ramos | Rumo Gestão
-13 minutes 21 seconds13:21
-Adriana Ramos | Rumo Gestão 13 minutes 21 seconds
-Olha só, não tem problema, vamos lá, não tem problema, porque a gente está falando aqui de 500 reais.
-Adriana Ramos | Rumo Gestão 13 minutes 30 seconds
-É muito pouco.
-FR
-Fernando Rimoli
-13 minutes 30 seconds13:30
-Fernando Rimoli 13 minutes 30 seconds
-Sim, até menos, até _ 200.
-A
-Adriana Ramos | Rumo Gestão
-13 minutes 31 seconds13:31
-Adriana Ramos | Rumo Gestão 13 minutes 31 seconds
-É, é muito pouco. Então dá o resultado e eu vou ver no efeito, no efeito, quando você liberar para a gente ver, né? E versus a planilha, qual é o efeito que você está dando? Para mim, vai ser um efeito próximo a zero, entendeu? Não vai, não vai fazer efeito nenhum.
-R
-Renata Oliva | Rumo Gestão
-13 minutes 47 seconds13:47
-Renata Oliva | Rumo Gestão 13 minutes 47 seconds
-Yeah.
-FR
-Fernando Rimoli
-13 minutes 49 seconds13:49
-Fernando Rimoli 13 minutes 49 seconds
-Sing, Tangy, OKOK.
-A
-Adriana Ramos | Rumo Gestão
-13 minutes 50 seconds13:50
-Adriana Ramos | Rumo Gestão 13 minutes 50 seconds
-Tá? E aí a gente segue com realmente o sistema, porque de novo, né? Inclusive a gente está fazendo isso porque a gente tem um erro humano aqui enorme e uma possibilidade, desculpa, uma possibilidade de erro enorme e também o trabalho que dá para buscar isso, né? A gente já fica com isso aí tudo.
-Adriana Ramos | Rumo Gestão 14 minutes 11 seconds
-Tudo no esquema.
-Adriana Ramos | Rumo Gestão 14 minutes 13 seconds
-That.
-FR
-Fernando Rimoli
-14 minutes 13 seconds14:13
-Fernando Rimoli 14 minutes 13 seconds
-Sim, isso mesmo.
-A
-Adriana Ramos | Rumo Gestão
-14 minutes 15 seconds14:15
-Adriana Ramos | Rumo Gestão 14 minutes 15 seconds
-Tá, então eu vou te mandar essas 2, essas, essa apresentação para você ver como a gente faz a apresentação para os caras, não é? É para a gente poder ter isso aí, é.
-FR
-Fernando Rimoli
-14 minutes 23 seconds14:23
-Fernando Rimoli 14 minutes 23 seconds
-Sim.
-A
-Adriana Ramos | Rumo Gestão
-14 minutes 27 seconds14:27
-Adriana Ramos | Rumo Gestão 14 minutes 27 seconds
-Sendo o nosso, o nosso Painel de apresentação de mensal para eles, está?
-FR
-Fernando Rimoli
 14 minutes 34 seconds14:34
-Fernando Rimoli 14 minutes 34 seconds
-Aham, uma pergunta, vocês usam mais ou menos o mesmo formato de apresentações sempre?
-A
-Adriana Ramos | Rumo Gestão
-14 minutes 39 seconds14:39
-Adriana Ramos | Rumo Gestão 14 minutes 39 seconds
-Sim, é a ideia, é a ideia, é a ideia.
+Renata Oliva | Rumo Gestão 14 minutes 34 seconds
+Ok dois nós
 FR
 Fernando Rimoli
 14 minutes 43 seconds14:43
 Fernando Rimoli 14 minutes 43 seconds
-Então, aí então talvez tem como não só automatizar a planilha, mas já automatizar a apresentação, já que vai usar os mesmos números, né?
+Não sei porque tá puxando do institucional, então não sei porque não tá puxando do contencioso. Talvez não tá puxando de nenhuma área. Vamos ver.
 A
 Adriana Ramos | Rumo Gestão
-14 minutes 51 seconds14:51
-Adriana Ramos | Rumo Gestão 14 minutes 51 seconds
-Sim, essa é a ideia. A ideia, sim, é. Vamos lá, se você fala.
-R
-Renata Oliva | Rumo Gestão
+14 minutes 50 seconds14:50
+Adriana Ramos | Rumo Gestão 14 minutes 50 seconds
+Não sei, não sei, me chamou atenção agora do lado em cima eu não vi realmente eu não.
+FR
+Fernando Rimoli
 14 minutes 52 seconds14:52
-Renata Oliva | Rumo Gestão 14 minutes 52 seconds
-Three.
-FR
-Fernando Rimoli
+Fernando Rimoli 14 minutes 52 seconds
+É.
+Fernando Rimoli 14 minutes 54 seconds
+É imposição, amortização. Não está puxando de nenhuma área. Eu não tinha percebido isso antes.
+R
+Renata Oliva | Rumo Gestão
 14 minutes 55 seconds14:55
-Fernando Rimoli 14 minutes 55 seconds
-Tá bom, então.
-R
-Renata Oliva | Rumo Gestão
-14 minutes 56 seconds14:56
-Renata Oliva | Rumo Gestão 14 minutes 56 seconds
-Então.
-Renata Oliva | Rumo Gestão 14 minutes 59 seconds
-Fala, fala aí Adriana.
+Renata Oliva | Rumo Gestão 14 minutes 55 seconds
+Good.
+Renata Oliva | Rumo Gestão 14 minutes 57 seconds
+Alô, eu.
 A
 Adriana Ramos | Rumo Gestão
+14 minutes 59 seconds14:59
+Adriana Ramos | Rumo Gestão 14 minutes 59 seconds
+Yeah.
+FR
+Fernando Rimoli
 15 minutes15:00
-Adriana Ramos | Rumo Gestão 15 minutes
-Não, se você tiver uma sugestão melhor do que isso que a gente está apontando, o importante é ter essa visão. Eles precisam ter essa visão. E de novo, como a gente está pensando isso aqui ser um produto para a gente vender para o mercado,
-Adriana Ramos | Rumo Gestão 15 minutes 17 seconds
-Que é isso? A ideia é, a gente tem isso aí como padronizado de informações que o cliente precisa ver do final do mês. Então seria uma aba dentro daquele teu volta lá para o teu, para o para o para o.
-Adriana Ramos | Rumo Gestão 15 minutes 32 seconds
-Como está ficando o sisteminho?
+Fernando Rimoli 15 minutes
+Está bom, tudo bem, então vou, vou olhar aqui.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 1 second15:01
+Renata Oliva | Rumo Gestão 15 minutes 1 second
+Who were good? Thank you, yeah.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 2 seconds15:02
+Adriana Ramos | Rumo Gestão 15 minutes 2 seconds
+Eu não sei se a no institucional também não puxou, tá? Eu realmente não me atentei a isso.
 FR
 Fernando Rimoli
-15 minutes 34 seconds15:34
-Fernando Rimoli 15 minutes 34 seconds
+15 minutes 6 seconds15:06
+Fernando Rimoli 15 minutes 6 seconds
+Não, o institucional puxou aqui, olha.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 8 seconds15:08
+Adriana Ramos | Rumo Gestão 15 minutes 8 seconds
+Puxou? Tá. Tá bom.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 11 seconds15:11
+Renata Oliva | Rumo Gestão 15 minutes 11 seconds
+Okay.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 11 seconds15:11
+Adriana Ramos | Rumo Gestão 15 minutes 11 seconds
 Done.
+Adriana Ramos | Rumo Gestão 15 minutes 13 seconds
+Não, desculpa.
+Fernando Rimoli
+15 minutes 15 seconds15:15
+Fernando Rimoli 15 minutes 15 seconds
+não é só contencioso deixa eu puxar aqui
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 17 seconds15:17
+Adriana Ramos | Rumo Gestão 15 minutes 17 seconds
+Ah, tá certo, tá bom, tá bom, okay.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 17 seconds15:17
+Renata Oliva | Rumo Gestão 15 minutes 17 seconds
+Okay, it's a new model, yeah.
+FR
+Fernando Rimoli
+15 minutes 18 seconds15:18
+Fernando Rimoli 15 minutes 18 seconds
+Também pois sua mutação puxaram.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 20 seconds15:20
+Adriana Ramos | Rumo Gestão 15 minutes 20 seconds
+Está bom, então nas áreas que não puxou.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 22 seconds15:22
+Renata Oliva | Rumo Gestão 15 minutes 22 seconds
+I want that.
+FR
+Fernando Rimoli
+15 minutes 23 seconds15:23
+Fernando Rimoli 15 minutes 23 seconds
+Dah. Rosa
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 24 seconds15:24
+Adriana Ramos | Rumo Gestão 15 minutes 24 seconds
+Tá.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 25 seconds15:25
+Renata Oliva | Rumo Gestão 15 minutes 25 seconds
+Okay.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 26 seconds15:26
+Adriana Ramos | Rumo Gestão 15 minutes 26 seconds
+E aí, vamos lá, é onde mais a gente tá econômico, é, abaixa aí.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 28 seconds15:28
+Renata Oliva | Rumo Gestão 15 minutes 28 seconds
+Okay.
+Renata Oliva | Rumo Gestão 15 minutes 30 seconds
+Econômico, econômico.
+FR
+Fernando Rimoli
+15 minutes 35 seconds15:35
 Fernando Rimoli 15 minutes 35 seconds
-Oh, caraca, o Igor, o Igor acabou de mandar uma mensagem dizendo que a Adriana teve que passar por uma cirurgia de emergência, que isso?
+Stop.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 37 seconds15:37
+Renata Oliva | Rumo Gestão 15 minutes 37 seconds
+Receita 103 892.
 A
 Adriana Ramos | Rumo Gestão
-15 minutes 39 seconds15:39
-Adriana Ramos | Rumo Gestão 15 minutes 39 seconds
-Oh.
-Adriana Ramos | Rumo Gestão 15 minutes 44 seconds
-Nossa.
+15 minutes 41 seconds15:41
+Adriana Ramos | Rumo Gestão 15 minutes 41 seconds
+The.
+Adriana Ramos | Rumo Gestão 15 minutes 43 seconds
+Equipe.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 44 seconds15:44
+Renata Oliva | Rumo Gestão 15 minutes 44 seconds
+Equipe 1075.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 46 seconds15:46
 Adriana Ramos | Rumo Gestão 15 minutes 46 seconds
-Nossa, nem estou sabendo. Vou perguntar aqui para a Flávia, para a irmã dela, mas de que ela falou?
-FR
-Fernando Rimoli
+Não, não, custo, custo da equipe.
+R
+Renata Oliva | Rumo Gestão
+15 minutes 48 seconds15:48
+Renata Oliva | Rumo Gestão 15 minutes 48 seconds
+É 80537.
+A
+Adriana Ramos | Rumo Gestão
 15 minutes 51 seconds15:51
-Fernando Rimoli 15 minutes 51 seconds
-Não falou, só ele acabou de me mandar mensagem.
-A
-Adriana Ramos | Rumo Gestão
+Adriana Ramos | Rumo Gestão 15 minutes 51 seconds
+Tá, teve comissão?
+R
+Renata Oliva | Rumo Gestão
 15 minutes 53 seconds15:53
-Adriana Ramos | Rumo Gestão 15 minutes 53 seconds
-Pode falar aqui, Oh.
+Renata Oliva | Rumo Gestão 15 minutes 53 seconds
+Comissão 436.
+A
+Adriana Ramos | Rumo Gestão
+15 minutes 55 seconds15:55
 Adriana Ramos | Rumo Gestão 15 minutes 55 seconds
-Estou internada no CNH, sinal de.
-Adriana Ramos | Rumo Gestão 16 minutes
-Que que é PS P5? O que é isso?
-FR
-Fernando Rimoli
-16 minutes 5 seconds16:05
-Fernando Rimoli 16 minutes 5 seconds
-Não faço a menor ideia, mas eu não vi essa mensagem que está no nosso grupo aí.
+Da despesa 1075 você já falou ou despesa institucional?
 R
 Renata Oliva | Rumo Gestão
-16 minutes 7 seconds16:07
-Renata Oliva | Rumo Gestão 16 minutes 7 seconds
-Mhm.
+16 minutes16:00
+Renata Oliva | Rumo Gestão 16 minutes
+34 770.
 A
 Adriana Ramos | Rumo Gestão
-16 minutes 10 seconds16:10
-Adriana Ramos | Rumo Gestão 16 minutes 10 seconds
-não não ela botou ela lembra que eu chamei ela para para participar aí ela respondeu tô internando no CNH que é o hospital aqui e com sinal de psico não sei o que eu não sei se escreveu errado tá
+16 minutes 3 seconds16:03
+Adriana Ramos | Rumo Gestão 16 minutes 3 seconds
+Tá aí a gente tem impostos.
 R
 Renata Oliva | Rumo Gestão
-16 minutes 14 seconds16:14
-Renata Oliva | Rumo Gestão 16 minutes 14 seconds
-Mhm.
-Renata Oliva | Rumo Gestão 16 minutes 19 seconds
-Sure.
+16 minutes 6 seconds16:06
+Renata Oliva | Rumo Gestão 16 minutes 6 seconds
+Imposto 15584.
 A
 Adriana Ramos | Rumo Gestão
-16 minutes 25 seconds16:25
-Adriana Ramos | Rumo Gestão 16 minutes 25 seconds
-Mas vou internar para operar meio que às pressas.
+16 minutes 9 seconds16:09
+Adriana Ramos | Rumo Gestão 16 minutes 9 seconds
+More to that song?
+R
+Renata Oliva | Rumo Gestão
+16 minutes 11 seconds16:11
+Renata Oliva | Rumo Gestão 16 minutes 11 seconds
+3 108.
+A
+Adriana Ramos | Rumo Gestão
+16 minutes 12 seconds16:12
+Adriana Ramos | Rumo Gestão 16 minutes 12 seconds
+Resultado negativo.
+R
+Renata Oliva | Rumo Gestão
+16 minutes 15 seconds16:15
+Renata Oliva | Rumo Gestão 16 minutes 15 seconds
+31618
+A
+Adriana Ramos | Rumo Gestão
+16 minutes 17 seconds16:17
+Adriana Ramos | Rumo Gestão 16 minutes 17 seconds
+Beleza, e agora o outra área que é a arbitragem.
 FR
 Fernando Rimoli
+16 minutes 21 seconds16:21
+Fernando Rimoli 16 minutes 21 seconds
+arbitragem.
+R
+Renata Oliva | Rumo Gestão
+16 minutes 24 seconds16:24
+Renata Oliva | Rumo Gestão 16 minutes 24 seconds
+Receita 102 714.
+A
+Adriana Ramos | Rumo Gestão
+16 minutes 28 seconds16:28
+Adriana Ramos | Rumo Gestão 16 minutes 28 seconds
+A.
+R
+Renata Oliva | Rumo Gestão
 16 minutes 29 seconds16:29
-Fernando Rimoli 16 minutes 29 seconds
-Nossa, está bom?
+Renata Oliva | Rumo Gestão 16 minutes 29 seconds
+O estudo da equipe 54384.
 A
 Adriana Ramos | Rumo Gestão
-16 minutes 31 seconds16:31
-Adriana Ramos | Rumo Gestão 16 minutes 31 seconds
-Pacheco, se a pain, será a pain, pain.
+16 minutes 33 seconds16:33
+Adriana Ramos | Rumo Gestão 16 minutes 33 seconds
+The.
 R
 Renata Oliva | Rumo Gestão
 16 minutes 34 seconds16:34
 Renata Oliva | Rumo Gestão 16 minutes 34 seconds
-É porque aqui normalmente a pense que opera de emergência, né?
+Despesa de equipe onze cinco nove oito
 A
 Adriana Ramos | Rumo Gestão
 16 minutes 38 seconds16:38
 Adriana Ramos | Rumo Gestão 16 minutes 38 seconds
-É, ela deve ter escrito assim, saiu errado, mas deve ser apêndice, saiu psico, sei lá o que é, deve ser apêndice.
+The.
 R
 Renata Oliva | Rumo Gestão
-16 minutes 46 seconds16:46
-Renata Oliva | Rumo Gestão 16 minutes 46 seconds
-Pergunta se é a pencil.
+16 minutes 39 seconds16:39
+Renata Oliva | Rumo Gestão 16 minutes 39 seconds
+Institucional 23478.
+A
+Adriana Ramos | Rumo Gestão
+16 minutes 42 seconds16:42
+Adriana Ramos | Rumo Gestão 16 minutes 42 seconds
+So.
+R
+Renata Oliva | Rumo Gestão
+16 minutes 44 seconds16:44
+Renata Oliva | Rumo Gestão 16 minutes 44 seconds
+Imposto, né? 15 407.
 A
 Adriana Ramos | Rumo Gestão
 16 minutes 47 seconds16:47
 Adriana Ramos | Rumo Gestão 16 minutes 47 seconds
-Yeah.
-Adriana Ramos | Rumo Gestão 16 minutes 53 seconds
-Tá, ela vai me responder que eu falo para vocês, caramba, tá aí a ideia aqui, Fernando, é o seguinte, é, por exemplo, aqui, bacana, tá ali, mês, o cara vai lá e vê o mês, aí a gente ter uma.
+Tá.
+R
+Renata Oliva | Rumo Gestão
+16 minutes 48 seconds16:48
+Renata Oliva | Rumo Gestão 16 minutes 48 seconds
+E o resultado negativo 4252.
+A
+Adriana Ramos | Rumo Gestão
+16 minutes 51 seconds16:51
+Adriana Ramos | Rumo Gestão 16 minutes 51 seconds
+tá só amortização só para bater 2098 amortização e ganhou até palminhas é
+R
+Renata Oliva | Rumo Gestão
+16 minutes 54 seconds16:54
+Renata Oliva | Rumo Gestão 16 minutes 54 seconds
+209 é.
+AM
+Adriana Mendes
+16 minutes 57 seconds16:57
+Adriana Mendes 16 minutes 57 seconds
+O Fernando espetacular, cara.
+FR
+Fernando Rimoli
+16 minutes 58 seconds16:58
+Fernando Rimoli 16 minutes 58 seconds
+Woo!
 R
 Renata Oliva | Rumo Gestão
 16 minutes 58 seconds16:58
 Renata Oliva | Rumo Gestão 16 minutes 58 seconds
-Okay.
-Renata Oliva | Rumo Gestão 17 minutes
-Okay.
-Renata Oliva | Rumo Gestão 17 minutes 2 seconds
-Yes.
-Renata Oliva | Rumo Gestão 17 minutes 3 seconds
-I.
+Ohh.
 A
 Adriana Ramos | Rumo Gestão
-17 minutes 8 seconds17:08
-Adriana Ramos | Rumo Gestão 17 minutes 8 seconds
-Uma.
-Adriana Ramos | Rumo Gestão 17 minutes 10 seconds
-Um botãozinho desse?
-Adriana Ramos | Rumo Gestão 17 minutes 13 seconds
-Para a gente ver o mensal, o acumulado, sei lá.
+16 minutes 59 seconds16:59
+Adriana Ramos | Rumo Gestão 16 minutes 59 seconds
+Arrebentou, Fernando, agora vai, agora vai.
 R
 Renata Oliva | Rumo Gestão
-17 minutes 13 seconds17:13
-Renata Oliva | Rumo Gestão 17 minutes 13 seconds
-You have.
+17 minutes 1 second17:01
+Renata Oliva | Rumo Gestão 17 minutes 1 second
+Hazel.
+driana Mendes
+17 minutes 1 second17:01
+Adriana Mendes 17 minutes 1 second
+Muito bom.
+R
+Renata Oliva | Rumo Gestão
+17 minutes 4 seconds17:04
+Renata Oliva | Rumo Gestão 17 minutes 4 seconds
+Ah.
 FR
 Fernando Rimoli
-17 minutes 18 seconds17:18
-Fernando Rimoli 17 minutes 18 seconds
-Sim, sim, vai estar vai ser uma dessas umas dessas coisinhas aqui, né? Aí vai ser o acumulado.
+17 minutes 4 seconds17:04
+Fernando Rimoli 17 minutes 4 seconds
+Beleza, beleza.
 A
 Adriana Ramos | Rumo Gestão
-17 minutes 18 seconds17:18
-Adriana Ramos | Rumo Gestão 17 minutes 18 seconds
-Como é que a gente chama?
-Adriana Ramos | Rumo Gestão 17 minutes 21 seconds
-Isso é, deixa eu até falar pra você, olha só, Fernando, essa aqui escrita contencioso, econômico, arbitra, pode tirar tudo isso aqui. A gente nem está mais usando. Você está usando? Como é que você está fazendo?
+17 minutes 4 seconds17:04
+Adriana Ramos | Rumo Gestão 17 minutes 4 seconds
+muito bom muito bom tá E aí só para a gente bater Fernando você pode isso eu queria repassar como é que ficou essa apresentação aqui tá aí beleza pode descer
+FR
+Fernando Rimoli
+17 minutes 15 seconds17:15
+Fernando Rimoli 17 minutes 15 seconds
+Uh-huh.
 R
 Renata Oliva | Rumo Gestão
+17 minutes 20 seconds17:20
+Renata Oliva | Rumo Gestão 17 minutes 20 seconds
+Aqui aparece o faturamento, Adriana, aparece ali.
+A
+Adriana Ramos | Rumo Gestão
 17 minutes 23 seconds17:23
-Renata Oliva | Rumo Gestão 17 minutes 23 seconds
-Yeah.
-Renata Oliva | Rumo Gestão 17 minutes 26 seconds
-Yeah.
-FR
-Fernando Rimoli
-17 minutes 31 seconds17:31
-Fernando Rimoli 17 minutes 31 seconds
-Done.
+Adriana Ramos | Rumo Gestão 17 minutes 23 seconds
+Aparece, aparece, desce mais um pouquinho Fernando, para a gente, por favor, é o faturamento de julho.
 R
 Renata Oliva | Rumo Gestão
-17 minutes 31 seconds17:31
-Renata Oliva | Rumo Gestão 17 minutes 31 seconds
-Okay.
+17 minutes 25 seconds17:25
+Renata Oliva | Rumo Gestão 17 minutes 25 seconds
+But as the
 FR
 Fernando Rimoli
-17 minutes 35 seconds17:35
-Fernando Rimoli 17 minutes 35 seconds
-É só os tipo eles separadamente, né?
+17 minutes 32 seconds17:32
+Fernando Rimoli 17 minutes 32 seconds
+De Junho.
 A
 Adriana Ramos | Rumo Gestão
-17 minutes 35 seconds17:35
-Adriana Ramos | Rumo Gestão 17 minutes 35 seconds
-Tava.
+17 minutes 33 seconds17:33
+Adriana Ramos | Rumo Gestão 17 minutes 33 seconds
+desculpa de junho
 R
 Renata Oliva | Rumo Gestão
 17 minutes 35 seconds17:35
 Renata Oliva | Rumo Gestão 17 minutes 35 seconds
-A maioria, hein, Dani, rapidinho. A maioria desses botãozinhos aqui, eles podem ser visualizados só pela gente, né? Eles não precisam ter esse nível de detalhes.
+Em junho.
 A
 Adriana Ramos | Rumo Gestão
-17 minutes 42 seconds17:42
-Adriana Ramos | Rumo Gestão 17 minutes 42 seconds
-Eliminado já.
-Adriana Ramos | Rumo Gestão 17 minutes 47 seconds
-Yeah.
-FR
-Fernando Rimoli
-17 minutes 50 seconds17:50
-Fernando Rimoli 17 minutes 50 seconds
-A também de boa de fazer é, já que tem, já tem o cliente barra é rumo, já tem essa.
+17 minutes 36 seconds17:36
+Adriana Ramos | Rumo Gestão 17 minutes 36 seconds
+É aí, Rê, você pode abrir a apresentação pra gente bater?
+R
+Renata Oliva | Rumo Gestão
+17 minutes 38 seconds17:38
+Renata Oliva | Rumo Gestão 17 minutes 38 seconds
+É, deixa eu ver.
 A
 Adriana Ramos | Rumo Gestão
-17 minutes 50 seconds17:50
-Adriana Ramos | Rumo Gestão 17 minutes 50 seconds
-Exactly.
+17 minutes 40 seconds17:40
+Adriana Ramos | Rumo Gestão 17 minutes 40 seconds
+Só para a gente bater aqui os números.
+AM
+Adriana Mendes
+17 minutes 43 seconds17:43
+Adriana Mendes 17 minutes 43 seconds
+Eu não lembro se vocês falaram, mas essa apresentação é exportável, né?
+A
+Adriana Ramos | Rumo Gestão
+17 minutes 48 seconds17:48
+Adriana Ramos | Rumo Gestão 17 minutes 48 seconds
+Não falamos, mas é importante ser para a gente poder compartilhar com os caras, não é?
 R
 Renata Oliva | Rumo Gestão
 17 minutes 51 seconds17:51
 Renata Oliva | Rumo Gestão 17 minutes 51 seconds
-Yeah.
+Apresentação.
 FR
 Fernando Rimoli
-17 minutes 59 seconds17:59
-Fernando Rimoli 17 minutes 59 seconds
-Esse split, né? Vocês podem me falar o que vocês querem ver, o que vocês querem que o cliente veja também.
+17 minutes 52 seconds17:52
+Fernando Rimoli 17 minutes 52 seconds
+Oh.
+AM
+Adriana Mendes
+17 minutes 52 seconds17:52
+Adriana Mendes 17 minutes 52 seconds
+Ah, tá ali, tá ali, beleza, beleza, beleza, beleza, show, show, show.
 A
 Adriana Ramos | Rumo Gestão
-18 minutes 4 seconds18:04
-Adriana Ramos | Rumo Gestão 18 minutes 4 seconds
-Tá, mas vamos lá então, vou deixa eu consertar aqui para você esse contencioso econômico e arbitragem, ele traz o quê?
+17 minutes 54 seconds17:54
+Adriana Ramos | Rumo Gestão 17 minutes 54 seconds
+Baixar.
+FR
+Fernando Rimoli
+17 minutes 55 seconds17:55
+Fernando Rimoli 17 minutes 55 seconds
+To lucky.
 R
 Renata Oliva | Rumo Gestão
-18 minutes 5 seconds18:05
-Renata Oliva | Rumo Gestão 18 minutes 5 seconds
-Hello.
+17 minutes 59 seconds17:59
+Renata Oliva | Rumo Gestão 17 minutes 59 seconds
+Pera aí que eu estou catando ela aqui. É aquela de janeiro e junho, né?
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 2 seconds18:02
+Adriana Ramos | Rumo Gestão 18 minutes 2 seconds
+O Fernando, esse índice deixa eu, deixa eu poupar aqui vocês, sobe ali, sobe ali.
+Adriana Ramos | Rumo Gestão 18 minutes 10 seconds
+Vocês precisaria decent, não?
+R
+Renata Oliva | Rumo Gestão
+18 minutes 12 seconds18:12
+Renata Oliva | Rumo Gestão 18 minutes 12 seconds
+It's.
 FR
 Fernando Rimoli
 18 minutes 12 seconds18:12
 Fernando Rimoli 18 minutes 12 seconds
-É só tipo o orçado e realizado do de cada um separadamente, sabe? Do recebimento que eu sou aqui comissão.
+Yeah.
 A
 Adriana Ramos | Rumo Gestão
-18 minutes 17 seconds18:17
-Adriana Ramos | Rumo Gestão 18 minutes 17 seconds
-Intel.
+18 minutes 14 seconds18:14
+Adriana Ramos | Rumo Gestão 18 minutes 14 seconds
+No.
+FR
+Fernando Rimoli
+18 minutes 15 seconds18:15
+Fernando Rimoli 18 minutes 15 seconds
+Tá bom?
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 15 seconds18:15
+Adriana Ramos | Rumo Gestão 18 minutes 15 seconds
+Sei o que vocês acham? Qual é a opinião de vocês assim?
+AM
+Adriana Mendes
+18 minutes 18 seconds18:18
+Adriana Mendes 18 minutes 18 seconds
+Eu acho bonitinho assim, porque dá na questão de bonitinho assim, dá uma visão do que você sabe. Então a gente dá uma organização, a gente vai falar sobre esses tópicos aqui. Vocês querem? De repente não tem tempo numa reunião.
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 19 seconds18:19
 Adriana Ramos | Rumo Gestão 18 minutes 19 seconds
-OK, isso aqui, essas 3 abinhas, tanto é que na de julho, junho, você vai ver que não tem mais. A gente substituiu pela apresentação, entendeu? Pela aquele resumão da apresentação. Então você pode tirar contatobiucombr institucional.
-FR
-Fernando Rimoli
-18 minutes 29 seconds18:29
-Fernando Rimoli 18 minutes 29 seconds
-Stop.
+Achou bonitinho? Tá.
+R
+Renata Oliva | Rumo Gestão
+18 minutes 21 seconds18:21
+Renata Oliva | Rumo Gestão 18 minutes 21 seconds
+So.
 A
 Adriana Ramos | Rumo Gestão
-18 minutes 34 seconds18:34
-Adriana Ramos | Rumo Gestão 18 minutes 34 seconds
-Vamos lá, do institucional até a arbitragem, você pode tirar. E a gente está agora fazendo aquela apresentação consolidada, tá?
-FR
-Fernando Rimoli
-18 minutes 39 seconds18:39
-Fernando Rimoli 18 minutes 39 seconds
-Tá bom.
-Fernando Rimoli 18 minutes 44 seconds
-Done.
+18 minutes 23 seconds18:23
+Adriana Ramos | Rumo Gestão 18 minutes 23 seconds
+Dá uma direção, né?
+R
+Renata Oliva | Rumo Gestão
+18 minutes 25 seconds18:25
+Renata Oliva | Rumo Gestão 18 minutes 25 seconds
+É de organização, né? É.
 A
 Adriana Ramos | Rumo Gestão
-18 minutes 45 seconds18:45
-Adriana Ramos | Rumo Gestão 18 minutes 45 seconds
-E aqui o que é nacional moedas? O que é isso aqui? Nacional?
+18 minutes 27 seconds18:27
+Adriana Ramos | Rumo Gestão 18 minutes 27 seconds
+Tá bom, tá bom.
+R
+Renata Oliva | Rumo Gestão
+18 minutes 28 seconds18:28
+Renata Oliva | Rumo Gestão 18 minutes 28 seconds
+Oh.
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 31 seconds18:31
+Adriana Ramos | Rumo Gestão 18 minutes 31 seconds
+Double.
+R
+Renata Oliva | Rumo Gestão
+18 minutes 31 seconds18:31
+Renata Oliva | Rumo Gestão 18 minutes 31 seconds
+Yeah.
+AM
+Adriana Mendes
+18 minutes 33 seconds18:33
+Adriana Mendes 18 minutes 33 seconds
+Quer focar em algum específico, tá? Eu quero só no papá, sei lá, legal.
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 35 seconds18:35
+Adriana Ramos | Rumo Gestão 18 minutes 35 seconds
+Tá, entendi. Tá bom, beleza, tá ok, combinado. E o que vocês acham da gente? E aí, aí é um detalhe, tá que aí eu vou começar a entrar no detalhe de layout. Em vez de ter o rumo aqui, a gente botar o nosso logozinho em vez de ser escrito Rumo.
 FR
 Fernando Rimoli
-18 minutes 50 seconds18:50
-Fernando Rimoli 18 minutes 50 seconds
-É uma aba que tinha na na planilha de maio.
-Fernando Rimoli 18 minutes 54 seconds
-Que é, me pareceu que era faturas.
+18 minutes 36 seconds18:36
+Fernando Rimoli 18 minutes 36 seconds
+Mm-hmm.
+R
+Renata Oliva | Rumo Gestão
+18 minutes 40 seconds18:40
+Renata Oliva | Rumo Gestão 18 minutes 40 seconds
+Yeah.
+A
+Adriana Ramos | Rumo Gestão
+18 minutes 54 seconds18:54
+Adriana Ramos | Rumo Gestão 18 minutes 54 seconds
+A gente botar o logo da Rumo aqui.
+AM
+Adriana Mendes
+18 minutes 54 seconds18:54
+Adriana Mendes 18 minutes 54 seconds
+Mhm.
+Adriana Mendes 18 minutes 56 seconds
+Mm-hmm. It was legal.
 A
 Adriana Ramos | Rumo Gestão
 18 minutes 58 seconds18:58
 Adriana Ramos | Rumo Gestão 18 minutes 58 seconds
-Não pode tirar, pode tirar também, nacional e moedas.
-
+Eu passo para vocês junto com esse material aí que eu vou. É super fácil, é uma bolinha, tá bom?
+FR
 Fernando Rimoli
-19 minutes 1 second19:01
-Fernando Rimoli 19 minutes 1 second
-Tá, e moedas era fatura em outras outras moedas, sabe?
-A
-Adriana Ramos | Rumo Gestão
 19 minutes 3 seconds19:03
-Adriana Ramos | Rumo Gestão 19 minutes 3 seconds
-No.
-Adriana Ramos | Rumo Gestão 19 minutes 7 seconds
-Não, porque você não, você não usa isso para puxar esse faturamento, né? É só para limpar. Então olha só, então vamos lá, vou te falar o que pode tirar para limpar todos esses cards aqui. Meta, pode sair. Meta, pode sair. Faturas analíticas nacional.
-FR
-Fernando Rimoli
+Fernando Rimoli 19 minutes 3 seconds
+Yeah.
+A
+Adriana Ramos | Rumo Gestão
+19 minutes 4 seconds19:04
+Adriana Ramos | Rumo Gestão 19 minutes 4 seconds
+Tá, vamos lá. Abriu aí, Rê?
+R
+Renata Oliva | Rumo Gestão
+19 minutes 6 seconds19:06
+Renata Oliva | Rumo Gestão 19 minutes 6 seconds
+Então, abre aí, aí, pera aí, pera aí, cadê, cadê?
+A
+Adriana Ramos | Rumo Gestão
+19 minutes 8 seconds19:08
+Adriana Ramos | Rumo Gestão 19 minutes 8 seconds
+Então vê o primeiro institucional.
+Renata Oliva | Rumo Gestão
+19 minutes 10 seconds19:10
+Renata Oliva | Rumo Gestão 19 minutes 10 seconds
+Cadê o na was Santos?
+A
+Adriana Ramos | Rumo Gestão
 19 minutes 11 seconds19:11
-Fernando Rimoli 19 minutes 11 seconds
-Não, isso aqui era só pra só pra ver.
-Fernando Rimoli 19 minutes 20 seconds
-Done.
-Fernando Rimoli 19 minutes 26 seconds
-Down.
-A
-Adriana Ramos | Rumo Gestão
-19 minutes 28 seconds19:28
-Adriana Ramos | Rumo Gestão 19 minutes 28 seconds
-Moedas. Você só vai ficar, na verdade, Cole.
-Adriana Ramos | Rumo Gestão 19 minutes 33 seconds
-Que essa base e esse e essa área e o sintético e o e o rateio? Não, calma, o orçamento.
-FR
-Fernando Rimoli
-19 minutes 36 seconds19:36
-Fernando Rimoli 19 minutes 36 seconds
-Uh-huh.
+Adriana Ramos | Rumo Gestão 19 minutes 11 seconds
+Se desculpa é que a gente está de home Office, hoje a gente está só com uma tela e a gente está. A segunda tela é a Renata. É faturamento 1090.
 R
 Renata Oliva | Rumo Gestão
-19 minutes 37 seconds19:37
-Renata Oliva | Rumo Gestão 19 minutes 37 seconds
-E o sintético, e o sintético.
-FR
-Fernando Rimoli
-19 minutes 39 seconds19:39
-Fernando Rimoli 19 minutes 39 seconds
-Santos Luis.
-Fernando Rimoli 19 minutes 44 seconds
-Bate o orçamento, though.
+19 minutes 14 seconds19:14
+Renata Oliva | Rumo Gestão 19 minutes 14 seconds
+Oh.
+Renata Oliva | Rumo Gestão 19 minutes 16 seconds
+Mola.
+Renata Oliva | Rumo Gestão 19 minutes 18 seconds
+A.
+Renata Oliva | Rumo Gestão 19 minutes 22 seconds
+Já estou avançando na página aqui Adriana, espera aí.
 A
 Adriana Ramos | Rumo Gestão
-19 minutes 46 seconds19:46
-Adriana Ramos | Rumo Gestão 19 minutes 46 seconds
-There here.
+19 minutes 25 seconds19:25
+Adriana Ramos | Rumo Gestão 19 minutes 25 seconds
+Yeah.
 R
 Renata Oliva | Rumo Gestão
-19 minutes 47 seconds19:47
-Renata Oliva | Rumo Gestão 19 minutes 47 seconds
-O Guerriere também.
+19 minutes 32 seconds19:32
+Renata Oliva | Rumo Gestão 19 minutes 32 seconds
+Tá, vamos embora. É faturamento 1090, receita líquida 265019, resultado bruto negativo 51689.
+A
+Adriana Ramos | Rumo Gestão
+19 minutes 40 seconds19:40
+Adriana Ramos | Rumo Gestão 19 minutes 40 seconds
+Okay.
+Adriana Ramos | Rumo Gestão 19 minutes 44 seconds
+A.
+R
+Renata Oliva | Rumo Gestão
+19 minutes 45 seconds19:45
+Renata Oliva | Rumo Gestão 19 minutes 45 seconds
+E o resultado líquido negativo 99559.
 A
 Adriana Ramos | Rumo Gestão
 19 minutes 49 seconds19:49
 Adriana Ramos | Rumo Gestão 19 minutes 49 seconds
-e o rateio mensal.
-FR
-Fernando Rimoli
-19 minutes 50 seconds19:50
-Fernando Rimoli 19 minutes 50 seconds
-Uh-huh.
-Fernando Rimoli 19 minutes 53 seconds
-Sim, tá. Então, de novo, base resultado, área sintético, DRE, orçamento, rateio mensal.
-A
-Adriana Ramos | Rumo Gestão
-19 minutes 54 seconds19:54
-Adriana Ramos | Rumo Gestão 19 minutes 54 seconds
-Agora eu te vai.
+Tá, ele não está puxando. Olha o ele não está puxando janeiro, fevereiro, março, abril no faturamento embaixo, tá vendo?
 R
 Renata Oliva | Rumo Gestão
-20 minutes 1 second20:01
-Renata Oliva | Rumo Gestão 20 minutes 1 second
-Okay.
-A
-Adriana Ramos | Rumo Gestão
-20 minutes 1 second20:01
-Adriana Ramos | Rumo Gestão 20 minutes 1 second
-Isso aí, aí deixa eu só te e amortização que eu acho que você puxa para poder ter o número, esse número maluco aí de amortização.
+19 minutes 51 seconds19:51
+Renata Oliva | Rumo Gestão 19 minutes 51 seconds
+A.
 FR
 Fernando Rimoli
-20 minutes 2 seconds20:02
-Fernando Rimoli 20 minutes 2 seconds
-Stop.
+19 minutes 58 seconds19:58
+Fernando Rimoli 19 minutes 58 seconds
+É, sim, eu percebi isso.
 A
 Adriana Ramos | Rumo Gestão
-20 minutes 10 seconds20:10
-Adriana Ramos | Rumo Gestão 20 minutes 10 seconds
-Agora.
+20 minutes20:00
+Adriana Ramos | Rumo Gestão 20 minutes
+É, aí tem que preencher.
+FR
+Fernando Rimoli
+20 minutes 3 seconds20:03
+Fernando Rimoli 20 minutes 3 seconds
+Uhum, tá, vou checar porque.
+A
+Adriana Ramos | Rumo Gestão
+20 minutes 5 seconds20:05
+Adriana Ramos | Rumo Gestão 20 minutes 5 seconds
+É porque se ele buscou o de junho, ele sabe onde buscar o de janeiro, o dos outros meses, né? É, é, é.
+FR
+Fernando Rimoli
+20 minutes 12 seconds20:12
+Fernando Rimoli 20 minutes 12 seconds
+O meu tem aqui no acumulado, então ele.
+A
+Adriana Ramos | Rumo Gestão
+20 minutes 12 seconds20:12
+Adriana Ramos | Rumo Gestão 20 minutes 12 seconds
+Yeah.
+Adriana Ramos | Rumo Gestão 20 minutes 16 seconds
+Oh, that.
+FR
+Fernando Rimoli
+20 minutes 16 seconds20:16
+Fernando Rimoli 20 minutes 16 seconds
+Ele tem que saber esses números.
+A
+Adriana Ramos | Rumo Gestão
+20 minutes 18 seconds20:18
+Adriana Ramos | Rumo Gestão 20 minutes 18 seconds
+É.
+Adriana Ramos | Rumo Gestão 20 minutes 19 seconds
+K.
 R
 Renata Oliva | Rumo Gestão
-20 minutes 10 seconds20:10
-Renata Oliva | Rumo Gestão 20 minutes 10 seconds
-Okay.
-Renata Oliva | Rumo Gestão 20 minutes 14 seconds
-All right.
+20 minutes 21 seconds20:21
+Renata Oliva | Rumo Gestão 20 minutes 21 seconds
+Yeah.
 A
 Adriana Ramos | Rumo Gestão
-20 minutes 14 seconds20:14
-Adriana Ramos | Rumo Gestão 20 minutes 14 seconds
-Isso que eu queria perguntar, por exemplo, quando eu entrar, quando a gente for trabalhar com o orçamento de 2027, como é que a gente vai fazer?
-FR
-Fernando Rimoli
-20 minutes 22 seconds20:22
-Fernando Rimoli 20 minutes 22 seconds
-Aqui ó, vocês entram aqui e pode por o orçamento, se a armatização pode por aqui também.
+20 minutes 21 seconds20:21
+Adriana Ramos | Rumo Gestão 20 minutes 21 seconds
+Então vamos lá!
+Adriana Ramos | Rumo Gestão 20 minutes 23 seconds
+Bate a coluna do total lá embaixo, Renata, que a gente vai mais rápido, year to date, 2 130 da receita.
 R
 Renata Oliva | Rumo Gestão
-20 minutes 30 seconds20:30
-Renata Oliva | Rumo Gestão 20 minutes 30 seconds
-É imputável isso aí, né?
-FR
-Fernando Rimoli
-20 minutes 32 seconds20:32
-Fernando Rimoli 20 minutes 32 seconds
-Isso, e aí você só vem aqui e salva.
+20 minutes 23 seconds20:23
+Renata Oliva | Rumo Gestão 20 minutes 23 seconds
+Cama.
+Renata Oliva | Rumo Gestão 20 minutes 27 seconds
+Well, so.
+Renata Oliva | Rumo Gestão 20 minutes 31 seconds
+Deixa eu ver aqui, é.
+Renata Oliva | Rumo Gestão 20 minutes 34 seconds
+Deixa eu ver mudar aqui a página.
 A
 Adriana Ramos | Rumo Gestão
-20 minutes 33 seconds20:33
-Adriana Ramos | Rumo Gestão 20 minutes 33 seconds
-Mas.
-Adriana Ramos | Rumo Gestão 20 minutes 35 seconds
-Tá, mas a gente vai manter o dos outros anos, como é que vai ficar arquivado isso?
-FR
-Fernando Rimoli
+20 minutes 37 seconds20:37
+Adriana Ramos | Rumo Gestão 20 minutes 37 seconds
+Não, nessa página mesmo que você tava.
+R
+Renata Oliva | Rumo Gestão
+20 minutes 38 seconds20:38
+Renata Oliva | Rumo Gestão 20 minutes 38 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 20 minutes 40 seconds
+Cola principal?
+A
+Adriana Ramos | Rumo Gestão
+20 minutes 42 seconds20:42
+Adriana Ramos | Rumo Gestão 20 minutes 42 seconds
+É que você tava que a gente tava batendo os números o que eu vi
+R
+Renata Oliva | Rumo Gestão
 20 minutes 43 seconds20:43
-Fernando Rimoli 20 minutes 43 seconds
-É, vai manter os passados, não é? E esse que você mudar só vai para o futuro.
+Renata Oliva | Rumo Gestão 20 minutes 43 seconds
+Está na última coluna, está faturamento, é está 3.
 A
 Adriana Ramos | Rumo Gestão
-20 minutes 50 seconds20:50
-Adriana Ramos | Rumo Gestão 20 minutes 50 seconds
-É isso que eu queria saber, porque, por exemplo, hoje eu faço no Excel isso daqui. Aí eu venho e vou, vamos supor, vou começar a montar o de 2027. Eu vou vir aqui e vou botar o de 2027 aqui, mas ele vai ficar arquivado aí.
+20 minutes 46 seconds20:46
+Adriana Ramos | Rumo Gestão 20 minutes 46 seconds
+Isso, a última coisa. Isso que a gente já bate direto. Faturamento não está batendo porque não está puxando. Está, vai, receita.
 R
 Renata Oliva | Rumo Gestão
 20 minutes 53 seconds20:53
 Renata Oliva | Rumo Gestão 20 minutes 53 seconds
-Yes.
-FR
-Fernando Rimoli
-21 minutes 1 second21:01
-Fernando Rimoli 21 minutes 1 second
-Uh-huh.
-Fernando Rimoli 21 minutes 7 seconds
-Vai, o de 2026 vai continuar a mesma coisa de 2027 que vai mudar.
+Receita 2,130.
 A
 Adriana Ramos | Rumo Gestão
-21 minutes 10 seconds21:10
-Adriana Ramos | Rumo Gestão 21 minutes 10 seconds
-Tá, e aí? E vai acumulando e vai acumulando, está bom?
-FR
-Fernando Rimoli
-21 minutes 12 seconds21:12
-Fernando Rimoli 21 minutes 12 seconds
-Is.
-A
-Adriana Ramos | Rumo Gestão
-21 minutes 15 seconds21:15
-Adriana Ramos | Rumo Gestão 21 minutes 15 seconds
-É, isso é importante.
-FR
-Fernando Rimoli
-21 minutes 17 seconds21:17
-Fernando Rimoli 21 minutes 17 seconds
-I mesmo.
-A
-Adriana Ramos | Rumo Gestão
-21 minutes 19 seconds21:19
-Adriana Ramos | Rumo Gestão 21 minutes 19 seconds
-That.
-FR
-Fernando Rimoli
-21 minutes 23 seconds21:23
-Fernando Rimoli 21 minutes 23 seconds
-Tá, mais alguma coisa?
-A
-Adriana Ramos | Rumo Gestão
-21 minutes 26 seconds21:26
-Adriana Ramos | Rumo Gestão 21 minutes 26 seconds
-Não, acho que não. Vou te mandar para você poder, para você ter aí. E aí, Renata, o que você estava falando de não precisa apresentar para o para o pessoal o que, por exemplo, vai ser aberto, é isso?
+20 minutes 55 seconds20:55
+Adriana Ramos | Rumo Gestão 20 minutes 55 seconds
+Da.
 R
 Renata Oliva | Rumo Gestão
-21 minutes 39 seconds21:39
-Renata Oliva | Rumo Gestão 21 minutes 39 seconds
-Não, o que eu ia falar, que ele acabou, fala você primeiro, era justamente isso, se esse material ia ser um material dos dados que estão na planilha, mais os dados de apresentação.
-Renata Oliva | Rumo Gestão 21 minutes 54 seconds
-Então, aí pela sua sua explicação aí, deu para ver que sim. Então vai ter uma abinha ali que vai, ele vai poder, a gente vai poder mostrar ou eles visualizarem justamente o que aparece no PowerPoint, né?
+20 minutes 56 seconds20:56
+Renata Oliva | Rumo Gestão 20 minutes 56 seconds
+Vírgula 8 receita bruta 253,8.
+A
+Adriana Ramos | Rumo Gestão
+20 minutes 57 seconds20:57
+Adriana Ramos | Rumo Gestão 20 minutes 57 seconds
+The.
+Adriana Ramos | Rumo Gestão 21 minutes
+Opa, aqui receita bruta tem uma diferença.
 FR
 Fernando Rimoli
-22 minutes 11 seconds22:11
-Fernando Rimoli 22 minutes 11 seconds
-Na verdade, eu estava pensando, melhor ter um botão que vocês baixam o PowerPoint. Se eu conseguir automatizar o PowerPoint mesmo e ficar bonitinho, aí vocês baixam o PowerPoint e mostram como apresentação, mas o botão vai estar dentro desse website, sabe?
+21 minutes 4 seconds21:04
+Fernando Rimoli 21 minutes 4 seconds
+Eu acho que provavelmente vão.
+A
+Adriana Ramos | Rumo Gestão
+21 minutes 6 seconds21:06
+Adriana Ramos | Rumo Gestão 21 minutes 6 seconds
+Porque ele não está puxando, não?
+FR
+Fernando Rimoli
+21 minutes 8 seconds21:08
+Fernando Rimoli 21 minutes 8 seconds
+Não, provavelmente vão ter uma diferença, porque lembra que eu tinha te falado, acho que 2 reuniões atrás, que os meses passados, tipo, abriu para baixo, eles usavam eles, tipo, literalmente tinham umas coisas que eram diferentes da planilha de maio.
+A
+Adriana Ramos | Rumo Gestão
+21 minutes 9 seconds21:09
+Adriana Ramos | Rumo Gestão 21 minutes 9 seconds
+Não.
+R
+Renata Oliva | Rumo Gestão
+21 minutes 11 seconds21:11
+Renata Oliva | Rumo Gestão 21 minutes 11 seconds
+Mm.
+FR
+Fernando Rimoli
+21 minutes 25 seconds21:25
+Fernando Rimoli 21 minutes 25 seconds
+e agora da de junho e aí você falou não tudo bem a gente vê o resultado desses meses passados que talvez é um pouco diferente é depois e provavelmente vai ser isso aqui tipo o resultado bruto de cada mês provavelmente está um pouquinho diferente porque a regra que eu que eu segui foi a que tava de maio que tava
+R
+Renata Oliva | Rumo Gestão
+21 minutes 43 seconds21:43
+Renata Oliva | Rumo Gestão 21 minutes 43 seconds
+Oh.
+FR
+Fernando Rimoli
+21 minutes 44 seconds21:44
+Fernando Rimoli 21 minutes 44 seconds
+pouco diferente dos antes, sabe?
+A
+Adriana Ramos | Rumo Gestão
+21 minutes 46 seconds21:46
+Adriana Ramos | Rumo Gestão 21 minutes 46 seconds
+Mm.
+R
+Renata Oliva | Rumo Gestão
+21 minutes 47 seconds21:47
+Renata Oliva | Rumo Gestão 21 minutes 47 seconds
+Deve ter umas rubricas diferentes, umas despesas diferentes que aí estão influenciando.
+FR
+Fernando Rimoli
+21 minutes 53 seconds21:53
+Fernando Rimoli 21 minutes 53 seconds
+É, eu acho que provavelmente é isso.
+R
+Renata Oliva | Rumo Gestão
+21 minutes 53 seconds21:53
+Renata Oliva | Rumo Gestão 21 minutes 53 seconds
+It's say you, sir.
+A
+Adriana Ramos | Rumo Gestão
+21 minutes 55 seconds21:55
+Adriana Ramos | Rumo Gestão 21 minutes 55 seconds
+Mas é de 1150 para quanto?
+Adriana Ramos | Rumo Gestão 21 minutes 58 seconds
+Margem bruto.
+R
+Renata Oliva | Rumo Gestão
+22 minutes22:00
+Renata Oliva | Rumo Gestão 22 minutes
+Deixa eu ver aqui.
+Renata Oliva | Rumo Gestão 22 minutes 3 seconds
+Você tem aqui 1190 receita receita
+A
+Adriana Ramos | Rumo Gestão
+22 minutes 6 seconds22:06
+Adriana Ramos | Rumo Gestão 22 minutes 6 seconds
+Tá, quanto que quanto que foi a reserva? Tanto que deu a reserva, que é o que importa aqui pra gente no final.
 R
 Renata Oliva | Rumo Gestão
 22 minutes 12 seconds22:12
 Renata Oliva | Rumo Gestão 22 minutes 12 seconds
-Okay. Oh.
+Reserva de bônus no acumulado.
+A
+Adriana Ramos | Rumo Gestão
+22 minutes 13 seconds22:13
+Adriana Ramos | Rumo Gestão 22 minutes 13 seconds
+Rumo de bônus no acumulado.
+R
+Renata Oliva | Rumo Gestão
+22 minutes 17 seconds22:17
+Renata Oliva | Rumo Gestão 22 minutes 17 seconds
+Negativo 11,5.
+A
+Adriana Ramos | Rumo Gestão
+22 minutes 19 seconds22:19
+Adriana Ramos | Rumo Gestão 22 minutes 19 seconds
+É, ficou um pouquinho pior, mas para quem está ******, está ruim mesmo com 11.
+R
+Renata Oliva | Rumo Gestão
+22 minutes 25 seconds22:25
+Renata Oliva | Rumo Gestão 22 minutes 25 seconds
+That.
 Renata Oliva | Rumo Gestão 22 minutes 26 seconds
-Entendi, aí já leva num formato.
+Yeah.
+Adriana Ramos | Rumo Gestão
+22 minutes 26 seconds22:26
+Adriana Ramos | Rumo Gestão 22 minutes 26 seconds
+É, vai um 1000 aqui. É 1000? É, nem 1000 é. Está. Isso vai diluir em julho. Eles nem vão perceber. Está bom, não tem problema.
 FR
 Fernando Rimoli
 22 minutes 29 seconds22:29
 Fernando Rimoli 22 minutes 29 seconds
-É, já leva no formato tipo bonitinho que nem vocês mostraram. Aí eu vou quando vocês me mandaram apresentação e depois que eu tiver todos os números certinhos de tipo checar que os números estão certinhos de junho, aí eu já vou ver se é.
+O.
+Fernando Rimoli 22 minutes 30 seconds
+8 Saints.
 A
 Adriana Ramos | Rumo Gestão
-22 minutes 33 seconds22:33
-Adriana Ramos | Rumo Gestão 22 minutes 33 seconds
-Call.
-R
-Renata Oliva | Rumo Gestão
-22 minutes 34 seconds22:34
-Renata Oliva | Rumo Gestão 22 minutes 34 seconds
-Mhm.
-A
-Adriana Ramos | Rumo Gestão
-22 minutes 43 seconds22:43
-Adriana Ramos | Rumo Gestão 22 minutes 43 seconds
-Just.
+22 minutes 39 seconds22:39
+Adriana Ramos | Rumo Gestão 22 minutes 39 seconds
+É o ajuste que a gente já explica até que a gente fez os ajustes que agora tá direto, tá bom?
 FR
 Fernando Rimoli
-22 minutes 45 seconds22:45
-Fernando Rimoli 22 minutes 45 seconds
-Se como vai ser para eu automatizar a apresentação, falo para vocês se tiver alguma dúvida.
+22 minutes 40 seconds22:40
+Fernando Rimoli 22 minutes 40 seconds
+Down.
 A
 Adriana Ramos | Rumo Gestão
-22 minutes 50 seconds22:50
-Adriana Ramos | Rumo Gestão 22 minutes 50 seconds
-Mas aí então aí fica informar tua apresentação, é isso?
+22 minutes 47 seconds22:47
+Adriana Ramos | Rumo Gestão 22 minutes 47 seconds
+É resultados aqui é agora institucional, né?
 R
 Renata Oliva | Rumo Gestão
-22 minutes 51 seconds22:51
-Renata Oliva | Rumo Gestão 22 minutes 51 seconds
-Yeah.
-FR
-Fernando Rimoli
+22 minutes 49 seconds22:49
+Renata Oliva | Rumo Gestão 22 minutes 49 seconds
+A.
+A
+Adriana Ramos | Rumo Gestão
+22 minutes 53 seconds22:53
+Adriana Ramos | Rumo Gestão 22 minutes 53 seconds
+A meta, está.
+R
+Renata Oliva | Rumo Gestão
 22 minutes 54 seconds22:54
-Fernando Rimoli 22 minutes 54 seconds
-É tipo no senso que vocês baixam o PDF e tipo apresentam, apresentam pra ele, sabe?
-Fernando Rimoli 23 minutes 3 seconds
-Tipo, isso aqui, isso aqui seria a planilha, essas coisas aqui são a planilha. E aí vocês baixam a apresentação para mostrar para eles. Aí a planilha fica como tipo fonte de verdade para sempre. Vocês podem acessar. Como é que foi em 2025? Não sei o que vocês podem acessar aqui, as planilhas vão estar aqui.
+Renata Oliva | Rumo Gestão 22 minutes 54 seconds
+Sure.
 A
 Adriana Ramos | Rumo Gestão
-23 minutes 7 seconds23:07
-Adriana Ramos | Rumo Gestão 23 minutes 7 seconds
-Da.
-Adriana Ramos | Rumo Gestão 23 minutes 16 seconds
-Oh.
+22 minutes 56 seconds22:56
+Adriana Ramos | Rumo Gestão 22 minutes 56 seconds
+Janeiro a junho.
+R
+Renata Oliva | Rumo Gestão
+22 minutes 56 seconds22:56
+Renata Oliva | Rumo Gestão 22 minutes 56 seconds
+Que que você vai bater agora?
+A
+Adriana Ramos | Rumo Gestão
+22 minutes 59 seconds22:59
+Adriana Ramos | Rumo Gestão 22 minutes 59 seconds
+O próximo slide do resultado institucional year today de janeiro a junho.
+R
+Renata Oliva | Rumo Gestão
+23 minutes 2 seconds23:02
+Renata Oliva | Rumo Gestão 23 minutes 2 seconds
+So.
+A
+Adriana Ramos | Rumo Gestão
+23 minutes 4 seconds23:04
+Adriana Ramos | Rumo Gestão 23 minutes 4 seconds
+O Fernando, só uma dúvida minha, pode ser, mas é que quando ele vai mudando também o escrito de junho para janeiro para julho, janeiro para agosto, de janeiro para dezembro. Como é que está isso aí? Ele é inteligente, tá?
+R
+Renata Oliva | Rumo Gestão
+23 minutes 5 seconds23:05
+Renata Oliva | Rumo Gestão 23 minutes 5 seconds
+That.
 FR
 Fernando Rimoli
-23 minutes 20 seconds23:20
-Fernando Rimoli 23 minutes 20 seconds
-E também podem baixar as apresentações.
+23 minutes 18 seconds23:18
+Fernando Rimoli 23 minutes 18 seconds
+Sim, ele vai mudando.
 A
 Adriana Ramos | Rumo Gestão
 23 minutes 20 seconds23:20
 Adriana Ramos | Rumo Gestão 23 minutes 20 seconds
-Okay.
-Adriana Ramos | Rumo Gestão 23 minutes 25 seconds
-E Fernando ficou mudo.
+Está bom, ele sabe fazer isso. Ele já muda lá automaticamente. Está bom? OK, é, vai. Então a gente está com institucional 2 130 no acumulado.
 FR
 Fernando Rimoli
+23 minutes 21 seconds23:21
+Fernando Rimoli 23 minutes 21 seconds
+É cada mês que você escolhe aqui, ele já muda.
+R
+Renata Oliva | Rumo Gestão
 23 minutes 28 seconds23:28
-Fernando Rimoli 23 minutes 28 seconds
-Estão me escutando?
+Renata Oliva | Rumo Gestão 23 minutes 28 seconds
+That.
+Renata Oliva | Rumo Gestão 23 minutes 31 seconds
+The isso.
 A
 Adriana Ramos | Rumo Gestão
-23 minutes 29 seconds23:29
-Adriana Ramos | Rumo Gestão 23 minutes 29 seconds
-Agora voltou.
+23 minutes 33 seconds23:33
+Adriana Ramos | Rumo Gestão 23 minutes 33 seconds
+no resultado bruto.
 R
 Renata Oliva | Rumo Gestão
-23 minutes 29 seconds23:29
-Renata Oliva | Rumo Gestão 23 minutes 29 seconds
-Agora sempre.
-FR
-Fernando Rimoli
-23 minutes 32 seconds23:32
-Fernando Rimoli 23 minutes 32 seconds
-Eu estava falando, isso vai ser tipo uma fonte de verdade. Além do Sijuri, além do Liglodesk, vai ter isso aqui com tudo que vocês usam para as planilhas. Isso também gera a apresentação para vocês. Se vocês quiserem que tipo os gráficos e os visuais.
-Fernando Rimoli 23 minutes 48 seconds
-tiverem tudo aqui sem ter que baixar nada, tudo bem também.
+23 minutes 34 seconds23:34
+Renata Oliva | Rumo Gestão 23 minutes 34 seconds
+É 253 819.
 A
 Adriana Ramos | Rumo Gestão
-23 minutes 51 seconds23:51
-Adriana Ramos | Rumo Gestão 23 minutes 51 seconds
-Eu acho melhor estar tudo aqui, Fernando, porque aí a gente concentra tudo num lugar e aí eu pergunto para você, aí a gente pode disponibilizar o que a gente quiser para eles. Por exemplo, a gente não precisa disponibilizar isso, disponibiliza só a apresentação.
-FR
-Fernando Rimoli
-23 minutes 56 seconds23:56
-Fernando Rimoli 23 minutes 56 seconds
-Tá bom?
-A
-Adriana Ramos | Rumo Gestão
-24 minutes 9 seconds24:09
-Adriana Ramos | Rumo Gestão 24 minutes 9 seconds
-Não é, entendeu? Eu acho que a gente pode fazer isso. Eu acho que é isso que é o que a Renata está levantando aqui. A gente disponibiliza só o Painel de apresentação de resultado.
-FR
-Fernando Rimoli
-24 minutes 9 seconds24:09
-Fernando Rimoli 24 minutes 9 seconds
-Ah, sim, pode ser também.
+23 minutes 39 seconds23:39
+Adriana Ramos | Rumo Gestão 23 minutes 39 seconds
+O resultado bruto?
 R
 Renata Oliva | Rumo Gestão
-24 minutes 10 seconds24:10
-Renata Oliva | Rumo Gestão 24 minutes 10 seconds
-Mhm.
-Renata Oliva | Rumo Gestão 24 minutes 12 seconds
+23 minutes 41 seconds23:41
+Renata Oliva | Rumo Gestão 23 minutes 41 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 23 minutes 43 seconds
+253 819.
+FR
+Fernando Rimoli
+23 minutes 47 seconds23:47
+Fernando Rimoli 23 minutes 47 seconds
+What?
+R
+Renata Oliva | Rumo Gestão
+23 minutes 50 seconds23:50
+Renata Oliva | Rumo Gestão 23 minutes 50 seconds
+A match.
+FR
+Fernando Rimoli
+23 minutes 50 seconds23:50
+Fernando Rimoli 23 minutes 50 seconds
+Então tá faltando 8000 reais download.
+A
+Adriana Ramos | Rumo Gestão
+23 minutes 53 seconds23:53
+Adriana Ramos | Rumo Gestão 23 minutes 53 seconds
+É esse 8000 aí já é muito, né?
+FR
+Fernando Rimoli
+23 minutes 57 seconds23:57
+Fernando Rimoli 23 minutes 57 seconds
+Seeing.
+R
+Renata Oliva | Rumo Gestão
+23 minutes 57 seconds23:57
+Renata Oliva | Rumo Gestão 23 minutes 57 seconds
+Margem líquida -5,8.
+Renata Oliva | Rumo Gestão 24 minutes 3 seconds
+Receita líquida menos 114508.
+FR
+Fernando Rimoli
+24 minutes 8 seconds24:08
+Fernando Rimoli 24 minutes 8 seconds
+114.
+R
+Renata Oliva | Rumo Gestão
+24 minutes 9 seconds24:09
+Renata Oliva | Rumo Gestão 24 minutes 9 seconds
+É porque provavelmente ali é a diferença da receita com a.
+A
+Adriana Ramos | Rumo Gestão
+24 minutes 11 seconds24:11
+Adriana Ramos | Rumo Gestão 24 minutes 11 seconds
+É, mas aqui no resultado bruto, é no resultado bruto, não.
+Adriana Ramos | Rumo Gestão 24 minutes 18 seconds
+Porque o que a gente estava falando lá em cima era muito pouco, não é? Pelo que eu estou entendendo, não daria esse quase 8000 de diferença.
+R
+Renata Oliva | Rumo Gestão
+24 minutes 19 seconds24:19
+Renata Oliva | Rumo Gestão 24 minutes 19 seconds
+I just.
+AM
+Adriana Mendes
+24 minutes 23 seconds24:23
+Adriana Mendes 24 minutes 23 seconds
+I.
+FR
+Fernando Rimoli
+24 minutes 28 seconds24:28
+Fernando Rimoli 24 minutes 28 seconds
+Sim, é verdade, é que tá dando 800 de diferença nessa reserva bônus, né?
+A
+Adriana Ramos | Rumo Gestão
+24 minutes 30 seconds24:30
+Adriana Ramos | Rumo Gestão 24 minutes 30 seconds
+Yeah.
+Adriana Ramos | Rumo Gestão 24 minutes 33 seconds
 Oh.
 FR
 Fernando Rimoli
-24 minutes 17 seconds24:17
-Fernando Rimoli 24 minutes 17 seconds
-Tá bom?
-R
-Renata Oliva | Rumo Gestão
-24 minutes 20 seconds24:20
-Renata Oliva | Rumo Gestão 24 minutes 20 seconds
-É, porque para eles o importante é o ilustrativo, né?
-FR
-Fernando Rimoli
-24 minutes 22 seconds24:22
-Fernando Rimoli 24 minutes 22 seconds
-Pode ser, pode ser, pode ser.
-A
-Adriana Ramos | Rumo Gestão
-24 minutes 28 seconds24:28
-Adriana Ramos | Rumo Gestão 24 minutes 28 seconds
-É, para eles é o ilustrativo, exatamente.
-R
-Renata Oliva | Rumo Gestão
-24 minutes 30 seconds24:30
-Renata Oliva | Rumo Gestão 24 minutes 30 seconds
-É o visual, meu visual.
-A
-Adriana Ramos | Rumo Gestão
-24 minutes 32 seconds24:32
-Adriana Ramos | Rumo Gestão 24 minutes 32 seconds
-É pra gente, não. Pra gente isso aqui é importante, entendeu? Agora, para o trabalho, para eles, não, para eles é aquele, é trazer aquele visual da planilha, do PowerPoint que a gente vai mandar para você, que é o.
-FR
-Fernando Rimoli
-24 minutes 32 seconds24:32
-Fernando Rimoli 24 minutes 32 seconds
-Beleza.
-A
-Adriana Ramos | Rumo Gestão
-24 minutes 49 seconds24:49
-Adriana Ramos | Rumo Gestão 24 minutes 49 seconds
-Atualizado para eles terem essa visão é um complemento, né? Na verdade, foi isso que eu, que desde o início eu falei, a gente tem o Excel que esse Excel se transforma nesse ppt, mas você tem todas as informações aqui, é só botar visualmente.
-FR
-Fernando Rimoli
-24 minutes 56 seconds24:56
+24 minutes 36 seconds24:36
+Fernando Rimoli 24 minutes 36 seconds
+Mas era esse resultado bruto que estava aqui. Ah, sim, mas tipo, a diferença no final talvez é pouca, mas OA diferença desse resultado bruto provavelmente é grande por causa desses 4 meses aqui que não seguem, tipo, não.
+Fernando Rimoli 24 minutes 52 seconds
+Não seguem exatamente como estavam as planilhas.
 Fernando Rimoli 24 minutes 56 seconds
-Seeing.
-A
+Aí talvez chega na reserva de bônus que a diferença não está muito por por causa da diferença nas outras áreas também, sabe? Talvez por coincidência, que não é muita, mas aqui eu tenho certeza que tem essa diferença de 8000.
+Fernando Rimoli 25 minutes 12 seconds
+Porque esses 4 meses aqui eu só estou puxando da base de dados, como se eu estivesse usando as regras de maio e junho, sabe? Mas eles, nas planilhas, usaram algumas outras coisas diferentes.
 Adriana Ramos | Rumo Gestão
-25 minutes 6 seconds25:06
-Adriana Ramos | Rumo Gestão 25 minutes 6 seconds
-o que tá no PPT aqui é isso tá
-FR
-Fernando Rimoli
-25 minutes 8 seconds25:08
-Fernando Rimoli 25 minutes 8 seconds
-Sing, bill is a bill is a bill. What's it?
-A
-Adriana Ramos | Rumo Gestão
-25 minutes 11 seconds25:11
-Adriana Ramos | Rumo Gestão 25 minutes 11 seconds
-Está bom, eu acho que é isso.
-FR
-Fernando Rimoli
-25 minutes 14 seconds25:14
-Fernando Rimoli 25 minutes 14 seconds
-Tá bom, aí tá bom, então é me manda a planilha e o PPT e também é Renata, se se você puder, me manda também os os relatórios que você baixa do Sijuri, que na verdade eles acabaram ajudando bastante.
-A
-Adriana Ramos | Rumo Gestão
-25 minutes 15 seconds25:15
-Adriana Ramos | Rumo Gestão 25 minutes 15 seconds
-Tá.
-Adriana Ramos | Rumo Gestão 25 minutes 20 seconds
-Mm.
+25 minutes 12 seconds25:12
+Adriana Ramos | Rumo Gestão 25 minutes 12 seconds
+Uh.
+Adriana Ramos | Rumo Gestão 25 minutes 29 seconds
+Mas deixa eu perguntar uma coisa aqui.
 R
 Renata Oliva | Rumo Gestão
-25 minutes 22 seconds25:22
-Renata Oliva | Rumo Gestão 25 minutes 22 seconds
-So.
-Renata Oliva | Rumo Gestão 25 minutes 23 seconds
-Mm.
+25 minutes 30 seconds25:30
+Renata Oliva | Rumo Gestão 25 minutes 30 seconds
+A receita bruta de abril, a receita bruta de abril, a nossa planilha é 81, aqui está 85.
+A
+Adriana Ramos | Rumo Gestão
+25 minutes 33 seconds25:33
+Adriana Ramos | Rumo Gestão 25 minutes 33 seconds
+Oh.
+Adriana Ramos | Rumo Gestão 25 minutes 39 seconds
+A receita bruta
 FR
 Fernando Rimoli
-25 minutes 31 seconds25:31
-Fernando Rimoli 25 minutes 31 seconds
-É para eu achar as contas que estavam naqueles relatórios direto na base de dados. Então me manda para Junho também, porque eu vou tipo para Junho, eu vou querer checar tudo, sabe? Então melhor que eu já tenha toda a informação dos relatórios também, no caso que eu precise.
+25 minutes 39 seconds25:39
+Fernando Rimoli 25 minutes 39 seconds
+Sim.
 R
 Renata Oliva | Rumo Gestão
-25 minutes 32 seconds25:32
-Renata Oliva | Rumo Gestão 25 minutes 32 seconds
-I.
-Renata Oliva | Rumo Gestão 25 minutes 38 seconds
-Hmm.
-Renata Oliva | Rumo Gestão 25 minutes 40 seconds
-O.
-Renata Oliva | Rumo Gestão 25 minutes 43 seconds
-I.
-Renata Oliva | Rumo Gestão 25 minutes 45 seconds
-Thank you.
+25 minutes 41 seconds25:41
+Renata Oliva | Rumo Gestão 25 minutes 41 seconds
+De abril, a nossa é menos 81.
+A
+Adriana Ramos | Rumo Gestão
+25 minutes 43 seconds25:43
+Adriana Ramos | Rumo Gestão 25 minutes 43 seconds
+Pereira, he say that.
+R
+Renata Oliva | Rumo Gestão
+25 minutes 48 seconds25:48
 Renata Oliva | Rumo Gestão 25 minutes 48 seconds
-Tá, você fala igualzinho que eu te mandei demais, aqui é o de junho.
-FR
-Fernando Rimoli
-25 minutes 52 seconds25:52
-Fernando Rimoli 25 minutes 52 seconds
-É tipo a tipo aquela, aquelas coisas, aquela bagunça lá de número de conta, não sei o que, não sei o que lá, sabe?
+I thought.
+Renata Oliva | Rumo Gestão 25 minutes 51 seconds
+Quatro mil, só aí tem quatro mil.
 A
 Adriana Ramos | Rumo Gestão
+25 minutes 53 seconds25:53
+Adriana Ramos | Rumo Gestão 25 minutes 53 seconds
+Yeah.
+FR
+Fernando Rimoli
+25 minutes 56 seconds25:56
+Fernando Rimoli 25 minutes 56 seconds
+Eu posso. O que eu posso fazer é tentar pegar esses meses passados e tentar mapear exatamente, tentar mapear exatamente o que está diferente, porque e aí a gente pode ir na próxima reunião, se é.
+R
+Renata Oliva | Rumo Gestão
 25 minutes 58 seconds25:58
-Adriana Ramos | Rumo Gestão 25 minutes 58 seconds
-Contato Contato.
-FR
-Fernando Rimoli
-26 minutes26:00
-Fernando Rimoli 26 minutes
-Isso, conta contábil, conta transitória, tipo os relatórios que você baixa do CJurri mesmo.
-R
-Renata Oliva | Rumo Gestão
-26 minutes 6 seconds26:06
-Renata Oliva | Rumo Gestão 26 minutes 6 seconds
-Então vamos lá, porque que acontece? Eu te mandei um relatório que ele é enorme, que ele é um extratão. Ali eu tenho todos os valores, tanto de crédito quanto de débito, e as contas correspondentes contábeis. É esse?
-FR
-Fernando Rimoli
-26 minutes 19 seconds26:19
-Fernando Rimoli 26 minutes 19 seconds
-Isso.
-R
-Renata Oliva | Rumo Gestão
-26 minutes 20 seconds26:20
-Renata Oliva | Rumo Gestão 26 minutes 20 seconds
-Ever.
-Renata Oliva | Rumo Gestão 26 minutes 22 seconds
-É aquele, Adriana, quer usar e usa, sabe?
-FR
-Fernando Rimoli
-26 minutes 23 seconds26:23
-Fernando Rimoli 26 minutes 23 seconds
-E?
+Renata Oliva | Rumo Gestão 25 minutes 58 seconds
+There's another.
 A
 Adriana Ramos | Rumo Gestão
-26 minutes 25 seconds26:25
-Adriana Ramos | Rumo Gestão 26 minutes 25 seconds
-The.
-R
-Renata Oliva | Rumo Gestão
-26 minutes 28 seconds26:28
-Renata Oliva | Rumo Gestão 26 minutes 28 seconds
-Eu puxo lá pra você, Timole.
-A
-Adriana Ramos | Rumo Gestão
-26 minutes 30 seconds26:30
-Adriana Ramos | Rumo Gestão 26 minutes 30 seconds
-Tá, entendi, já sei qual é o Fernando, só um detalhe aqui que eu tô, tô quando vocês estavam falando, eu tava olhando a gente tá em maio, por exemplo, em maio, eu não sei se esse card aí tá receita, a gente sempre mostra.
+26 minutes 3 seconds26:03
+Adriana Ramos | Rumo Gestão 26 minutes 3 seconds
+Identificar, né? É.
+Adriana Ramos | Rumo Gestão 26 minutes 9 seconds
+Yeah.
 FR
 Fernando Rimoli
-26 minutes 31 seconds26:31
-Fernando Rimoli 26 minutes 31 seconds
-Tá bom, beleza?
+26 minutes 12 seconds26:12
+Fernando Rimoli 26 minutes 12 seconds
+Sei lá, vou mandando as perguntas para vocês aí na nossa próxima reunião, a gente vê se é coisas que a gente quer consertar, coisa que pode deixar ou se é coisa que a gente quer consertar só para esses 4 meses, já que daqui para frente, junho.
+A
+Adriana Ramos | Rumo Gestão
+26 minutes 14 seconds26:14
+Adriana Ramos | Rumo Gestão 26 minutes 14 seconds
+Yes.
+FR
+Fernando Rimoli
+26 minutes 27 seconds26:27
+Fernando Rimoli 26 minutes 27 seconds
+Eu espero que vai ser tipo as mesmas regras, não é? É porque no final das contas, esses 4 meses de diferença são importantes para esse ano só.
 R
 Renata Oliva | Rumo Gestão
 26 minutes 31 seconds26:31
 Renata Oliva | Rumo Gestão 26 minutes 31 seconds
-Okay.
+Mhm.
 FR
 Fernando Rimoli
-26 minutes 44 seconds26:44
-Fernando Rimoli 26 minutes 44 seconds
-Uh-huh.
+26 minutes 38 seconds26:38
+Fernando Rimoli 26 minutes 38 seconds
+Certo? Porque ano que vem vai ser só vai ser tipo só regra fixa. É o que esperamos. Então eu posso mapear tudo que está diferente. A gente conserta juntos e aí depois nunca mais vai ter problema, provavelmente.
+R
+Renata Oliva | Rumo Gestão
+26 minutes 39 seconds26:39
+Renata Oliva | Rumo Gestão 26 minutes 39 seconds
+Pressiana.
+A
 Adriana Ramos | Rumo Gestão
 26 minutes 46 seconds26:46
 Adriana Ramos | Rumo Gestão 26 minutes 46 seconds
-É a só para você entender, quando a gente fez o quando a gente faz o orçamento, receita e faturamento, é a mesma coisa, tá? Depois é que eles se dividem, aí fica faturamento, é, são as notas emitidas.
-Adriana Ramos | Rumo Gestão 27 minutes 1 second
-E receita é o que a gente efetivamente recebeu do cliente, tá? Então é importante também aqui ter um comparativo do que você vai ver lá no PPT. Tem isso, por exemplo, eu vou dar um exemplo só, tá?
-Adriana Ramos | Rumo Gestão 27 minutes 17 seconds
-Faturamento de maio, que a gente está olhando aqui na tela. O faturamento de maio deveria ter sido 800 e a gente só fez 719. Então a gente está abaixo do que a gente tinha falado. Receita, a gente ia fazer 800, a gente só fez 415.
-Adriana Ramos | Rumo Gestão 27 minutes 36 seconds
-Então, em algum lugar, vê, está fazendo o maior barulho aí.
+L.
 R
 Renata Oliva | Rumo Gestão
-27 minutes 40 seconds27:40
-Renata Oliva | Rumo Gestão 27 minutes 40 seconds
-Está, o cara vem hoje.
+26 minutes 51 seconds26:51
+Renata Oliva | Rumo Gestão 26 minutes 51 seconds
+Mas olha só, eu acho que é interessante rever mesmo, porque o que acontece? Pode ter uma regra em despesa aí, não sei, alguma coisa de tributo, não, porque realmente estaria replicando para esse mês de junho. Mas pode ter alguma despesa que é no início do ano,
+Renata Oliva | Rumo Gestão 27 minutes 8 seconds
+pontual, que ela vai se repetir para o ano que vem, entendeu? A gente não, entendeu? Alguma despesa que é no início do ano, que só acontece no início do ano, por exemplo, que nem o imposto. O imposto ele tem o trimestral. Então, essa regra, ela só se repete de três em três meses. Então,
+FR
+Fernando Rimoli
+27 minutes 14 seconds27:14
+Fernando Rimoli 27 minutes 14 seconds
+Tá bom, então.
+R
+Renata Oliva | Rumo Gestão
+27 minutes 27 seconds27:27
+Renata Oliva | Rumo Gestão 27 minutes 27 seconds
+É.
+Renata Oliva | Rumo Gestão 27 minutes 28 seconds
+Eu não sei aqui, foi o trimestral, aqui foi em março, janeiro, fevereiro, março, março, abril mais junho, mas aí repetiu em junho. Então você já pegou a regra, então pode ser que março.
+FR
+Fernando Rimoli
+27 minutes 39 seconds27:39
+Fernando Rimoli 27 minutes 39 seconds
+O que eu lembro, o que eu lembro era uma coisa que eu tinha mencionado, tinha um negócio de abac e um outro, uma outra sigla que agora eu esqueci, que tipo esse abac e essa outra sigla é mostrava em 1 mês.
+R
+Renata Oliva | Rumo Gestão
+27 minutes 51 seconds27:51
+Renata Oliva | Rumo Gestão 27 minutes 51 seconds
+As associações, é.
 A
 Adriana Ramos | Rumo Gestão
-27 minutes 41 seconds27:41
-Adriana Ramos | Rumo Gestão 27 minutes 41 seconds
+27 minutes 53 seconds27:53
+Adriana Ramos | Rumo Gestão 27 minutes 53 seconds
+São as associações, mas o valor é baixo, mas não é isso, não é isso não.
+R
+Renata Oliva | Rumo Gestão
+27 minutes 54 seconds27:54
+Renata Oliva | Rumo Gestão 27 minutes 54 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 27 minutes 56 seconds
+Yeah.
+FR
+Fernando Rimoli
+27 minutes 57 seconds27:57
+Fernando Rimoli 27 minutes 57 seconds
+Done.
+R
+Renata Oliva | Rumo Gestão
+27 minutes 58 seconds27:58
+Renata Oliva | Rumo Gestão 27 minutes 58 seconds
+O mês de março também está dando uma diferença. Está 312 o nosso. Aqui está 309.
+FR
+Fernando Rimoli
+28 minutes 5 seconds28:05
+Fernando Rimoli 28 minutes 5 seconds
+Entendi, tá bom, então vou mapear, vou mapear essas coisas e mostrar para vocês. E a gente tenta entender o que está diferente.
+A
+Adriana Ramos | Rumo Gestão
+28 minutes 14 seconds28:14
+Adriana Ramos | Rumo Gestão 28 minutes 14 seconds
+Deixa eu só, Renato, você está com o nosso aberto, apresentação aberta. A gente não mostra a gente nessa, nesse, nesse modelo aqui a gente só mostra receita e resultado. A gente não bota despesa, não a linha de despesa mesmo, não.
+R
+Renata Oliva | Rumo Gestão
+28 minutes 18 seconds28:18
+Renata Oliva | Rumo Gestão 28 minutes 18 seconds
 So.
-Adriana Ramos | Rumo Gestão 27 minutes 42 seconds
-É importante você colocar isso também aqui. Eu não sei se nesse final, entendeu? Talvez aqui no de maio não precise, mas quando a gente olhar, a gente precisa saber o seguinte, *****, quanto eu tinha que estar fazendo aqui em maio?
-R
-Renata Oliva | Rumo Gestão
-27 minutes 50 seconds27:50
-Renata Oliva | Rumo Gestão 27 minutes 50 seconds
-Okay.
+Renata Oliva | Rumo Gestão 28 minutes 27 seconds
+No, it's say no.
 A
 Adriana Ramos | Rumo Gestão
-27 minutes 59 seconds27:59
-Adriana Ramos | Rumo Gestão 27 minutes 59 seconds
-Podia ter feito 800, estou fazendo 719, estou abaixo.
-FR
-Fernando Rimoli
-28 minutes 3 seconds28:03
-Fernando Rimoli 28 minutes 3 seconds
-Sim, tá bom, entendi.
-A
-Adriana Ramos | Rumo Gestão
-28 minutes 4 seconds28:04
-Adriana Ramos | Rumo Gestão 28 minutes 4 seconds
-Entendeu? Lá no, lá no, é, por exemplo, só pegar aqui, isso, isso aí, por exemplo, 671 era o que eu tinha que fazer para chegar em 8 milhões, 8 milhões, 060, tá? Eu fiz, em maio eu fiz, agora vai para abril, por exemplo, vai para abril.
-FR
-Fernando Rimoli
-28 minutes 6 seconds28:06
-Fernando Rimoli 28 minutes 6 seconds
-Então é só pegar esses valores aqui, né? E comparar, não é?
-A
-Adriana Ramos | Rumo Gestão
-28 minutes 23 seconds28:23
-Adriana Ramos | Rumo Gestão 28 minutes 23 seconds
-clica lá em cima não abriu ó abriu
-FR
-Fernando Rimoli
-28 minutes 25 seconds28:25
-Fernando Rimoli 28 minutes 25 seconds
-Some.
-Fernando Rimoli 28 minutes 28 seconds
-Ele vai demorar um pouco para carregar.
-A
-Adriana Ramos | Rumo Gestão
-28 minutes 30 seconds28:30
+28 minutes 28 seconds28:28
+Adriana Ramos | Rumo Gestão 28 minutes 28 seconds
+Não tem despenta.
 Adriana Ramos | Rumo Gestão 28 minutes 30 seconds
-Ah, desculpa, então, tudo bem, mas abril a gente fez abaixo. Olha lá, abril eu faturei só 282 eu tinha que ter faturado 671. Tá vendo? Então é isso que lá quando você for para o meu PPT, que a gente faz, você vai ver que a gente compara isso mês a mês também.
-FR
-Fernando Rimoli
-28 minutes 33 seconds28:33
-Fernando Rimoli 28 minutes 33 seconds
-But not.
-Fernando Rimoli 28 minutes 38 seconds
-Uh-huh.
-A
-Adriana Ramos | Rumo Gestão
-28 minutes 48 seconds28:48
-Adriana Ramos | Rumo Gestão 28 minutes 48 seconds
-That.
-FR
-Fernando Rimoli
-28 minutes 50 seconds28:50
-Fernando Rimoli 28 minutes 50 seconds
-Tá, entendi. É, e eu também lembro. Eu também lembro daquele negócio de o que, por exemplo, em fevereiro Era Para Ser 671. Se fez 500, aí vocês somam 71 no próximo. Não faz uma coisa dessa?
-A
-Adriana Ramos | Rumo Gestão
-28 minutes 51 seconds28:51
-Adriana Ramos | Rumo Gestão 28 minutes 51 seconds
-Hey, both.
-Adriana Ramos | Rumo Gestão 29 minutes 2 seconds
-Isso para poder é para quê? Para poder no ir to go lá no 8060
-FR
-Fernando Rimoli
-29 minutes 10 seconds29:10
-Fernando Rimoli 29 minutes 10 seconds
-É pra fechar esse 8060, né?
-A
-Adriana Ramos | Rumo Gestão
-29 minutes 11 seconds29:11
-Adriana Ramos | Rumo Gestão 29 minutes 11 seconds
-A minha meta já não é nesse caso aqui, os caras nem estão olhando para isso, tá? É muita evolução para eles, mas por exemplo, a gente vai fazer e com certeza a gente vai evoluir para o HSA, lá que o que o a gente está com aquele sistema lá do robô.
+É faturamento, receita e resultado. Tá. Tá bom, tá bom.
 R
 Renata Oliva | Rumo Gestão
-29 minutes 13 seconds29:13
-Renata Oliva | Rumo Gestão 29 minutes 13 seconds
-Uh
-FR
-Fernando Rimoli
-29 minutes 19 seconds29:19
-Fernando Rimoli 29 minutes 19 seconds
-Augusto.
+28 minutes 31 seconds28:31
+Renata Oliva | Rumo Gestão 28 minutes 31 seconds
+So.
+Renata Oliva | Rumo Gestão 28 minutes 32 seconds
+Resultado, isso aí, resultado bruto e líquido e reserva de bônus.
 A
 Adriana Ramos | Rumo Gestão
-29 minutes 29 seconds29:29
-Adriana Ramos | Rumo Gestão 29 minutes 29 seconds
-Que isso aqui vai ser muito mais fácil fazer lá no HSA do que o robô, mas no lá no HSA a gente muda, então aqui não, aqui eles.
-Adriana Ramos | Rumo Gestão 29 minutes 38 seconds
-Eu ainda não consegui mostrar para eles que para chegar em 8 zero 60, agora eles teriam que fazer quase 1000000 em vez de 671. Tá lá no outro é lá no outro cliente, a gente acompanha isso. Então, por exemplo, só para você ter ideia, no HSA eu comecei.
-FR
-Fernando Rimoli
-29 minutes 47 seconds29:47
-Fernando Rimoli 29 minutes 47 seconds
-Thank you.
-A
-Adriana Ramos | Rumo Gestão
-29 minutes 55 seconds29:55
-Adriana Ramos | Rumo Gestão 29 minutes 55 seconds
-O ano eu tinha que fazer 1700, está que dá 20000000 no final do até o final do ano.
-Adriana Ramos | Rumo Gestão 30 minutes 2 seconds
-Eles não conseguiram fazer, então a minha meta que era de 1 e 700, hoje ela já está em 1 e 900. Eu tenho que fazer em 900 de julho até dezembro para chegar no anual, entendeu?
-R
-Renata Oliva | Rumo Gestão
-30 minutes 8 seconds30:08
-Renata Oliva | Rumo Gestão 30 minutes 8 seconds
+28 minutes 35 seconds28:35
+Adriana Ramos | Rumo Gestão 28 minutes 35 seconds
+Tá bom?
+Adriana Ramos | Rumo Gestão 28 minutes 37 seconds
+Okay.
+Adriana Ramos | Rumo Gestão 28 minutes 39 seconds
 So.
 FR
 Fernando Rimoli
-30 minutes 10 seconds30:10
-Fernando Rimoli 30 minutes 10 seconds
-Sim, entendi.
-Fernando Rimoli 30 minutes 14 seconds
-Aham, tá bom.
+28 minutes 40 seconds28:40
+Fernando Rimoli 28 minutes 40 seconds
+Done.
 A
 Adriana Ramos | Rumo Gestão
-30 minutes 16 seconds30:16
-Adriana Ramos | Rumo Gestão 30 minutes 16 seconds
-Tá? Mas aqui, mas aqui, se você quiser botar já, a gente já fica com isso pronto, entendeu? Já em um card, né? É, é. Então assim, 671 já deve ter virado, sei lá, 1 milhão e pouco aqui, nem lembro, nem sei quanto. Pra bater nos 870 porque os caras não fizeram no acumulado, os caras não fizeram quanto no acumulado?
-FR
-Fernando Rimoli
-30 minutes 22 seconds30:22
-Fernando Rimoli 30 minutes 22 seconds
-Boto, acho que eu boto sim.
+28 minutes 40 seconds28:40
+Adriana Ramos | Rumo Gestão 28 minutes 40 seconds
+Bom, então é isso que a gente vai identificar. A gente vai ter que ajustar o número, então esses números vão estar um pouquinho diferente do que a gente levou, não é? Então para a gente ter.
 R
 Renata Oliva | Rumo Gestão
-30 minutes 30 seconds30:30
-Renata Oliva | Rumo Gestão 30 minutes 30 seconds
+28 minutes 52 seconds28:52
+Renata Oliva | Rumo Gestão 28 minutes 52 seconds
+Tem um slide, Adriana, que eu acho que é o quarto, uma análise entre o orçado e realizado, que fala em despesa.
+A
+Adriana Ramos | Rumo Gestão
+28 minutes 59 seconds28:59
+Adriana Ramos | Rumo Gestão 28 minutes 59 seconds
+IQ.
+Adriana Ramos | Rumo Gestão 29 minutes 2 seconds
+IQ. SQ.
+Renata Oliva | Rumo Gestão
+29 minutes 3 seconds29:03
+Renata Oliva | Rumo Gestão 29 minutes 3 seconds
+Mas aí você não vai ter no mês, né? Você vai ter só no acumulado.
+FR
+Fernando Rimoli
+29 minutes 8 seconds29:08
+Fernando Rimoli 29 minutes 8 seconds
+É, esse aqui é o sal acumulado.
+R
+Renata Oliva | Rumo Gestão
+29 minutes 10 seconds29:10
+Renata Oliva | Rumo Gestão 29 minutes 10 seconds
+Oh.
+A
+Adriana Ramos | Rumo Gestão
+29 minutes 14 seconds29:14
+Adriana Ramos | Rumo Gestão 29 minutes 14 seconds
+Engraçado, mas não tem nenhuma slide em cima que tem a despesa do mês de junho e tem lá em cima. O primeiro acho que carrega. Não é que eu não estou com.
+Adriana Ramos | Rumo Gestão 29 minutes 23 seconds
+No, that's that.
+R
+Renata Oliva | Rumo Gestão
+29 minutes 25 seconds29:25
+Renata Oliva | Rumo Gestão 29 minutes 25 seconds
+Oh.
+FR
+Fernando Rimoli
+29 minutes 29 seconds29:29
+Fernando Rimoli 29 minutes 29 seconds
+É, realmente não tem.
+R
+Renata Oliva | Rumo Gestão
+29 minutes 30 seconds29:30
+Renata Oliva | Rumo Gestão 29 minutes 30 seconds
+No.
+A
+Adriana Ramos | Rumo Gestão
+29 minutes 30 seconds29:30
+Adriana Ramos | Rumo Gestão 29 minutes 30 seconds
+Mhm.
+FR
+Fernando Rimoli
+29 minutes 32 seconds29:32
+Fernando Rimoli 29 minutes 32 seconds
+Eu posso adicionar. Quer que eu adicione a despesa em algum desses?
+Fernando Rimoli 29 minutes 37 seconds
+aqui.
+A
+Adriana Ramos | Rumo Gestão
+29 minutes 39 seconds29:39
+Adriana Ramos | Rumo Gestão 29 minutes 39 seconds
+É, foi uma assim, besteira mesmo, porque deveria ter essa linha de despesa, faturamento, receita, despesa, é.
+R
+Renata Oliva | Rumo Gestão
+29 minutes 39 seconds29:39
+Renata Oliva | Rumo Gestão 29 minutes 39 seconds
+Plus.
+Renata Oliva | Rumo Gestão 29 minutes 45 seconds
+É da apresentação.
+FR
+Fernando Rimoli
+29 minutes 46 seconds29:46
+Fernando Rimoli 29 minutes 46 seconds
+Hello.
+Fernando Rimoli 29 minutes 51 seconds
+Tá bom, add generally.
+A
+Adriana Ramos | Rumo Gestão
+29 minutes 51 seconds29:51
+Adriana Ramos | Rumo Gestão 29 minutes 51 seconds
+Que isso aqui é o é o detalhe do resultado.
+AM
+Adriana Mendes
+29 minutes 53 seconds29:53
+Adriana Mendes 29 minutes 53 seconds
+É porque o resultado acaba sendo a diferença entre receita e despesa.
+A
+Adriana Ramos | Rumo Gestão
+29 minutes 58 seconds29:58
+Adriana Ramos | Rumo Gestão 29 minutes 58 seconds
+E aí fica meio.
+Adriana Ramos | Rumo Gestão 29 minutes 59 seconds
+Perdido assim, sem.
+AM
+Adriana Mendes
+30 minutes 1 second30:01
+Adriana Mendes 30 minutes 1 second
+Só diminuir o tamanho da caixinha que cabe mais outra caixinha. Faturamento, receita, despesas e resultados.
+FR
+Fernando Rimoli
+30 minutes 5 seconds30:05
+Fernando Rimoli 30 minutes 5 seconds
+Sim.
+A
+Adriana Ramos | Rumo Gestão
+30 minutes 8 seconds30:08
+Adriana Ramos | Rumo Gestão 30 minutes 8 seconds
+Yeah.
+R
+Renata Oliva | Rumo Gestão
+30 minutes 9 seconds30:09
+Renata Oliva | Rumo Gestão 30 minutes 9 seconds
+Você mostra a despesa depois de novo lá no por área.
+A
+Adriana Ramos | Rumo Gestão
+30 minutes 12 seconds30:12
+Adriana Ramos | Rumo Gestão 30 minutes 12 seconds
+No julho, só no julho, é.
+Adriana Ramos | Rumo Gestão 30 minutes 16 seconds
+At.
+Adriana Ramos | Rumo Gestão 30 minutes 19 seconds
+Ah, mas por área, né? É.
+R
+Renata Oliva | Rumo Gestão
+30 minutes 21 seconds30:21
+Renata Oliva | Rumo Gestão 30 minutes 21 seconds
+Sado, mas por área.
+A
+Adriana Ramos | Rumo Gestão
+30 minutes 23 seconds30:23
+Adriana Ramos | Rumo Gestão 30 minutes 23 seconds
+É aqui, né? Isso aí.
+R
+Renata Oliva | Rumo Gestão
+30 minutes 23 seconds30:23
+Renata Oliva | Rumo Gestão 30 minutes 23 seconds
+E na e no acumulado, não no mensal.
+A
+Adriana Ramos | Rumo Gestão
+30 minutes 27 seconds30:27
+Adriana Ramos | Rumo Gestão 30 minutes 27 seconds
+Oh.
+Adriana Ramos | Rumo Gestão 30 minutes 29 seconds
 Yeah.
 FR
 Fernando Rimoli
 30 minutes 30 seconds30:30
 Fernando Rimoli 30 minutes 30 seconds
-Uh-huh.
+E aqui, ó, também tá faltando aqueles orsados de imposto.
 A
 Adriana Ramos | Rumo Gestão
-30 minutes 35 seconds30:35
-Adriana Ramos | Rumo Gestão 30 minutes 35 seconds
-Deixa eu ver aqui, eu estou no acumulado. Vou te falar, os caras fizeram no acumulado.
-Adriana Ramos | Rumo Gestão 30 minutes 41 seconds
-Aqui eles fizeram 3 milhões, eles estão, eles estão 1 milhão e 800 abaixo da meta, só pra você ter ideia.
+30 minutes 32 seconds30:32
+Adriana Ramos | Rumo Gestão 30 minutes 32 seconds
+Também está faltando, é, tem que entrar no year to date. Agora, essa continha, essa continha aqui pode pegar esse contencioso mesmo. Desce para o contencioso. Isso aqui é importante ver se está batendo, porque isso aqui é o acumulado do orçamento.
 FR
 Fernando Rimoli
-30 minutes 49 seconds30:49
-Fernando Rimoli 30 minutes 49 seconds
-Caraca.
-A
-Adriana Ramos | Rumo Gestão
-30 minutes 50 seconds30:50
-Adriana Ramos | Rumo Gestão 30 minutes 50 seconds
-Uh-huh.
+30 minutes 36 seconds30:36
+Fernando Rimoli 30 minutes 36 seconds
+Beleza.
 R
 Renata Oliva | Rumo Gestão
-30 minutes 52 seconds30:52
-Renata Oliva | Rumo Gestão 30 minutes 52 seconds
-Essa é mais 600 mil por mês, em 6 meses.
+30 minutes 46 seconds30:46
+Renata Oliva | Rumo Gestão 30 minutes 46 seconds
+I want to get there.
 A
 Adriana Ramos | Rumo Gestão
-30 minutes 54 seconds30:54
-Adriana Ramos | Rumo Gestão 30 minutes 54 seconds
-É, é isso aí. 1200 vai ter que fazer. E não vão fazer, né? Tá na cara.
+30 minutes 47 seconds30:47
+Adriana Ramos | Rumo Gestão 30 minutes 47 seconds
+Pega o contencioso o está escrito year to date, que é o acumulado do orçamento de janeiro a junho.
 R
 Renata Oliva | Rumo Gestão
 30 minutes 57 seconds30:57
 Renata Oliva | Rumo Gestão 30 minutes 57 seconds
-Okay.
+contencioso ver aqui
 A
 Adriana Ramos | Rumo Gestão
-31 minutes 1 second31:01
-Adriana Ramos | Rumo Gestão 31 minutes 1 second
-Mas enfim, então isso são as análises que a gente tem e que a gente precisa ter de resposta para poder trabalhar e fazer as apresentações para os caras, entendeu? Tá, tá bom? Então é isso, beleza?
-FR
-Fernando Rimoli
-31 minutes 11 seconds31:11
-Fernando Rimoli 31 minutes 11 seconds
-Sim, sim, sim, entendi.
+30 minutes 59 seconds30:59
+Adriana Ramos | Rumo Gestão 30 minutes 59 seconds
+É o Fernando, aqui tá faltando uma coluna aqui, se eu não me engano, porque é o seguinte.
 R
 Renata Oliva | Rumo Gestão
-31 minutes 15 seconds31:15
-Renata Oliva | Rumo Gestão 31 minutes 15 seconds
-Agora, deixa eu só perguntar uma coisa, é aqui a gente está vendo, na verdade, os números de cliente, né? É de cliente assim, de faturamento, resultar.
+31 minutes31:00
+Renata Oliva | Rumo Gestão 31 minutes
+The.
 A
 Adriana Ramos | Rumo Gestão
-31 minutes 16 seconds31:16
-Adriana Ramos | Rumo Gestão 31 minutes 16 seconds
-Fale.
-Adriana Ramos | Rumo Gestão 31 minutes 27 seconds
-Institucional. A gente tem que ver agora por área. Agora vamos bater por área. É verdade? Não.
+31 minutes 5 seconds31:05
+Adriana Ramos | Rumo Gestão 31 minutes 5 seconds
+Posso estar falando besteira. Aqui tem o orçado. Ah, não, desculpa, tá aqui, tá aqui, tá aqui, o orçado, o orçado year to date e o realizado year to date, tá?
+R
+Renata Oliva | Rumo Gestão
+31 minutes 5 seconds31:05
+Renata Oliva | Rumo Gestão 31 minutes 5 seconds
+Think was a.
+A
+Adriana Ramos | Rumo Gestão
+31 minutes 15 seconds31:15
+Adriana Ramos | Rumo Gestão 31 minutes 15 seconds
+O A tá aí faltou aqui o tá? Vê se está batendo esses números aqui, por favor.
+R
+Renata Oliva | Rumo Gestão
+31 minutes 22 seconds31:22
+Renata Oliva | Rumo Gestão 31 minutes 22 seconds
+O é, vamos lá, contencioso aí é realizado receita 690.
+A
+Adriana Ramos | Rumo Gestão
+31 minutes 25 seconds31:25
+Adriana Ramos | Rumo Gestão 31 minutes 25 seconds
+Mm-hmm.
+Adriana Ramos | Rumo Gestão 31 minutes 30 seconds
+Tá, e o do lado, o.
 R
 Renata Oliva | Rumo Gestão
 31 minutes 31 seconds31:31
 Renata Oliva | Rumo Gestão 31 minutes 31 seconds
-Não, não ia nem falar. Eu ia falar da do time sheet, dos horários, dos honorários.
+Custo de equipe o orçado 1000 1511.
 A
 Adriana Ramos | Rumo Gestão
-31 minutes 35 seconds31:35
-Adriana Ramos | Rumo Gestão 31 minutes 35 seconds
-Não, aí é outro trabalho, né?
-Adriana Ramos | Rumo Gestão 31 minutes 39 seconds
-Aqui a gente só está falando de mim. Não, mas eles, a gente contratou eles para esse trabalho aqui ainda, só.
+31 minutes 34 seconds31:34
+Adriana Ramos | Rumo Gestão 31 minutes 34 seconds
+What's that?
+Adriana Ramos | Rumo Gestão 31 minutes 36 seconds
+Table.
 R
-
 Renata Oliva | Rumo Gestão
-31 minutes 39 seconds31:39
-Renata Oliva | Rumo Gestão 31 minutes 39 seconds
-Mas entra lá para
-Renata Oliva | Rumo Gestão 31 minutes 42 seconds
-No.
-Renata Oliva | Rumo Gestão 31 minutes 47 seconds
-Ah, tá. Não, porque como faz parte, quando você vai fazer a apresentação, essa informação vai junto, né? É.
+31 minutes 38 seconds31:38
+Renata Oliva | Rumo Gestão 31 minutes 38 seconds
+Curso de equipe orçado 449 realizado 447.
 A
 Adriana Ramos | Rumo Gestão
-31 minutes 48 seconds31:48
-Adriana Ramos | Rumo Gestão 31 minutes 48 seconds
-Okay.
+31 minutes 41 seconds31:41
+Adriana Ramos | Rumo Gestão 31 minutes 41 seconds
+A.
+Adriana Ramos | Rumo Gestão 31 minutes 45 seconds
+É, aqui tem uma diferençazinha, mas está bom.
+R
+Renata Oliva | Rumo Gestão
+31 minutes 46 seconds31:46
+Renata Oliva | Rumo Gestão 31 minutes 46 seconds
+I is.
+Renata Oliva | Rumo Gestão 31 minutes 49 seconds
+Despesa de equipe.
+A
+Adriana Ramos | Rumo Gestão
+31 minutes 52 seconds31:52
 Adriana Ramos | Rumo Gestão 31 minutes 52 seconds
-That.
-Adriana Ramos | Rumo Gestão 31 minutes 53 seconds
-Vai, mas é não aqui nesse nesse Painel. Esse Painel é só de número, só de financeiro.
+Mm.
 R
 Renata Oliva | Rumo Gestão
-32 minutes32:00
-Renata Oliva | Rumo Gestão 32 minutes
-Entendi, tá, tá.
+31 minutes 54 seconds31:54
+Renata Oliva | Rumo Gestão 31 minutes 54 seconds
+25,9.
 A
 Adriana Ramos | Rumo Gestão
-32 minutes 1 second32:01
-Adriana Ramos | Rumo Gestão 32 minutes 1 second
-Está, mas o mas eu vou. Vou continuar só aqui para a gente entender se nas áreas você fez aquela conta certa, bota em maio nas áreas, por favor.
-FR
+31 minutes 54 seconds31:54
+Adriana Ramos | Rumo Gestão 31 minutes 54 seconds
+Mm.
+R
+Renata Oliva | Rumo Gestão
+31 minutes 55 seconds31:55
+Renata Oliva | Rumo Gestão 31 minutes 55 seconds
+14.4
+A
+Adriana Ramos | Rumo Gestão
+31 minutes 57 seconds31:57
+Adriana Ramos | Rumo Gestão 31 minutes 57 seconds
+Yeah, I kija.
 Fernando Rimoli
-32 minutes 12 seconds32:12
-Fernando Rimoli 32 minutes 12 seconds
-Então nas áreas você diz contencioso econômico arbitragem ou aqui no base resultado mensal?
+32 minutes32:00
+Fernando Rimoli 32 minutes
+1.9 1900 de diferença.
+A
+Adriana Ramos | Rumo Gestão
+32 minutes 4 seconds32:04
+Adriana Ramos | Rumo Gestão 32 minutes 4 seconds
+É. E a despesa institucional?
+R
+Renata Oliva | Rumo Gestão
+32 minutes 6 seconds32:06
+Renata Oliva | Rumo Gestão 32 minutes 6 seconds
+220.4 e 203.4.
 A
 Adriana Ramos | Rumo Gestão
 32 minutes 12 seconds32:12
 Adriana Ramos | Rumo Gestão 32 minutes 12 seconds
-Isso a gente não bateu.
-Adriana Ramos | Rumo Gestão 32 minutes 19 seconds
-Eu não sei como é que você está fazendo aí por área.
-FR
-Fernando Rimoli
-32 minutes 22 seconds32:22
-Fernando Rimoli 32 minutes 22 seconds
-Que nem na que nem na planilha.
-A
-Adriana Ramos | Rumo Gestão
-32 minutes 22 seconds32:22
-Adriana Ramos | Rumo Gestão 32 minutes 22 seconds
-Aí não, no resultado da área sintética, no área sintético, vai que na área sintética é por área, desce aí.
-FR
-Fernando Rimoli
-32 minutes 26 seconds32:26
-Fernando Rimoli 32 minutes 26 seconds
-Done.
-Fernando Rimoli 32 minutes 30 seconds
-É aqui tem o resultado institucional, resultado contencioso, resultado econômico, resultado arbitragem.
-A
-Adriana Ramos | Rumo Gestão
-32 minutes 34 seconds32:34
-Adriana Ramos | Rumo Gestão 32 minutes 34 seconds
-This, I got a dance.
-Adriana Ramos | Rumo Gestão 32 minutes 36 seconds
-Tá, então bota, tá, deixa eu ver, bota qualquer um aí, vai. Dá para destacar um pouquinho a cor do resultado econômico só para institucional, econômico, para a gente ver por área?
-FR
-Fernando Rimoli
-32 minutes 41 seconds32:41
-Fernando Rimoli 32 minutes 41 seconds
-Blood with the egg.
-Fernando Rimoli 32 minutes 49 seconds
-Tá, você diz assim?
-A
-Adriana Ramos | Rumo Gestão
-32 minutes 49 seconds32:49
-Adriana Ramos | Rumo Gestão 32 minutes 49 seconds
-Oh, então deixa eu ver aqui, maio. Não, não, eu digo, eu digo só o nome mesmo pra quando a gente for ver, tá um pouquinho melhor destacado. Oh, econômico, vamos lá. No econômico, maio, né, que você tá olhando. Então vamos lá. Você tá com ela aí também, né, Renata? Ajuda aí.
-FR
-Fernando Rimoli
-32 minutes 56 seconds32:56
-Fernando Rimoli 32 minutes 56 seconds
-Yeah.
-Fernando Rimoli 32 minutes 58 seconds
-Okay.
+Impostos, só pra gente bater tudo. Impostos.
 R
 Renata Oliva | Rumo Gestão
-33 minutes 7 seconds33:07
-Renata Oliva | Rumo Gestão 33 minutes 7 seconds
-So.
+32 minutes 14 seconds32:14
+Renata Oliva | Rumo Gestão 32 minutes 14 seconds
+Imposto 22670, 103 e 60.
+A
+Adriana Ramos | Rumo Gestão
+32 minutes 17 seconds32:17
+Adriana Ramos | Rumo Gestão 32 minutes 17 seconds
+I give him.
+Adriana Ramos | Rumo Gestão 32 minutes 19 seconds
+Tá? E a motização?
+R
+Renata Oliva | Rumo Gestão
+32 minutes 24 seconds32:24
+Renata Oliva | Rumo Gestão 32 minutes 24 seconds
+18 e 17.4.
+A
+Adriana Ramos | Rumo Gestão
+32 minutes 27 seconds32:27
+Adriana Ramos | Rumo Gestão 32 minutes 27 seconds
+Tá resultado é resultado líquido vai dar diferente porque tem aquela linha ali da despesa de equipe que tá da despesa institucional que tá diferente.
+R
+Renata Oliva | Rumo Gestão
+32 minutes 30 seconds32:30
+Renata Oliva | Rumo Gestão 32 minutes 30 seconds
+Bye.
+FR
+Fernando Rimoli
+32 minutes 39 seconds32:39
+Fernando Rimoli 32 minutes 39 seconds
+Era despesas de equipe, não era?
+R
+Renata Oliva | Rumo Gestão
+32 minutes 39 seconds32:39
+Renata Oliva | Rumo Gestão 32 minutes 39 seconds
+Yeah.
+Renata Oliva | Rumo Gestão 32 minutes 43 seconds
+Despesa de despesa de equipe é 25.9.
+FR
+Fernando Rimoli
+32 minutes 48 seconds32:48
+Fernando Rimoli 32 minutes 48 seconds
+Mm-hmm. Yeah, yeah.
+R
+Renata Oliva | Rumo Gestão
+32 minutes 48 seconds32:48
+Renata Oliva | Rumo Gestão 32 minutes 48 seconds
+O orçado e realizada 14.4.
+A
+Adriana Ramos | Rumo Gestão
+32 minutes 51 seconds32:51
+Adriana Ramos | Rumo Gestão 32 minutes 51 seconds
+E a institucional, a despesa institucional realizada.
+FR
+Fernando Rimoli
+32 minutes 51 seconds32:51
+Fernando Rimoli 32 minutes 51 seconds
+Uh-huh.
+R
+Renata Oliva | Rumo Gestão
+32 minutes 54 seconds32:54
+Renata Oliva | Rumo Gestão 32 minutes 54 seconds
+realizado 203.4
+A
+Adriana Ramos | Rumo Gestão
+32 minutes 56 seconds32:56
+Adriana Ramos | Rumo Gestão 32 minutes 56 seconds
+É, tem diferença nas 2.
+FR
+Fernando Rimoli
+32 minutes 58 seconds32:58
+Fernando Rimoli 32 minutes 58 seconds
+Uh-huh.
+Fernando Rimoli 32 minutes 59 seconds
+Tá.
+A
+Adriana Ramos | Rumo Gestão
+33 minutes 1 second33:01
+Adriana Ramos | Rumo Gestão 33 minutes 1 second
+Oh.
+FR
+Fernando Rimoli
+33 minutes 6 seconds33:06
+Fernando Rimoli 33 minutes 6 seconds
+Tá bom, anotei.
 A
 Adriana Ramos | Rumo Gestão
 33 minutes 8 seconds33:08
 Adriana Ramos | Rumo Gestão 33 minutes 8 seconds
-Econômico Maio. Econômico Maio? Econômico Maio. A gente tem 251. É, vamos lá, receita pra gente bater aqui com ele. 251. Vê se todo esse resultado tá batendo. Desce que a gente já vai no resultado. Se tiver batendo o resultado, tá tudo certo.
+Tá, provavelmente deve ter, deve ter nas outras também, porque pode ser regra aí, não é? Mas vamos ver, ver aqui, econômico.
+FR
+Fernando Rimoli
+33 minutes 14 seconds33:14
+Fernando Rimoli 33 minutes 14 seconds
+Sing, sing, actually.
+A
+Adriana Ramos | Rumo Gestão
+33 minutes 19 seconds33:19
+Adriana Ramos | Rumo Gestão 33 minutes 19 seconds
+Vai, Renata, econômico. É só pra gente bater tudo.
 R
 Renata Oliva | Rumo Gestão
-33 minutes 13 seconds33:13
-Renata Oliva | Rumo Gestão 33 minutes 13 seconds
-Kicks a care here.
+33 minutes 19 seconds33:19
+Renata Oliva | Rumo Gestão 33 minutes 19 seconds
+Quer ver o econômico?
+Renata Oliva | Rumo Gestão 33 minutes 21 seconds
+All right.
+Renata Oliva | Rumo Gestão 33 minutes 22 seconds
+Tencioso, atencioso.
+Renata Oliva | Rumo Gestão 33 minutes 26 seconds
+Pacheco tomar pra baixo?
 A
 Adriana Ramos | Rumo Gestão
-33 minutes 26 seconds33:26
-Adriana Ramos | Rumo Gestão 33 minutes 26 seconds
-That's for.
+33 minutes 35 seconds33:35
+Adriana Ramos | Rumo Gestão 33 minutes 35 seconds
+Fernando ficou muito bom, viu?
+R
+Renata Oliva | Rumo Gestão
+33 minutes 38 seconds33:38
+Renata Oliva | Rumo Gestão 33 minutes 38 seconds
+Arbitragem
 FR
 Fernando Rimoli
-33 minutes 26 seconds33:26
-Fernando Rimoli 33 minutes 26 seconds
-Resultado bruto aqui?
-A
-Adriana Ramos | Rumo Gestão
-33 minutes 28 seconds33:28
-Adriana Ramos | Rumo Gestão 33 minutes 28 seconds
-Pode descer um pouquinho mais para ver o líquido.
-FR
-Fernando Rimoli
-33 minutes 32 seconds33:32
-Fernando Rimoli 33 minutes 32 seconds
-Não, só tem o bruto aqui.
-A
-Adriana Ramos | Rumo Gestão
-33 minutes 34 seconds33:34
-Adriana Ramos | Rumo Gestão 33 minutes 34 seconds
-Não, mas tem líquido lá também. Na planilha tem líquido.
-FR
-Fernando Rimoli
-33 minutes 34 seconds33:34
-Fernando Rimoli 33 minutes 34 seconds
-aqui embaixo.
+33 minutes 39 seconds33:39
 Fernando Rimoli 33 minutes 39 seconds
-Então tá faltando aqui, aqui embaixo, porque o líquido é só com o imposto remoto, né?
+Que bom que vocês gostaram, só tem que bater os números, né?
 A
 Adriana Ramos | Rumo Gestão
-33 minutes 40 seconds33:40
-Adriana Ramos | Rumo Gestão 33 minutes 40 seconds
-Yeah.
+33 minutes 42 seconds33:42
 Adriana Ramos | Rumo Gestão 33 minutes 42 seconds
-Tá, mas deixa eu ver quanto deu bruto?
-Adriana Ramos | Rumo Gestão 33 minutes 45 seconds
-Isso o imposto e também a armatização. Quanto que tá dando o bruto? Renata, só pra gente ver se tá batendo.
+É, não, mas está não, mas isso aqui é peanuts, vai bater, com certeza.
 R
 Renata Oliva | Rumo Gestão
-33 minutes 45 seconds33:45
-Renata Oliva | Rumo Gestão 33 minutes 45 seconds
-The.
-FR
-Fernando Rimoli
-33 minutes 49 seconds33:49
-Fernando Rimoli 33 minutes 49 seconds
-HSA HSA.
-R
-Renata Oliva | Rumo Gestão
-33 minutes 51 seconds33:51
-Renata Oliva | Rumo Gestão 33 minutes 51 seconds
-Mas o que de tudo institucional de que?
+33 minutes 44 seconds33:44
+Renata Oliva | Rumo Gestão 33 minutes 44 seconds
+But I go.
+Renata Oliva | Rumo Gestão 33 minutes 46 seconds
+Arbitragem, arbitragem econômico.
 A
 Adriana Ramos | Rumo Gestão
-33 minutes 54 seconds33:54
-Adriana Ramos | Rumo Gestão 33 minutes 54 seconds
-Não, de maio, maio do, a gente tá lendo contencioso.
+33 minutes 52 seconds33:52
+Adriana Ramos | Rumo Gestão 33 minutes 52 seconds
+Econômico.
 R
 Renata Oliva | Rumo Gestão
+33 minutes 53 seconds33:53
+Renata Oliva | Rumo Gestão 33 minutes 53 seconds
+Tá.
+Renata Oliva | Rumo Gestão 33 minutes 55 seconds
+Só realizado ou orçado também?
+A
+Adriana Ramos | Rumo Gestão
 33 minutes 57 seconds33:57
-Renata Oliva | Rumo Gestão 33 minutes 57 seconds
-Oh my.
-Renata Oliva | Rumo Gestão 34 minutes
-Contencioso, resultado bruto, 129.
+Adriana Ramos | Rumo Gestão 33 minutes 57 seconds
+Vamos bater os dois só para ver se está puxando direitinho. Tira o teu. É isso.
+R
+Renata Oliva | Rumo Gestão
+33 minutes 59 seconds33:59
+Renata Oliva | Rumo Gestão 33 minutes 59 seconds
+That receita.
+A
+Adriana Ramos | Rumo Gestão
+34 minutes 2 seconds34:02
+Adriana Ramos | Rumo Gestão 34 minutes 2 seconds
+Is the.
+R
+Renata Oliva | Rumo Gestão
+34 minutes 4 seconds34:04
+Renata Oliva | Rumo Gestão 34 minutes 4 seconds
+1511.
+Renata Oliva | Rumo Gestão 34 minutes 4 seconds
+E 956.
 A
 Adriana Ramos | Rumo Gestão
 34 minutes 6 seconds34:06
 Adriana Ramos | Rumo Gestão 34 minutes 6 seconds
-Não. Maio é qual que a gente está vendo? Qual é o que a gente está vendo? Qual é OA área que a gente está vendo aí, Fernando?
+The.
 R
 Renata Oliva | Rumo Gestão
-34 minutes 11 seconds34:11
-Renata Oliva | Rumo Gestão 34 minutes 11 seconds
-Want this?
-FR
-Fernando Rimoli
+34 minutes 7 seconds34:07
+Renata Oliva | Rumo Gestão 34 minutes 7 seconds
+Equipe, curso de equipe 455 e 469.7.
+A
+Adriana Ramos | Rumo Gestão
 34 minutes 12 seconds34:12
-Fernando Rimoli 34 minutes 12 seconds
-Esse aqui é o arbitragem, arbitragem, esse aqui, esse aqui de baixo.
+Adriana Ramos | Rumo Gestão 34 minutes 12 seconds
+The.
+R
+Renata Oliva | Rumo Gestão
+34 minutes 14 seconds34:14
+Renata Oliva | Rumo Gestão 34 minutes 14 seconds
+Despesa de equipe 32 pontos.
 A
 Adriana Ramos | Rumo Gestão
 34 minutes 15 seconds34:15
 Adriana Ramos | Rumo Gestão 34 minutes 15 seconds
-Não, não, esse aqui é econômico, não, de cima mesmo, econômico, econômico.
+Tem, pera aí, tem participação aí, né? Nele.
 R
 Renata Oliva | Rumo Gestão
-34 minutes 16 seconds34:16
-Renata Oliva | Rumo Gestão 34 minutes 16 seconds
-Um.
-FR
-Fernando Rimoli
-34 minutes 18 seconds34:18
-Fernando Rimoli 34 minutes 18 seconds
-Tá, então econômico, 134637.
-R
-Renata Oliva | Rumo Gestão
-34 minutes 20 seconds34:20
-Renata Oliva | Rumo Gestão 34 minutes 20 seconds
-é econômico resultado o 43 o bruto
+34 minutes 19 seconds34:19
+Renata Oliva | Rumo Gestão 34 minutes 19 seconds
+Treino realizado 4.
 A
 Adriana Ramos | Rumo Gestão
-34 minutes 22 seconds34:22
-Adriana Ramos | Rumo Gestão 34 minutes 22 seconds
-Contra 43.
-Adriana Ramos | Rumo Gestão 34 minutes 26 seconds
-E 134 o orçado.
-FR
-Fernando Rimoli
-34 minutes 26 seconds34:26
-Fernando Rimoli 34 minutes 26 seconds
-Aqui, aqui, oh.
+34 minutes 20 seconds34:20
+Adriana Ramos | Rumo Gestão 34 minutes 20 seconds
+Tá, tá bom.
 R
 Renata Oliva | Rumo Gestão
-34 minutes 28 seconds34:28
-Renata Oliva | Rumo Gestão 34 minutes 28 seconds
-Yeah.
-FR
-Fernando Rimoli
-34 minutes 29 seconds34:29
-Fernando Rimoli 34 minutes 29 seconds
-É, o realizado é 43444.
+34 minutes 22 seconds34:22
+Renata Oliva | Rumo Gestão 34 minutes 22 seconds
+É despesa de equipe 32.2 12,8.
+A
+Adriana Ramos | Rumo Gestão
+34 minutes 27 seconds34:27
+Adriana Ramos | Rumo Gestão 34 minutes 27 seconds
+The.
 R
 Renata Oliva | Rumo Gestão
 34 minutes 29 seconds34:29
 Renata Oliva | Rumo Gestão 34 minutes 29 seconds
-Send.
-Renata Oliva | Rumo Gestão 34 minutes 32 seconds
-É 43584 o resultado bruto realizado e o orçado 136 412.
+Bateu?
 A
 Adriana Ramos | Rumo Gestão
-34 minutes 38 seconds34:38
-Adriana Ramos | Rumo Gestão 34 minutes 38 seconds
-You are sad.
-Adriana Ramos | Rumo Gestão 34 minutes 43 seconds
-Tem algumas?
-Adriana Ramos | Rumo Gestão 34 minutes 45 seconds
-O realizado eu não me preocupo, porque pode ser aquela diferençazinha que a gente tá falando. Deu pena, mas o orçado, O orçado deveria estar batendo.
-FR
-Fernando Rimoli
-34 minutes 45 seconds34:45
-Fernando Rimoli 34 minutes 45 seconds
-Eu acho que talvez.
+34 minutes 30 seconds34:30
+Adriana Ramos | Rumo Gestão 34 minutes 30 seconds
+Matheus.
 R
 Renata Oliva | Rumo Gestão
-34 minutes 53 seconds34:53
-Renata Oliva | Rumo Gestão 34 minutes 53 seconds
-Quanto que deu a receita, a receita do econômico do realizado?
+34 minutes 31 seconds34:31
+Renata Oliva | Rumo Gestão 34 minutes 31 seconds
+É, então eu não, a despesa é, é dor, dor contencioso. É, é, tá. Despesa.
 A
 Adriana Ramos | Rumo Gestão
-34 minutes 59 seconds34:59
-Adriana Ramos | Rumo Gestão 34 minutes 59 seconds
-25 do realizado 166875.
+34 minutes 32 seconds34:32
+Adriana Ramos | Rumo Gestão 34 minutes 32 seconds
+Então é alguma coisa, é, bate o é.
+Adriana Ramos | Rumo Gestão 34 minutes 36 seconds
+Tudo acontecendo, mas vamos bater tudo do lado econômico, vai. OPA, sobe isso aí, nada.
+FR
+Fernando Rimoli
+34 minutes 37 seconds34:37
+Fernando Rimoli 34 minutes 37 seconds
+Done.
+Fernando Rimoli 34 minutes 40 seconds
+All right, just go back.
+Renata Oliva | Rumo Gestão
+34 minutes 42 seconds34:42
+Renata Oliva | Rumo Gestão 34 minutes 42 seconds
+Despesa institucional 223.5 213.5.
+A
+Adriana Ramos | Rumo Gestão
+34 minutes 49 seconds34:49
+Adriana Ramos | Rumo Gestão 34 minutes 49 seconds
+Ah, bateu alguma coisa lá mesmo? Tá, vai, bate os outros todos pra gente bater.
+R
+Renata Oliva | Rumo Gestão
+34 minutes 51 seconds34:51
+Renata Oliva | Rumo Gestão 34 minutes 51 seconds
+Ah.
+Renata Oliva | Rumo Gestão 34 minutes 53 seconds
+É, então, margem bruta, imposto 226.7 e 143.4.
+A
+Adriana Ramos | Rumo Gestão
+35 minutes 1 second35:01
+Adriana Ramos | Rumo Gestão 35 minutes 1 second
+The.
 R
 Renata Oliva | Rumo Gestão
 35 minutes 3 seconds35:03
 Renata Oliva | Rumo Gestão 35 minutes 3 seconds
-É, está certo.
+Então, resultado líquido 555.2 e 94.4.
 A
 Adriana Ramos | Rumo Gestão
-35 minutes 5 seconds35:05
-Adriana Ramos | Rumo Gestão 35 minutes 5 seconds
-Aí depois vem custo do equipe 7943624.
+35 minutes 12 seconds35:12
+Adriana Ramos | Rumo Gestão 35 minutes 12 seconds
+Vitor 4 ponto é, está dando 95, tudo bem, alguma coisa em algum detalhezinho aqui.
+Adriana Ramos | Rumo Gestão 35 minutes 18 seconds
+Amortização está quanto aí? 18.
 R
 Renata Oliva | Rumo Gestão
-35 minutes 9 seconds35:09
-Renata Oliva | Rumo Gestão 35 minutes 9 seconds
-Vai, bate, bate.
-A
-Adriana Ramos | Rumo Gestão
-35 minutes 11 seconds35:11
-Adriana Ramos | Rumo Gestão 35 minutes 11 seconds
-Comissão 2 128.
-R
-Renata Oliva | Rumo Gestão
-35 minutes 15 seconds35:15
-Renata Oliva | Rumo Gestão 35 minutes 15 seconds
-Comissão 2 128, isso.
-A
-Adriana Ramos | Rumo Gestão
-35 minutes 17 seconds35:17
-Adriana Ramos | Rumo Gestão 35 minutes 17 seconds
-Despesa 3 804.
-R
-Renata Oliva | Rumo Gestão
-35 minutes 21 seconds35:21
-Renata Oliva | Rumo Gestão 35 minutes 21 seconds
-É, tá três 659 depois da equipe, né?
+35 minutes 19 seconds35:19
+Renata Oliva | Rumo Gestão 35 minutes 19 seconds
+A.
+Renata Oliva | Rumo Gestão 35 minutes 20 seconds
+Amortização 18.3 com 18.2.
 A
 Adriana Ramos | Rumo Gestão
 35 minutes 23 seconds35:23
 Adriana Ramos | Rumo Gestão 35 minutes 23 seconds
-Está tudo bem. É aqui, Fernando, o que está faltando no alçado? Eu já sei, vai a gente.
+É, tá tudo bem? Isso aqui é a pinuts. Agora é só na arbitragem para a gente bater. E aí a gente já sabe que o problema talvez esteja só no contencioso. Vai para a arbitragem, por favor, Fernando.
 R
 Renata Oliva | Rumo Gestão
-35 minutes 27 seconds35:27
-Renata Oliva | Rumo Gestão 35 minutes 27 seconds
-E a e a despesa institucional pode ser o rateio.
-A
-Adriana Ramos | Rumo Gestão
 35 minutes 32 seconds35:32
-Adriana Ramos | Rumo Gestão 35 minutes 32 seconds
-3838062.
+Renata Oliva | Rumo Gestão 35 minutes 32 seconds
+Uh.
+FR
+Fernando Rimoli
+35 minutes 33 seconds35:33
+Fernando Rimoli 35 minutes 33 seconds
+No.
 R
 Renata Oliva | Rumo Gestão
-35 minutes 36 seconds35:36
-Renata Oliva | Rumo Gestão 35 minutes 36 seconds
-That 069 yeah that.
+35 minutes 34 seconds35:34
+Renata Oliva | Rumo Gestão 35 minutes 34 seconds
+Quer ir no resultado líquido direto para ver?
 A
 Adriana Ramos | Rumo Gestão
 35 minutes 36 seconds35:36
 Adriana Ramos | Rumo Gestão 35 minutes 36 seconds
-Mas AO erro, o erro do o erro está aqui. Fernando, que não está puxando despesa de equipe e despesa no institucional, no orçado. Aí que está a diferença de 134, porque a Renata está vendo lá maior. Está vendo que você não está puxando nenhuma despesa.
-Adriana Ramos | Rumo Gestão 35 minutes 52 seconds
-De equipe institucional em uma área está zerada, tem que puxar.
+That points you.
+Adriana Ramos | Rumo Gestão 35 minutes 40 seconds
+What can I down has that leaked?
 R
 Renata Oliva | Rumo Gestão
-35 minutes 55 seconds35:55
-Renata Oliva | Rumo Gestão 35 minutes 55 seconds
-É, está zerado, é.
-FR
-Fernando Rimoli
-35 minutes 57 seconds35:57
-Fernando Rimoli 35 minutes 57 seconds
-Sim, é porque.
+35 minutes 42 seconds35:42
+Renata Oliva | Rumo Gestão 35 minutes 42 seconds
+343 orçado e o realizado é negativo 135,9.
 A
 Adriana Ramos | Rumo Gestão
-36 minutes36:00
-Adriana Ramos | Rumo Gestão 36 minutes
-Oh.
-FR
-Fernando Rimoli
-36 minutes36:00
-Fernando Rimoli 36 minutes
-Eu.
-Fernando Rimoli 36 minutes 4 seconds
-Eu acho que eu lembro de ter visto isso e eu só não achei essa comissão orçada e essa.
+35 minutes 49 seconds35:49
+Adriana Ramos | Rumo Gestão 35 minutes 49 seconds
+É aqui já tem, aqui está _ 142, é?
+R
+Renata Oliva | Rumo Gestão
+35 minutes 51 seconds35:51
+Renata Oliva | Rumo Gestão 35 minutes 51 seconds
+Salvo.
+Renata Oliva | Rumo Gestão 35 minutes 53 seconds
+Então vamos bater receita, vou só no realizado.
 A
 Adriana Ramos | Rumo Gestão
-36 minutes 8 seconds36:08
+35 minutes 54 seconds35:54
+Adriana Ramos | Rumo Gestão 35 minutes 54 seconds
+Done.
+Adriana Ramos | Rumo Gestão 35 minutes 58 seconds
+Tá bom.
+R
+Renata Oliva | Rumo Gestão
+35 minutes 59 seconds35:59
+Renata Oliva | Rumo Gestão 35 minutes 59 seconds
+Receita 457.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 1 second36:01
+Adriana Ramos | Rumo Gestão 36 minutes 1 second
+That.
+R
+Renata Oliva | Rumo Gestão
+36 minutes 2 seconds36:02
+Renata Oliva | Rumo Gestão 36 minutes 2 seconds
+Curso de equipe 336.8.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 5 seconds36:05
+Adriana Ramos | Rumo Gestão 36 minutes 5 seconds
+Tem uma diferençazinha aqui
 Adriana Ramos | Rumo Gestão 36 minutes 8 seconds
-Está lá embaixo, está lá embaixo, na planilha aqui. Oh, vou te mostrar. Deixa eu roubar tua tela aí. Aham, deixa eu mostrar aqui para você.
-FR
-Fernando Rimoli
-36 minutes 13 seconds36:13
-Fernando Rimoli 36 minutes 13 seconds
-Sing me most in Tong.
-A
-Adriana Ramos | Rumo Gestão
-36 minutes 19 seconds36:19
-Adriana Ramos | Rumo Gestão 36 minutes 19 seconds
-Está aqui, Oh, você vai aqui no resultado, já compartilhou?
-FR
-Fernando Rimoli
-36 minutes 24 seconds36:24
-Fernando Rimoli 36 minutes 24 seconds
-Uh-huh.
-A
-Adriana Ramos | Rumo Gestão
-36 minutes 25 seconds36:25
-Adriana Ramos | Rumo Gestão 36 minutes 25 seconds
-Está essa aqui é tudo que a gente faz, não é? Desculpa.
-Adriana Ramos | Rumo Gestão 36 minutes 31 seconds
-No orçado, tá aqui no orçado, tá? Aí você vai aqui embaixo, tem a separação por pelas áreas, tá vendo?
-FR
-Fernando Rimoli
-36 minutes 34 seconds36:34
-Fernando Rimoli 36 minutes 34 seconds
-Uh-huh.
-Fernando Rimoli 36 minutes 41 seconds
-Don't.
-A
-Adriana Ramos | Rumo Gestão
-36 minutes 42 seconds36:42
-Adriana Ramos | Rumo Gestão 36 minutes 42 seconds
-Aí ele pega, ele pega tudo que a gente chama, por isso tem essas corzinhas maluca aqui, porque ele vai por área, tá vendo? Arbitragem, contencioso, aí ele vai e pega nesse orçamento que a gente fez para cada área.
-Adriana Ramos | Rumo Gestão 36 minutes 58 seconds
-Ele soma aqui embaixo e joga lá no na planilha.
-Adriana Ramos | Rumo Gestão 37 minutes 3 seconds
-Pegou?
-FR
-Fernando Rimoli
-37 minutes 4 seconds37:04
-Fernando Rimoli 37 minutes 4 seconds
-Pegay, pegay, tabo.
-A
-Adriana Ramos | Rumo Gestão
-37 minutes 6 seconds37:06
-Adriana Ramos | Rumo Gestão 37 minutes 6 seconds
-A.
+No custo da equipe.
 R
 Renata Oliva | Rumo Gestão
-37 minutes 8 seconds37:08
-Renata Oliva | Rumo Gestão 37 minutes 8 seconds
-E aí, como é o institucional, tem o rateio. O rateio influencia.
+36 minutes 8 seconds36:08
+Renata Oliva | Rumo Gestão 36 minutes 8 seconds
+Despesa de.
+Renata Oliva | Rumo Gestão 36 minutes 11 seconds
+Despesa de equipe tá 21.9.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 14 seconds36:14
+Adriana Ramos | Rumo Gestão 36 minutes 14 seconds
+Tem diferença também?
+R
+Renata Oliva | Rumo Gestão
+36 minutes 17 seconds36:17
+Renata Oliva | Rumo Gestão 36 minutes 17 seconds
+Institucional 152.7.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 20 seconds36:20
+Adriana Ramos | Rumo Gestão 36 minutes 20 seconds
+Também está com diferença.
+R
+Renata Oliva | Rumo Gestão
+36 minutes 24 seconds36:24
+Renata Oliva | Rumo Gestão 36 minutes 24 seconds
+Imposto 68.6.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 26 seconds36:26
+Adriana Ramos | Rumo Gestão 36 minutes 26 seconds
+So.
+R
+Renata Oliva | Rumo Gestão
+36 minutes 28 seconds36:28
+Renata Oliva | Rumo Gestão 36 minutes 28 seconds
+Amortização 13.1.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 30 seconds36:30
+Adriana Ramos | Rumo Gestão 36 minutes 30 seconds
+É, então a gente está com um problema na é um pouco na arbitragem e no contencioso, econômico não. Engraçado.
+R
+Renata Oliva | Rumo Gestão
+36 minutes 32 seconds36:32
+Renata Oliva | Rumo Gestão 36 minutes 32 seconds
+É um pouquinho de cada.
+Renata Oliva | Rumo Gestão 36 minutes 37 seconds
+No.
+FR
+Fernando Rimoli
+36 minutes 38 seconds36:38
+Fernando Rimoli 36 minutes 38 seconds
+Tell me.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 38 seconds36:38
+Adriana Ramos | Rumo Gestão 36 minutes 38 seconds
+Será que alguma coisa que puxou de uma de uma era de outra, sabe? Assim, sei lá, pode ser, é.
+FR
+Fernando Rimoli
+36 minutes 43 seconds36:43
+Fernando Rimoli 36 minutes 43 seconds
+Sim, é isso que eu estava pensando também, porque a gente falou que no outro tinha uma diferença de 7000 e aqui também está com uma diferença de 7000, então.
+R
+Renata Oliva | Rumo Gestão
+36 minutes 45 seconds36:45
+Renata Oliva | Rumo Gestão 36 minutes 45 seconds
+Yeah.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 49 seconds36:49
+Adriana Ramos | Rumo Gestão 36 minutes 49 seconds
+Yeah.
+Adriana Ramos | Rumo Gestão 36 minutes 50 seconds
+É, pode ser de lá, veio para cá. Uma dá uma área, outra dá outra, não é? Pode ser isso.
+FR
+Fernando Rimoli
+36 minutes 54 seconds36:54
+Fernando Rimoli 36 minutes 54 seconds
+Sim, vou tentar achar o que então?
+R
+Renata Oliva | Rumo Gestão
+36 minutes 55 seconds36:55
+Renata Oliva | Rumo Gestão 36 minutes 55 seconds
+Yeah.
+A
+Adriana Ramos | Rumo Gestão
+36 minutes 56 seconds36:56
+Adriana Ramos | Rumo Gestão 36 minutes 56 seconds
+Tá bom, beleza. E aí, por último, aqui tem a reserva de bônus. Bom, que aí também vai estar com diferençazinha por causa lá em cima que a gente tá. E aí, e esse é o último Painel? Acho que sim.
+AM
+Adriana Mendes
+37 minutes 3 seconds37:03
+Adriana Mendes 37 minutes 3 seconds
+Okay.
+R
+Renata Oliva | Rumo Gestão
+37 minutes 5 seconds37:05
+Renata Oliva | Rumo Gestão 37 minutes 5 seconds
+Thank you.
 FR
 Fernando Rimoli
 37 minutes 8 seconds37:08
 Fernando Rimoli 37 minutes 8 seconds
-Tá bom, então vou.
+Sim, esse é o último.
 A
 Adriana Ramos | Rumo Gestão
-37 minutes 13 seconds37:13
-Adriana Ramos | Rumo Gestão 37 minutes 13 seconds
-Yeah.
+37 minutes 9 seconds37:09
+Adriana Ramos | Rumo Gestão 37 minutes 9 seconds
+Está bom, não? Excelente. Acho que essas cores aqui que você usou nesse aqui, a gente pode replicar lá para o para o para o amiguinho ali do lado, para o que é dinâmico, é.
+AM
+Adriana Mendes
+37 minutes 17 seconds37:17
+Adriana Mendes 37 minutes 17 seconds
+Sing.
+Adriana Mendes 37 minutes 20 seconds
+Muito bom, uhum.
 R
 Renata Oliva | Rumo Gestão
-37 minutes 13 seconds37:13
-Renata Oliva | Rumo Gestão 37 minutes 13 seconds
-Pra podeta.
-A
-Adriana Ramos | Rumo Gestão
-37 minutes 15 seconds37:15
-Adriana Ramos | Rumo Gestão 37 minutes 15 seconds
-Yeah.
+37 minutes 21 seconds37:21
+Renata Oliva | Rumo Gestão 37 minutes 21 seconds
+Right.
+AM
+Adriana Mendes
+37 minutes 23 seconds37:23
+Adriana Mendes 37 minutes 23 seconds
+Adriana, se você puder mandar hoje a logo e a palheta, se bem que a palheta tá resolvida eu acho, né?
 FR
 Fernando Rimoli
-37 minutes 15 seconds37:15
-Fernando Rimoli 37 minutes 15 seconds
-Sim, está. Então é isso que está faltando mesmo para todos, para todos está faltando essas 2 coisas.
+37 minutes 23 seconds37:23
+Fernando Rimoli 37 minutes 23 seconds
+Call me being.
+R
+Renata Oliva | Rumo Gestão
+37 minutes 24 seconds37:24
+Renata Oliva | Rumo Gestão 37 minutes 24 seconds
+Okay.
 A
 Adriana Ramos | Rumo Gestão
-37 minutes 18 seconds37:18
-Adriana Ramos | Rumo Gestão 37 minutes 18 seconds
-É e lembrando aqui para todos, para todos é. E aí só relembrando aqui no o rateio mensal, você entendeu e o rateio anual, que é para fazer essa conta, a gente pega também a mesma coisa, o custo de equipe soma tudo.
-Adriana Ramos | Rumo Gestão 37 minutes 36 seconds
-E acha esse percentual, e é esse percentual aqui que a gente trabalha para montar.
-Adriana Ramos | Rumo Gestão 37 minutes 43 seconds
-O rateio aqui de cada de cada área.
+37 minutes 25 seconds37:25
+Adriana Ramos | Rumo Gestão 37 minutes 25 seconds
+Vou mandar, vou mandar.
+Adriana Ramos | Rumo Gestão 37 minutes 28 seconds
+É, a paleta é essa daqui, essa aqui está preta com.
+Adriana Mendes
+37 minutes 29 seconds37:29
+Adriana Mendes 37 minutes 29 seconds
+Mhm.
 FR
 Fernando Rimoli
-37 minutes 50 seconds37:50
-Fernando Rimoli 37 minutes 50 seconds
-Yeah.
-Fernando Rimoli 37 minutes 53 seconds
-Sim, sim, stop cloud.
+37 minutes 30 seconds37:30
+Fernando Rimoli 37 minutes 30 seconds
+Mhm.
+AM
+Adriana Mendes
+37 minutes 31 seconds37:31
+Adriana Mendes 37 minutes 31 seconds
+Gente, o que eu vejo aqui como próximos passos, tá? Eu acho que a gente realmente está no final do final. São pequenos ajustes. Eu sugiro vocês se reunirem na terça-feira que vem. Eu não vou poder porque eu vou estar em trânsito. Mas para a gente poder fazer essa entrega na quinta.
 A
 Adriana Ramos | Rumo Gestão
-37 minutes 54 seconds37:54
+37 minutes 34 seconds37:34
+Adriana Ramos | Rumo Gestão 37 minutes 34 seconds
+Tá bom?
+Adriana Ramos | Rumo Gestão 37 minutes 38 seconds
+A.
+Adriana Ramos | Rumo Gestão 37 minutes 40 seconds
+Mhm.
+Adriana Ramos | Rumo Gestão 37 minutes 45 seconds
+A.
+AM
+Adriana Mendes
+37 minutes 49 seconds37:49
+Adriana Mendes 37 minutes 49 seconds
+Tipo assim, fechar e entregar na quinta para vocês.
+A
+Adriana Ramos | Rumo Gestão
+37 minutes 51 seconds37:51
+Adriana Ramos | Rumo Gestão 37 minutes 51 seconds
+Mhm. That.
 Adriana Ramos | Rumo Gestão 37 minutes 54 seconds
-Beleza?
-FR
-Fernando Rimoli
-37 minutes 56 seconds37:56
-Fernando Rimoli 37 minutes 56 seconds
-Beleza.
-A
-Adriana Ramos | Rumo Gestão
-37 minutes 57 seconds37:57
-Adriana Ramos | Rumo Gestão 37 minutes 57 seconds
-Está, então acho que então tu tem que ajustar esses esses pequenos detalhes aí que a gente falou e a gente vai te mandar, você consegue mandar para ele a apresentação?
+Está. E como fica? Como é que fica disponível, Dre? Aquele aquele site que a gente vai usar de vocês, não é isso? Na hospedagem aí, não é isso?
 R
 Renata Oliva | Rumo Gestão
-38 minutes 9 seconds38:09
-Renata Oliva | Rumo Gestão 38 minutes 9 seconds
-A planilha?
-A
-Adriana Ramos | Rumo Gestão
+37 minutes 55 seconds37:55
+Renata Oliva | Rumo Gestão 37 minutes 55 seconds
+All actually.
+AM
+Adriana Mendes
+38 minutes 1 second38:01
+Adriana Mendes 38 minutes 1 second
+Ele vai, ele vai passar o é o link aí, elas já podem acessar, Fernando?
+FR
+Fernando Rimoli
+38 minutes 6 seconds38:06
+Fernando Rimoli 38 minutes 6 seconds
+Já, já, já, já.
+AM
+Adriana Mendes
+38 minutes 7 seconds38:07
+Adriana Mendes 38 minutes 7 seconds
+Está então pega e cola aqui no chat que aí elas já podem até usar, vocês podem até fazer outros batimentos, alguma coisa, enfim.
+FR
+Fernando Rimoli
 38 minutes 10 seconds38:10
-Adriana Ramos | Rumo Gestão 38 minutes 10 seconds
-A planilha e apresentação de Júlio que a gente já fechou para ele já ter, tá? Porque eu vou estar. Eu estou indo para o escritório agora e você já manda para ele, para já ficar lá.
-R
-Renata Oliva | Rumo Gestão
-38 minutes 13 seconds38:13
-Renata Oliva | Rumo Gestão 38 minutes 13 seconds
-Manda.
-Renata Oliva | Rumo Gestão 38 minutes 15 seconds
+Fernando Rimoli 38 minutes 10 seconds
 Uh-huh.
-Renata Oliva | Rumo Gestão 38 minutes 17 seconds
-Nada.
-Renata Oliva | Rumo Gestão 38 minutes 19 seconds
-Eu consigo anexar no e-mail essas do SharePoint normal, né? Ela não é diferente não, né? Ah, tá.
 A
 Adriana Ramos | Rumo Gestão
-38 minutes 23 seconds38:23
-Adriana Ramos | Rumo Gestão 38 minutes 23 seconds
-What's that?
-R
-Renata Oliva | Rumo Gestão
-38 minutes 27 seconds38:27
-Renata Oliva | Rumo Gestão 38 minutes 27 seconds
-Mando. Qual é? Qual é aquele? Qual é o e-mail lá? É aquele que a gente Ah, não, é o dela mesmo e o dele, né? Acho que eu tenho aqui, tá? O da.
+38 minutes 11 seconds38:11
+Adriana Ramos | Rumo Gestão 38 minutes 11 seconds
+So.
+Adriana Ramos | Rumo Gestão 38 minutes 13 seconds
+Tá bom?
+AM
+Adriana Mendes
+38 minutes 14 seconds38:14
+Adriana Mendes 38 minutes 14 seconds
+Aí, está aí no chat já, maravilha.
 A
 Adriana Ramos | Rumo Gestão
-38 minutes 27 seconds38:27
-Adriana Ramos | Rumo Gestão 38 minutes 27 seconds
-tá a gente tá te mandando
-Adriana Ramos | Rumo Gestão 38 minutes 36 seconds
-Well
+38 minutes 16 seconds38:16
+Adriana Ramos | Rumo Gestão 38 minutes 16 seconds
+E deixa eu perguntar uma coisa para vocês, assim, como a gente, como a gente vai disponibilizar isso então para o cliente? É total ignorância minha, tá? Como é que a gente disponibiliza isso para o cliente, para ele só ver o MBC, né?
+AM
+Adriana Mendes
+38 minutes 29 seconds38:29
+Adriana Mendes 38 minutes 29 seconds
+Fernando vai mostrar aí para você já tem login e senha
 FR
 Fernando Rimoli
-38 minutes 38 seconds38:38
-Fernando Rimoli 38 minutes 38 seconds
-É aquele Fernando Bia for you.com.
-R
-Renata Oliva | Rumo Gestão
-38 minutes 41 seconds38:41
-Renata Oliva | Rumo Gestão 38 minutes 41 seconds
-É, tá.
+38 minutes 29 seconds38:29
+Fernando Rimoli 38 minutes 29 seconds
+A gente, a gente dá esse, a gente dá esse link para eles aí, para cada cliente, eles vão ter um login diferente, né? Então, tipo, quando você entra aqui, ó, se liga, quando você entra aqui, o seu login está tipo admin rumo, não sei o que, né?
 A
 Adriana Ramos | Rumo Gestão
-38 minutes 42 seconds38:42
+38 minutes 35 seconds38:35
+Adriana Ramos | Rumo Gestão 38 minutes 35 seconds
+Mm.
 Adriana Ramos | Rumo Gestão 38 minutes 42 seconds
-Fernando, você descobriu aí o que a Adriana teve? Ela não me respondeu. Vou mandar mensagem aqui para a irmã dela.
-R
-Renata Oliva | Rumo Gestão
-38 minutes 44 seconds38:44
-Renata Oliva | Rumo Gestão 38 minutes 44 seconds
-Yeah, Adriana.
+Tá, tá.
+Adriana Ramos | Rumo Gestão 38 minutes 47 seconds
+A.
 FR
 Fernando Rimoli
 38 minutes 47 seconds38:47
 Fernando Rimoli 38 minutes 47 seconds
-Não, eu também não descobri não.
+O do cliente seria, sei lá, cliente@mbc.com.br. E aí a senha deles é diferente. Eu posso por a senha, o que eles quiserem, o que vocês quiserem, sempre dá para mudar essas coisas, mas tipo, o login vai ser o que fala para o sistema. Eles só podem acessar a apresentação.
 A
 Adriana Ramos | Rumo Gestão
-38 minutes 50 seconds38:50
-Adriana Ramos | Rumo Gestão 38 minutes 50 seconds
-Vou perguntar aqui para a irmã dela.
+38 minutes 49 seconds38:49
+Adriana Ramos | Rumo Gestão 38 minutes 49 seconds
+MBC.
+Adriana Ramos | Rumo Gestão 38 minutes 54 seconds
+A.
 FR
 Fernando Rimoli
-38 minutes 52 seconds38:52
-Fernando Rimoli 38 minutes 52 seconds
-Tell.
+39 minutes 5 seconds39:05
+Fernando Rimoli 39 minutes 5 seconds
+Ou eles são administradores que nem a Rumo?
 A
 Adriana Ramos | Rumo Gestão
-39 minutes 4 seconds39:04
-Adriana Ramos | Rumo Gestão 39 minutes 4 seconds
-Eu estou perguntando aqui pra Flávio.
-Adriana Ramos | Rumo Gestão 39 minutes 6 seconds
-Na verdade, a Flávia é que é minha, sua amiga da Flávia, de muitos anos, da irmã dela.
-Adriana Ramos | Rumo Gestão 39 minutes 11 seconds
-Live.
+39 minutes 9 seconds39:09
+Adriana Ramos | Rumo Gestão 39 minutes 9 seconds
+Tá, e eles e eles podem acessar, por exemplo, eles são 4 sócios lá, né? Eles podem acessar. É como é que? Como é que é isso? Como é que sabe?
 FR
 Fernando Rimoli
-39 minutes 12 seconds39:12
-Fernando Rimoli 39 minutes 12 seconds
-Sim, a minha mãe também é foi assim que eu conheci a Adriana.
-A
-Adriana Ramos | Rumo Gestão
-39 minutes 14 seconds39:14
-Adriana Ramos | Rumo Gestão 39 minutes 14 seconds
-Come on.
-Adriana Ramos | Rumo Gestão 39 minutes 16 seconds
-Sua mãe é amiga da Flávia?
-FR
-Fernando Rimoli
-39 minutes 18 seconds39:18
-Fernando Rimoli 39 minutes 18 seconds
-Ah, não, minha mãe é amiga da Juliana, a outra irmã.
+39 minutes 15 seconds39:15
+Fernando Rimoli 39 minutes 15 seconds
+Uh-huh.
+R
+Renata Oliva | Rumo Gestão
+39 minutes 19 seconds39:19
+Renata Oliva | Rumo Gestão 39 minutes 19 seconds
+É um login para cada um.
 A
 Adriana Ramos | Rumo Gestão
 39 minutes 21 seconds39:21
 Adriana Ramos | Rumo Gestão 39 minutes 21 seconds
-A sua é prima delas. A Juliana, a prima é. Conheço a Juliana também. Eu sou a menina da Flávia há muitos anos, desde a época da faculdade. Mas não precisa dizer para você quantos anos tem, porque você tem idade para ser meu filho. Mas tudo bem.
+É um logum para cada um?
+AM
+Adriana Mendes
+39 minutes 22 seconds39:22
+Adriana Mendes 39 minutes 22 seconds
+É, o certo é um login para cada um.
 FR
 Fernando Rimoli
-39 minutes 23 seconds39:23
-Fernando Rimoli 39 minutes 23 seconds
-É, prima, prima, isso mesmo, foi mal, confundi.
+39 minutes 22 seconds39:22
+Fernando Rimoli 39 minutes 22 seconds
+Nesse momento, esse momento está um login geral, mas eu posso fazer um login para cada um. Posso, tipo, adicionar um sistema de tipo criação seguinte, acho que talvez seria massa eu adicionar para o admin vocês, vocês podem ir num lugar ali.
 A
 Adriana Ramos | Rumo Gestão
-39 minutes 35 seconds39:35
-Adriana Ramos | Rumo Gestão 39 minutes 35 seconds
-Quantos anos você tem?
-FR
-Fernando Rimoli
-39 minutes 37 seconds39:37
-Fernando Rimoli 39 minutes 37 seconds
-Eu tenho 21.
+39 minutes 24 seconds39:24
+Adriana Ramos | Rumo Gestão 39 minutes 24 seconds
+Yeah.
 R
 Renata Oliva | Rumo Gestão
-39 minutes 40 seconds39:40
-Renata Oliva | Rumo Gestão 39 minutes 40 seconds
-Ai gente, a idade do meu filho.
+39 minutes 24 seconds39:24
+Renata Oliva | Rumo Gestão 39 minutes 24 seconds
+Oh.
 A
 Adriana Ramos | Rumo Gestão
-39 minutes 45 seconds39:45
-Adriana Ramos | Rumo Gestão 39 minutes 45 seconds
-Bebê, bebê, então está bom, mas não precisa chamar a gente de tia. Não está Fernando? Segue o baile, segue o baile aí com é.
+39 minutes 36 seconds39:36
+Adriana Ramos | Rumo Gestão 39 minutes 36 seconds
+Uh-huh.
+FR
+Fernando Rimoli
+39 minutes 38 seconds39:38
+Fernando Rimoli 39 minutes 38 seconds
+E criar, sei lá, qualquer cliente, qualquer usuário, qualquer senha, não é? Ou pode gerar um.
+A
+Adriana Ramos | Rumo Gestão
+39 minutes 43 seconds39:43
+Adriana Ramos | Rumo Gestão 39 minutes 43 seconds
+Uh-huh.
+AM
+Adriana Mendes
+39 minutes 44 seconds39:44
+Adriana Mendes 39 minutes 44 seconds
+E até desabilitar também, caso a pessoa saia, ótimo.
 R
 Renata Oliva | Rumo Gestão
 39 minutes 46 seconds39:46
 Renata Oliva | Rumo Gestão 39 minutes 46 seconds
-So.
+É, isso. Isso.
 FR
 Fernando Rimoli
+39 minutes 47 seconds39:47
+Fernando Rimoli 39 minutes 47 seconds
+Isso, desabilitar, remover. Aí vocês podem criar um link para eles fazerem o login. Eu posso adicionar isso aí fica mais fácil e vocês sempre podem, tipo, ter controle sobre isso, em vez de ter que ficar chamando a gente.
+A
+Adriana Ramos | Rumo Gestão
+39 minutes 47 seconds39:47
+Adriana Ramos | Rumo Gestão 39 minutes 47 seconds
+É.
+R
+Renata Oliva | Rumo Gestão
 39 minutes 50 seconds39:50
-Fernando Rimoli 39 minutes 50 seconds
-Não vou chamar não, vocês são.
-R
-Renata Oliva | Rumo Gestão
-39 minutes 52 seconds39:52
-Renata Oliva | Rumo Gestão 39 minutes 52 seconds
-Oh.
-FR
-Fernando Rimoli
+Renata Oliva | Rumo Gestão 39 minutes 50 seconds
+No.
+AM
+Adriana Mendes
 39 minutes 53 seconds39:53
-Fernando Rimoli 39 minutes 53 seconds
-Na verdade, você é só um chefe, né?
-R
-Renata Oliva | Rumo Gestão
-39 minutes 54 seconds39:54
-Renata Oliva | Rumo Gestão 39 minutes 54 seconds
-Mhm.
-
-Adriana Ramos | Rumo Gestão
-39 minutes 55 seconds39:55
-Adriana Ramos | Rumo Gestão 39 minutes 55 seconds
-é pois é segue o baile segue o não líder líder líder vamos lá líder melhor a gente é cliente a gente é cliente nada então é isso Fernando acho que tá ficando bacana Vamos só ajustar isso aí eu acho que agora
-R
-Renata Oliva | Rumo Gestão
-39 minutes 56 seconds39:56
-Renata Oliva | Rumo Gestão 39 minutes 56 seconds
-Chefe, líder.
-FR
-Fernando Rimoli
-40 minutes40:00
-Fernando Rimoli 40 minutes
-Líder, tá bom, líder então.
-Fernando Rimoli 40 minutes 27 seconds
-Tchau.
-Fernando Rimoli 40 minutes 27 seconds
-Yeah.
+Adriana Mendes 39 minutes 53 seconds
+Ótimo.
 A
 Adriana Ramos | Rumo Gestão
-40 minutes 28 seconds40:28
-Adriana Ramos | Rumo Gestão 40 minutes 28 seconds
-That.
-FR
-Fernando Rimoli
-40 minutes 29 seconds40:29
-Fernando Rimoli 40 minutes 29 seconds
-Beleza.
+39 minutes 53 seconds39:53
+Adriana Ramos | Rumo Gestão 39 minutes 53 seconds
+The.
+AM
+Adriana Mendes
+39 minutes 59 seconds39:59
+Adriana Mendes 39 minutes 59 seconds
+Ótimo.
 A
 Adriana Ramos | Rumo Gestão
-40 minutes 29 seconds40:29
-Adriana Ramos | Rumo Gestão 40 minutes 29 seconds
-Beleza, então está bom. Então a Renata está te mandando e a gente se fala. A gente vai ficar agora toda terça, é isso? Só para entender qual vai ser aí a nossa nosso dia.
-R
-Renata Oliva | Rumo Gestão
-40 minutes 32 seconds40:32
-Renata Oliva | Rumo Gestão 40 minutes 32 seconds
-vai vou te mandar
+39 minutes 59 seconds39:59
+Adriana Ramos | Rumo Gestão 39 minutes 59 seconds
+Tá, e aí, cliente, demonstração é, vai, então, mas não vai refletir, vai refletir isso aqui, não é? Para quando a gente sentar com o cliente e quiser mostrar alguma coisa.
 FR
 Fernando Rimoli
-40 minutes 41 seconds40:41
-Fernando Rimoli 40 minutes 41 seconds
-Eu não sei se ia ser toda terça Adriana que marca, né? Aí ela só confirma comigo, então vou confirmar com ela e falo para vocês.
-A
-Adriana Ramos | Rumo Gestão
-40 minutes 44 seconds40:44
-Adriana Ramos | Rumo Gestão 40 minutes 44 seconds
-That.
-Adriana Ramos | Rumo Gestão 40 minutes 46 seconds
-Tá bom?
-Adriana Ramos | Rumo Gestão 40 minutes 48 seconds
-tá bom combinado Beleza então valeu Fernando
+40 minutes 2 seconds40:02
+Fernando Rimoli 40 minutes 2 seconds
+É, tipo, isso era só, era só um alavatório.
+Fernando Rimoli 40 minutes 13 seconds
+Como assim vai refletir?
+AM
+Adriana Mendes
+40 minutes 14 seconds40:14
+Adriana Mendes 40 minutes 14 seconds
+Não entendi também.
 R
 Renata Oliva | Rumo Gestão
-40 minutes 52 seconds40:52
-Renata Oliva | Rumo Gestão 40 minutes 52 seconds
-Obrigado, Fernando.
-FR
-Fernando Rimoli
-40 minutes 53 seconds40:53
-Fernando Rimoli 40 minutes 53 seconds
-Valeu, obrigado a vocês, líderes. Até a próxima.
-A
-Adriana Ramos | Rumo Gestão
-40 minutes 54 seconds40:54
-Adriana Ramos | Rumo Gestão 40 minutes 54 seconds
-Obrigada, beijo, tchau, tchau, tchau.
-R
-Renata Oliva | Rumo Gestão
-40 minutes 55 seconds40:55
-Renata Oliva | Rumo Gestão 40 minutes 55 seconds
-Tchau.
-Renata Oliva | Rumo Gestão 40 minutes 57 seconds
-Tchau.
-Renata Oliva | Rumo Gestão 40 minutes 59 seconds
+40 minutes 14 seconds40:14
+Renata Oliva | Rumo Gestão 40 minutes 14 seconds
+But
+Renata Oliva | Rumo Gestão 40 minutes 16 seconds
 So.
+FR
+Fernando Rimoli
+40 minutes 21 seconds40:21
+Fernando Rimoli 40 minutes 21 seconds
+Uh-huh.
+AM
+Adriana Mendes
+40 minutes 23 seconds40:23
+Adriana Mendes 40 minutes 23 seconds
+Você está falando outro cliente que não é a MBCM?
 A
 Adriana Ramos | Rumo Gestão
+40 minutes 26 seconds40:26
+Adriana Ramos | Rumo Gestão 40 minutes 26 seconds
+É um cliente João lá que a gente não tem, por exemplo, a gente um cliente novo.
+R
+Renata Oliva | Rumo Gestão
+40 minutes 28 seconds40:28
+Renata Oliva | Rumo Gestão 40 minutes 28 seconds
+Um cliente novo.
+AM
+Adriana Mendes
+40 minutes 29 seconds40:29
+Adriana Mendes 40 minutes 29 seconds
+Não, aí Adriana, aí depois não, isso aí é uma outra coisa. É porque isso aqui é do é o projeto do MBC. Agora você ter.
+A
+Adriana Ramos | Rumo Gestão
+40 minutes 32 seconds40:32
+Adriana Ramos | Rumo Gestão 40 minutes 32 seconds
+Ah, é depois a outra fase, tá? Tá.
+Adriana Ramos | Rumo Gestão 40 minutes 39 seconds
+Tá aí a gente vai conversar.
+FR
+Fernando Rimoli
+40 minutes 39 seconds40:39
+Fernando Rimoli 40 minutes 39 seconds
+Não, não, mas esse não é isso mesmo. É isso mesmo que elas estão falando. É tipo, isso aqui era só para ser um segundo cliente para mostrar que tem como ver vários clientes ao mesmo tempo. E se vocês quiserem, eu posso fazer com que esse cliente demonstração esteja um pouco mais completo aqui para vocês conseguirem mostrar de demonstração mesmo.
+AM
+Adriana Mendes
+40 minutes 42 seconds40:42
+Okay.
+Adriana Mendes 40 minutes 48 seconds
+Beleza.
+Adriana Mendes 40 minutes 58 seconds
+com dados malucos, você inventa os dados lá perto pra rodar a
+A
+Adriana Ramos | Rumo Gestão
+41 minutes41:00
+Adriana Ramos | Rumo Gestão 41 minutes
+Dados malucos e sem nome é sem é cliente demonstração.
+FR
+Fernando Rimoli
+41 minutes41:00
+Fernando Rimoli 41 minutes
+É, números aleatórios, sim, com certeza.
+R
+Renata Oliva | Rumo Gestão
 41 minutes 1 second41:01
-Adriana Ramos | Rumo Gestão 41 minutes 1 second
-Fala here.
-R
-Renata Oliva | Rumo Gestão
+Renata Oliva | Rumo Gestão 41 minutes 1 second
+Yeah.
+AM
+Adriana Mendes
 41 minutes 3 seconds41:03
-Renata Oliva | Rumo Gestão 41 minutes 3 seconds
-Fala, Adriana. Eu acho que acho não, cara. Acho que eu tenho certeza. Vou escutar o áudio aqui. Mas, cara, ligaram lá para a irmã dela 3 horas da manhã para levar os documentos.
-A
-Adriana Ramos | Rumo Gestão
-41 minutes 19 seconds41:19
-Adriana Ramos | Rumo Gestão 41 minutes 19 seconds
-Again, okay?
+Adriana Mendes 41 minutes 3 seconds
+Sem as lobos.
 R
 Renata Oliva | Rumo Gestão
-41 minutes 21 seconds41:21
-Renata Oliva | Rumo Gestão 41 minutes 21 seconds
-Do hospital, 3 horas da manhã.
+41 minutes 5 seconds41:05
+Renata Oliva | Rumo Gestão 41 minutes 5 seconds
+Bota uma regra, pega todos os dois e divide por mil.
 A
 Adriana Ramos | Rumo Gestão
-41 minutes 22 seconds41:22
-Adriana Ramos | Rumo Gestão 41 minutes 22 seconds
-E espera aí que o Fernando está aqui. Oi, Fernando, a gente já a gente vai só usar o link aqui.
+41 minutes 9 seconds41:09
+Adriana Ramos | Rumo Gestão 41 minutes 9 seconds
+Yeah.
+R
+Renata Oliva | Rumo Gestão
+41 minutes 10 seconds41:10
+Renata Oliva | Rumo Gestão 41 minutes 10 seconds
+Divide por 1.3 para poder ter um número nada a ver.
+A
+Adriana Ramos | Rumo Gestão
+41 minutes 12 seconds41:12
+Adriana Ramos | Rumo Gestão 41 minutes 12 seconds
+É pra não ter ninguém
+AM
+Adriana Mendes
+41 minutes 13 seconds41:13
+Adriana Mendes 41 minutes 13 seconds
+Tá, mas só assim, sendo a chata comercial, isso daí já é uma outra coisa, tá? É.
+A
+Adriana Ramos | Rumo Gestão
+41 minutes 18 seconds41:18
+Adriana Ramos | Rumo Gestão 41 minutes 18 seconds
+Já entendi, já entendi. Pode deixar, já entendi, já entendi. Tá bom, já entendi que isso aqui, para a gente ter isso aqui plotado para demonstração, é um outro projeto. Tá entendido, tá bom.
+R
+Renata Oliva | Rumo Gestão
+41 minutes 20 seconds41:20
+Renata Oliva | Rumo Gestão 41 minutes 20 seconds
+A.
+AM
+Adriana Mendes
+41 minutes 29 seconds41:29
+Adriana Mendes 41 minutes 29 seconds
+É um projetinho pequeno. Ele já está com tudo estruturado aí, pelo que eu vi, Fernando até já adiantou, mas ele vai maquiar os dados para poder mostrar sem logo, sem tá? E tem que fazer uns ajustes aí.
+A
+Adriana Ramos | Rumo Gestão
+41 minutes 32 seconds41:32
+Adriana Ramos | Rumo Gestão 41 minutes 32 seconds
+Já entendi, perfeito, tá?
+Adriana Ramos | Rumo Gestão 41 minutes 38 seconds
+Isso então tá bom. Aí a gente a gente conversa na no eu e Adriana aqui para a gente alinhar isso. E aí, mas só para ficar já na cabeça, porque é um é um produto que a gente vai querer, é ter esse cliente demonstrativo.
+R
+Renata Oliva | Rumo Gestão
+41 minutes 40 seconds41:40
+Renata Oliva | Rumo Gestão 41 minutes 40 seconds
+Oh.
+A
+Adriana Ramos | Rumo Gestão
+41 minutes 54 seconds41:54
+Adriana Ramos | Rumo Gestão 41 minutes 54 seconds
+Com números aleatórios, tirando todos os possíveis nomes de áreas e de clientes, enfim, tudo que joga qualquer nome aí para a gente poder ter isso mapeado.
+AM
+Adriana Mendes
+42 minutes 8 seconds42:08
+Adriana Mendes 42 minutes 8 seconds
+Mhm.
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 8 seconds42:08
+Adriana Ramos | Rumo Gestão 42 minutes 8 seconds
+Está beleza, está bom, então está bom, é bom para mim. Fechou, Dri, você quer continuar comigo aqui nesse link? E está aí, está Fernando e Renata, obrigada, está bom.
+FR
+Fernando Rimoli
+42 minutes 9 seconds42:09
+Fernando Rimoli 42 minutes 9 seconds
+Yeah.
+AM
+Adriana Mendes
+42 minutes 10 seconds42:10
+Adriana Mendes 42 minutes 10 seconds
+Maravilha!
+R
+Renata Oliva | Rumo Gestão
+42 minutes 13 seconds42:13
+Renata Oliva | Rumo Gestão 42 minutes 13 seconds
+Ai te amo, muito bom.
+AM
+Adriana Mendes
+42 minutes 15 seconds42:15
+Adriana Mendes 42 minutes 15 seconds
+Podemos, vamos, vamos continuar, eu e você aqui.
+R
+Renata Oliva | Rumo Gestão
+42 minutes 19 seconds42:19
+Renata Oliva | Rumo Gestão 42 minutes 19 seconds
+Então tá.
+Renata Oliva | Rumo Gestão 42 minutes 20 seconds
+Obrigada, valeu, valeu, Adriana.
+AM
+Adriana Mendes
+42 minutes 21 seconds42:21
+Adriana Mendes 42 minutes 21 seconds
+Valeu, valeu.
+FR
+Fernando Rimoli
+42 minutes 21 seconds42:21
+Fernando Rimoli 42 minutes 21 seconds
+Nada. E eu já te mando, já te mando o login e a senha, viu? Que vocês vão precisar.
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 26 seconds42:26
+Adriana Ramos | Rumo Gestão 42 minutes 26 seconds
+Está bom, está ótimo. Está bom, Fernando. Obrigada.
+R
+Renata Oliva | Rumo Gestão
+42 minutes 27 seconds42:27
+Renata Oliva | Rumo Gestão 42 minutes 27 seconds
+Tá bom?
+AM
+Adriana Mendes
+42 minutes 28 seconds42:28
+Adriana Mendes 42 minutes 28 seconds
+maravilha gente eu vou marcar então para terça-feira que vem o encontro de vocês tá
+R
+Renata Oliva | Rumo Gestão
+42 minutes 29 seconds42:29
+Renata Oliva | Rumo Gestão 42 minutes 29 seconds
+Obrigada.
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 32 seconds42:32
+Adriana Ramos | Rumo Gestão 42 minutes 32 seconds
+Tá bom, combinado. Obrigada!
+R
+Renata Oliva | Rumo Gestão
+42 minutes 33 seconds42:33
+Renata Oliva | Rumo Gestão 42 minutes 33 seconds
+Tá bom, fechado. Tchau, Fernando.
+AM
+Adriana Mendes
+42 minutes 34 seconds42:34
+Adriana Mendes 42 minutes 34 seconds
+Fernando, antes de você sair, pera, pera, pera, vamos ver o horário. Pode ser essa hora, 11 horas?
+R
+Renata Oliva | Rumo Gestão
+42 minutes 37 seconds42:37
+Renata Oliva | Rumo Gestão 42 minutes 37 seconds
+Uh.
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 40 seconds42:40
+Adriana Ramos | Rumo Gestão 42 minutes 40 seconds
+Pode ser por mim, pode, Renata, tem uma coisa.
+AM
+Adriana Mendes
+42 minutes 42 seconds42:42
+Adriana Mendes 42 minutes 42 seconds
+Pra você ficar bom, Fernando?
+FR
+Fernando Rimoli
+42 minutes 43 seconds42:43
+Fernando Rimoli 42 minutes 43 seconds
+na terça que vem, né?
+R
+Renata Oliva | Rumo Gestão
+42 minutes 43 seconds42:43
+Renata Oliva | Rumo Gestão 42 minutes 43 seconds
+No, but.
+AM
+Adriana Mendes
+42 minutes 45 seconds42:45
+Adriana Mendes 42 minutes 45 seconds
+Na terça que vem, é?
+FR
+Fernando Rimoli
+42 minutes 46 seconds42:46
+Fernando Rimoli 42 minutes 46 seconds
+Ah, deixa eu checar rapidinho. Ó, mandei aí no chat, viu? O login pra vocês. Anota aí.
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 48 seconds42:48
+Adriana Ramos | Rumo Gestão 42 minutes 48 seconds
+É Fernando aqui.
+R
+Renata Oliva | Rumo Gestão
+42 minutes 49 seconds42:49
+Renata Oliva | Rumo Gestão 42 minutes 49 seconds
+A terça eu tinha, o Adriana, terça eu tinha aquela, eu acho que, mas eu acho que é mais tarde. Eu preciso ver. Lembra que eu tinha aquele problema para resolver na escola do meu filho na terça, dia 4?
+A
+Adriana Ramos | Rumo Gestão
+42 minutes 50 seconds42:50
+Adriana Ramos | Rumo Gestão 42 minutes 50 seconds
+Ah, tá bom.
+Adriana Ramos | Rumo Gestão 42 minutes 58 seconds
+Sim, é verdade. Pode ser na pode ser outro dia, Fernando.
+R
+Renata Oliva | Rumo Gestão
+43 minutes 3 seconds43:03
+Renata Oliva | Rumo Gestão 43 minutes 3 seconds
+Yes, yes.
+FR
+Fernando Rimoli
+43 minutes 6 seconds43:06
+Fernando Rimoli 43 minutes 6 seconds
+Pode, me fala um dia aí, 1 hora e eu checo se pode, parece.
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 8 seconds43:08
+Adriana Ramos | Rumo Gestão 43 minutes 8 seconds
+Quarta não. Segunda é um dia super apertado para mim. Segunda eu não consigo. É quarta em diante. Aí ver qual é o melhor dia.
+AM
+Adriana Mendes
+43 minutes 9 seconds43:09
+Adriana Mendes 43 minutes 9 seconds
+Vocês preferem segunda?
+FR
+Fernando Rimoli
+43 minutes 18 seconds43:18
+Fernando Rimoli 43 minutes 18 seconds
+Quarto tá bem de boa pra mim.
+R
+Renata Oliva | Rumo Gestão
+43 minutes 18 seconds43:18
+Renata Oliva | Rumo Gestão 43 minutes 18 seconds
+Eu vou.
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 19 seconds43:19
+Adriana Ramos | Rumo Gestão 43 minutes 19 seconds
+Então vamos lá quarta.
+AM
+Adriana Mendes
+43 minutes 20 seconds43:20
+Adriana Mendes 43 minutes 20 seconds
+Bem de boa? Então beleza, quarta-feira.
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 22 seconds43:22
+Adriana Ramos | Rumo Gestão 43 minutes 22 seconds
+Quarta-feira, quarta-feira às onze.
+AM
+Adriana Mendes
+43 minutes 26 seconds43:26
+Adriana Mendes 43 minutes 26 seconds
+Just
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 26 seconds43:26
+Adriana Ramos | Rumo Gestão 43 minutes 26 seconds
+Daqui a uma semana, pronto.
+AM
+Adriana Mendes
+43 minutes 28 seconds43:28
+Adriana Mendes 43 minutes 28 seconds
+Uh-huh.
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 28 seconds43:28
+Adriana Ramos | Rumo Gestão 43 minutes 28 seconds
+É isso é.
+R
+Renata Oliva | Rumo Gestão
+43 minutes 30 seconds43:30
+Renata Oliva | Rumo Gestão 43 minutes 30 seconds
+É daqui a uma semana.
+AM
+Adriana Mendes
+43 minutes 31 seconds43:31
+Adriana Mendes 43 minutes 31 seconds
+Tá bom, pessoal?
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 31 seconds43:31
+Adriana Ramos | Rumo Gestão 43 minutes 31 seconds
+Tá bom, tá bom. Obrigada Renata e Fernando. Ficou muito bom, viu Fernando? Parabéns.
+R
+Renata Oliva | Rumo Gestão
+43 minutes 34 seconds43:34
+Renata Oliva | Rumo Gestão 43 minutes 34 seconds
+Valeu, obrigada, obrigada. Ficou ótimo.
+AM
+Adriana Mendes
+43 minutes 34 seconds43:34
+Adriana Mendes 43 minutes 34 seconds
+Valeu.
+Adriana Mendes 43 minutes 37 seconds
+Muito bom, muito bom.
+FR
+Fernando Rimoli
+43 minutes 37 seconds43:37
+Fernando Rimoli 43 minutes 37 seconds
+Obrigado, gente!
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 39 seconds43:39
+Adriana Ramos | Rumo Gestão 43 minutes 39 seconds
+Obrigada.
+R
+Renata Oliva | Rumo Gestão
+43 minutes 39 seconds43:39
+Renata Oliva | Rumo Gestão 43 minutes 39 seconds
+Obra, obra de arte. É isso aí, valeu, tchau, tchau.
+A
+Adriana Ramos | Rumo Gestão
+43 minutes 43 seconds43:43
+Adriana Ramos | Rumo Gestão 43 minutes 43 seconds
+Vamos para cima com mais, obrigada.
+FR
+Fernando Rimoli
+43 minutes 43 seconds43:43
+Fernando Rimoli 43 minutes 43 seconds
+Obrigado.
+AM
+Adriana Mendes
+43 minutes 47 seconds43:47
+Adriana Mendes 43 minutes 47 seconds
+Ciao, ciao.
