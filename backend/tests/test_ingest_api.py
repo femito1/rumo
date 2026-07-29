@@ -116,3 +116,37 @@ def test_summary_reports_structure_after_ingest(client):
     assert body["counts"]["despesas_conta"] == 2
     assert body["counts"]["prolabore"] == 1
     assert body["revenue"]["recebimento_bruto"] == 319233.58
+
+
+def test_summary_flags_a_stale_extract_version(client):
+    """A snapshot from an OLDER extract must be flagged, not silently served.
+
+    Real incident (2026-07-29): the June snapshot was produced by a pre-fix agent
+    whose ``vale_adm`` still folded in the lawyers' Vale. The backend code was
+    correct, so nothing errored — the UI just showed reserva -10.194,80 instead of
+    -9.956,44, and it surfaced in a client meeting. ``meta.extract_version`` lets an
+    operator see which months still need re-extracting.
+    """
+    c, store = client
+    store.put("2026-06", {"meta": {"ano_mes": "2026-06"}})  # no version ⇒ v1
+    body = c.get(
+        "/api/ingest/2026-06/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    ).json()
+    assert body["extract"]["version"] == 1
+    assert body["extract"]["stale"] is True
+    assert body["extract"]["expected"] >= 2
+
+
+def test_summary_marks_a_current_extract_as_fresh(client):
+    c, store = client
+    from app.api.ingest_router import CURRENT_EXTRACT_VERSION
+
+    store.put(
+        "2026-06",
+        {"meta": {"ano_mes": "2026-06", "extract_version": CURRENT_EXTRACT_VERSION}},
+    )
+    body = c.get(
+        "/api/ingest/2026-06/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    ).json()
+    assert body["extract"]["version"] == CURRENT_EXTRACT_VERSION
+    assert body["extract"]["stale"] is False

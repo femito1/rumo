@@ -21,6 +21,24 @@ router = APIRouter(prefix="/api", tags=["ingest"])
 #: single-client agent extracts MBC; new tenants pass meta.client_id.
 _DEFAULT_CLIENT = "mbc"
 
+#: Extract contract version this backend expects (``meta.extract_version`` in
+#: extract.sql). A snapshot below this was produced by an agent whose SQL emitted
+#: fields with DIFFERENT meaning, so its numbers are wrong even though the code is
+#: right — e.g. v1 folded the lawyers' Vale into ``vale_adm``, which inflated
+#: Despesa Institucional and every área's rateio share. Surfaced by the summary
+#: endpoint so an operator can see WHICH months still need re-extracting instead
+#: of discovering it as a wrong number in a client meeting.
+CURRENT_EXTRACT_VERSION = 2
+
+
+def snapshot_extract_version(snapshot: dict[str, Any]) -> int:
+    """``meta.extract_version``, defaulting to 1 (pre-versioning snapshots)."""
+    meta = snapshot.get("meta") or {}
+    try:
+        return int(meta.get("extract_version") or 1)
+    except (TypeError, ValueError):
+        return 1
+
 
 def get_snapshot_store():
     """Snapshot persistence (Supabase in prod, filesystem for local/USE_FAKE_REPO)."""
@@ -150,9 +168,18 @@ def ingest_summary(
         return len(val) if isinstance(val, list) else 0
 
     revenue = snapshot.get("revenue") or {}
+    version = snapshot_extract_version(snapshot)
     return {
         "ano_mes": ano_mes,
         "meta": snapshot.get("meta"),
+        # Is this snapshot's SQL contract current? `stale: true` means re-run the
+        # agent for this month — the stored numbers predate a meaning-changing
+        # extract fix, so the API will serve them wrongly but without erroring.
+        "extract": {
+            "version": version,
+            "expected": CURRENT_EXTRACT_VERSION,
+            "stale": version < CURRENT_EXTRACT_VERSION,
+        },
         "top_level_keys": sorted(snapshot.keys()),
         "counts": {
             "rateio_prof": _n("rateio_prof"),

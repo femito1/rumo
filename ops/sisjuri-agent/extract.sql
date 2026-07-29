@@ -48,7 +48,16 @@ BEGIN
      'ano_mes' VALUE '&ANO_MES',
      'd_start' VALUE '&D_START',
      'd_end'   VALUE '&D_END',
-     'generated_at' VALUE TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD"T"HH24:MI:SSTZH:TZM')
+     'generated_at' VALUE TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD"T"HH24:MI:SSTZH:TZM'),
+     -- Extract CONTRACT version. Bump this whenever a change to this file alters
+     -- the MEANING of an emitted field, so the backend can tell a stale snapshot
+     -- from a current one instead of silently serving wrong numbers.
+     --   1 = pre-2026-07-29 (vale_adm included the lawyers' Vale; despesas_equipe_area
+     --       missed the client-platform Assinatura slice)
+     --   2 = 2026-07-29: vale_adm is ADM-only (500.010.* twins excluded) and
+     --       despesas_equipe_area includes the client-platform Assinatura.
+     -- A snapshot without this key is version 1 by definition.
+     'extract_version' VALUE 2
   ),
   'revenue' VALUE (
      SELECT JSON_OBJECT(
