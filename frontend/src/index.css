@@ -454,6 +454,21 @@ input::placeholder {
   margin-bottom: calc(var(--space) * 2);
 }
 
+/* Open-month (partial) view. Deliberately a full-width banner, not a subtle chip:
+   a month-to-date view must never be mistaken for a fechamento. */
+.partial-banner {
+  background: var(--accent-soft);
+  border: 1px solid rgba(214, 135, 26, 0.5);
+  border-left: 4px solid var(--accent-strong);
+  color: var(--accent-strong);
+  border-radius: 6px;
+  padding: 9px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: calc(var(--space) * 2);
+}
+.workspace-eyebrow.eyebrow-partial { color: var(--accent-strong); }
+
 /* Month picker — compact inline card: year row on top, 6×2 month grid. */
 .month-picker {
   display: inline-flex;
@@ -519,6 +534,23 @@ input::placeholder {
   color: var(--accent-ink);
   font-weight: 700;
 }
+/* Open month: selectable, but marked with a dot so the picker shows it is not a
+   closing. Positioned relative for the dot. */
+.month-cell.partial {
+  position: relative;
+  color: var(--accent-strong);
+  font-style: italic;
+}
+.month-cell-dot {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+}
+.month-cell.partial.selected .month-cell-dot { background: var(--accent-ink); }
 .month-cell:disabled {
   opacity: 0.3;
   cursor: not-allowed;

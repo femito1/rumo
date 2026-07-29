@@ -249,6 +249,29 @@ def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
     assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
+def test_partial_month_is_included_in_its_own_ytd(tmp_path, monkeypatch):
+    """The open month renders as a partial, so its month-to-date figures must be part
+    of the YTD it is the endpoint of — otherwise "Acumulado Jan → Julho" would silently
+    stop at June while the header says Julho.
+
+    Guarded because the accumulator gates on ``is_closeable``, which (correctly) still
+    excludes the open month: the partial path has to opt it in explicitly.
+    """
+    from datetime import date
+
+    from app.closing.provider import _accumulate_dre_ytd
+
+    today = date.today()
+    provider = _acumulado_provider(  # noqa: F841 — wires the monkeypatched stores
+        tmp_path, monkeypatch, months=(today.month - 1, today.month)
+    )
+    client = Client(id="mbc", name="MBC", provider="legaldesk+sisjuri", provider_config={})
+    acc = _accumulate_dre_ytd(client, Period(year=today.year, month=today.month))
+    assert acc is not None
+    assert today.month in acc["months"], "open month missing from its own YTD"
+    assert today.month in acc["faturamento"]
+
+
 def test_presentation_headline_carries_despesas_for_the_fourth_card(tmp_path, monkeypatch):
     """2026-07-28, 29:39 — Adriana: *"deveria ter essa linha de despesa: faturamento,
     receita, despesa."* Adriana Mendes, 30:01: *"só diminuir o tamanho da caixinha que

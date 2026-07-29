@@ -60,9 +60,22 @@ credentials (LegalDesk) never reach the client.
 - **Row duplication.** `RateioFaturaProfissionalViews` returns duplicated rows.
   De-dup by `(FaturaNumero, ProfissionalSigla)` before summing.
 - **Query year is 2026**, not 2025. The validated workbook is for 2026.
-- **Open/future months are rejected.** A closing month must be fully past; the
-  endpoint returns 422 with a PT-BR message. `available_months` and `is_closeable`
-  in `app/closing/available.py` are the gate.
+- **Future months are rejected; the OPEN month renders as a labelled partial.**
+  Changed 2026-07-29 at the client's explicit request (*"Por que ele não é online?
+  ... Não é um fechamento mensal, mas para a gente aproveitar muito mais as
+  informações"*) — the extract already runs daily at 06:00, so this is a display
+  rule. `app/closing/available.py` now keeps two DISTINCT predicates and you must
+  not conflate them:
+  - `is_closeable` — the month has fully elapsed. **Unchanged semantics.** This is
+    what a *fechamento*, the YTD accumulator and the workbook-comparison harness
+    mean. `available_months` likewise stays CLOSED-only (callers read it that way).
+  - `is_viewable` — may be displayed: any closed month **plus** the current one.
+    Only future months 422. `is_partial` flags the difference, and the closing
+    payload carries `period.is_partial` / `is_closing` / `status_label` (PT-BR).
+  **A partial month must never render as a closing.** The UI swaps the "Fechamento
+  mensal" eyebrow for "Mês em aberto · parcial", shows a banner for both roles, and
+  marks the month in the picker; the landing month is still the latest *closed* one.
+  Use `available_months_detail` (open month first, `is_partial` flagged) for pickers.
 - **KPIs stay monthly under a day-range.** Only dated tabs react to `from`/`to`;
   KPIs always reflect the full month. The payload exposes
   `day_range.is_full_month` so the UI shows a "filtrado por dia" indicator.

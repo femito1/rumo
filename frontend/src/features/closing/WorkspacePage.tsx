@@ -24,15 +24,28 @@ export function WorkspacePage() {
   const { user } = useAuth();
   const isClient = user?.role === "CLIENT";
   const [months, setMonths] = useState<string[]>([]);
+  const [partialMonths, setPartialMonths] = useState<Set<string>>(() => new Set());
   const [month, setMonth] = useState<string>("");
   const [from, setFrom] = useState<number | null>(null);
   const [to, setTo] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>("");
 
   useEffect(() => {
-    apiFetch<{ available_months: string[] }>(`/api/clients/${id}`).then((c) => {
-      setMonths(c.available_months);
-      setMonth(c.available_months[0] ?? "");
+    apiFetch<{
+      available_months: string[];
+      available_months_detail?: { ano_mes: string; is_partial: boolean }[];
+    }>(`/api/clients/${id}`).then((c) => {
+      // Prefer the detailed list: it also offers the OPEN month (flagged partial).
+      // Falls back to the closed-only list so an older backend still works.
+      const selectable = c.available_months_detail?.map((m) => m.ano_mes)
+        ?? c.available_months;
+      setMonths(selectable);
+      setPartialMonths(
+        new Set((c.available_months_detail ?? []).filter((m) => m.is_partial).map((m) => m.ano_mes)),
+      );
+      // Default to the most recent CLOSED month: the landing view stays a real
+      // fechamento, and the open month is one deliberate click away.
+      setMonth(c.available_months[0] ?? selectable[0] ?? "");
     });
   }, [id]);
 
@@ -43,17 +56,25 @@ export function WorkspacePage() {
     setActiveTab(PRESENTATION_TAB);
   }
 
+  // The open (in-progress) month renders as an explicitly labelled partial.
+  const isPartial = data?.period.is_partial === true;
+
   if (!month) return <div className="workspace"><Skeleton rows={6} /></div>;
 
   return (
     <div className="workspace">
       <header className="workspace-top">
         <div className="workspace-heading">
-          <span className="workspace-eyebrow">Fechamento mensal</span>
+          {/* An OPEN month is a month-to-date PARTIAL, never a fechamento — the
+              client asked to follow the current month (2026-07-28), and the gate was
+              relaxed rather than deleted precisely so the two stay distinguishable. */}
+          <span className={`workspace-eyebrow${isPartial ? " eyebrow-partial" : ""}`}>
+            {isPartial ? "Mês em aberto · parcial" : "Fechamento mensal"}
+          </span>
           <h1>{data?.client.name ?? ""}</h1>
         </div>
         <div className="workspace-toolbar">
-          <MonthPicker value={month} availableMonths={months} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
+          <MonthPicker value={month} availableMonths={months} partialMonths={partialMonths} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
           <div className="toolbar-actions">
             {!isClient ? (
               <>
@@ -87,6 +108,17 @@ export function WorkspacePage() {
         <Loader />
       ) : (
         <>
+          {/* Shown to BOTH roles: a partial month must be unmistakable, including
+              for a CLIENT who only ever sees the presentation deck. */}
+          {isPartial ? (
+            <div className="partial-banner" role="status">
+              {data.period.status_label ??
+                `${data.period.label} — mês em aberto (parcial, atualizado diariamente)`}
+              . Os números são acumulados até hoje e ainda vão mudar — não são um
+              fechamento.
+            </div>
+          ) : null}
+
           {!isClient && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
 
           {!isClient ? (

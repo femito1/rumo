@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Query
 from app.api.deps import require_user, require_client_access
 from app.api.providers import get_repo
-from app.closing.available import is_closeable
+from app.closing.available import is_viewable
 from app.closing.period import Period
 from app.closing.provider import build_provider_for
 from app.sources.base import DayRange
@@ -25,8 +25,10 @@ def get_closing(
     client = repo.get_client(client_id)
     if client is None:
         raise HTTPException(status_code=404, detail="Cliente não encontrado")
-    if not is_closeable(month):
-        raise HTTPException(status_code=422, detail="Mês ainda em aberto ou no futuro")
+    # The OPEN current month is served as an explicit partial (client request,
+    # 2026-07-28); only FUTURE months are rejected — there is nothing to show.
+    if not is_viewable(month):
+        raise HTTPException(status_code=422, detail="Mês no futuro")
     period = Period.parse(month)
     if from_ is not None and to is not None:
         last = period.days_in_month

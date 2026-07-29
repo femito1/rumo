@@ -2,7 +2,7 @@
 from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
-from app.closing.available import is_closeable
+from app.closing.available import is_closeable, is_partial
 from app.closing.period import Period
 from app.sources.assembler_source import AssemblerSource
 from app.sources.base import SectionKey, DayRange, Source, SectionData
@@ -139,7 +139,13 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
         faturamento: dict[int, float] = {}
         for m, snap in snaps.items():
             ano_mes = f"{period.year:04d}-{m:02d}"
-            if m > period.month or not is_closeable(ano_mes):
+            # Closed months always count. The competence month counts even when it is
+            # the OPEN one: a partial view must include its own month-to-date figures,
+            # or "Acumulado Jan → Julho" would stop at June while the header says
+            # Julho. Later months are still excluded.
+            if m > period.month:
+                continue
+            if not is_closeable(ano_mes) and m != period.month:
                 continue
             # Faturamento is not a DRE line, so grab it off the snapshot here.
             fat = ((snap.get("revenue") or {}).get("faturamento_bruto"))
@@ -236,7 +242,7 @@ class ClosingProvider:
 
         return {
             "client": {"id": client.id, "name": client.name},
-            "period": {"ano_mes": period.ano_mes, "label": period.label, "column_letter": period.column_letter},
+            "period": _period_payload(period),
             "day_range": {"from": day_range.start, "to": day_range.end, "is_full_month": day_range.is_full_month},
             "kpis": meta_kpis,
             "presentation": presentation,
@@ -244,6 +250,28 @@ class ClosingProvider:
             "tabs": {t: tabs[t] for t in order} if role == "CLIENT" else tabs,
             "generated_at": datetime.now(timezone.utc).isoformat(),
         }
+
+def _period_payload(period: Period) -> dict[str, Any]:
+    """The ``period`` block, carrying whether this is a real CLOSING or the open
+    month rendered as a PARTIAL (client request 2026-07-28).
+
+    ``status_label`` is PT-BR and shown verbatim by the UI, so a partial month can
+    never be mistaken for a fechamento — that distinction is the whole reason the
+    gate was relaxed rather than deleted."""
+    partial = is_partial(period.ano_mes)
+    return {
+        "ano_mes": period.ano_mes,
+        "label": period.label,
+        "column_letter": period.column_letter,
+        "is_partial": partial,
+        "is_closing": not partial,
+        "status_label": (
+            f"{period.label} — mês em aberto (parcial, atualizado diariamente)"
+            if partial
+            else f"Fechamento de {period.label}"
+        ),
+    }
+
 
 def _headline_kpis_from_dre(institucional: SectionData | None) -> dict[str, float | None]:
     """Extract headline KPIs from the assembled institucional DRE rows.
@@ -365,7 +393,9 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
 
         # Meta dashboard: per-month realized recebimento for the whole competence
         # year, so the 12-month table fills every CLOSED month (not just the
-        # competence one). Future months are absent from the map -> blank.
+        # competence one), plus the competence month itself when it is the OPEN one
+        # (month-to-date — same rule as the YTD accumulator, so the two agree).
+        # Future months are absent from the map -> blank.
         ytd_recebimento: dict[int, float] | None = None
         if period is not None:
             try:
@@ -375,7 +405,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
                 ytd_recebimento = {
                     m: v
                     for m, v in full.items()
-                    if is_closeable(f"{period.year:04d}-{m:02d}")
+                    if is_closeable(f"{period.year:04d}-{m:02d}") or m == period.month
                 }
             except Exception:  # pragma: no cover - meta YTD is best-effort overlay
                 ytd_recebimento = None

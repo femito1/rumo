@@ -108,7 +108,17 @@ export interface Presentation {
 
 export interface ClosingPayload {
   client: { id: string; name: string };
-  period: { ano_mes: string; label: string; column_letter: string };
+  period: {
+    ano_mes: string;
+    label: string;
+    column_letter: string;
+    /** True for the OPEN current month, served as a month-to-date partial. */
+    is_partial?: boolean;
+    /** True only for a fully elapsed month — a real fechamento. */
+    is_closing?: boolean;
+    /** PT-BR label shown verbatim; distinguishes a partial from a closing. */
+    status_label?: string;
+  };
   day_range: { from: string; to: string; is_full_month: boolean };
   kpis: Record<string, number | null>;
   presentation?: Presentation;

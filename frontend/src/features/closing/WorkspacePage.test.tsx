@@ -126,4 +126,42 @@ describe("WorkspacePage", () => {
     expect(card).toHaveClass("kpi-neg");
     expect(card).not.toHaveClass("kpi-pos");
   });
+
+  it("labels an OPEN month as a partial, never as a fechamento", async () => {
+    // The client asked for the in-progress month (2026-07-28, 6:45). It must be
+    // visibly a partial: a month-to-date view must never read as a closing, which is
+    // why the gate was relaxed rather than deleted.
+    mockApi({
+      period: {
+        ano_mes: "2026-07", label: "Julho 2026", column_letter: "I",
+        is_partial: true, is_closing: false,
+        status_label: "Julho 2026 — mês em aberto (parcial, atualizado diariamente)",
+      },
+    });
+    renderAs("ADMIN");
+    // The eyebrow says partial, not "Fechamento mensal"...
+    await waitFor(() => {
+      expect(screen.getByText("Mês em aberto · parcial")).toBeInTheDocument();
+    });
+    expect(screen.queryByText("Fechamento mensal")).not.toBeInTheDocument();
+    // ...and a banner spells out that these numbers are not a closing.
+    const banner = screen.getByRole("status");
+    expect(banner).toHaveTextContent(/mês em aberto/i);
+    expect(banner).toHaveTextContent(/não são um fechamento/i);
+  });
+
+  it("keeps the fechamento label for a CLOSED month", async () => {
+    mockApi({
+      period: {
+        ano_mes: "2026-05", label: "Maio 2026", column_letter: "G",
+        is_partial: false, is_closing: true, status_label: "Fechamento de Maio 2026",
+      },
+    });
+    renderAs("ADMIN");
+    await waitFor(() => {
+      expect(screen.getByText("Fechamento mensal")).toBeInTheDocument();
+    });
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.queryByText("Mês em aberto · parcial")).not.toBeInTheDocument();
+  });
 });

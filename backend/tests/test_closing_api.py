@@ -11,10 +11,56 @@ def test_demo_closing_returns_payload(client):
     assert body["period"]["ano_mes"] == "2026-05"
     assert body["day_range"]["is_full_month"] is True
 
-def test_open_month_rejected_422(client):
+def test_future_month_rejected_422(client):
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.get("/api/clients/demo/closing?month=2999-01", headers={"Authorization": f"Bearer {tok}"})
     assert resp.status_code == 422
+
+
+def test_open_current_month_is_served_as_an_explicit_partial(client):
+    """Client asked for the in-progress month (2026-07-28, 6:45 — *"Por que ele não é
+    online? ... Não é um fechamento mensal, mas para a gente aproveitar muito mais as
+    informações"*). It must be SERVED, and must be explicitly labelled partial so it
+    is never mistaken for a closing."""
+    from datetime import date
+
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    today = date.today()
+    resp = client.get(
+        f"/api/clients/demo/closing?month={today.year:04d}-{today.month:02d}",
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    assert resp.status_code == 200
+    period = resp.json()["period"]
+    assert period["is_partial"] is True
+    assert period["is_closing"] is False
+    # A PT-BR label the UI can show verbatim.
+    assert "em aberto" in period["status_label"].lower()
+
+
+def test_closed_month_is_marked_as_a_closing_not_a_partial(client):
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    period = client.get(
+        "/api/clients/demo/closing?month=2026-05",
+        headers={"Authorization": f"Bearer {tok}"},
+    ).json()["period"]
+    assert period["is_partial"] is False
+    assert period["is_closing"] is True
+
+
+def test_available_months_offers_the_open_month_flagged(client):
+    from datetime import date
+
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    body = client.get("/api/clients/demo", headers={"Authorization": f"Bearer {tok}"}).json()
+    today = date.today()
+    open_month = f"{today.year:04d}-{today.month:02d}"
+    # Back-compat: the plain list still exists and still means CLOSED months only.
+    assert open_month not in body["available_months"]
+    # The new detailed list leads with the open month, flagged.
+    detail = body["available_months_detail"]
+    assert detail[0] == {"ano_mes": open_month, "is_partial": True}
+    assert all(d["is_partial"] is False for d in detail[1:])
 
 def test_client_cannot_read_other_clients_closing(client):
     tok = _token(client, "financeiro@mbclaw.com.br", "mbc123")

@@ -13,7 +13,56 @@
 
 ---
 
-## ⭐ 2026-07-29 (latest) — the per-área YTD ~7k gap is a WORKBOOK formula bug
+## ⭐ 2026-07-29 (latest) — meeting follow-ups §5.1–§5.5 shipped
+
+All of HANDOFF_2026-07-29 §5.1–§5.5 implemented, TDD, each verified against the
+workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
+**⚠ NOT YET DEPLOYED** — needs `ops/easypanel-deploy.sh` for both services.
+
+- **§5.2 — the per-área YTD ~7k gap is a WORKBOOK formula bug, not ours.** See the
+  section below; the headline is that `Base_Resultado` r204/205/206 are off by one row
+  in Jan–May, and that "Econômico ties" is a netting artifact (94% cancellation), not
+  a validated área. Nothing to fix in our derivation. `scripts/audit_area_ytd_formulas.py`
+  reproduces it.
+- **§5.1 — per-área Orçado Imposto + Amortização now derive** (were blank; Adriana
+  14:30). Workbook formulas: `Impostos = área Recebimento Orçado × 15%`,
+  `Amortização = inst Amortização Orçado × área ANNUAL custo-equipe share`
+  (`Rateio Mensal` M = L/$L$5). Also extended the Orçado tail to Resultado Líquido +
+  Reserva. Ties June exactly (37.781,25 / 3.000,63 · 3.042,29 · 2.074,08) against both
+  the workbook and the live prod budget. No `AMORTIZACAO_MENSAL` fallback on purpose —
+  8.117 is a *realizado* default and would display a budget the client never entered.
+- **§5.4 — Faturamento fills every month** in the institucional detail (was competence
+  only; 19:49). It is not a DRE row, so `_accumulate_dre_ytd` now also returns
+  `{month: revenue.faturamento_bruto}` from each snapshot. All six 2026 months tie the
+  book; YTD 3.463.471,84. The competence month still prefers the sacred LegalDesk KPI.
+- **§5.3 — Despesas card added to the institucional slide** (29:39/30:01), a 5-up row.
+  Total despesa = custo equipe + despesas institucionais (June 316.713,20). Scope held:
+  the per-área **monthly** slides keep no despesa line (28:14), asserted by a test.
+  Measured in headless Chrome at the real 1056px deck width: 205px cards, no clipping,
+  dead space still 15px (the `cca0be9` whitespace fix is not disturbed).
+- **§5.5 — OPEN-MONTH partial view** (client asked at 6:45). `is_closeable` keeps its
+  exact old meaning; new `is_viewable` / `is_partial` / `available_months_detail` gate
+  *display*. Only future months 422 now. The payload carries
+  `period.is_partial|is_closing|status_label`, and a partial is labelled everywhere
+  (eyebrow, banner for both roles, dotted picker cell) — it must never read as a
+  fechamento. Landing month stays the latest **closed** one. `CLAUDE.md` updated in the
+  same commit so convention and code agree. Two real bugs fixed while wiring it: the
+  YTD accumulator and the Meta dashboard both gate on `is_closeable`, so the open month
+  was excluded from **its own** YTD ("Acumulado Jan → Julho" would have stopped at June).
+  **⚠ Operator action:** the daily Scheduled Task only ever extracted `AddMonths(-1)`,
+  so the open month would have rendered permanently EMPTY (prod has snapshots for
+  Jan–Jun only; there is no 2026-07). `register-task.ps1` now runs the last-closed month
+  **and** the current month (open month second, each in its own try/catch, so a partial
+  failure can't block the closing). **Re-run `register-task.ps1` on MBC-LDESK01** — an
+  already-registered task keeps its old single-month command line.
+
+**Still open:** §5.6 (map, don't fix, the Jan–Abr diffs — now known to be largely the
+workbook's own formula bug; **re-extract first**, Jan–May still serve extract v1) and
+§5.7 (logo + palette, then per-user logins — blocked on Adriana sending the assets).
+
+---
+
+## 2026-07-29 — the per-área YTD ~7k gap is a WORKBOOK formula bug
 
 HANDOFF §5.2 ("Contencioso + Arbitragem differ ~7k, Econômico ties"). Both the user
 and Adriana suspected a cross-área leak on our side — *"pode ser de lá, veio para cá"*.

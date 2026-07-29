@@ -17,7 +17,14 @@ no inbound firewall rule or VPN is needed.
   the daily task always runs the committed query — no more manual file copies to
   keep the box in sync (root cause of the 2026-07-14 stale snapshot). Pass
   `-NoSelfUpdate` to force the local copy when testing an uncommitted edit.
-- `register-task.ps1` — installs a daily Scheduled Task (run once, elevated).
+- `register-task.ps1` — installs a daily Scheduled Task (run once, elevated). Since
+  2026-07-29 the task extracts **two** months per run: the last-closed month (which
+  keeps moving as finance posts late entries) and then the **current, open** month,
+  which the site now serves as an explicit partial ("mês em aberto") and which would
+  stay permanently empty otherwise. The open month runs second, and each month is
+  wrapped in its own try/catch, so a failure on the partial can never block the
+  closed month. **Re-run this script on MBC-LDESK01 to pick up the change** — an
+  already-registered task keeps its old single-month command line.
 - `backfill.ps1` — one-shot historical catch-up: loops months from a start
   through the last closed month, calling `run-agent.ps1` for each.
 

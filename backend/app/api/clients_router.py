@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException
 from app.api.deps import require_user, require_admin, require_client_access
 from app.api.providers import get_repo
-from app.closing.available import available_months
+from app.closing.available import available_months, available_months_detail
 from app.tenancy.models import User
 from app.tenancy.repository import Repository
 
@@ -22,4 +22,11 @@ def get_client(client_id: str, user: User = Depends(require_user), repo: Reposit
     c = repo.get_client(client_id)
     if c is None:
         raise HTTPException(status_code=404, detail="Cliente não encontrado")
-    return {**_client_public(c), "available_months": available_months()}
+    # ``available_months`` stays CLOSED-only for back-compat (callers read it as
+    # "months that are done"); ``available_months_detail`` adds the open month with
+    # an explicit is_partial flag so the picker can offer and label it.
+    return {
+        **_client_public(c),
+        "available_months": available_months(),
+        "available_months_detail": available_months_detail(),
+    }

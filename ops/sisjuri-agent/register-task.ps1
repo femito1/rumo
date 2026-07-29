@@ -45,11 +45,26 @@ if (-not $ingestUrl) {
   throw "INGEST_URL is not set in $envScope scope (nor the current session). Set it before registering, e.g.: [Environment]::SetEnvironmentVariable('INGEST_URL','https://<vps>/api/ingest','$envScope')  — otherwise the daily task extracts but never uploads."
 }
 
-# The task computes last-closed month at runtime and passes it to the agent.
+# The task computes the months at runtime and passes them to the agent.
+#
+# TWO months per run, in this order (2026-07-29):
+#   1. last-closed month — it keeps changing after month end as finance posts late
+#      entries, so it must be refreshed, not extracted once;
+#   2. the CURRENT (open) month — the site now serves it as an explicit partial
+#      ("mês em aberto"), which stays permanently EMPTY unless the agent pushes it.
+#      This is the whole point of the daily cadence the client asked about
+#      ("Com isso a atualização vira diária?" — yes, 06:00).
+# The current month runs SECOND so a failure there cannot stop the closed month,
+# which is the one the client actually reports on.
+#
 # We pass -IngestUrl EXPLICITLY (baked from the validated value) so the upload
 # never silently depends on the task account's env scope; the token/client id are
 # still read from env by run-agent.ps1 at run time (they must exist in $envScope).
-$command = "`$m=(Get-Date).AddMonths(-1); `$am=('{0:0000}-{1:00}' -f `$m.Year,`$m.Month); & '$runAgent' -AnoMes `$am -IngestUrl '$ingestUrl'"
+#
+# Kept as ONE line on purpose: this string is passed to powershell.exe -Command, and
+# folding a multi-line here-string into it by replacing newlines with ';' produces
+# invalid syntax ("try { … }; catch" and "{;" both fail to parse).
+$command = "`$ms=@((Get-Date).AddMonths(-1),(Get-Date)); foreach (`$d in `$ms) { `$am=('{0:0000}-{1:00}' -f `$d.Year,`$d.Month); try { & '$runAgent' -AnoMes `$am -IngestUrl '$ingestUrl' } catch { Write-Output ('[task] ' + `$am + ' failed: ' + `$_.Exception.Message) } }"
 
 $action = New-ScheduledTaskAction -Execute 'powershell.exe' `
   -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"$command`""
