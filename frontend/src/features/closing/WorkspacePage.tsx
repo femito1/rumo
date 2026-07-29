@@ -101,7 +101,10 @@ export function WorkspacePage() {
               <section className="kpis kpis-secondary">
                 <KpiCard label="Resultado bruto" value={data.kpis.resultado_bruto ?? null} signed />
                 <KpiCard label="Margem bruta" value={data.kpis.margem_bruta ?? null} signed format="percent" />
-                <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} />
+                {/* `signed`: reserva is SIGNED — a loss month consumes provision
+                    (dre.bonus_reserve), so a negative must read red like its
+                    neighbours rather than in the default ink. */}
+                <KpiCard label="Reserva de bônus" value={data.kpis.reserva_bonus ?? null} signed />
               </section>
 
               <nav className="tab-rail">

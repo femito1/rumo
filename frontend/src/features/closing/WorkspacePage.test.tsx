@@ -103,4 +103,27 @@ describe("WorkspacePage", () => {
     });
     expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
   });
+
+  it("colors a negative Reserva de bônus like the other signed KPIs", async () => {
+    // Regression: the Reserva card was the ONLY KPI missing `signed`, so a negative
+    // reserva (a loss month CONSUMES provision — see dre.bonus_reserve) rendered in
+    // the default ink while Resultado/Margem next to it turned red. Client asked
+    // "why is that number not red?" — all negatives must read the same.
+    mockApi({
+      kpis: {
+        receita_honorarios: 415927.84,
+        faturamento_realizado: 719988.05,
+        resultado_liquido: -99564.42,
+        resultado_bruto: -51694.64,
+        reserva_bonus: -9956.44,
+      },
+    });
+    renderAs("ADMIN");
+    const card = await waitFor(() => {
+      const label = screen.getByText("Reserva de bônus");
+      return label.closest(".kpi") as HTMLElement;
+    });
+    expect(card).toHaveClass("kpi-neg");
+    expect(card).not.toHaveClass("kpi-pos");
+  });
 });
