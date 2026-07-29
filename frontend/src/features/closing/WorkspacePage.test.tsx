@@ -13,10 +13,12 @@ const payload = {
   day_range: { from: "2026-05-01", to: "2026-06-01", is_full_month: true },
   kpis: { receita_honorarios: 415927.84, faturamento_realizado: 719988.05 },
   presentation: {
-    titulo: "MBC", periodo: "Maio 2026",
+    titulo: "MBC", periodo: "Maio 2026", periodo_mes: "Maio", ano: 2026,
+    meses_presentes: ["Mai"],
     headline: { faturamento: 719988.05, recebimento: 415927.84, resultado_bruto: 100197.94, margem_bruta: 0.24, resultado_liquido: 29691.61, margem_liquida: 0.07, reserva_bonus: 2969.16 },
-    institucional: { recebimento: 415927.84, despesas: 105640.6, imposto: 62389.2, amortizacao: 8117 },
-    areas: [], meta_anual: 8060000.04, atingimento_mes: 0.6, recebimento_mensal: [],
+    institucional_detalhe: { meses: ["Mai"], month_indices: [5], linhas: [] },
+    meta: { anual: 8060000.04, receita_ytd: 415927.84, resultado_bruto_ytd: 100197.94, resultado_liquido_ytd: 29691.61, margem_liquida_ytd: 0.07, atingimento: [] },
+    analise_ytd: [], areas: [], reserva: { meses: ["Mai"], linhas: [] },
   },
   tab_order: ["meta"],
   tabs: { meta: { kind: "rich", name: "Meta", kpis: {} } },
@@ -91,14 +93,14 @@ describe("WorkspacePage", () => {
   });
 
   it("renders the annual goal as money, never NaN", async () => {
-    // Regression: the backend returned meta_anual as a sourced cell
-    // ({value, source}); formatBRL of an object rendered "R$ NaN".
+    // Regression: the backend returned meta.anual as a sourced cell
+    // ({value, source}); formatBRL of an object rendered "R$ NaN". The deck shows
+    // the annual meta as the Receita YTD stat-card footnote ("Meta: R$ …").
     mockApi();
     renderAs("ADMIN");
     await waitFor(() => {
-      expect(screen.getByText(/Meta anual/)).toBeInTheDocument();
+      expect(screen.getByText(/Meta: R\$ 8\.060\.000,04/)).toBeInTheDocument();
     });
-    expect(screen.getByText("Meta anual R$ 8.060.000,04")).toBeInTheDocument();
     expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
   });
 });

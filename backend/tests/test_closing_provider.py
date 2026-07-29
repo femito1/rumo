@@ -231,21 +231,29 @@ def test_monthly_tabs_are_not_overlaid_by_the_acumulado_tab(tmp_path, monkeypatc
     ]
 
 
-def test_presentation_survives_alongside_acumulado(tmp_path, monkeypatch):
-    # The presentation reads the MONTHLY sections; adding the cumulative tab must
-    # not blank its per-área cards or the monthly recebimento series.
+def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
+    # The deck mirrors the PPTX slide by slide: headline, institucional monthly
+    # detail, meta + attainment, per-line analysis, 3 áreas (mês/YTD/DRE), reserva.
     body = _closing(tmp_path, monkeypatch)
     pres = body["presentation"]
+    # Institucional monthly detail: Receita line has a realized value in ≥1 month
+    # (headline.recebimento comes from the META/LegalDesk KPI, absent in this
+    # assembler-only fixture — the detail table sources from the DRE sections).
+    receita = next(r for r in pres["institucional_detalhe"]["linhas"] if r["key"] == "recebimento")
+    assert any(v is not None for v in receita["months"].values())
+    assert pres["analise_ytd"]  # Orçado×Realizado analysis rows
     assert len(pres["areas"]) == 3
-    assert any(a["receita"] is not None for a in pres["areas"])
-    assert any(m["recebimento"] is not None for m in pres["recebimento_mensal"])
+    assert any(a["ytd"]["receita"] is not None for a in pres["areas"])
+    # every área DRE carries the full line set
+    assert all(len(a["dre"]) >= 8 for a in pres["areas"])
+    assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
 def test_presentation_meta_anual_is_a_number_not_a_sourced_cell(tmp_path, monkeypatch):
-    # ``assemble_meta`` returns meta_anual as {"value": ..., "source": ...}; passing
-    # the dict through made the frontend render "Meta anual R$ NaN".
+    # ``assemble_meta`` returns meta.anual as {"value": ..., "source": ...}; passing
+    # the dict through made the frontend render "R$ NaN".
     body = _closing(tmp_path, monkeypatch)
-    meta_anual = body["presentation"]["meta_anual"]
+    meta_anual = body["presentation"]["meta"]["anual"]
     assert isinstance(meta_anual, (int, float))
     assert meta_anual == pytest.approx(671666.67 * 12, abs=0.01)
 

@@ -1,6 +1,7 @@
 # backend/app/closing/provider.py
 from __future__ import annotations
 from datetime import datetime, timezone
+from typing import Any
 from app.closing.available import is_closeable
 from app.closing.period import Period
 from app.sources.assembler_source import AssemblerSource
@@ -68,81 +69,47 @@ def _build_presentation(
     period: Period,
     kpis: dict,
     sections: dict,
+    ytd_sections: dict | None,
+    month_sections: dict[int, dict] | None,
 ) -> dict:
-    """Assemble the client-facing presentation panel data (mirrors the monthly PPTX).
+    """Assemble the client-facing presentation DECK (mirrors the monthly PPTX,
+    slide by slide). Both roles receive it; a CLIENT receives ONLY this.
 
-    Pure projection of the already-assembled MONTHLY sections: institucional
-    headline, per-área cards (Receita / Resultado Bruto / Resultado Líquido /
-    Reserva, with Orçado for meta attainment), and the monthly recebimento series.
-    Both roles receive this; a CLIENT receives ONLY this (detail tabs withheld).
+    Delegates the shaping to ``presentation.build_presentation``. Here we just
+    normalise inputs: convert the ``SectionKey``-keyed competence ``sections`` to
+    the string-keyed form the deck builder expects, and ensure the competence
+    month is present in the per-month map (``month_sections`` comes from the YTD
+    accumulator, which may omit or differ from the freshly-merged competence
+    sections — the merged ones are authoritative for the competence month)."""
+    from app.closing.presentation import build_presentation
 
-    Takes ``sections`` (keyed by ``SectionKey``) rather than the display ``tabs``
-    map on purpose: it must read the monthly ``Realizado``/``Orçado`` columns, so a
-    view added to ``tabs`` later can never silently blank these cards."""
-    inst = sections.get(SectionKey.INSTITUCIONAL)
-    areas = []
-    for area_key, label in (
-        (SectionKey.CONTENCIOSO, "Contencioso"),
-        (SectionKey.ECONOMICO, "Econômico"),
-        (SectionKey.ARBITRAGEM, "Arbitragem"),
-    ):
-        sec = sections.get(area_key)
-        receita = _row_value(sec, "recebimento")
-        receita_orc = _row_value(sec, "recebimento", "Orçado")
-        areas.append({
-            "key": area_key.value,
-            "label": label,
-            "receita": receita,
-            "receita_orcado": receita_orc,
-            "resultado_bruto": _row_value(sec, "resultado_bruto"),
-            "resultado_liquido": _row_value(sec, "resultado_liquido"),
-            "reserva_bonus": _row_value(sec, "reserva_bonus"),
-            "atingimento": (
-                round(receita / receita_orc, 4)
-                if (receita is not None and receita_orc)
-                else None
-            ),
-        })
+    comp_str = {
+        k.value if hasattr(k, "value") else str(k): v for k, v in sections.items()
+    }
+    months: dict[int, dict] = dict(month_sections or {})
+    months[period.month] = comp_str  # merged competence sections win
 
     md = sections.get(SectionKey.META_DASHBOARD) or {}
-    monthly = [
-        {"mes": r.get("Mês"), "recebimento": _num(r.get("Recebimento"))}
-        for r in md.get("rows", [])
-        if r.get("kind") != "total"
-    ]
-
-    return {
-        "titulo": client.name,
-        "periodo": period.label,
-        "headline": {
-            "faturamento": kpis.get("faturamento_realizado"),
-            "recebimento": kpis.get("receita_honorarios"),
-            "resultado_bruto": kpis.get("resultado_bruto"),
-            "margem_bruta": kpis.get("margem_bruta"),
-            "resultado_liquido": kpis.get("resultado_liquido"),
-            "margem_liquida": kpis.get("margem_liquida"),
-            "reserva_bonus": kpis.get("reserva_bonus"),
-        },
-        "institucional": {
-            "recebimento": _row_value(inst, "recebimento"),
-            "despesas": _row_value(inst, "despesas"),
-            "imposto": _row_value(inst, "imposto"),
-            "amortizacao": _row_value(inst, "amortizacao"),
-        },
-        "areas": areas,
-        # ``meta_anual`` is a SOURCED CELL in assemble_meta — unwrap it, or the
-        # frontend's formatBRL renders "R$ NaN". ``atingimento_mes`` is a bare float.
-        "meta_anual": _num(md.get("meta_anual")),
-        "atingimento_mes": _num(md.get("atingimento_mes")),
-        "recebimento_mensal": monthly,
-    }
+    return build_presentation(
+        client_name=client.name,
+        period_label=period.label,
+        period_month=period.month,
+        period_year=period.year,
+        kpis=kpis,
+        month_sections=months,
+        ytd_sections=ytd_sections,
+        meta=md,
+    )
 
 
-def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict] | None:
+def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None:
     """Assemble every CLOSED month Jan→competence and accumulate into a YTD view.
 
     Reuses the per-month assembler (so per-área reserva/imposto/expense breakdown
-    accumulate correctly), then folds them via ``accumulate_ytd``.
+    accumulate correctly), then folds them via ``accumulate_ytd``. Returns
+    ``{"ytd": <accumulated sections>, "months": {month_index: sections}}`` so
+    callers can reuse both the cumulative tab and the per-month series (the
+    presentation deck needs both).
 
     ``targets=None`` on purpose: the cumulative shows the DB-derived sums. The
     2026-05 hard rule blanks individual diverging cells, which cannot be expressed
@@ -189,7 +156,10 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, dict] | Non
             annual_budget=annual_by_block(ann),
             up_to_month=period.month,
         )
-        return ytd or None
+        # Return BOTH the accumulated view and the per-month sections: the
+        # presentation deck needs the monthly series (per-month attainment,
+        # reserva matrix) as well as the YTD columns.
+        return {"ytd": ytd or None, "months": months}
     except Exception:  # pragma: no cover - acumulado is a best-effort overlay
         return None
 
@@ -218,22 +188,31 @@ class ClosingProvider:
         meta_kpis.update(_headline_kpis_from_dre(sections.get(SectionKey.INSTITUCIONAL)))
         tabs: dict[str, SectionData] = {k.value: v for k, v in sections.items()}
 
-        # Presentation panel data (mirrors the monthly PPTX): headline + per-área +
-        # monthly series. Built server-side from the assembled sections so BOTH roles
-        # get exactly the panel's data — a CLIENT sees ONLY this (detail tabs withheld).
-        presentation = _build_presentation(client, period, meta_kpis, sections)
+        # Accumulate Jan→competence ONCE. Returns both the YTD (acumulado) sections
+        # and the per-month sections; the presentation deck needs both, and it is
+        # built for BOTH roles (a CLIENT sees ONLY the deck). ``None`` when it can't
+        # be built (single-snapshot fallback) — the deck degrades to the comp month.
+        accumulated = _accumulate_dre_ytd(client, period)
+        ytd_sections = (accumulated or {}).get("ytd")
+        month_sections = (accumulated or {}).get("months") or {}
+
+        # Presentation deck (mirrors the monthly PPTX slide-by-slide): headline,
+        # institucional monthly detail, YTD×Meta + attainment, per-line analysis,
+        # per-área (mês/YTD/DRE), reserva matrix. Pure projection of the assembled
+        # monthly + YTD sections. Built server-side so the ADMIN/CLIENT boundary holds.
+        presentation = _build_presentation(
+            client, period, meta_kpis, sections, ytd_sections, month_sections
+        )
 
         # Cumulative (acumulado) TAB — the workbook's own cumulative view is the
         # right-hand column group of 'Areas Sintetico atualizado' over the same
         # stacked rows, so it is one additive tab, not a second render mode. Skipped
-        # for a CLIENT (which gets no detail tabs) to avoid the ≤12 assemblies.
-        if role != "CLIENT":
-            ytd = _accumulate_dre_ytd(client, period)
-            if ytd and (stacked := ytd.get("areas_sintetico")):
-                tabs[ACUMULADO_TAB] = {
-                    **stacked,
-                    "name": f"Acumulado (Jan → {period.month_name_pt})",
-                }
+        # for a CLIENT (which gets no detail tabs).
+        if role != "CLIENT" and ytd_sections and (stacked := ytd_sections.get("areas_sintetico")):
+            tabs[ACUMULADO_TAB] = {
+                **stacked,
+                "name": f"Acumulado (Jan → {period.month_name_pt})",
+            }
 
         # Tab visibility: only the KEEP set is shown, and a CLIENT sees none of the
         # detail tabs (they get the presentation panel only). Boundary is server-side.

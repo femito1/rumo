@@ -1022,63 +1022,167 @@ input::placeholder {
   }
 }
 
-/* ── Presentation panel (client-facing PPTX mirror) ─────────────────────── */
-.presentation { display: flex; flex-direction: column; gap: 24px; }
-.pres-slide {
-  background: var(--surface);
+/* ============================================================
+   Presentation DECK (client-facing PPTX mirror, slide by slide)
+   Matches reference/workbook/MBC Resultado Jan a Mai 2026.pdf:
+   white slides, near-black band headers, orange accents, green/red numbers.
+   ============================================================ */
+.deck { display: flex; flex-direction: column; gap: 24px; }
+.slide {
+  position: relative;
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 28px 32px 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  /* PPTX is 4:3 landscape; hold the shape so the on-screen deck reads like slides */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  container-type: inline-size;
 }
-.pres-head { margin-bottom: 16px; }
-.pres-eyebrow {
-  text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px;
-  color: var(--muted); font-weight: 700;
+.slide-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
 }
-.pres-head h2 { margin: 4px 0 0; font-size: 22px; }
-.pres-period { color: var(--muted); font-size: 13px; }
-.pres-area-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+.slide-mark {
+  width: 34px; height: 34px; flex: none;
+  border-radius: 6px;
+  background: var(--accent);
+  position: relative;
 }
-.pres-area-card {
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 16px;
+.slide-mark::after {
+  content: "▚"; position: absolute; inset: 0;
+  display: grid; place-items: center; color: var(--accent-ink); font-size: 16px;
 }
-.pres-area-card h3 { margin: 0 0 12px; font-size: 16px; }
-.pres-area-card dl { margin: 0; display: flex; flex-direction: column; gap: 6px; }
-.pres-area-card dl > div {
-  display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 14px;
+.slide-head h2 { margin: 0; font-size: 22px; line-height: 1.15; color: var(--text); }
+.slide-sub { margin: 4px 0 0; font-size: 13px; color: var(--muted); font-style: italic; }
+.slide-head > div { flex: 1; min-width: 0; }
+.slide-brand {
+  font-weight: 800; letter-spacing: 1px; font-size: 13px;
+  color: #fff; background: var(--band); padding: 6px 10px; border-radius: 4px;
 }
-.pres-area-card dt { color: var(--muted); }
-.pres-area-card dd { margin: 0; font-weight: 600; }
-.pres-table { width: 100%; }
-@media (max-width: 720px) {
-  .pres-area-cards { grid-template-columns: 1fr; }
+.slide-caption {
+  margin: 22px 0 12px; font-size: 15px; font-weight: 700; text-align: center;
+  color: var(--text);
+}
+.slide-foot {
+  position: absolute; left: 32px; right: 32px; bottom: 12px;
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--border); padding-top: 8px;
 }
 
-/* ── Print → PDF: show ONLY the presentation, light theme, one slide/page ── */
+/* Capa */
+.slide-capa {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 20px;
+}
+.capa-brands { display: flex; align-items: center; gap: 24px; margin-bottom: 8px; }
+.capa-rumo, .capa-client {
+  background: var(--band); color: #fff; font-weight: 800; letter-spacing: 1px;
+  padding: 12px 20px; border-radius: 6px; font-size: 15px;
+}
+.capa-div { width: 2px; height: 40px; background: var(--accent); }
+.capa-eyebrow { color: var(--accent-strong); letter-spacing: 0.25em; font-weight: 700; font-size: 15px; }
+.capa-title h1 { margin: 8px 0; font-size: 40px; letter-spacing: -0.01em; }
+.capa-period { color: var(--muted); font-size: 18px; margin: 0; }
+.capa-band {
+  margin-top: 8px; background: var(--band); color: #fff; font-weight: 700;
+  padding: 14px 22px; border-radius: 6px; font-size: 14px; border-top: 3px solid var(--accent);
+}
+.capa-by { color: var(--muted); font-size: 12px; margin: 0; }
+
+/* Índice */
+.indice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.indice-item {
+  display: flex; align-items: stretch; gap: 14px;
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px; background: var(--surface);
+}
+.indice-n {
+  flex: none; width: 54px; display: grid; place-items: center;
+  background: var(--band); color: var(--accent); font-weight: 800; font-size: 22px;
+  border-radius: 6px;
+}
+.indice-t { font-weight: 700; font-size: 14px; }
+.indice-d { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+/* Stat cards (KPI strip) */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.stat-row-3 { grid-template-columns: repeat(3, 1fr); }
+.stat {
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 6px; padding: 14px 16px; background: var(--surface);
+}
+.stat-label { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+.stat-value { font-size: 24px; font-weight: 800; margin-top: 6px; letter-spacing: -0.01em; }
+.stat-foot { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+/* Deck tables (near-black band header like the PDF) */
+.deck-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+.deck-table thead th {
+  background: var(--accent); color: var(--accent-ink);
+  text-align: left; font-weight: 700; padding: 9px 12px; white-space: nowrap;
+}
+.deck-table thead th.num { text-align: right; }
+.deck-table td {
+  padding: 8px 12px; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.deck-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.deck-table tbody tr:nth-child(even) td { background: var(--surface); }
+.deck-table .col-ytd { font-weight: 800; }
+.deck-table .deck-row-strong td { font-weight: 800; background: var(--surface-2); }
+.deck-table-analysis td:first-child { font-weight: 500; }
+.dot-cell { width: 26px; text-align: center; }
+
+/* Status dots */
+.dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; }
+.dot-ok { background: var(--pos); }
+.dot-atencao { background: var(--accent); }
+.dot-critico { background: var(--neg); }
+.deck-legend { display: flex; gap: 22px; margin-top: 16px; font-size: 12px; color: var(--muted); }
+.deck-legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Attainment bars */
+.att-list { display: flex; flex-direction: column; gap: 10px; }
+.att-row { display: grid; grid-template-columns: 70px 54px 1fr 130px; align-items: center; gap: 10px; }
+.att-mes { font-weight: 700; font-size: 13px; }
+.att-pct { font-weight: 700; font-size: 13px; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+.att-track { height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.att-fill { display: block; height: 100%; background: var(--accent-strong); border-radius: 4px; }
+.att-fill-over { background: var(--accent); }
+.att-gap { font-size: 12px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Area split (mês | DRE) */
+.area-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.area-split .stat-value { font-size: 19px; }
+
+@media (max-width: 900px) {
+  .slide { aspect-ratio: auto; }
+  .stat-row, .stat-row-3 { grid-template-columns: repeat(2, 1fr); }
+  .indice-grid, .area-split { grid-template-columns: 1fr; }
+  .att-row { grid-template-columns: 54px 48px 1fr; }
+  .att-gap { display: none; }
+}
+
+/* ── Print → PDF: only the deck, one slide/page, real page size ─────────── */
 @media print {
   body.printing-presentation * { visibility: hidden; }
   body.printing-presentation #presentation-root,
   body.printing-presentation #presentation-root * { visibility: visible; }
   body.printing-presentation #presentation-root {
     position: absolute; left: 0; top: 0; width: 100%;
-    background: #ffffff; color: #111111;
   }
-  body.printing-presentation #presentation-root .pres-slide {
-    background: #ffffff; border: 1px solid #dddddd;
+  body.printing-presentation #presentation-root .slide {
+    aspect-ratio: auto; box-shadow: none; border: none;
     break-after: page; page-break-after: always;
+    padding: 6mm 4mm 14mm;
   }
-  body.printing-presentation #presentation-root .pres-eyebrow,
-  body.printing-presentation #presentation-root .pres-period,
-  body.printing-presentation #presentation-root .pres-area-card dt {
-    color: #555555;
+  body.printing-presentation #presentation-root .slide:last-child {
+    break-after: auto; page-break-after: auto;
   }
-  body.printing-presentation #presentation-root .kpi,
-  body.printing-presentation #presentation-root .pres-area-card,
-  body.printing-presentation #presentation-root .grid-table th,
-  body.printing-presentation #presentation-root .grid-table td {
-    background: #ffffff; color: #111111; border-color: #dddddd;
-  }
-  @page { margin: 12mm; }
+  @page { size: landscape; margin: 8mm; }
 }

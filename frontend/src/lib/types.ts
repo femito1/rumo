@@ -20,20 +20,58 @@ export interface Cell {
   origin: Origin;
 }
 
-export interface PresentationArea {
+/** A single line of a comparison table (Orçado vs Realizado + variação). */
+export interface PresLine {
   key: string;
   label: string;
-  receita: number | null;
-  receita_orcado: number | null;
-  resultado_bruto: number | null;
-  resultado_liquido: number | null;
-  reserva_bonus: number | null;
-  atingimento: number | null;
+  orcado: number | null;
+  realizado: number | null;
+  delta: number | null;
+  pct: number | null;
+  status: "critico" | "atencao" | "ok" | null;
+}
+
+export interface PresAttainment {
+  mes?: string;
+  abbr: string;
+  recebimento: number | null;
+  meta: number | null;
+  pct: number | null;
+  gap: number | null;
+}
+
+export interface PresArea {
+  key: string;
+  label: string;
+  mes: {
+    receita: number | null;
+    resultado_bruto: number | null;
+    resultado_liquido: number | null;
+    meta_receita: number | null;
+  };
+  ytd: {
+    receita: number | null;
+    resultado_liquido: number | null;
+    meta_receita: number | null;
+  };
+  atingimento: PresAttainment[];
+  dre: PresLine[];
+}
+
+/** A per-month + YTD matrix row (institucional detail / reserva). */
+export interface PresMatrixRow {
+  key: string;
+  label: string;
+  months: Record<string, number | null>;
+  ytd: number | null;
 }
 
 export interface Presentation {
   titulo: string;
   periodo: string;
+  periodo_mes: string;
+  ano: number;
+  meses_presentes: string[];
   headline: {
     faturamento: number | null;
     recebimento: number | null;
@@ -43,16 +81,25 @@ export interface Presentation {
     margem_liquida: number | null;
     reserva_bonus: number | null;
   };
-  institucional: {
-    recebimento: number | null;
-    despesas: number | null;
-    imposto: number | null;
-    amortizacao: number | null;
+  institucional_detalhe: {
+    meses: string[];
+    month_indices: number[];
+    linhas: PresMatrixRow[];
   };
-  areas: PresentationArea[];
-  meta_anual: number | null;
-  atingimento_mes: number | null;
-  recebimento_mensal: { mes: string; recebimento: number | null }[];
+  meta: {
+    anual: number | null;
+    receita_ytd: number | null;
+    resultado_bruto_ytd: number | null;
+    resultado_liquido_ytd: number | null;
+    margem_liquida_ytd: number | null;
+    atingimento: PresAttainment[];
+  };
+  analise_ytd: PresLine[];
+  areas: PresArea[];
+  reserva: {
+    meses: string[];
+    linhas: PresMatrixRow[];
+  };
 }
 
 export interface ClosingPayload {

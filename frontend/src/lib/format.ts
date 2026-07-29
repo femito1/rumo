@@ -33,6 +33,25 @@ export function formatPercent(value: number | null | undefined): string {
   return PCT.format(value);
 }
 
+const NUM1 = new Intl.NumberFormat("pt-BR", {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
+/** Compact money for slide tables/cards — "444,5K" / "2.372,5K" / "-14,9K",
+ *  mirroring the PPTX. Values are shown in thousands (K) with one decimal. */
+export function formatBRLShort(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  return `${NUM1.format(value / 1000)}K`;
+}
+
+/** Signed percentage-point / percent with an explicit + on gains ("+2,4%"). */
+export function formatPercentSigned(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  const s = PCT.format(value);
+  return value > 0 ? `+${s}` : s;
+}
+
 const MESES = [
   "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
