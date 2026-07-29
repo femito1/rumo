@@ -109,6 +109,34 @@ def test_conta3_overrides_win_over_parent_name():
     assert section_for("Administrativas", "020.060.0010") == "Administrativas"
 
 
+def test_investimentos_040_030_is_mapped_per_account_not_by_prefix():
+    """``040.030.*`` is a MIXED bucket — only ``0010`` is Consultoria.
+
+    A blanket ``040.030.`` → Consultoria prefix rule sent June's 429,00 "Móveis e
+    Utensílios" (a pressure washer) into Consultoria Adm. e Financeira. The plano de
+    contas has three children under 040.030.0000 "Investimentos":
+        0010 Consultoria        → Consultoria (workbook H111, 14.705,80 ✓)
+        0020 Móveis e Utensílios → Despesas Gerais, as "Material de Escritório"
+                                   (workbook H105 = 468,40, of which 429,00 is this)
+        0030 Reforma            → Despesas Gerais ("Manutenção do Escritório")
+
+    Renata (2026-07-29) on 0020: "não tinha uma categoria específica então a gente
+    entendeu que era material de escritório. Sendo um bem de escritório é uma despesa
+    institucional que seria rateada, não de uma área específica." And on 0030:
+    "Manutenção de escritório despesas gerais" — while noting the manutenção-vs-
+    melhoria line is genuinely thin ("uma reforma de melhora é um investimento"), to
+    be settled with Adriana. Both stay INSIDE Despesa Institucional either way, so
+    they are rateized; only the family label is at stake.
+    """
+    assert section_for("Investimentos", "040.030.0010") == "Consultoria"
+    assert section_for("Investimentos", "040.030.0020") == "Despesas Gerais"
+    assert section_for("Investimentos", "040.030.0030") == "Despesas Gerais"
+    # The sibling 040.* families keep their existing prefix behaviour.
+    assert section_for("Marketing", "040.010.0090") == "Consultoria"
+    assert section_for("Informática", "040.040.0010") == "Informática"
+    assert section_for("Biblioteca", "040.050.0010") == "Gestão do Conhecimento"
+
+
 def test_prefix_rules():
     assert section_for("Financeiras", "020.070.0030") == "Administrativas"
     assert section_for("Investimentos", "040.010.0090") == "Consultoria"

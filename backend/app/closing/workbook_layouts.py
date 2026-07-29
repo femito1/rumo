@@ -80,6 +80,20 @@ _CONTA3_TO_SECTION: dict[str, str] = {
     "020.080.0050": "Salários Administração",  # Vale Refeição - ADM
     "020.080.0060": "Salários Administração",  # Vale Transporte
     "020.090.0040": "Endomarketing",  # Eventos e Happy Hour -> "Eventos Internos" (05 book)
+    # 040.030.* ("Investimentos") is a MIXED bucket — mapped per account, NOT by
+    # prefix. Only 0010 is consultancy; the other two are office spend the workbook
+    # books in Despesas Gerais. Client-confirmed by Renata 2026-07-29:
+    #   0020 Móveis e Utensílios -> "Material de Escritório" (June H105 = 468,40, of
+    #        which 429,00 is a pressure washer): "sendo um bem de escritório é uma
+    #        despesa institucional que seria rateada, não de uma área específica".
+    #   0030 Reforma -> "Manutenção do Escritório" ("manutenção de escritório
+    #        despesas gerais"). ⚠ OPEN NUANCE, to settle with Adriana: a REFORMA DE
+    #        MELHORIA is arguably an investimento, not manutenção ("linhazinha bem
+    #        tênue"). Either way it stays inside Despesa Institucional and is
+    #        rateized, so only the family label would change — do not move it out of
+    #        despesas without a client artifact.
+    "040.030.0020": "Despesas Gerais",  # Móveis e Utensílios -> Material de Escritório
+    "040.030.0030": "Despesas Gerais",  # Reforma -> Manutenção do Escritório
 }
 
 # Account-family prefixes that fold into a fixed institutional family regardless
@@ -87,6 +101,9 @@ _CONTA3_TO_SECTION: dict[str, str] = {
 _PREFIX_TO_SECTION: tuple[tuple[str, str], ...] = (
     ("020.070.", "Administrativas"),  # Financeiras -> Taxas / Despesas Financeiras
     ("040.010.", "Consultoria"),  # Marketing / Assessoria de Imprensa
+    # NOTE 040.030.* is deliberately NOT a blanket prefix: 0020/0030 are overridden
+    # per account above, so only 0010 (Consultoria Adm. e Financeira) falls through
+    # here. Adding new 040.030.* children? Decide their family explicitly.
     ("040.030.", "Consultoria"),  # Investimentos:Consultoria Adm. e Financeira
     ("040.040.", "Informática"),  # Licenças / Micros / Impressoras
     ("040.050.", "Gestão do Conhecimento"),  # Biblioteca
