@@ -75,6 +75,10 @@ export interface Presentation {
   headline: {
     faturamento: number | null;
     recebimento: number | null;
+    /** Total despesa = custo equipe + despesas institucionais (4th card). */
+    despesas: number | null;
+    despesas_institucionais: number | null;
+    custo_equipe: number | null;
     resultado_bruto: number | null;
     margem_bruta: number | null;
     resultado_liquido: number | null;

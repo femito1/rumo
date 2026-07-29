@@ -257,6 +257,10 @@ def _headline_kpis_from_dre(institucional: SectionData | None) -> dict[str, floa
     if not isinstance(rows, list):
         return {}
     wanted = {
+        # ``despesas`` feeds the presentation's 4th headline card (client asked for
+        # faturamento / receita / despesas / resultado on the institucional slide).
+        "despesas",
+        "custo_equipe",
         "resultado_bruto",
         "margem_bruta",
         "resultado_liquido",

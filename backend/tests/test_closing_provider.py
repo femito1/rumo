@@ -249,6 +249,26 @@ def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
     assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
+def test_presentation_headline_carries_despesas_for_the_fourth_card(tmp_path, monkeypatch):
+    """2026-07-28, 29:39 — Adriana: *"deveria ter essa linha de despesa: faturamento,
+    receita, despesa."* Adriana Mendes, 30:01: *"só diminuir o tamanho da caixinha que
+    cabe mais outra: faturamento, receita, despesas e resultados"* — because *"o
+    resultado acaba sendo a diferença entre receita e despesa"* and without it the
+    result reads *"perdido"*.
+
+    Only the INSTITUCIONAL slide gets it. The per-área monthly slides deliberately
+    show no despesa line (28:14 — *"a gente só mostra receita e resultado"*); per área
+    despesa appears only in the acumulado (30:23 — *"e no acumulado, não no mensal"*).
+    """
+    body = _closing(tmp_path, monkeypatch)
+    headline = body["presentation"]["headline"]
+    assert "despesas" in headline, "headline has no despesas for the 4th card"
+    assert headline["despesas"] is not None
+    # Per-área MONTHLY cards must stay receita/resultado only — no despesa.
+    for area in body["presentation"]["areas"]:
+        assert "despesas" not in area["mes"], f"{area['label']} mês slide gained a despesa"
+
+
 def test_presentation_faturamento_fills_every_month_not_just_competence(tmp_path, monkeypatch):
     """2026-07-28, 19:49 — *"ele não está puxando janeiro, fevereiro, março, abril no
     faturamento embaixo."* Receita filled but Faturamento only ever showed the

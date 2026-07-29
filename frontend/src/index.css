@@ -1126,6 +1126,12 @@ input::placeholder {
 /* Stat cards (KPI strip) */
 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .stat-row-3 { grid-template-columns: repeat(3, 1fr); }
+/* 5 up (institucional slide: faturamento/receita/despesas/res.bruto/res.líquido).
+   Slightly tighter padding + value size so five cards fit one deck row. */
+.stat-row-5 { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.stat-row-5 .stat { padding: 10px 11px; }
+.stat-row-5 .stat-value { font-size: 19px; }
+.stat-row-5 .stat-foot { font-size: 11px; }
 .stat {
   border: 1px solid var(--border); border-left: 4px solid var(--accent);
   border-radius: 6px; padding: 11px 13px; background: var(--surface);
@@ -1180,7 +1186,7 @@ input::placeholder {
 .area-split .deck-table td { padding: 7px 9px; }
 
 @media (max-width: 900px) {
-  .stat-row, .stat-row-3 { grid-template-columns: repeat(2, 1fr); }
+  .stat-row, .stat-row-3, .stat-row-5 { grid-template-columns: repeat(2, 1fr); }
   .indice-grid, .area-split { grid-template-columns: 1fr; }
   .att-row { grid-template-columns: 54px 48px 1fr; }
   .att-gap { display: none; }

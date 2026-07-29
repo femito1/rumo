@@ -140,9 +140,14 @@ function SlideInstitucionalMes({ data }: { data: Presentation }) {
   const isPct = (key: string) => key.startsWith("margem");
   return (
     <Slide title={`Resultado Institucional – ${data.periodo_mes} ${data.ano}`}>
-      <div className="stat-row">
+      {/* Faturamento → Receita → Despesas → Resultado. The Despesas card was added
+          at the client's request (2026-07-28): the result is the difference between
+          receita and despesa, and without it the result reads "perdido". Five cards
+          share the row ("só diminuir o tamanho da caixinha que cabe mais outra"). */}
+      <div className="stat-row stat-row-5">
         <StatCard label="Faturamento" value={money(h.faturamento)} foot="notas emitidas" />
         <StatCard label="Receita Líquida" value={money(h.recebimento)} foot="recebido" />
+        <StatCard label="Despesas" value={money(h.despesas)} foot="custo equipe + institucionais" />
         <StatCard label="Resultado Bruto" value={money(h.resultado_bruto)} sign={h.resultado_bruto} foot={h.margem_bruta != null ? `Margem ${formatPercent(h.margem_bruta)}` : undefined} />
         <StatCard label="Resultado Líquido" value={money(h.resultado_liquido)} sign={h.resultado_liquido} foot={h.margem_liquida != null ? `Mg. Líq. ${formatPercent(h.margem_liquida)}` : undefined} />
       </div>

@@ -87,6 +87,13 @@ def _pct(num: float | None, den: float | None) -> float | None:
     return round(num / den, 4)
 
 
+def _sum_or_none(*vals: float | None) -> float | None:
+    """Sum the present values; None only when every part is missing (so a partially
+    assembled month shows what it has rather than blanking the whole card)."""
+    present = [v for v in vals if v is not None]
+    return round(sum(present), 2) if present else None
+
+
 #: Lines where a HIGHER realizado is favourable (revenue/result). Everything else
 #: (costs, expenses, taxes) is favourable when LOWER. Drives the status dot color.
 _HIGHER_IS_BETTER = frozenset({
@@ -281,6 +288,17 @@ def build_presentation(
         "headline": {
             "faturamento": _num(kpis.get("faturamento_realizado")),
             "recebimento": _num(kpis.get("receita_honorarios")),
+            # 4th card (client 2026-07-28 29:39/30:01): the institucional slide shows
+            # faturamento / receita / despesas / resultado, because the result is the
+            # difference between the first two and reads "perdido" without it. Total
+            # despesa = custo equipe (custos diretos) + despesas institucionais, which
+            # is what "despesa" means to the client on this slide. The per-área monthly
+            # slides deliberately keep no despesa line (28:14).
+            "despesas": _sum_or_none(
+                _num(kpis.get("custo_equipe")), _num(kpis.get("despesas"))
+            ),
+            "despesas_institucionais": _num(kpis.get("despesas")),
+            "custo_equipe": _num(kpis.get("custo_equipe")),
             "resultado_bruto": _num(kpis.get("resultado_bruto")),
             "margem_bruta": _num(kpis.get("margem_bruta")),
             "resultado_liquido": _num(kpis.get("resultado_liquido")),
