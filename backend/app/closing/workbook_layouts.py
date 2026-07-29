@@ -218,12 +218,22 @@ def match_area(snapshot_area_name: str, area: str) -> bool:
     the same workbook area ('Arbitragem e Compliance'). The LegalDesk Demonstrativo
     lists 'Equipe Ambiental' separately, but it folds into Arbitragem here.
     'Não Alocados' is NOT an area and must never match one (it is its own line).
+
+    Must resolve to **exactly one** área. SISJURI emits the same grupo with
+    inconsistent spacing (live 2026 snapshots: 'EquipeContencioso',
+    'Equipe DireitoEconômico', 'EquipeDireito Econômico', 'EquipeAmbiental'), and
+    a missing space splices a false ``"econ"`` out of ``"equipE-CONtencioso"``
+    — which made a Contencioso grupo match Econômico too. That is harmless where
+    the caller takes the first hit, but ``dre.py`` has three loops that ADD over
+    every matching área, so an ambiguous name lands in two áreas at once. Hence
+    the Econômico test is anchored on 'econô'/'econo' (the word, not the splice).
     """
     low = (snapshot_area_name or "").lower()
     if "alocad" in low:  # "Não Alocados" — never a workbook area
         return False
     if area == "Econômico":
-        return "econ" in low
+        # 'econô'/'econo' — NOT a bare 'econ', which 'equipecontencioso' contains.
+        return "econô" in low or "econo" in low
     if area == "Contencioso":
         return "conten" in low
     if area == "Arbitragem":

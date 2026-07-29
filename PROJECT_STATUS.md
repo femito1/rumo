@@ -13,7 +13,53 @@
 
 ---
 
-## ⭐ 2026-07-29 (latest) — June validation: custo-equipe fix, deck, re-theme
+## ⭐ 2026-07-29 (latest) — the per-área YTD ~7k gap is a WORKBOOK formula bug
+
+HANDOFF §5.2 ("Contencioso + Arbitragem differ ~7k, Econômico ties"). Both the user
+and Adriana suspected a cross-área leak on our side — *"pode ser de lá, veio para cá"*.
+**There is a cross-área leak, and it is in the workbook's own Jan–May formulas.**
+Proven against `Fechamento MBC 06.2026.xlsx` + the live snapshots; reproduce with
+`cd backend && python -m scripts.audit_area_ytd_formulas`.
+
+1. **The leak hypothesis is refuted for our code, by its own signature.** If a slice
+   were misrouted *between* áreas, Σ(3 áreas) would still tie while the parts moved.
+   It doesn't: Σ itself differs per month, in **both directions** (custo equipe Jan
+   −3.156,84 … Mar +3.652,42). So nothing is being moved from one área to another
+   on our side. `accumulate_ytd` is also exonerated — the workbook's own YTD is a
+   plain sum of its monthly columns (`AB = C+G+K+O+S+W`), verified for all 9 cells,
+   so a YTD gap can only be the per-month gaps.
+2. **`Base_Resultado Mensal_V2` r204/205/206 are off by one row in Jan–May.** For
+   five families (Eventos e Happy hour, Material Gráfico, Patrocínio, Refeições,
+   Viagens) each área reads the label one line **below** its own — the block is
+   ordered Arbitragem / Contencioso / Econômico / Institucional per family:
+   Contencioso reads *Direito Econômico*, Econômico reads *Institucional*,
+   Arbitragem reads *Contencioso*. Net: the five **Arbitragem** rows
+   (r138/142/146/150/154) are dropped and the five **Institucional** rows
+   (r141/145/149/153/157) are counted. **June's formulas were repaired** — which is
+   precisely why June ties us to the centavo and Jan–May do not. It also perturbs
+   `r207 = r198 − r203` → per-área Despesa Institucional rateio.
+3. **⚠ "Econômico ties" is an artifact of netting, not a validated área.** Per month
+   Econômico has the *largest* gross error of the three (Σ|monthly Δ| = 15.426) but
+   ~94% cancels between over/under statements, so its YTD looks clean. Contencioso
+   cancels 74%, Arbitragem only 34% — that is the whole reason those two show a
+   residue. **Never read a matching YTD total as evidence an área is right.**
+4. **Fixed a real latent cross-área bug found on the way** (`match_area`): SISJURI
+   emits whitespace-variant grupo names, and `EquipeContencioso` spliced a false
+   `"econ"` out of `"equipE-CONtencioso"` → matched Contencioso **and** Econômico.
+   Harmless where the caller takes the first hit, but `dre.py` has three loops that
+   ADD over every match, so an ambiguous name double-counts into two áreas. Econômico
+   is now anchored on `econô`/`econo`; pinned by a test. Not currently firing on live
+   data (those blocks carry canonical names) — this closes it before it does.
+
+**Nothing to "fix" in our derivation. The Jan–Abr diff (§5.6) is a question for
+Renata about her formulas**, not a convergence target. Jan–May are also still
+extract v1 (stale) — re-run `backfill.ps1` before quoting residual magnitudes.
+
+Backend **272** tests; ruff + mypy clean.
+
+---
+
+## 2026-07-29 — June validation: custo-equipe fix, deck, re-theme
 
 Client meeting validating June numbers. Delivered:
 

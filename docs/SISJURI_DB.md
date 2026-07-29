@@ -236,6 +236,29 @@ Vale account under `020.050.*` and no Vale in the summarised S/I views.
   `(FaturaNumero, ProfissionalSigla)` before summing.
 - `FINANCE.VW_RESULTADO_MENSAL_DET` carries `LANNCODIG`, `CONTA1/2/3`,
   `TITULO1/2/3`, `SETOR`, `ORCAMENTO` — the account-keyed institutional detail.
+- **SISJURI grupo names are NOT whitespace-stable.** The same grupo arrives with and
+  without its space across months: `EquipeContencioso` (2026-02),
+  `Equipe DireitoEconômico` (04/05), `EquipeDireito Econômico` (05),
+  `EquipeAmbiental` (05). Dropping the space splices a false `"econ"` out of
+  `"equipE-CONtencioso"`, so a bare `"econ" in name` test matched **both**
+  Contencioso and Econômico. `match_area` now anchors Econômico on `econô`/`econo`
+  and `test_whitespace_variant_grupo_names_match_exactly_one_area` pins it. This
+  matters because `dre.py` has three loops that ADD over *every* matching área — an
+  ambiguous name lands in two áreas at once. Normalize before comparing grupo names.
+
+### Workbook fact — the Jan–May per-área "Despesas Equipe" formulas are wrong (2026-07-29)
+
+Not a DB fact, but it lives here because it is the answer to a per-área gap that
+looks exactly like a DB/derivation bug. `Base_Resultado Mensal_V2` r204/r205/r206
+are off by one row in **Jan–May only** for five expense families (Eventos e Happy
+hour, Material Gráfico, Patrocínio, Refeições, Viagens): each área reads the label
+one line *below* its own, because the block is ordered Arbitragem / Contencioso /
+Econômico / Institucional within each family. June's formulas were repaired.
+Consequence: the Arbitragem rows (r138/142/146/150/154) are dropped and the
+Institucional rows (r141/145/149/153/157) are counted instead — which also
+perturbs the `r207 = r198 − r203` rateio pool, hence per-área Despesa
+Institucional. **Our numbers are right; the Jan–May book is not.** Reproduce with
+`cd backend && python -m scripts.audit_area_ytd_formulas`.
 
 ## Access path (authorized — through the server, not direct)
 

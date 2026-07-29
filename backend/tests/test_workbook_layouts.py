@@ -79,6 +79,34 @@ def test_area_matching_basics():
     assert match_area("Equipe Contencioso", "Econômico") is False
 
 
+def test_whitespace_variant_grupo_names_match_exactly_one_area():
+    """SISJURI emits the SAME grupo with inconsistent spacing (observed live in the
+    2026 Jan–Jun snapshots): ``EquipeContencioso`` (m2), ``Equipe DireitoEconômico``
+    (m4/m5), ``EquipeDireito Econômico`` (m5), ``EquipeAmbiental`` (m5).
+
+    ``EquipeContencioso`` is the dangerous one: dropping the space splices an
+    ``"econ"`` out of ``"equipE-CONtencioso"``, so the old substring test matched
+    BOTH Contencioso and Econômico. ``_grupo_to_area`` takes the first hit in
+    ``AREAS`` and only landed right because Contencioso happens to precede
+    Econômico in that tuple — but ``dre.py`` has three loops that ADD over every
+    matching area, so an ambiguous name is double-counted into two áreas there.
+    That is exactly the cross-área leak shape the client suspected, so pin it:
+    every name must resolve to exactly ONE área.
+    """
+    variants = {
+        "EquipeContencioso": "Contencioso",
+        "Equipe Contencioso": "Contencioso",
+        "Equipe DireitoEconômico": "Econômico",
+        "EquipeDireito Econômico": "Econômico",
+        "Equipe Direito Econômico": "Econômico",
+        "EquipeAmbiental": "Arbitragem",
+        "Equipe Ambiental": "Arbitragem",
+    }
+    for name, expected in variants.items():
+        hits = [a for a in ("Contencioso", "Econômico", "Arbitragem") if match_area(name, a)]
+        assert hits == [expected], f"{name!r} matched {hits}, expected exactly [{expected!r}]"
+
+
 def test_cursos_treinamento_030_carveout():
     # 030.010.0180 is lifted OUT of Custo equipe into Gestão do Conhecimento.
     assert not is_direct_team("030.010.0180")
