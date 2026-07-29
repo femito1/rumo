@@ -2,7 +2,7 @@
 
 :root {
   font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -30,12 +30,12 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2f3644;
+  background: var(--border-strong);
   border-radius: 999px;
   border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3c4456;
+  background: #b7bec6;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
@@ -111,12 +111,12 @@ p {
   transition: background 0.12s ease, color 0.12s ease;
 }
 .topnav-link:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
   color: var(--text);
 }
 .topnav-link.active {
   color: var(--text);
-  background: rgba(34, 197, 94, 0.12);
+  background: var(--accent-soft);
   font-weight: 600;
 }
 .client-switcher {
@@ -178,7 +178,7 @@ select:focus,
 button:focus-visible {
   outline: none;
   border-color: var(--api);
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.35);
 }
 input::placeholder {
   color: var(--muted);
@@ -221,7 +221,7 @@ input::placeholder {
   padding: calc(var(--space) * 3);
   box-sizing: border-box;
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(34, 197, 94, 0.08), transparent 60%),
+    radial-gradient(1200px 600px at 50% -10%, rgba(232, 163, 61, 0.10), transparent 60%),
     var(--bg);
 }
 .login-card {
@@ -257,9 +257,9 @@ input::placeholder {
   padding: 11px 14px;
 }
 .form-error {
-  background: rgba(239, 68, 68, 0.12);
+  background: #fdecea;
   border: 1px solid rgba(239, 68, 68, 0.4);
-  color: #fca5a5;
+  color: var(--neg);
   border-radius: var(--radius);
   padding: 9px 12px;
   font-size: 13px;
@@ -279,9 +279,9 @@ input::placeholder {
   font-size: 24px;
 }
 .error-state {
-  background: rgba(239, 68, 68, 0.1);
+  background: #fdecea;
   border: 1px solid rgba(239, 68, 68, 0.35);
-  color: #fca5a5;
+  color: var(--neg);
   border-radius: var(--radius);
   padding: 14px 16px;
 }
@@ -432,8 +432,8 @@ input::placeholder {
   font-size: 30px;
 }
 /* Sign-aware coloring so a loss reads instantly. */
-.kpi-pos .kpi-value { color: var(--api); }
-.kpi-neg .kpi-value { color: #f87171; }
+.kpi-pos .kpi-value { color: var(--pos); }
+.kpi-neg .kpi-value { color: var(--neg); }
 
 /* Actions cluster: collapsible editors, integrated (not stranded). */
 .workspace-actions {
@@ -445,9 +445,9 @@ input::placeholder {
 }
 .filter-chip {
   display: inline-block;
-  background: rgba(139, 92, 246, 0.12);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  color: #c4b5fd;
+  background: var(--accent-soft);
+  border: 1px solid rgba(214, 135, 26, 0.5);
+  color: var(--accent-strong);
   border-radius: 999px;
   padding: 5px 12px;
   font-size: 12px;
@@ -512,11 +512,11 @@ input::placeholder {
 }
 .month-cell:hover:not(:disabled) {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.05);
 }
 .month-cell.selected {
   background: var(--api);
-  color: #04210f;
+  color: var(--accent-ink);
   font-weight: 700;
 }
 .month-cell:disabled {
@@ -535,7 +535,7 @@ input::placeholder {
 }
 .day-range-trigger.is-active .btn {
   border-color: var(--juritis);
-  color: #c4b5fd;
+  color: var(--accent-strong);
 }
 .day-range-icon {
   font-size: 13px;
@@ -596,7 +596,7 @@ input::placeholder {
   margin-top: calc(var(--space) * 1.5);
 }
 .day-range-err {
-  color: #fca5a5;
+  color: var(--neg);
   font-size: 12px;
   margin-top: 8px;
 }
@@ -635,7 +635,7 @@ input::placeholder {
   text-align: left;
   cursor: pointer;
 }
-.export-menu-item:hover:not(:disabled) { background: rgba(255, 255, 255, 0.06); }
+.export-menu-item:hover:not(:disabled) { background: rgba(0, 0, 0, 0.05); }
 .export-menu-item:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* Spinner + loading block */
@@ -716,9 +716,9 @@ input::placeholder {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 30% 30%, #1c2230, var(--surface));
+  background: radial-gradient(circle at 30% 30%, var(--surface-2), var(--surface));
   border: 1px solid var(--border);
-  box-shadow: 0 0 22px rgba(34, 197, 94, 0.28);
+  box-shadow: 0 0 22px rgba(232, 163, 61, 0.28);
   animation: loader-breathe 1.8s ease-in-out infinite;
 }
 .loader-coin {
@@ -742,8 +742,8 @@ input::placeholder {
 }
 @keyframes loader-spin { to { transform: rotate(360deg); } }
 @keyframes loader-breathe {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 24px rgba(34, 197, 94, 0.22); }
-  50% { transform: scale(1.08); box-shadow: 0 0 40px rgba(59, 130, 246, 0.32); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 24px rgba(232, 163, 61, 0.22); }
+  50% { transform: scale(1.08); box-shadow: 0 0 40px rgba(214, 135, 26, 0.32); }
 }
 @keyframes loader-sheen { to { background-position: 300% 0; } }
 @keyframes loader-fade {
@@ -863,13 +863,13 @@ input::placeholder {
   border-bottom: none;
 }
 .grid-table tbody tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.015);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 /* DRE row styling (Orcado x Realizado tables) */
 .grid-table tbody tr.row-total td {
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 .grid-table tbody tr.row-section td {
   font-weight: 700;
@@ -877,12 +877,17 @@ input::placeholder {
   font-size: 11px;
   letter-spacing: 0.04em;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.05);
 }
 .grid-table tbody tr.row-margin td {
   color: var(--muted);
   font-style: italic;
 }
+/* Signed-number coloring must win over row-total/section/margin text colors
+   (client: negatives red everywhere, favorable results green). Scoped to the
+   grid-table numeric cell so specificity beats the row rules above. */
+.grid-table tbody tr td.val-neg { color: var(--neg); }
+.grid-table tbody tr td.val-pos { color: var(--pos); }
 /* Per-professional equipe-split rows (drill-down children). Previously muted gray
    and hard to read; the client asked for them to stand out. Full-contrast text +
    a left accent bar + faint tint so the splits are legible under their área group. */
@@ -891,7 +896,7 @@ input::placeholder {
   color: var(--text);
 }
 .grid-table tbody tr:has(td.cell-indent) {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.025);
 }
 .grid-table td.cell-indent:first-child {
   border-left: 2px solid var(--api);
@@ -912,7 +917,7 @@ input::placeholder {
   text-align: left;
 }
 .drilldown-toggle:hover {
-  color: var(--accent, #6ea8fe);
+  color: var(--accent-strong);
 }
 .drilldown-caret {
   font-size: 10px;

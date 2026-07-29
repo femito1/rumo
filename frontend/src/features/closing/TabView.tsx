@@ -154,7 +154,11 @@ function RichRowsTable({ columns, rows }: { columns: string[]; rows: RichRow[] }
                 {keys.map((k, ci) => (
                   <td
                     key={ci}
-                    className={ci === 0 ? cellIndentClass(row) : "num"}
+                    className={
+                      ci === 0
+                        ? cellIndentClass(row)
+                        : `num ${signClass(row[k], row, isPercentColumn(columns[ci]))}`.trim()
+                    }
                   >
                     {ci === 0 && hasChildren && drillKey != null ? (
                       <button
@@ -308,6 +312,34 @@ function renderRichValue(
 
 function isSourcedCell(v: unknown): v is SourcedCell {
   return typeof v === "object" && v != null && "value" in (v as Record<string, unknown>);
+}
+
+/** Numeric value of a cell (sourced cell or bare number), else null. */
+function numericValueOf(v: unknown): number | null {
+  if (isSourcedCell(v)) return typeof v.value === "number" ? v.value : null;
+  if (typeof v === "number") return v;
+  return null;
+}
+
+/** Sign class for a value cell (client request, 2026-07: "tudo negativo vermelho",
+ *  green/red for numbers — mirrors the PPTX).
+ *
+ *  Negatives are ALWAYS red. Positives turn green only on RESULT rows
+ *  (subtotal/total/margin/section_total) so favorable outcomes pop the way they do
+ *  in the slides — greening every cost line (custo equipe, despesas) would be both
+ *  noisy and misleading (a big cost is not "good"). */
+function signClass(v: unknown, row: RichRow | null, isPercent: boolean): string {
+  const n = numericValueOf(v);
+  if (n == null || n === 0) return "";
+  if (n < 0) return "val-neg";
+  const kind = row?.kind;
+  const isResult =
+    row?.is_total === true ||
+    kind === "subtotal" ||
+    kind === "total" ||
+    kind === "margin" ||
+    kind === "section_total";
+  return isResult && !isPercent ? "val-pos" : "";
 }
 
 function orMissing(v: unknown): string {

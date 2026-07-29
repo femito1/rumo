@@ -1,19 +1,58 @@
 /* frontend/src/styles/tokens.css */
+/*
+ * Light theme matching Rumo's monthly PPTX (reference/workbook/MBC Resultado
+ * Jan a Mai 2026.pdf): white background, near-black text, gray structure, an
+ * orange/amber brand accent, and green/red reserved for signed numbers.
+ *
+ * Legacy var names are kept (--api/--formula/--manual/--juritis) so existing
+ * source-badge / accent references resolve without a sweep; they now point at
+ * the light-theme accent so nothing renders the old dark-green.
+ */
 :root {
-  --bg: #0f1115; --surface: #161922; --border: #262b36; --text: #e6e8ee; --muted: #8b91a0;
-  --api: #22c55e; --formula: #3b82f6; --manual: #6b7280; --juritis: #8b5cf6; --fixture: #a3a3a3;
+  --bg: #ffffff;
+  --surface: #f6f7f8;
+  --surface-2: #eef0f2;
+  --border: #e2e5e9;
+  --border-strong: #cfd4da;
+  --text: #17191c;
+  --muted: #6b7280;
+
+  /* Brand accent (PPTX orange/amber) */
+  --accent: #e8a33d;
+  --accent-strong: #d6871a;
+  --accent-ink: #3a2a08;        /* text on an accent fill */
+  --accent-soft: #fbf1de;       /* faint accent tint for headers/rows */
+
+  /* Signed numbers — the ONLY place green/red appear */
+  --pos: #167a3c;
+  --neg: #c0392b;
+
+  /* Header band (slide table headers are near-black in the PPTX) */
+  --band: #1b1d21;
+  --band-ink: #ffffff;
+
+  /* Legacy aliases (kept so old references don't break) */
+  --api: var(--accent);
+  --formula: #8a8f98;
+  --manual: #9aa0a8;
+  --juritis: var(--accent-strong);
+  --fixture: #a3a3a3;
+
   --radius: 8px; --space: 8px;
 }
 body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; margin: 0; }
 .num { font-variant-numeric: tabular-nums; }
+/* Signed-number coloring: reusable anywhere a value can go negative. */
+.val-pos { color: var(--pos); }
+.val-neg { color: var(--neg); }
 .badge { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
-.badge-legaldesk { background: rgba(34,197,94,.15); color: var(--api); }
-.badge-formula { background: rgba(59,130,246,.15); color: var(--formula); }
-.badge-manual, .badge-fixture { background: rgba(107,114,128,.18); color: var(--muted); }
-.badge-juritis { background: rgba(139,92,246,.15); color: var(--juritis); }
+.badge-legaldesk { background: var(--accent-soft); color: var(--accent-strong); }
+.badge-formula { background: var(--surface-2); color: var(--muted); }
+.badge-manual, .badge-fixture { background: var(--surface-2); color: var(--muted); }
+.badge-juritis { background: var(--accent-soft); color: var(--accent-strong); }
 .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-.kpi-highlight { border-color: var(--api); }
+.kpi-highlight { border-color: var(--accent); }
 .btn { border-radius: var(--radius); padding: 8px 14px; border: 1px solid var(--border); cursor: pointer; }
-.btn-primary { background: var(--api); color: #04210f; border-color: var(--api); }
-.skeleton-row { height: 14px; background: var(--surface); border-radius: 4px; margin: 8px 0; animation: pulse 1.2s infinite; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent-strong); font-weight: 700; }
+.skeleton-row { height: 14px; background: var(--surface-2); border-radius: 4px; margin: 8px 0; animation: pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% { opacity: .5 } 50% { opacity: 1 } }
