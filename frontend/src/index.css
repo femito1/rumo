@@ -1027,26 +1027,29 @@ input::placeholder {
    Matches reference/workbook/MBC Resultado Jan a Mai 2026.pdf:
    white slides, near-black band headers, orange accents, green/red numbers.
    ============================================================ */
-.deck { display: flex; flex-direction: column; gap: 24px; }
+.deck { display: flex; flex-direction: column; gap: 16px; }
 .slide {
   position: relative;
   background: #ffffff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 32px 40px;
+  padding: 20px 24px 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  /* PPTX is 4:3 landscape; hold the shape so the on-screen deck reads like slides */
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  container-type: inline-size;
+  /* Height follows CONTENT. A forced `aspect-ratio: 4/3` (to mime the PPTX shape)
+     left a large dead band under every slide whose content is shorter than 4:3 —
+     which is most of them. Print still paginates one slide per page, so the shape
+     is set by @page there, not here. */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .slide-head {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   border-bottom: 3px solid var(--accent);
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  padding-bottom: 9px;
+  margin-bottom: 14px;
 }
 .slide-mark {
   width: 34px; height: 34px; flex: none;
@@ -1066,22 +1069,32 @@ input::placeholder {
   color: #fff; background: var(--band); padding: 6px 10px; border-radius: 4px;
 }
 .slide-caption {
-  margin: 22px 0 12px; font-size: 15px; font-weight: 700; text-align: center;
+  margin: 14px 0 8px; font-size: 14px; font-weight: 700; text-align: center;
   color: var(--text);
 }
+/* In FLOW (was absolutely positioned at bottom: 12px, which forced 40px of bottom
+   padding on every slide to reserve room for it — dead space on short slides).
+   `margin-top: auto` pins it to the bottom on slides that DO fill their height;
+   the parent's `gap` guarantees a minimum separation on the ones that don't. */
 .slide-foot {
-  position: absolute; left: 32px; right: 32px; bottom: 12px;
+  margin-top: auto;
   display: flex; justify-content: space-between;
   font-size: 11px; color: var(--muted);
-  border-top: 1px solid var(--border); padding-top: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 7px;
 }
 
-/* Capa */
+/* Capa — the one slide that SHOULD hold a slide-like shape (it's a title card with
+   little content, so content-height alone would collapse it into a thin strip). */
 .slide-capa {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; gap: 20px;
+  text-align: center; gap: 14px;
+  /* Fixed, not `vh`: a viewport-relative height made the title card balloon on tall
+     screens (46vh ≈ 1100px at 2400px tall) and reintroduced the dead band. */
+  min-height: 360px;
+  justify-content: center;
 }
-.capa-brands { display: flex; align-items: center; gap: 24px; margin-bottom: 8px; }
+.capa-brands { display: flex; align-items: center; gap: 24px; margin-bottom: 4px; }
 .capa-rumo, .capa-client {
   background: var(--band); color: #fff; font-weight: 800; letter-spacing: 1px;
   padding: 12px 20px; border-radius: 6px; font-size: 15px;
@@ -1097,10 +1110,10 @@ input::placeholder {
 .capa-by { color: var(--muted); font-size: 12px; margin: 0; }
 
 /* Índice */
-.indice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.indice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .indice-item {
-  display: flex; align-items: stretch; gap: 14px;
-  border: 1px solid var(--border); border-radius: 8px; padding: 14px; background: var(--surface);
+  display: flex; align-items: stretch; gap: 12px;
+  border: 1px solid var(--border); border-radius: 8px; padding: 11px; background: var(--surface);
 }
 .indice-n {
   flex: none; width: 54px; display: grid; place-items: center;
@@ -1111,25 +1124,25 @@ input::placeholder {
 .indice-d { color: var(--muted); font-size: 12px; margin-top: 3px; }
 
 /* Stat cards (KPI strip) */
-.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .stat-row-3 { grid-template-columns: repeat(3, 1fr); }
 .stat {
   border: 1px solid var(--border); border-left: 4px solid var(--accent);
-  border-radius: 6px; padding: 14px 16px; background: var(--surface);
+  border-radius: 6px; padding: 11px 13px; background: var(--surface);
 }
 .stat-label { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
-.stat-value { font-size: 24px; font-weight: 800; margin-top: 6px; letter-spacing: -0.01em; white-space: nowrap; }
-.stat-foot { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.stat-value { font-size: 22px; font-weight: 800; margin-top: 4px; letter-spacing: -0.01em; white-space: nowrap; }
+.stat-foot { color: var(--muted); font-size: 12px; margin-top: 3px; }
 
 /* Deck tables (near-black band header like the PDF) */
-.deck-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+.deck-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 0; }
 .deck-table thead th {
   background: var(--accent); color: var(--accent-ink);
-  text-align: left; font-weight: 700; padding: 9px 12px; white-space: nowrap;
+  text-align: left; font-weight: 700; padding: 7px 11px; white-space: nowrap;
 }
 .deck-table thead th.num { text-align: right; }
 .deck-table td {
-  padding: 8px 12px; border-bottom: 1px solid var(--border); white-space: nowrap;
+  padding: 6px 11px; border-bottom: 1px solid var(--border); white-space: nowrap;
 }
 .deck-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .deck-table tbody tr:nth-child(even) td { background: var(--surface); }
@@ -1143,23 +1156,23 @@ input::placeholder {
 .dot-ok { background: var(--pos); }
 .dot-atencao { background: var(--accent); }
 .dot-critico { background: var(--neg); }
-.deck-legend { display: flex; gap: 22px; margin-top: 16px; font-size: 12px; color: var(--muted); }
+.deck-legend { display: flex; gap: 22px; margin-top: 10px; font-size: 12px; color: var(--muted); }
 .deck-legend span { display: inline-flex; align-items: center; gap: 6px; }
 
 /* Attainment bars */
-.att-list { display: flex; flex-direction: column; gap: 10px; }
+.att-list { display: flex; flex-direction: column; gap: 6px; }
 .att-row { display: grid; grid-template-columns: 70px 54px 1fr 130px; align-items: center; gap: 10px; }
 .att-mes { font-weight: 700; font-size: 13px; }
 .att-pct { font-weight: 700; font-size: 13px; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
-.att-track { height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.att-track { height: 14px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
 .att-fill { display: block; height: 100%; background: var(--accent-strong); border-radius: 4px; }
 .att-fill-over { background: var(--accent); }
 .att-gap { font-size: 12px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* Area split (mês | DRE) */
-.area-split { display: grid; grid-template-columns: 5fr 7fr; gap: 20px; align-items: start; }
+.area-split { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; align-items: start; }
 .area-split .stat-value { font-size: 16px; }
-.area-split .stat { padding: 12px; }
+.area-split .stat { padding: 9px 10px; }
 /* The per-área DRE is a 6-col table in a half-width column — let it scroll on
    screen rather than clip; print widens the page so it fits. */
 .area-split .deck-table { font-size: 12px; display: block; overflow-x: auto; }
@@ -1167,7 +1180,6 @@ input::placeholder {
 .area-split .deck-table td { padding: 7px 9px; }
 
 @media (max-width: 900px) {
-  .slide { aspect-ratio: auto; }
   .stat-row, .stat-row-3 { grid-template-columns: repeat(2, 1fr); }
   .indice-grid, .area-split { grid-template-columns: 1fr; }
   .att-row { grid-template-columns: 54px 48px 1fr; }
@@ -1183,10 +1195,15 @@ input::placeholder {
     position: absolute; left: 0; top: 0; width: 100%;
   }
   body.printing-presentation #presentation-root .slide {
-    aspect-ratio: auto; box-shadow: none; border: none;
+    box-shadow: none; border: none;
     break-after: page; page-break-after: always;
-    padding: 6mm 4mm 14mm;
+    /* Fill the printed page so the footer sits at the bottom (on screen the slide
+       is content-height, so `margin-top: auto` has nothing to push against). */
+    min-height: 100%;
+    padding: 6mm 4mm 8mm;
   }
+  /* The capa's screen-only min-height would push it onto a second page. */
+  body.printing-presentation #presentation-root .slide-capa { min-height: 100%; }
   body.printing-presentation #presentation-root .slide:last-child {
     break-after: auto; page-break-after: auto;
   }
