@@ -103,6 +103,18 @@ credentials (LegalDesk) never reach the client.
 - Docker: `backend/Dockerfile`, `frontend/Dockerfile` + `nginx.conf`,
   `docker-compose.yml`.
 
+## Deploying
+
+- **A push to `main` auto-deploys BOTH services** (measured 2026-07-30: build `Success`
+  7s after the push, no manual step). So a push IS a release — don't push half-finished
+  work to `main`. Older notes in `PROJECT_STATUS.md` claiming "EasyPanel doesn't
+  auto-deploy" are wrong and annotated as such.
+- `ops/easypanel-deploy.sh <svc>` forces a rebuild; `<svc> logs` prints the last build
+  log. A deploy can return `ok` and still fail the build — read the log.
+- Verify what is actually live: frontend by comparing `assets/index-<hash>.js` against a
+  local `VITE_API_URL=<prod> npm run build`; backend via the public `/openapi.json` when
+  the route signatures changed, otherwise the build log timestamp.
+
 ## Quality gates before you call something done
 
 - Backend: `cd backend && ruff check . && mypy app && pytest`

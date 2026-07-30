@@ -15,6 +15,14 @@
 
 ## ⭐ 2026-07-29 (latest) — meeting follow-ups §5.1–§5.5 shipped
 
+**⭐ CORRECTION (2026-07-30): EasyPanel DOES auto-deploy on push to `main`.** Two
+places in this file previously said it does not. Measured: `84cda48` pushed at
+13:35:46 UTC, backend build `Success` at **13:35:53 UTC** (7s later), frontend at
+13:36:06 — with no `ops/easypanel-deploy.sh` invocation. So a push to `main` ships to
+prod. Treat every push as a deploy: that is how today's `backfill.ps1` run and the v3
+backend landed together without an explicit deploy step. `ops/easypanel-deploy.sh`
+remains useful to FORCE a rebuild and to read build logs (`<svc> logs`).
+
 All of HANDOFF_2026-07-29 §5.1–§5.5 implemented, TDD, each verified against the
 workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
 
@@ -28,10 +36,12 @@ workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
   `Mês em aberto · parcial`, `não são um fechamento`, `available_months_detail`,
   `Mês no futuro`, `custo equipe + institucionais`, `stat-row-5`.
 
-⚠ **Still needs the operator on MBC-LDESK01** (no route from here): re-run
-`register-task.ps1` so the daily job also extracts the OPEN month, and run
-`backfill.ps1` to lift Jan–May off extract v1. Until the former, the new open-month
-view will render empty — prod has no 2026-07 snapshot at all.
+✅ **Operator work DONE 2026-07-30:** `backfill.ps1` re-extracted 2026-01..05 and
+`run-agent.ps1` pushed 2026-07, so **all seven months are now extract v3**
+(`stale=false`) with real per-person `vale_prof` slices. June's hand-patch is removed
+and its five client-validated cells still tie from genuine extract output.
+⚠ **Still pending:** re-run `register-task.ps1` so the DAILY job also extracts the open
+month (it only ever ran `AddMonths(-1)`); until then 2026-07 goes stale after today.
 
 - **§5.2 — the per-área YTD ~7k gap is a WORKBOOK formula bug, not ours.** See the
   section below; the headline is that `Base_Resultado` r204/205/206 are off by one row
@@ -296,7 +306,7 @@ ruff/mypy/eslint/tsc clean; `npm run build` OK. **One deploy at the end** (see b
   full-contrast text + `--api` left-accent + faint tint (`index.css .cell-indent`).
 
 **⚠ DEPLOY (single, at end): backend + frontend both need a prod redeploy** via
-`ops/easypanel-deploy.sh` (EasyPanel doesn't auto-deploy). The budget rows are already live
+`ops/easypanel-deploy.sh`. (⚠ CORRECTED 2026-07-30: EasyPanel DOES auto-deploy on push — see the top of this file. This note was wrong.) The budget rows are already live
 in Supabase; the signed reserva + all the above render only after redeploy.
 
 ---
@@ -389,7 +399,7 @@ account facts live in the `docs/SISJURI_DB.md` account index, the client-facing 
 - **Full backfill run** (2024-01 → 2026-05, snapshots stamped 2026-07-21 ~08:4x). June is
   the daily task's (06:00), also fresh. All snapshots carry the corrected `custo_equipe_deriv`.
 - **⚠ DEPLOY:** the extract half is live (backfill); the **backend `is_imposto` code needs a
-  manual prod redeploy** (`ops/easypanel-deploy.sh backend`) — EasyPanel does not auto-deploy
+  manual prod redeploy** (`ops/easypanel-deploy.sh backend`) — ⚠ CORRECTED 2026-07-30: EasyPanel DOES auto-deploy on push
   on push. Until then the deployed `dre.py` may still drop ISS. Verify per the handoff playbook.
 - **Tooling:** `ops/sisjuri-agent/lint_probe.py` (sqlglot, oracle) — lint every probe before
   the RDP round-trip (catches ORA-01785 positional ORDER BY + ORA-00904 XMLTYPE-on-alias).
