@@ -885,33 +885,159 @@ def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
     assert any("Vale" in nome for nome, _ in sal.accounts)
 
 
+#: Real per-person VR/VT slices, straight off ``probe_vale_desdobramento.sql`` run
+#: live on 2026-07-30 (block B). One entry per CPDESDOBRAMENTO slice destined for
+#: ``500.010.<SIGLA>``. This is what the v3 extract emits as ``vale_prof``.
+_VALE_PROF_2026 = {
+    1: [("JVO", 829.80), ("JVO", 168.00), ("MLA", 262.64), ("MLA", 829.80)],
+    2: [("JVO", 235.20), ("JVO", 1014.20), ("MLA", 337.68), ("MLA", 1014.20)],
+    3: [("JVO", 922.00), ("JVO", 268.80), ("MLA", 318.92), ("MLA", 922.00),
+        ("VSR", 86.40), ("VSR", 922.00)],
+    4: [("JVO", 268.80), ("JVO", 922.00), ("MLA", 300.16), ("MLA", 922.00),
+        ("VSR", 86.40), ("VSR", 922.00)],
+    5: [("JVO", 968.10), ("JVO", 268.80), ("MLA", 783.70), ("MLA", 262.64),
+        ("VSR", 75.60)],
+    6: [("JVO", 1014.20), ("JVO", 268.80), ("MLA", 1014.20), ("MLA", 318.92),
+        ("VSR", 1014.20), ("VSR", 86.40)],
+}
+
+#: The three Vale people's SISJURI grupo, stable across 2026-01..07.
+_HOME_AREA_2026 = {
+    "JVO": "Equipe Contencioso",
+    "MLA": "Administração",
+    "VSR": "Equipe Direito Econômico",
+}
+
+
+def _vale_prof(month: int) -> list[dict]:
+    return [{"sigla": s, "valor": v} for s, v in _VALE_PROF_2026[month]]
+
+
+def _with_vale(snap: dict, month: int, **home_overrides: str) -> dict:
+    """June fixture + a given month's per-person slices.
+
+    ``home_area`` is MERGED, never replaced: the fixture carries 69 siglas and
+    dropping the rest orphans every other lawyer, collapsing the área totals.
+    """
+    out = dict(snap)
+    out.pop("vale_adm", None)  # v3 emits no pre-split total
+    out["vale_prof"] = _vale_prof(month)
+    out["home_area"] = {
+        **(out.get("home_area") or {}), **_HOME_AREA_2026, **home_overrides
+    }
+    return out
+
+
+def _vale_leaf(snap: dict) -> float:
+    r = RealizadoInputs.from_snapshot(snap)
+    sal = next(s for s in r.sections if s.name == "Salários Administração")
+    return next(v for nome, v in sal.accounts if "Vale" in nome)
+
+
+def test_vale_adm_derives_adm_only_from_per_person_slices(snapshot_jun):
+    """The ADM share of Vale is derived PER PERSON, keyed on ``home_area``.
+
+    Renata (voice notes, 2026-07-30): the transitória lançamento único "depois ele
+    abre isso dentro do sistema... dizendo pra QUAL PESSOA é essa despesa", and "o
+    ideal é que tenha lançamentos feitos para o ADM e lançamentos feitos para as
+    áreas específicas, porque são DOIS ESTAGIÁRIOS dentro de cada área, e tem a
+    Maria Luiza que é da parte administrativa."
+
+    So: sum only the slices whose sigla has ``home_area == Administração``.
+    """
+    snap = _with_vale(snapshot_jun, 6)
+    assert _vale_leaf(snap) == pytest.approx(1333.12, abs=0.01)  # MLA 1.014,20+318,92
+    r = RealizadoInputs.from_snapshot(snap)
+    sal = next(s for s in r.sections if s.name == "Salários Administração")
+    assert sal.total == pytest.approx(6312.19, abs=0.01)  # workbook June H116
+
+
+def test_vale_adm_per_person_ties_february(snapshot_jun):
+    # The other month Renata had already adjusted: MLA 337,68 + 1.014,20 = 1.351,88
+    # (workbook D122+D123). The Vale leaf comes entirely from vale_prof, so the June
+    # fixture only supplies the surrounding sections.
+    assert _vale_leaf(_with_vale(snapshot_jun, 2)) == pytest.approx(1351.88, abs=0.01)
+
+
+def test_vale_adm_follows_the_adm_tag_not_a_hardcoded_sigla(snapshot_jun):
+    # The automation claim, tested: move the Administração tag to a DIFFERENT person
+    # and the derived Vale must follow the tag. If someone later hardcodes "MLA",
+    # this fails. VSR as ADM = 1.014,20 + 86,40 = 1.100,60.
+    snap = _with_vale(
+        snapshot_jun, 6, MLA="Equipe Contencioso", VSR="Administração"
+    )
+    assert _vale_leaf(snap) == pytest.approx(1100.60, abs=0.01)
+
+
+def test_vale_adm_per_person_does_NOT_tie_march_april_may(snapshot_jun):
+    """Mar/Abr/Mai must DIFFER from the workbook — asserted so nobody "fixes" it.
+
+    Renata, 2026-07-30: "teve um mês que ficou tudo na Malu... e depois que eu
+    percebi que tinha valores separados de cada um, alocados dentro das áreas
+    específicas, e aí eu acabei ajustando" + "não vale a pena corrigir, o valor é
+    muito irrisório." Abr/Mai in her book are the FULL 3-person lump and Mar is a
+    partial hand-fix, so a derivation reproducing all six months would be fitting to
+    hand-entry — the trap that made "Econômico ties" look correct in the per-área
+    YTD (see scripts/audit_area_ytd_formulas.py).
+    """
+    for month, typed in {3: 3983.22, 4: 3421.36, 5: 3326.94}.items():
+        derived = _vale_leaf(_with_vale(snapshot_jun, month))
+        assert derived < typed - 1000, (
+            f"month {month}: derived {derived} unexpectedly close to the workbook's "
+            f"un-adjusted {typed} — do not fit to hand-entry"
+        )
+
+
+def test_vale_prof_adm_slice_is_excluded_from_area_custo_equipe(snapshot_jun):
+    """The ADM person's Vale must NOT also land in an área's Custo equipe.
+
+    ``custo_equipe_area`` is a RAW per-person feed and it DOES contain the ADM person
+    in some months (April 2026: MLA 1.222,16). That is why the previously rejected
+    shortcut ``lump − Σ custo_equipe_area`` produced exactly 0,00 for April — it
+    subtracted the ADM share from itself. Counting MLA in an área would double-count
+    her from the other direction, so the same ``home_area`` test filters her out.
+    """
+    snap = _with_vale(snapshot_jun, 6)
+    # April's shape: the ADM person appears in the per-área Vale feed too.
+    snap["custo_equipe_area"] = [
+        {"sigla": "JVO", "valor": 1283.00, "id_conta": "030.010.0100/0220"},
+        {"sigla": "MLA", "valor": 1222.16, "id_conta": "030.010.0100/0220"},
+        {"sigla": "VSR", "valor": 1100.60, "id_conta": "030.010.0100/0220"},
+    ]
+    r = RealizadoInputs.from_snapshot(snap)
+    # The áreas keep their estagiários' Vale (June's client-validated numbers)…
+    assert r.area_custo_equipe["Contencioso"] == pytest.approx(75424.21, abs=0.01)
+    assert r.area_custo_equipe["Econômico"] == pytest.approx(80536.85, abs=0.01)
+    # …and MLA's 1.222,16 is nowhere in the three áreas.
+    assert sum(r.area_custo_equipe.values()) == pytest.approx(210345.00, abs=0.02)
+
+
 def test_vale_adm_excludes_lawyer_vale_already_in_custo_equipe(snapshot_jun):
-    """June: ``vale_adm`` must NOT double-count the lawyers' Vale.
+    """June end-to-end: the estagiários' Vale must not be counted twice.
 
-    The extract's ``vale_adm`` sums every "VR/VT Mensal" line on transitória
-    200.010.0010, which catches the LAWYERS' Vale as well as the ADM one — and the
-    lawyers' slice is already inside per-área Custo equipe (``custo_equipe_area``,
-    500.010.<SIGLA>). June 2026 is the first month with both, so the old ADM-only
-    assumption silently inflated Despesa Institucional by the lawyer share:
+    Their slice belongs to per-área Custo equipe (``custo_equipe_area``,
+    500.010.<SIGLA>); counting it in Salários Administração too inflated Despesa
+    Institucional and every área's rateio share (June reserva read −10.194,80
+    instead of −9.956,44).
 
-        vale_adm 3.716,72 = lawyer 2.383,60 + ADM 1.333,12
-                            └ = Σ custo_equipe_area (Conten 1.283 + Econ 1.100,60)
-                                                     ADM = workbook r122+r123
-
-    So Salários Administração must carry only 1.333,12 of Vale. Workbook June
-    (Base_Resultado Mensal_V2 H116) = 6.312,19.
+    Under v3 the split is per-person, from ``vale_prof`` keyed on ``home_area``
+    (the June fixture carries the real slices off probe_vale_desdobramento.sql):
+        JVO 1.283,00 + VSR 1.100,60 = 2.383,60  -> áreas
+        MLA 1.014,20 +      318,92  = 1.333,12  -> Salários Administração
+    Workbook June: Base_Resultado H116 = 6.312,19, H122+H123 = 1.333,12.
     """
     snap = dict(snapshot_jun)
-    # The extract emits vale_adm ADM-ONLY (it drops rows having a 500.010.* twin),
-    # so the June fixture carries MLA's 1.333,12 — not the 3.716,72 raw transitória
-    # total, which also held the lawyers' JVO 1.283,00 + VSR 1.100,60.
-    assert snap["vale_adm"] == pytest.approx(1333.12, abs=0.01)  # guards the fixture
+    # v3 emits per-person slices, not a pre-split total. Guards the fixture.
+    assert "vale_adm" not in snap
+    assert sum(
+        r["valor"] for r in snap["vale_prof"] if r["sigla"] == "MLA"
+    ) == pytest.approx(1333.12, abs=0.01)
     r = RealizadoInputs.from_snapshot(snap)
     sal = next(s for s in r.sections if s.name == "Salários Administração")
     assert sal.total == pytest.approx(6312.19, abs=0.01)
     vale = next(v for nome, v in sal.accounts if "Vale" in nome)
     assert vale == pytest.approx(1333.12, abs=0.01)
-    # And the lawyer slice stays where it belongs — per-área Custo equipe.
+    # And the estagiários' slice stays where it belongs — per-área Custo equipe.
     assert r.area_custo_equipe["Contencioso"] == pytest.approx(75424.21, abs=0.01)
     assert r.area_custo_equipe["Econômico"] == pytest.approx(80536.85, abs=0.01)
 

@@ -28,7 +28,14 @@ _DEFAULT_CLIENT = "mbc"
 #: Despesa Institucional and every área's rateio share. Surfaced by the summary
 #: endpoint so an operator can see WHICH months still need re-extracting instead
 #: of discovering it as a wrong number in a client meeting.
-CURRENT_EXTRACT_VERSION = 2
+#:
+#: v3 (2026-07-30) replaces ``vale_adm`` with the raw per-person ``vale_prof``
+#: slices. v2's "exclude 500.010.* twins" rule never fired (0 rows dropped in every
+#: month Jan–Jun 2026), so v2 snapshots still carry the estagiários' Vale inside
+#: ``vale_adm``. NOTE the lesson: a version bump asserts the CONTRACT changed, not
+#: that the logic is right — v2 certified a broken rule. Pair every bump with a test
+#: that ties a real month (see test_vale_adm_derives_adm_only_from_per_person_slices).
+CURRENT_EXTRACT_VERSION = 3
 
 
 def snapshot_extract_version(snapshot: dict[str, Any]) -> int:

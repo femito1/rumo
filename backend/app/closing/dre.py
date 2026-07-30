@@ -87,6 +87,26 @@ def _pct(numer: float, denom: float) -> float | None:
     return round(numer / denom, 4)
 
 
+def is_adm_grupo(grupo_name: str | None) -> bool:
+    """True when a SISJURI grupo name denotes the ADMINISTRATIVE team.
+
+    The single source of truth for "is this person ADM?", used both to build
+    Vale-ADM and to keep the same person out of an área's Custo equipe.
+
+    Deliberately keyed on the grupo recorded in SISJURI (``home_area``, from
+    ``CAD_PROFISSIONAL``) and NOT on a hardcoded sigla list. Client-confirmed
+    2026-07-30 (Renata): *"o ideal é que tenha lançamentos feitos para o ADM e
+    lançamentos feitos para as áreas específicas, porque são dois estagiários
+    dentro de cada área, e tem a Maria Luiza que é da parte administrativa."*
+    Whoever finance files under Administração is the ADM person; if that changes,
+    the number follows their own records instead of a list we must remember to
+    edit. Accent- and space-tolerant for the same reason ``match_area`` is: the DB
+    emits 'Administração' and whitespace variants of other grupos.
+    """
+    low = (grupo_name or "").lower()
+    return "dministra" in low
+
+
 def bonus_reserve(resultado_liquido: float) -> float:
     """Reserva de bônus = signed 10% do Resultado Líquido (client-confirmed).
 
@@ -310,16 +330,45 @@ class RealizadoInputs:
         # family ties the workbook (May 12.344,91). FGTS-ADM already left this
         # family for Impostos via ``is_imposto`` (020.050.0060).
         #
-        # ``vale_adm`` must arrive ADM-ONLY. The transitória also carries the
-        # LAWYERS' Vale in some months (June 2026: JVO + VSR alongside the ADM
-        # person), and that slice is already inside per-área Custo equipe via
-        # ``custo_equipe_area`` (500.010.<SIGLA>) — counting it here too inflated
-        # Despesa Institucional and every área's rateio share. The split is done in
-        # the EXTRACT (``vale_adm`` excludes rows having a 500.010.* twin), not here:
-        # the two cases are indistinguishable from the snapshot alone, since May
-        # books one ADM lump while June mirrors per-person lines under the same
-        # histórico and the same ``custo_equipe_area`` id_conta.
-        vale_adm = float(snap.get("vale_adm", 0.0) or 0.0)
+        # PREFERRED (2026-07-30): derive the ADM share PER PERSON from
+        # ``vale_prof`` — the CPDESDOBRAMENTO slices destined for
+        # ``500.010.<SIGLA>`` — keeping only siglas whose ``home_area`` is
+        # Administração (:func:`is_adm_grupo`). Ties the workbook for both months
+        # the client had already adjusted: Fev 1.351,88 and Jun 1.333,12.
+        #
+        # This REPLACES the extract's old "exclude rows having a 500.010.* twin"
+        # rule, which never worked: it required an exact histórico match AND
+        # |Δvalor| < 0,005, but the transitória books a LUMP for everyone at once
+        # (June VR 3.042,60 = 1.014,20 × 3), so no single per-person row ever
+        # equalled it and the histories differ too. Measured live on all six 2026
+        # months: 0 rows dropped, every month. June only appeared to tie because
+        # its stored snapshot had been hand-patched.
+        #
+        # It also cannot be done arithmetically as ``lump − Σ custo_equipe_area``:
+        # that block is a RAW per-person feed which CONTAINS the ADM person in some
+        # months (April 2026 has MLA 1.222,16), so the subtraction removes the ADM
+        # share from itself — April came out exactly 0,00. Per-person is the only
+        # correct shape; see ``ops/sisjuri-agent/probe_vale_desdobramento.sql``.
+        #
+        # ⚠ Mar/Abr/Mai 2026 will NOT match the workbook, by design: those are the
+        # client's own un-adjusted entries ("não vale a pena corrigir, o valor é
+        # muito irrisório"). Do not fit a formula to them.
+        home_area_map = {
+            str(k): str(v) for k, v in (snap.get("home_area") or {}).items()
+        }
+        vale_prof = snap.get("vale_prof")
+        if vale_prof:
+            vale_adm = round(
+                sum(
+                    float(rowd.get("valor", 0.0) or 0.0)
+                    for rowd in vale_prof
+                    if is_adm_grupo(home_area_map.get(str(rowd.get("sigla") or "")))
+                ),
+                2,
+            )
+        else:
+            # Legacy v1/v2 snapshots: a pre-split total with no per-person detail.
+            vale_adm = float(snap.get("vale_adm", 0.0) or 0.0)
         if vale_adm:
             sal = next(
                 (s for s in ordered if s.name == "Salários Administração"), None
@@ -403,7 +452,17 @@ class RealizadoInputs:
             # re-baselined — see workbook_targets_2026.json. Vale-ADM stays a
             # SEPARATE block (``vale_adm`` → Salários Administração); no double
             # count — custo_equipe_area is the per-lawyer 500.010.<SIGLA> slice.)
-            vale_rows = snap.get("custo_equipe_area") or []
+            # ⚠ ``custo_equipe_area`` is a RAW per-person feed and it DOES contain
+            # the ADM person in some months (April 2026: MLA 1.222,16). Her Vale
+            # belongs to institutional Salários Administração, so leaving her here
+            # would double-count her from the other direction — the mirror of the
+            # bug the per-person ``vale_prof`` derivation above fixes. Same single
+            # ``home_area`` test decides both, so the two can never disagree.
+            vale_rows = [
+                v
+                for v in (snap.get("custo_equipe_area") or [])
+                if not is_adm_grupo(home_area_map.get(str(v.get("sigla") or "")))
+            ]
             derived = derive_area_custo_equipe(
                 [*deriv_rows, *vale_rows], splits, overrides=overrides
             )

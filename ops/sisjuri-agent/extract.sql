@@ -56,8 +56,16 @@ BEGIN
      --       missed the client-platform Assinatura slice)
      --   2 = 2026-07-29: vale_adm is ADM-only (500.010.* twins excluded) and
      --       despesas_equipe_area includes the client-platform Assinatura.
+     --       ⚠ The twin exclusion in v2 NEVER FIRED (0 rows dropped in every month
+     --       Jan–Jun 2026) — v2 snapshots carry a vale_adm that still includes the
+     --       estagiários' Vale. A version bump asserts the CONTRACT changed, not
+     --       that the logic works; only a test can assert the latter.
+     --   3 = 2026-07-30: vale_adm is GONE, replaced by 'vale_prof' — the raw
+     --       per-person CPDESDOBRAMENTO slices (500.010.<SIGLA>). The backend picks
+     --       the ADM share via home_area == Administração (dre.is_adm_grupo) and
+     --       keeps that same person out of per-área Custo equipe.
      -- A snapshot without this key is version 1 by definition.
-     'extract_version' VALUE 2
+     'extract_version' VALUE 3
   ),
   'revenue' VALUE (
      SELECT JSON_OBJECT(
@@ -528,48 +536,52 @@ BEGIN
          GROUP BY cp.COD_ADVG
      )
   ),
-  -- Vale-ADM (Vale Refeição/Transporte administrativo). The workbook books it in
-  -- Salários Administração, but it is NOT under 020.050.* — it is paid via the
-  -- transitória de pagamentos 200.010.0010 ("desdobramento - histórico"),
-  -- identified by the histórico "VR/VT Mensal para ..." (confirmed vs
-  -- Pagtos maio.XLS.xlsx: VR 2.719,90 + VT 607,04 = 3.326,94 = workbook G122+G123).
-  -- Emit the total; the backend adds it to the institutional Salários Administração
-  -- section (and FGTS-ADM moves to Impostos to tie the family to the centavo).
+  -- Vale Refeição/Transporte, PER PERSON. The workbook books the administrative
+  -- share in Salários Administração, but it is NOT under 020.050.* — the payable
+  -- sits on the transitória de pagamentos 200.010.0010 and is then UNFOLDED
+  -- (CPDESDOBRAMENTO) into one slice per person, destined for 500.010.<SIGLA>.
   --
-  -- ⚠ ADM-ONLY: subtract the per-person Vale that ALSO lands on 500.010.<SIGLA>.
-  -- Two different bookkeeping shapes exist, so filtering by histórico alone is not
-  -- enough (2026-07-29, proven against both raw extratos):
-  --   May  — ONE lump pair on the transitória (VR 2.719,90 + VT 607,04), no
-  --          500.010.* counterpart. All of it is ADM. Workbook G122+G123 = 3.326,94.
-  --   June — the transitória MIRRORS per-person 500.010.<SIGLA> lines:
-  --          JVO 1.283,00 + VSR 1.100,60 (lawyers) + MLA 1.333,12 (ADM) = 3.716,72,
-  --          and workbook H122+H123 = 1.333,12 — i.e. ONLY the ADM person.
-  -- The lawyers' slice is already counted in per-área Custo equipe (custo_equipe_area,
-  -- 500.010.<SIGLA>), so leaving it here double-counted it into Despesa Institucional
-  -- and inflated every área's rateio share. Excluding rows whose (histórico, valor)
-  -- has a same-month 500.010.* twin keeps May whole (no twins) and drops exactly the
-  -- lawyer pairs in June. Do NOT "simplify" this to subtracting Σ custo_equipe_area:
-  -- that block is sourced from 030.010.0100/0220 and is NOT inside the transitória in
-  -- May, so blanket subtraction breaks May by 1.312,50.
-  'vale_adm' VALUE (
-     SELECT NVL(ROUND(SUM(l.LANNVALOR),2), 0)
-       FROM FINANCE.LANCAMENTO l
-      WHERE l.PCTCNUMEROCONTADEST='200.010.0010'
-        AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'
-        AND ( UPPER(l.LANCHISTORICO) LIKE '%VR MENSAL%'
-           OR UPPER(l.LANCHISTORICO) LIKE '%VT MENSAL%'
-           OR UPPER(l.LANCHISTORICO) LIKE '%VALE REFEI%MENSAL%'
-           OR UPPER(l.LANCHISTORICO) LIKE '%VALE TRANSP%MENSAL%' )
-        AND NOT EXISTS (
-              SELECT 1
-                FROM FINANCE.LANCAMENTO p
-                JOIN LDESK.CAD_PROFISSIONAL cp2
-                  ON cp2.SIGLA = SUBSTR(p.PCTCNUMEROCONTADEST, 9)
-               WHERE p.PCTCNUMEROCONTADEST LIKE '500.010.%'
-                 AND p.LANDDATA >= DATE '&D_START' AND p.LANDDATA < DATE '&D_END'
-                 AND p.LANCHISTORICO = l.LANCHISTORICO
-                 AND ABS(ABS(p.LANNVALOR) - ABS(l.LANNVALOR)) < 0.005
-            )
+  -- Client-confirmed 2026-07-30 (Renata, voice notes): "faz um lançamento único numa
+  -- conta transitória, e DEPOIS ELE ABRE isso dentro do sistema... dizendo pra QUAL
+  -- PESSOA é essa despesa", and "o ideal é que tenha lançamentos feitos para o ADM e
+  -- lançamentos feitos para as áreas específicas, porque são dois estagiários dentro
+  -- de cada área, e tem a Maria Luiza que é da parte administrativa."
+  --
+  -- We emit the RAW per-person slices and let the backend decide who is ADM (via
+  -- home_area == Administração). Policy does not belong here: the same home_area test
+  -- must also keep the ADM person OUT of per-área Custo equipe, and only the backend
+  -- holds both blocks. See dre.is_adm_grupo.
+  --
+  -- ⚠ THIS REPLACES a "vale_adm" total that excluded rows having a 500.010.* twin.
+  -- That rule NEVER FIRED: it required an exact LANCHISTORICO match AND
+  -- |Δvalor| < 0,005, but the transitória books a LUMP for everyone at once (June VR
+  -- 3.042,60 = 1.014,20 × 3), so no single per-person row ever equalled it, and the
+  -- histories differ too ("...para João Victor, Maria Luiza e Vitoria" vs
+  -- "...para João Victor." + a "Vale refeição: 22 dias x 46,10" tail). Measured live
+  -- on Jan–Jun 2026 (probe_vale_twin_allmonths, block C): 0 rows dropped, EVERY month.
+  -- June only appeared to tie because its stored snapshot had been hand-patched.
+  -- Do NOT reintroduce it, and do NOT "simplify" this to subtracting
+  -- Σ custo_equipe_area downstream: that block CONTAINS the ADM person in some months
+  -- (April 2026 has MLA 1.222,16), so the subtraction removes the ADM share from
+  -- itself — April came out exactly 0,00. Verified by probe_vale_desdobramento.sql.
+  'vale_prof' VALUE (
+     SELECT JSON_ARRAYAGG(JSON_OBJECT(
+        'sigla'     VALUE sigla,
+        'valor'     VALUE valor,
+        'historico' VALUE historico
+     ) RETURNING CLOB)
+     FROM (SELECT SUBSTR(d.DESCCONTADESTINO, 9) sigla,
+                  ROUND(d.DESNVALOR,2) valor,
+                  SUBSTR(d.DESCHISTORICO,1,60) historico
+             FROM FINANCE.CPDESDOBRAMENTO d
+             JOIN FINANCE.CONTASPAGAR cp
+               ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
+            WHERE cp.CPGDVECTO >= DATE '&D_START' AND cp.CPGDVECTO < DATE '&D_END'
+              AND d.DESCCONTADESTINO LIKE '500.010.%'
+              AND ( UPPER(cp.CPGCHISTORICO) LIKE '%VR MENSAL%'
+                 OR UPPER(cp.CPGCHISTORICO) LIKE '%VT MENSAL%'
+                 OR UPPER(cp.CPGCHISTORICO) LIKE '%VALE REFEI%'
+                 OR UPPER(cp.CPGCHISTORICO) LIKE '%VALE TRANSP%' ))
   ),
   -- CAD_RATEIO_GRUPO: per-professional area percentages (active window only).
   -- Multi-area lawyers (e.g. Aurelio 50/50) get their split here; the app uses

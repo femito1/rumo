@@ -236,6 +236,27 @@ Vale account under `020.050.*` and no Vale in the summarised S/I views.
   `(FaturaNumero, ProfissionalSigla)` before summing.
 - `FINANCE.VW_RESULTADO_MENSAL_DET` carries `LANNCODIG`, `CONTA1/2/3`,
   `TITULO1/2/3`, `SETOR`, `ORCAMENTO` — the account-keyed institutional detail.
+- **Vale VR/VT is per-person via `CPDESDOBRAMENTO`, and the ADM share is keyed on
+  `home_area`, never on a sigla.** The payable sits on transitória `200.010.0010` as a
+  LUMP for everyone at once, then unfolds into one slice per person destined for
+  `500.010.<SIGLA>` (client-confirmed 2026-07-30: *"faz um lançamento único numa conta
+  transitória, e depois ele abre isso dentro do sistema... dizendo pra qual pessoa é
+  essa despesa"*). Emitted raw as `vale_prof` (extract v3); `dre.is_adm_grupo` keeps
+  only siglas whose grupo is Administração, and filters that same person OUT of
+  `custo_equipe_area` so she isn't double-counted from the other side.
+  **Two dead ends, do not retry:** (a) excluding transitória rows that have a
+  `500.010.*` "twin" with the same histórico+valor — never fires, because the lump is
+  the SUM of the people (June VR 3.042,60 = 1.014,20 × 3) and the histories differ;
+  measured 0 rows dropped in all of Jan–Jun 2026. (b) `lump − Σ custo_equipe_area` —
+  that block CONTAINS the ADM person in some months (April 2026 MLA 1.222,16), so it
+  subtracts the ADM share from itself; April came out exactly 0,00.
+  Ties the book for the months finance had adjusted: **Fev 1.351,88 · Jun 1.333,12**.
+  Mar/Abr/Mai 2026 are her own un-adjusted entries and MUST differ (*"não vale a pena
+  corrigir, o valor é muito irrisório"*). Probe: `probe_vale_desdobramento.sql`.
+- **A separate estagiário payable exists outside the transitória.** March 2026 has a
+  4th payable *"benefícios VT e VR ... para o estagiária do concorrencial"* unfolding to
+  `020.080.0050` 507,10 + `020.080.0060` 36,12 = **543,22** — which is the `543,22` half
+  of the workbook's hand-summed `E123 = 543,22+674`. Not an adjustment.
 - **SISJURI grupo names are NOT whitespace-stable.** The same grupo arrives with and
   without its space across months: `EquipeContencioso` (2026-02),
   `Equipe DireitoEconômico` (04/05), `EquipeDireito Econômico` (05),

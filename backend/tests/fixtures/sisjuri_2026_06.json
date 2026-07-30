@@ -4,7 +4,8 @@
   "ano_mes": "2026-06",
   "d_start": "2026-06-01",
   "client_id": "mbc",
-  "generated_at": "2026-07-29T06:01:06-03:00"
+  "generated_at": "2026-07-29T06:01:06-03:00",
+  "extract_version": 3
  },
  "faturas": {
   "faturas_emitidas": 58
@@ -15,7 +16,6 @@
   "faturamento_bruto": 1090965.2,
   "recebimento_bruto": 265018.56
  },
- "vale_adm": 1333.12,
  "home_area": {
   "AC": "Equipe Direito Econômico",
   "AM": "Equipe Direito Econômico",
@@ -3198,6 +3198,38 @@
    "valor": 1269.46,
    "id_conta": "020.050.0110",
    "historico": "Convêno Médico mla - Plano: SOHO30E - Valor: 1.269,46\r\n\r\n\r\n\r\n\r\n"
+  }
+ ],
+ "vale_prof": [
+  {
+   "sigla": "JVO",
+   "valor": 268.8,
+   "historico": "Pagamento de VT Mensal para  Joao Victor Oliveira ."
+  },
+  {
+   "sigla": "JVO",
+   "valor": 1014.2,
+   "historico": "Pagamento de VR Mensal para  Joao Victor."
+  },
+  {
+   "sigla": "MLA",
+   "valor": 1014.2,
+   "historico": "Pagamento de VR Mensal para Maria Luiza Acelino de Carvalho."
+  },
+  {
+   "sigla": "MLA",
+   "valor": 318.92,
+   "historico": "Pagamento de VT Mensal para  Maria Luiza Acelino de Carvalho ."
+  },
+  {
+   "sigla": "VSR",
+   "valor": 86.4,
+   "historico": "Pagamento de VT Mensal para  Vitoria Santos Resende ."
+  },
+  {
+   "sigla": "VSR",
+   "valor": 1014.2,
+   "historico": "Pagamento de VR Mensal para  Vitoria Santos Resende."
   }
  ]
 }
