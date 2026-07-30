@@ -40,8 +40,14 @@ workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
 `run-agent.ps1` pushed 2026-07, so **all seven months are now extract v3**
 (`stale=false`) with real per-person `vale_prof` slices. June's hand-patch is removed
 and its five client-validated cells still tie from genuine extract output.
-⚠ **Still pending:** re-run `register-task.ps1` so the DAILY job also extracts the open
-month (it only ever ran `AddMonths(-1)`); until then 2026-07 goes stale after today.
+✅ **Daily task fixed and PROVEN unattended (2026-07-30).** `register-task.ps1` re-run
+with **`-StorePassword`**, so `LogonType: Password` — it now fires whether anyone is
+logged on or not (the old default was "only while logged on": a silent stop on reboot or
+logoff, the same shape as the 2026-07-14 stale-snapshot incident). Fired manually to
+verify rather than waiting for 06:00: both months landed seconds apart
+(2026-06 `10:57:43`, 2026-07 `10:57:45`) and June's five client-validated cells still
+tie. `LastTaskResult 267009` is **not** an error — `0x00041301` = SCHED_S_TASK_RUNNING,
+i.e. still executing when queried.
 
 - **§5.2 — the per-área YTD ~7k gap is a WORKBOOK formula bug, not ours.** See the
   section below; the headline is that `Base_Resultado` r204/205/206 are off by one row
