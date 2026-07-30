@@ -12,6 +12,17 @@ jobs:
       - run: ruff check .
       - run: mypy app
       - run: pytest -q
+  # The SISJURI agent's PowerShell scripts must stay PURE ASCII: MBC-LDESK01 runs
+  # PowerShell 3/4, which reads a BOM-less UTF-8 file as cp1252 — an em-dash's
+  # trailing byte (0x94) becomes a closing quote and breaks the parse with a wildly
+  # misleading error. Cost an operator round-trip on 2026-07-30.
+  ops-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python ops/sisjuri-agent/lint_ps1.py
   frontend:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: frontend } }

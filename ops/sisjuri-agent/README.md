@@ -68,6 +68,15 @@ We frequently need to run a one-off read-only `.sql` probe against the DB from
 the RDP box `MBC-LDESK01`. The box runs **Windows Server 2012 / PowerShell 3-4**,
 which has two hard gotchas that waste time every single session:
 
+0. **Scripts must be PURE ASCII.** PowerShell 3/4 reads a BOM-less UTF-8 file as
+   **cp1252**, so an em-dash (`E2 80 94`) has its trailing `94` decoded as `"` — a
+   smart closing quote that terminates a string literal. On 2026-07-30 one em-dash
+   inside a `throw "..."` message produced *"Unexpected token 'otherwise'"* plus a
+   cascade of *"Missing closing '}'"* pointing at innocent lines. Nothing in the
+   error hints at encoding. `python ops/sisjuri-agent/lint_ps1.py` enforces this and
+   runs in CI (`ops-scripts` job). Use `--` for an em-dash and unaccented letters;
+   accented PT-BR belongs in the product UI, not in ops glue.
+
 1. **TLS 1.2 is OFF by default.** `Invoke-WebRequest` to GitHub fails with
    *"The request was aborted: Could not create SSL/TLS secure channel"* until you
    enable it. You MUST run this once per PowerShell window BEFORE any pull:

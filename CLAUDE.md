@@ -94,6 +94,11 @@ credentials (LegalDesk) never reach the client.
   keep hooks/contexts in their own modules (e.g. `features/auth/useAuth.ts`),
   not co-located with components.
 
+- **The agent's `.ps1` files must be PURE ASCII.** MBC-LDESK01's PowerShell 3/4 reads
+  BOM-less UTF-8 as cp1252, so an em-dash's trailing byte becomes a closing quote and
+  the parse fails with a misleading "Unexpected token" far from the real line.
+  `ops/sisjuri-agent/lint_ps1.py` enforces it (CI job `ops-scripts`).
+
 ## Where things live
 
 - Backend app: `backend/app/` (see `PROJECT_STATUS.md` §3 for the map).

@@ -150,7 +150,7 @@ if ($IngestUrl) {
   Write-Output "[agent] uploading to $IngestUrl ..."
   # Send the body as explicit UTF-8 bytes: PowerShell would otherwise encode a
   # string body as UTF-16/latin-1, which FastAPI rejects ("error parsing the
-  # body") — worse with accented account names. Bytes + charged content-type
+  # body") -- worse with accented account names. Bytes + charged content-type
   # is unambiguous.
   $headers = @{ Authorization = "Bearer $IngestToken" }
   $bytes = [Text.Encoding]::UTF8.GetBytes($json)
