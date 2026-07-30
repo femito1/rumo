@@ -135,7 +135,14 @@ NOTES: tuple[Note, ...] = (
             "Se os 35,52 forem de outra competência ou de um acerto, é só nos dizer "
             "de onde vêm que passamos a tratá-los da mesma forma."
         ),
-        origem="Base_Resultado Mensal_V2 C123 = '=35.52+262.64'; probe_vale_desdobramento bloco B.",
+        origem=(
+            "Base_Resultado Mensal_V2 C123 = '=35.52+262.64'; probe_vale_desdobramento "
+            "bloco B (jan: JVO 829,80+168,00 / MLA 262,64+829,80 — nenhum lançamento de "
+            "35,52). NB: a soma manual NÃO é 'VR+VT na mesma linha' — em março o "
+            "equivalente (E123 = 543,22+674) soma DUAS contas a pagar distintas, uma "
+            "delas cobrindo VT e VR juntos para uma pessoa ('Pagamento de benefícios VT "
+            "e VR ... para o estagiária do concorrencial')."
+        ),
     ),
     Note(
         id="despesas-area-formula-deslocada",

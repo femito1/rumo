@@ -75,10 +75,24 @@ _CONTA3_TO_SECTION: dict[str, str] = {
     "020.040.0030": "Despesas Gerais",  # Terceirização Limpeza -> "Limpeza e Copeira"
     "020.040.0050": "Consultoria",  # Contabilidade
     "020.040.0060": "Informática",  # Servidor Externo -> "Data Center"
+    # Same story: the workbook books Seguro de Resp. Civil in Administrativas (r133,
+    # inside r124) while we keep the whole 020.060.0040 in Ocupação as "Seguro
+    # Locação". r198 adds r85 AND r124, so the pair nets to zero in the total — the
+    # non-zero Jan/Fev residue on this pair comes from the ÁREA Assinaturas/
+    # Associações rows the book keeps inside r124, not from the seguro itself.
     "020.060.0040": "Ocupação",  # Seguros -> "Seguro Locação"
     "020.080.0030": "Despesas Gerais",  # Estacionamento (clientes)
     "020.080.0050": "Salários Administração",  # Vale Refeição - ADM
     "020.080.0060": "Salários Administração",  # Vale Transporte
+    # 020.090.0040 "Eventos e Happy Hour" is a MIXED account (internal team
+    # confraternização + client/área-facing food) and the WORKBOOK ITSELF files it
+    # inconsistently: the same confraternização spend lands in r141 (inside the
+    # Investimentos-em-Prospecção block) in Jan/Fev and in r166 (Endomarketing) in
+    # Mar–Jun. We keep it in Endomarketing for ALL months. That is deliberate and
+    # NOT a defect: r198 adds BOTH r137 and r164, so which of the two families holds
+    # the line cannot change the institutional total, the rateio pool, or any number
+    # the client reads. Verified 2026-07-30 — our Jan 1.171,71 equals her r141 to the
+    # centavo; only the family label differs. (scripts/diff_jan_abr.py §3.5)
     "020.090.0040": "Endomarketing",  # Eventos e Happy Hour -> "Eventos Internos" (05 book)
     # 040.030.* ("Investimentos") is a MIXED bucket — mapped per account, NOT by
     # prefix. Only 0010 is consultancy; the other two are office spend the workbook
