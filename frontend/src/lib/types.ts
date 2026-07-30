@@ -106,6 +106,22 @@ export interface Presentation {
   };
 }
 
+/**
+ * A known, already-diagnosed difference between our number and the client's
+ * spreadsheet, written by hand in PT-BR (backend `app/closing/notes.py`). Not
+ * runtime detection — nothing inspects a value; these are explanations we chose to
+ * publish so the client reads the answer where the question comes up.
+ */
+export interface ClosingNote {
+  id: string;
+  titulo: string;
+  detalhe: string;
+  severidade: "info" | "atencao";
+  /** What the client could do about it, when there is anything. */
+  acao: string | null;
+  contato: string;
+}
+
 export interface ClosingPayload {
   client: { id: string; name: string };
   period: {
@@ -124,5 +140,7 @@ export interface ClosingPayload {
   presentation?: Presentation;
   tab_order: string[];
   tabs: Record<string, unknown>;
+  /** PT-BR explanations of the month's known discrepancies (may be empty). */
+  notas?: ClosingNote[];
   generated_at: string;
 }

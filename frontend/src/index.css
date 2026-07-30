@@ -454,6 +454,46 @@ input::placeholder {
   margin-bottom: calc(var(--space) * 2);
 }
 
+/* ── "Diferenças conhecidas": PT-BR explanations of known discrepancies ──────
+   Deliberately quieter than .partial-banner (neutral surface, not accent-tinted):
+   these are ANSWERED questions, so they must not read as an alarm. Collapsed by
+   default so they never push the numbers below the fold. */
+.notas-panel {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  margin-bottom: calc(var(--space) * 2);
+  overflow: hidden;
+}
+.notas-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.notas-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+.notas-count {
+  background: var(--accent-soft); color: var(--accent-strong);
+  border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 800;
+}
+.notas-hint { color: var(--muted); font-size: 12px; }
+.notas-list { list-style: none; margin: 0; padding: 0; }
+.nota + .nota { border-top: 1px solid var(--border); }
+.nota-toggle {
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  padding: 9px 12px; font-size: 13px; font-weight: 600; color: var(--text);
+}
+.nota-toggle:hover { background: rgba(0, 0, 0, 0.03); }
+.nota-marker { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.nota-info .nota-marker { background: var(--muted); }
+.nota-atencao .nota-marker { background: var(--accent-strong); }
+.nota-titulo { flex: 1; min-width: 0; }
+.nota-chevron { color: var(--muted); font-weight: 800; flex: none; }
+.nota-corpo { padding: 0 12px 12px 27px; font-size: 13px; line-height: 1.5; }
+.nota-detalhe { margin: 0 0 8px; color: var(--text); }
+.nota-acao { margin: 0 0 8px; color: var(--muted); }
+.nota-contato { font-size: 12px; font-weight: 700; }
+
 /* Open-month (partial) view. Deliberately a full-width banner, not a subtle chip:
    a month-to-date view must never be mistaken for a fechamento. */
 .partial-banner {

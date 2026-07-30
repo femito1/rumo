@@ -249,6 +249,43 @@ def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
     assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
+def test_closing_carries_pt_br_notes_for_the_month(tmp_path, monkeypatch):
+    # The month's explained discrepancies ship with the payload so the UI can show
+    # them without a second request. Feb has the Jan–May área formula note.
+    body = _closing(tmp_path, monkeypatch)
+    notas = body["notas"]
+    assert notas, "February should carry at least the área-formula note"
+    ids = {n["id"] for n in notas}
+    assert "despesas-area-formula-deslocada" in ids
+    # Every note is client-ready: PT-BR text plus who to contact.
+    for n in notas:
+        assert n["titulo"] and n["detalhe"] and n["contato"]
+        assert "origem" not in n, "internal provenance must not reach the client"
+
+
+def test_row_level_notes_do_not_shift_the_positional_columns(tmp_path, monkeypatch):
+    """Rows tagged with ``notas`` must keep the display keys FIRST.
+
+    ``TabView.rowKeys`` samples ``Object.keys(rows[0]).slice(0, columns.length)``, so
+    a key inserted before the display keys silently shifts every column — the D5
+    defect from the 2026-07-28 cumulative review. Guard it.
+    """
+    body = _closing(tmp_path, monkeypatch)
+    for tab_id, tab in body["tabs"].items():
+        rows = tab.get("rows") if isinstance(tab, dict) else None
+        cols = tab.get("columns") if isinstance(tab, dict) else None
+        if not rows or not cols:
+            continue
+        for row in rows:
+            if "notas" not in row:
+                continue
+            leading = list(row.keys())[: len(cols)]
+            assert "notas" not in leading, (
+                f"{tab_id}: 'notas' landed inside the positional column window "
+                f"{leading} — it must come after the display keys"
+            )
+
+
 def test_partial_month_is_included_in_its_own_ytd(tmp_path, monkeypatch):
     """The open month renders as a partial, so its month-to-date figures must be part
     of the YTD it is the endpoint of — otherwise "Acumulado Jan → Julho" would silently

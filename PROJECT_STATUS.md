@@ -7,13 +7,42 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-29
+**Last updated:** 2026-07-30
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
-## ⭐ 2026-07-29 (latest) — meeting follow-ups §5.1–§5.5 shipped
+## ⭐ 2026-07-30 (latest) — Vale-ADM derived per person; PT-BR discrepancy notes
+
+1. **Vale-ADM is now derived PER PERSON from the desdobramento**, keyed on
+   `home_area == "Administração"` — no sigla is hardcoded, so the number follows
+   whatever finance records in SISJURI. Renata's ruling (voice notes 2026-07-30):
+   *"são dois estagiários dentro de cada área, e tem a Maria Luiza que é da parte
+   administrativa."* extract v3 emits raw `vale_prof` slices (no policy in SQL);
+   `dre.py` applies the ADM test. Ties **Fev 1.351,88** and **Jun 1.333,12** exactly.
+   ⚠ **Mar/Abr/Mai differ BY DESIGN** (her own un-adjusted months — *"não vale a pena
+   corrigir"*), asserted by a test so nobody "fixes" them into agreement.
+   The old twin rule was **broken**: it required an exact histórico+valor match but
+   the transitória books a 3-person lump, so it dropped 0 rows in every month. June
+   had been tying only via a hand-patch that `extract_version: 2` wrongly certified —
+   a version bump asserts the contract changed, NOT that the logic works.
+2. **PT-BR "Diferenças conhecidas" panel** (`app/closing/notes.py` + `NotesPanel`).
+   A hand-written registry of already-diagnosed differences, surfaced next to the
+   number they explain, with a mailto pre-filling client + month + note id. Seeded
+   with four: March's un-adjusted Vale, January's 35,52 hand-typed top-up, the Jan–May
+   área formula shift, and the recurring 4,80 bank tariff. **Not** runtime detection —
+   nothing inspects a value (the guard-layer decision stands). Shown to CLIENT too.
+3. **Pipeline is self-sustaining.** All 7 months on extract v3; daily task re-registered
+   with `-StorePassword` (`LogonType: Password`) so it survives logoff, extracting the
+   last-closed AND the open month. Verified unattended: June + July regenerated at
+   10:57:43/10:57:45 and June's five client-validated cells still tie.
+
+Backend **303** tests, frontend **72**; ruff/mypy/eslint/tsc clean.
+
+---
+
+## 2026-07-29 — meeting follow-ups §5.1–§5.5 shipped
 
 **⭐ CORRECTION (2026-07-30): EasyPanel DOES auto-deploy on push to `main`.** Two
 places in this file previously said it does not. Measured: `84cda48` pushed at

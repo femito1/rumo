@@ -99,6 +99,15 @@ credentials (LegalDesk) never reach the client.
   the parse fails with a misleading "Unexpected token" far from the real line.
   `ops/sisjuri-agent/lint_ps1.py` enforces it (CI job `ops-scripts`).
 
+- **Known discrepancies are EXPLAINED, not detected.** `app/closing/notes.py` is a
+  hand-written PT-BR registry of differences we have already diagnosed (e.g. the
+  Jan–May `Base_Resultado` row-shift, March's un-adjusted Vale). The payload ships
+  `notas` for the month, rows get a `notas: [id]` tag, and `NotesPanel` renders them
+  with a mailto. Nothing inspects a value or decides a number is wrong — that
+  validation/guard layer was explicitly rejected. **Fix the cause ⇒ delete the note
+  in the same commit**, and put the evidence (workbook cell / probe / commit) in
+  `origem`, which is withheld from the client payload on purpose.
+
 ## Where things live
 
 - Backend app: `backend/app/` (see `PROJECT_STATUS.md` §3 for the map).

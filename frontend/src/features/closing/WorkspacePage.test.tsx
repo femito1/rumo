@@ -127,6 +127,38 @@ describe("WorkspacePage", () => {
     expect(card).not.toHaveClass("kpi-pos");
   });
 
+  it("shows the month's PT-BR discrepancy notes, to a CLIENT too", async () => {
+    // The client is the one who keeps asking "why doesn't this match our
+    // spreadsheet?", and a CLIENT only ever sees this page's presentation panel —
+    // so the notes must reach them, not just the ADMIN.
+    mockApi({
+      tab_order: [], tabs: {},
+      notas: [{
+        id: "despesas-area-formula-deslocada",
+        titulo: "Despesas por área: fórmula da planilha deslocada uma linha",
+        detalhe: "As fórmulas de janeiro a maio somam a linha de baixo…",
+        severidade: "atencao", acao: "Conferir as linhas 204, 205 e 206.",
+        contato: "Fernando Rimoli — fernando@bia4u.com.br",
+      }],
+    });
+    renderAs("CLIENT");
+    await waitFor(() => {
+      expect(screen.getByText(/Diferenças conhecidas/i)).toBeInTheDocument();
+    });
+    expect(
+      screen.getByText("Despesas por área: fórmula da planilha deslocada uma linha"),
+    ).toBeInTheDocument();
+  });
+
+  it("shows no notes panel on a month with no known differences", async () => {
+    mockApi({ notas: [] });
+    renderAs("ADMIN");
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { level: 1, name: "MBC" })).toBeInTheDocument();
+    });
+    expect(screen.queryByText(/Diferenças conhecidas/i)).not.toBeInTheDocument();
+  });
+
   it("labels an OPEN month as a partial, never as a fechamento", async () => {
     // The client asked for the in-progress month (2026-07-28, 6:45). It must be
     // visibly a partial: a month-to-date view must never read as a closing, which is
@@ -145,7 +177,7 @@ describe("WorkspacePage", () => {
     });
     expect(screen.queryByText("Fechamento mensal")).not.toBeInTheDocument();
     // ...and a banner spells out that these numbers are not a closing.
-    const banner = screen.getByRole("status");
+    const banner = document.querySelector(".partial-banner") as HTMLElement;
     expect(banner).toHaveTextContent(/mês em aberto/i);
     expect(banner).toHaveTextContent(/não são um fechamento/i);
   });
@@ -161,7 +193,8 @@ describe("WorkspacePage", () => {
     await waitFor(() => {
       expect(screen.getByText("Fechamento mensal")).toBeInTheDocument();
     });
-    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    // Target the partial banner specifically — the Loader also uses role=status.
+    expect(document.querySelector(".partial-banner")).toBeNull();
     expect(screen.queryByText("Mês em aberto · parcial")).not.toBeInTheDocument();
   });
 });
