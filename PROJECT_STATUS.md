@@ -13,32 +13,91 @@
 
 ---
 
-## ⭐ 2026-07-30 (latest) — Vale-ADM derived per person; PT-BR discrepancy notes
+## ⭐ 2026-07-30 (latest) — Vale-ADM per person; notes panel; Jan–Abr fully attributed
 
-1. **Vale-ADM is now derived PER PERSON from the desdobramento**, keyed on
-   `home_area == "Administração"` — no sigla is hardcoded, so the number follows
-   whatever finance records in SISJURI. Renata's ruling (voice notes 2026-07-30):
-   *"são dois estagiários dentro de cada área, e tem a Maria Luiza que é da parte
-   administrativa."* extract v3 emits raw `vale_prof` slices (no policy in SQL);
-   `dre.py` applies the ADM test. Ties **Fev 1.351,88** and **Jun 1.333,12** exactly.
-   ⚠ **Mar/Abr/Mai differ BY DESIGN** (her own un-adjusted months — *"não vale a pena
-   corrigir"*), asserted by a test so nobody "fixes" them into agreement.
-   The old twin rule was **broken**: it required an exact histórico+valor match but
-   the transitória books a 3-person lump, so it dropped 0 rows in every month. June
-   had been tying only via a hand-patch that `extract_version: 2` wrongly certified —
-   a version bump asserts the contract changed, NOT that the logic works.
-2. **PT-BR "Diferenças conhecidas" panel** (`app/closing/notes.py` + `NotesPanel`).
-   A hand-written registry of already-diagnosed differences, surfaced next to the
-   number they explain, with a mailto pre-filling client + month + note id. Seeded
-   with four: March's un-adjusted Vale, January's 35,52 hand-typed top-up, the Jan–May
-   área formula shift, and the recurring 4,80 bank tariff. **Not** runtime detection —
-   nothing inspects a value (the guard-layer decision stands). Shown to CLIENT too.
-3. **Pipeline is self-sustaining.** All 7 months on extract v3; daily task re-registered
-   with `-StorePassword` (`LogonType: Password`) so it survives logoff, extracting the
-   last-closed AND the open month. Verified unattended: June + July regenerated at
-   10:57:43/10:57:45 and June's five client-validated cells still tie.
+**State: everything from the 2026-07-28 meeting is shipped and live.** All seven 2026
+months are on extract v3, the daily agent refreshes the closed *and* the open month
+unattended, June still ties the five cells the client validated, and every Jan–Abr
+difference now has a named cause. Backend **303** tests, frontend **72**; all gates
+clean. Deployed (a push to `main` auto-deploys — see the correction below).
 
-Backend **303** tests, frontend **72**; ruff/mypy/eslint/tsc clean.
+### 0. Read this before touching numbers again — three traps that cost real time today
+
+1. **A version bump is not a correctness check.** `extract_version: 2` certified a
+   `vale_adm` rule that **never fired** (`n_rows_dropped = 0` in every month). June
+   appeared to tie only because its stored snapshot had been hand-patched; a
+   `backfill.ps1` run then overwrote the patch and silently regressed five
+   client-validated cells in prod. Assert numbers in tests against fixtures — a
+   contract marker only says the *shape* changed.
+2. **A family-level difference is NOT automatically a misclassification.** `r198` adds
+   *both* halves of Ocupação↔Administrativas and Endomarketing↔Prospecção, so moving a
+   leaf between them changes no total. I reported two of these as our bugs before
+   checking; they net to zero and the workbook itself switches criterion month to
+   month. **Check the total first.**
+3. **A matching YTD total can be pure netting.** Econômico "ties" on the per-área YTD
+   while having the *largest* gross monthly error of the three (~94% cancels). Always
+   decompose to months before declaring an área validated.
+
+### 1. Vale-ADM is derived PER PERSON from the desdobramento
+
+Mechanism (Renata, voice notes 2026-07-30): the VR/VT payable lands as **one lump on
+transitória `200.010.0010`** and is then unfolded per person into
+`500.010.<SIGLA>` — *"depois ele abre isso dentro do sistema... dizendo pra qual pessoa
+é essa despesa."* The ADM share is the slices whose sigla has
+`home_area == "Administração"`; **no sigla is hardcoded**, so the number follows
+whatever finance records in SISJURI. extract **v3** emits raw `vale_prof` slices (no
+policy in SQL); `dre.py` applies the test, and also excludes the ADM person from the
+áreas' Custo equipe so the double count closes from both ends.
+
+Ties **Fev 1.351,88** and **Jun 1.333,12** exactly (Base_Resultado r122+r123).
+**Mar/Abr/Mai differ by design** — her own un-adjusted months, *"não vale a pena
+corrigir, o valor é muito irrisório"* — asserted by a test so nobody fits to them.
+Two rejected approaches are documented in `docs/SISJURI_DB.md` so they are not retried.
+
+### 2. PT-BR "Diferenças conhecidas" panel
+
+`app/closing/notes.py` + `NotesPanel.tsx`. A hand-written registry of already-diagnosed
+differences, shown next to the number it explains, with a mailto pre-filling client +
+competence + note id. Seeded with four (March's un-adjusted Vale, January's 35,52
+hand-typed top-up, the Jan–May área formula shift, the recurring 4,80 bank tariff).
+**Explains, does not detect** — nothing inspects a value; the no-guard-layer decision
+stands. Shown to CLIENT too (they are the ones who ask). Collapsed by default and
+renders nothing on a clean month. Fix a cause ⇒ delete the note in the same commit.
+
+### 3. Jan–Abr differences: every delta attributed
+
+`docs/DIFF_JAN_ABR_2026.md`, regenerated by `scripts/build_janabr_diff.py` from live
+data — per line, per área, per institutional family, with the components summing
+**exactly** to each month's total (no "unexplained" residue).
+
+- **Faturamento, Receita, Impostos and Amortização differ by ZERO in all four months.**
+  The sacred LegalDesk revenue is clean; every difference is in *despesa*.
+- Dominant cause: **Vale ADM in the un-adjusted months** (Mar −2.199,08 / Abr −2.199,20).
+- **Mar Informática −237,60** is exactly `7.744,12 − 7.506,52` on `040.040.0030`: the
+  book used **gross**, we use `CPGNVALORLIQUIDO` (the confirmed rule, which ties 10/10
+  families in May and all of June). Jan/Mai/Jun tie at 0,00 → our number is right.
+- **Mar Gestão do Conhecimento −815,49**: an *Arbitragem* course the book files as
+  institutional; being área-specific it belongs in Despesas Área (`030.010.0180`).
+- Also identified by the earlier per-line pass: lawyer Vale inside área Custo equipe,
+  the Econômico estagiária from March, the Arbitragem convênio that stops in the book
+  after January, and 8 one-off typed lines in Jan/Fev.
+- **Net effect over four months: Resultado Bruto −702** on 3M+ of faturamento.
+- Four open questions for finance are listed at the end of that document.
+
+### 4. Pipeline is self-sustaining
+
+All 7 months extract v3 (`stale=false`). `register-task.ps1` re-registered with
+**`-StorePassword`** → `LogonType: Password`, so the daily 06:00 job survives logoff
+(the old Interactive default would silently stop on reboot — the 2026-07-14 incident
+shape). It now extracts the **last-closed AND the open** month, each in its own
+try/catch. Verified unattended, not assumed: June + July regenerated at 10:57:43 /
+10:57:45 and June's five validated cells still tie. Note `LastTaskResult 267009` =
+`0x00041301` = SCHED_S_TASK_RUNNING is informational, not a failure.
+
+Also fixed today: the agent's `.ps1` files must be **pure ASCII** (PowerShell 3/4 reads
+BOM-less UTF-8 as cp1252, so an em-dash's trailing byte becomes a closing quote and the
+parse dies with a misleading "Unexpected token"). `ops/sisjuri-agent/lint_ps1.py`
+enforces it in CI (`ops-scripts` job).
 
 ---
 

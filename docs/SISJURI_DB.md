@@ -34,7 +34,7 @@ Gestão do Conhecimento, Endomarketing, Informática). **Excludes** Impostos (ro
 168), Distribuição de Lucros (191), Despesas para Clientes (82). Area lines are
 surfaced per-area (rows 204-206) **and** kept in the family totals. Authoritative
 book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account map
-+ formula proof: `archive/HANDOFF_DRE_AUTOMATION.md` Appendix B/C. Encoded in
++ formula proof: `HANDOFF_DRE_AUTOMATION.md` Appendix B/C — **pruned in `118a6c4`; read it with `git show 118a6c4^:docs/archive/HANDOFF_DRE_AUTOMATION.md`**. Encoded in
 `app/closing/workbook_layouts.py::section_for` (keyed on stable CONTA3 codes).
 
 | account (CONTA3) | meaning | workbook destination |
@@ -49,14 +49,15 @@ book = **05.2026** (boss-confirmed; 02.2026 uses an older layout). Full account 
 | `020.040.0050` | Contabilidade | → Consultoria |
 | `020.040.0060` | Servidor Externo | → Informática (Data Center) |
 | `020.050.*` | Salários Administração (NO Vale account here) | Salários Administração |
+| `200.010.0010` | Transitória where VR/VT is paid as ONE lump, then unfolded per person to `500.010.<SIGLA>` via `CPDESDOBRAMENTO` | ADM share (`home_area == Administração`) → Salários Adm; the rest → each área's Custo equipe |
 | `020.050.0050/0060/0070/0160` | INSS/FGTS/IR/e-Social ADM | → Impostos (row 168, OUT of 198) |
 | `020.060.0010/0020` | Assinaturas/Associações | Administrativas (STAY; also per-area) |
-| `020.060.0040` | Seguros | → Ocupação (Seguro Locação) |
+| `020.060.0040` | Seguros (Resp. Civil + Locação) | → Ocupação. ⚠ book puts Resp. Civil in Administrativas (r133) — **nets to zero in r198**, not a defect |
 | `020.070.*` | Financeiras | → Administrativas |
 | `020.080.0030` | Estacionamento (clientes) | → Despesas Gerais |
-| `020.080.0050/0060` | Vale Ref/Transp (area staff, tiny, area-tagged) | → Salários Adm (area) |
+| `020.080.0050/0060` | Vale Ref/Transp (area staff, tiny, area-tagged). Mar 2026: 507,10+36,12 = the 543,22 half of the book's `E123` hand-sum — ONE payable covering VT **and** VR for one estagiária | → Salários Adm (area) |
 | `020.090.*` | Investimento em Prospecção | Investimentos em Prospecção |
-| `020.090.0040` | Eventos e Happy Hour | → Endomarketing (05 book "Eventos Internos") |
+| `020.090.0040` | Eventos e Happy Hour (MIXED: team confraternização + área/client food) | → Endomarketing. ⚠ book uses r141 (Prospecção) in Jan/Fev and r166 in Mar–Jun — **nets to zero in r198** |
 | `020.110.0010` | Participação Externa (comissões), area-level via ID_GRUPOJURIDICO | Comissão block (kind='area', OUT of 198) |
 | `030.010.0120` | Participação Interna (comissões), **per-lawyer via `CONTASPAGAR.COD_ADVG`** — NÃO via `LANCAMENTO.LANCPROFDEST` (é NULL nessas linhas; a sigla só aparece no histórico "Comissão EHF"). Mai EHF 2.128,06 → Econômico. Foi o que zerava `comissao_deriv` (2026-07-13 probe). | Comissão block (kind='lawyer', folded by home area/rateio) |
 | `030.010.0080` | Participação E — sempre vazio (não lido) | — |
@@ -280,6 +281,61 @@ Institucional rows (r141/145/149/153/157) are counted instead — which also
 perturbs the `r207 = r198 − r203` rateio pool, hence per-área Despesa
 Institucional. **Our numbers are right; the Jan–May book is not.** Reproduce with
 `cd backend && python -m scripts.audit_area_ytd_formulas`.
+
+### Vale VR/VT — the per-person split lives in `CPDESDOBRAMENTO` (2026-07-30, SOLVED)
+
+The definitive mechanism, after two wrong attempts. Finance pays VR/VT as **one
+payable on the transitória `200.010.0010`** and then *unfolds* it per person; the
+unfold rows are `CPDESDOBRAMENTO` slices whose `DESCCONTADESTINO` is
+`500.010.<SIGLA>`. Renata: *"faz um lançamento único numa conta transitória, e depois
+ele abre isso dentro do sistema... dizendo pra qual pessoa é essa despesa."*
+
+- **ADM share = the slices whose sigla has `home_area == "Administração"`.** Derived,
+  never hardcoded — `home_area` comes from `CAD_PROFISSIONAL` → grupo, so if the ADM
+  person changes the number follows finance's own records. extract v3 emits raw
+  `vale_prof` slices (no policy in SQL); `dre.py` applies the test.
+- Ties **Fev 1.351,88** and **Jun 1.333,12** (Base_Resultado r122+r123) exactly.
+  **Mar/Abr/Mai differ BY DESIGN** — see the Vale note in `app/closing/notes.py`.
+- ⚠ **The two rejected approaches, so nobody retries them.** (a) Subtracting
+  Σ`custo_equipe_area` reproduces the book in Feb only — and gives exactly 0,00 in
+  April, because that block *contains the ADM person too* (Apr: MLA 1.222,16), so it
+  subtracts the ADM share from itself. (b) The "exclude rows having a `500.010.*`
+  twin" rule in extract v2 **never fired**: it required an exact `LANCHISTORICO` match
+  and `|Δvalor| < 0.005`, but the transitória books a 3-person LUMP (Jun VR 3.042,60 =
+  1.014,20 × 3), so no single twin equals it and the histories differ too. Measured
+  live: `n_rows_dropped = 0` for every month Jan–Jun.
+- Probe: `probe_vale_desdobramento.sql` (block B is the per-person source; block D
+  lists the `500.010.*` rows). `probe_vale_twin_allmonths.sql` is what disproved (b).
+
+### Workbook fact — two account families differ from ours but NET TO ZERO (2026-07-30)
+
+Read this before "fixing" an institutional family that looks misclassified. `r198`
+(Despesas Institucionais) = `r85+r92+r95+r110+r116+r124+r137+r158+r164+r180`, i.e. it
+adds **both** halves of each pair below, so which family holds the leaf cannot change
+the total, the `r207` rateio pool, or any number the client reads:
+
+| Conta | Ours | Workbook | Net effect |
+|---|---|---|---|
+| `020.090.0040` Eventos e Happy Hour | Endomarketing | `r141` (Prospecção) in Jan/Fev, `r166` (Endomarketing) Mar–Jun | **0,00** |
+| `020.060.0040` Seguro de Resp. Civil | Ocupação | `r133`, inside `r124` Administrativas | **0,00** |
+
+Our Jan 1.171,71 for Eventos equals her `r141` to the centavo — only the label
+differs, and **the workbook itself switches criterion month to month**. I initially
+reported both as our bugs (the DB's `nome_conta_pai` agrees with the book, and our
+`_CONTA3_TO_SECTION` overrides them) — that inference was wrong. **Check the TOTAL
+before calling a family-level difference a defect.**
+
+Also on that pair: the non-zero Jan/Fev residue on Ocupação+Administrativas is not the
+seguro, it is the **área** Assinaturas/Associações rows (`r125`–`r131`) that the book
+keeps inside `r124`.
+
+### Workbook fact — Mar/Abr Informática: the book used GROSS, we use líquido
+
+Mar Δ −237,60 is exactly `7.744,12 − 7.506,52` on `040.040.0030`. We use
+`CPGNVALORLIQUIDO` (client-confirmed; ties 10/10 families in May and all of June) and
+the March column used the gross. Jan/Mai/Jun tie at 0,00 — the mapping is right and
+Mar/Abr are one-offs. Full per-line attribution: `docs/DIFF_JAN_ABR_2026.md`,
+regenerated by `scripts/build_janabr_diff.py`.
 
 ## Access path (authorized — through the server, not direct)
 

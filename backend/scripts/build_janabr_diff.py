@@ -272,7 +272,70 @@ def main() -> None:
     add("A partir de março esse advogado sai da folha nos dois lados, e o custo de")
     add("equipe da Arbitragem volta a bater exatamente (março e abril: diferença zero).")
     add("")
-    add("### 5. Perguntas que sobram para o financeiro")
+    # ── Institutional despesa families: attribute the delta and separate the
+    # presentation-only swaps, which is the part I got wrong on the first pass.
+    add("### 5. Despesas institucionais: de onde vem o delta, família por família")
+    add("")
+    add("As famílias abaixo somam **exatamente** o delta de Despesas Indiretas de cada")
+    add("mês (conferido pelo gerador). Duas delas são apenas **apresentação**: a conta")
+    add("fica numa família diferente de cada lado, mas as duas entram no mesmo total")
+    add("(`r198 = r85+r92+r95+r110+r116+r124+r137+r158+r164+r180`), então o efeito no")
+    add("número que o cliente lê é **zero**.")
+    add("")
+    add("| Família | Janeiro | Fevereiro | Março | Abril |")
+    add("|---|---|---|---|---|")
+    FAM = {85: "Ocupação", 92: "Telecomunicações", 95: "Despesas Gerais",
+           110: "Consultoria", 116: "Salários Administração", 124: "Administrativas",
+           137: "Investimentos em Prospecção", 158: "Gestão do Conhecimento",
+           164: "Endomarketing", 180: "Informática"}
+    SWAPS = ((("Ocupação", "Administrativas"), "Ocupação + Administrativas *(troca)*"),
+             (("Endomarketing", "Investimentos em Prospecção"),
+              "Endomarketing + Inv. em Prospecção *(troca)*"))
+    from app.closing.dre import RealizadoInputs
+    deltas: dict[int, dict[str, float]] = {}
+    for m in MESES:
+        r = RealizadoInputs.from_snapshot(snaps[m])
+        ours_f = {sec.name: round(sec.total, 2) for sec in r.sections}
+        deltas[m] = {
+            name: round(ours_f.get(name, 0.0) - float(base.cell(row, BASE_COL[m]).value or 0.0), 2)
+            for row, name in FAM.items()
+        }
+    swapped = {n for pair, _ in SWAPS for n in pair}
+    for pair, label in SWAPS:
+        cells = [round(sum(deltas[m][n] for n in pair), 2) for m in MESES]
+        add(f"| {label} | " + " | ".join(_brl(c) for c in cells) + " |")
+    for name in FAM.values():
+        if name in swapped:
+            continue
+        cells = [deltas[m].get(name, 0.0) for m in MESES]
+        if all(abs(c) < 0.02 for c in cells):
+            continue
+        add(f"| {name} | " + " | ".join(_brl(c) for c in cells) + " |")
+    tot = [round(sum(deltas[m].values()), 2) for m in MESES]
+    add("| **Total (= Δ Despesas Indiretas)** | " + " | ".join(f"**{_brl(c)}**" for c in tot) + " |")
+    add("")
+    add("Os três maiores itens, já identificados:")
+    add("")
+    add("* **Salários Administração** — o Vale ADM dos meses não ajustados")
+    add("  (março −2.199,08 / abril −2.199,20). Já respondido pelo financeiro.")
+    add("* **Informática, março −237,60** — é exatamente `7.744,12 − 7.506,52` na conta")
+    add("  `040.040.0030`: a planilha usou o valor **bruto** e nós usamos o **líquido**")
+    add("  (`CPGNVALORLIQUIDO`), que é a regra confirmada e que faz 10 de 10 famílias")
+    add("  baterem em maio e todas em junho. Janeiro, maio e junho batem em 0,00, o que")
+    add("  confirma que o mapeamento está certo e que março/abril são pontuais.")
+    add("* **Gestão do Conhecimento, março −815,49** — a planilha lança 1.094,49 de")
+    add("  *Cursos e Treinamentos - Arbitragem* como despesa institucional; sendo curso")
+    add("  de uma área, entra em Despesas Área (`030.010.0180`), que é o que fazemos.")
+    add("")
+    add("⚠ **Nota de leitura, para não repetir um erro nosso:** uma diferença no total")
+    add("de uma *família* não é, por si só, um erro de classificação. `r198` soma as duas")
+    add("famílias de cada troca acima, então mover uma conta entre elas não muda o total.")
+    add("Confira sempre o total antes de tratar a família como defeito — os nossos")
+    add("1.171,71 de janeiro em *Eventos e Happy Hour* batem ao centavo com a `r141` da")
+    add("planilha; só o rótulo da família é outro. E a própria planilha troca de critério")
+    add("de mês para mês nessa conta (`r141` em jan/fev, `r166` de março a junho).")
+    add("")
+    add("### 6. Perguntas que sobram para o financeiro")
     add("")
     add("1. Os lançamentos avulsos do item 3 são de outra competência, ou ajustes")
     add("   manuais? Se tiverem origem no sistema, passamos a considerá-los.")

@@ -111,7 +111,46 @@ lançado em fevereiro, e é isso que explica quase toda a diferença de
 A partir de março esse advogado sai da folha nos dois lados, e o custo de
 equipe da Arbitragem volta a bater exatamente (março e abril: diferença zero).
 
-### 5. Perguntas que sobram para o financeiro
+### 5. Despesas institucionais: de onde vem o delta, família por família
+
+As famílias abaixo somam **exatamente** o delta de Despesas Indiretas de cada
+mês (conferido pelo gerador). Duas delas são apenas **apresentação**: a conta
+fica numa família diferente de cada lado, mas as duas entram no mesmo total
+(`r198 = r85+r92+r95+r110+r116+r124+r137+r158+r164+r180`), então o efeito no
+número que o cliente lê é **zero**.
+
+| Família | Janeiro | Fevereiro | Março | Abril |
+|---|---|---|---|---|
+| Ocupação + Administrativas *(troca)* | 1.399,87 | 217,11 | 37,39 | 19,17 |
+| Endomarketing + Inv. em Prospecção *(troca)* | 0,00 | 0,00 | 162,09 | -200,00 |
+| Despesas Gerais | -0,10 | 0,00 | 105,00 | 0,00 |
+| Salários Administração | 134,00 | 1.032,35 | -2.199,08 | -2.199,20 |
+| Gestão do Conhecimento | 0,00 | 0,00 | -815,49 | 200,00 |
+| Informática | 0,00 | -0,27 | -237,60 | 110,00 |
+| **Total (= Δ Despesas Indiretas)** | **1.533,77** | **1.249,19** | **-2.947,69** | **-2.070,03** |
+
+Os três maiores itens, já identificados:
+
+* **Salários Administração** — o Vale ADM dos meses não ajustados
+  (março −2.199,08 / abril −2.199,20). Já respondido pelo financeiro.
+* **Informática, março −237,60** — é exatamente `7.744,12 − 7.506,52` na conta
+  `040.040.0030`: a planilha usou o valor **bruto** e nós usamos o **líquido**
+  (`CPGNVALORLIQUIDO`), que é a regra confirmada e que faz 10 de 10 famílias
+  baterem em maio e todas em junho. Janeiro, maio e junho batem em 0,00, o que
+  confirma que o mapeamento está certo e que março/abril são pontuais.
+* **Gestão do Conhecimento, março −815,49** — a planilha lança 1.094,49 de
+  *Cursos e Treinamentos - Arbitragem* como despesa institucional; sendo curso
+  de uma área, entra em Despesas Área (`030.010.0180`), que é o que fazemos.
+
+⚠ **Nota de leitura, para não repetir um erro nosso:** uma diferença no total
+de uma *família* não é, por si só, um erro de classificação. `r198` soma as duas
+famílias de cada troca acima, então mover uma conta entre elas não muda o total.
+Confira sempre o total antes de tratar a família como defeito — os nossos
+1.171,71 de janeiro em *Eventos e Happy Hour* batem ao centavo com a `r141` da
+planilha; só o rótulo da família é outro. E a própria planilha troca de critério
+de mês para mês nessa conta (`r141` em jan/fev, `r166` de março a junho).
+
+### 6. Perguntas que sobram para o financeiro
 
 1. Os lançamentos avulsos do item 3 são de outra competência, ou ajustes
    manuais? Se tiverem origem no sistema, passamos a considerá-los.
