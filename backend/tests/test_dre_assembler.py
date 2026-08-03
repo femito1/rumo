@@ -1552,3 +1552,43 @@ def test_fluxo_consolidado_fills_from_db_without_manual(snapshot_may):
     # Recebimento ties the SISJURI per-area base (Contencioso, stale fixture basis).
     receb_c = next(r for r in rows if r["key"] == "Contencioso::receb")
     assert receb_c["Valor"]["value"] == pytest.approx(205157.46, abs=0.01)
+
+
+#: Per-day vale rates, taken from the lançamento histórico itself — SISJURI writes the
+#: arithmetic in ("Calculo: 14 dias x R$ 18,76"; June words it "Vale Transporte: 17 dias *
+#: R$ 18,76 = Total: 318,92"). VR is the same for everyone; VT is per person.
+#: Only May and June carry that tail — Jan–Abr/Jul/Ago have the bare label, which is how
+#: finance typed them, not an extract truncation (confirmed after the v4 re-extract).
+_VALE_RATES = {"VSR": 10.80, "MLA": 18.76, "JVO": 33.60}
+_VR_RATE = 46.10
+
+
+def test_every_vale_row_is_a_whole_number_of_days():
+    """Every vale posting must be N WHOLE days at its per-person rate.
+
+    This is the cheapest possible validation of a vale figure, and it exists because it
+    settled a real question: the workbook's hand-typed ``=35,52+262,64`` (January, r123)
+    could not be a missing slice of MLA's vale, since 35,52 is not a whole number of days
+    at any rate — while all 41 real rows across the eight 2026 months are, exactly.
+
+    Uses the fixtures rather than the live store so it runs offline. The rates are DB
+    facts (see the module note above), not constants we invented.
+    """
+    for label, snap in (
+        ("2026-02", json.loads(FIXTURE.read_text(encoding="utf-8"))),
+        ("2026-05", json.loads(FIXTURE_MAY.read_text(encoding="utf-8"))),
+        ("2026-06", json.loads(FIXTURE_JUN.read_text(encoding="utf-8"))),
+    ):
+        for row in snap.get("vale_prof") or []:
+            sigla = str(row.get("sigla") or "")
+            valor = round(float(row.get("valor") or 0.0), 2)
+            hist = str(row.get("historico") or "").lower()
+            is_vr = "refei" in hist or "vr" in hist
+            rate = _VR_RATE if is_vr else _VALE_RATES.get(sigla)
+            if not rate or not valor:
+                continue
+            dias = valor / rate
+            assert abs(dias - round(dias)) < 0.001, (
+                f"{label} {sigla} {valor} is {dias:.4f} days at {rate}/day — a vale is "
+                f"always a whole number of days; check the rate or the posting"
+            )

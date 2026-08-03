@@ -13,7 +13,52 @@
 
 ---
 
-## ⭐ 2026-08-03 (latest) — Extract **v4**: the histórico caps are gone. ⚠ OPERATOR ACTION
+## ⭐ 2026-08-04 (latest) — v4 re-extract DONE. `35,52` is definitively NOT in SISJURI
+
+All eight 2026 months are on **extract v4**, `stale=false`, verified in the store. The
+operator ran it; I verified the outcome rather than trusting the "complete" message — which
+mattered, because one month was silently missed.
+
+### The answer we went after
+
+**`35,52` does not exist in SISJURI.** With the full untruncated text, January's `vale_prof`
+históricos read exactly `"Vale refeição"` / `"Vale transporte"` — no calculation tail — and
+`35,52` / `8,88` / `17,76` / `2,96` / `4,44` appear in **no field of any of the eight
+months**. v4 did its job even without finding the number: it converted *"we cannot see the
+full text"* into ***"the full text does not contain it"***. Only finance can explain that
+cell, and the day-count test already proves our `262,64` is complete.
+
+### The rates are now DB facts, and they validate everything
+
+May and June carry the arithmetic in the histórico (*"Calculo: 14 dias x R$ 18,76"*; June
+words it *"Vale Transporte: 17 dias * R$ 18,76 = Total: 318,92"*). Jan–Abr, Jul and Aug hold
+only the bare label — that is how finance typed them, **not** an extract truncation, which
+we could not have distinguished before v4. Using those rates: **all 41 vale rows across the
+eight months are an exact whole number of days**, no exceptions. Pinned by
+`test_every_vale_row_is_a_whole_number_of_days`.
+
+### ⚠ `backfill.ps1` silently dropped the last month — fixed
+
+`-EndMonth 2026-07` pushed only Jan–Jun and reported `complete: 6 month(s) pushed`. Both
+loop bounds came from `Get-Date -Day 1`, which keeps the current time-of-day; `$end` is
+built a few ticks before `$cur`, so July compared *greater* than `$end` and the loop exited.
+July was left on v3 while every other month moved to v4 — a mixed store, reported as
+success. Reproduced in a simulation (6 months before, 7 after), fixed by normalising both
+bounds to midnight, and it now prints the resolved range so this cannot hide again.
+
+### Nothing regressed
+
+June's five client-validated cells unchanged (Conten 75.424,21 · Econ 80.536,85 · Arb
+54.383,94); both reclass accounts stable in all eight months; `reconcile_custo_equipe` still
+closes 18/18. The widening's one real risk — a longer histórico matching a software marker
+and moving money out of Material de Copa — did not materialise, and July's now-visible full
+text confirms why: they are genuine copa purchases (*"4 un. - Café bravo, 2 Caixas de chá…"*).
+
+Backend **296** tests, frontend **72**; all gates clean.
+
+---
+
+## 2026-08-03 — Extract **v4**: the histórico caps are gone
 
 **Everything below is documented; this section is the one thing still needing a human.**
 

@@ -453,8 +453,12 @@ histórico.
 * Todo vale do ano é um número inteiro de dias × uma diária (46,10 no VR; 10,80,
   18,76 e 33,60 no VT, por pessoa, e a conta vem escrita no próprio histórico do
   lançamento). **35,52 não é** nenhuma dessas combinações.
-* Não existe como lançamento em nenhum dos oito meses, nem no extrato de contas
-  de maio, nem no de junho.
+* **Não existe em lançamento nenhum.** Alargamos o campo de histórico do sistema
+  (de 60/80 para 300 caracteres) e re-extraímos os oito meses justamente para
+  poder afirmar isso: com o texto completo, o histórico do vale de janeiro é
+  literalmente `"Vale refeição"` e `"Vale transporte"`, sem conta nenhuma — e
+  35,52 não aparece em campo algum de nenhum dos oito meses. Também não está no
+  extrato de contas de maio nem no de junho.
 * As contas de benefício da estagiária que explicam março (`020.080.*`) **não
   existem em janeiro** — naquele mês há exatamente quatro lançamentos de vale
   (VR e VT de duas pessoas), e nenhum é 35,52.

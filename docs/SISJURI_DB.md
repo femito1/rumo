@@ -956,12 +956,24 @@ workbook tem 14 comentários e eles anotam linhas vizinhas — "IBRAC", "aasp", 
 `=35.52+262.64` está no workbook de fevereiro (como C118) e no de maio, ou seja é lançamento
 estável, não deslize de uma cópia.
 
-✅ **CORRIGIDO no extract v4 (2026-08-03).** Os três `historico` passaram de 60/80 para
-**300 caracteres** — `despesas_desdobramento`, `vale_prof` e `convenio_extra_dl` — porque o
-corte caía exatamente onde começa o texto *"Calculo: N dias x R$ X"*. Custo medido: ~6 KB
-num mês de 57 KB (~10%). **Enquanto o operador não re-extrair, todos os meses de 2026
-reportam `stale: true`** (é assim que se sabe quais ainda têm texto truncado) — ver
-`ops/sisjuri-agent/RUNBOOK_v4_reextract.md`.
+✅ **CORRIGIDO no extract v4 e RE-EXTRAÍDO (2026-08-03/04).** Os três `historico` passaram
+de 60/80 para **300 caracteres** — `despesas_desdobramento`, `vale_prof` e
+`convenio_extra_dl`. Custo medido: ~6 KB num mês de 57 KB (~10%). **Os 8 meses de 2026
+estão em v4, `stale=false`**, verificado no store.
+
+**As diárias agora vêm do PRÓPRIO BANCO.** Maio e junho carregam a conta escrita no
+histórico (*"Calculo: 14 dias x R\$ 18,76"*; junho usa outra redação: *"Vale Transporte: 17
+dias * R\$ 18,76 = Total: 318,92"*). Jan–Abr, jul e ago têm só o rótulo (`"Vale refeição"`),
+o que é do SISJURI, não do extract. Com as diárias de maio/junho: **as 41 linhas de vale
+dos 8 meses são um número INTEIRO de dias, sem exceção** — VR 46,10 para todos; VT VSR
+10,80 · MLA 18,76 · JVO 33,60. Fixado em `test_every_vale_row_is_a_whole_number_of_days`.
+
+⛔ **`35,52` NÃO EXISTE no SISJURI — encerrado.** Era exatamente para isso que o v4 servia.
+Com o texto completo, o histórico de janeiro é literalmente `"Vale refeição"` /
+`"Vale transporte"`, sem cauda de cálculo. E `35,52` / `8,88` / `17,76` / `2,96` / `4,44`
+não aparecem em nenhum campo de nenhum dos 8 meses. O v4 cumpriu o papel mesmo sem achar o
+número: trocou *"não conseguimos ver o texto todo"* por ***"o texto todo não contém isso"***.
+Só o financeiro pode dizer de onde veio.
 
 ⚠ **Alargar o histórico PODE mover dinheiro.** `despesas_liquido.net_by_account` decide
 reclassificações procurando marcadores (`claude`, `software`, `saas`, `licen`, `cloud`)

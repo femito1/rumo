@@ -1,5 +1,12 @@
 # Operator runbook — re-extract to contract **v4** (wider `historico`)
 
+> ✅ **DONE on 2026-08-04.** All eight 2026 months are on v4 (`stale=false`), verified in
+> the store: no money moved, June's client-validated cells unchanged, 18/18 reconciliation
+> cells still closing. Outcome: `35,52` is **not in SISJURI** — January's vale histórico is
+> bare (`"Vale refeição"`), with no calculation tail. Kept as the procedure for the NEXT
+> contract bump. ⚠ Note `backfill.ps1` silently dropped the last month on that run (fixed
+> since — it now prints its resolved range; count the months anyway).
+
 **Why:** `extract.sql` now emits the three `historico` fields at **300 chars** instead of
 60/80. Finance writes the arithmetic *into* that text — *"Vale transporte / Calculo: 14
 dias x R$ 18,76"* — and the old caps cut it off exactly where the calculation began. That
