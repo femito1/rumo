@@ -13,7 +13,44 @@
 
 ---
 
-## ⭐ 2026-08-03 (latest) — Dug until the floor: 5 of 6 open questions answered from the DB
+## ⭐ 2026-08-03 (latest) — The vale block is fully decomposed; ONE number left open
+
+Tested the theory that the hand-typed vale terms are "a vale-refeição plus a
+vale-transporte". **Right for one of them, and it cracked the whole block.**
+
+`backend/scripts/audit_vale_composition.py`:
+
+* **Every vale is N whole days × a per-person daily rate, and the rate is IN the
+  histórico** (*"Calculo: 14 dias x R$ 18,76"*). 2026 rates: VR **46,10** for everyone;
+  VT **VSR 10,80 · MLA 18,76 · JVO 33,60**. This is the fastest way to sanity-check any
+  vale figure.
+* **`r123` is now explained in every month.** Fev/Jun = MLA only (ties our rule exactly).
+  Abr/Mai = **all three people** (655,36 = 300,16+268,80+86,40; 607,04 =
+  262,64+268,80+75,60) — the un-adjusted months, no top-up involved. Mar's `674` = the
+  month's three-person VT total **674,12** (the June extrato says *"22 dias = Total:
+  674,12"* verbatim). Jan's `262,64` = MLA's VT, 14 days × 18,76.
+* **`543,22` is SOLVED — and it is exactly "a VR + a VT"**: a separate estagiária payable
+  *outside* the transitória, `020.080.0050` VR **507,10** + `020.080.0060` VT **36,12**,
+  her name in the histórico. Only exists in March.
+
+⚠ **A correction that generalises.** My earlier sweep reported 543,22 as "not found
+anywhere". Wrong twice over: it is not *stored* but is the **sum of two stored rows**, and
+my broad pass tested values and pairwise *differences* — never sums. It was also already
+written down in `docs/SISJURI_DB.md`. **Search for compositions, not just values, and grep
+the durable docs before declaring something unknown.**
+
+**`35,52` (January) is the only thing left,** and it survives every route: not a whole day
+at any rate, absent from all 8 months and both extratos, and the `020.080.*` accounts that
+explain March **do not exist in January** (which has exactly four vale lines, none of them
+35,52). Weak hint: January paid VR for 18 days against MLA's VT of 14 — four days — and
+`35,52 = 4 × 8,88`, but 8,88 is nobody's rate.
+
+**So the client list is down to two items, one of which is a typo-level fix:** update the
+two stale SISJURI convênio notes, and tell us where R$35,52 came from.
+
+---
+
+## 2026-08-03 — Dug until the floor: 5 of 6 open questions answered from the DB
 
 Pushed on every remaining "needs a finance ruling" item. **Only two survive, and neither is
 a decision** — one is a typo-level fix in SISJURI, the other a single R$35,52 we cannot

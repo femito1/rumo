@@ -430,12 +430,42 @@ quando o valor lançado naquele mês já era 2.122,30. Com o texto atualizado no
 lançamento, esses dois meses fecham sozinhos. Não precisamos de nenhuma
 definição — só do texto certo.
 
-### 2. De onde vêm os R$ 35,52 de janeiro?
+### 2. Um valor digitado no vale-transporte de janeiro: R$ 35,52
 
-A célula `C123` (vale-transporte) traz `=35,52+262,64`. Os 262,64 são o
-lançamento do sistema; os 35,52 **não aparecem em nenhum lançamento de nenhum
-mês** — procuramos em todos. Se for de outra competência ou um acerto, é só nos
-dizer e passamos a tratá-los da mesma forma.
+Duas células de vale-transporte têm uma soma digitada à mão. **Uma das duas nós
+conseguimos explicar inteira; a outra tem um pedaço que falta.**
+
+| Célula | Fórmula | Primeiro termo | Segundo termo |
+|---|---|---|---|
+| `E123` (março) | `=543,22+674` | ✅ VR 507,10 + VT 36,12 da estagiária | ✅ VT do mês das três pessoas (674,12) |
+| `C123` (janeiro) | `=35,52+262,64` | ❓ **35,52 — não encontramos** | ✅ VT da pessoa do ADM (14 dias × 18,76) |
+
+**Março está resolvido, e a intuição de que era "um VR mais um VT" estava certa:**
+os 543,22 são um pagamento de benefícios da estagiária feito **fora** da conta
+transitória — `020.080.0050` Vale Refeição **507,10** + `020.080.0060` Vale
+Transporte **36,12**. Os dois lançamentos estão no sistema, com o nome dela no
+histórico.
+
+**Janeiro é o que falta.** Procuramos os 35,52 por todos os caminhos:
+
+* Não é vale-refeição: o VR é R$ 46,10/dia e nunca fica abaixo de R$ 783,70 no
+  mês — 35,52 é pequeno demais.
+* Todo vale do ano é um número inteiro de dias × uma diária (46,10 no VR; 10,80,
+  18,76 e 33,60 no VT, por pessoa, e a conta vem escrita no próprio histórico do
+  lançamento). **35,52 não é** nenhuma dessas combinações.
+* Não existe como lançamento em nenhum dos oito meses, nem no extrato de contas
+  de maio, nem no de junho.
+* As contas de benefício da estagiária que explicam março (`020.080.*`) **não
+  existem em janeiro** — naquele mês há exatamente quatro lançamentos de vale
+  (VR e VT de duas pessoas), e nenhum é 35,52.
+
+Uma pista, se ajudar a lembrar: em janeiro o VR foi pago por **18 dias** e o VT da
+pessoa do ADM cobriu só **14** — quatro dias de diferença. E `35,52 = 4 × 8,88`.
+Pode ser um acerto de quatro dias, mas R$ 8,88 não é uma diária que apareça em
+lugar nenhum, então é só hipótese.
+
+**O que ajudaria:** de onde vêm esses R$ 35,52? Se for de outra competência ou um
+acerto pontual, passamos a tratá-lo da mesma forma.
 
 ### E o que NÃO precisa mais de vocês
 

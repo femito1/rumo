@@ -909,6 +909,36 @@ Componentes de `custo_equipe_deriv` por conta (maio): `030.010.0010` (pró-labor
 distribuição) 166.323,80 · `030.010.0110` (convênio médico, usar Parte MBC) 20.266,29
 · `030.010.0130` 17.831,00 · `030.010.0140` 5.000,00.
 
+#### ⭐ Vale: TUDO é N dias × uma diária, e a diária está no histórico (2026-08-03)
+
+`backend/scripts/audit_vale_composition.py`. O histórico do lançamento traz a conta feita:
+*"Vale transporte. Calculo: 14 dias x R\$ 18,76"*. Diárias 2026: **VR 46,10** (todos),
+**VT: VSR 10,80 · MLA 18,76 · JVO 33,60**. Todo vale postado no ano é um número **inteiro**
+de dias a uma dessas diárias — é o teste mais rápido para validar qualquer valor de vale.
+
+Composição do `r123` (Vale Transporte) do workbook, mês a mês — resolve o bloco todo:
+
+| mês | célula | leitura |
+|---|---|---|
+| Fev / Jun | 337,68 · 318,92 | **MLA só** — bate com a nossa regra ao centavo |
+| Abr / Mai | 655,36 · 607,04 | **as TRÊS pessoas** (300,16+268,80+86,40 / 262,64+268,80+75,60) — os meses não ajustados |
+| Mar | `=543,22+674` | 674 = VT do mês das três (**674,12**, o extrato de junho diz *"22 dias = Total: 674,12"*) |
+| Jan | `=35,52+262,64` | 262,64 = VT da MLA (14 dias × 18,76) |
+
+**`543,22` está RESOLVIDO e é literalmente "um VR + um VT":** pagamento de benefícios da
+estagiária **fora da transitória** — `020.080.0050` VR **507,10** + `020.080.0060` VT
+**36,12** (histórico traz o nome dela). Só existe em março.
+
+⚠ **Uma varredura minha reportou 543,22 como "não existe em lugar nenhum". ERRADO** — não
+está *armazenado*, é a **soma** de duas linhas armazenadas, e minha varredura testava
+valores e *diferenças*, nunca somas. Também já estava escrito neste próprio arquivo.
+**Procure composições, não só valores, e grepe os docs antes de declarar algo desconhecido.**
+
+**`35,52` (janeiro) é o único que sobra** e não é derivável: não é dia inteiro em nenhuma
+diária, não existe em nenhum dos 8 meses nem nos extratos, e as contas `020.080.*` que
+explicam março **não existem em janeiro**. Pista fraca: jan pagou VR de 18 dias contra VT de
+14 (4 dias de diferença) e `35,52 = 4 × 8,88` — mas 8,88 não é diária de ninguém.
+
 #### ⭐⭐ `convenio_memo` PODE ESTAR DESATUALIZADO — guarda obrigatória (2026-08-03)
 
 **Era um bug NOSSO, e é auto-detectável.** O financeiro escreve a "memória de cálculo" da
