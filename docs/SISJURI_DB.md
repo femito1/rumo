@@ -909,6 +909,56 @@ Componentes de `custo_equipe_deriv` por conta (maio): `030.010.0010` (pró-labor
 distribuição) 166.323,80 · `030.010.0110` (convênio médico, usar Parte MBC) 20.266,29
 · `030.010.0130` 17.831,00 · `030.010.0140` 5.000,00.
 
+#### ⭐⭐ `convenio_memo` PODE ESTAR DESATUALIZADO — guarda obrigatória (2026-08-03)
+
+**Era um bug NOSSO, e é auto-detectável.** O financeiro escreve a "memória de cálculo" da
+Parte MBC no `LANCHISTORICO` do lançamento de `030.010.0110`, e às vezes **deixa a nota do
+período anterior** depois que o valor do plano muda. Provado:
+
+| | EHF postado | memo cita | Parte MBC do memo | livro |
+|---|---|---|---|---|
+| jan/fev | **2.122,30** | 968,65 ← nunca postado | 603,50 | 1.564,10 |
+| mar–jun | **2.122,30** | 2.122,30 ✓ | 1.564,10 | 1.564,10 |
+
+O postado é **2.122,30 nos seis meses** (mesmo plano o ano todo). Só o texto de jan/fev
+aponta para o plano antigo. Idem RB em fevereiro (memo diz 3.543,45, postado 3.427,58).
+
+**Guarda (`dre._memo_describes_this_month`):** só aplica o override quando o memo **cita o
+valor efetivamente postado** naquele mês. Sem mês hardcoded, sem ajuste ao workbook.
+Fecha 90% do Δ de janeiro do Econômico (−3.060,10 → +290,15) e 53% do erro absoluto de
+custo-equipe por área em jan/fev.
+
+⚠ **O resíduo que sobra é honesto, não um ajuste:** sem memo válido usamos o **bruto
+postado**, porque a Parte MBC real existe SÓ no texto do memo — `convenio_extra_dl`
+(500.`<SIGLA>`) é constante o ano todo e **não** a reconstrói (medido). Fechar os últimos
+~558/mês exige o financeiro corrigir a nota no SISJURI. **Não hardcode 1.564,10** — seria
+fitting ao workbook, e o dado do mês não contém esse número.
+
+⚠ **`scripts/reconcile_custo_equipe.py` tinha uma CÓPIA do loop de override** e continuou
+com o comportamento antigo depois da guarda entrar em `dre.py` — reportando números que o
+produto já não produzia. Agora importa `_memo_describes_this_month`. Ao mexer no override,
+confira os dois.
+
+#### ⭐ JGS convênio de fevereiro: a planilha se contradiz, o DB está certo (2026-08-03)
+
+Arbitragem custo equipe +1.911,95 em fevereiro. **Não é dúvida — a própria planilha
+responde:** em fevereiro ela mantém `r70` Distribuição 9.379,00 e `r71` Pró-labore
+1.621,00 do JGS, mas deixa `r69` Convênio **em branco**. Quem recebe distribuição e
+pró-labore está na folha; o plano é custo real, e o DB o posta (1.911,95). De março as três
+linhas zeram nos dois lados (ele sai) e a Arbitragem bate 0,00. Janeiro difere 50 centavos
+(1.911,95 × 1.911,45). JGS **não tem `convenio_memo` em nenhum mês** — não confunda com o
+caso EHF/RB acima.
+
+#### ⭐ REFUTADO: os "lançamentos avulsos" de jan/fev ESTÃO no DB (2026-08-03)
+
+`DIFF_JAN_ABR_2026.md` §3 listava r34/r35/r43/r47/r51/r54 como *"sem lançamento
+correspondente na competência"*. **ERRADO.** O DB posta **um** lançamento de distribuição
+que já **inclui** o Reajuste e o Subsídio; a planilha os digita em linhas separadas.
+Conferido em fevereiro: BBX, IAC, EHF e FSM batem ao centavo (base+reajuste = nosso
+`030.010.0010`), e ASG fecha **0,00** no total da pessoa (planilha 9.822,92 nas cinco
+linhas r31–r35 × nosso 9.822,92). Era diferença de **apresentação**, não de valor. Único
+resíduo real: BMP 50 centavos.
+
 #### ⭐ Despesa Institucional por área = POOL × share — a SHARE não move dinheiro (2026-08-03)
 
 `backend/scripts/audit_desp_inst_rateio.py`. A conta é

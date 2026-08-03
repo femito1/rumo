@@ -90,19 +90,22 @@ LINHAS: tuple[tuple[str, str, str, int], ...] = (
 CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
     ("arbitragem", "custo_equipe"): {
         "causa": (
-            "Convênio médico de um advogado da Arbitragem em **fevereiro**. O memo do "
-            "sistema em janeiro e fevereiro declara uma base de plano diferente da de "
-            "março a junho, e é internamente consistente nessa base (`1.795,86 - "
-            "1.192,36 (Parte MBC) = 603,50` para outro advogado, mesma mecânica). A "
-            "planilha repete a constante de março nos seis meses, ou seja, em jan/fev "
-            "ela não segue o próprio memo do sistema."
+            "Convênio médico de um advogado (JGS) em **fevereiro**, e aqui a própria "
+            "planilha responde: em fevereiro ela mantém a **distribuição mensal "
+            "(9.379,00, linha 70)** e o **pró-labore (1.621,00, linha 71)** desse "
+            "advogado, mas deixa o **convênio (linha 69) em branco**. Quem continua "
+            "recebendo distribuição e pró-labore está na folha naquele mês, então o "
+            "plano de saúde é um custo real — e o sistema o tem lançado (1.911,95). A "
+            "partir de março as três linhas dele ficam vazias nos dois lados (ele sai) e "
+            "a Arbitragem passa a bater em 0,00. Em janeiro a diferença é de 50 centavos "
+            "(1.911,95 × 1.911,45). **É uma omissão da coluna de fevereiro da planilha, "
+            "não uma dúvida.**"
         ),
-        "conferir": "Base_Resultado linha 69; conta `030.010.0110`.",
-        "precisamos": (
-            "Uma definição: em janeiro e fevereiro vale o valor do memo do sistema ou a "
-            "constante que está na planilha? É a maior diferença de custo de equipe do "
-            "acumulado."
+        "conferir": (
+            "Planilha, linhas **69, 70 e 71**, coluna D (fevereiro): as duas últimas "
+            "têm valor, a primeira está vazia."
         ),
+        "precisamos": None,
     },
     ("contencioso", "custo_equipe"): {
         "causa": (
@@ -123,13 +126,33 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
     },
     ("economico", "custo_equipe"): {
         "causa": (
-            "Mesma origem do Contencioso (vale dos advogados, ISS trimestral e AASP), "
-            "mais a estagiária do Direito Econômico, que entra na planilha a partir de "
-            "março e que nós reproduzimos ao centavo. É exatamente por causa dela que o "
-            "sinal da diferença do Econômico se inverte entre fevereiro e março."
+            "Três coisas, todas identificadas:\n\n"
+            "* **Convênio médico de janeiro e fevereiro — era um erro nosso, já "
+            "corrigido.** A anotação (*memória de cálculo*) que o financeiro deixa no "
+            "lançamento do convênio estava **desatualizada** nesses dois meses: ela "
+            "descreve um plano de 968,65 quando o valor lançado no sistema era 2.122,30 "
+            "(o mesmo nos seis meses). Nós estávamos usando a conta dessa anotação "
+            "antiga; agora o sistema só a usa quando ela cita o valor efetivamente "
+            "lançado no mês, o que resolve 90% da diferença de janeiro. O que ainda "
+            "sobra é que, sem uma anotação válida, usamos o valor cheio do plano — daí "
+            "a diferença mudar de sinal.\n"
+            "* **Vale dos advogados** — regra confirmada por vocês (sempre incluir); as "
+            "colunas de janeiro a maio da planilha não incluem.\n"
+            "* **A estagiária do Direito Econômico**, que entra na planilha a partir de "
+            "março e que nós reproduzimos ao centavo — é por causa dela que o sinal da "
+            "diferença se inverte entre fevereiro e março."
         ),
-        "conferir": "Base_Resultado linha 52 (estagiária), 56/57 (Vale).",
-        "precisamos": None,
+        "conferir": (
+            "Planilha, linhas **44 e 48** (convênio de EHF e RB: a mesma constante nos "
+            "seis meses) e **52** (estagiária). No sistema, a anotação do lançamento da "
+            "conta `030.010.0110`."
+        ),
+        "precisamos": (
+            "Atualizar no sistema a memória de cálculo do convênio de **janeiro e "
+            "fevereiro** (EHF e RB): ela ficou com os números de um plano anterior. Com "
+            "a anotação corrigida, esses dois meses fecham sozinhos — não precisamos de "
+            "nenhuma decisão, só do texto certo no lançamento."
+        ),
     },
     ("contencioso", "despesa_institucional"): {
         "causa": (
@@ -487,6 +510,16 @@ def main() -> None:
     add("**causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à")
     add("soma das diferenças das linhas que o compõem, com erro máximo de R$ 0,01.")
     add("")
+    add("⚠ **Por que algumas diferenças CRESCERAM em relação à versão anterior deste**")
+    add("**documento.** Corrigimos o convênio de janeiro e fevereiro (a anotação")
+    add("desatualizada, explicada em *Econômico · Custo equipe*). Isso deixou cada linha")
+    add("mais correta, mas fez os totais parecerem piores: o erro do Econômico estava")
+    add("**cancelando** o da Arbitragem. Em fevereiro, por exemplo, as três áreas somavam")
+    add("-1.267,37 (parecia perto) porque -3.016,26 do Econômico anulava +1.911,95 da")
+    add("Arbitragem; agora somam +3.154,72. **Um total que fecha por cancelamento não é**")
+    add("**um número validado** — preferimos cada linha certa a um total bonito. O erro")
+    add("absoluto do custo de equipe por área em jan/fev caiu 53%.")
+    add("")
 
     add("## Detalhe, linha por linha")
     add("")
@@ -538,23 +571,43 @@ def main() -> None:
         add("Nenhuma.")
     add("")
 
-    add("## O que precisamos de vocês, em ordem")
+    add("## O que precisamos de vocês")
     add("")
-    add("1. **Convênio médico de janeiro e fevereiro** (EHF e RB). O memo do sistema nesses")
-    add("   dois meses declara uma base de plano diferente da de março a junho, e a")
-    add("   planilha usa a constante de março nos seis meses. Qual vale para jan/fev?")
-    add("   Conferir em `Base_Resultado Mensal_V2`, linhas 44 e 48, colunas C e D.")
-    add("2. **Fórmulas das linhas 204/205/206** de janeiro a maio: podem ser copiadas de")
-    add("   junho, que já está correto? Conferir em `Base_Resultado Mensal_V2`, linhas 204")
-    add("   a 206, colunas C a G.")
-    add("3. **Janeiro, vale-transporte:** a célula `C123` traz `=35,52+262,64`. Os 262,64")
-    add("   são o lançamento do sistema; de onde vêm os 35,52?")
-    add("4. **Lançamentos avulsos de janeiro e fevereiro:** `Base_Resultado Mensal_V2`")
-    add("   linhas 34, 35, 43, 47, 51 e 54, colunas C e D. São de outra competência ou")
-    add("   ajustes manuais? Se tiverem origem no sistema, passamos a considerá-los.")
-    add("5. **Convênio médico da linha 69** (`C69` tem 1.911,45 e `D69` está vazia):")
-    add("   deveria continuar em fevereiro, como está no sistema, ou foi encerrado em")
-    add("   janeiro?")
+    add("A lista encurtou: quase tudo que estava em aberto foi respondido pelos próprios")
+    add("dados. **Sobrou uma coisa só que depende de vocês, e é pequena.**")
+    add("")
+    add("### 1. Atualizar duas anotações no sistema (não é uma decisão)")
+    add("")
+    add("A memória de cálculo do **convênio médico de EHF e RB, em janeiro e fevereiro**,")
+    add("ficou com os números de um plano anterior: ela descreve um plano de 968,65")
+    add("quando o valor lançado naquele mês já era 2.122,30. Com o texto atualizado no")
+    add("lançamento, esses dois meses fecham sozinhos. Não precisamos de nenhuma")
+    add("definição — só do texto certo.")
+    add("")
+    add("### 2. De onde vêm os R$ 35,52 de janeiro?")
+    add("")
+    add("A célula `C123` (vale-transporte) traz `=35,52+262,64`. Os 262,64 são o")
+    add("lançamento do sistema; os 35,52 **não aparecem em nenhum lançamento de nenhum")
+    add("mês** — procuramos em todos. Se for de outra competência ou um acerto, é só nos")
+    add("dizer e passamos a tratá-los da mesma forma.")
+    add("")
+    add("### E o que NÃO precisa mais de vocês")
+    add("")
+    add("Ficam registrados aqui porque estavam na lista anterior:")
+    add("")
+    add("* **Fórmulas das linhas 204/205/206** — continuam deslocadas de janeiro a maio e")
+    add("  vale corrigir na planilha, mas não muda nada no sistema: é a planilha que lê a")
+    add("  linha da área seguinte. Junho já está certo.")
+    add("* **Convênio da linha 69 em fevereiro** — respondido pela própria planilha: ela")
+    add("  mantém a distribuição e o pró-labore desse advogado em fevereiro e zera só o")
+    add("  convênio. Ele estava na folha, o plano era custo real.")
+    add("* **Lançamentos avulsos de janeiro e fevereiro** — conferimos um a um e eles")
+    add("  **estão** no sistema, dentro do lançamento único de distribuição. Exemplo:")
+    add("  Andrielly em fevereiro, planilha 9.822,92 (cinco linhas) × sistema 9.822,92 —")
+    add("  bate em **R$ 0,00**. Era diferença de apresentação, não de valor.")
+    add("* **Associações de janeiro** — a planilha não somou a AASP (195,40) nem o Canal")
+    add("  de Arbitragem (1.204,47); os dois existem no sistema.")
+    add("* **Vale ADM de março a maio** e **aluguel** — já respondidos por vocês.")
     add("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")

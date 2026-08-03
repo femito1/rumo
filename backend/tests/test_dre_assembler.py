@@ -827,6 +827,68 @@ def test_custo_equipe_por_area_ties_workbook_may(snapshot_may):
     assert r.custo_equipe == pytest.approx(209273.90, abs=0.01)
 
 
+def test_convenio_memo_is_ignored_when_it_does_not_describe_this_month(snapshot_jun):
+    """A ``convenio_memo`` that cites a plan value which was NOT posted is STALE.
+
+    Found 2026-08-03 while decomposing the jan/fev convênio difference, which I had
+    written up as "needs a finance ruling". It does not — the DB answers it:
+
+    * EHF's posted 030.010.0110 is **2.122,30 in all six months** (one plan all year).
+    * The mar–jun memo cites exactly that 2.122,30 and derives Parte MBC 1.564,10.
+    * The jan/fev memo cites **968,65** — a value never posted in those months — and
+      derives 603,50 off it. Same for RB in February (memo says 3.543,45, posted
+      3.427,58).
+
+    So jan/fev carries a leftover note from an older plan while the posting had already
+    moved. Trusting it understated Econômico by 2.962,41/month and Arbitragem by
+    1.911,95 in February. The workbook uses the standing Parte MBC in every month, which
+    is what the POSTED plan implies — so the book was right and we were wrong.
+
+    The guard: only apply the memo override when the memo mentions the amount actually
+    posted for that lawyer that month. This is self-detecting from the data — no
+    hardcoded month, no fitting to the workbook.
+    """
+    snap = json.loads(json.dumps(snapshot_jun))  # deep copy
+    posted = next(
+        r["valor"]
+        for r in snap["custo_equipe_deriv"]
+        if r.get("sigla") == "EHF" and r.get("id_conta") == "030.010.0110"
+    )
+    assert posted == pytest.approx(2122.30, abs=0.01)
+
+    # A CURRENT memo (mentions the posted 2.122,30) must still be applied: June's
+    # client-validated Econômico stands.
+    assert RealizadoInputs.from_snapshot(snap).area_custo_equipe[
+        "Econômico"
+    ] == pytest.approx(80536.85, abs=0.01)
+
+    # Now make the memo STALE the way jan/fev are: it derives a Parte MBC from a plan
+    # value (968,65) that was never posted this month.
+    for memo in snap["convenio_memo"]:
+        if memo["sigla"] == "EHF":
+            memo["raw_memo"] = (
+                "Convêno Médico  EHF- Plano: SOHO60E - Valor968,65  A parte de "
+                "dependentes EHF e upgrade estão lançadas na conta 500.EHF**\r\n\r\n"
+                "1.795,86-1.192,36 ( Parte MBC)=603,50"
+            )
+            memo["parsed_valor"] = 603.50
+    stale = RealizadoInputs.from_snapshot(snap).area_custo_equipe["Econômico"]
+
+    # The stale 603,50 must NOT be applied. What stands instead is the POSTED gross
+    # (2.122,30), because the real "Parte MBC" for that plan exists ONLY in the memo
+    # text and a single month cannot recover it — measured: the 500.<SIGLA> extras
+    # (convenio_extra_dl) are constant year-round and do not reconstruct it.
+    #
+    # Deliberately NOT hardcoding 1.564,10 here: that would be fitting to the workbook,
+    # and this month's data does not contain it. The posted gross is the honest
+    # DB-derived answer; closing the last ~558 needs the note fixed in SISJURI, which is
+    # what the differences document now asks finance for.
+    assert stale == pytest.approx(81095.04, abs=0.02), (
+        "a stale memo must fall back to the POSTED value, not apply its own figure"
+    )
+    assert stale > 80536.85, "ignoring a stale discount must not lower the cost"
+
+
 def test_per_area_despesa_institucional_ratears_only_the_pool_june(snapshot_jun):
     """Per-área Despesa Institucional splits the "Despesa para ratear" POOL, not
     the whole institutional despesa.

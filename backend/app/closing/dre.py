@@ -14,6 +14,7 @@ Row shape for rich DRE tabs: each row exposes the display columns first
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -85,6 +86,36 @@ def _pct(numer: float, denom: float) -> float | None:
     if not denom:
         return None
     return round(numer / denom, 4)
+
+
+#: Brazilian-notation money inside a free-text memo ("3.520,31", "968,65").
+_MEMO_NUM = re.compile(r"\d[\d.]*,\d{2}")
+
+
+def _memo_describes_this_month(raw_memo: str, posted: float | None) -> bool:
+    """Does this ``convenio_memo`` actually describe the month it is attached to?
+
+    Finance writes the "Parte MBC" calculation in the lançamento's free text, and
+    sometimes leaves the PREVIOUS period's note in place after the plan value changes.
+    Such a memo derives a Parte MBC from a plan total that was never posted, so applying
+    it silently understates the lawyer's cost (jan/fev 2026: EHF 603,50 instead of
+    1.564,10 — see the test in test_dre_assembler.py).
+
+    A memo is accepted only when it mentions the amount actually POSTED to the convênio
+    account for that lawyer that month — the note then demonstrably refers to this
+    period's plan. Returns True when there is nothing to check against (no posted value),
+    since the old unconditional behaviour is the safer default there.
+    """
+    if posted is None:
+        return True
+    for tok in _MEMO_NUM.findall(raw_memo):
+        try:
+            v = float(tok.replace(".", "").replace(",", "."))
+        except ValueError:  # pragma: no cover - regex already constrains the shape
+            continue
+        if abs(v - posted) < 0.01:
+            return True
+    return False
 
 
 def is_adm_grupo(grupo_name: str | None) -> bool:
@@ -426,10 +457,34 @@ class RealizadoInputs:
             # per-lawyer total uses the net MBC share (ties Econômico to the
             # centavo). Any explicit ``custo_equipe_overrides`` still wins: only
             # fill the convênio override when the sigla has none.
+            # ⚠ A memo can be STALE: finance leaves last period's note on the lançamento
+            # while the posting has already moved to a new plan value. Discovered
+            # 2026-08-03 — EHF's 030.010.0110 posts 2.122,30 in all six months and the
+            # mar–jun memo cites exactly that, but the jan/fev memo cites 968,65 (never
+            # posted) and derives Parte MBC 603,50 from it. Trusting that understated
+            # Econômico by 2.962,41/month and Arbitragem by 1.911,95 in February, and the
+            # workbook — which keeps the standing Parte MBC every month — was right.
+            #
+            # The guard is self-detecting, not a hardcoded month: apply the override only
+            # when the memo mentions the amount ACTUALLY POSTED for that lawyer this
+            # month, i.e. when the note demonstrably describes this period. A memo that
+            # does not is a leftover, and the posted/standing value stands.
+            posted_convenio: dict[str, float] = {}
+            for row in deriv_rows:
+                if str(row.get("id_conta") or "") == CONVENIO_ACCOUNT:
+                    sg = str(row.get("sigla") or "").strip()
+                    if sg:
+                        posted_convenio[sg] = round(
+                            posted_convenio.get(sg, 0.0) + float(row.get("valor") or 0.0), 2
+                        )
             for memo in snap.get("convenio_memo") or []:
                 sigla = str(memo.get("sigla") or "").strip()
                 parsed = memo.get("parsed_valor")
                 if not sigla or parsed is None:
+                    continue
+                if not _memo_describes_this_month(
+                    str(memo.get("raw_memo") or ""), posted_convenio.get(sigla)
+                ):
                     continue
                 existing = overrides.get(sigla)
                 if existing is None:

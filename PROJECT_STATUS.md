@@ -13,7 +13,69 @@
 
 ---
 
-## ⭐ 2026-08-03 (latest) — Every contributing cause PROVEN, not asserted
+## ⭐ 2026-08-03 (latest) — Dug until the floor: 5 of 6 open questions answered from the DB
+
+Pushed on every remaining "needs a finance ruling" item. **Only two survive, and neither is
+a decision** — one is a typo-level fix in SISJURI, the other a single R$35,52 we cannot
+find. Three of my own documented claims were wrong and are corrected.
+
+### The convênio was OUR bug, and it was self-detectable
+
+`convenio_memo` carries the Parte MBC as free text, and finance sometimes leaves the
+PREVIOUS period's note on the lançamento. EHF's `030.010.0110` posts **2.122,30 in all six
+months**; the mar–jun memo cites exactly that, but the **jan/fev memo cites 968,65 — never
+posted** — and derives 603,50 from it. Same for RB in February (memo 3.543,45, posted
+3.427,58). We were trusting the stale note; the workbook, which keeps the standing Parte
+MBC every month, was right.
+
+New guard `dre._memo_describes_this_month`: apply the override only when the memo mentions
+the amount actually posted that month. No hardcoded month, no fitting to the workbook.
+Closes **90% of January's Econômico gap** (−3.060,10 → +290,15) and **53% of the jan/fev
+per-área custo-equipe absolute error**.
+
+⚠ **The remaining residual is deliberate.** Without a valid memo we fall back to the posted
+GROSS, because the real Parte MBC exists only in the memo text — `convenio_extra_dl` is
+constant year-round and does not reconstruct it (measured). Hardcoding 1.564,10 would be
+fitting to the workbook. Closing the last ~558/month needs the note fixed in SISJURI.
+
+⚠ **Accepted trade-off (user decision):** each component is now more correct but the
+headline totals look WORSE — Custos Diretos YTD +4.248,95 → +12.021,29, Resultado Bruto
++131,84 → −7.640,50 — because the old Econômico understatement was **cancelling** the
+Arbitragem overstatement (Feb: −3.016,26 against +1.911,95). That +131,84 was netting, not
+accuracy. The document explains the movement explicitly so nobody is ambushed by it.
+
+### Three corrections to my own documented claims
+
+1. **Arbitragem's +1.911,95 needs no ruling — the workbook contradicts itself.** February
+   keeps JGS's Distribuição (r70, 9.379,00) and Pró-labore (r71, 1.621,00) but blanks his
+   Convênio (r69). Someone still drawing both is on the payroll, so the plan is a real
+   cost, and the DB posts it. From March all three rows blank on both sides and Arbitragem
+   ties 0,00. JGS has **no memo in any month** — do not confuse this with the EHF/RB case.
+2. **REFUTED: the jan/fev "lançamentos avulsos" ARE in the DB.** `DIFF_JAN_ABR_2026.md` §3
+   called r34/r35/r43/r47/r51/r54 *"sem lançamento correspondente"*. Wrong — the DB posts
+   ONE distribuição that already includes the Reajuste and the Subsídio. February: BBX,
+   IAC, EHF, FSM tie to the centavo, and **ASG closes at R$0,00** (book 9.822,92 across
+   five rows vs our 9.822,92). Presentation, not a gap. Only real residual: BMP 50 centavos.
+3. **`reconcile_custo_equipe.py` had a private COPY of the override loop** and kept the old
+   behaviour after the guard landed, reporting numbers the product no longer produced. It
+   now imports `_memo_describes_this_month`.
+
+### What genuinely still needs the client — the whole list
+
+1. **Update two SISJURI notes** (EHF and RB convênio, jan/fev): they describe an older
+   plan. Not a decision — with the right text those months close themselves.
+2. **The R$35,52** in `C123` (`=35,52+262,64`). Searched every list in every month's
+   snapshot: it appears **nowhere**. Genuinely needs finance.
+
+Everything else is closed: the r204/205/206 formula shift (worth fixing in the sheet, but
+changes nothing on our side), the JGS convênio, the one-off lines, January's Associações
+(AASP 195,40 + Canal de Arbitragem 1.204,47), the Vale-ADM months and the aluguel.
+
+Backend **294** tests, frontend **72**; all gates clean.
+
+---
+
+## 2026-08-03 — Every contributing cause PROVEN, not asserted
 
 The differences document named causes but several were *readings*, not measurements. Each
 is now decomposed with a reproducible script, and doing that **found one attribution of

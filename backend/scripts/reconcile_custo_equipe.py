@@ -178,14 +178,32 @@ def our_rows(snap: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def our_overrides(snap: dict[str, Any]) -> dict[str, Any]:
+    """The convênio overrides, applying the SAME stale-memo guard as ``dre.py``.
+
+    This used to be a private copy of the override loop, and when the guard landed in
+    ``dre.py`` this script silently kept the old behaviour — so the reconciliation
+    reported numbers the product no longer produced. Reusing
+    ``_memo_describes_this_month`` is what keeps the two from drifting again.
+    """
     from app.closing.custo_equipe_deriv import CONVENIO_ACCOUNT, LawyerOverride
+    from app.closing.dre import _memo_describes_this_month
+
+    posted: dict[str, float] = {}
+    for row in snap.get("custo_equipe_deriv") or []:
+        if str(row.get("id_conta") or "") == CONVENIO_ACCOUNT:
+            sg = str(row.get("sigla") or "").strip()
+            if sg:
+                posted[sg] = round(posted.get(sg, 0.0) + float(row.get("valor") or 0.0), 2)
 
     out: dict[str, Any] = {}
     for memo in snap.get("convenio_memo") or []:
         sigla = str(memo.get("sigla") or "").strip()
         parsed = memo.get("parsed_valor")
-        if sigla and parsed is not None:
-            out[sigla] = LawyerOverride(set_account={CONVENIO_ACCOUNT: float(parsed)})
+        if not sigla or parsed is None:
+            continue
+        if not _memo_describes_this_month(str(memo.get("raw_memo") or ""), posted.get(sigla)):
+            continue
+        out[sigla] = LawyerOverride(set_account={CONVENIO_ACCOUNT: float(parsed)})
     return out
 
 
