@@ -50,7 +50,7 @@ import openpyxl
 REPO = Path(__file__).resolve().parents[2]
 WORKBOOK = REPO / "reference" / "workbook" / "Fechamento MBC 06.2026.xlsx"
 
-MESES = {1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril"}
+MESES = {1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho"}
 BASE_COL = {1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8}
 
 #: (header row, last leaf row, our área name). The ranges are the header cells' OWN SUM

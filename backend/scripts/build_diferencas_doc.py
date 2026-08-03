@@ -116,7 +116,8 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
         ),
         "conferir": (
             "Base_Resultado linhas 26/27 (Vale), 25/54/79 (ISS Trimestral) e 9/18/36 "
-            "(AASP). Fechamento por pessoa e por conta: resíduo 0,00 nos quatro meses."
+            "(AASP). Fechamento por pessoa e por conta: **resíduo 0,00 nas 18 células** "
+            "(3 áreas × 6 meses), conferido por `scripts/reconcile_custo_equipe.py`."
         ),
         "precisamos": None,
     },
@@ -132,88 +133,135 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
     },
     ("contencioso", "despesa_institucional"): {
         "causa": (
-            "A fórmula de Despesas por área da planilha está deslocada uma linha de "
-            "janeiro a maio: as linhas 204, 205 e 206 somam a linha de baixo em cinco "
-            "famílias de despesa (Eventos e Happy Hour, Material Gráfico, Patrocínio, "
-            "Refeições e Viagens). Como o bloco está ordenado Arbitragem / Contencioso "
-            "/ Direito Econômico / Institucional, cada área recebe a despesa da área "
-            "seguinte. Isso desloca também o rateio da despesa institucional das três "
-            "áreas. **As fórmulas de junho já estão corretas — é por isso que junho "
-            "fecha exatamente com o nosso número.**"
+            "**Não é uma diferença da área — é a despesa institucional TOTAL, rateada.** A conta é `Despesa Institucional da área = POOL × (custo de equipe da área ÷ custo de equipe total)`, onde o POOL é a despesa institucional menos as despesas de área (planilha, linha 207 = 198 − 203). Decompondo a diferença nos dois fatores (`scripts/audit_desp_inst_rateio.py`, exato ao centavo nas 18 células): a parte que vem da **participação de cada área soma ZERO em todos os meses** — é só redistribuição entre elas — e **toda a diferença de dinheiro vem do POOL** (Jan–Jun: −5.811,73). Ou seja: para explicar esta linha, olhe a linha *Despesas Indiretas* do institucional. **Junho prova o mecanismo:** o POOL difere exatamente **R$ 4,80** (a tarifa bancária que a planilha zera), a participação não muda nada, e por isso as três áreas ficam em centavos (1,72 / 1,84 / 1,24)."
         ),
-        "conferir": "Base_Resultado linhas 204, 205 e 206, colunas de janeiro a maio.",
-        "precisamos": (
-            "Confirmar se as fórmulas de janeiro a maio devem ser copiadas de junho. "
-            "É a causa que mais pesa no acumulado das três áreas."
-        ),
+        "conferir": "Planilha, linha **207** (`=198−203`) para o POOL, e linhas **5 / 30 / 60** para o custo de equipe de cada área. Rode `python -m scripts.audit_desp_inst_rateio`.",
+        "precisamos": None,
     },
     ("economico", "despesa_institucional"): {
-        "causa": "A mesma fórmula deslocada das linhas 204/205/206 (ver Contencioso).",
-        "conferir": "Base_Resultado linhas 204, 205 e 206, colunas de janeiro a maio.",
-        "precisamos": "Mesma confirmação das fórmulas 204/205/206.",
+        "causa": (
+            "Mesma origem do Contencioso: é o POOL institucional rateado, e a parte da "
+            "participação por área soma zero. Ver a explicação em *Contencioso · Despesa "
+            "Institucional*."
+        ),
+        "conferir": "Planilha, linha **207** (`=198−203`) para o POOL, e linhas **5 / 30 / 60** para o custo de equipe de cada área. Rode `python -m scripts.audit_desp_inst_rateio`.",
+        "precisamos": None,
     },
     ("arbitragem", "despesa_institucional"): {
-        "causa": "A mesma fórmula deslocada das linhas 204/205/206 (ver Contencioso).",
-        "conferir": "Base_Resultado linhas 204, 205 e 206, colunas de janeiro a maio.",
-        "precisamos": "Mesma confirmação das fórmulas 204/205/206.",
+        "causa": (
+            "Mesma origem do Contencioso: POOL institucional rateado. Ver a explicação em "
+            "*Contencioso · Despesa Institucional*."
+        ),
+        "conferir": "Planilha, linha **207** (`=198−203`) para o POOL, e linhas **5 / 30 / 60** para o custo de equipe de cada área. Rode `python -m scripts.audit_desp_inst_rateio`.",
+        "precisamos": None,
     },
     ("contencioso", "despesas_equipe"): {
         "causa": (
-            "Mesma fórmula deslocada das linhas 204/205/206, que é justamente a linha de "
-            "Despesas Equipe por área, mais a classificação da AASP (a planilha a lança "
-            "no custo de equipe, o sistema em Despesa de Área — o valor existe nos dois "
-            "lados, em seções diferentes)."
+            "**Causa provada, não suposta:** a fórmula das linhas 204/205/206 da planilha lê as linhas da área SEGUINTE, de janeiro a maio. Verificado nos rótulos: a fórmula do Contencioso soma *“Eventos e Happy hour - Direito Econômico”*, a do Econômico soma *“... - Institucional”*, e a da Arbitragem soma *“... - Contencioso”* — cinco famílias cada (Eventos/HH, Material Gráfico, Patrocínio, Refeições, Viagens). **Medido:** recalculando janeiro a maio com a fórmula de junho, o erro absoluto total cai de 10.216,31 para 3.494,78 (**−66%**) e as células que batem vão de **4 para 11 de 18**. As fórmulas de junho já estão corretas."
+            " O que sobra depois disso é **janeiro** e é conhecido: a planilha de janeiro não somou a AASP (195,40) nem o Canal de Arbitragem (1.204,47) — lançamentos reais que existem no sistema (o Canal de Arbitragem é exatamente o resíduo da Arbitragem). E as duas fatias de Associações: a planilha divide 700,10 para o Contencioso (linha 129) e 700,10 para o Econômico (linha 130), enquanto o sistema marca as duas no centro de custo do Econômico — por isso o nosso Econômico lê 1.400,19. Isso é o critério que a Renata já definiu: alocar pelo rótulo / centro de custo."
         ),
-        "conferir": "Base_Resultado linha 204; contas `020.060.*`.",
-        "precisamos": "Mesma confirmação das fórmulas 204/205/206.",
+        "conferir": "Planilha, linhas **204 / 205 / 206** (colunas C a G) e as linhas 125–161 que elas somam. Rode `python -m scripts.audit_despesas_area` para ver a recomposição.",
+        "precisamos": (
+            "Confirmar se as fórmulas das linhas 204/205/206 de janeiro a maio podem ser "
+            "copiadas de junho, que já está correto."
+        ),
     },
     ("economico", "despesas_equipe"): {
-        "causa": "A mesma fórmula deslocada das linhas 204/205/206.",
-        "conferir": "Base_Resultado linha 205.",
+        "causa": (
+            "**Causa provada, não suposta:** a fórmula das linhas 204/205/206 da planilha lê as linhas da área SEGUINTE, de janeiro a maio. Verificado nos rótulos: a fórmula do Contencioso soma *“Eventos e Happy hour - Direito Econômico”*, a do Econômico soma *“... - Institucional”*, e a da Arbitragem soma *“... - Contencioso”* — cinco famílias cada (Eventos/HH, Material Gráfico, Patrocínio, Refeições, Viagens). **Medido:** recalculando janeiro a maio com a fórmula de junho, o erro absoluto total cai de 10.216,31 para 3.494,78 (**−66%**) e as células que batem vão de **4 para 11 de 18**. As fórmulas de junho já estão corretas. Ver *Contencioso · Despesas Equipe* para o resíduo de janeiro."
+        ),
+        "conferir": "Planilha, linhas **204 / 205 / 206** (colunas C a G) e as linhas 125–161 que elas somam. Rode `python -m scripts.audit_despesas_area` para ver a recomposição.",
         "precisamos": "Mesma confirmação das fórmulas 204/205/206.",
     },
     ("arbitragem", "despesas_equipe"): {
         "causa": (
-            "A mesma fórmula deslocada das linhas 204/205/206. Na Arbitragem o efeito é "
-            "maior porque as cinco linhas da área ficam de fora da soma e as cinco do "
-            "Institucional entram no lugar."
+            "**Causa provada, não suposta:** a fórmula das linhas 204/205/206 da planilha lê as linhas da área SEGUINTE, de janeiro a maio. Verificado nos rótulos: a fórmula do Contencioso soma *“Eventos e Happy hour - Direito Econômico”*, a do Econômico soma *“... - Institucional”*, e a da Arbitragem soma *“... - Contencioso”* — cinco famílias cada (Eventos/HH, Material Gráfico, Patrocínio, Refeições, Viagens). **Medido:** recalculando janeiro a maio com a fórmula de junho, o erro absoluto total cai de 10.216,31 para 3.494,78 (**−66%**) e as células que batem vão de **4 para 11 de 18**. As fórmulas de junho já estão corretas. Na Arbitragem o efeito é o maior dos três, porque as cinco "
+            "linhas da própria área ficam fora da soma. O resíduo de janeiro "
+            "(+1.204,47) é exatamente o **Canal de Arbitragem**, que a planilha daquele "
+            "mês não somou."
         ),
-        "conferir": "Base_Resultado linha 206.",
+        "conferir": "Planilha, linhas **204 / 205 / 206** (colunas C a G) e as linhas 125–161 que elas somam. Rode `python -m scripts.audit_despesas_area` para ver a recomposição.",
         "precisamos": "Mesma confirmação das fórmulas 204/205/206.",
     },
     ("contencioso", "resultado_bruto"): {
         "causa": (
-            "Consequência das linhas acima — o resultado bruto é a soma delas, não uma "
-            "diferença independente."
+            "**Não é uma diferença própria — é a soma das linhas acima.** Verificado nas "
+            "18 células (3 áreas × 6 meses): a diferença do Resultado Bruto é igual a "
+            "`Δreceita − Δcusto de equipe − Δcomissão − Δdespesas equipe − Δdespesa "
+            "institucional`, com erro máximo de R$ 0,01. Então não há nada a explicar "
+            "aqui que não esteja explicado nas linhas que o compõem."
         ),
-        "conferir": "Ver Custo equipe, Despesas Equipe e Despesa Institucional da área.",
+        "conferir": (
+            "Some as linhas acima da própria área na planilha (linhas 39 a 42 do "
+            "Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem)."
+        ),
         "precisamos": None,
     },
     ("economico", "resultado_bruto"): {
         "causa": (
-            "Consequência das linhas acima — o resultado bruto é a soma delas, não uma "
-            "diferença independente."
+            "**Não é uma diferença própria — é a soma das linhas acima.** Verificado nas "
+            "18 células (3 áreas × 6 meses): a diferença do Resultado Bruto é igual a "
+            "`Δreceita − Δcusto de equipe − Δcomissão − Δdespesas equipe − Δdespesa "
+            "institucional`, com erro máximo de R$ 0,01. Então não há nada a explicar "
+            "aqui que não esteja explicado nas linhas que o compõem."
         ),
-        "conferir": "Ver Custo equipe, Despesas Equipe e Despesa Institucional da área.",
+        "conferir": (
+            "Some as linhas acima da própria área na planilha (linhas 39 a 42 do "
+            "Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem)."
+        ),
         "precisamos": None,
     },
     ("arbitragem", "resultado_bruto"): {
         "causa": (
-            "Consequência das linhas acima — o resultado bruto é a soma delas, não uma "
-            "diferença independente."
+            "**Não é uma diferença própria — é a soma das linhas acima.** Verificado nas "
+            "18 células (3 áreas × 6 meses): a diferença do Resultado Bruto é igual a "
+            "`Δreceita − Δcusto de equipe − Δcomissão − Δdespesas equipe − Δdespesa "
+            "institucional`, com erro máximo de R$ 0,01. Então não há nada a explicar "
+            "aqui que não esteja explicado nas linhas que o compõem."
         ),
-        "conferir": "Ver Custo equipe, Despesas Equipe e Despesa Institucional da área.",
+        "conferir": (
+            "Some as linhas acima da própria área na planilha (linhas 39 a 42 do "
+            "Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem)."
+        ),
         "precisamos": None,
     },
     ("institucional", "despesas"): {
         "causa": (
-            "Duas causas conhecidas e pequenas: o vale do administrativo em março, abril "
-            "e maio (a planilha lançou o valor cheio da conta transitória, com as três "
-            "pessoas, e não só a parte do administrativo — vocês já avaliaram que não "
-            "vale corrigir) e a tarifa bancária, que vem do sistema e está zerada no "
-            "Excel (R$ 4,80 por mês)."
+            "Esta é a linha que **explica também a Despesa Institucional das três "
+            "áreas** (ela é rateada a partir daqui). Decompondo por família de despesa, "
+            "as partes somam **exatamente** a diferença de cada mês — são componentes "
+            "do total, então não sobra resíduo:\n\n"
+            "* **Vale do administrativo** (março −2.199,08 · abril −2.199,20 · maio "
+            "−2.280,60): a planilha lançou o valor cheio da conta transitória, com as "
+            "três pessoas, em Salários Administração; nós lançamos ali só a parte da "
+            "pessoa do administrativo e mandamos os dois estagiários para o custo de "
+            "equipe das áreas deles. Em janeiro, fevereiro e junho a planilha fez o "
+            "mesmo e esses meses batem. Vocês já avaliaram que não vale corrigir.\n"
+            "* **Aluguel** (abril e maio, +129,17 cada): o sistema usa o aluguel "
+            "líquido da sublocação (crédito Belline). A Renata já autorizou: *“assumam "
+            "que o banco está correto”*.\n"
+            "* **Tarifa bancária** (+4,80/mês): vem do sistema e está zerada no Excel. "
+            "É a única diferença que sobra em junho.\n"
+            "* **Trocas de família que não mudam o total** (Endomarketing ↔ "
+            "Investimentos em Prospecção, Ocupação ↔ Administrativas): a mesma conta "
+            "aparece em famílias diferentes nos dois lados, mas as duas entram no total "
+            "da linha 198 — o efeito no número final é **zero**. Em janeiro, por "
+            "exemplo, os nossos 1.317,71 de Endomarketing são os mesmos 1.317,71 que a "
+            "planilha põe em Investimentos em Prospecção.\n"
+            "* **Janeiro, Associações** (+1.399,87): a planilha não somou a AASP "
+            "(195,40) nem o Canal de Arbitragem (1.204,47) — lançamentos reais do "
+            "sistema.\n"
+            "* **Março**: um curso de Arbitragem (−815,49) que a planilha lança como "
+            "institucional e que, sendo de uma área, vai para Despesas de Área; e "
+            "Informática −237,60, que é `7.744,12 − 7.506,52` na conta `040.040.0030` "
+            "(a planilha usou o valor bruto, nós usamos o líquido, que é a regra "
+            "confirmada e faz 10 de 10 famílias baterem em maio)."
         ),
-        "conferir": "Base_Resultado linhas 122 e 123; conta `020.070.0030`.",
+        "conferir": (
+            "Planilha: linhas **122 e 123** (vale ADM), **86** (aluguel), **124** "
+            "(tarifa/administrativas), **128–131** (Associações), **158** (Gestão do "
+            "Conhecimento), **180** (Informática). O total da linha é a **198**."
+        ),
         "precisamos": None,
     },
     ("institucional", "custo_equipe"): {
@@ -415,19 +463,29 @@ def main() -> None:
     for section, line, label, _w, _o, _b, _d in sorted(materiais, key=_ordem):
         add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
     add("")
-    add("Três causas explicam praticamente tudo, e as colunas mostram isso:")
+    add("Quatro causas explicam tudo, e cada uma foi medida — não é suposição:")
     add("")
-    add("1. **A fórmula das linhas 204/205/206 da planilha está deslocada uma linha, de**")
-    add("   **janeiro a maio.** A prova está na coluna de **junho**: nas linhas de Despesa")
-    add("   Institucional e Despesas Equipe ela cai para centavos (1,84 / 1,72 / -0,01),")
-    add("   enquanto de janeiro a maio passa de mil reais. As fórmulas de junho já estão")
-    add("   corretas — é a causa que mais pesa no acumulado.")
-    add("2. **O vale dos advogados no custo de equipe** — regra confirmada por vocês")
+    add("1. **Despesa Institucional por área não é um problema por área: é o POOL**")
+    add("   **institucional rateado.** Separando a diferença nos dois fatores da conta")
+    add("   (POOL × participação de cada área), a parte da *participação* **soma zero em**")
+    add("   **todos os meses** — é só redistribuição — e todo o dinheiro vem do POOL")
+    add("   (Jan–Jun −5.811,73). Para explicar essas três linhas, olhe *Despesas")
+    add("   Indiretas*. Junho prova: POOL difere R$ 4,80 (a tarifa bancária) e as três")
+    add("   áreas ficam em 1,72 / 1,84 / 1,24.")
+    add("2. **A fórmula das linhas 204/205/206 lê as linhas da área SEGUINTE, de janeiro**")
+    add("   **a maio** — conferido nos rótulos, não deduzido. Recalculando com a fórmula")
+    add("   de junho, o erro cai **66%** e as células que batem vão de 4 para 11 de 18.")
+    add("   É a causa que mais pesa em Despesas Equipe.")
+    add("3. **O vale dos advogados no custo de equipe** — regra confirmada por vocês")
     add("   (sempre incluir). Em junho o Custo equipe das três áreas fecha (0,00 no")
     add("   Contencioso e na Arbitragem, 0,01 no Econômico), porque a planilha passou a")
     add("   incluir o vale a partir desse mês.")
-    add("3. **O convênio médico de fevereiro na Arbitragem** — aparece só em fevereiro")
+    add("4. **O convênio médico de fevereiro na Arbitragem** — aparece só em fevereiro")
     add("   (+1.911,95) e é a única diferença que ainda depende de uma definição de vocês.")
+    add("")
+    add("Uma observação que vale para ler todas as tabelas: **Resultado Bruto não tem**")
+    add("**causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à")
+    add("soma das diferenças das linhas que o compõem, com erro máximo de R$ 0,01.")
     add("")
 
     add("## Detalhe, linha por linha")

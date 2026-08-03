@@ -909,7 +909,39 @@ Componentes de `custo_equipe_deriv` por conta (maio): `030.010.0010` (pró-labor
 distribuição) 166.323,80 · `030.010.0110` (convênio médico, usar Parte MBC) 20.266,29
 · `030.010.0130` 17.831,00 · `030.010.0140` 5.000,00.
 
-#### ⭐ Fechamento por pessoa/conta de Custo equipe (2026-08-03) — resíduo 0,00 em Jan–Abr
+#### ⭐ Despesa Institucional por área = POOL × share — a SHARE não move dinheiro (2026-08-03)
+
+`backend/scripts/audit_desp_inst_rateio.py`. A conta é
+`desp_inst(área) = POOL × (custo_equipe(área) / Σ custo_equipe)`, com
+`POOL = desp inst total − Σ despesas de área` (workbook r207 = r198−r203). Decompondo o
+Δ nos dois fatores — **identidade, exata a R$0,01 nas 18 células**:
+
+* **A parte da SHARE soma ZERO em todos os 6 meses** (−0,00 / −0,01 / +0,00 / +0,00 /
+  −0,00 / +0,00). É redistribuição pura: o que uma área ganha, outra perde.
+* **Todo o dinheiro vem do POOL** — Jan–Jun **−5.811,73**.
+* **Junho prova o mecanismo:** POOL difere exatamente **4,80** (tarifa bancária que o
+  Excel zera), SHARE 0,00, e as três áreas ficam em 1,72 / 1,84 / 1,24.
+
+⚠ **Correção de uma atribuição minha:** `DIFERENCAS_ACUMULADO_2026.md` atribuía as três
+linhas de Despesa Institucional à fórmula deslocada r204/205/206. **ERRADO** — a fórmula
+deslocada afeta Despesas *Equipe*; a Despesa Institucional por área segue o POOL
+institucional. Para explicar essa linha, olhe `Despesas Indiretas`, não a área.
+
+#### ⭐ A fórmula r204/205/206 deslocada: MEDIDA, não só lida (2026-08-03)
+
+`backend/scripts/audit_despesas_area.py` recalcula Jan–Mai com a fórmula de **junho**:
+erro absoluto total **10.216,31 → 3.494,78 (−66%)** e células que batem **4/18 → 11/18**.
+Os rótulos confirmam o mecanismo: a fórmula do Contencioso soma *"Eventos e Happy hour -
+Direito Econômico"*, a do Econômico soma *"... - Institucional"*, a da Arbitragem soma
+*"... - Contencioso"* — 5 famílias cada.
+
+O que sobra é **janeiro**, e é o já documentado: Associações no banco 2.800,06 × planilha
+1.400,19 = **1.399,87 = AASP 195,40 + Canal de Arbitragem 1.204,47** (lançamentos reais
+que a planilha de janeiro não somou; o Canal de Arbitragem 1.204,47 é *exatamente* o
+resíduo da Arbitragem). O resto é a reclassificação ICC/IBRAC entre ECT e EDE — critério
+da Renata, alocar pelo rótulo/centro de custo.
+
+#### ⭐ Fechamento por pessoa/conta de Custo equipe (2026-08-03) — resíduo 0,00 nas 18 células
 
 `backend/scripts/reconcile_custo_equipe.py` decompõe os dois lados em (pessoa, conta) e
 classifica cada diferença. Resíduo **0,00 nas 12 células** (3 áreas × 4 meses). Três

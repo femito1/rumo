@@ -13,7 +13,49 @@
 
 ---
 
-## ⭐ 2026-08-03 (latest) — Meeting prep: differences moved to a DOCUMENT; deck numbers fixed
+## ⭐ 2026-08-03 (latest) — Every contributing cause PROVEN, not asserted
+
+The differences document named causes but several were *readings*, not measurements. Each
+is now decomposed with a reproducible script, and doing that **found one attribution of
+mine that was plainly wrong**.
+
+1. **Custo equipe: all 18 cells close to 0,00** (3 áreas × **6** months — was Jan–Abr
+   only). `scripts/reconcile_custo_equipe.py` extended; Mai adds only the lawyer Vale
+   (+1.236,90 Contencioso) and Jun is clean.
+2. **The r204/205/206 formula shift is now MEASURED** (`scripts/audit_despesas_area.py`):
+   recomputing Jan–Mai with June's formula cuts total absolute error **10.216,31 →
+   3.494,78 (−66%)** and takes ties from **4/18 to 11/18**. The row labels confirm the
+   mechanism directly — Contencioso's formula sums *"Eventos e Happy hour - Direito
+   Econômico"*, Econômico's sums *"... - Institucional"*, Arbitragem's sums
+   *"... - Contencioso"*. What survives is January, and it is the already-documented
+   Associações gap: **1.399,87 = AASP 195,40 + Canal de Arbitragem 1.204,47**, with the
+   Canal de Arbitragem being *exactly* Arbitragem's residual.
+3. **⚠ CORRECTION — per-área Despesa Institucional was attributed to the WRONG cause.**
+   I had it as the r204/205/206 shift. It is not: the rateio is
+   `POOL × (área custo share)`, and decomposing the delta into those two factors
+   (`scripts/audit_desp_inst_rateio.py`, an identity exact to R$0,01 in all 18 cells)
+   shows **the SHARE effect sums to ZERO in every month** — pure redistribution — while
+   **100% of the money comes from the POOL** (Jan–Jun −5.811,73). So that line is
+   explained by institucional *Despesas Indiretas*, not by anything per-área. **June
+   proves the mechanism**: pool differs by exactly R$4,80 (the bank tariff) and the three
+   áreas land on 1,72 / 1,84 / 1,24.
+4. **Institucional Despesas Indiretas decomposed for all six months** (was Jan–Abr). Mai
+   = Vale-ADM −2.280,60 (book types the full 3-person transitória: 2.719,90 + 607,04 =
+   3.326,94 vs our 1.046,34) + aluguel Belline +129,17; Jun = the R$4,80 tariff alone.
+   Also confirmed the Endomarketing ↔ Inv. Prospecção swap is presentation-only (Jan:
+   our 1.317,71 Endomarketing = the book's 1.317,71 Inv. Prospecção, net zero in r198).
+5. **Resultado Bruto has no cause of its own** — verified across all 18 cells that
+   `ΔRB = Δreceita − Δcusto − Δcomissão − ΔdespEq − ΔdespInst` to within R$0,01.
+
+A methodology note worth keeping: while decomposing Mai/Jun I first got family totals of
+−5.178,15 / −1.895,18 against sintetico deltas of −2.151,43 / +4,80. The cause was my own
+**truncated family names** ("Inv. Prospecção" vs "Investimentos em Prospecção") silently
+matching nothing and contributing zero. With the exact names it ties. A lookup that misses
+returns 0,00 and looks like data, not like a bug.
+
+---
+
+## 2026-08-03 — Meeting prep: differences moved to a DOCUMENT; deck numbers fixed
 
 Two deliverables for the next client meeting: (1) every material workbook-vs-system
 difference explained clearly, and (2) presentation numbers that can be trusted.
