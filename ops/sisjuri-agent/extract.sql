@@ -64,8 +64,18 @@ BEGIN
      --       per-person CPDESDOBRAMENTO slices (500.010.<SIGLA>). The backend picks
      --       the ADM share via home_area == Administração (dre.is_adm_grupo) and
      --       keeps that same person out of per-área Custo equipe.
+     --   4 = 2026-08-03: the three historico fields widen from 60/80 to 300 chars
+     --       (despesas_desdobramento, vale_prof, convenio_extra_dl). Finance writes
+     --       the arithmetic INTO that text ("Vale transporte / Calculo: 14 dias x
+     --       R$ 18,76") and the old caps cut it off exactly where the calculation
+     --       began. A WIDER field, not a re-meaning: the bump exists so the summary
+     --       endpoint's 'stale' flag says WHICH months still hold truncated text.
+     --       WARNING: despesas_liquido.net_by_account reclassifies on markers found
+     --       in this string, so a longer historico CAN move money between accounts.
+     --       After re-extracting, check 020.030.0020 and 040.040.0030 against
+     --       test_widening_the_historico_must_not_move_copa_to_informatica.
      -- A snapshot without this key is version 1 by definition.
-     'extract_version' VALUE 3
+     'extract_version' VALUE 4
   ),
   'revenue' VALUE (
      SELECT JSON_OBJECT(
@@ -153,8 +163,17 @@ BEGIN
         'valor'     VALUE valor,
         'historico' VALUE historico
      ) RETURNING CLOB)
+     -- 300 chars, not 80: finance writes the arithmetic INTO the historico ("Vale
+     -- transporte / Calculo: 14 dias x R$ 18,76", "Mercado Livre - Compra de material
+     -- de copa: 4 un. Cafe bravo ..."), and 80 chars cut it off exactly where the
+     -- calculation starts. That is what made the January "35,52" question unanswerable
+     -- from the snapshot: the number had to be chased in a hand-exported .xls instead.
+     -- Costs ~6 KB on a 57 KB month (measured 2026-08-03). See the guard test
+     -- test_widening_the_historico_must_not_move_copa_to_informatica: net_by_account
+     -- reclassifies on markers found in this text, so a LONGER string can move money
+     -- between accounts. Verify the reclass accounts after any re-extract.
      FROM (SELECT d.DESCCONTADESTINO id_conta, ROUND(d.DESNVALOR,2) valor,
-                  SUBSTR(d.DESCHISTORICO,1,80) historico
+                  SUBSTR(d.DESCHISTORICO,1,300) historico
              FROM FINANCE.CPDESDOBRAMENTO d
              JOIN FINANCE.CONTASPAGAR cp
                ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
@@ -570,9 +589,15 @@ BEGIN
         'valor'     VALUE valor,
         'historico' VALUE historico
      ) RETURNING CLOB)
+     -- 300 chars, not 60: this is the block where the day calculation lives ("Vale
+     -- transporte / Calculo: 14 dias x R$ 18,76"), and it is the single most useful
+     -- string in the whole extract for validating a vale: every vale is a WHOLE number
+     -- of days at a per-person rate, so the text lets you check any figure directly.
+     -- At 60 chars the rate was invisible and we had to read it out of a manually
+     -- exported .xls.
      FROM (SELECT SUBSTR(d.DESCCONTADESTINO, 9) sigla,
                   ROUND(d.DESNVALOR,2) valor,
-                  SUBSTR(d.DESCHISTORICO,1,60) historico
+                  SUBSTR(d.DESCHISTORICO,1,300) historico
              FROM FINANCE.CPDESDOBRAMENTO d
              JOIN FINANCE.CONTASPAGAR cp
                ON cp.EMPNCOD=d.EMPNCOD AND cp.CPGCNUMEROPAGAR=d.CPGCNUMEROPAGAR
@@ -686,9 +711,12 @@ BEGIN
         'valor'     VALUE valor,
         'historico' VALUE historico
      ) RETURNING CLOB)
+     -- 300 chars, not 60: the convenio memoria de calculo lives here too, and it is what
+     -- tells us whether a note describes THIS month (see dre._memo_describes_this_month
+     -- and the stale jan/fev memos). Same reason as the other two blocks.
      FROM (SELECT SUBSTR(l.PCTCNUMEROCONTADEST, 9) sigla,
                   ROUND(SUM(l.LANNVALOR),2) valor,
-                  SUBSTR(MAX(l.LANCHISTORICO),1,60) historico
+                  SUBSTR(MAX(l.LANCHISTORICO),1,300) historico
              FROM FINANCE.LANCAMENTO l
             WHERE l.PCTCNUMEROCONTADEST LIKE '500.010.%'
               AND l.LANDDATA >= DATE '&D_START' AND l.LANDDATA < DATE '&D_END'

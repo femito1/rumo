@@ -956,10 +956,21 @@ workbook tem 14 comentários e eles anotam linhas vizinhas — "IBRAC", "aasp", 
 `=35.52+262.64` está no workbook de fevereiro (como C118) e no de maio, ou seja é lançamento
 estável, não deslize de uma cópia.
 
-⚠ **Limitação do extract que vale corrigir:** `despesas_desdobramento.historico` é cortado
-em **80 caracteres** (`SUBSTR(d.DESCHISTORICO,1,80)`), exatamente onde vive o texto
-*"Calculo: N dias x R$ X"*. Hoje esse cálculo só existe no export bruto do extrato. Alargar
-esse SUBSTR tornaria essa classe de pergunta respondível direto do snapshot.
+✅ **CORRIGIDO no extract v4 (2026-08-03).** Os três `historico` passaram de 60/80 para
+**300 caracteres** — `despesas_desdobramento`, `vale_prof` e `convenio_extra_dl` — porque o
+corte caía exatamente onde começa o texto *"Calculo: N dias x R$ X"*. Custo medido: ~6 KB
+num mês de 57 KB (~10%). **Enquanto o operador não re-extrair, todos os meses de 2026
+reportam `stale: true`** (é assim que se sabe quais ainda têm texto truncado) — ver
+`ops/sisjuri-agent/RUNBOOK_v4_reextract.md`.
+
+⚠ **Alargar o histórico PODE mover dinheiro.** `despesas_liquido.net_by_account` decide
+reclassificações procurando marcadores (`claude`, `software`, `saas`, `licen`, `cloud`)
+DENTRO desse texto, então uma string mais longa pode casar onde a truncada não casava — e o
+valor salta de Material de Copa (`020.030.0020`) para Informática (`020.040.0010`). Seis
+linhas estavam exatamente no cap de 80 numa conta de reclass (todas compras de copa/limpeza
+do Mercado Livre, então **nada deveria mover**). Fixadas em
+`test_widening_the_historico_must_not_move_copa_to_informatica`. **Confira `020.030.0020` e
+`040.040.0030` depois de qualquer re-extract.**
 
 #### ⭐⭐ `convenio_memo` PODE ESTAR DESATUALIZADO — guarda obrigatória (2026-08-03)
 

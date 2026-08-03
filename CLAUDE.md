@@ -125,6 +125,21 @@ credentials (LegalDesk) never reach the client.
   `_sum_all_or_none` (blank if any part is missing), not `_sum_or_none` (sum what is
   present). The Despesas card silently understated May by ~R$108k this way.
 
+- **The `historico` free text carries the ARITHMETIC — never truncate it.** Finance writes
+  the calculation into the lançamento text (*"Vale transporte / Calculo: 14 dias x
+  R$ 18,76"*), so it is the fastest way to validate a figure: every vale is a whole number
+  of days at a per-person rate. The extract capped three of these at 60/80 chars, cutting
+  the text off exactly where the calculation began — widened to **300** in contract **v4**
+  (2026-08-03). ⚠ Widening can MOVE MONEY: `despesas_liquido.net_by_account` reclassifies
+  on markers found inside that string, so a longer histórico may match where a truncated
+  one did not. Check `020.030.0020` and `040.040.0030` after any re-extract; the guard is
+  `test_widening_the_historico_must_not_move_copa_to_informatica`.
+
+- **A version bump is a CONTRACT marker, not a correctness claim** (v2 certified a rule
+  that never fired). Pair every bump with a test that ties a real month, and remember the
+  `stale` flag on `/api/ingest/summary/<mes>` is what tells an operator which months still
+  need re-extracting.
+
 - **`formatBRLShort` is NOT additive, and precision does not fix it.** Rounded parts
   never sum to a rounded total: measured over 200k random 6-month rows, ~49% diverge
   visibly at one decimal *and* at two. Adding decimals made a real live row worse. The

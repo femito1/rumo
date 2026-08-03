@@ -13,7 +13,43 @@
 
 ---
 
-## ⭐ 2026-08-03 (latest) — The vale block is fully decomposed; ONE number left open
+## ⭐ 2026-08-03 (latest) — Extract **v4**: the histórico caps are gone. ⚠ OPERATOR ACTION
+
+**Everything below is documented; this section is the one thing still needing a human.**
+
+`extract.sql` now emits the three `historico` fields at **300 chars** instead of 60/80:
+`despesas_desdobramento`, `vale_prof` and `convenio_extra_dl`. Finance writes the
+arithmetic *into* that text (*"Vale transporte / Calculo: 14 dias x R$ 18,76"*), and the
+old caps cut it off exactly where the calculation began — which is the whole reason the
+January `35,52` had to be chased through a hand-exported `.xls` instead of the snapshot.
+
+Cost: **~6 KB on a 57 KB month** (measured, ~10%). `CURRENT_EXTRACT_VERSION` is now **4**,
+so all eight 2026 months report `stale: true` until re-extracted — that flag is the only
+way an operator can tell which months still hold truncated text.
+
+**⚠ OPERATOR: run `ops/sisjuri-agent/RUNBOOK_v4_reextract.md` on MBC-LDESK01.**
+`backfill.ps1 -StartMonth 2026-01 -EndMonth 2026-07` then
+`run-agent.ps1 -AnoMes 2026-08` (backfill deliberately stops before the open month).
+~10 minutes, read-only.
+
+**⚠ This can move money, and that is why the runbook has a verification section.**
+`despesas_liquido.net_by_account` decides reclassifications by searching the histórico for
+markers (`claude`, `software`, `saas`, `licen`, `cloud`), so a **longer** string can match
+where the truncated one did not — money would jump from Material de Copa (`020.030.0020`)
+to Informática (`020.040.0010`). Six rows were sitting exactly at the old 80-char cap on a
+reclass account; all six are Mercado Livre copa/limpeza purchases, so nothing *should*
+move. New test `test_widening_the_historico_must_not_move_copa_to_informatica` pins each of
+them, and the runbook lists June's client-validated figures to check against.
+
+**What v4 may finally answer:** with the full text, `35,52` may be visible in a histórico
+that was previously cut off. If it is still absent, that settles it — the number does not
+exist in SISJURI and only finance can explain it.
+
+Backend **295** tests, frontend **72**; all gates clean.
+
+---
+
+## 2026-08-03 — The vale block is fully decomposed; ONE number left open
 
 Tested the theory that the hand-typed vale terms are "a vale-refeição plus a
 vale-transporte". **Right for one of them, and it cracked the whole block.**

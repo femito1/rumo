@@ -27,6 +27,14 @@ no inbound firewall rule or VPN is needed.
   already-registered task keeps its old single-month command line.
 - `backfill.ps1` — one-shot historical catch-up: loops months from a start
   through the last closed month, calling `run-agent.ps1` for each.
+- `RUNBOOK_v4_reextract.md` — **do this now if it has not been done.** Contract v4
+  (2026-08-03) widens the three `historico` fields from 60/80 to **300 chars**, so the
+  full JSON payload lands ~10% bigger and, more importantly, the *arithmetic* finance
+  writes into that text survives (*"Vale transporte / Calculo: 14 dias x R$ 18,76"*).
+  Every 2026 month currently reports `stale: true` until re-extracted. The runbook
+  includes the verification steps — in particular the reclass-account check, because
+  `despesas_liquido.net_by_account` matches markers inside that string and a longer
+  histórico can move money between accounts.
 
 No Python is required on the server; the agent uses the Oracle 11g `sqlplus`
 already installed at `C:\oracle11\app\product\11.2.0\client_1\bin`.

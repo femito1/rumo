@@ -35,7 +35,20 @@ _DEFAULT_CLIENT = "mbc"
 #: ``vale_adm``. NOTE the lesson: a version bump asserts the CONTRACT changed, not
 #: that the logic is right — v2 certified a broken rule. Pair every bump with a test
 #: that ties a real month (see test_vale_adm_derives_adm_only_from_per_person_slices).
-CURRENT_EXTRACT_VERSION = 3
+#:
+#: v4 (2026-08-03) widens the três históricos from 60/80 to 300 chars
+#: (``despesas_desdobramento``, ``vale_prof``, ``convenio_extra_dl``). Finance writes
+#: the arithmetic INTO that text — *"Vale transporte / Calculo: 14 dias x R$ 18,76"* —
+#: and the old caps cut it off exactly where the calculation began, which is why the
+#: January "35,52" had to be chased through a hand-exported .xls instead of the
+#: snapshot. This is a WIDER FIELD, not a re-meaning; the bump exists so the summary
+#: endpoint's ``stale`` flag tells the operator WHICH months still hold truncated text.
+#: ⚠ It can still move money: ``despesas_liquido.net_by_account`` reclassifies on
+#: markers found in that string, so a longer histórico may match where the short one
+#: did not. Guarded by
+#: ``test_widening_the_historico_must_not_move_copa_to_informatica``, which pins every
+#: row that was actually at the cap on a reclass account.
+CURRENT_EXTRACT_VERSION = 4
 
 
 def snapshot_extract_version(snapshot: dict[str, Any]) -> int:

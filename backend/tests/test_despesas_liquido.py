@@ -155,3 +155,47 @@ def test_may_families_reconcile_to_workbook():
     ocup = net["020.010.0010"] + net["020.010.0020"] + net["020.010.0030"] \
         + net["020.010.0040"] + net["020.060.0040"]
     assert abs(ocup - 37189.87) <= 129.20
+
+
+#: The exact `020.030.0020` (Material de Copa) desdobramento históricos that sit AT the
+#: extract's old 80-char cap, with the value each carries. Captured 2026-08-03, before
+#: widening `SUBSTR(d.DESCHISTORICO,1,80)` to 300 in `ops/sisjuri-agent/extract.sql`.
+#:
+#: Widening is not cosmetic: `net_by_account` decides reclassifications by searching the
+#: histórico for markers ("claude", "software", "saas", "licen", "cloud"), so a longer
+#: string can match where the truncated one did not and move money from Copa to
+#: Informática. These rows are the whole exposure — they are the only ones on a reclass
+#: account that were being cut. Each is a Mercado Livre copa/limpeza purchase, so the
+#: correct post-widening behaviour is that NOTHING moves.
+_COPA_AT_THE_CAP: tuple[tuple[str, float], ...] = (
+    ("Mercado Livre - Compra de 100 unidade de bolacha, 400 unidades de açucar em sa", 202.06),
+    ("Mercado livre- Valor original da compra 383,39 - Compra de azeite e vinagre ba", 88.99),
+    ("Mercado Livre - Compra de saleiro e suporte de mangueira, aromatizador de ambi", 132.72),
+    ("Mercado Livre - Compra de papel toalha, água sanitária, detergente e desinfeta", 273.11),
+    ('"Mercado Livre - Compora de material de copa:\r\n\r\n4 un. - Café bravo\r\n2 Caixas ', 250.95),
+    ('"Mercado Livre - Compra de material de copa para a sede \r\nJarra de 2.27LTS; e ', 142.95),
+)
+
+
+def test_widening_the_historico_must_not_move_copa_to_informatica():
+    """Regression guard for the extract's `DESCHISTORICO` widening (80 -> 300 chars).
+
+    The re-extract makes these históricos LONGER. If a fuller text happened to contain a
+    software marker, the money would silently jump account. This pins the intended
+    outcome for every row that was actually being truncated on a reclass account: they
+    stay in Material de Copa, and Informática gains nothing.
+
+    If this test fails after a re-extract, do NOT relax it — read the new full histórico
+    and decide deliberately whether that line really is software.
+    """
+    desdobr = [
+        {"id_conta": "020.030.0020", "valor": valor, "historico": hist}
+        for hist, valor in _COPA_AT_THE_CAP
+    ]
+    net = net_by_account([], desdobr)
+    total = round(sum(v for _h, v in _COPA_AT_THE_CAP), 2)
+    assert net["020.030.0020"] == pytest.approx(total, abs=0.01)
+    assert "020.040.0010" not in net, (
+        "a truncated copa histórico gained a software marker when widened — verify the "
+        "full text before accepting the move"
+    )
