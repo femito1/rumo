@@ -7,13 +7,55 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-07-30
+**Last updated:** 2026-08-03
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
-## ⭐ 2026-07-30 (latest) — Vale-ADM per person; notes panel; Jan–Abr fully attributed
+## ⭐ 2026-08-03 (latest) — Custo equipe now closes to 0,00 per person in Jan–Abr
+
+**The Jan–Abr custo-equipe attribution had a hole and it is now closed.** The 2026-07-30
+entry below claims "every Jan–Abr difference has a named cause". That was true for
+*despesa* (proved structurally — the ten families ARE the components of `r198`) but only
+narrative for *custo equipe*: §1–§4 of `docs/DIFF_JAN_ABR_2026.md` showed four causes in
+isolation and nothing summed them against the per-área delta. Adding them by hand left a
+residual — Econômico Jan/Fev ≈ −3.000 was covered by none of the four.
+
+`backend/scripts/reconcile_custo_equipe.py` closes it: both sides decomposed to
+**(pessoa, conta)**, every difference bucketed into a named cause, **residual 0,00 in all
+12 cells** (3 áreas × 4 months) to the centavo. Per-person values come from the
+PRODUCTION functions called one lawyer at a time, never a re-implementation — a
+reconciliation that re-derives the number it checks proves nothing. Gates clean, 303
+tests, no app code touched.
+
+Two findings that were in no document:
+
+1. **ISS trimestral (`030.010.0160`) is a PRESENTATION difference.** Posted per lawyer in
+   jan/abr (382,16 or 507,14 each); the book types ONE área-level row (r25/r54/r79). Same
+   total, cancels at área level (net 0,04 over four months) — but it makes *every* lawyer
+   line differ, so a per-person read looks alarming until you net it.
+2. **The jan/fev convênio difference is the SISJURI memo itself, not our parse** — the
+   largest custo-equipe difference of the quarter (2.962,41/month on Econômico, +1.911,95
+   on Arbitragem in February). jan/fev memos state a different plan base and are
+   internally consistent at it (EHF `1.795,86-1.192,36 (Parte MBC)=603,50`) while the book
+   types March's constant `1.564,10` in all six months. **This is now question #0 for
+   finance** — it needs a ruling, not a code change.
+
+⚠ **A fourth trap for the list in §0 below: I misdiagnosed #2 as "our regex takes the last
+number in the memo".** It does not — it anchors on `(Parte MBC) =` and matches correctly in
+both months. Check whether the SOURCE DATA changed before blaming the parser.
+
+Also corrected while doing this: two of my own bucket labels asserted things I had not
+checked. "AASP — livro provisiona, DB não posta" was wrong (AASP *is* in the DB, as
+Despesas Área `020.060.*` — a section difference, not a missing value), and the
+`Base_Resultado` block totals are `r5=SUM(6:27)` / `r30=SUM(31:57)` / `r60=SUM(61:79)` —
+**read the formula, never presume the range**, or excluded rows manufacture a phantom
+residual.
+
+---
+
+## 2026-07-30 — Vale-ADM per person; notes panel; Jan–Abr fully attributed
 
 **State: everything from the 2026-07-28 meeting is shipped and live.** All seven 2026
 months are on extract v3, the daily agent refreshes the closed *and* the open month

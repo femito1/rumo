@@ -150,8 +150,55 @@ Confira sempre o total antes de tratar a família como defeito — os nossos
 planilha; só o rótulo da família é outro. E a própria planilha troca de critério
 de mês para mês nessa conta (`r141` em jan/fev, `r166` de março a junho).
 
-### 6. Perguntas que sobram para o financeiro
+### 6. Custo equipe: fechamento por pessoa e por conta (resíduo 0,00)
 
+Gerado por `backend/scripts/reconcile_custo_equipe.py`. As seções 1–4 acima mostram
+cada causa **isolada**; nenhuma delas soma as causas e confere contra o Δ da área.
+Este fechamento faz isso: decompõe os dois lados em (pessoa, conta) e classifica
+cada diferença numa causa nomeada. **O resíduo é 0,00 nas 12 células**
+(3 áreas × 4 meses), ao centavo.
+
+| Causa | Jan–Abr somado |
+|---|---|
+| Convênio: memo do mês (jan/fev) × constante do livro | -5.924,37 |
+| Vale advogados (regra do cliente: sempre incluir) | 4.398,40 |
+| ASG `030.010.0010` (Subsídio de Pós-graduação, ver abaixo) | 3.018,00 |
+| JGS: total da pessoa (livro tem linha sem conta) | 1.912,45 |
+| AASP: livro em Custo equipe, DB em Despesas Área | -412,80 |
+| Seguro de Vida, março (só no livro) | -92,45 |
+| Ajustes de centavos (BBX, BMP, VSR, ISS) | 37,21 |
+
+Duas descobertas que **não** estavam neste documento:
+
+* **ISS trimestral (`030.010.0160`) é diferença de APRESENTAÇÃO, não erro.** Em
+  jan/abr ele é postado por advogado (382,16 ou 507,14 cada) e nós o dobramos no
+  custo da área daquele advogado; o livro digita **uma** linha por área
+  ("ISS Trimestral", r25/r54/r79). O total é o mesmo, então cancela no nível da
+  área — mas faz **toda** linha de advogado divergir, o que faz uma leitura por
+  pessoa parecer alarmante até somar. Efeito líquido em Jan–Abr: **0,04**.
+* **A diferença de convênio de jan/fev é o próprio memo do SISJURI, não o nosso
+  parse.** Os memos de jan/fev declaram uma base de plano diferente de mar–jun e
+  são internamente consistentes nessa base: EHF `1.795,86-1.192,36 (Parte MBC)
+  =603,50`, contra `3.520,31 - 1.956,21 (Parte MBC) = 1.564,10` de março. Os dois
+  são lidos corretamente — nós reproduzimos fielmente o que o financeiro escreveu.
+  O **livro** digita a mesma constante `1.564,10` / `2.526,09` nos seis meses, ou
+  seja, em jan/fev ele não segue o próprio memo. Vale 2.962,41/mês no Econômico e
+  +1.911,95 na Arbitragem em fevereiro.
+
+⚠ **Erro nosso de leitura, registrado para não repetir:** a primeira versão desta
+análise chamou o convênio de "bug do nosso regex (pegamos o último número)". Está
+**ERRADO** — o regex ancora em `(Parte MBC) =` e casa certo nos dois meses. Confira
+se o DADO de origem mudou antes de culpar o parser.
+
+### 7. Perguntas que sobram para o financeiro
+
+0. **⭐ A mais importante, nova (2026-08-03):** o convênio médico de EHF e RB de
+   **janeiro e fevereiro**. O memo do SISJURI desses dois meses declara uma base de
+   plano menor (EHF parte MBC 603,50 / RB 524,28) e a planilha digita a constante
+   de mar–jun (1.564,10 / 2.526,09) nos seis meses. Qual das duas vale para jan/fev?
+   Se for a da planilha, o memo desses meses está desatualizado no sistema; se for a
+   do memo, a planilha está adiantada. É a maior diferença de custo equipe do
+   quadrimestre (2.962,41/mês no Econômico).
 1. Os lançamentos avulsos do item 3 são de outra competência, ou ajustes
    manuais? Se tiverem origem no sistema, passamos a considerá-los.
 2. Confirmar se as fórmulas de Despesas por área (linhas 204/205/206) de

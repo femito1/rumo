@@ -909,6 +909,36 @@ Componentes de `custo_equipe_deriv` por conta (maio): `030.010.0010` (pró-labor
 distribuição) 166.323,80 · `030.010.0110` (convênio médico, usar Parte MBC) 20.266,29
 · `030.010.0130` 17.831,00 · `030.010.0140` 5.000,00.
 
+#### ⭐ Fechamento por pessoa/conta de Custo equipe (2026-08-03) — resíduo 0,00 em Jan–Abr
+
+`backend/scripts/reconcile_custo_equipe.py` decompõe os dois lados em (pessoa, conta) e
+classifica cada diferença. Resíduo **0,00 nas 12 células** (3 áreas × 4 meses). Três
+fatos de DB que vieram daí e que valem para qualquer mês:
+
+* **`030.010.0160` (ISS trimestral) é diferença de APRESENTAÇÃO.** Postado **por
+  advogado** em jan/abr (382,16 ou 507,14 cada; ver a linha do índice acima sobre
+  `LANCSOLICITANTE`), enquanto o workbook digita **uma** linha por área
+  (`Base_Resultado` r25/r54/r79). Mesmo total ⇒ cancela na área, mas faz **toda** linha
+  de advogado divergir. Não é erro; efeito líquido Jan–Abr = 0,04.
+* **`030.010.0110` — o memo de jan/fev declara OUTRA base de plano.** EHF
+  `1.795,86-1.192,36 (Parte MBC)=603,50` em jan/fev contra `3.520,31 - 1.956,21
+  (Parte MBC) = 1.564,10` de mar–jun; RB 524,28 contra 2.526,09. **Os dois são
+  internamente consistentes e o nosso regex casa certo nos dois** — o `parsed_valor`
+  reproduz fielmente o que o financeiro escreveu. O workbook usa a constante de mar–jun
+  nos seis meses. ⚠ Não é bug de parse: eu primeiro diagnostiquei "pegamos o último
+  número do memo" e estava **ERRADO**. Confira se o dado de origem mudou antes de mexer
+  no regex. Pergunta #0 em `docs/DIFF_JAN_ABR_2026.md`.
+* **`030.010.0150` (AASP) NÃO existe em `custo_equipe_deriv` — o DB o classifica como
+  Despesas Área** (`020.060.*`, via `despesas_equipe_area`), enquanto o workbook o digita
+  DENTRO do bloco de Custo equipe (r9/r18/r36). Diferença de seção, não de valor:
+  -412,80 no Custo equipe de Jan–Abr, que reaparece em Despesas Equipe.
+
+Armadilha de leitura descoberta ao escrever esse script: os totais de bloco do
+`Base_Resultado` são `r5=SUM(6:27)`, `r30=SUM(31:57)`, `r60=SUM(61:79)` — **leia a
+fórmula, não presuma o range**. Chutar um range mais largo puxa r28/r29 (Participação +
+Repasse), r58/r59 e r80/r81, que o próprio livro exclui do seu total, e o resíduo aparece
+"do nada". Idem `r55 "Seguro de Vida"`: parece linha de área mas está dentro do SUM.
+
 ### Comissão — `comissao_deriv` voltou `null` em maio (2026-07-13) — INVESTIGAR
 
 O bloco `comissao_deriv` do extract retornou `null` para maio. A comissão implícita
