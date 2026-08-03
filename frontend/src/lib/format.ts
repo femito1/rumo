@@ -39,7 +39,15 @@ const NUM1 = new Intl.NumberFormat("pt-BR", {
 });
 
 /** Compact money for slide tables/cards — "444,5K" / "2.372,5K" / "-14,9K",
- *  mirroring the PPTX. Values are shown in thousands (K) with one decimal. */
+ *  mirroring the PPTX. Values are shown in thousands (K) with one decimal.
+ *
+ *  ⚠ Rounded values do NOT add up to a rounded total, and no amount of precision fixes
+ *  that: ~49% of realistic 6-month rows diverge visibly at one decimal AND at two (the
+ *  error is inherent to rounding a sum vs summing rounded parts). Adding decimals only
+ *  makes the tolerance tighter, so it is not a fix — measured, not assumed. The deck
+ *  therefore states the rounding instead of pretending it away; see the "valores em
+ *  milhares" note on the slides that carry these tables. Use `formatBRL` wherever an
+ *  exact figure matters. */
 export function formatBRLShort(value: number | null | undefined): string {
   if (value === null || value === undefined) return "—";
   return `${NUM1.format(value / 1000)}K`;

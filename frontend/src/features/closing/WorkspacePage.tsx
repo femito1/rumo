@@ -12,7 +12,6 @@ import { Loader } from "../../components/Loader";
 import { TabView } from "./TabView";
 import { BudgetEditor } from "./BudgetEditor";
 import { PresentationPanel } from "./PresentationPanel";
-import { NotesPanel } from "./NotesPanel";
 import { exportPresentationPdf } from "./exportPresentation";
 import { daysInMonth } from "../../lib/format";
 import { exportAllSheets, exportSingleSheet } from "../../lib/exportClosing";
@@ -119,15 +118,6 @@ export function WorkspacePage() {
               fechamento.
             </div>
           ) : null}
-
-          {/* Known, already-diagnosed differences vs the client's spreadsheet, in
-              PT-BR. Shown to BOTH roles: the client is the one who asks, and a
-              CLIENT only ever sees this page's presentation panel. */}
-          <NotesPanel
-            notas={data.notas ?? []}
-            mes={data.period.label}
-            cliente={data.client.name}
-          />
 
           {!isClient && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
 

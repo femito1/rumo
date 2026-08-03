@@ -94,6 +94,23 @@ def _sum_or_none(*vals: float | None) -> float | None:
     return round(sum(present), 2) if present else None
 
 
+def _sum_all_or_none(*vals: float | None) -> float | None:
+    """Sum only when EVERY part is present; ``None`` if any one is missing.
+
+    The distinction from :func:`_sum_or_none` is *withheld* vs *absent*, and it matters
+    on the authoritative reconciliation month (2026-05): the R$0,01 workbook-tie rule
+    deliberately blanks a diverging cell, so ``kpis["despesas"]`` is ``None`` while
+    ``custo_equipe`` is present. Summing what is left rendered a confident
+    R$ 211.401,96 on a card labelled "custo equipe + institucionais" — understating
+    total despesa by ~108k with nothing to signal it. A card whose definition names two
+    components must blank if either is unknown."""
+    return (
+        round(sum(v for v in vals if v is not None), 2)
+        if vals and all(v is not None for v in vals)
+        else None
+    )
+
+
 #: Lines where a HIGHER realizado is favourable (revenue/result). Everything else
 #: (costs, expenses, taxes) is favourable when LOWER. Drives the status dot color.
 _HIGHER_IS_BETTER = frozenset({
@@ -140,8 +157,16 @@ def build_presentation(
     ytd_sections: dict[str, Any] | None,
     meta: dict[str, Any] | None,
     faturamento_by_month: dict[int, float] | None = None,
+    is_partial: bool = False,
+    status_label: str | None = None,
 ) -> dict[str, Any]:
-    """Return the full presentation payload (see module docstring)."""
+    """Return the full presentation payload (see module docstring).
+
+    ``is_partial``/``status_label`` mirror the ``period`` block and exist so the DECK
+    can label an open month itself. The workspace chrome around the deck already
+    labelled it, but the print CSS hides everything outside ``#presentation-root``, so
+    that banner never reached the exported PDF — and the PDF is what gets sent to the
+    partners. A partial must never be presented as a closing (CLAUDE.md)."""
     present_months = sorted(m for m in month_sections if m <= period_month)
     comp = month_sections.get(period_month, {})
 
@@ -284,6 +309,14 @@ def build_presentation(
         "periodo_mes": _MESES[period_month - 1] if 1 <= period_month <= 12 else period_label,
         "ano": period_year,
         "meses_presentes": [_MESES_ABBR[m - 1] for m in present_months],
+        # Open-month PARTIAL, carried INSIDE the deck so the exported PDF keeps it.
+        "is_partial": bool(is_partial),
+        "status_label": status_label
+        or (
+            f"{period_label} — mês em aberto (parcial, atualizado diariamente)"
+            if is_partial
+            else f"Fechamento de {period_label}"
+        ),
         # Slide 3 headline (competence month)
         "headline": {
             "faturamento": _num(kpis.get("faturamento_realizado")),
@@ -294,7 +327,9 @@ def build_presentation(
             # despesa = custo equipe (custos diretos) + despesas institucionais, which
             # is what "despesa" means to the client on this slide. The per-área monthly
             # slides deliberately keep no despesa line (28:14).
-            "despesas": _sum_or_none(
+            # ``_sum_all_or_none``, NOT ``_sum_or_none``: on the hard-rule month a
+            # withheld component must blank the card rather than silently shrink it.
+            "despesas": _sum_all_or_none(
                 _num(kpis.get("custo_equipe")), _num(kpis.get("despesas"))
             ),
             "despesas_institucionais": _num(kpis.get("despesas")),

@@ -249,26 +249,19 @@ def test_presentation_deck_has_all_slide_sections(tmp_path, monkeypatch):
     assert pres["reserva"]["linhas"]  # institucional + 3 áreas
 
 
-def test_closing_carries_pt_br_notes_for_the_month(tmp_path, monkeypatch):
-    # The month's explained discrepancies ship with the payload so the UI can show
-    # them without a second request. Feb has the Jan–May área formula note.
-    body = _closing(tmp_path, monkeypatch)
-    notas = body["notas"]
-    assert notas, "February should carry at least the área-formula note"
-    ids = {n["id"] for n in notas}
-    assert "despesas-area-formula-deslocada" in ids
-    # Every note is client-ready: PT-BR text plus who to contact.
-    for n in notas:
-        assert n["titulo"] and n["detalhe"] and n["contato"]
-        assert "origem" not in n, "internal provenance must not reach the client"
+#: Row keys that are METADATA, not displayed columns. ``TabView.rowKeys`` samples
+#: ``Object.keys(rows[0]).slice(0, columns.length)``, so any of these appearing before
+#: the display keys silently shifts every column — the D5 defect from the 2026-07-28
+#: cumulative review. Extend this tuple when a new metadata key is added to a row.
+_ROW_METADATA_KEYS = ("key", "kind", "is_total", "notas", "empty_dash", "block")
 
 
-def test_row_level_notes_do_not_shift_the_positional_columns(tmp_path, monkeypatch):
-    """Rows tagged with ``notas`` must keep the display keys FIRST.
+def test_row_metadata_never_shifts_the_positional_columns(tmp_path, monkeypatch):
+    """Metadata keys must come AFTER the display keys on every row of every tab.
 
-    ``TabView.rowKeys`` samples ``Object.keys(rows[0]).slice(0, columns.length)``, so
-    a key inserted before the display keys silently shifts every column — the D5
-    defect from the 2026-07-28 cumulative review. Guard it.
+    Kept (and generalised) after the in-app notes feature was removed: the trap is the
+    positional binding in ``TabView.rowKeys``, not the notes feature, and this guard is
+    the only thing that documents it.
     """
     body = _closing(tmp_path, monkeypatch)
     for tab_id, tab in body["tabs"].items():
@@ -277,13 +270,12 @@ def test_row_level_notes_do_not_shift_the_positional_columns(tmp_path, monkeypat
         if not rows or not cols:
             continue
         for row in rows:
-            if "notas" not in row:
-                continue
             leading = list(row.keys())[: len(cols)]
-            assert "notas" not in leading, (
-                f"{tab_id}: 'notas' landed inside the positional column window "
-                f"{leading} — it must come after the display keys"
-            )
+            for meta in _ROW_METADATA_KEYS:
+                assert meta not in leading, (
+                    f"{tab_id}: metadata key {meta!r} landed inside the positional "
+                    f"column window {leading} — it must come after the display keys"
+                )
 
 
 def test_partial_month_is_included_in_its_own_ytd(tmp_path, monkeypatch):
@@ -327,6 +319,71 @@ def test_presentation_headline_carries_despesas_for_the_fourth_card(tmp_path, mo
     # Per-área MONTHLY cards must stay receita/resultado only — no despesa.
     for area in body["presentation"]["areas"]:
         assert "despesas" not in area["mes"], f"{area['label']} mês slide gained a despesa"
+
+
+def test_presentation_carries_the_partial_flag_so_the_deck_can_label_it(tmp_path, monkeypatch):
+    """A partial month must never be PRESENTED as a closing — including in the PDF.
+
+    The workspace chrome labelled the partial (eyebrow, banner, picker), but the deck
+    itself carried no partial flag at all, and the print CSS hides everything outside
+    ``#presentation-root`` — so the banner was stripped from the exported PDF and an
+    open month exported as a finished closing. That is a direct violation of the
+    CLAUDE.md rule, so the flag has to reach the deck payload.
+    """
+    from datetime import date
+
+    from app.closing.presentation import build_presentation
+
+    today = date.today()
+    closed = build_presentation(
+        client_name="MBC", period_label="Fevereiro 2026", period_month=2,
+        period_year=2026, kpis={}, month_sections={}, ytd_sections=None, meta=None,
+    )
+    assert closed["is_partial"] is False
+    assert closed["status_label"]
+
+    # And through the real provider for the OPEN month.
+    provider = _acumulado_provider(
+        tmp_path, monkeypatch, months=(today.month - 1, today.month)
+    )
+    p = Period(year=today.year, month=today.month)
+    body = provider.build_closing(
+        client=Client(id="mbc", name="MBC", provider="legaldesk+sisjuri", provider_config={}),
+        period=p, day_range=DayRange.full_month(p), role="CLIENT",
+    )
+    assert body["period"]["is_partial"] is True
+    assert body["presentation"]["is_partial"] is True, "deck cannot label the partial"
+    assert "parcial" in body["presentation"]["status_label"].lower()
+
+
+def test_presentation_despesas_card_blanks_when_a_component_is_WITHHELD(tmp_path, monkeypatch):
+    """The Despesas card must not silently shrink when the hard rule blanks a part.
+
+    2026-05 is the authoritative reconciliation month, so the R$0,01 workbook-tie rule
+    withholds any diverging cell. Live May: ``custo_equipe=211.401,96`` but
+    ``despesas=None``. ``_sum_or_none`` sums what is present, so the card rendered a
+    confident 211.401,96 under the label "custo equipe + institucionais" — understating
+    total despesa by ~108k with no blank and no asterisk.
+
+    WITHHELD is not ZERO: if any component is missing the card must blank.
+    """
+    from app.closing.presentation import build_presentation
+
+    deck = build_presentation(
+        client_name="MBC", period_label="Maio 2026", period_month=5, period_year=2026,
+        kpis={"custo_equipe": 211401.96, "despesas": None},
+        month_sections={}, ytd_sections=None, meta=None,
+    )
+    assert deck["headline"]["despesas"] is None, (
+        "a withheld institutional despesa must blank the card, not shrink it"
+    )
+    # Both present ⇒ the card still sums, unchanged.
+    ok = build_presentation(
+        client_name="MBC", period_label="Junho 2026", period_month=6, period_year=2026,
+        kpis={"custo_equipe": 210781.04, "despesas": 105932.16},
+        month_sections={}, ytd_sections=None, meta=None,
+    )
+    assert ok["headline"]["despesas"] == pytest.approx(316713.20, abs=0.01)
 
 
 def test_presentation_faturamento_fills_every_month_not_just_competence(tmp_path, monkeypatch):

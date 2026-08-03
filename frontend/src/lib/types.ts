@@ -72,6 +72,11 @@ export interface Presentation {
   periodo_mes: string;
   ano: number;
   meses_presentes: string[];
+  /** Open (in-progress) month. Carried on the DECK, not just on `period`, because
+   *  the print CSS hides everything outside `#presentation-root` — so the workspace
+   *  banner never reached the exported PDF. A partial must never present as a closing. */
+  is_partial?: boolean;
+  status_label?: string;
   headline: {
     faturamento: number | null;
     recebimento: number | null;
@@ -112,16 +117,6 @@ export interface Presentation {
  * runtime detection — nothing inspects a value; these are explanations we chose to
  * publish so the client reads the answer where the question comes up.
  */
-export interface ClosingNote {
-  id: string;
-  titulo: string;
-  detalhe: string;
-  severidade: "info" | "atencao";
-  /** What the client could do about it, when there is anything. */
-  acao: string | null;
-  contato: string;
-}
-
 export interface ClosingPayload {
   client: { id: string; name: string };
   period: {
@@ -141,6 +136,5 @@ export interface ClosingPayload {
   tab_order: string[];
   tabs: Record<string, unknown>;
   /** PT-BR explanations of the month's known discrepancies (may be empty). */
-  notas?: ClosingNote[];
   generated_at: string;
 }

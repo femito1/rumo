@@ -3,7 +3,6 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 from app.closing.available import is_closeable, is_partial
-from app.closing.notes import notes_for_row, notes_payload
 from app.closing.period import Period
 from app.sources.assembler_source import AssemblerSource
 from app.sources.base import SectionKey, DayRange, Source, SectionData
@@ -92,6 +91,11 @@ def _build_presentation(
     months[period.month] = comp_str  # merged competence sections win
 
     md = sections.get(SectionKey.META_DASHBOARD) or {}
+    # Read the partial flags from the SAME helper that builds the ``period`` block, so
+    # the deck and the surrounding chrome can never disagree about whether the month is
+    # a closing. The deck needs its own copy because the print CSS hides everything
+    # outside ``#presentation-root`` — see build_presentation's docstring.
+    pp = _period_payload(period)
     return build_presentation(
         client_name=client.name,
         period_label=period.label,
@@ -102,6 +106,8 @@ def _build_presentation(
         ytd_sections=ytd_sections,
         meta=md,
         faturamento_by_month=faturamento_by_month,
+        is_partial=bool(pp["is_partial"]),
+        status_label=str(pp["status_label"]),
     )
 
 
@@ -208,7 +214,6 @@ class ClosingProvider:
         meta_kpis = dict(sections.get(SectionKey.META, {}).get("kpis", {}))
         meta_kpis.update(_headline_kpis_from_dre(sections.get(SectionKey.INSTITUCIONAL)))
         tabs: dict[str, SectionData] = {k.value: v for k, v in sections.items()}
-        _annotate_rows_with_notes(tabs, period.ano_mes)
 
         # Accumulate Jan→competence ONCE. Returns both the YTD (acumulado) sections
         # and the per-month sections; the presentation deck needs both, and it is
@@ -250,42 +255,8 @@ class ClosingProvider:
             "presentation": presentation,
             "tab_order": order,
             "tabs": {t: tabs[t] for t in order} if role == "CLIENT" else tabs,
-            # PT-BR explanations of the known, already-diagnosed differences vs the
-            # client's spreadsheet, so they read the answer where the question comes
-            # up instead of re-raising it each meeting. Human-written registry, not
-            # runtime detection — see app/closing/notes.py.
-            "notas": notes_payload(period.ano_mes),
             "generated_at": datetime.now(timezone.utc).isoformat(),
         }
-
-def _annotate_rows_with_notes(tabs: dict[str, SectionData], ano_mes: str) -> None:
-    """Tag rows that have a PT-BR explanation, so the UI can badge the exact cell.
-
-    Mutates ``tabs`` in place, adding ``notas: [<id>, …]`` to matching rows. Only
-    the note IDs go on the row — the full text ships once in the payload's ``notas``
-    list, so a note attached to many rows isn't repeated in the JSON.
-
-    Row order and every existing key are untouched: the frontend binds tab columns
-    POSITIONALLY off ``Object.keys(rows[0])``, so adding a key to an arbitrary row
-    could shift a column. ``notas`` is appended after the display keys (Python dicts
-    keep insertion order) and the frontend slices only the first ``columns.length``
-    keys, so it lands outside that window.
-    """
-    for section_key, section in tabs.items():
-        if not isinstance(section, dict):
-            continue
-        rows = section.get("rows")
-        if not isinstance(rows, list):
-            continue
-        for row in rows:
-            if not isinstance(row, dict):
-                continue
-            line = row.get("key")
-            if not isinstance(line, str):
-                continue
-            hits = notes_for_row(ano_mes, section=section_key, line=line)
-            if hits:
-                row["notas"] = [n.id for n in hits]
 
 
 def _period_payload(period: Period) -> dict[str, Any]:

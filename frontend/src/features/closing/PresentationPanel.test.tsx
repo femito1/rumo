@@ -55,3 +55,66 @@ describe("PresentationPanel — institucional slide", () => {
     expect(screen.queryByText(/NaN/)).not.toBeInTheDocument();
   });
 });
+
+describe("PresentationPanel — tables disclose why they may not add up", () => {
+  it("states the K rounding on the monthly detail table", () => {
+    // Rounded parts never sum to a rounded total at ANY precision (~49% of 6-month rows
+    // diverge visibly at 1 and at 2 decimals — measured). So the deck discloses it
+    // instead of pretending exactness. Also covers the margem rows, which are computed
+    // on the accumulated base and are legitimately non-additive.
+    render(<PresentationPanel data={data} />);
+    const notes = screen.getAllByText(/valores em milhares/i);
+    expect(notes.length).toBeGreaterThan(0);
+    expect(screen.getByText(/margens são calculadas sobre o acumulado/i)).toBeInTheDocument();
+  });
+
+  it("explains that the three áreas do not sum to the institucional total", () => {
+    // Adriana chased a ~7k gap in exactly this table (2026-07-29). Correct by design:
+    // per-área receita follows each professional's home grupo and excludes
+    // "Não Alocados"/"Administração". Say so on the slide.
+    const comReserva: Presentation = {
+      ...data,
+      reserva: {
+        meses: ["Jun"],
+        linhas: [{ key: "institucional", label: "Institucional", months: { 6: -9956.44 }, ytd: -9956.44 }],
+      },
+    };
+    render(<PresentationPanel data={comReserva} />);
+    expect(
+      screen.getByText(/não é a soma das três áreas/i),
+    ).toBeInTheDocument();
+  });
+});
+
+describe("PresentationPanel — open month must never present as a closing", () => {
+  it("labels a partial month INSIDE the export root, not just in the page chrome", () => {
+    // The workspace banner sits OUTSIDE #presentation-root and the print CSS hides
+    // everything outside that root, so an open month used to export as a finished
+    // closing. The label has to live in the deck itself (CLAUDE.md: "A partial month
+    // must never render as a closing").
+    const aberto: Presentation = {
+      ...data,
+      periodo: "Agosto 2026",
+      periodo_mes: "Agosto",
+      is_partial: true,
+      status_label: "Agosto 2026 — mês em aberto (parcial, atualizado diariamente)",
+    };
+    const { container } = render(<PresentationPanel data={aberto} />);
+    const root = container.querySelector("#presentation-root");
+    expect(root).not.toBeNull();
+    expect(root!.textContent).toMatch(/parcial/i);
+    expect(root!.textContent).toMatch(/mês em aberto/i);
+    // And it must NOT claim to be a monthly closing.
+    expect(root!.textContent).not.toMatch(/Resultado Mensal de Agosto/);
+  });
+
+  it("leaves a CLOSED month exactly as it was", () => {
+    const { container } = render(
+      <PresentationPanel data={{ ...data, is_partial: false }} />,
+    );
+    const root = container.querySelector("#presentation-root")!;
+    expect(root.textContent).toMatch(/Resultado Mensal de Junho/);
+    expect(root.textContent).not.toMatch(/parcial/i);
+    expect(root.textContent).not.toMatch(/mês em aberto/i);
+  });
+});

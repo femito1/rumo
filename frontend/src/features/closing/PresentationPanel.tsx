@@ -20,7 +20,7 @@ export function PresentationPanel({ data }: { data: Presentation }) {
   return (
     <div className="deck" id="presentation-root">
       <SlideCapa data={data} />
-      <SlideIndice />
+      <SlideIndice partial={data.is_partial} />
       <SlideInstitucionalMes data={data} />
       <SlideMeta data={data} />
       <SlideAnalise data={data} />
@@ -34,7 +34,9 @@ export function PresentationPanel({ data }: { data: Presentation }) {
 
 /* ── shared bits ─────────────────────────────────────────────────────────── */
 
-function Slide({ title, sub, children }: { title?: string; sub?: string; children: React.ReactNode }) {
+function Slide({ title, sub, partial, children }: {
+  title?: string; sub?: string; partial?: boolean; children: React.ReactNode;
+}) {
   return (
     <section className="slide" data-pdf-page>
       {title ? (
@@ -48,8 +50,13 @@ function Slide({ title, sub, children }: { title?: string; sub?: string; childre
         </header>
       ) : null}
       {children}
+      {/* Every slide is one printed PAGE, so the partial marker belongs on each of
+          them: a single page pulled out of the PDF must still not read as a closing. */}
       <footer className="slide-foot">
         <span>Marchini Botelho Caselta · Relatório de Resultados</span>
+        {partial ? (
+          <span className="foot-parcial">Mês em aberto · parcial — não é um fechamento</span>
+        ) : null}
       </footer>
     </section>
   );
@@ -93,10 +100,20 @@ function SlideCapa({ data }: { data: Presentation }) {
         <h1>Relatório de Resultados</h1>
         <p className="capa-period">Janeiro – {data.periodo_mes} {data.ano}</p>
       </div>
-      <div className="capa-band">
-        Resultado Mensal de {data.periodo_mes}&nbsp;&nbsp;|&nbsp;&nbsp;YTD Jan–{data.periodo_mes}
-        &nbsp;&nbsp;|&nbsp;&nbsp;Orçado vs. Realizado
-      </div>
+      {/* An OPEN month is a month-to-date PARTIAL. It must say so on the cover, in the
+          deck itself: the workspace banner is outside #presentation-root and the print
+          CSS hides everything outside that root, so it never reached the PDF. */}
+      {data.is_partial ? (
+        <div className="capa-band capa-band-parcial">
+          Mês em aberto · parcial&nbsp;&nbsp;|&nbsp;&nbsp;acumulado até hoje
+          &nbsp;&nbsp;|&nbsp;&nbsp;não é um fechamento
+        </div>
+      ) : (
+        <div className="capa-band">
+          Resultado Mensal de {data.periodo_mes}&nbsp;&nbsp;|&nbsp;&nbsp;YTD Jan–{data.periodo_mes}
+          &nbsp;&nbsp;|&nbsp;&nbsp;Orçado vs. Realizado
+        </div>
+      )}
       <p className="capa-by">Elaborado por Rumo Gestão de Negócios</p>
     </section>
   );
@@ -114,9 +131,9 @@ const INDICE: { n: string; t: string; d: string }[] = [
   { n: "07", t: "Reserva de Bônus | Resumo", d: "Consolidado YTD e visão por área" },
 ];
 
-function SlideIndice() {
+function SlideIndice({ partial }: { partial?: boolean }) {
   return (
-    <Slide title="Índice da Apresentação">
+    <Slide title="Índice da Apresentação" partial={partial}>
       <div className="indice-grid">
         {INDICE.map((it) => (
           <div key={it.n} className="indice-item">
@@ -139,7 +156,7 @@ function SlideInstitucionalMes({ data }: { data: Presentation }) {
   const det = data.institucional_detalhe;
   const isPct = (key: string) => key.startsWith("margem");
   return (
-    <Slide title={`Resultado Institucional – ${data.periodo_mes} ${data.ano}`}>
+    <Slide title={`Resultado Institucional – ${data.periodo_mes} ${data.ano}`} partial={data.is_partial}>
       {/* Faturamento → Receita → Despesas → Resultado. The Despesas card was added
           at the client's request (2026-07-28): the result is the difference between
           receita and despesa, and without it the result reads "perdido". Five cards
@@ -152,6 +169,11 @@ function SlideInstitucionalMes({ data }: { data: Presentation }) {
         <StatCard label="Resultado Líquido" value={money(h.resultado_liquido)} sign={h.resultado_liquido} foot={h.margem_liquida != null ? `Mg. Líq. ${formatPercent(h.margem_liquida)}` : undefined} />
       </div>
       <h3 className="slide-caption">Detalhe Mensal – Resultado Institucional</h3>
+      <p className="slide-note">
+        Valores em milhares de reais (K), arredondados — a soma dos meses pode diferir do
+        YTD na primeira casa decimal. As margens são calculadas sobre o acumulado, por
+        isso não somam.
+      </p>
       <table className="deck-table">
         <thead>
           <tr>
@@ -188,7 +210,7 @@ function SlideInstitucionalMes({ data }: { data: Presentation }) {
 function SlideMeta({ data }: { data: Presentation }) {
   const m = data.meta;
   return (
-    <Slide title={`Resultado Institucional – YTD Jan–${data.periodo_mes} vs. Meta`}>
+    <Slide title={`Resultado Institucional – YTD Jan–${data.periodo_mes} vs. Meta`} partial={data.is_partial}>
       <div className="stat-row">
         <StatCard label="Receita YTD" value={money(m.receita_ytd)} sign={m.receita_ytd} foot={m.anual != null ? `Meta: ${formatBRL(m.anual)}` : undefined} />
         <StatCard label="Resultado Bruto YTD" value={money(m.resultado_bruto_ytd)} sign={m.resultado_bruto_ytd} />
@@ -267,7 +289,7 @@ function ComparisonTable({ lines }: { lines: PresLine[] }) {
 
 function SlideAnalise({ data }: { data: Presentation }) {
   return (
-    <Slide title={`Análise YTD Jan–${data.periodo_mes} ${data.ano} — Orçado vs. Realizado`}>
+    <Slide title={`Análise YTD Jan–${data.periodo_mes} ${data.ano} — Orçado vs. Realizado`} partial={data.is_partial}>
       <ComparisonTable lines={data.analise_ytd} />
       <Legend />
     </Slide>
@@ -289,7 +311,7 @@ function Legend() {
 function SlideArea({ data, idx }: { data: Presentation; idx: number }) {
   const a = data.areas[idx];
   return (
-    <Slide title={`${a.label} – ${data.periodo_mes} ${data.ano} e YTD`}>
+    <Slide title={`${a.label} – ${data.periodo_mes} ${data.ano} e YTD`} partial={data.is_partial}>
       <div className="area-split">
         <div>
           <h3 className="slide-caption">{data.periodo_mes} {data.ano}</h3>
@@ -304,6 +326,15 @@ function SlideArea({ data, idx }: { data: Presentation; idx: number }) {
         <div>
           <h3 className="slide-caption">DRE YTD Jan–{data.periodo_mes}</h3>
           <ComparisonTable lines={a.dre} />
+          {/* The three áreas deliberately do NOT sum to the institucional totals: per-área
+              receita follows each professional's home grupo, and "Não Alocados" +
+              "Administração" are excluded (dre.py). Adriana chased a ~7k gap in exactly
+              this table (2026-07-29), so say it here rather than field it again. */}
+          <p className="slide-note">
+            Valores em milhares (K), arredondados. A soma das três áreas não reproduz o
+            total institucional: a receita por área segue o grupo de origem de cada
+            profissional e não inclui "Não Alocados" nem "Administração".
+          </p>
         </div>
       </div>
     </Slide>
@@ -315,7 +346,7 @@ function SlideArea({ data, idx }: { data: Presentation; idx: number }) {
 function SlideReserva({ data }: { data: Presentation }) {
   const r = data.reserva;
   return (
-    <Slide title={`Reserva de Bônus – Consolidado YTD Jan–${data.periodo_mes} ${data.ano}`}
+    <Slide partial={data.is_partial} title={`Reserva de Bônus – Consolidado YTD Jan–${data.periodo_mes} ${data.ano}`}
            sub="Constituída mensalmente sobre o resultado líquido de cada área. Positivo = acúmulo; Negativo = consumo.">
       <table className="deck-table">
         <thead>
@@ -338,6 +369,12 @@ function SlideReserva({ data }: { data: Presentation }) {
           ))}
         </tbody>
       </table>
+      {/* The Institucional row sits directly above the three áreas, which invites adding
+          them up — and they don't match, for the same home-grupo reason as the DRE. */}
+      <p className="slide-note">
+        Valores em milhares (K), arredondados. A linha Institucional não é a soma das três
+        áreas: a base de cada área segue o grupo de origem de cada profissional.
+      </p>
     </Slide>
   );
 }
