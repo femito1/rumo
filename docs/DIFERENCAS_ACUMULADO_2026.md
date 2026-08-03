@@ -459,13 +459,29 @@ histórico.
   existem em janeiro** — naquele mês há exatamente quatro lançamentos de vale
   (VR e VT de duas pessoas), e nenhum é 35,52.
 
-Uma pista, se ajudar a lembrar: em janeiro o VR foi pago por **18 dias** e o VT da
-pessoa do ADM cobriu só **14** — quatro dias de diferença. E `35,52 = 4 × 8,88`.
-Pode ser um acerto de quatro dias, mas R$ 8,88 não é uma diária que apareça em
-lugar nenhum, então é só hipótese.
+**E sabemos que não é um pedaço faltando do nosso número.** Como todo vale é um
+número inteiro de dias, dá para conferir mês a mês:
+
+| Mês | VR (dias) | VT (dias, ADM) | Diferença |
+|---|---:|---:|---:|
+| Janeiro | 18 | 14 | +4 |
+| Fevereiro | 22 | 18 | +4 |
+| Março | 20 | 17 | +3 |
+| Abril | 20 | 16 | +4 |
+| Maio | 17 | 14 | +3 |
+| Junho | 22 | 17 | +5 |
+
+A diferença entre dias de VR e de VT fica entre **+3 e +5 em todos os meses** — o
+VR é pago por dia trabalhado e o VT só pelos dias em que a pessoa veio. Janeiro,
+com 14 dias de VT, está no mesmo padrão. A hipótese mais tentadora era que os
+35,52 fossem dois dias de VT que faltavam (2 × 18,76 = 37,52, e aí janeiro fecharia
+em 16 dias) — mas com 16 dias a diferença cairia para **+2**, que não acontece em
+mês nenhum. Ou seja: **o nosso 262,64 é o vale-transporte completo dela em**
+**janeiro**, e os 35,52 são algo somado em cima de um valor que já estava certo.
 
 **O que ajudaria:** de onde vêm esses R$ 35,52? Se for de outra competência ou um
-acerto pontual, passamos a tratá-lo da mesma forma.
+acerto pontual, passamos a tratá-lo da mesma forma. Vale notar que é a **única**
+coisa em todo o bloco de vale que continua sem explicação.
 
 ### E o que NÃO precisa mais de vocês
 

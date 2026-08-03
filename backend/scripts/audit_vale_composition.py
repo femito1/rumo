@@ -47,17 +47,52 @@ and my broad pass only tested values and pairwise *differences*, never sums. It 
 already written down in ``docs/SISJURI_DB.md``. **Search for compositions, not just values,
 and grep the durable docs before declaring something unknown.**
 
-WHAT IS STILL OPEN: 35,52 ONLY
-------------------------------
-``35,52`` survives every route: it is in no lançamento in any of the 8 months, it is not a
-whole number of days at any known rate (46,10 / 10,80 / 18,76 / 33,60), not a sum of two or
-three stored values under R$600 in January or February, and the ``020.080.*`` estagiário
-accounts that explain March **do not exist in January** at all. January has exactly four
-vale lines (JVO/MLA × VR/VT) and none is 35,52.
+THE DAY-COUNT FRAMEWORK (the reusable result)
+---------------------------------------------
+Because every vale is a whole number of days, each month can be read as a pair of DAY
+COUNTS, and that turns out to be a strong consistency check:
 
-The one hint: January is the month where VR was paid for 18 days while MLA's VT covered
-only 14 — a four-day gap — and ``35,52 = 4 × 8,88`` exactly. Suggestive, not proof: 8,88 is
-not a rate that appears anywhere.
+    mês   VR dias   VT dias (MLA)   gap
+    Jan     18          14          +4
+    Fev     22          18          +4
+    Mar     20          17          +3
+    Abr     20          16          +4
+    Mai     17          14          +3
+    Jun     22          17          +5
+
+The gap is **+3 to +5 in every single month** — VR is paid for every worked day, VT only
+for days actually commuted. January's +4 with VT at 14 days is dead centre of that pattern.
+
+WHAT IS STILL OPEN: 35,52 ONLY — AND WE NOW KNOW WHAT IT IS *NOT*
+-----------------------------------------------------------------
+The most attractive hypothesis was a **typo**: 2 extra days of MLA's VT is
+``2 × 18,76 = 37,52``, and ``262,64 + 37,52 = 300,16`` is exactly 16 days — a clean number,
+one digit away from the 35,52 in the cell.
+
+**The day-count table REFUTES it.** At 16 VT days January's gap would be **+2**, which
+occurs in no other month; at 14 days it is +4, matching every other month. So MLA really
+did have 14 commuting days in January, our ``262,64`` is her complete and correct VT, and
+the 35,52 is something added ON TOP of a already-correct figure — not a missing piece of it.
+
+That is the useful conclusion: **we are not missing a vale**. Everything else was checked
+and excluded —
+
+* not a whole number of days at any rate (46,10 / 10,80 / 18,76 / 33,60), nor a sum of two;
+* absent from all 2026 snapshots **and all twelve 2025 months** (the year exists in the
+  store — I had not looked before);
+* absent from the raw May "Extrato de Contas" (.xls via xlrd, full untruncated histórico),
+  the June extrato PDF, the Jan–Mai PPTX and the AR demonstrativo;
+* not in any Excel cell comment or threaded comment — the workbook has 14 of them and they
+  do annotate neighbouring rows ("IBRAC", "aasp", "E-CPF", "Aluguel - valor pago Belline"),
+  but **none on r122/r123**;
+* the same ``=35.52+262.64`` formula appears in the Feb workbook (as C118) and the May one,
+  so it is a stable entry, not a slip in one copy;
+* the ``020.080.*`` estagiário accounts that explain March do not exist in January at all.
+
+⚠ Note for whoever re-probes this: ``despesas_desdobramento.historico`` is truncated to
+**80 chars** by the extract (``SUBSTR(d.DESCHISTORICO,1,80)``) — which cuts off exactly
+where the "Calculo: N dias x R$ X" text lives. The full text is only in the raw extrato
+export. Widening that SUBSTR would make this class of question answerable from the snapshot.
 
 Run: cd backend && python -m scripts.audit_vale_composition
 """
@@ -153,7 +188,33 @@ def main() -> None:
             print(f"  {MESES[m]:11}{sg:7}{k:5}{_brl(v):>10}{dias:>8}")
 
     print("\n" + "=" * 78)
-    print("3. OS DOIS TERMOS DIGITADOS: 35,52 E 543,22")
+    print("3. DIAS DE VR × DIAS DE VT — o teste de consistência")
+    print("=" * 78)
+    print("  O VR é pago por dia trabalhado e o VT só pelos dias em que a pessoa veio;")
+    print("  então a diferença de dias entre os dois deve ser pequena e estável.\n")
+    print(f"  {'mês':11}{'VR dias':>9}{'VT dias (ADM)':>15}{'diferença':>11}")
+    for m in months:
+        vr = vt = 0.0
+        for r in snaps[m].get("vale_prof") or []:
+            if str(r.get("sigla")) != "MLA":
+                continue
+            if _kind(r.get("historico", "")) == "VR":
+                vr = float(r.get("valor") or 0.0)
+            else:
+                vt = float(r.get("valor") or 0.0)
+        dvr = vr / VR_RATE if vr else 0.0
+        dvt = vt / RATES["MLA"] if vt else 0.0
+        print(f"  {MESES[m]:11}{dvr:>9.0f}{dvt:>15.0f}{dvr - dvt:>+11.0f}")
+    print(
+        "\n  A diferença fica entre +3 e +5 em TODOS os meses. É por isso que sabemos que\n"
+        "  os 14 dias de VT de janeiro estão certos: com 16 dias a diferença cairia para\n"
+        "  +2, que não acontece em mês nenhum. Ou seja, o nosso 262,64 é o VT completo\n"
+        "  dela em janeiro — os 35,52 são algo somado EM CIMA de um valor já correto,\n"
+        "  não um pedaço que falta."
+    )
+
+    print("\n" + "=" * 78)
+    print("4. OS DOIS TERMOS DIGITADOS: 35,52 E 543,22")
     print("=" * 78)
     rates_all = [VR_RATE, *RATES.values()]
     for t in ABERTOS:

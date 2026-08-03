@@ -934,10 +934,32 @@ está *armazenado*, é a **soma** de duas linhas armazenadas, e minha varredura 
 valores e *diferenças*, nunca somas. Também já estava escrito neste próprio arquivo.
 **Procure composições, não só valores, e grepe os docs antes de declarar algo desconhecido.**
 
-**`35,52` (janeiro) é o único que sobra** e não é derivável: não é dia inteiro em nenhuma
-diária, não existe em nenhum dos 8 meses nem nos extratos, e as contas `020.080.*` que
-explicam março **não existem em janeiro**. Pista fraca: jan pagou VR de 18 dias contra VT de
-14 (4 dias de diferença) e `35,52 = 4 × 8,88` — mas 8,88 não é diária de ninguém.
+**O teste de dias VR × VT é a ferramenta reutilizável aqui.** Como todo vale é dia inteiro,
+cada mês vira um par de contagens, e a diferença é **+3 a +5 em TODOS os meses** (jan +4 ·
+fev +4 · mar +3 · abr +4 · mai +3 · jun +5) — VR por dia trabalhado, VT só pelos dias em que
+a pessoa veio. Use isso para validar qualquer número de vale antes de investigar.
+
+**`35,52` (janeiro) é o único que sobra, e agora sabemos o que ele NÃO é.** A hipótese mais
+atraente era um **erro de digitação**: 2 dias de VT da MLA = `2 × 18,76 = 37,52`, e
+`262,64 + 37,52 = 300,16` = exatos 16 dias — um número redondo, a um dígito do 35,52 da
+célula. **O teste de dias REFUTA:** com 16 dias a diferença VR−VT de janeiro cairia para
+**+2**, que não ocorre em mês nenhum; com 14 dias fica +4, igual a todos os outros. Logo o
+nosso `262,64` é o VT **completo e correto** dela, e os 35,52 são algo somado EM CIMA —
+não um pedaço que falta. **Não estamos perdendo um vale.**
+
+Excluído também: não é dia inteiro em nenhuma diária nem soma de duas; não existe em nenhum
+dos 8 meses de 2026 **nem nos 12 meses de 2025** (o ano existe no store — eu não havia
+olhado); não está no extrato de maio (`.xls` via `xlrd`, histórico completo), no de junho,
+no PPTX Jan–Mai nem no demonstrativo AR; **não há comentário de célula** em r122/r123 (o
+workbook tem 14 comentários e eles anotam linhas vizinhas — "IBRAC", "aasp", "E-CPF",
+"Aluguel - valor pago Belline" — mas nenhum nessas duas); e a mesma fórmula
+`=35.52+262.64` está no workbook de fevereiro (como C118) e no de maio, ou seja é lançamento
+estável, não deslize de uma cópia.
+
+⚠ **Limitação do extract que vale corrigir:** `despesas_desdobramento.historico` é cortado
+em **80 caracteres** (`SUBSTR(d.DESCHISTORICO,1,80)`), exatamente onde vive o texto
+*"Calculo: N dias x R$ X"*. Hoje esse cálculo só existe no export bruto do extrato. Alargar
+esse SUBSTR tornaria essa classe de pergunta respondível direto do snapshot.
 
 #### ⭐⭐ `convenio_memo` PODE ESTAR DESATUALIZADO — guarda obrigatória (2026-08-03)
 

@@ -39,11 +39,31 @@ my broad pass tested values and pairwise *differences* — never sums. It was al
 written down in `docs/SISJURI_DB.md`. **Search for compositions, not just values, and grep
 the durable docs before declaring something unknown.**
 
-**`35,52` (January) is the only thing left,** and it survives every route: not a whole day
-at any rate, absent from all 8 months and both extratos, and the `020.080.*` accounts that
-explain March **do not exist in January** (which has exactly four vale lines, none of them
-35,52). Weak hint: January paid VR for 18 days against MLA's VT of 14 — four days — and
-`35,52 = 4 × 8,88`, but 8,88 is nobody's rate.
+**The day-count test is the reusable result.** Since every vale is a whole number of days,
+each month reads as a pair of counts, and the VR−VT gap is **+3 to +5 in every month**
+(jan +4 · fev +4 · mar +3 · abr +4 · mai +3 · jun +5) — VR for every worked day, VT only for
+days actually commuted. Use it to sanity-check any vale figure before investigating.
+
+**`35,52` (January) is the only thing left, and we now know what it is NOT.** The most
+attractive hypothesis was a **typo**: 2 days of MLA's VT is `2 × 18,76 = 37,52`, and
+`262,64 + 37,52 = 300,16` is exactly 16 days — a round number one digit from the cell.
+**The day-count test refutes it:** at 16 days January's gap would be **+2**, which occurs in
+no other month; at 14 days it is +4, matching all of them. So our `262,64` is her **complete
+and correct** January VT, and the 35,52 is something added on top of an already-right figure.
+**We are not missing a vale** — that is the conclusion worth having.
+
+Also excluded: not a whole day at any rate nor a sum of two; absent from all 8 months of 2026
+**and all twelve 2025 months** (that year exists in the store — I had not looked); absent
+from the May `.xls` extrato (read with `xlrd`, full untruncated histórico), the June extrato
+PDF, the Jan–Mai PPTX and the AR demonstrativo; **no Excel cell comment** on r122/r123 (the
+workbook has 14 and they do annotate neighbouring rows — "IBRAC", "aasp", "E-CPF", "Aluguel -
+valor pago Belline"); and the same formula appears in the Feb workbook (as C118) and the May
+one, so it is a stable entry, not a slip in one copy.
+
+⚠ **Extract limitation worth fixing:** `despesas_desdobramento.historico` is truncated to
+**80 chars** (`SUBSTR(d.DESCHISTORICO,1,80)`) — exactly where the *"Calculo: N dias x R$ X"*
+text lives. That calculation currently exists only in the raw extrato export; widening the
+SUBSTR would make this whole class of question answerable from the snapshot.
 
 **So the client list is down to two items, one of which is a typo-level fix:** update the
 two stale SISJURI convênio notes, and tell us where R$35,52 came from.
