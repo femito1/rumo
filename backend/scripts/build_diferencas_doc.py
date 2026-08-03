@@ -57,6 +57,8 @@ def _ordem(t: tuple) -> tuple[int, float]:
 MESES = {1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "Junho"}
 #: 'Areas Sintetico atualizado' Realizado column per month.
 SINT_COL = {1: 3, 2: 7, 3: 11, 4: 15, 5: 19, 6: 23}
+#: 'Base_Resultado Mensal_V2' month column (the detail behind the sintetico totals).
+BASE_COL = {1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8}
 
 #: (our section, our line key, label, sintetico row).
 LINHAS: tuple[tuple[str, str, str, int], ...] = (
@@ -238,12 +240,61 @@ def _brl(v: float | None) -> str:
     return f"{'-' if v < 0 else ''}R$ {s}"
 
 
-def _sgn(v: float) -> str:
-    """Signed money, with an explicit ``+`` so the direction is never ambiguous."""
+def _sgn(v: float | None) -> str:
+    """Signed money, with an explicit ``+`` so the direction is never ambiguous.
+
+    A zero gets NO sign: "+R$ 0,00" reads like a rounded-down positive when it is an
+    exact tie, and this document leans on the ties (June) to make its point.
+    """
     if v is None:
         return "—"
     s = f"{abs(v):,.2f}".replace(",", "@").replace(".", ",").replace("@", ".")
-    return f"{'-' if v < 0 else '+'}R$ {s}"
+    sinal = "" if abs(v) < 0.005 else ("-" if v < 0 else "+")
+    return f"{sinal}R$ {s}"
+
+
+def _col(idx: int) -> str:
+    """1-based column index -> Excel letter, so the doc can name the exact cell."""
+    from openpyxl.utils import get_column_letter
+
+    return get_column_letter(idx)
+
+
+def _hdr(first: str, months: list[int], abbr: dict[int, str]) -> str:
+    return f"| {first} | " + " | ".join(abbr[m] for m in months) + " | Acumulado |"
+
+
+def _sep(months: list[int]) -> str:
+    return "|---|" + "---:|" * (len(months) + 1)
+
+
+def ytd_of(rows: list[tuple], section: str, line: str) -> float:
+    return next(t[6] for t in rows if t[0] == section and t[1] == line)
+
+
+def _row_deltas(
+    label: str,
+    cells: dict[int, tuple[float, float, float]],
+    months: list[int],
+    total: float | None = None,
+) -> str:
+    """One summary row: the per-month DELTA plus the accumulated one.
+
+    A tie renders as ``R$ 0,00 ✓`` rather than a blank so a month that agrees reads as
+    *checked*, not *missing* — the document leans on June being clean across the board.
+
+    The Acumulado column is the sum of the DISPLAYED months, not a separately rounded
+    total. Those differ by a centavo (sum-of-rounded ≠ rounded-of-sum), and a row the
+    client cannot add up destroys confidence in the whole document — which is the exact
+    problem this rewrite exists to fix. ``total`` is ignored when given.
+    """
+    del total  # kept for call-site symmetry; the row must add up as printed
+    out = []
+    for m in months:
+        d = cells[m][2]
+        out.append(f"{_sgn(d)} ✓" if abs(d) < 0.005 else _sgn(d))
+    soma = round(sum(cells[m][2] for m in months), 2)
+    return f"| {label} | " + " | ".join(out) + f" | **{_sgn(soma)}** |"
 
 
 def _our(sections: dict[str, Any], section: str, line: str) -> float | None:
@@ -291,85 +342,120 @@ def main() -> None:
         ytd.append((section, line, label, wrow, round(o, 2), round(b, 2), round(o - b, 2)))
 
     ult = MESES[max(months)]
-    L: list[str] = []
-    add = L.append
-    add(f"# Diferenças entre a planilha e o sistema — acumulado Janeiro a {ult} de 2026")
-    add("")
-    add("> Documento gerado por `backend/scripts/build_diferencas_doc.py` a partir dos")
-    add("> dados ao vivo do sistema e de `Fechamento MBC 06.2026.xlsx`. Cada diferença")
-    add("> abaixo já foi diagnosticada e tem causa identificada — **não é uma lista de**")
-    add("> **erros**. Junho fecha exatamente e é o melhor mês de referência.")
-    add("")
-    add("## Como ler este documento")
-    add("")
-    add("Para cada linha em que a planilha e o sistema divergem no acumulado, mostramos")
-    add("sempre na mesma ordem: **o que a planilha mostra**, **o que o sistema mostra**,")
-    add("**a diferença**, e **por quê**. Onde há algo a decidir, isso está em *O que")
-    add("precisamos de vocês*.")
-    add("")
-    add(f"Só entram as diferenças de **R$ {_brl(LIMIAR)} ou mais** no acumulado. As")
-    add("menores estão somadas no final, para que nenhuma fique de fora sem explicação.")
-    add("")
+    abbr = {m: MESES[m][:3] for m in months}
 
-    # ── The reassurance first, because it frames everything else.
-    add("## O que NÃO difere")
-    add("")
-    add("| Linha | Planilha | Sistema | Diferença |")
-    add("|---|---:|---:|---:|")
-    for section, line, label, _w, o, b, d in ytd:
-        if section == "institucional" and line in (
-            "recebimento", "imposto", "amortizacao"
-        ):
-            add(f"| {label} | {_brl(b)} | {_brl(o)} | **{_sgn(d)}** |")
-    add("")
-    add("**A receita, os impostos e a amortização batem em todos os meses.** Toda a")
-    add("diferença está em *despesa*. No consolidado institucional o Resultado Bruto")
-    rb = next(d for s, ln, _l, _w, _o, _b, d in ytd if s == "institucional" and ln == "resultado_bruto")
-    rec = next(o for s, ln, _l, _w, o, _b, _d in ytd if s == "institucional" and ln == "recebimento")
-    add(f"difere **{_sgn(rb)}** sobre uma receita de {_brl(rec)}.")
-    add("")
-    add("⚠ Um total consolidado que bate pode esconder diferenças que se cancelam, por")
-    add("isso o documento detalha **por área**, e não só o consolidado.")
-    add("")
+    # Per-month deltas per line, so nothing is presented only as a YTD total.
+    per_month: dict[tuple[str, str], dict[int, tuple[float, float, float]]] = {}
+    ytd: list[tuple[str, str, str, int, float, float, float]] = []
+    for section, line, label, wrow in LINHAS:
+        cells: dict[int, tuple[float, float, float]] = {}
+        for m in months:
+            o = _our(assembled[m], section, line) or 0.0
+            b = float(sint.cell(wrow, SINT_COL[m]).value or 0.0)
+            cells[m] = (round(o, 2), round(b, 2), round(o - b, 2))
+        per_month[(section, line)] = cells
+        ytd.append((
+            section, line, label, wrow,
+            round(sum(c[0] for c in cells.values()), 2),
+            round(sum(c[1] for c in cells.values()), 2),
+            round(sum(c[2] for c in cells.values()), 2),
+        ))
 
     materiais = [t for t in ytd if abs(t[6]) >= LIMIAR]
     menores = [t for t in ytd if abs(t[6]) < LIMIAR and t[6] != 0.0]
 
-    add("## Resumo das diferenças relevantes")
+    L: list[str] = []
+    add = L.append
+    add(f"# Diferenças entre a planilha e o sistema — Janeiro a {ult} de 2026")
     add("")
-    add("| Linha | Planilha | Sistema | Diferença |")
-    add("|---|---:|---:|---:|")
-    for _s, _ln, label, _w, o, b, d in sorted(materiais, key=_ordem):
-        add(f"| {label} | {_brl(b)} | {_brl(o)} | **{_sgn(d)}** |")
+    add("> Gerado por `backend/scripts/build_diferencas_doc.py` a partir dos dados ao vivo")
+    add(f"> do sistema e da planilha `{WORKBOOK.name}`. Cada diferença abaixo já foi")
+    add("> diagnosticada e tem causa identificada — **não é uma lista de erros**.")
     add("")
-    add("As três causas por trás de praticamente tudo isso:")
+    add("## Como conferir")
     add("")
-    add("1. **A fórmula das linhas 204/205/206 da planilha está deslocada uma linha de**")
-    add("   **janeiro a maio.** É a causa que mais pesa: move a Despesa Institucional e")
-    add("   as Despesas Equipe das três áreas ao mesmo tempo. As fórmulas de junho já")
-    add("   estão corretas.")
+    add("Cada diferença aparece **mês a mês**, com a **célula exata da planilha** ao lado.")
+    add("Para checar qualquer número: abra a planilha, vá na aba e na célula indicada, e")
+    add("compare com a coluna *Sistema*.")
+    add("")
+    add("As abas usadas são duas:")
+    add("")
+    add("* **`Areas Sintetico atualizado`** — os totais por linha. O Realizado de cada mês")
+    add("  fica numa coluna diferente: " + ", ".join(
+        f"**{abbr[m]} = coluna {_col(SINT_COL[m])}**" for m in months) + ".")
+    add("* **`Base_Resultado Mensal_V2`** — o detalhe que forma esses totais. Aqui os meses")
+    add("  são colunas seguidas: " + ", ".join(
+        f"**{abbr[m]} = {_col(BASE_COL[m])}**" for m in months) + ".")
+    add("")
+    add(f"Só detalhamos as diferenças de **{_brl(LIMIAR)} ou mais** no acumulado; as")
+    add("menores estão listadas no fim, também mês a mês.")
+    add("")
+
+    # ── What does NOT differ, month by month.
+    add("## O que NÃO difere: receita, impostos e amortização")
+    add("")
+    add(_hdr("Linha", months, abbr))
+    add(_sep(months))
+    for section, line, label, wrow, _o, _b, _d in ytd:
+        if section == "institucional" and line in ("recebimento", "imposto", "amortizacao"):
+            add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
+    add("")
+    add("**A receita bate em todos os meses** — as diferenças acima são de centavos de")
+    add("arredondamento (a planilha arredonda o recebimento de maio e junho para reais")
+    add("inteiros). Impostos e amortização acompanham. **Toda diferença relevante está em**")
+    add("***despesa*** — é para lá que o resto do documento olha.")
+    add("")
+
+    add("## Resumo: onde estão as diferenças")
+    add("")
+    add("Diferença = Sistema − Planilha, por mês.")
+    add("")
+    add(_hdr("Linha", months, abbr))
+    add(_sep(months))
+    for section, line, label, _w, _o, _b, _d in sorted(materiais, key=_ordem):
+        add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
+    add("")
+    add("Três causas explicam praticamente tudo, e as colunas mostram isso:")
+    add("")
+    add("1. **A fórmula das linhas 204/205/206 da planilha está deslocada uma linha, de**")
+    add("   **janeiro a maio.** A prova está na coluna de **junho**: nas linhas de Despesa")
+    add("   Institucional e Despesas Equipe ela cai para centavos (1,84 / 1,72 / -0,01),")
+    add("   enquanto de janeiro a maio passa de mil reais. As fórmulas de junho já estão")
+    add("   corretas — é a causa que mais pesa no acumulado.")
     add("2. **O vale dos advogados no custo de equipe** — regra confirmada por vocês")
-    add("   (sempre incluir); as colunas de janeiro a maio da planilha não incluem.")
-    add("3. **O convênio médico de janeiro/fevereiro** — a única diferença que ainda")
-    add("   depende de uma definição de vocês.")
+    add("   (sempre incluir). Em junho o Custo equipe das três áreas fecha (0,00 no")
+    add("   Contencioso e na Arbitragem, 0,01 no Econômico), porque a planilha passou a")
+    add("   incluir o vale a partir desse mês.")
+    add("3. **O convênio médico de fevereiro na Arbitragem** — aparece só em fevereiro")
+    add("   (+1.911,95) e é a única diferença que ainda depende de uma definição de vocês.")
     add("")
 
     add("## Detalhe, linha por linha")
     add("")
     for section, line, label, wrow, o, b, d in sorted(materiais, key=_ordem):
         info = CAUSAS.get((section, line))
-        add(f"### {label} — diferença de {_brl(d)}")
+        add(f"### {label}")
         add("")
-        add("| | Valor |")
-        add("|---|---:|")
-        add(f"| Planilha (*Areas Sintetico*, linha {wrow}, Jan–{ult}) | {_brl(b)} |")
-        add(f"| Nosso sistema | {_brl(o)} |")
-        add(f"| **Diferença** | **{_sgn(d)}** |")
+        add(f"Diferença no acumulado: **{_sgn(d)}**")
+        add("")
+        add("| Mês | Célula na planilha | Planilha | Sistema | Diferença |")
+        add("|---|---|---:|---:|---:|")
+        cells = per_month[(section, line)]
+        for m in months:
+            ov, bv, dv = cells[m]
+            cel = f"`{_col(SINT_COL[m])}{wrow}`"
+            marca = "" if abs(dv) >= 0.005 else " ✓"
+            add(f"| {MESES[m]} | {cel} | {_brl(bv)} | {_brl(ov)} | {_sgn(dv)}{marca} |")
+        sb = round(sum(cells[m][1] for m in months), 2)
+        so = round(sum(cells[m][0] for m in months), 2)
+        add(f"| **Acumulado** | — | **{_brl(sb)}** | **{_brl(so)}** | **{_sgn(round(so - sb, 2))}** |")
+        add("")
+        add(f"Na planilha: aba **Areas Sintetico atualizado**, linha **{wrow}**.")
         add("")
         if info:
             add(f"**Por quê:** {info['causa']}")
             add("")
-            add(f"**Onde conferir:** {info['conferir']}")
+            add(f"**Onde conferir o detalhe:** {info['conferir']}")
             add("")
             if info.get("precisamos"):
                 add(f"**O que precisamos de vocês:** {info['precisamos']}")
@@ -378,35 +464,39 @@ def main() -> None:
             add("**Por quê:** causa ainda não documentada — falar com o time antes da reunião.")
             add("")
 
-    add("## Diferenças menores (abaixo do limiar)")
+    add("## Diferenças menores")
     add("")
     if menores:
-        add("| Linha | Planilha | Sistema | Diferença |")
-        add("|---|---:|---:|---:|")
-        for _s, _ln, label, _w, o, b, d in sorted(menores, key=lambda t: -abs(t[6])):
-            add(f"| {label} | {_brl(b)} | {_brl(o)} | {_sgn(d)} |")
+        add(_hdr("Linha", months, abbr))
+        add(_sep(months))
+        for section, line, label, _w, _o, _b, _d in sorted(menores, key=lambda t: -abs(t[6])):
+            add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
         add("")
-        add(f"Somadas: **{_sgn(round(sum(t[6] for t in menores), 2))}**. As causas conhecidas")
-        add("são a tarifa bancária que vem do sistema e está zerada no Excel (R$ 4,80 por")
-        add("mês), o vale do administrativo de março a maio e centavos de arredondamento.")
+        add(f"Somadas: **{_sgn(round(sum(t[6] for t in menores), 2))}** no acumulado. As causas")
+        add("conhecidas são a tarifa bancária, que vem do sistema e está zerada no Excel")
+        add("(R$ 4,80 por mês, conta `020.070.0030`), o vale do administrativo de março a")
+        add("maio (`Base_Resultado` linhas 122 e 123) e centavos de arredondamento.")
     else:
         add("Nenhuma.")
     add("")
 
     add("## O que precisamos de vocês, em ordem")
     add("")
-    add("1. **Convênio médico de janeiro e fevereiro** (EHF e RB): o memo do sistema")
-    add("   nesses dois meses declara uma base de plano diferente da de março a junho, e")
-    add("   a planilha usa a constante de março nos seis meses. Qual vale para jan/fev?")
+    add("1. **Convênio médico de janeiro e fevereiro** (EHF e RB). O memo do sistema nesses")
+    add("   dois meses declara uma base de plano diferente da de março a junho, e a")
+    add("   planilha usa a constante de março nos seis meses. Qual vale para jan/fev?")
+    add("   Conferir em `Base_Resultado Mensal_V2`, linhas 44 e 48, colunas C e D.")
     add("2. **Fórmulas das linhas 204/205/206** de janeiro a maio: podem ser copiadas de")
-    add("   junho, que já está correto?")
-    add("3. **Janeiro, vale-transporte:** a planilha traz `=35,52+262,64`. Os 262,64 são")
-    add("   o lançamento do sistema; de onde vêm os 35,52?")
-    add("4. **Lançamentos avulsos de janeiro e fevereiro** (linhas 34, 35, 43, 47, 51 e")
-    add("   54): são de outra competência ou ajustes manuais? Se tiverem origem no")
-    add("   sistema, passamos a considerá-los.")
-    add("5. **Convênio médico da linha 69:** deveria continuar em fevereiro, como está no")
-    add("   sistema, ou foi encerrado em janeiro?")
+    add("   junho, que já está correto? Conferir em `Base_Resultado Mensal_V2`, linhas 204")
+    add("   a 206, colunas C a G.")
+    add("3. **Janeiro, vale-transporte:** a célula `C123` traz `=35,52+262,64`. Os 262,64")
+    add("   são o lançamento do sistema; de onde vêm os 35,52?")
+    add("4. **Lançamentos avulsos de janeiro e fevereiro:** `Base_Resultado Mensal_V2`")
+    add("   linhas 34, 35, 43, 47, 51 e 54, colunas C e D. São de outra competência ou")
+    add("   ajustes manuais? Se tiverem origem no sistema, passamos a considerá-los.")
+    add("5. **Convênio médico da linha 69** (`C69` tem 1.911,45 e `D69` está vazia):")
+    add("   deveria continuar em fevereiro, como está no sistema, ou foi encerrado em")
+    add("   janeiro?")
     add("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
