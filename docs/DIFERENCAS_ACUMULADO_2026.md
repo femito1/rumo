@@ -4,6 +4,12 @@
 > do sistema e da planilha `Fechamento MBC 06.2026.xlsx`. Cada diferença abaixo já foi
 > diagnosticada e tem causa identificada — **não é uma lista de erros**.
 
+**Período:** janeiro a junho de 2026 — é até onde a planilha de referência
+vai. O sistema já tem julho e agosto, mas não há coluna correspondente na
+planilha para comparar, então eles ficam fora deste documento.
+
+**Dados do sistema:** extraídos em 03/08/2026.
+
 ## Como conferir
 
 Cada diferença aparece **mês a mês**, com a **célula exata da planilha** ao lado.
@@ -73,7 +79,9 @@ Quatro causas explicam tudo, e cada uma foi medida — não é suposição:
    Contencioso e na Arbitragem, 0,01 no Econômico), porque a planilha passou a
    incluir o vale a partir desse mês.
 4. **O convênio médico de fevereiro na Arbitragem** — aparece só em fevereiro
-   (+1.911,95) e é a única diferença que ainda depende de uma definição de vocês.
+   (+1.911,95), e **a própria planilha responde**: em fevereiro ela mantém a
+   distribuição e o pró-labore desse advogado e zera só o convênio. Quem recebe
+   distribuição está na folha, então o plano é custo real. Não é dúvida.
 
 Uma observação que vale para ler todas as tabelas: **Resultado Bruto não tem**
 **causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à
@@ -503,5 +511,19 @@ Ficam registrados aqui porque estavam na lista anterior:
   bate em **R$ 0,00**. Era diferença de apresentação, não de valor.
 * **Associações de janeiro** — a planilha não somou a AASP (195,40) nem o Canal
   de Arbitragem (1.204,47); os dois existem no sistema.
+* **ISS trimestral** — o sistema lança por advogado e a planilha digita uma linha
+  só da área. O total é idêntico; muda só a apresentação. Efeito no acumulado:
+  **R$ 0,04**.
+* **AASP** — a planilha lança dentro do Custo equipe e o sistema em Despesa de
+  Área. O valor existe nos dois lados, em seções diferentes.
+* **Endomarketing × Investimentos em Prospecção** e **Ocupação ×**
+  **Administrativas** — a mesma conta em famílias diferentes de cada lado, mas as
+  duas entram no total da linha 198, então o efeito é **zero**. Em janeiro, por
+  exemplo, os nossos 1.317,71 de Endomarketing são os mesmos 1.317,71 que a
+  planilha põe em Investimentos em Prospecção.
 * **Vale ADM de março a maio** e **aluguel** — já respondidos por vocês.
+
+Fechando: das seis perguntas que este documento tinha na versão anterior, **cinco**
+foram respondidas pelos próprios dados. A que sobra é o R$ 35,52 — e, no valor, é
+a menor de todas.
 

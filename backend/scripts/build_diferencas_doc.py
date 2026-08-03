@@ -368,6 +368,31 @@ def _row_deltas(
     return f"| {label} | " + " | ".join(out) + f" | **{_sgn(soma)}** |"
 
 
+def _br_date(iso: str) -> str:
+    y, m, d = iso.split("-")
+    return f"{d}/{m}/{y}"
+
+
+def _vintage(snaps: dict[int, Any], months: list[int]) -> str:
+    """When the compared snapshots were produced, so a reader knows the data's age.
+
+    A document full of numbers with no date invites "is this still current?" in the
+    meeting, and the answer is not guessable from the content.
+    """
+    stamps = sorted(
+        d
+        for d in (
+            str((snaps[m].get("meta") or {}).get("generated_at") or "")[:10]
+            for m in months
+        )
+        if d
+    )
+    if not stamps:
+        return "data desconhecida"
+    lo, hi = stamps[0], stamps[-1]
+    return _br_date(lo) if lo == hi else f"{_br_date(lo)} a {_br_date(hi)}"
+
+
 def _our(sections: dict[str, Any], section: str, line: str) -> float | None:
     for row in (sections.get(section) or {}).get("rows") or []:
         if row.get("key") == line:
@@ -443,6 +468,12 @@ def main() -> None:
     add(f"> do sistema e da planilha `{WORKBOOK.name}`. Cada diferença abaixo já foi")
     add("> diagnosticada e tem causa identificada — **não é uma lista de erros**.")
     add("")
+    add(f"**Período:** janeiro a {ult.lower()} de 2026 — é até onde a planilha de referência")
+    add("vai. O sistema já tem julho e agosto, mas não há coluna correspondente na")
+    add("planilha para comparar, então eles ficam fora deste documento.")
+    add("")
+    add("**Dados do sistema:** extraídos em " + _vintage(snaps, months) + ".")
+    add("")
     add("## Como conferir")
     add("")
     add("Cada diferença aparece **mês a mês**, com a **célula exata da planilha** ao lado.")
@@ -504,7 +535,9 @@ def main() -> None:
     add("   Contencioso e na Arbitragem, 0,01 no Econômico), porque a planilha passou a")
     add("   incluir o vale a partir desse mês.")
     add("4. **O convênio médico de fevereiro na Arbitragem** — aparece só em fevereiro")
-    add("   (+1.911,95) e é a única diferença que ainda depende de uma definição de vocês.")
+    add("   (+1.911,95), e **a própria planilha responde**: em fevereiro ela mantém a")
+    add("   distribuição e o pró-labore desse advogado e zera só o convênio. Quem recebe")
+    add("   distribuição está na folha, então o plano é custo real. Não é dúvida.")
     add("")
     add("Uma observação que vale para ler todas as tabelas: **Resultado Bruto não tem**")
     add("**causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à")
@@ -657,7 +690,21 @@ def main() -> None:
     add("  bate em **R$ 0,00**. Era diferença de apresentação, não de valor.")
     add("* **Associações de janeiro** — a planilha não somou a AASP (195,40) nem o Canal")
     add("  de Arbitragem (1.204,47); os dois existem no sistema.")
+    add("* **ISS trimestral** — o sistema lança por advogado e a planilha digita uma linha")
+    add("  só da área. O total é idêntico; muda só a apresentação. Efeito no acumulado:")
+    add("  **R$ 0,04**.")
+    add("* **AASP** — a planilha lança dentro do Custo equipe e o sistema em Despesa de")
+    add("  Área. O valor existe nos dois lados, em seções diferentes.")
+    add("* **Endomarketing × Investimentos em Prospecção** e **Ocupação ×**")
+    add("  **Administrativas** — a mesma conta em famílias diferentes de cada lado, mas as")
+    add("  duas entram no total da linha 198, então o efeito é **zero**. Em janeiro, por")
+    add("  exemplo, os nossos 1.317,71 de Endomarketing são os mesmos 1.317,71 que a")
+    add("  planilha põe em Investimentos em Prospecção.")
     add("* **Vale ADM de março a maio** e **aluguel** — já respondidos por vocês.")
+    add("")
+    add("Fechando: das seis perguntas que este documento tinha na versão anterior, **cinco**")
+    add("foram respondidas pelos próprios dados. A que sobra é o R$ 35,52 — e, no valor, é")
+    add("a menor de todas.")
     add("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
