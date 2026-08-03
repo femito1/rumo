@@ -33,13 +33,19 @@ GET <backend>/api/ingest/summary/2026-06     ->  "extract": {"version": 3, "expe
 ## 1. Re-extract the CLOSED months
 
 ```powershell
-$env:SISJURI_PASSWORD='...'; $env:INGEST_TOKEN='...'
-$env:INGEST_URL='https://<vps>/api/ingest'
+$env:SISJURI_PASSWORD = 'RgN@92Kx7'
+$env:INGEST_TOKEN     = 'OxlcIEMB_PcpmCaxKcEcJwNXmyiYB5F9l3JUnjktfAoKSxor5s6hRJ2Et9R_Hr5s'
+$env:INGEST_URL       = 'https://rumo-backend.xem1qi.easypanel.host/api/ingest'
 powershell -ExecutionPolicy Bypass -File backfill.ps1 -StartMonth 2026-01 -EndMonth 2026-07
 ```
 
 `backfill.ps1` stops at the last **fully closed** month, so it will not push the current
-one — that is intentional.
+one — that is intentional. It now prints the resolved range
+(`[backfill] months 2026-01 .. 2026-07 inclusive.`) — **read that line and count the
+months it actually pushes.** On 2026-08-03 it silently pushed only Jan–Jun because the
+loop bounds kept the current time-of-day, so the last month compared greater than the end
+and was dropped; July was left on the old contract while everything else moved. Fixed, but
+verify the count anyway.
 
 ## 2. Re-extract the OPEN month
 

@@ -48,15 +48,23 @@ if (-not $SnapshotOnly) {
 }
 
 # Compute the inclusive end month: default = month before the current one.
+# MIDNIGHT-NORMALISED (-Hour 0 -Minute 0 -Second 0 -Millisecond 0). Without this
+# `Get-Date -Year .. -Month .. -Day 1` keeps the CURRENT time-of-day, and since $end is
+# built a few ticks before $cur, the final month compares GREATER than $end and the loop
+# drops it. Observed 2026-08-03: `-EndMonth 2026-07` pushed only Jan..Jun ("6 month(s)
+# pushed"), leaving July on the old extract contract while every other month moved to the
+# new one. The bug is silent -- the run reports success.
 if ($EndMonth) {
   $ey = [int]$EndMonth.Substring(0,4); $em = [int]$EndMonth.Substring(5,2)
-  $end = Get-Date -Year $ey -Month $em -Day 1
+  $end = Get-Date -Year $ey -Month $em -Day 1 -Hour 0 -Minute 0 -Second 0 -Millisecond 0
 } else {
-  $end = (Get-Date -Day 1).AddMonths(-1)
+  $end = (Get-Date -Day 1 -Hour 0 -Minute 0 -Second 0 -Millisecond 0).AddMonths(-1)
 }
 
 $sy = [int]$StartMonth.Substring(0,4); $sm = [int]$StartMonth.Substring(5,2)
-$cur = Get-Date -Year $sy -Month $sm -Day 1
+$cur = Get-Date -Year $sy -Month $sm -Day 1 -Hour 0 -Minute 0 -Second 0 -Millisecond 0
+
+Write-Output ("[backfill] months {0:yyyy-MM} .. {1:yyyy-MM} inclusive." -f $cur, $end)
 
 $done = 0; $failed = @()
 while ($cur -le $end) {
