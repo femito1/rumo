@@ -8,7 +8,7 @@
 vai. O sistema já tem julho e agosto, mas não há coluna correspondente na
 planilha para comparar, então eles ficam fora deste documento.
 
-**Dados do sistema:** extraídos em 03/08/2026.
+**Dados do sistema:** extraídos em 04/08/2026.
 
 ## Como conferir
 
