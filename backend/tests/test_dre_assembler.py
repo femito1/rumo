@@ -1913,3 +1913,89 @@ def test_every_vale_row_is_a_whole_number_of_days():
     # and fails here instead of quietly checking nothing. 31 rows across the six
     # closed-month fixtures on 2026-08-04.
     assert checked >= 31, f"only {checked} vale rows checked — a fixture lost vale_prof"
+
+
+#: Institucional Despesas Indiretas, fully decomposed 2026-08-04 by
+#: ``scripts/audit_despesas_indiretas.py``: every centavo of the YTD difference against the
+#: workbook has a named account or a named workbook behaviour behind it (unattributed R$0,00).
+#: These pin the two findings that are OUR derivation being right, so a future change cannot
+#: quietly "converge" onto the workbook's inconsistency.
+def test_vale_adm_is_mla_only_in_every_month_even_where_the_book_disagrees():
+    """Vale-ADM is Maria Luiza ONLY, consistently, in all six closed months.
+
+    Renata ruled (2026-07-30) that JVO/VSR are estagiários of the ÁREAS, so their vale
+    belongs to per-área Custo equipe and never to institucional Salários Administração.
+    We apply that in every month. **The workbook does not**: its rows 122/123 are MLA-only
+    in fev/jun, ALL THREE people in abril, and neither in jan/mar/mai — three different
+    bases across six months (mar/abr/mai are the ones Renata called *"não vale a pena
+    corrigir"*).
+
+    So the −R$ 7.257,62 YTD difference on this line is not a gap to close: converging on it
+    would mean reproducing an inconsistency. This test exists to make that deliberate —
+    if a future change makes Vale-ADM include the estagiários in ANY month, it fails.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+
+    from app.closing.dre import RealizadoInputs, is_adm_grupo
+
+    fixtures_dir = _Path(__file__).parent / "fixtures"
+    for month in range(1, 7):
+        snap = _json.loads(
+            (fixtures_dir / f"sisjuri_2026_{month:02d}.json").read_text(encoding="utf-8")
+        )
+        home = snap.get("home_area") or {}
+        rows = snap.get("vale_prof") or []
+        assert rows, f"2026-{month:02d} has no vale_prof — fixture lost the block"
+
+        adm = [r for r in rows if is_adm_grupo(home.get(str(r.get("sigla"))))]
+        # Exactly one person is ADM, and it is MLA in every month.
+        assert {str(r.get("sigla")) for r in adm} == {"MLA"}, f"2026-{month:02d}"
+
+        expected = round(sum(float(r["valor"]) for r in adm), 2)
+        sal = next(
+            s for s in RealizadoInputs.from_snapshot(snap).sections
+            if s.name == "Salários Administração"
+        )
+        vale_leaf = next(v for nome, v in sal.accounts if "Vale Refeição/Transporte" in nome)
+        assert vale_leaf == pytest.approx(expected, abs=0.01), f"2026-{month:02d}"
+
+        # The estagiários' slice must NOT be in the institucional vale leaf.
+        estagiarios = round(sum(float(r["valor"]) for r in rows if r not in adm), 2)
+        if estagiarios:
+            assert vale_leaf < estagiarios + expected, f"2026-{month:02d} double-counts"
+
+
+def test_seguros_is_an_annual_premium_not_a_monthly_charge():
+    """`020.060.0040` posts a LUMP annual premium, and that is correct.
+
+    January posts 2.722,55 (and July does it again) while the workbook types a flat 182,71
+    every month. `2.722,55 − 182,71 = 2.539,84` is exactly January's Ocupação difference,
+    and the workbook books the same premium under *Administrativas* r133 "Seguro de
+    Responsabilidade Civil" — so it is a family-label difference plus a timing difference,
+    never missing money. Pinned because a future reader seeing a 15× jump in one month
+    could easily "fix" it into a smoothed 182,71 and silently invent an accrual the DB
+    does not have.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+
+    fixtures_dir = _Path(__file__).parent / "fixtures"
+    by_month = {}
+    for month in range(1, 7):
+        snap = _json.loads(
+            (fixtures_dir / f"sisjuri_2026_{month:02d}.json").read_text(encoding="utf-8")
+        )
+        row = next(
+            (r for r in snap.get("despesas_conta") or []
+             if r.get("id_conta") == "020.060.0040"),
+            None,
+        )
+        assert row is not None, f"2026-{month:02d} lost the Seguros account"
+        by_month[month] = round(float(row["total"]), 2)
+
+    assert by_month[1] == pytest.approx(2722.55, abs=0.01), "January is the annual premium"
+    for month in range(2, 7):
+        assert by_month[month] == pytest.approx(182.71, abs=0.01), f"2026-{month:02d}"
+    # The premium/monthly gap IS the January Ocupação difference.
+    assert round(by_month[1] - by_month[2], 2) == pytest.approx(2539.84, abs=0.01)

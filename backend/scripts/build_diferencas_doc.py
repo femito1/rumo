@@ -284,6 +284,24 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "* **Janeiro, Associações** (+1.399,87): a planilha não somou a AASP "
             "(195,40) nem o Canal de Arbitragem (1.204,47) — lançamentos reais do "
             "sistema.\n"
+            "* **Janeiro, seguro (+2.539,84): é um prêmio ANUAL, não mensal.** A conta "
+            "`020.060.0040` lança **2.722,55** em janeiro (e de novo em julho), "
+            "enquanto a planilha digita **182,71** todo mês. A diferença "
+            "`2.722,55 − 182,71` é exatamente a diferença de Ocupação de janeiro. E não "
+            "há dinheiro faltando em lugar nenhum: a planilha lança esse mesmo prêmio "
+            "em *Administrativas*, linha 133 (*Seguro de Responsabilidade Civil*), e nós "
+            "em Ocupação — somando as duas famílias, a diferença de janeiro cai de "
+            "±3.788 para os 1.399,87 das Associações acima.\n"
+            "* **Março, vale da estagiária (+543,22):** um pagamento de benefícios feito "
+            "**fora** da conta transitória — `020.080.0050` Vale Refeição 507,10 + "
+            "`020.080.0060` Vale Transporte 36,12, com o nome dela no histórico. É a "
+            "peça que faltava para o resíduo de Salários Administração fechar em "
+            "**0,00** em março, abril, maio e junho.\n"
+            "* **Duas contas que a planilha simplesmente não tem uma linha para** — o "
+            "mesmo caso das Associações: janeiro `020.050.0070` **IR Fonte - ADM "
+            "169,52** e fevereiro `020.050.0160` **Relatórios trabalhistas - e-Social "
+            "1.032,35**. Lançamentos reais, únicos, ausentes do Excel. São o único "
+            "resíduo que sobra em Salários Administração depois de tudo o mais.\n"
             "* **Março**: um curso de Arbitragem (−815,49) que a planilha lança como "
             "institucional e que, sendo de uma área, vai para Despesas de Área; e "
             "Informática −237,60, que é `7.744,12 − 7.506,52` na conta `040.040.0030` "
@@ -292,8 +310,11 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
         ),
         "conferir": (
             "Planilha: linhas **122 e 123** (vale ADM), **86** (aluguel), **124** "
-            "(tarifa/administrativas), **128–131** (Associações), **158** (Gestão do "
-            "Conhecimento), **180** (Informática). O total da linha é a **198**."
+            "(tarifa/administrativas), **128–131** (Associações), **133** (seguro), "
+            "**158** (Gestão do Conhecimento), **180** (Informática). O total da linha é "
+            "a **198**. A decomposição completa, família por família e mês por mês, está "
+            "em `scripts/audit_despesas_indiretas.py` — **e ela fecha: depois de nomear "
+            "cada item acima, não sobra nenhum centavo sem explicação.**"
         ),
         "precisamos": None,
     },
@@ -688,6 +709,14 @@ def main() -> None:
     add("em 16 dias) — mas com 16 dias a diferença cairia para **+2**, que não acontece em")
     add("mês nenhum. Ou seja: **o nosso 262,64 é o vale-transporte completo dela em**")
     add("**janeiro**, e os 35,52 são algo somado em cima de um valor que já estava certo.")
+    add("")
+    add("**Uma coisa que ficou clara em 04/08:** decompondo as Despesas Indiretas família")
+    add("por família e mês por mês, todo o resto tem uma conta com nome e número atrás")
+    add("(está em *Despesas Indiretas*, acima). Depois disso, **estes R$ 35,52 são o único**")
+    add("**valor do acumulado inteiro que não conseguimos amarrar a um lançamento.** É")
+    add("também a diferença exata entre o nosso vale do administrativo de janeiro")
+    add("(1.092,44) e o da planilha (1.127,96) — ou seja, o número está isolado nessa")
+    add("única célula, não espalhado por vários lugares.")
     add("")
     add("**O que ajudaria:** de onde vêm esses R$ 35,52? Se for de outra competência ou um")
     add("acerto pontual, passamos a tratá-lo da mesma forma. Vale notar que é a **única**")
