@@ -62,6 +62,41 @@ _DEFAULT_CLIENT = "mbc"
 CURRENT_EXTRACT_VERSION = 4
 
 
+def _unmapped_lawyers(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    """Siglas with per-lawyer cost but NO ``home_area`` entry, and the money at stake.
+
+    Why this is worth surfacing: per-área Custo equipe is built by folding each lawyer's
+    ``custo_equipe_deriv`` rows into their home grupo (``build_area_splits`` falls back to
+    ``home_area`` when a lawyer has no ``rateio_grupo``). A sigla in neither map has no
+    área to land in, so its cost is silently **dropped from the institucional total AND
+    every área** — no error, no divergence between the two, just a smaller number.
+
+    The realistic trigger is an onboarding race: finance posts a new lawyer's
+    distribuição/convênio before their grupo is set in ``CAD_PROFISSIONAL``. 2026 already
+    saw four joiners and four leavers (VSR in March, AVN in April), so this is not
+    hypothetical — it simply has not bitten yet because the grupo has always been set
+    first. Empty list = nothing to do.
+    """
+    home = {
+        str(k).strip()
+        for k, v in (snapshot.get("home_area") or {}).items()
+        if str(v or "").strip()
+    }
+    by_sigla: dict[str, float] = {}
+    for row in snapshot.get("custo_equipe_deriv") or []:
+        sigla = str(row.get("sigla") or "").strip()
+        if not sigla or sigla in home:
+            continue
+        try:
+            by_sigla[sigla] = round(by_sigla.get(sigla, 0.0) + float(row.get("valor") or 0.0), 2)
+        except (TypeError, ValueError):  # pragma: no cover - defensive on raw snapshot
+            continue
+    return [
+        {"sigla": s, "custo_equipe_dropped": v}
+        for s, v in sorted(by_sigla.items(), key=lambda kv: -abs(kv[1]))
+    ]
+
+
 def snapshot_extract_version(snapshot: dict[str, Any]) -> int:
     """``meta.extract_version``, defaulting to 1 (pre-versioning snapshots)."""
     meta = snapshot.get("meta") or {}
@@ -219,6 +254,10 @@ def ingest_summary(
             "prolabore": _n("prolabore"),
             "distribuicao_socio": _n("distribuicao_socio"),
         },
+        # Lawyers carrying cost that the DRE would DROP because no grupo is recorded
+        # for them. Reported here (an operator integrity check) rather than guarded in
+        # the money path — the derivation must stay honest about what the DB says.
+        "unmapped_lawyers": _unmapped_lawyers(snapshot),
         "revenue": {
             "recebimento_bruto": revenue.get("recebimento_bruto"),
             "faturamento_bruto": revenue.get("faturamento_bruto"),

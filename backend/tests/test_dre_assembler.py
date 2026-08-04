@@ -1077,6 +1077,97 @@ def test_stale_convenio_memo_rebuilds_parte_mbc_from_the_learned_share(snapshot_
     ).area_custo_equipe["Econômico"] == pytest.approx(gross, abs=0.02)
 
 
+def test_convenio_share_handles_roster_churn():
+    """A lawyer joining or leaving mid-year must never get another lawyer's share.
+
+    Roster churn is NOT hypothetical — 2026 alone has VSR joining in March, AVN in April,
+    and JGS/JCT/MAM/VC leaving. Three things have to hold for a newcomer:
+
+    * **No memo at all ⇒ the posted GROSS stands, untouched.** This is the common case and
+      it is CORRECT, not a gap: only three lawyers have ever had a memo (EHF, RB, JGS
+      across 2024–2026), because a memo exists only where dependents/upgrade are split
+      onto a personal-debit account. Verified against the workbook: VC's book value
+      1.409,09 IS the DB posted amount to the centavo, and JGS's matches within R$0,50.
+      A lawyer with no personal slice has nothing to strip.
+    * **A share is never borrowed from a different lawyer.** The share dict is keyed on
+      sigla, so an unknown sigla falls back rather than inheriting.
+    * **A newcomer with one valid month gets their own share** — the rule starts working
+      for them immediately, with no roster list to maintain anywhere.
+    """
+    from app.closing.dre import convenio_mbc_shares
+
+    def month(sigla: str, posted: float, memo_value: float, plan: str) -> dict:
+        return {
+            "custo_equipe_deriv": [
+                {"sigla": sigla, "id_conta": "030.010.0110", "valor": posted}
+            ],
+            "convenio_memo": [
+                {
+                    "sigla": sigla,
+                    "parsed_valor": memo_value,
+                    "raw_memo": f"Plano - Valor R$ {plan} ... (Parte MBC) = x",
+                }
+            ],
+        }
+
+    # A newcomer with NO memo contributes nothing and inherits nothing.
+    no_memo = {4: {"custo_equipe_deriv": [
+        {"sigla": "NEW", "id_conta": "030.010.0110", "valor": 1500.0}
+    ]}}
+    assert convenio_mbc_shares(no_memo) == {}
+
+    # An established lawyer's share must not leak onto the newcomer.
+    mixed = dict(no_memo)
+    mixed[3] = month("EHF", 2122.30, 1564.10, "2.122,30")
+    shares = convenio_mbc_shares(mixed)
+    assert set(shares) == {"EHF"}, "a share must never be shared between lawyers"
+
+    # The newcomer's own first valid month is enough to start deriving for them.
+    mixed[5] = month("NEW", 1000.0, 700.0, "1.000,00")
+    shares = convenio_mbc_shares(mixed)
+    assert shares["NEW"] == pytest.approx(0.70, abs=1e-9)
+    assert shares["EHF"] == pytest.approx(1564.10 / 2122.30, abs=1e-9)
+
+
+def test_convenio_share_is_dropped_when_a_lawyers_plan_share_really_changes():
+    """A genuine mid-year plan change must DISABLE the share, not average across it.
+
+    Plan changes are common in this data (AM's posted convênio goes 3.182,83 → 4.774,27 in
+    May; RB's 2.355,73 → 3.427,58 in February). If a lawyer's trusted months disagree on
+    the share, averaging them would invent a figure nobody wrote — so the share is dropped
+    and those months fall back to the posted gross.
+
+    Why the fallback direction is the safe one: the rule always books LESS than the gross,
+    so it can never inflate a cost. The residual risk is UNDERSTATING when a true share
+    moved up while that month's memo was stale, bounded by (1 − share) × posted ≈ 26%.
+    That is exactly the RB-January situation, which is why it is flagged as an estimate in
+    the differences document rather than presented as derived fact.
+    """
+    from app.closing.dre import convenio_mbc_shares
+
+    def month(posted: float, memo_value: float, plan: str) -> dict:
+        return {
+            "custo_equipe_deriv": [
+                {"sigla": "XX", "id_conta": "030.010.0110", "valor": posted}
+            ],
+            "convenio_memo": [
+                {
+                    "sigla": "XX",
+                    "parsed_valor": memo_value,
+                    "raw_memo": f"Plano - Valor R$ {plan} ... (Parte MBC) = x",
+                }
+            ],
+        }
+
+    # Same share either side of a plan change => still usable.
+    consistent = {1: month(1000.0, 700.0, "1.000,00"), 6: month(2000.0, 1400.0, "2.000,00")}
+    assert convenio_mbc_shares(consistent)["XX"] == pytest.approx(0.70, abs=1e-9)
+
+    # DIFFERENT share => dropped entirely, never averaged to 0.60.
+    inconsistent = {1: month(1000.0, 700.0, "1.000,00"), 6: month(2000.0, 1000.0, "2.000,00")}
+    assert convenio_mbc_shares(inconsistent) == {}
+
+
 def test_a_current_convenio_memo_ignores_the_learned_share(snapshot_jun):
     """The share is a FALLBACK. When the memo is current its own stated Parte MBC wins,
     so passing a (deliberately absurd) share must change nothing."""

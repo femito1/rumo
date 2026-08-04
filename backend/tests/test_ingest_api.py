@@ -150,3 +150,65 @@ def test_summary_marks_a_current_extract_as_fresh(client):
     ).json()
     assert body["extract"]["version"] == CURRENT_EXTRACT_VERSION
     assert body["extract"]["stale"] is False
+
+
+def test_summary_reports_lawyers_whose_cost_would_be_dropped(client):
+    """A lawyer with cost but no ``home_area`` is money that VANISHES from the DRE.
+
+    Per-área Custo equipe folds each lawyer's ``custo_equipe_deriv`` rows into their home
+    grupo, and a sigla with no grupo has nowhere to land — so its cost drops out of the
+    institucional total AND every área at once. Because both sides drop it, the usual
+    "do the parts sum to the whole?" check stays green and the loss is invisible.
+
+    The realistic trigger is an onboarding race: cost posted for a new lawyer before their
+    grupo is set in ``CAD_PROFISSIONAL``. 2026 already saw four joiners and four leavers,
+    so this is a live shape, not a hypothetical — it just has not bitten yet.
+
+    Surfaced on the operator's integrity endpoint rather than guarded inside the
+    derivation: the numbers must keep saying what the DB says (no sanity-guard layer), but
+    an operator should be able to SEE that a sigla is unmapped.
+    """
+    c, store = client
+    store.put(
+        "2026-06",
+        {
+            "meta": {"ano_mes": "2026-06"},
+            "home_area": {"AAA": "Equipe Contencioso", "BBB": ""},
+            "custo_equipe_deriv": [
+                {"sigla": "AAA", "id_conta": "030.010.0010", "valor": 100.0},
+                {"sigla": "BBB", "id_conta": "030.010.0010", "valor": 250.0},
+                {"sigla": "ZZZ", "id_conta": "030.010.0010", "valor": 9999.0},
+                {"sigla": "ZZZ", "id_conta": "030.010.0130", "valor": 1.0},
+            ],
+        },
+    )
+    body = c.get(
+        "/api/ingest/2026-06/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    ).json()
+    unmapped = body["unmapped_lawyers"]
+    # ZZZ has no entry at all; BBB has an EMPTY grupo, which is just as unusable.
+    # Both rows for ZZZ are summed, and the biggest exposure sorts first.
+    assert unmapped == [
+        {"sigla": "ZZZ", "custo_equipe_dropped": 10000.0},
+        {"sigla": "BBB", "custo_equipe_dropped": 250.0},
+    ]
+    # A properly mapped lawyer must never be reported.
+    assert all(row["sigla"] != "AAA" for row in unmapped)
+
+
+def test_summary_reports_no_unmapped_lawyers_for_a_clean_month(client):
+    c, store = client
+    store.put(
+        "2026-06",
+        {
+            "meta": {"ano_mes": "2026-06"},
+            "home_area": {"AAA": "Equipe Contencioso"},
+            "custo_equipe_deriv": [
+                {"sigla": "AAA", "id_conta": "030.010.0010", "valor": 100.0}
+            ],
+        },
+    )
+    body = c.get(
+        "/api/ingest/2026-06/summary", headers={"Authorization": f"Bearer {TOKEN}"}
+    ).json()
+    assert body["unmapped_lawyers"] == []
