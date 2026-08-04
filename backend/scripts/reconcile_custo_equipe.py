@@ -177,13 +177,23 @@ def our_rows(snap: dict[str, Any]) -> list[dict[str, Any]]:
     return [*(snap.get("custo_equipe_deriv") or []), *vale]
 
 
-def our_overrides(snap: dict[str, Any]) -> dict[str, Any]:
-    """The convênio overrides, applying the SAME stale-memo guard as ``dre.py``.
+def our_overrides(
+    snap: dict[str, Any], shares: dict[str, float] | None = None
+) -> dict[str, Any]:
+    """The convênio overrides, applying the SAME rules as ``dre.py``.
 
-    This used to be a private copy of the override loop, and when the guard landed in
-    ``dre.py`` this script silently kept the old behaviour — so the reconciliation
-    reported numbers the product no longer produced. Reusing
-    ``_memo_describes_this_month`` is what keeps the two from drifting again.
+    ⚠ This has drifted from the product TWICE now, both times because it kept a private
+    copy of logic that later moved on:
+
+    * when ``_memo_describes_this_month`` landed, this script kept the old unconditional
+      behaviour and reported numbers the product no longer produced;
+    * when the Parte-MBC ``shares`` fallback landed (2026-08-04) it again reported the
+      posted gross for jan/fev, inflating the "Convênio" cause bucket by ~1.848.
+
+    So it now takes ``shares`` and mirrors ``dre.py`` exactly: a current memo wins, a
+    stale one is rebuilt from the lawyer's learned share, and only a lawyer with neither
+    falls back to the posted gross. If you change the rule in ``dre.py``, change it here
+    in the same commit — or better, check whether this copy can be deleted.
     """
     from app.closing.custo_equipe_deriv import CONVENIO_ACCOUNT, LawyerOverride
     from app.closing.dre import _memo_describes_this_month
@@ -201,15 +211,19 @@ def our_overrides(snap: dict[str, Any]) -> dict[str, Any]:
         parsed = memo.get("parsed_valor")
         if not sigla or parsed is None:
             continue
-        if not _memo_describes_this_month(str(memo.get("raw_memo") or ""), posted.get(sigla)):
-            continue
+        posted_here = posted.get(sigla)
+        if not _memo_describes_this_month(str(memo.get("raw_memo") or ""), posted_here):
+            share = (shares or {}).get(sigla)
+            if share is None or not posted_here:
+                continue
+            parsed = round(share * posted_here, 2)
         out[sigla] = LawyerOverride(set_account={CONVENIO_ACCOUNT: float(parsed)})
     return out
 
 
-def our_by_person_account(snap: dict[str, Any]) -> tuple[
-    dict[str, dict[tuple[str, str], float]], dict[str, float]
-]:
+def our_by_person_account(
+    snap: dict[str, Any], shares: dict[str, float] | None = None
+) -> tuple[dict[str, dict[tuple[str, str], float]], dict[str, float]]:
     """área -> (sigla, account) -> value, plus the production per-área totals.
 
     Per-person values come from the PRODUCTION functions, called one lawyer at a time
@@ -220,7 +234,7 @@ def our_by_person_account(snap: dict[str, Any]) -> tuple[
 
     home = {str(k): str(v) for k, v in (snap.get("home_area") or {}).items()}
     splits = build_area_splits(snap.get("rateio_grupo") or [], home)
-    overrides = our_overrides(snap)
+    overrides = our_overrides(snap, shares)
     rows = our_rows(snap)
 
     per: dict[str, dict[tuple[str, str], float]] = defaultdict(lambda: defaultdict(float))
@@ -293,13 +307,18 @@ def main() -> None:
     from app.api.providers import get_snapshot_store
 
     snaps = get_snapshot_store().snapshots_by_year(2026, client_id="mbc")
+    # Same whole-year Parte MBC shares the product uses, or the "Convênio" cause bucket
+    # reports a difference the app no longer has (this script has drifted twice).
+    from app.closing.dre import convenio_mbc_shares
+
+    shares = convenio_mbc_shares(snaps)
     wb = openpyxl.load_workbook(WORKBOOK, data_only=True)
     base = wb["Base_Resultado Mensal_V2"]
 
     grand: dict[str, float] = defaultdict(float)
     for m in MESES:
         snap = snaps[m]
-        ours, totals = our_by_person_account(snap)
+        ours, totals = our_by_person_account(snap, shares)
         book = book_by_person_account(base, m)
         print(f"\n{'#' * 78}\n# {MESES[m]} 2026\n{'#' * 78}")
         for head, _end, area in BLOCKS:
@@ -374,9 +393,23 @@ def main() -> None:
                     if abs(d) < 0.005:
                         continue
                     if acct == CONVENIO:
-                        buckets["Convênio: memo do mês (jan/fev) × constante do livro"] += d
+                        # After the 2026-08-04 share fallback this bucket is just the
+                        # RB-JANUARY extrapolation (~789,49) — the one convênio number
+                        # that is an estimate rather than derived. If it grows, the share
+                        # rule stopped applying somewhere; check `shares` is being passed.
+                        buckets["Convênio: estimativa da parte MBC do RB em janeiro"] += d
                     elif acct == "030.010.0150":
                         buckets["AASP: livro em Custo equipe, DB em Despesas Área"] += d
+                    elif acct == "030.010.0010":
+                        # The book types a distribuição NET of that person's personal
+                        # debits, matching `distribuicao_socio`; Custo equipe must be the
+                        # GROSS the firm bears (`custo_equipe_deriv`). Proven on DC in
+                        # June: deriv − distribuicao_socio = 3.796,78 = DC's
+                        # convenio_extra_dl exactly. Currently only ASG mar/abr survives
+                        # (1.509,00 each), because elsewhere the book itemises the same
+                        # gross across extra rows (ASG fev: 4.099 + 3.018 + 520 = 7.637,
+                        # our single posting) and those months tie at 0,00.
+                        buckets[f"{sg}: livro usa a distribuição LÍQUIDA, nós a bruta"] += d
                     else:
                         buckets[f"{sg} {acct}"] += d
             # Book persons with no counterpart on our side.
