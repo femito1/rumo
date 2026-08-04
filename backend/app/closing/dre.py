@@ -118,6 +118,72 @@ def _memo_describes_this_month(raw_memo: str, posted: float | None) -> bool:
     return False
 
 
+#: Parte MBC as a share of the POSTED convênio, per lawyer, learned from that lawyer's
+#: own months whose memo passes ``_memo_describes_this_month``.
+#:
+#: Why this exists: when a memo is stale we know the posted gross but not the MBC share,
+#: and the share is only ever written in the memo text. Falling back to the posted gross
+#: (the behaviour before 2026-08-04) overstates the lawyer's cost by the personal slice.
+#: Every lawyer's trusted months give the SAME share to 8 decimals (EHF 0.73698346 over
+#: five months, RB 0.73698936 over five), so the share is a stable property of the plan
+#: and can be carried to a month whose note was never updated.
+#:
+#: ⚠ EVIDENCE, and its limits — read before trusting a number this produces:
+#:   * SOLID where the lawyer's posted amount is UNCHANGED between the trusted months and
+#:     the stale one. Then this reproduces the same Parte MBC the memo would have stated.
+#:     True for EHF (posted 2.122,30 in all seven months of 2026) and for RB in February
+#:     (3.427,58, identical to mar–jul).
+#:   * AN EXTRAPOLATION where the posted amount differs — currently **RB in January
+#:     only** (2.355,73 vs 3.427,58 from February on: a real 1.071,85 plan change the
+#:     workbook does not track, since it types 2.526,09 in every month). Nothing in the
+#:     DB or the workbook states RB's January share, so this assumes the share held while
+#:     the plan moved. Documented as an estimate in ``DIFERENCAS_ACUMULADO_2026.md``.
+#:   * NOT independently validated as a ratio. Per lawyer it has one free parameter and
+#:     one observation, so it is exactly determined — a restatement of the trusted month,
+#:     not a confirmed law. Do not present it as proven.
+#:
+#: What IS independently validated is the staleness TEST that decides when to use this:
+#: ``plan_total = posted + convenio_extra_dl`` holds to the centavo in mar–jul for both
+#: lawyers (10 checks, nothing fitted) and fails exactly in jan/fev.
+_CONVENIO_SHARE_TOL = 0.01
+
+
+def convenio_mbc_shares(snapshots_by_month: dict[int, dict[str, Any]]) -> dict[str, float]:
+    """Learn ``{sigla: Parte MBC / posted}`` from every month with a TRUSTWORTHY memo.
+
+    Derived from the data, never hardcoded: a lawyer only gets a share if at least one
+    month states it, and disagreeing months yield no share at all (better to fall back
+    than to average two different plans into a number nobody wrote).
+    """
+    from app.closing.custo_equipe_deriv import CONVENIO_ACCOUNT
+
+    observed: dict[str, list[float]] = {}
+    for snap in snapshots_by_month.values():
+        posted: dict[str, float] = {}
+        for row in snap.get("custo_equipe_deriv") or []:
+            if str(row.get("id_conta") or "") == CONVENIO_ACCOUNT:
+                sg = str(row.get("sigla") or "").strip()
+                if sg:
+                    posted[sg] = round(
+                        posted.get(sg, 0.0) + float(row.get("valor") or 0.0), 2
+                    )
+        for memo in snap.get("convenio_memo") or []:
+            sg = str(memo.get("sigla") or "").strip()
+            parsed = memo.get("parsed_valor")
+            p = posted.get(sg)
+            if not sg or parsed is None or not p:
+                continue
+            if not _memo_describes_this_month(str(memo.get("raw_memo") or ""), p):
+                continue
+            observed.setdefault(sg, []).append(float(parsed) / p)
+
+    shares: dict[str, float] = {}
+    for sg, vals in observed.items():
+        if max(vals) - min(vals) <= _CONVENIO_SHARE_TOL:
+            shares[sg] = sum(vals) / len(vals)
+    return shares
+
+
 def is_adm_grupo(grupo_name: str | None) -> bool:
     """True when a SISJURI grupo name denotes the ADMINISTRATIVE team.
 
@@ -229,7 +295,11 @@ class RealizadoInputs:
 
     @classmethod
     def from_snapshot(
-        cls, snap: dict[str, Any], *, amortizacao_mensal: float | None = None
+        cls,
+        snap: dict[str, Any],
+        *,
+        amortizacao_mensal: float | None = None,
+        convenio_shares: dict[str, float] | None = None,
     ) -> "RealizadoInputs":
         """Build realizado inputs from a SISJURI snapshot.
 
@@ -237,6 +307,13 @@ class RealizadoInputs:
         from the client's ANNUAL amortização budget (annual / 12). When it is
         ``None`` or falsy the fixed ``AMORTIZACAO_MENSAL`` default is used, so the
         line never zeroes out when the budget is unset.
+
+        ``convenio_shares`` (2026-08-04): ``{sigla: Parte MBC / posted}`` learned from
+        OTHER months via :func:`convenio_mbc_shares`. Used only when this month's memo
+        is stale — see that function for what the resulting number is and is not
+        evidence of. Omitted (``None``) keeps the previous behaviour: a stale memo falls
+        back to the posted gross. A single-month caller cannot compute these, which is
+        why they are injected rather than derived here.
         """
         revenue = snap.get("revenue", {}) or {}
         despesas_rows = snap.get("despesas_conta", []) or []
@@ -482,10 +559,19 @@ class RealizadoInputs:
                 parsed = memo.get("parsed_valor")
                 if not sigla or parsed is None:
                     continue
+                posted_here = posted_convenio.get(sigla)
                 if not _memo_describes_this_month(
-                    str(memo.get("raw_memo") or ""), posted_convenio.get(sigla)
+                    str(memo.get("raw_memo") or ""), posted_here
                 ):
-                    continue
+                    # Stale note. Rather than fall back to the posted GROSS (which
+                    # overstates the lawyer's cost by their personal slice), rebuild the
+                    # Parte MBC from the share this lawyer shows in the months whose
+                    # memo IS current. Only the share is carried across months — the
+                    # posted amount is always this month's own.
+                    share = (convenio_shares or {}).get(sigla)
+                    if share is None or not posted_here:
+                        continue
+                    parsed = round(share * posted_here, 2)
                 existing = overrides.get(sigla)
                 if existing is None:
                     overrides[sigla] = LawyerOverride(
@@ -1044,6 +1130,7 @@ def assemble_dre_sections(
     period_month: int | None = None,
     targets: Targets | None = None,
     ytd_recebimento: dict[int, float] | None = None,
+    convenio_shares: dict[str, float] | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
@@ -1059,14 +1146,22 @@ def assemble_dre_sections(
     diverges from its target by more than R$0,01 is blanked (the hard rule).
     ``ytd_recebimento`` is a ``{month_index: recebimento}`` map for the Meta
     dashboard's 12-month table (fills every closed month, not just the competence
-    one); when None only the competence month is filled."""
+    one); when None only the competence month is filled.
+    ``convenio_shares`` is ``{sigla: Parte MBC / posted}`` from
+    :func:`convenio_mbc_shares`, used to rebuild the MBC share when a lawyer's
+    convênio memo is stale. Needs other months, so the caller supplies it; omitting it
+    keeps the older posted-gross fallback."""
     budget = budget or {}
     # POINT 12: annual amortização is a per-year budget input; the monthly DRE
     # line = annual / 12 (the budget layer already split it). Falsy/unset budget
     # falls back to the fixed 8.117/mês default inside ``from_snapshot``.
     amort_mensal = (budget.get("institucional", {}) or {}).get(AMORTIZACAO)
     r = (
-        RealizadoInputs.from_snapshot(snapshot, amortizacao_mensal=amort_mensal)
+        RealizadoInputs.from_snapshot(
+            snapshot,
+            amortizacao_mensal=amort_mensal,
+            convenio_shares=convenio_shares,
+        )
         if snapshot is not None
         else RealizadoInputs.empty()
     )

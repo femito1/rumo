@@ -977,19 +977,115 @@ def test_convenio_memo_is_ignored_when_it_does_not_describe_this_month(snapshot_
             memo["parsed_valor"] = 603.50
     stale = RealizadoInputs.from_snapshot(snap).area_custo_equipe["Econômico"]
 
-    # The stale 603,50 must NOT be applied. What stands instead is the POSTED gross
-    # (2.122,30), because the real "Parte MBC" for that plan exists ONLY in the memo
-    # text and a single month cannot recover it — measured: the 500.<SIGLA> extras
-    # (convenio_extra_dl) are constant year-round and do not reconstruct it.
+    # The stale 603,50 must NOT be applied. With NO cross-month information (a
+    # single-month caller passes no ``convenio_shares``) what stands is the POSTED gross
+    # (2.122,30) — the honest answer when this month's data alone cannot recover the MBC
+    # share. Deliberately NOT hardcoding 1.564,10 here: that would be fitting to the
+    # workbook from a month that does not contain it.
     #
-    # Deliberately NOT hardcoding 1.564,10 here: that would be fitting to the workbook,
-    # and this month's data does not contain it. The posted gross is the honest
-    # DB-derived answer; closing the last ~558 needs the note fixed in SISJURI, which is
-    # what the differences document now asks finance for.
+    # A caller that DOES have the other months closes this properly — see
+    # ``test_stale_convenio_memo_rebuilds_parte_mbc_from_the_learned_share``.
     assert stale == pytest.approx(81095.04, abs=0.02), (
         "a stale memo must fall back to the POSTED value, not apply its own figure"
     )
     assert stale > 80536.85, "ignoring a stale discount must not lower the cost"
+
+
+def test_convenio_share_is_learned_only_from_trustworthy_months():
+    """``convenio_mbc_shares`` reads the Parte MBC share off the months whose memo is
+    CURRENT, and ignores the stale ones.
+
+    The share is what lets a stale month show the MBC share instead of the posted gross.
+    It must come from the data — never a constant — so this pins the extraction, not a
+    number: a stale month must not contribute, and a lawyer whose trusted months
+    DISAGREE must get no share at all (falling back beats averaging two plans into a
+    figure nobody wrote).
+    """
+    from app.closing.dre import convenio_mbc_shares
+
+    def month(posted: float, memo_value: float, memo_text: str) -> dict:
+        return {
+            "custo_equipe_deriv": [
+                {"sigla": "XX", "id_conta": "030.010.0110", "valor": posted}
+            ],
+            "convenio_memo": [
+                {"sigla": "XX", "parsed_valor": memo_value, "raw_memo": memo_text}
+            ],
+        }
+
+    # A CURRENT memo (mentions the posted 1.000,00) yields the share 0,70.
+    current = month(1000.0, 700.0, "Plano - Valor R$ 1.000,00 ... (Parte MBC) = 700,00")
+    assert convenio_mbc_shares({3: current})["XX"] == pytest.approx(0.70, abs=1e-9)
+
+    # A STALE memo (cites 500,00, never posted) must contribute NOTHING.
+    stale = month(1000.0, 350.0, "Plano - Valor R$ 500,00 ... (Parte MBC) = 350,00")
+    assert convenio_mbc_shares({1: stale}) == {}
+
+    # Stale alongside current: only the current one counts.
+    assert convenio_mbc_shares({1: stale, 3: current})["XX"] == pytest.approx(0.70, abs=1e-9)
+
+    # Two CURRENT months that disagree on the share => no share (do not average).
+    other = month(2000.0, 1000.0, "Plano - Valor R$ 2.000,00 ... (Parte MBC) = 1.000,00")
+    assert convenio_mbc_shares({3: current, 4: other}) == {}
+
+
+def test_stale_convenio_memo_rebuilds_parte_mbc_from_the_learned_share(snapshot_jun):
+    """A stale memo borrows the SHARE from the lawyer's current months — never the amount.
+
+    This is what removed the convênio from the "needs a finance ruling" list
+    (2026-08-04). The old fallback booked the posted GROSS, which overstates the
+    lawyer's cost by their personal slice; the memo's own numbers are chronically
+    unmaintained (``603,50 / 524,28`` appears in ALL TWELVE months of 2025 and into
+    Feb 2026 while the posted plan changed twice underneath it).
+
+    What is applied is ``share × THIS month's posted`` — so the amount is always the
+    month's own and only the ratio is carried. On the real data (see
+    ``scripts/audit_convenio_share.py``) February's Econômico goes from +1.405,83 to
+    −53,85 against the workbook and the YTD Resultado Bruto gap closes from −7.640,50
+    to −5.003,04.
+
+    ⚠ The share is EXACTLY DETERMINED by one observation per lawyer, so it is a
+    restatement of the trusted month, not an independently validated law. It is solid
+    where the posted amount is unchanged between the trusted and the stale month, and an
+    EXTRAPOLATION where it moved (RB January 2026 — documented as an estimate).
+    """
+    snap = json.loads(json.dumps(snapshot_jun))  # deep copy
+    # Make EHF's memo stale exactly as jan/fev are.
+    for memo in snap["convenio_memo"]:
+        if memo["sigla"] == "EHF":
+            memo["raw_memo"] = (
+                "Convêno Médico  EHF- Plano: SOHO60E - Valor968,65\r\n\r\n"
+                "1.795,86-1.192,36 ( Parte MBC)=603,50"
+            )
+            memo["parsed_valor"] = 603.50
+
+    # No shares: falls back to the posted gross (the old behaviour).
+    gross = RealizadoInputs.from_snapshot(snap).area_custo_equipe["Econômico"]
+
+    # With the share EHF shows in its current months, the MBC share is rebuilt and the
+    # área returns to the client-validated June figure.
+    share = 1564.10 / 2122.30
+    fixed = RealizadoInputs.from_snapshot(
+        snap, convenio_shares={"EHF": share}
+    ).area_custo_equipe["Econômico"]
+    assert fixed == pytest.approx(80536.85, abs=0.02)
+    assert fixed < gross, "rebuilding the MBC share must remove the personal slice"
+
+    # A lawyer with no learned share still falls back to the gross — never guessed.
+    assert RealizadoInputs.from_snapshot(
+        snap, convenio_shares={"ZZZ": 0.5}
+    ).area_custo_equipe["Econômico"] == pytest.approx(gross, abs=0.02)
+
+
+def test_a_current_convenio_memo_ignores_the_learned_share(snapshot_jun):
+    """The share is a FALLBACK. When the memo is current its own stated Parte MBC wins,
+    so passing a (deliberately absurd) share must change nothing."""
+    base = RealizadoInputs.from_snapshot(snapshot_jun).area_custo_equipe["Econômico"]
+    with_share = RealizadoInputs.from_snapshot(
+        snapshot_jun, convenio_shares={"EHF": 0.01, "RB": 0.01}
+    ).area_custo_equipe["Econômico"]
+    assert with_share == pytest.approx(base, abs=0.005)
+    assert base == pytest.approx(80536.85, abs=0.02)
 
 
 def test_per_area_despesa_institucional_ratears_only_the_pool_june(snapshot_jun):

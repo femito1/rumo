@@ -28,6 +28,7 @@ class AssemblerSource:
         transfers: list[Any] | None = None,
         targets: dict[str, dict[str, float]] | None = None,
         ytd_recebimento: dict[int, float] | None = None,
+        convenio_shares: dict[str, float] | None = None,
     ) -> None:
         self._snapshot = snapshot
         self._budget = budget
@@ -35,6 +36,7 @@ class AssemblerSource:
         self._transfers = transfers
         self._targets = targets
         self._ytd_recebimento = ytd_recebimento
+        self._convenio_shares = convenio_shares
 
     def supports(self) -> set[SectionKey]:
         return {
@@ -65,6 +67,7 @@ class AssemblerSource:
             period_month=period.month,
             targets=self._targets,
             ytd_recebimento=self._ytd_recebimento,
+            convenio_shares=self._convenio_shares,
         )
         out: dict[SectionKey, SectionData] = {}
         for value, data in sections.items():

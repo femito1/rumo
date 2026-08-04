@@ -45,21 +45,21 @@ Diferença = Sistema − Planilha, por mês.
 
 | Linha | Jan | Fev | Mar | Abr | Mai | Jun | Acumulado |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Econômico · Custo equipe | +R$ 290,15 | +R$ 1.405,83 | +R$ 2.425,63 | +R$ 2.770,99 | +R$ 75,61 | +R$ 0,01 | **+R$ 6.968,22** |
+| Econômico · Custo equipe | -R$ 887,63 | -R$ 53,85 | +R$ 2.425,63 | +R$ 2.770,99 | +R$ 75,61 | +R$ 0,01 | **+R$ 4.330,76** |
 | Arbitragem · Despesas Equipe | +R$ 1.058,47 | R$ 0,00 ✓ | +R$ 973,23 | +R$ 1.524,30 | +R$ 68,00 | R$ 0,00 ✓ | **+R$ 3.624,00** |
 | Contencioso · Custo equipe | -R$ 97,70 | -R$ 163,06 | +R$ 1.226,79 | +R$ 937,26 | +R$ 1.236,90 | R$ 0,00 ✓ | **+R$ 3.140,19** |
-| Contencioso · Despesa Institucional | +R$ 503,03 | +R$ 257,76 | -R$ 1.493,80 | -R$ 1.402,60 | -R$ 485,54 | +R$ 1,72 | **-R$ 2.619,43** |
+| Contencioso · Despesa Institucional | +R$ 695,30 | +R$ 463,83 | -R$ 1.493,80 | -R$ 1.402,60 | -R$ 485,54 | +R$ 1,72 | **-R$ 2.221,09** |
 | Contencioso · Despesas Equipe | -R$ 718,70 | +R$ 217,40 | R$ 0,00 ✓ | -R$ 302,20 | -R$ 1.358,73 | -R$ 0,01 | **-R$ 2.162,24** |
-| Arbitragem · Despesa Institucional | +R$ 462,89 | +R$ 1.036,83 | -R$ 1.377,49 | -R$ 1.338,07 | -R$ 778,27 | +R$ 1,24 | **-R$ 1.992,87** |
+| Econômico · Despesa Institucional | +R$ 345,15 | +R$ 525,55 | -R$ 1.049,63 | -R$ 653,67 | -R$ 1.101,62 | +R$ 1,84 | **-R$ 1.932,38** |
 | Arbitragem · Custo equipe | +R$ 0,96 | +R$ 1.911,95 | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | **+R$ 1.912,91** |
-| Econômico · Despesa Institucional | +R$ 699,69 | +R$ 903,95 | -R$ 1.049,63 | -R$ 653,67 | -R$ 1.101,62 | +R$ 1,84 | **-R$ 1.199,44** |
-| Custos Diretos | +R$ 193,41 | +R$ 3.154,72 | +R$ 3.652,42 | +R$ 3.708,24 | +R$ 1.312,50 | R$ 0,00 ✓ | **+R$ 12.021,29** |
-| Resultado Bruto | -R$ 1.727,18 | -R$ 4.403,91 | -R$ 704,73 | -R$ 1.638,21 | +R$ 838,77 | -R$ 5,24 | **-R$ 7.640,50** |
-| Resultado Líquido | -R$ 1.727,18 | -R$ 4.403,91 | -R$ 704,73 | -R$ 1.638,21 | +R$ 838,79 | -R$ 5,17 | **-R$ 7.640,41** |
-| Econômico · Resultado Bruto | -R$ 517,88 | -R$ 1.143,44 | -R$ 1.376,07 | -R$ 2.219,25 | -R$ 479,14 | -R$ 2,14 | **-R$ 5.737,92** |
+| Arbitragem · Despesa Institucional | +R$ 625,16 | +R$ 1.209,16 | -R$ 1.377,49 | -R$ 1.338,07 | -R$ 778,27 | +R$ 1,24 | **-R$ 1.658,27** |
+| Custos Diretos | -R$ 984,37 | +R$ 1.695,04 | +R$ 3.652,42 | +R$ 3.708,24 | +R$ 1.312,50 | R$ 0,00 ✓ | **+R$ 9.383,83** |
+| Resultado Bruto | -R$ 549,40 | -R$ 2.944,23 | -R$ 704,73 | -R$ 1.638,21 | +R$ 838,77 | -R$ 5,24 | **-R$ 5.003,04** |
+| Resultado Líquido | -R$ 549,40 | -R$ 2.944,23 | -R$ 704,73 | -R$ 1.638,21 | +R$ 838,79 | -R$ 5,17 | **-R$ 5.002,95** |
 | Despesas Indiretas | +R$ 1.533,77 | +R$ 1.249,19 | -R$ 2.947,69 | -R$ 2.070,03 | -R$ 2.151,43 | +R$ 4,80 | **-R$ 4.381,39** |
-| Arbitragem · Resultado Bruto | -R$ 1.521,98 | -R$ 2.948,36 | +R$ 404,19 | -R$ 186,56 | +R$ 709,62 | -R$ 1,24 | **-R$ 3.544,33** |
-| Contencioso · Resultado Bruto | +R$ 313,72 | -R$ 312,48 | +R$ 267,20 | +R$ 767,10 | +R$ 607,09 | -R$ 1,85 | **+R$ 1.640,78** |
+| Arbitragem · Resultado Bruto | -R$ 1.684,25 | -R$ 3.120,69 | +R$ 404,19 | -R$ 186,56 | +R$ 709,62 | -R$ 1,24 | **-R$ 3.878,93** |
+| Econômico · Resultado Bruto | +R$ 1.014,44 | +R$ 694,64 | -R$ 1.376,07 | -R$ 2.219,25 | -R$ 479,14 | -R$ 2,14 | **-R$ 2.367,52** |
+| Contencioso · Resultado Bruto | +R$ 121,45 | -R$ 518,55 | +R$ 267,20 | +R$ 767,10 | +R$ 607,09 | -R$ 1,85 | **+R$ 1.242,44** |
 
 Quatro causas explicam tudo, e cada uma foi medida — não é suposição:
 
@@ -87,43 +87,48 @@ Uma observação que vale para ler todas as tabelas: **Resultado Bruto não tem*
 **causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à
 soma das diferenças das linhas que o compõem, com erro máximo de R$ 0,01.
 
-⚠ **Por que algumas diferenças CRESCERAM em relação à versão anterior deste**
-**documento.** Corrigimos o convênio de janeiro e fevereiro (a anotação
-desatualizada, explicada em *Econômico · Custo equipe*). Isso deixou cada linha
-mais correta, mas fez os totais parecerem piores: o erro do Econômico estava
-**cancelando** o da Arbitragem. Em fevereiro, por exemplo, as três áreas somavam
--1.267,37 (parecia perto) porque -3.016,26 do Econômico anulava +1.911,95 da
-Arbitragem; agora somam +3.154,72. **Um total que fecha por cancelamento não é**
-**um número validado** — preferimos cada linha certa a um total bonito. O erro
-absoluto do custo de equipe por área em jan/fev caiu 53%.
+**O que mudou em relação à versão anterior deste documento.** O sistema passou a
+calcular sozinho a parte MBC do convênio quando a anotação do lançamento está
+desatualizada (explicado em *Econômico · Custo equipe*). Com isso o Resultado
+Bruto acumulado saiu de −R$ 7.640,50 para **−R$ 5.003,04**, e o Resultado Bruto do
+Econômico de −R$ 5.737,92 para **−R$ 2.367,52**. Fevereiro do Econômico, que era a
+maior distorção, foi de +R$ 1.405,83 para −R$ 53,85.
+
+⚠ **Uma ressalva de leitura, que vale sempre:** um total que fecha porque dois
+erros se anulam **não é um número validado**. Já aconteceu aqui: numa versão
+anterior as três áreas de fevereiro somavam −1.267,37 e pareciam próximas, mas era
+−3.016,26 do Econômico anulando +1.911,95 da Arbitragem. Preferimos cada linha
+certa a um total bonito — por isso mostramos mês a mês, e não só o acumulado.
 
 ## Detalhe, linha por linha
 
 ### Econômico · Custo equipe
 
-Diferença no acumulado: **+R$ 6.968,22**
+Diferença no acumulado: **+R$ 4.330,76**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C57` | R$ 75.653,19 | R$ 75.943,34 | +R$ 290,15 |
-| Fevereiro | `G57` | R$ 78.817,05 | R$ 80.222,88 | +R$ 1.405,83 |
+| Janeiro | `C57` | R$ 75.653,19 | R$ 74.765,56 | -R$ 887,63 |
+| Fevereiro | `G57` | R$ 78.817,05 | R$ 78.763,20 | -R$ 53,85 |
 | Março | `K57` | R$ 76.049,97 | R$ 78.475,60 | +R$ 2.425,63 |
 | Abril | `O57` | R$ 79.160,08 | R$ 81.931,07 | +R$ 2.770,99 |
 | Maio | `S57` | R$ 79.436,24 | R$ 79.511,85 | +R$ 75,61 |
 | Junho | `W57` | R$ 80.536,84 | R$ 80.536,85 | +R$ 0,01 |
-| **Acumulado** | — | **R$ 469.653,37** | **R$ 476.621,59** | **+R$ 6.968,22** |
+| **Acumulado** | — | **R$ 469.653,37** | **R$ 473.984,13** | **+R$ 4.330,76** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **57**.
 
 **Por quê:** Três coisas, todas identificadas:
 
-* **Convênio médico de janeiro e fevereiro — era um erro nosso, já corrigido.** A anotação (*memória de cálculo*) que o financeiro deixa no lançamento do convênio estava **desatualizada** nesses dois meses: ela descreve um plano de 968,65 quando o valor lançado no sistema era 2.122,30 (o mesmo nos seis meses). Nós estávamos usando a conta dessa anotação antiga; agora o sistema só a usa quando ela cita o valor efetivamente lançado no mês, o que resolve 90% da diferença de janeiro. O que ainda sobra é que, sem uma anotação válida, usamos o valor cheio do plano — daí a diferença mudar de sinal.
+* **Convênio médico de janeiro e fevereiro — era um erro nosso, agora resolvido sem depender de ninguém.** A anotação (*memória de cálculo*) que o financeiro deixa no lançamento do convênio está **desatualizada** nesses dois meses: descreve um plano de 968,65 quando o valor lançado era 2.122,30. Não é um descuido isolado — o mesmo texto (*603,50 / 524,28*) aparece nos **doze meses de 2025** e segue até fevereiro de 2026, enquanto o plano lançado mudou duas vezes por baixo dele. Então não pedimos mais que a anotação seja corrigida: o sistema passou a **calcular a parte MBC sozinho**. Ele aprende, nos meses em que a anotação está correta, qual proporção do valor lançado cabe à MBC (a mesma em todos eles) e aplica essa proporção ao valor lançado *do próprio mês*. Fevereiro passou de +R$ 1.405,83 para −R$ 53,85 contra a planilha.
 * **Vale dos advogados** — regra confirmada por vocês (sempre incluir); as colunas de janeiro a maio da planilha não incluem.
 * **A estagiária do Direito Econômico**, que entra na planilha a partir de março e que nós reproduzimos ao centavo — é por causa dela que o sinal da diferença se inverte entre fevereiro e março.
 
-**Onde conferir o detalhe:** Planilha, linhas **44 e 48** (convênio de EHF e RB: a mesma constante nos seis meses) e **52** (estagiária). No sistema, a anotação do lançamento da conta `030.010.0110`.
+⚠ **Uma estimativa nossa, em janeiro:** o plano do RB realmente mudou (2.355,73 em janeiro contra 3.427,58 de fevereiro em diante). A planilha repete 2.526,09 em todos os meses, ou seja não acompanha essa mudança; nós acompanhamos, mas como nenhum lugar registra qual era a parte MBC do RB em janeiro, aplicamos a mesma proporção dos outros meses. Esse número específico é uma estimativa, e é a maior parte da diferença de janeiro.
 
-**O que precisamos de vocês:** Atualizar no sistema a memória de cálculo do convênio de **janeiro e fevereiro** (EHF e RB): ela ficou com os números de um plano anterior. Com a anotação corrigida, esses dois meses fecham sozinhos — não precisamos de nenhuma decisão, só do texto certo no lançamento.
+**Onde conferir o detalhe:** Planilha, linhas **44 e 48** (convênio de EHF e RB: a mesma constante nos seis meses) e **52** (estagiária). No sistema, a conta `030.010.0110` e a anotação do lançamento. O cálculo completo está em `scripts/audit_convenio_share.py`.
+
+**O que precisamos de vocês:** **Nada.** Este item deixou de depender do financeiro em 04/08/2026. Se quiserem, vale confirmar qual era a parte MBC do **RB em janeiro** — é o único número aqui que estimamos — mas o fechamento não fica esperando por isso.
 
 ### Arbitragem · Despesas Equipe
 
@@ -169,17 +174,17 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **39**.
 
 ### Contencioso · Despesa Institucional
 
-Diferença no acumulado: **-R$ 2.619,43**
+Diferença no acumulado: **-R$ 2.221,09**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C42` | R$ 33.821,38 | R$ 34.324,41 | +R$ 503,03 |
-| Fevereiro | `G42` | R$ 30.609,71 | R$ 30.867,47 | +R$ 257,76 |
+| Janeiro | `C42` | R$ 33.821,38 | R$ 34.516,68 | +R$ 695,30 |
+| Fevereiro | `G42` | R$ 30.609,71 | R$ 31.073,54 | +R$ 463,83 |
 | Março | `K42` | R$ 34.482,81 | R$ 32.989,01 | -R$ 1.493,80 |
 | Abril | `O42` | R$ 36.400,45 | R$ 34.997,85 | -R$ 1.402,60 |
 | Maio | `S42` | R$ 35.555,40 | R$ 35.069,86 | -R$ 485,54 |
 | Junho | `W42` | R$ 32.562,84 | R$ 32.564,56 | +R$ 1,72 |
-| **Acumulado** | — | **R$ 203.432,59** | **R$ 200.813,16** | **-R$ 2.619,43** |
+| **Acumulado** | — | **R$ 203.432,59** | **R$ 201.211,50** | **-R$ 2.221,09** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **42**.
 
@@ -209,23 +214,23 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **41**.
 
 **O que precisamos de vocês:** Confirmar se as fórmulas das linhas 204/205/206 de janeiro a maio podem ser copiadas de junho, que já está correto.
 
-### Arbitragem · Despesa Institucional
+### Econômico · Despesa Institucional
 
-Diferença no acumulado: **-R$ 1.992,87**
+Diferença no acumulado: **-R$ 1.932,38**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C78` | R$ 28.506,06 | R$ 28.968,95 | +R$ 462,89 |
-| Fevereiro | `G78` | R$ 24.776,64 | R$ 25.813,47 | +R$ 1.036,83 |
-| Março | `K78` | R$ 23.282,16 | R$ 21.904,67 | -R$ 1.377,49 |
-| Abril | `O78` | R$ 26.579,88 | R$ 25.241,81 | -R$ 1.338,07 |
-| Maio | `S78` | R$ 26.080,54 | R$ 25.302,27 | -R$ 778,27 |
-| Junho | `W78` | R$ 23.479,14 | R$ 23.480,38 | +R$ 1,24 |
-| **Acumulado** | — | **R$ 152.704,42** | **R$ 150.711,55** | **-R$ 1.992,87** |
+| Janeiro | `C60` | R$ 34.776,07 | R$ 35.121,22 | +R$ 345,15 |
+| Fevereiro | `G60` | R$ 31.601,96 | R$ 32.127,51 | +R$ 525,55 |
+| Março | `K60` | R$ 35.999,71 | R$ 34.950,08 | -R$ 1.049,63 |
+| Abril | `O60` | R$ 38.228,85 | R$ 37.575,18 | -R$ 653,67 |
+| Maio | `S60` | R$ 38.094,71 | R$ 36.993,09 | -R$ 1.101,62 |
+| Junho | `W60` | R$ 34.770,11 | R$ 34.771,95 | +R$ 1,84 |
+| **Acumulado** | — | **R$ 213.471,41** | **R$ 211.539,03** | **-R$ 1.932,38** |
 
-Na planilha: aba **Areas Sintetico atualizado**, linha **78**.
+Na planilha: aba **Areas Sintetico atualizado**, linha **60**.
 
-**Por quê:** Mesma origem do Contencioso: POOL institucional rateado. Ver a explicação em *Contencioso · Despesa Institucional*.
+**Por quê:** Mesma origem do Contencioso: é o POOL institucional rateado, e a parte da participação por área soma zero. Ver a explicação em *Contencioso · Despesa Institucional*.
 
 **Onde conferir o detalhe:** Planilha, linha **207** (`=198−203`) para o POOL, e linhas **5 / 30 / 60** para o custo de equipe de cada área. Rode `python -m scripts.audit_desp_inst_rateio`.
 
@@ -249,39 +254,39 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **75**.
 
 **Onde conferir o detalhe:** Planilha, linhas **69, 70 e 71**, coluna D (fevereiro): as duas últimas têm valor, a primeira está vazia.
 
-### Econômico · Despesa Institucional
+### Arbitragem · Despesa Institucional
 
-Diferença no acumulado: **-R$ 1.199,44**
+Diferença no acumulado: **-R$ 1.658,27**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C60` | R$ 34.776,07 | R$ 35.475,76 | +R$ 699,69 |
-| Fevereiro | `G60` | R$ 31.601,96 | R$ 32.505,91 | +R$ 903,95 |
-| Março | `K60` | R$ 35.999,71 | R$ 34.950,08 | -R$ 1.049,63 |
-| Abril | `O60` | R$ 38.228,85 | R$ 37.575,18 | -R$ 653,67 |
-| Maio | `S60` | R$ 38.094,71 | R$ 36.993,09 | -R$ 1.101,62 |
-| Junho | `W60` | R$ 34.770,11 | R$ 34.771,95 | +R$ 1,84 |
-| **Acumulado** | — | **R$ 213.471,41** | **R$ 212.271,97** | **-R$ 1.199,44** |
+| Janeiro | `C78` | R$ 28.506,06 | R$ 29.131,22 | +R$ 625,16 |
+| Fevereiro | `G78` | R$ 24.776,64 | R$ 25.985,80 | +R$ 1.209,16 |
+| Março | `K78` | R$ 23.282,16 | R$ 21.904,67 | -R$ 1.377,49 |
+| Abril | `O78` | R$ 26.579,88 | R$ 25.241,81 | -R$ 1.338,07 |
+| Maio | `S78` | R$ 26.080,54 | R$ 25.302,27 | -R$ 778,27 |
+| Junho | `W78` | R$ 23.479,14 | R$ 23.480,38 | +R$ 1,24 |
+| **Acumulado** | — | **R$ 152.704,42** | **R$ 151.046,15** | **-R$ 1.658,27** |
 
-Na planilha: aba **Areas Sintetico atualizado**, linha **60**.
+Na planilha: aba **Areas Sintetico atualizado**, linha **78**.
 
-**Por quê:** Mesma origem do Contencioso: é o POOL institucional rateado, e a parte da participação por área soma zero. Ver a explicação em *Contencioso · Despesa Institucional*.
+**Por quê:** Mesma origem do Contencioso: POOL institucional rateado. Ver a explicação em *Contencioso · Despesa Institucional*.
 
 **Onde conferir o detalhe:** Planilha, linha **207** (`=198−203`) para o POOL, e linhas **5 / 30 / 60** para o custo de equipe de cada área. Rode `python -m scripts.audit_desp_inst_rateio`.
 
 ### Custos Diretos
 
-Diferença no acumulado: **+R$ 12.021,29**
+Diferença no acumulado: **+R$ 9.383,83**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C6` | R$ 211.242,68 | R$ 211.436,09 | +R$ 193,41 |
-| Fevereiro | `G6` | R$ 218.453,74 | R$ 221.608,46 | +R$ 3.154,72 |
+| Janeiro | `C6` | R$ 211.242,68 | R$ 210.258,31 | -R$ 984,37 |
+| Fevereiro | `G6` | R$ 218.453,74 | R$ 220.148,78 | +R$ 1.695,04 |
 | Março | `K6` | R$ 198.079,41 | R$ 201.731,83 | +R$ 3.652,42 |
 | Abril | `O6` | R$ 209.572,83 | R$ 213.281,07 | +R$ 3.708,24 |
 | Maio | `S6` | R$ 210.089,46 | R$ 211.401,96 | +R$ 1.312,50 |
 | Junho | `W6` | R$ 210.781,04 | R$ 210.781,04 | R$ 0,00 ✓ |
-| **Acumulado** | — | **R$ 1.258.219,16** | **R$ 1.270.240,45** | **+R$ 12.021,29** |
+| **Acumulado** | — | **R$ 1.258.219,16** | **R$ 1.267.602,99** | **+R$ 9.383,83** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **6**.
 
@@ -291,17 +296,17 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **6**.
 
 ### Resultado Bruto
 
-Diferença no acumulado: **-R$ 7.640,50**
+Diferença no acumulado: **-R$ 5.003,04**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C25` | -R$ 31.603,02 | -R$ 33.330,20 | -R$ 1.727,18 |
-| Fevereiro | `G25` | R$ 5.732,45 | R$ 1.328,54 | -R$ 4.403,91 |
+| Janeiro | `C25` | -R$ 31.603,02 | -R$ 32.152,42 | -R$ 549,40 |
+| Fevereiro | `G25` | R$ 5.732,45 | R$ 2.788,22 | -R$ 2.944,23 |
 | Março | `K25` | R$ 312.453,45 | R$ 311.748,72 | -R$ 704,73 |
 | Abril | `O25` | -R$ 81.401,48 | -R$ 83.039,69 | -R$ 1.638,21 |
 | Maio | `S25` | R$ 100.327,11 | R$ 101.165,88 | +R$ 838,77 |
 | Junho | `W25` | -R$ 51.689,40 | -R$ 51.694,64 | -R$ 5,24 |
-| **Acumulado** | — | **R$ 253.819,11** | **R$ 246.178,61** | **-R$ 7.640,50** |
+| **Acumulado** | — | **R$ 253.819,11** | **R$ 248.816,07** | **-R$ 5.003,04** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **25**.
 
@@ -309,41 +314,21 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **25**.
 
 ### Resultado Líquido
 
-Diferença no acumulado: **-R$ 7.640,41**
+Diferença no acumulado: **-R$ 5.002,95**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C30` | -R$ 81.693,18 | -R$ 83.420,36 | -R$ 1.727,18 |
-| Fevereiro | `G30` | -R$ 50.269,59 | -R$ 54.673,50 | -R$ 4.403,91 |
+| Janeiro | `C30` | -R$ 81.693,18 | -R$ 82.242,58 | -R$ 549,40 |
+| Fevereiro | `G30` | -R$ 50.269,59 | -R$ 53.213,82 | -R$ 2.944,23 |
 | Março | `K30` | R$ 212.461,19 | R$ 211.756,46 | -R$ 704,73 |
 | Abril | `O30` | -R$ 125.267,60 | -R$ 126.905,81 | -R$ 1.638,21 |
 | Maio | `S30` | R$ 29.820,91 | R$ 30.659,70 | +R$ 838,79 |
 | Junho | `W30` | -R$ 99.559,25 | -R$ 99.564,42 | -R$ 5,17 |
-| **Acumulado** | — | **-R$ 114.507,52** | **-R$ 122.147,93** | **-R$ 7.640,41** |
+| **Acumulado** | — | **-R$ 114.507,52** | **-R$ 119.510,47** | **-R$ 5.002,95** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **30**.
 
 **Por quê:** causa ainda não documentada — falar com o time antes da reunião.
-
-### Econômico · Resultado Bruto
-
-Diferença no acumulado: **-R$ 5.737,92**
-
-| Mês | Célula na planilha | Planilha | Sistema | Diferença |
-|---|---|---:|---:|---:|
-| Janeiro | `C61` | -R$ 50.457,07 | -R$ 50.974,95 | -R$ 517,88 |
-| Fevereiro | `G61` | R$ 4.451,92 | R$ 3.308,48 | -R$ 1.143,44 |
-| Março | `K61` | R$ 229.714,00 | R$ 228.337,93 | -R$ 1.376,07 |
-| Abril | `O61` | R$ 40.402,75 | R$ 38.183,50 | -R$ 2.219,25 |
-| Maio | `S61` | R$ 44.916,89 | R$ 44.437,75 | -R$ 479,14 |
-| Junho | `W61` | -R$ 12.926,08 | -R$ 12.928,22 | -R$ 2,14 |
-| **Acumulado** | — | **R$ 256.102,41** | **R$ 250.364,49** | **-R$ 5.737,92** |
-
-Na planilha: aba **Areas Sintetico atualizado**, linha **61**.
-
-**Por quê:** **Não é uma diferença própria — é a soma das linhas acima.** Verificado nas 18 células (3 áreas × 6 meses): a diferença do Resultado Bruto é igual a `Δreceita − Δcusto de equipe − Δcomissão − Δdespesas equipe − Δdespesa institucional`, com erro máximo de R$ 0,01. Então não há nada a explicar aqui que não esteja explicado nas linhas que o compõem.
-
-**Onde conferir o detalhe:** Some as linhas acima da própria área na planilha (linhas 39 a 42 do Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem).
 
 ### Despesas Indiretas
 
@@ -374,17 +359,17 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **13**.
 
 ### Arbitragem · Resultado Bruto
 
-Diferença no acumulado: **-R$ 3.544,33**
+Diferença no acumulado: **-R$ 3.878,93**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C79` | R$ 42.503,77 | R$ 40.981,79 | -R$ 1.521,98 |
-| Fevereiro | `G79` | -R$ 26.698,68 | -R$ 29.647,04 | -R$ 2.948,36 |
+| Janeiro | `C79` | R$ 42.503,77 | R$ 40.819,52 | -R$ 1.684,25 |
+| Fevereiro | `G79` | -R$ 26.698,68 | -R$ 29.819,37 | -R$ 3.120,69 |
 | Março | `K79` | R$ 37.249,72 | R$ 37.653,91 | +R$ 404,19 |
 | Abril | `O79` | -R$ 80.776,26 | -R$ 80.962,82 | -R$ 186,56 |
 | Maio | `S79` | -R$ 39.808,95 | -R$ 39.099,33 | +R$ 709,62 |
 | Junho | `W79` | R$ 13.253,22 | R$ 13.251,98 | -R$ 1,24 |
-| **Acumulado** | — | **-R$ 54.277,18** | **-R$ 57.821,51** | **-R$ 3.544,33** |
+| **Acumulado** | — | **-R$ 54.277,18** | **-R$ 58.156,11** | **-R$ 3.878,93** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **79**.
 
@@ -392,19 +377,39 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **79**.
 
 **Onde conferir o detalhe:** Some as linhas acima da própria área na planilha (linhas 39 a 42 do Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem).
 
-### Contencioso · Resultado Bruto
+### Econômico · Resultado Bruto
 
-Diferença no acumulado: **+R$ 1.640,78**
+Diferença no acumulado: **-R$ 2.367,52**
 
 | Mês | Célula na planilha | Planilha | Sistema | Diferença |
 |---|---|---:|---:|---:|
-| Janeiro | `C43` | -R$ 70.386,79 | -R$ 70.073,07 | +R$ 313,72 |
-| Fevereiro | `G43` | R$ 50.457,62 | R$ 50.145,14 | -R$ 312,48 |
+| Janeiro | `C61` | -R$ 50.457,07 | -R$ 49.442,63 | +R$ 1.014,44 |
+| Fevereiro | `G61` | R$ 4.451,92 | R$ 5.146,56 | +R$ 694,64 |
+| Março | `K61` | R$ 229.714,00 | R$ 228.337,93 | -R$ 1.376,07 |
+| Abril | `O61` | R$ 40.402,75 | R$ 38.183,50 | -R$ 2.219,25 |
+| Maio | `S61` | R$ 44.916,89 | R$ 44.437,75 | -R$ 479,14 |
+| Junho | `W61` | -R$ 12.926,08 | -R$ 12.928,22 | -R$ 2,14 |
+| **Acumulado** | — | **R$ 256.102,41** | **R$ 253.734,89** | **-R$ 2.367,52** |
+
+Na planilha: aba **Areas Sintetico atualizado**, linha **61**.
+
+**Por quê:** **Não é uma diferença própria — é a soma das linhas acima.** Verificado nas 18 células (3 áreas × 6 meses): a diferença do Resultado Bruto é igual a `Δreceita − Δcusto de equipe − Δcomissão − Δdespesas equipe − Δdespesa institucional`, com erro máximo de R$ 0,01. Então não há nada a explicar aqui que não esteja explicado nas linhas que o compõem.
+
+**Onde conferir o detalhe:** Some as linhas acima da própria área na planilha (linhas 39 a 42 do Contencioso, 57 a 60 do Econômico, 75 a 78 da Arbitragem).
+
+### Contencioso · Resultado Bruto
+
+Diferença no acumulado: **+R$ 1.242,44**
+
+| Mês | Célula na planilha | Planilha | Sistema | Diferença |
+|---|---|---:|---:|---:|
+| Janeiro | `C43` | -R$ 70.386,79 | -R$ 70.265,34 | +R$ 121,45 |
+| Fevereiro | `G43` | R$ 50.457,62 | R$ 49.939,07 | -R$ 518,55 |
 | Março | `K43` | R$ 50.249,98 | R$ 50.517,18 | +R$ 267,20 |
 | Abril | `O43` | -R$ 59.497,43 | -R$ 58.730,33 | +R$ 767,10 |
 | Maio | `S43` | R$ 128.472,17 | R$ 129.079,26 | +R$ 607,09 |
 | Junho | `W43` | -R$ 74.048,54 | -R$ 74.050,39 | -R$ 1,85 |
-| **Acumulado** | — | **R$ 25.247,01** | **R$ 26.887,79** | **+R$ 1.640,78** |
+| **Acumulado** | — | **R$ 25.247,01** | **R$ 26.489,45** | **+R$ 1.242,44** |
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **43**.
 
@@ -427,18 +432,19 @@ maio (`Base_Resultado` linhas 122 e 123) e centavos de arredondamento.
 
 ## O que precisamos de vocês
 
-A lista encurtou: quase tudo que estava em aberto foi respondido pelos próprios
-dados. **Sobrou uma coisa só que depende de vocês, e é pequena.**
+**Uma coisa só, e é pequena.** Tudo o mais que estava em aberto foi respondido
+pelos próprios dados.
 
-### 1. Atualizar duas anotações no sistema (não é uma decisão)
+Em particular, **as anotações do convênio de janeiro e fevereiro já não são
+necessárias**. Nós pedíamos que fossem corrigidas; depois vimos que o mesmo texto
+desatualizado (*603,50 / 524,28*) aparece nos doze meses de 2025 e segue até
+fevereiro de 2026, enquanto o plano lançado mudou duas vezes. Ou seja: não era um
+descuido de dois meses. O sistema passou a calcular a parte MBC sozinho, a partir
+da proporção que ele observa nos meses em que a anotação está correta — então
+essas anotações podem ficar como estão. (Detalhe no item do Econômico acima; a
+única estimativa que sobrou é a parte MBC do **RB em janeiro**.)
 
-A memória de cálculo do **convênio médico de EHF e RB, em janeiro e fevereiro**,
-ficou com os números de um plano anterior: ela descreve um plano de 968,65
-quando o valor lançado naquele mês já era 2.122,30. Com o texto atualizado no
-lançamento, esses dois meses fecham sozinhos. Não precisamos de nenhuma
-definição — só do texto certo.
-
-### 2. Um valor digitado no vale-transporte de janeiro: R$ 35,52
+### Um valor digitado no vale-transporte de janeiro: R$ 35,52
 
 Duas células de vale-transporte têm uma soma digitada à mão. **Uma das duas nós
 conseguimos explicar inteira; a outra tem um pedaço que falta.**

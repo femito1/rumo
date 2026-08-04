@@ -20,7 +20,54 @@
 > guarding it, and the six mistakes I made this session with the pattern behind each.
 > Neither file is complete without the other.
 
-## ⭐ 2026-08-04 (latest) — a v5 transport fix was ATTEMPTED and REVERTED; fixtures + tests kept
+## ⭐ 2026-08-04 (latest) — the convênio no longer needs a finance ruling; YTD gap −7.640 → −5.003
+
+**The system now computes Parte MBC itself when the memo is stale.** `030.010.0110` posts
+the GROSS convênio; the MBC share lives only in the lançamento's free text, and finance does
+not maintain that text — **`603,50 / 524,28` appears in all twelve months of 2025 and into
+Feb 2026** while the posted plan changed twice underneath it. So "ask Renata to fix the note"
+was never the fix. `dre.convenio_mbc_shares` learns each lawyer's share from the months whose
+memo IS current and applies it to **that month's own posted amount** (share carried, never the
+amount). Wired through `provider.py` → `AssemblerSource`, and the differences-doc generator
+uses the same shares so the document cannot disagree with the screens.
+
+Measured on live data (`scripts/audit_convenio_share.py`):
+
+| | before | after |
+|---|---:|---:|
+| Resultado Bruto YTD vs book | −7.640,50 | **−5.003,04** |
+| Custos Diretos YTD | +12.021,29 | **+9.383,83** |
+| Econômico Resultado Bruto YTD | −5.737,92 | **−2.367,52** |
+| Econômico custo equipe, Fev | +1.405,83 | **−53,85** |
+
+mar–jul are **unchanged** (their memos are valid) and June's client-validated cells are
+untouched. Verified end-to-end through the production provider, not just a hand-built call.
+
+⚠ **What this is and is not evidence of** — the honest scope, because "it now ties" has
+fooled this codebase before:
+* **Validated:** the staleness test `plan_total = posted + convenio_extra_dl` holds to the
+  centavo in mar–jul for both lawyers (10 checks, nothing fitted) and fails exactly in
+  jan/fev. That is a DB-only way to tell a current note from a leftover.
+* **Solid:** EHF (posted 2.122,30 in all seven months) and RB February (3.427,58, same as
+  mar–jul) — the share reproduces what the memo would have said.
+* **An EXTRAPOLATION, and the one number we own:** RB **January**. Its posted was 2.355,73
+  vs 3.427,58 from February on — a real plan change the workbook does not track (it types
+  2.526,09 every month). Nothing states RB's January share, so we assume it held. Flagged as
+  an estimate in `DIFERENCAS_ACUMULADO_2026.md`. This is most of January's residual.
+* **NOT an independently validated ratio:** per lawyer it has one free parameter and one
+  observation, so it is a restatement of the trusted month. An earlier draft of mine claimed
+  out-of-sample confirmation on 2025 — **that was wrong** (the 2025 number it matched is the
+  memo's *subtrahend*, a different quantity) and is corrected in the audit script.
+
+**The client list is down to one item:** the R$35,52 typed into `C123`, which exists in no
+field of 32 months of snapshots. Kept as an open question at the user's request. The convênio
+notes item is **withdrawn** — we no longer need it.
+
+Backend **301** tests, frontend **72**; all gates clean.
+
+---
+
+## 2026-08-04 — a v5 transport fix was ATTEMPTED and REVERTED; fixtures + tests kept
 
 **What shipped and stuck:** the six closed-month fixtures were refreshed to one contract
 (`sisjuri_2026_01..06.json`, via the new `scripts/dump_fixture.py`) — the old Feb stub had

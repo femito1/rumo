@@ -127,31 +127,41 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
     ("economico", "custo_equipe"): {
         "causa": (
             "Três coisas, todas identificadas:\n\n"
-            "* **Convênio médico de janeiro e fevereiro — era um erro nosso, já "
-            "corrigido.** A anotação (*memória de cálculo*) que o financeiro deixa no "
-            "lançamento do convênio estava **desatualizada** nesses dois meses: ela "
-            "descreve um plano de 968,65 quando o valor lançado no sistema era 2.122,30 "
-            "(o mesmo nos seis meses). Nós estávamos usando a conta dessa anotação "
-            "antiga; agora o sistema só a usa quando ela cita o valor efetivamente "
-            "lançado no mês, o que resolve 90% da diferença de janeiro. O que ainda "
-            "sobra é que, sem uma anotação válida, usamos o valor cheio do plano — daí "
-            "a diferença mudar de sinal.\n"
+            "* **Convênio médico de janeiro e fevereiro — era um erro nosso, agora "
+            "resolvido sem depender de ninguém.** A anotação (*memória de cálculo*) que "
+            "o financeiro deixa no lançamento do convênio está **desatualizada** nesses "
+            "dois meses: descreve um plano de 968,65 quando o valor lançado era 2.122,30. "
+            "Não é um descuido isolado — o mesmo texto (*603,50 / 524,28*) aparece nos "
+            "**doze meses de 2025** e segue até fevereiro de 2026, enquanto o plano "
+            "lançado mudou duas vezes por baixo dele. Então não pedimos mais que a "
+            "anotação seja corrigida: o sistema passou a **calcular a parte MBC sozinho**. "
+            "Ele aprende, nos meses em que a anotação está correta, qual proporção do "
+            "valor lançado cabe à MBC (a mesma em todos eles) e aplica essa proporção ao "
+            "valor lançado *do próprio mês*. Fevereiro passou de +R$ 1.405,83 para "
+            "−R$ 53,85 contra a planilha.\n"
             "* **Vale dos advogados** — regra confirmada por vocês (sempre incluir); as "
             "colunas de janeiro a maio da planilha não incluem.\n"
             "* **A estagiária do Direito Econômico**, que entra na planilha a partir de "
             "março e que nós reproduzimos ao centavo — é por causa dela que o sinal da "
-            "diferença se inverte entre fevereiro e março."
+            "diferença se inverte entre fevereiro e março.\n\n"
+            "⚠ **Uma estimativa nossa, em janeiro:** o plano do RB realmente mudou "
+            "(2.355,73 em janeiro contra 3.427,58 de fevereiro em diante). A planilha "
+            "repete 2.526,09 em todos os meses, ou seja não acompanha essa mudança; nós "
+            "acompanhamos, mas como nenhum lugar registra qual era a parte MBC do RB em "
+            "janeiro, aplicamos a mesma proporção dos outros meses. Esse número "
+            "específico é uma estimativa, e é a maior parte da diferença de janeiro."
         ),
         "conferir": (
             "Planilha, linhas **44 e 48** (convênio de EHF e RB: a mesma constante nos "
-            "seis meses) e **52** (estagiária). No sistema, a anotação do lançamento da "
-            "conta `030.010.0110`."
+            "seis meses) e **52** (estagiária). No sistema, a conta `030.010.0110` e a "
+            "anotação do lançamento. O cálculo completo está em "
+            "`scripts/audit_convenio_share.py`."
         ),
         "precisamos": (
-            "Atualizar no sistema a memória de cálculo do convênio de **janeiro e "
-            "fevereiro** (EHF e RB): ela ficou com os números de um plano anterior. Com "
-            "a anotação corrigida, esses dois meses fecham sozinhos — não precisamos de "
-            "nenhuma decisão, só do texto certo no lançamento."
+            "**Nada.** Este item deixou de depender do financeiro em 04/08/2026. Se "
+            "quiserem, vale confirmar qual era a parte MBC do **RB em janeiro** — é o "
+            "único número aqui que estimamos — mas o fechamento não fica esperando por "
+            "isso."
         ),
     },
     ("contencioso", "despesa_institucional"): {
@@ -409,11 +419,15 @@ def main() -> None:
 
     from app.api.providers import get_budget_repo, get_snapshot_store
     from app.budget.models import annual_budget, monthly_budget
-    from app.closing.dre import assemble_dre_sections
+    from app.closing.dre import assemble_dre_sections, convenio_mbc_shares
 
     snaps = get_snapshot_store().snapshots_by_year(2026, client_id="mbc")
     entries = get_budget_repo().get_budget("mbc", 2026)
     ann = annual_budget(entries) if entries else {}
+    # Same whole-year Parte MBC shares the app uses (``provider.py``), so a month with a
+    # stale convênio memo is valued here exactly as the product values it. Without this
+    # the document would quietly disagree with the screens it is explaining.
+    shares = convenio_mbc_shares(snaps)
     wb = openpyxl.load_workbook(WORKBOOK, data_only=True)
     sint = wb["Areas Sintetico atualizado"]
 
@@ -428,6 +442,7 @@ def main() -> None:
             period_label=f"2026-{m:02d}",
             period_month=m,
             targets=None,
+            convenio_shares=shares,
         )
 
     # YTD per line: ours from the production assembly, theirs from the workbook.
@@ -543,15 +558,18 @@ def main() -> None:
     add("**causa própria** — nas 18 células (3 áreas × 6 meses) a diferença dele é igual à")
     add("soma das diferenças das linhas que o compõem, com erro máximo de R$ 0,01.")
     add("")
-    add("⚠ **Por que algumas diferenças CRESCERAM em relação à versão anterior deste**")
-    add("**documento.** Corrigimos o convênio de janeiro e fevereiro (a anotação")
-    add("desatualizada, explicada em *Econômico · Custo equipe*). Isso deixou cada linha")
-    add("mais correta, mas fez os totais parecerem piores: o erro do Econômico estava")
-    add("**cancelando** o da Arbitragem. Em fevereiro, por exemplo, as três áreas somavam")
-    add("-1.267,37 (parecia perto) porque -3.016,26 do Econômico anulava +1.911,95 da")
-    add("Arbitragem; agora somam +3.154,72. **Um total que fecha por cancelamento não é**")
-    add("**um número validado** — preferimos cada linha certa a um total bonito. O erro")
-    add("absoluto do custo de equipe por área em jan/fev caiu 53%.")
+    add("**O que mudou em relação à versão anterior deste documento.** O sistema passou a")
+    add("calcular sozinho a parte MBC do convênio quando a anotação do lançamento está")
+    add("desatualizada (explicado em *Econômico · Custo equipe*). Com isso o Resultado")
+    add("Bruto acumulado saiu de −R$ 7.640,50 para **−R$ 5.003,04**, e o Resultado Bruto do")
+    add("Econômico de −R$ 5.737,92 para **−R$ 2.367,52**. Fevereiro do Econômico, que era a")
+    add("maior distorção, foi de +R$ 1.405,83 para −R$ 53,85.")
+    add("")
+    add("⚠ **Uma ressalva de leitura, que vale sempre:** um total que fecha porque dois")
+    add("erros se anulam **não é um número validado**. Já aconteceu aqui: numa versão")
+    add("anterior as três áreas de fevereiro somavam −1.267,37 e pareciam próximas, mas era")
+    add("−3.016,26 do Econômico anulando +1.911,95 da Arbitragem. Preferimos cada linha")
+    add("certa a um total bonito — por isso mostramos mês a mês, e não só o acumulado.")
     add("")
 
     add("## Detalhe, linha por linha")
@@ -606,18 +624,19 @@ def main() -> None:
 
     add("## O que precisamos de vocês")
     add("")
-    add("A lista encurtou: quase tudo que estava em aberto foi respondido pelos próprios")
-    add("dados. **Sobrou uma coisa só que depende de vocês, e é pequena.**")
+    add("**Uma coisa só, e é pequena.** Tudo o mais que estava em aberto foi respondido")
+    add("pelos próprios dados.")
     add("")
-    add("### 1. Atualizar duas anotações no sistema (não é uma decisão)")
+    add("Em particular, **as anotações do convênio de janeiro e fevereiro já não são")
+    add("necessárias**. Nós pedíamos que fossem corrigidas; depois vimos que o mesmo texto")
+    add("desatualizado (*603,50 / 524,28*) aparece nos doze meses de 2025 e segue até")
+    add("fevereiro de 2026, enquanto o plano lançado mudou duas vezes. Ou seja: não era um")
+    add("descuido de dois meses. O sistema passou a calcular a parte MBC sozinho, a partir")
+    add("da proporção que ele observa nos meses em que a anotação está correta — então")
+    add("essas anotações podem ficar como estão. (Detalhe no item do Econômico acima; a")
+    add("única estimativa que sobrou é a parte MBC do **RB em janeiro**.)")
     add("")
-    add("A memória de cálculo do **convênio médico de EHF e RB, em janeiro e fevereiro**,")
-    add("ficou com os números de um plano anterior: ela descreve um plano de 968,65")
-    add("quando o valor lançado naquele mês já era 2.122,30. Com o texto atualizado no")
-    add("lançamento, esses dois meses fecham sozinhos. Não precisamos de nenhuma")
-    add("definição — só do texto certo.")
-    add("")
-    add("### 2. Um valor digitado no vale-transporte de janeiro: R$ 35,52")
+    add("### Um valor digitado no vale-transporte de janeiro: R$ 35,52")
     add("")
     add("Duas células de vale-transporte têm uma soma digitada à mão. **Uma das duas nós")
     add("conseguimos explicar inteira; a outra tem um pedaço que falta.**")

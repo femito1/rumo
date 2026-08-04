@@ -139,9 +139,16 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
         from app.closing.dre import assemble_dre_sections
         from app.closing.ytd_accumulate import accumulate_ytd, annual_by_block
 
+        from app.closing.dre import convenio_mbc_shares
+
         entries = _budget_repo().get_budget(client.id, period.year)
         ann = annual_budget(entries) if entries else {}
         snaps = _snapshot_store().snapshots_by_year(period.year, client_id=client.id)
+        # Learn each lawyer's Parte MBC share from the months whose convênio memo is
+        # current, so a month with a STALE memo can still show the MBC share instead of
+        # the posted gross. Whole-year input, hence computed here where every snapshot
+        # is already open.
+        shares = convenio_mbc_shares(snaps)
         months: dict[int, dict] = {}
         faturamento: dict[int, float] = {}
         for m, snap in snaps.items():
@@ -174,6 +181,7 @@ def _accumulate_dre_ytd(client: Client, period: Period) -> dict[str, Any] | None
                 period_label=ano_mes,
                 period_month=m,
                 targets=None,
+                convenio_shares=shares,
             )
         ytd = accumulate_ytd(
             months,
@@ -418,6 +426,21 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
             except Exception:  # pragma: no cover - meta YTD is best-effort overlay
                 ytd_recebimento = None
 
+        # Parte MBC shares are learned across the whole year (a month with a stale
+        # convênio memo borrows the share, never the amount, from the months whose memo
+        # is current). Best-effort: without it a stale month falls back to the posted
+        # gross, which is the pre-2026-08-04 behaviour.
+        convenio_shares: dict[str, float] | None = None
+        if period is not None:
+            try:
+                from app.closing.dre import convenio_mbc_shares
+
+                convenio_shares = convenio_mbc_shares(
+                    _snapshot_store().snapshots_by_year(period.year, client_id=client.id)
+                )
+            except Exception:  # pragma: no cover - share overlay is best-effort
+                convenio_shares = None
+
         sources.append(
             AssemblerSource(
                 snapshot=snapshot,
@@ -426,6 +449,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
                 transfers=transfers,
                 targets=targets,
                 ytd_recebimento=ytd_recebimento,
+                convenio_shares=convenio_shares,
             )
         )
         return ClosingProvider(sources=sources)

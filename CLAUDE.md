@@ -9,9 +9,13 @@
 ## Start here
 
 0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — the contract is
-   **v4**. A v5 chunk-guard fix was attempted and **REVERTED the same day** (it corrupted the
-   live store; the box is Oracle 11g, which rejects `SET TRIMSPACE`, so the root-cause theory
-   was wrong — see `docs/HANDOFF_v5_reverted_2026-08-04.md`). The whitespace glue it chased is
+   **v4**. The convênio Parte MBC is now **derived** when the memo is stale
+   (`dre.convenio_mbc_shares`), which took the last real item off the finance-ruling list and
+   closed the YTD Resultado Bruto gap from −7.640,50 to −5.003,04. ⚠ RB **January** inside
+   that is an extrapolation we own — read the caveats before quoting it. A v5 chunk-guard fix
+   was attempted and **REVERTED the same day** (it corrupted the live store; the box is Oracle
+   11g, which rejects `SET TRIMSPACE`, so the root-cause theory was wrong — see
+   `docs/HANDOFF_v5_reverted_2026-08-04.md`). The whitespace glue it chased is
    a known, money-neutral cosmetic defect; do not re-attempt without validating against the
    box first. The workbook-vs-system differences live in
    `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
