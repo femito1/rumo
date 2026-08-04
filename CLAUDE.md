@@ -8,11 +8,15 @@
 
 ## Start here
 
-0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-07-28 checkpoint) — the
-   July client checkpoint is implemented and deployed: YTD/acumulado toggle, presentation
-   panel + PDF, per-área Orçado fix, Jan–Abr un-blanked (hard rule = May only), per-área
-   reserva, tab cleanup + a **server-side CLIENT-only boundary**. June validated the DB
-   derivation (untuned month). Read that section first for what changed and why.
+0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — all eight 2026
+   months are on extract **v4** (wider `historico`), the workbook-vs-system differences live
+   in `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
+   partial month + blanks a withheld card. ⚠ **We are still ~R$7,6k apart from the workbook
+   on Resultado Bruto YTD** — every component has a named cause, but "explained" is NOT
+   "matching"; do not tell the client the numbers agree. Then read
+   **`docs/HANDOFF_2026-08-04.md`**, which is the *opinion* layer: hypotheses, a shipped
+   judgement call that could have gone another way, what has no test guarding it, and the
+   six mistakes made in that session.
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number

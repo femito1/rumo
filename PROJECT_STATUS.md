@@ -13,6 +13,13 @@
 
 ---
 
+> 📌 **Next agent: read `docs/HANDOFF_2026-08-04.md` first.** This file records what is
+> *verified*; that one records what I only *think* — the hypotheses, the judgement calls
+> that could reasonably have gone the other way (notably the jan/fev convênio fallback,
+> where I shipped one of three defensible options), what is believed but has no test
+> guarding it, and the six mistakes I made this session with the pattern behind each.
+> Neither file is complete without the other.
+
 ## ⭐ 2026-08-04 (latest) — v4 re-extract DONE. `35,52` is definitively NOT in SISJURI
 
 All eight 2026 months are on **extract v4**, `stale=false`, verified in the store. The
