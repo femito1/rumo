@@ -22,8 +22,16 @@ dev machine). Everything below is read-only against Oracle.
 
 ## 0. Before you start
 
-`git pull` on the box so it has the new `extract.sql`. `run-agent.ps1` self-updates from
-`main`, but confirm the SQL really changed:
+⚠ There is **no git clone on the box** — the agent is a file copy at `C:\temp\sisjuri`, so
+"git pull" (as this line used to say) is not a thing you can do there. `run-agent.ps1`
+self-updates `extract.sql` from `main` on each run; any OTHER file has to be fetched with
+`Invoke-WebRequest`, and README §1 means you must enable TLS 1.2 first:
+
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+```
+
+Confirm the SQL really changed:
 
 ```powershell
 Select-String -Path .\extract.sql -Pattern "extract_version' VALUE 4"

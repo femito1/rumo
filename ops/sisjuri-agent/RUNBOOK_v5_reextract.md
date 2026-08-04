@@ -24,21 +24,38 @@ dev machine). Everything below is read-only against Oracle.
 
 ---
 
-## 0. Before you start
+## 0. FIRST — copy the new `run-agent.ps1` onto the box
 
-`git pull` on the box so it has the new `extract.sql`. `run-agent.ps1` self-updates from
-`main`, but confirm the SQL and the reassembly really changed:
+**This is the urgent half and it is not optional.** The box self-updates `extract.sql` from
+`main` but **nobody updates `run-agent.ps1`**, and the fix spans both files. A v5
+`extract.sql` in a pre-v5 wrapper produces JSON with a `~` at every 180-char boundary and
+fails to parse — which hits the **daily 06:00 task**, not just manual runs. The
+self-update's sanity gate does NOT catch it (v5 still contains `JSON_OBJECT` and
+`'despesas_liquido'`).
+
+Per README §1 you MUST enable TLS 1.2 first, and per §2 paste **one command per line, no
+backtick line continuations**:
 
 ```powershell
-Select-String -Path .\extract.sql   -Pattern "extract_version' VALUE 5"
-Select-String -Path .\extract.sql   -Pattern "'~' \|\| DBMS_LOB.SUBSTR"       # expect 1 hit
-Select-String -Path .\run-agent.ps1 -Pattern "Substring\(1, \`$t.Length - 2\)" # expect 1 hit
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/femito1/rumo/main/ops/sisjuri-agent/run-agent.ps1" -OutFile C:\temp\sisjuri\run-agent.ps1
+Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/femito1/rumo/main/ops/sisjuri-agent/backfill.ps1" -OutFile C:\temp\sisjuri\backfill.ps1
 ```
 
-If `run-agent.ps1` on the box does NOT have the guard-strip, STOP — a v5 `extract.sql` with
-a pre-v5 `run-agent.ps1` produces JSON with a `~` at every 180-char boundary and it will
-fail to parse. Both must be from the same commit. (The self-update pulls `extract.sql` only,
-not `run-agent.ps1`, so `git pull` the script too.)
+Confirm the guard-strip landed — expect **one** match:
+
+```powershell
+Select-String -Path C:\temp\sisjuri\run-agent.ps1 -Pattern 'Length - 2'
+```
+
+`extract.sql` needs no copying: `run-agent.ps1` pulls it from `main` on the next run. So it
+will still read `VALUE 4` on disk at this point — that is expected, not a problem. After
+the first run of step 1 you can confirm it moved:
+
+```powershell
+Select-String -Path C:\temp\sisjuri\extract.sql -Pattern 'VALUE 5'
+Select-String -Path C:\temp\sisjuri\extract.sql -Pattern 'DBMS_LOB.SUBSTR'
+```
 
 Check what is currently stale (all 2026 months should say `v4`):
 
@@ -49,11 +66,15 @@ GET <backend>/api/ingest/summary/2026-06   ->  "extract": {"version": 4, "expect
 ## 1. Re-extract the CLOSED months
 
 ```powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $env:SISJURI_PASSWORD = 'RgN@92Kx7'
-$env:INGEST_TOKEN     = 'OxlcIEMB_PcpmCaxKcEcJwNXmyiYB5F9l3JUnjktfAoKSxor5s6hRJ2Et9R_Hr5s'
-$env:INGEST_URL       = 'https://rumo-backend.xem1qi.easypanel.host/api/ingest'
-powershell -ExecutionPolicy Bypass -File backfill.ps1 -StartMonth 2026-01 -EndMonth 2026-07
+$env:INGEST_TOKEN = 'OxlcIEMB_PcpmCaxKcEcJwNXmyiYB5F9l3JUnjktfAoKSxor5s6hRJ2Et9R_Hr5s'
+$env:INGEST_URL = 'https://rumo-backend.xem1qi.easypanel.host/api/ingest'
+powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\backfill.ps1 -StartMonth 2026-01 -EndMonth 2026-07
 ```
+
+(`run-agent.ps1` sets TLS 1.2 itself, but the window may also need it for the self-update
+if you changed the protocol earlier in the session — setting it costs nothing.)
 
 `backfill.ps1` stops at the last **fully closed** month, so it will not push the current
 one — intentional. It prints the resolved range (`[backfill] months 2026-01 .. 2026-07
@@ -63,7 +84,7 @@ silently pushed only Jan–Jun (loop bounds kept the current time-of-day); fixed
 ## 2. Re-extract the OPEN month
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File run-agent.ps1 -AnoMes 2026-08
+powershell -ExecutionPolicy Bypass -File C:\temp\sisjuri\run-agent.ps1 -AnoMes 2026-08
 ```
 
 ## 3. Verify — do NOT skip this
@@ -111,6 +132,6 @@ Update `PROJECT_STATUS.md`: the v5 re-extract moved from *pending* to *done*.
 
 The extract is read-only, so the worst case is a bad snapshot being pushed. Re-running a
 month overwrites it, so the fix is always "run that month again". If the JSON fails to
-parse with a `~` visibly at a boundary, the box's `run-agent.ps1` is pre-v5 — `git pull`
-and re-run. Save the JSON `run-agent.ps1` writes under `C:\temp\sisjuri` before pushing if
+parse with a `~` visibly at a boundary, the box's `run-agent.ps1` is pre-v5 — redo step 0
+(the `Invoke-WebRequest` copy) and re-run. Save the JSON `run-agent.ps1` writes under `C:\temp\sisjuri` before pushing if
 you want a before/after.
