@@ -37,42 +37,6 @@ WHENEVER SQLERROR EXIT FAILURE
 -- JSON (observed on large months). Instead we build the CLOB, then emit it in
 -- small fixed-size chunks via DBMS_OUTPUT so no physical line exceeds LINESIZE.
 -- run-agent.ps1 strips the physical CR/LF to reassemble the document at any size.
---
--- ⚠ A CHUNK EDGE MUST NOT BE A BARE SPACE — hence the '~' guards in the emit loop.
--- sqlplus trims blanks at the edge of an emitted line (SET TRIMSPACE ON, above), and
--- because run-agent.ps1 reassembles by DELETING the CR/LF between chunks, a trimmed
--- edge space is gone for good: the two neighbouring words are silently glued.
---
--- Found 2026-08-04. It had been happening in EVERY month of 2026 (~6 per month, 62
--- occurrences across the eight months). Evidence it is transport and not the source:
---   1. the SAME logical value arrives spelled DIFFERENTLY in different months — sigla
---      AM/FAS/VO all map to 'Equipe Direito Econômico' but some months carry
---      'EquipeDireito Econômico' / 'Equipe DireitoEconômico'. Jan–Jun were extracted
---      inside one 40-second window, so master data cannot have changed;
---   2. every one of the 62 losses is EXACTLY ONE space taken from a SINGLE-space run
---      (an edge trim, not a mangled field);
---   3. the position of the lost space within its value is UNIFORM (mean 0.477), i.e.
---      an arbitrary line edge rather than a parser eating some character class;
---   4. the count tracks (spaces / chunk): predicted 5.7–6.9 per month, observed 5–13.
--- NB do NOT try to confirm this by looking at byte offsets in a STORED snapshot:
--- run-agent.ps1 does ConvertFrom-Json | ConvertTo-Json, so the stored key order and
--- spacing are PowerShell's, not Oracle's. That test is meaningless (it fooled me).
---
--- It moved no money (verified: repairing every corrupted string and re-running
--- assemble_dre_sections for all 8 months changes 0 values, 0 reclassifications), but
--- it is a live tripwire: workbook_layouts.section_for is an EXACT dict lookup on
--- nome_conta_pai, so 'DespesasGerais' silently opens a DUPLICATE expense family
--- instead of folding into 'Despesas Gerais'; match_area already carries a
--- hand-written defence against the symptom (the cause was never known); and both the
--- reclass markers and the convênio "Parte MBC" guard parse this same free text.
---
--- Why guard CHARACTERS and not a search for a non-space split point: a search cannot
--- be made unconditionally correct — shrinking to avoid a trailing space can leave the
--- NEXT chunk starting on one, and across a window that is all spaces there is no
--- valid split at all, so correctness would depend on the data. The guards do not:
--- every line begins and ends with '~', so whichever edge sqlplus trims it trims a
--- guard, never a space. run-agent.ps1 removes one character from each END of each
--- physical line, POSITIONALLY, so a '~' occurring inside the JSON is never touched.
 DECLARE
   doc   CLOB;
   len   PLS_INTEGER;
@@ -110,20 +74,8 @@ BEGIN
      --       in this string, so a longer historico CAN move money between accounts.
      --       After re-extracting, check 020.030.0020 and 040.040.0030 against
      --       test_widening_the_historico_must_not_move_copa_to_informatica.
-     --   5 = 2026-08-04: every emitted chunk is wrapped in '~' guards so sqlplus can
-     --       no longer trim a space sitting at a chunk boundary. Until now that
-     --       silently GLUED two words together ~6 times per month, in every month of
-     --       2026 (62 occurrences over the eight months) — 'Despesas Gerais' arriving
-     --       as 'DespesasGerais'. See the long note at the top of this file for the
-     --       four independent lines of evidence, and for the offset test that looks
-     --       convincing but is meaningless. This changes only TEXT FIDELITY: no field
-     --       changes meaning and no number moves (verified — repairing every
-     --       corrupted string across all 8 months moves 0 values). The bump exists so
-     --       the summary endpoint's 'stale' flag says WHICH months still carry the
-     --       glued text. Requires run-agent.ps1 >= the same commit, which strips the
-     --       guards; the strip is a no-op on unguarded (pre-v5) output.
      -- A snapshot without this key is version 1 by definition.
-     'extract_version' VALUE 5
+     'extract_version' VALUE 4
   ),
   'revenue' VALUE (
      SELECT JSON_OBJECT(
@@ -810,9 +762,7 @@ BEGIN
 
   len := DBMS_LOB.GETLENGTH(doc);
   WHILE pos <= len LOOP
-    -- '~' guards on BOTH edges (see the note at the top of this file): sqlplus can
-    -- then only ever trim a guard, never a space. 180 + 2 stays inside LINESIZE 200.
-    DBMS_OUTPUT.PUT_LINE('~' || DBMS_LOB.SUBSTR(doc, chunk, pos) || '~');
+    DBMS_OUTPUT.PUT_LINE(DBMS_LOB.SUBSTR(doc, chunk, pos));
     pos := pos + chunk;
   END LOOP;
 END;

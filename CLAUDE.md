@@ -8,11 +8,12 @@
 
 ## Start here
 
-0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — the code now
-   expects extract **v5** (a `~`-guard fix for a transport bug that dropped ~6 spaces per
-   month; **re-extract PENDING** by decision, so months read `stale` and two
-   `test_snapshot_text_integrity.py` tests are `xfail` until it runs — see
-   `ops/sisjuri-agent/RUNBOOK_v5_reextract.md`). The workbook-vs-system differences live in
+0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — the contract is
+   **v4**. A v5 chunk-guard fix was attempted and **REVERTED the same day** (it corrupted the
+   live store; the box is Oracle 11g, which rejects `SET TRIMSPACE`, so the root-cause theory
+   was wrong — see `docs/HANDOFF_v5_reverted_2026-08-04.md`). The whitespace glue it chased is
+   a known, money-neutral cosmetic defect; do not re-attempt without validating against the
+   box first. The workbook-vs-system differences live in
    `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
    partial month + blanks a withheld card. ⚠ **We are still ~R$7,6k apart from the workbook
    on Resultado Bruto YTD** — every component has a named cause, but "explained" is NOT

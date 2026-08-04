@@ -49,17 +49,17 @@ _DEFAULT_CLIENT = "mbc"
 #: ``test_widening_the_historico_must_not_move_copa_to_informatica``, which pins every
 #: row that was actually at the cap on a reclass account.
 #:
-#: v5 (2026-08-04) wraps every emitted chunk in ``~`` guards so sqlplus can no longer
-#: trim a space that lands on a chunk boundary. Until now that silently GLUED two
-#: words together ~6 times per month, in EVERY month of 2026 (62 occurrences across
-#: the eight months): ``'Despesas Gerais'`` arriving as ``'DespesasGerais'``, which
-#: ``workbook_layouts.section_for`` — an exact dict lookup — turns into a DUPLICATE
-#: expense family. Text fidelity only: no field changes meaning and **no number
-#: moves** (verified by repairing every corrupted string and re-assembling all eight
-#: months: 0 value changes, 0 reclassifications). Tied to real months by
-#: ``test_extract_chunk_transport.py`` and
-#: ``test_snapshot_text_is_spelled_consistently_across_months``.
-CURRENT_EXTRACT_VERSION = 5
+#: v5 was ATTEMPTED 2026-08-04 (``~`` chunk guards to stop a space being lost at a
+#: chunk boundary) and REVERTED the same day — it corrupted the live store instead.
+#: The box is Oracle **11g**, whose sqlplus rejects ``SET TRIMSPACE`` outright
+#: (``SP2-0158``), so that setting was never active and the root-cause theory behind
+#: v5 was wrong. Worse, real sqlplus line-wrapping put the ``~`` guards INSIDE the JSON
+#: (``"r~ecebimento_rows"``), which the local round-trip test — modelling clean 180-char
+#: chunks — never reproduced, so it passed with false confidence. The proper fix needs
+#: to be validated against the actual box (probe its wrapping first); until then the
+#: whitespace glue is a known, money-neutral cosmetic defect. Do NOT re-bump to 5
+#: without that validation. Detail: docs/HANDOFF_v5_reverted_2026-08-04.md.
+CURRENT_EXTRACT_VERSION = 4
 
 
 def snapshot_extract_version(snapshot: dict[str, Any]) -> int:

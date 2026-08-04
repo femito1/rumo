@@ -262,24 +262,27 @@ Vale account under `020.050.*` and no Vale in the summarised S/I views.
   SISJURI.** The same grupo arrives with and without a space across months:
   `EquipeContencioso`, `Equipe DireitoEconômico`, `EquipeDireito Econômico`. It reads
   like SISJURI emitting unstable names, and this note used to say so — **that is
-  wrong** (corrected 2026-08-04). The DB value is stable; the space was lost *in
-  transit*: `extract.sql` emitted the JSON in 180-char chunks and sqlplus trimmed a
-  blank sitting at a chunk boundary (`SET TRIMSPACE ON`), which `run-agent.ps1` then
-  reassembled without the space. Proof it is transport: sigla `AM`/`FAS`/`VO` all map
-  to `Equipe Direito Econômico`, yet arrive spelled differently in months extracted 40
-  seconds apart — master data cannot vary by month. It happened ~6× per month in every
-  2026 month (62 total), and it moved no money but silently created a duplicate expense
-  family (`section_for` is an exact dict lookup: `DespesasGerais` ≠ `Despesas Gerais`).
-  - **Fixed at the source in extract v5** (`~` guards on every chunk edge; see the note
-    at the top of `extract.sql`). Until the operator re-extracts
-    (`RUNBOOK_v5_reextract.md`, deliberately batched), the stored snapshots still carry
-    it, guarded by the two `xfail` tests in `test_snapshot_text_integrity.py`.
-  - **A defence still lives in `match_area`** because a glued grupo also splices a false
+  wrong** (corrected 2026-08-04). The DB value is stable; the space is lost *in transit*
+  during the sqlplus → `run-agent.ps1` chunk reassembly. Proof it is transport: sigla
+  `AM`/`FAS`/`VO` all map to `Equipe Direito Econômico`, yet arrive spelled differently in
+  months extracted 40 seconds apart — master data cannot vary by month. It happens ~6× per
+  month in every 2026 month (62 total). It moves no money but silently creates a duplicate
+  expense family (`section_for` is an exact dict lookup: `DespesasGerais` ≠ `Despesas Gerais`).
+  - ⚠ **The exact mechanism is NOT yet pinned down, and one guess was already wrong.** A v5
+    fix assumed `SET TRIMSPACE` was eating a boundary space and added `~` guards — but this
+    box is Oracle **11g**, whose sqlplus rejects `SET TRIMSPACE` outright (`SP2-0158`), so it
+    was never active. The v5 attempt was reverted after it corrupted the store
+    (`docs/HANDOFF_v5_reverted_2026-08-04.md`). Before re-attempting: probe how *this* sqlplus
+    wraps a long `DBMS_OUTPUT` line at `LINESIZE`, and reproduce the loss against real box
+    output, not a clean-chunk model.
+  - **This defect is STILL LIVE and unfixed** — it is cosmetic (money-neutral), so it was
+    left in place rather than shipping a second bad fix.
+  - **A defence lives in `match_area`** because a glued grupo also splices a false
     `"econ"` out of `"equipE-CONtencioso"`, matching **both** Contencioso and Econômico.
     `dre.py` has three loops that ADD over *every* matching área, so an ambiguous name
     would double-count into two áreas. `match_area` anchors Econômico on `econô`/`econo`
-    and `test_whitespace_variant_grupo_names_match_exactly_one_area` pins it. Keep this
-    even after v5 — it is a cheap belt to the transport braces.
+    and `test_whitespace_variant_grupo_names_match_exactly_one_area` pins it. This is the
+    only thing actually protecting us from the live defect today.
 
 ### Workbook fact — the Jan–May per-área "Despesas Equipe" formulas are wrong (2026-07-29)
 

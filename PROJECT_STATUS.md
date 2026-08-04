@@ -20,47 +20,43 @@
 > guarding it, and the six mistakes I made this session with the pattern behind each.
 > Neither file is complete without the other.
 
-## ⭐ 2026-08-04 (latest) — found a transport bug that ate a space per ~180 chars; fixed at source (v5), fixtures refreshed
+## ⭐ 2026-08-04 (latest) — a v5 transport fix was ATTEMPTED and REVERTED; fixtures + tests kept
 
-Not on the gap list — found while sizing the fixture work. **The agent silently dropped a
-space ~6 times per month, in every month of 2026** (62 across the eight). `extract.sql`
-emitted the JSON in 180-char chunks and sqlplus trimmed a blank at a chunk edge
-(`SET TRIMSPACE ON`); `run-agent.ps1` reassembled without it, gluing two words —
-`"Despesas Gerais"` → `"DespesasGerais"`. Proof it is transport and not SISJURI: the same
-sigla's home grupo arrives spelled differently in months extracted 40 seconds apart.
+**What shipped and stuck:** the six closed-month fixtures were refreshed to one contract
+(`sisjuri_2026_01..06.json`, via the new `scripts/dump_fixture.py`) — the old Feb stub had
+11 of 29 keys, May 20, June was v3, so their tests had drifted onto legacy code paths. 14
+Feb/May assertions moved; each was reported and explained before being changed, and every
+move is the fixtures becoming *more* correct: Feb per-área Receita now ties the workbook's
+own column exactly (159.539 / 119.667 / 62.506) where the old assertions were pinned to the
+cash-by-case basis the thin fixture fell back to. **June's client-validated cells did not
+move.** Handoff §6.3 (Jan/Mar/Abr fixtures) and §6.4 (promote audit scripts) are done: the
+per-área custo-equipe cells and the Despesa Institucional rateio identity are now guarded
+tests over all six months, and the vale day-count test that silently checked 6 of its
+claimed 41 rows now iterates all six fixtures with a row-count floor.
 
-**It moved no money, and I verified that rather than asserting it** — repairing every
-corrupted string and re-running `assemble_dre_sections` for all eight months changes 0
-values and 0 reclassifications. But it is a live tripwire: `section_for` is an exact dict
-lookup, so a glued `nome_conta_pai` opens a DUPLICATE expense family; the reclass markers
-and the convênio "Parte MBC" guard both parse this same free text. Fixed at the source in
-**extract v5** (`~` guards on every chunk edge, stripped positionally in `run-agent.ps1`),
-tied to real months by `test_extract_chunk_transport.py` and `test_snapshot_text_integrity.py`.
+**What was attempted and REVERTED the same day — read `docs/HANDOFF_v5_reverted_2026-08-04.md`.**
+I found a real, money-neutral defect (the agent drops a space ~6×/month in every 2026
+month: `"Despesas Gerais"` arrives as `"DespesasGerais"`; proof it is transport, not
+SISJURI, is the same grupo spelled differently in months extracted 40s apart). I shipped a
+"v5" fix — `~` chunk guards in `extract.sql`, stripped in `run-agent.ps1` — with a local
+round-trip test that **passed and was wrong**. On the box it:
+- rested on a false premise: I blamed `SET TRIMSPACE`, but this box is Oracle **11g**, whose
+  sqlplus rejects that SET (`SP2-0158`) — it was never active;
+- **corrupted the live store**: real sqlplus wraps a long `DBMS_OUTPUT` line at `LINESIZE`,
+  so a guarded chunk became several physical lines and my strip (which required a `~` at
+  *both* ends of a line) left guards *inside* the JSON — `"r~ecebimento_rows"`. My local
+  test modelled clean 180-char chunks and never reproduced the wrap.
 
-⚠ **The v5 re-extract is PENDING, by decision** (batched into the next re-extract that
-happens anyway — the corruption costs nothing in the meantime). All 2026 months read
-`stale: true` until then; `ops/sisjuri-agent/RUNBOOK_v5_reextract.md` is the procedure. The
-open month will self-update to v5 on its own daily run, so expect a mixed store. Two
-`test_snapshot_text_integrity.py` tests are `xfail(strict=True)` and **flip GREEN when the
-re-extracted fixtures land** — that is the end-to-end proof the fix worked.
+Reverted `extract.sql`, `run-agent.ps1`, and `CURRENT_EXTRACT_VERSION` back to **v4**;
+deleted the two v5 tests and the v5 runbook. ⚠ **The live store still holds the corrupted v5
+snapshots for Jan/Mar/Abr/Mai/Jun/Jul** (2 leaked `~` each, one always in the
+`recebimento_rows` key) — they need re-pushing from clean v4. See the handoff for the
+recovery step. The whitespace glue is back to being a known, unfixed, cosmetic defect;
+`match_area` is the only guard against it, and that is fine.
 
-**Fixtures refreshed to a single contract and the gaps closed.** All six closed-month
-fixtures (`sisjuri_2026_01..06.json`, via the new `scripts/dump_fixture.py`) now carry the
-full 29-key payload — the old Feb stub had 11 keys, May 20, and June was v3, so their tests
-had drifted onto legacy code paths. **14 Feb/May assertions moved; every one was reported
-and explained before being changed** (per the user's decision): the moves are the fixtures
-becoming *more* correct — Feb per-área Receita now ties the workbook's own column exactly
-(159.539 / 119.667 / 62.506), where the old assertions were pinned to the wrong cash-by-case
-basis. June's client-validated cells did not move. Handoff §6.3 (Jan/Mar/Abr fixtures) and
-§6.4 (promote audit scripts) are both done: the per-área custo-equipe and Despesa
-Institucional rateio identities are now guarded tests over all six months, and the vale
-day-count test that silently checked 6 of its claimed 41 rows now iterates all six fixtures
-with a row-count floor.
-
-Backend **314** tests (+18: 15 transport, 3 integrity/identity) **+2 xfailed**, frontend
-**72**; all gates clean. The R$7,6k Resultado Bruto YTD difference is **unchanged** — this
-work fixed a transport bug and closed engineering gaps; it did not touch the client
-differences, and we still do not match the workbook.
+Backend **≈308** tests (the +15 transport / +2 integrity tests were removed; fixture-refresh
+assertion updates and the +2 identity/vale tests stay), frontend **72**. The R$7,6k
+Resultado Bruto YTD difference is unchanged.
 
 ---
 

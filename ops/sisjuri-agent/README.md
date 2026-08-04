@@ -27,16 +27,14 @@ no inbound firewall rule or VPN is needed.
   already-registered task keeps its old single-month command line.
 - `backfill.ps1` — one-shot historical catch-up: loops months from a start
   through the last closed month, calling `run-agent.ps1` for each.
-- `RUNBOOK_v5_reextract.md` — **⚠ COPY `run-agent.ps1` TO THE BOX BEFORE ANYTHING ELSE.**
-  Contract v5 (2026-08-04) wraps each emitted chunk in `~` guards so sqlplus can no longer
-  trim a space sitting at a chunk boundary (it had been silently gluing two words together
-  ~6 times per month, in every month of 2026). **The fix spans BOTH files**: `extract.sql`
-  adds the guards and `run-agent.ps1` strips them. The box self-updates `extract.sql` from
-  `main` but **nobody updates `run-agent.ps1`** — so until you copy the new wrapper, the
-  self-update pulls guarded SQL into an old reassembler and the run FAILS with invalid JSON
-  (the self-update sanity gate does not catch this: v5 still contains `JSON_OBJECT` and
-  `'despesas_liquido'`). This affects the daily 06:00 task, not just manual runs. The
-  re-extract itself is not urgent — the bug moves no money — but the file copy is.
+- ⚠ **A v5 chunk-guard change was attempted 2026-08-04 and REVERTED the same day** — it
+  corrupted the live store (leaked `~` into keys like `"r~ecebimento_rows"`). This box is
+  Oracle **11g**: its sqlplus rejects `SET TRIMSPACE` (`SP2-0158`), so that setting was
+  never active and the theory the fix rested on was wrong; and real sqlplus line-wrapping
+  put the guards inside the JSON, which the local test (clean 180-char chunks) never
+  reproduced. `docs/HANDOFF_v5_reverted_2026-08-04.md` has the full account. The whitespace
+  glue it chased is money-neutral; do not re-attempt without probing the box's actual
+  wrapping first.
 - `RUNBOOK_v4_reextract.md` — done 2026-08-04, kept as the procedure. Contract v4
   (2026-08-03) widens the three `historico` fields from 60/80 to **300 chars**, so the
   full JSON payload lands ~10% bigger and, more importantly, the *arithmetic* finance

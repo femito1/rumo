@@ -112,31 +112,12 @@ if ($startIdx -lt 0 -or $endIdx -le $startIdx) {
 }
 $json = $raw.Substring($startIdx, $endIdx - $startIdx + 1)
 
-# extract.sql wraps every emitted chunk in '~' guards, because sqlplus trims a blank
-# at the edge of a physical line and the reassembly below deletes the line breaks --
-# so a chunk boundary landing on a space silently GLUED two words together (~6 times
-# per month in every month of 2026; found 2026-08-04, see the note in extract.sql).
-# Strip one guard from each END of each physical line, POSITIONALLY. It must be
-# positional and per-line, never a global -replace '~': a '~' inside the JSON (a case
-# name, a historico) is legitimate data and must survive untouched.
-#
-# Guarded lines only appear from extract v5 on. A line without them is passed through
-# unchanged, so this script still reassembles an older extract.sql correctly (the box
-# self-updates extract.sql from main, and the two can be briefly out of step).
-$sb = New-Object System.Text.StringBuilder
-foreach ($line in ($json -split "`r?`n")) {
-  $t = $line
-  if ($t.Length -ge 2 -and $t[0] -eq '~' -and $t[$t.Length - 1] -eq '~') {
-    $t = $t.Substring(1, $t.Length - 2)
-  }
-  [void]$sb.Append($t)
-}
-$json = $sb.ToString()
-
-# Belt and braces: the split above already removed the physical CR/LF, but a chunk
-# emitted without guards (pre-v5 extract.sql) can still carry them. Our JSON_OBJECT
-# output is compact with no legitimate embedded newlines -- real newlines inside a
-# value are escaped as \n, two characters, which this does NOT touch.
+# sqlplus emits the whole document as ONE logical line but hard-wraps it at
+# LINESIZE (max 32767) by injecting physical CR/LF. On large months those wraps
+# land mid-token and corrupt the JSON. Our JSON_OBJECT output is compact with no
+# legitimate embedded newlines (real newlines in values would be escaped as \n,
+# two chars, which this does NOT touch), so stripping physical CR/LF perfectly
+# reassembles the wrapped line regardless of size.
 $json = $json -replace "`r", '' -replace "`n", ''
 
 # Validate it parses.
