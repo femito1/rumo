@@ -44,26 +44,32 @@ def test_realizado_base_is_recebimento(snapshot):
 
 
 def test_custo_equipe_prefers_area_breakdown(snapshot):
+    # Custo equipe comes from the per-person ``custo_equipe_deriv`` block (the
+    # production basis, present in every v4 snapshot), NOT the coarse ``custo_area``
+    # rollup. The 2026-08-04 fixture refresh gave the Feb fixture that block for the
+    # first time — the old thin stub lacked it, so this pinned the fallback path.
     r = RealizadoInputs.from_snapshot(snapshot)
-    expected = 70796.83 + 49941.93 + 94571.59  # the three custo_area rows
-    assert r.custo_equipe == pytest.approx(expected, abs=0.05)
+    assert r.custo_equipe == pytest.approx(220108.46, abs=0.05)
 
 
 def test_recebimento_area_parsed_from_snapshot(snapshot):
-    # Per-area recebimento is now derived from SISJURI (CASO -> área jurídica),
-    # verified to the centavo against the workbook (Fev 2026).
+    # Per-area recebimento uses the per-profissional RECEITA_REC basis rolled to the
+    # home grupo (``recebimento_area_prof``), which is what the workbook shows — NOT
+    # cash-by-case. Ties the workbook's own Feb "Areas Sintetico" Receita to the real
+    # (Conten 159539 · Econ 119667 · Arb 62506). The old assertions here were the
+    # cash-by-case figures, pinned only because the Feb stub lacked the prof block.
     r = RealizadoInputs.from_snapshot(snapshot)
-    assert r.area_recebimento["Contencioso"] == pytest.approx(133202.74, abs=0.05)
-    assert r.area_recebimento["Econômico"] == pytest.approx(117626.71, abs=0.05)
-    assert r.area_recebimento["Arbitragem"] == pytest.approx(68404.13, abs=0.05)
+    assert r.area_recebimento["Contencioso"] == pytest.approx(159538.62, abs=0.05)
+    assert r.area_recebimento["Econômico"] == pytest.approx(119666.59, abs=0.05)
+    assert r.area_recebimento["Arbitragem"] == pytest.approx(62506.41, abs=0.05)
 
 
 def test_area_tab_recebimento_from_sisjuri(snapshot):
-    # No manual overlay: the area tab's Recebimento realizado should come from
-    # the snapshot's recebimento_area, not require manual entry.
+    # No manual overlay: the area tab's Recebimento realizado should come from the
+    # snapshot (prof basis, see above), not require manual entry.
     sections = assemble_dre_sections(snapshot=snapshot, budget=None, period_label="Fev 2026")
     receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
-    assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
+    assert receb["Realizado"]["value"] == pytest.approx(159538.62, abs=0.05)
 
 
 def test_recebimento_area_prof_is_preferred_and_ties_may_workbook():
@@ -115,22 +121,22 @@ def test_transfers_overlay_applied_to_area_recebimento(snapshot):
     conten = _row(sections["contencioso"]["rows"], RECEBIMENTO)
     arbitr = _row(sections["arbitragem"]["rows"], RECEBIMENTO)
     econ = _row(sections["economico"]["rows"], RECEBIMENTO)
-    # base 133202.74 + 4362.575 + 1034.5535 = 138599.87
-    assert conten["Realizado"]["value"] == pytest.approx(138599.87, abs=0.05)
-    # base 68404.13 - 4362.575 - 1034.5535 - 1034.5535 = 61972.45
-    assert arbitr["Realizado"]["value"] == pytest.approx(61972.45, abs=0.05)
-    # base 117626.71 + 1034.5535 = 118661.26
-    assert econ["Realizado"]["value"] == pytest.approx(118661.26, abs=0.05)
+    # base 159538.62 + 4362.575 + 1034.5535 = 164935.75
+    assert conten["Realizado"]["value"] == pytest.approx(164935.75, abs=0.05)
+    # base 62506.41 - 4362.575 - 1034.5535 - 1034.5535 = 56074.73
+    assert arbitr["Realizado"]["value"] == pytest.approx(56074.73, abs=0.05)
+    # base 119666.59 + 1034.5535 = 120701.14
+    assert econ["Realizado"]["value"] == pytest.approx(120701.14, abs=0.05)
 
 
 def test_recebimento_is_sisjuri_derived(snapshot):
-    # Recebimento is SISJURI-derived (CASO -> área jurídica) with Resumo_Recebidas
-    # transfers applied upstream — there is no manual per-area entry anymore.
+    # Recebimento is SISJURI-derived (prof basis) with Resumo_Recebidas transfers
+    # applied upstream — there is no manual per-area entry anymore.
     sections = assemble_dre_sections(
         snapshot=snapshot, budget=None, period_label="Fev 2026",
     )
     receb = _row(sections["contencioso"]["rows"], RECEBIMENTO)
-    assert receb["Realizado"]["value"] == pytest.approx(133202.74, abs=0.05)
+    assert receb["Realizado"]["value"] == pytest.approx(159538.62, abs=0.05)
 
 
 def test_institutional_sections_roll_up_by_family(snapshot):
@@ -170,10 +176,52 @@ def test_per_area_custo_equipe_folds_lawyer_vale_june_workbook(snapshot_jun):
     assert sum(r.area_custo_equipe.values()) == pytest.approx(210345.00, abs=0.05)
 
 
+#: Per-área Custo equipe for every closed month, from the production assembler over
+#: the committed v4 fixtures. These are the exact cells ``scripts/reconcile_custo_equipe.py``
+#: reconciles against the workbook to a 0,00 residual (18/18), and that the client
+#: differences document cites. Jan/Mar/Abr had NO fixture guard before the 2026-08-04
+#: refresh (handoff §4: "the biggest structural gap I am leaving behind") — pinning
+#: them here closes it. May/Jun also live in test_workbook_targets / the test above;
+#: kept together so a per-área custo regression fails in ONE obvious place.
+_AREA_CUSTO_EQUIPE_2026 = {
+    1: (73478.62, 75943.34, 62014.13),
+    2: (76179.29, 80222.88, 63706.29),
+    3: (74072.29, 78475.60, 49183.94),
+    4: (76311.31, 81931.07, 55038.69),
+    5: (75378.11, 79511.85, 54383.94),
+    6: (75424.21, 80536.85, 54383.94),
+}
+
+
+def test_per_area_custo_equipe_is_pinned_every_closed_month():
+    """Regression guard on all 18 per-área Custo equipe cells (3 áreas × 6 months).
+
+    Promotes the stable output of ``scripts/reconcile_custo_equipe.py`` (which closes
+    18/18 to 0,00 against the workbook, with each residual bucketed to a named cause).
+    The script needs the workbook and hand-coded cause buckets, so it stays a script;
+    this test pins the production numbers it validates so they cannot drift silently —
+    the gap handoff §4 flagged for Jan/Mar/Abr specifically.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+
+    fixtures_dir = _Path(__file__).parent / "fixtures"
+    for month, (conten, econ, arb) in _AREA_CUSTO_EQUIPE_2026.items():
+        snap = _json.loads(
+            (fixtures_dir / f"sisjuri_2026_{month:02d}.json").read_text(encoding="utf-8")
+        )
+        ce = RealizadoInputs.from_snapshot(snap).area_custo_equipe
+        assert ce["Contencioso"] == pytest.approx(conten, abs=0.05), f"2026-{month:02d}"
+        assert ce["Econômico"] == pytest.approx(econ, abs=0.05), f"2026-{month:02d}"
+        assert ce["Arbitragem"] == pytest.approx(arb, abs=0.05), f"2026-{month:02d}"
+
+
 def test_custos_diretos_include_comissao(snapshot):
     # Client-confirmed (MEETING_2026-07-10): Custos Diretos = Custo equipe +
-    # Participação/Comissão. Feb workbook: 216953.74 (equipe) + 1500 (comissão) =
-    # 218453.74. The Institucional Resultado Bruto must subtract comissão too.
+    # Participação/Comissão. The point of this test is that comissão is ADDED to
+    # custo equipe. Custo equipe now comes from the SISJURI ``custo_equipe_deriv``
+    # block (220108.46) which is authoritative over a ledger custo_equipe when
+    # present (dre.py:613), so: 220108.46 + 1500 = 221608.46.
     snap = dict(snapshot)
     snap["ledger"] = {
         "custo_equipe": {"Contencioso": 76342.35, "Econômico": 78817.05, "Arbitragem": 61794.34},
@@ -183,8 +231,8 @@ def test_custos_diretos_include_comissao(snapshot):
     }
     r = RealizadoInputs.from_snapshot(snap)
     assert r.comissao_total == pytest.approx(1500.0, abs=0.05)
-    # Custos diretos = custo equipe (216953.74) + comissão (1500) = 218453.74
-    assert r.custos_diretos == pytest.approx(218453.74, abs=0.05)
+    # Custos diretos = custo equipe (220108.46, deriv basis) + comissão (1500).
+    assert r.custos_diretos == pytest.approx(221608.46, abs=0.05)
 
 
 def test_imposto_is_fifteen_percent_of_recebimento(snapshot):
@@ -627,10 +675,13 @@ def test_area_tabs_present_with_workbook_lines(snapshot):
 
 
 def test_ledger_block_drives_area_custo_comissao_despesas(snapshot):
-    # When the snapshot carries a hand-ledger block (workbook Base_Resultado),
-    # the area tabs use its per-area Custo equipe / Comissão / Despesas Equipe
-    # (overriding the SISJURI custo_area aggregation), and derive Despesa
-    # Institucional via the rateio rule. Values are the Feb 2026 workbook figures.
+    # When the snapshot carries a hand-ledger block (workbook Base_Resultado), the
+    # area tabs use its per-area Comissão / Despesas Equipe and derive Despesa
+    # Institucional via the rateio rule. Custo equipe, however, is authoritative from
+    # the SISJURI ``custo_equipe_deriv`` block when present (dre.py:610-615) — the
+    # ledger custo_equipe only wins when that block is ABSENT. The Feb fixture gained
+    # the deriv block in the 2026-08-04 refresh, so Contencioso reads 76179.29 (the
+    # DB-derived value), not the ledger's 76342.35.
     from app.closing.dre import (
         COMISSAO,
         CUSTO_EQUIPE,
@@ -647,8 +698,8 @@ def test_ledger_block_drives_area_custo_comissao_despesas(snapshot):
     }
     sections = assemble_dre_sections(snapshot=snap, budget=None, period_label="Fev 2026")
     conten = sections["contencioso"]["rows"]
-    # Custo equipe comes from the ledger, NOT the SISJURI custo_area (49941.93).
-    assert _row(conten, CUSTO_EQUIPE)["Realizado"]["value"] == pytest.approx(76342.35, abs=0.05)
+    # Custo equipe: the SISJURI deriv block wins over the ledger when present.
+    assert _row(conten, CUSTO_EQUIPE)["Realizado"]["value"] == pytest.approx(76179.29, abs=0.05)
     assert _row(conten, COMISSAO)["Realizado"]["value"] == pytest.approx(0.0, abs=0.05)
     assert _row(conten, DESPESAS_EQUIPE)["Realizado"]["value"] == pytest.approx(2129.32, abs=0.05)
     # Despesa Institucional (rateio): ratear = 95047.39 - (2129.32+3296.07+2633.69)
@@ -686,12 +737,20 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
     # Despesas Área allocation (GAP 2) was RESOLVED by Renata (2026-07-16): allocate
     # by label/cost-center, which the DB already does; see
     # test_workbook_targets.test_may_per_area_resultado_bruto_uses_renata_despesas_area_ruling.
+    #
+    # The pool that is rateized is the institutional despesa MINUS the per-área
+    # Despesas Equipe (dre.py:648-657) — those team expenses are carried on their own
+    # área line and must not be double-counted in the institutional rateio. The May
+    # fixture gained the ``despesas_equipe_area`` block in the 2026-08-04 refresh, so
+    # this now exercises the carve-out; the old thin fixture had an empty
+    # ``area_despesas_equipe`` and the pool equalled the full despesa.
     from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
 
     r = RealizadoInputs.from_snapshot(snapshot_may)
     assert not r.has_ledger  # the May fixture carries no workbook ledger
     total_desp = r.despesas
     tot_ce = sum(r.area_custo_equipe.values())
+    pool = round(total_desp - sum(r.area_despesas_equipe.values()), 2)
 
     sections = assemble_dre_sections(
         snapshot=snapshot_may, budget=None, period_label="Maio 2026"
@@ -701,13 +760,57 @@ def test_area_despesa_institucional_derived_from_db_without_ledger(snapshot_may)
                       ("Arbitragem", "arbitragem")):
         di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
         assert di is not None, f"{area} Despesa Institucional blanked without a ledger"
-        expected = round(total_desp * r.area_custo_equipe[area] / tot_ce, 2)
+        expected = round(pool * r.area_custo_equipe[area] / tot_ce, 2)
         assert di == pytest.approx(expected, abs=0.05)
         got[area] = di
-    # Conservation is a TAUTOLOGY (shares sum to 1), NOT a correctness check: the
-    # parts summing to the whole only proves no money leaks, not that the split is
-    # right. The real ground-truth check is the xfail below.
-    assert sum(got.values()) == pytest.approx(total_desp, abs=0.05)
+    # Conservation: the three áreas sum to the POOL (not the full despesa — the
+    # per-área Despesas Equipe were carved out first). A tautology given the shares
+    # sum to 1, so it only proves no money leaks in the split, not that it is right.
+    assert sum(got.values()) == pytest.approx(pool, abs=0.05)
+
+
+def test_per_area_desp_inst_rateio_identity_holds_every_closed_month():
+    """Per-área Despesa Institucional = POOL × (área custo share), exact, all months.
+
+    Promotes ``scripts/audit_desp_inst_rateio.py`` to a guarded test. That script
+    proved (live, 2026-08-03) that the per-área Despesa Institucional is an IDENTITY,
+    not an estimate: it is the institutional pool apportioned by each área's share of
+    total Custo equipe, exact to R$0,01, and the three áreas conserve the pool in
+    every month. Nothing protected that finding — the client differences document
+    leans on it (a per-área difference here comes from the POOL, i.e. the institutional
+    total, never from a per-área cause). Uses the production assembler over all six
+    committed fixtures; needs no workbook.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+
+    from app.closing.dre import DESPESA_INSTITUCIONAL, RealizadoInputs
+
+    fixtures_dir = _Path(__file__).parent / "fixtures"
+    for month in range(1, 7):
+        snap = _json.loads(
+            (fixtures_dir / f"sisjuri_2026_{month:02d}.json").read_text(encoding="utf-8")
+        )
+        r = RealizadoInputs.from_snapshot(snap)
+        if r.has_ledger:  # ledger months take the workbook rateio, not this identity
+            continue
+        tot_ce = sum(r.area_custo_equipe.values())
+        assert tot_ce, f"2026-{month:02d}: no per-área custo equipe to rateize by"
+        pool = round(r.despesas - sum(r.area_despesas_equipe.values()), 2)
+
+        sections = assemble_dre_sections(
+            snapshot=snap, budget=None, period_label=f"2026-{month:02d}"
+        )
+        got = {}
+        for area, key in (("Contencioso", "contencioso"), ("Econômico", "economico"),
+                          ("Arbitragem", "arbitragem")):
+            di = _row(sections[key]["rows"], DESPESA_INSTITUCIONAL)["Realizado"]["value"]
+            assert di is not None, f"2026-{month:02d} {area} Despesa Institucional blank"
+            expected = round(pool * r.area_custo_equipe[area] / tot_ce, 2)
+            assert di == pytest.approx(expected, abs=0.05), f"2026-{month:02d} {area}"
+            got[area] = di
+        # The three áreas conserve the pool — no money leaks in the redistribution.
+        assert sum(got.values()) == pytest.approx(pool, abs=0.05), f"2026-{month:02d}"
 
 
 # Real May cost-center rollup of the Grupo='S' Despesas Área families — the AUTHORITATIVE
@@ -930,21 +1033,31 @@ def test_per_area_despesa_institucional_ratears_only_the_pool_june(snapshot_jun)
         ), sec
 
 
-def test_vale_adm_ties_salarios_administracao_may(snapshot_may):
-    # T4: Vale-ADM (VR 2.719,90 + VT 607,04 = 3.326,94) is paid via transitória
-    # 200.010.0010 (not 020.050.*). The extract emits a top-level ``vale_adm``
-    # total; the assembler adds it to the institutional "Salários Administração"
-    # section AND moves FGTS-ADM (020.050.0060 = 400) to Impostos, so the family
-    # ties the workbook to the centavo: 12.344,91.
+def test_vale_adm_derived_from_vale_prof_may(snapshot_may):
+    # Vale-ADM is derived from the per-person ``vale_prof`` slices (v3+), keyed on
+    # home grupo == Administração — Maria Luiza ONLY (Renata's 2026-07-30 ruling; JVO
+    # and VSR are estagiários of the áreas, not ADM). May: MLA VR 783,70 + VT 262,64 =
+    # 1.046,34. The assembler adds it to "Salários Administração" as a leaf and moves
+    # FGTS-ADM (020.050.0060 = 400) to Impostos.
+    #
+    # ⚠ This does NOT tie the workbook, and that is CORRECT: the May book types the
+    # full 3-person transitória (VR 2.719,90 + VT 607,04 = 3.326,94) into Salários
+    # Adm, a documented −2.280,60 difference (DIFERENCAS_ACUMULADO_2026.md). The old
+    # test injected ``vale_adm = 3326.94`` as a scalar to hit 12.344,91, but the v2
+    # scalar contract is gone (extract v3) — the fixture now carries ``vale_prof`` and
+    # that injected key is ignored. Salários Adm = 9.017,97 base + 1.046,34 = 10.064,31.
     snap = dict(snapshot_may)
-    snap["vale_adm"] = 3326.94
+    assert "vale_adm" not in snap  # v3+: per-person slices, no pre-split scalar
+    assert sum(
+        v["valor"] for v in snap["vale_prof"] if v["sigla"] == "MLA"
+    ) == pytest.approx(1046.34, abs=0.01)
     r = RealizadoInputs.from_snapshot(snap)
     sal = next(s for s in r.sections if s.name == "Salários Administração")
-    assert sal.total == pytest.approx(12344.91, abs=0.01)
+    assert sal.total == pytest.approx(10064.31, abs=0.01)
+    vale = next(v for nome, v in sal.accounts if "Vale" in nome)
+    assert vale == pytest.approx(1046.34, abs=0.01)
     # FGTS-ADM must have left Salários Adm (it belongs to Impostos in the workbook).
     assert not any("FGTS" in nome for nome, _ in sal.accounts)
-    # Vale-ADM appears as a leaf under Salários Administração.
-    assert any("Vale" in nome for nome, _ in sal.accounts)
 
 
 #: Real per-person VR/VT slices, straight off ``probe_vale_desdobramento.sql`` run
@@ -1105,10 +1218,13 @@ def test_vale_adm_excludes_lawyer_vale_already_in_custo_equipe(snapshot_jun):
 
 
 def test_vale_adm_absent_leaves_salarios_unchanged(snapshot_may):
-    # Without a vale_adm key the section is unchanged except FGTS still moves out
-    # (FGTS reclassification is account-driven, not gated on vale_adm). The live
-    # fixture now carries vale_adm, so drop it here to test the absent case.
+    # With no vale source at all the section is unchanged except FGTS still moves out
+    # (FGTS reclassification is account-driven, not gated on the vale). The live v4
+    # fixture carries ``vale_prof`` (the per-person slices), so drop that to test the
+    # truly-absent case — dropping the obsolete ``vale_adm`` scalar would no longer do
+    # it, since the derivation reads ``vale_prof`` now.
     snap = dict(snapshot_may)
+    snap.pop("vale_prof", None)
     snap.pop("vale_adm", None)
     r = RealizadoInputs.from_snapshot(snap)
     sal = next(s for s in r.sections if s.name == "Salários Administração")
@@ -1549,9 +1665,12 @@ def test_fluxo_consolidado_fills_from_db_without_manual(snapshot_may):
         assert receb["Valor"]["value"] is not None, f"{area} recebimento blank"
         assert despesas["Valor"]["value"] is not None, f"{area} despesas blank"
         assert margem["Valor"]["value"] is not None, f"{area} margem blank"
-    # Recebimento ties the SISJURI per-area base (Contencioso, stale fixture basis).
+    # Recebimento ties the SISJURI per-area prof basis (RECEITA_REC by home grupo).
+    # May Contencioso = 240.444,72, the same figure the prof-basis precedence test
+    # pins at line ~80. The old 205.157,46 was the legacy cash-by-case value, which
+    # the pre-refresh fixture used only because it lacked ``recebimento_area_prof``.
     receb_c = next(r for r in rows if r["key"] == "Contencioso::receb")
-    assert receb_c["Valor"]["value"] == pytest.approx(205157.46, abs=0.01)
+    assert receb_c["Valor"]["value"] == pytest.approx(240444.72, abs=0.01)
 
 
 #: Per-day vale rates, taken from the lançamento histórico itself — SISJURI writes the
@@ -1569,16 +1688,25 @@ def test_every_vale_row_is_a_whole_number_of_days():
     This is the cheapest possible validation of a vale figure, and it exists because it
     settled a real question: the workbook's hand-typed ``=35,52+262,64`` (January, r123)
     could not be a missing slice of MLA's vale, since 35,52 is not a whole number of days
-    at any rate — while all 41 real rows across the eight 2026 months are, exactly.
+    at any rate — while every real vale row is, exactly.
 
-    Uses the fixtures rather than the live store so it runs offline. The rates are DB
-    facts (see the module note above), not constants we invented.
+    Iterates ALL SIX closed-month fixtures. It used to read only Feb/May/Jun and its
+    docstring claimed "41 rows across the eight months" — but Feb and May had NO
+    ``vale_prof`` key at all (pre-v4 stubs), so the loop body ran for June alone and
+    actually checked 6 rows. After the 2026-08-04 fixture refresh all six carry the
+    block; the row-count floor below makes a silently-empty fixture FAIL rather than
+    pass vacuously. Rates are DB facts (see the module note above), not invented.
     """
-    for label, snap in (
-        ("2026-02", json.loads(FIXTURE.read_text(encoding="utf-8"))),
-        ("2026-05", json.loads(FIXTURE_MAY.read_text(encoding="utf-8"))),
-        ("2026-06", json.loads(FIXTURE_JUN.read_text(encoding="utf-8"))),
-    ):
+    import json as _json
+    from pathlib import Path as _Path
+
+    fixtures_dir = _Path(__file__).parent / "fixtures"
+    checked = 0
+    for month in range(1, 7):
+        label = f"2026-{month:02d}"
+        snap = _json.loads(
+            (fixtures_dir / f"sisjuri_2026_{month:02d}.json").read_text(encoding="utf-8")
+        )
         for row in snap.get("vale_prof") or []:
             sigla = str(row.get("sigla") or "")
             valor = round(float(row.get("valor") or 0.0), 2)
@@ -1592,3 +1720,9 @@ def test_every_vale_row_is_a_whole_number_of_days():
                 f"{label} {sigla} {valor} is {dias:.4f} days at {rate}/day — a vale is "
                 f"always a whole number of days; check the rate or the posting"
             )
+            checked += 1
+    # Floor guards against the vacuous-pass trap that hid the old 6-of-41 coverage: a
+    # fixture that loses ``vale_prof`` (or gains an unrecognised sigla) drops the count
+    # and fails here instead of quietly checking nothing. 31 rows across the six
+    # closed-month fixtures on 2026-08-04.
+    assert checked >= 31, f"only {checked} vale rows checked — a fixture lost vale_prof"

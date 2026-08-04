@@ -1,65 +1,68 @@
 {
- "bonus_equipe": 94696.15,
- "bonus_equipe_030": 7009.84,
- "comissao_deriv": [
-  {
-   "area": "Equipe Direito Econômico",
-   "kind": "area",
-   "sigla": null,
-   "valor": 1500
-  }
- ],
+ "bonus_equipe": null,
+ "bonus_equipe_030": null,
+ "comissao_deriv": null,
  "convenio_extra_dl": [
   {
-   "historico": "Convêno Médico dependentes - DC - VALOR TOTAL R$ 4.536,31\r\n\r\nLIVIA GARCIA KERR DO AMARAL CASELTA - Plano: SOHO30E - Valor: 1.736,14\t\r\nISABEL AMARAL CASELTA- Plano: SOHO30E - Valor: 1.030,32\r\nJOANA AMARAL CASELTA- Plano: SOHO30E - Valor: 1.030,32\r\n\r\n\r\n",
+   "historico": "Convêno Médico dependentes - DC - VALOR TOTAL R$ 3.796,78\r\n\r\nLIVIA GARCIA KERR DO AMARAL CASELTA - Plano: SOHO30E - Valor: 1.736,14\t\r\nISABEL AMARAL CASELTA- Plano: SOHO30E - Valor:1.030,32\r\nJOANA AMARAL CASELTA- Plano: SOHO30E - Valor: 1.030,32\r\n\r\nPagamento integral dos dependentes. Valor descontado",
    "sigla": "DC",
    "valor": 3796.78
   },
   {
-   "historico": "Convêno Médico  EHF- Dependentes e saldo residual\r\n\r\n1.795,86-1.182,98 ( Parte MBC)= 1.398,01\r\n\r\n",
+   "historico": "Convêno Médico  EHF- Dependentes e saldo residual\r\n\r\nMIGUEL FUNARI SEBASTIANELLI 1.398,01\r\n\r\n",
    "sigla": "EHF",
    "valor": 1398.01
   },
   {
-   "historico": "Débito pessoal RB (parte RB upgrade e dependentes integral) VALOR TOTAL: 5.151,75\r\n\r\n\r\nRB: R$1993,38  -1469,10(parte MBC) =  R$524,28\r\n\r\nJULIANA PIRES DOSSANTOS - Plano: SOHO60E - Valor: 2.355,73\r\nCATARINA DOS SANTOS FRANCO BOTELHO- Plano: SOHO60E - Valor: 1.398,01\r\nISABEL DOS SANTOS FRANCO BOTELHO",
+   "historico": "Débito pessoal RB (parte RB upgrade e dependentes integral) VALOR TOTAL: 8.579,33\r\n\r\n\r\nRB: R$ 8.579,33 - 6.053,24 (parte MBC) =\tR$ 2.526,09\r\n\r\nJULIANA PIRES DOS SANTOS - Plano: SOHO60E - Valor 2.355,73\r\nCATARINA DOS SANTOS FRANCO BOTELHO- Plano: SOHO60E - Valor: 1.398,01\r\nISABEL DOS SANTOS FRANCO B",
    "sigla": "RB",
    "valor": 5151.75
   }
  ],
  "convenio_memo": [
   {
-   "parsed_valor": 603.5,
-   "raw_memo": "Convêno Médico  EHF- Plano: SOHO60E - Valor968,65  A parte de dependentes EHF e upgrade estão lançadas na conta 500.EHF**\r\n\r\n1.795,86-1.192,36 ( Parte MBC)=603,50",
+   "parsed_valor": 1564.1,
+   "raw_memo": "Convêno Médico  EHF- Plano: SOHO60E - Valor R$ 2.122,30 A parte de dependentes EHF e upgrade estão lançadas na conta 500.EHF**\r\n\r\n3.520,31 - 1.956,21 (Parte MBC) =1.564,10\r\n\r\n",
    "sigla": "EHF"
   },
   {
-   "parsed_valor": 524.28,
-   "raw_memo": "Convêno Médico RB-Plano: SOHO60E  *A parte de dependentes RB  e upgrade RB estão lançadas na conta 500.RB**\r\n\r\nMemória de cálculo:\r\nConvêno Médico RB SOHO30E (parte MBC)l= R$ 3.543,45\r\nRB: R$1993,38  -1469,10(parte MBC) =  R$524,28  Parte RB descontada em função do upgrade - lançada na conta 0500(dé",
+   "parsed_valor": 2526.09,
+   "raw_memo": "Convêno Médico RB-Plano: SOHO60E  *A parte de dependentes RB  e upgrade RB estão lançadas na conta 500.RB**\r\n\r\nMemória de cálculo:\r\nConvêno Médico RB SOHO30E (parte MBC)l= R$ 3.427,58\r\n\r\nRB: R$ 8.579,33 - 6.053,24 (parte MBC) =  R$ 2.526,09 -  Parte RB descontada em função do upgrade - lançada na co",
    "sigla": "RB"
   }
  ],
  "custo_area": [
   {
    "area": "Arbitragem",
-   "n": 17,
-   "total": 70796.83
+   "n": 15,
+   "total": 57667.3
   },
   {
    "area": "Equipe Contencioso",
-   "n": 14,
-   "total": 49941.93
+   "n": 12,
+   "total": 47857.55
   },
   {
    "area": "Equipe Direito Econômico",
-   "n": 26,
-   "total": 94571.59
+   "n": 22,
+   "total": 91766.7
+  },
+  {
+   "area": null,
+   "n": 1,
+   "total": 92.45
   }
  ],
  "custo_equipe_area": [
   {
    "id_conta": "030.010.0100/0220",
    "sigla": "JVO",
-   "valor": 1249.4
+   "valor": 1190.8
+  },
+  {
+   "id_conta": "030.010.0100/0220",
+   "sigla": "VSR",
+   "valor": 1008.4
   }
  ],
  "custo_equipe_deriv": [
@@ -106,7 +109,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "ASG",
-   "valor": 7637
+   "valor": 4599
   },
   {
    "id_conta": "030.010.0130",
@@ -116,7 +119,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "BBX",
-   "valor": 8055.8
+   "valor": 7573.4
   },
   {
    "id_conta": "030.010.0130",
@@ -126,7 +129,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "BMP",
-   "valor": 9072.76
+   "valor": 9379
   },
   {
    "id_conta": "030.010.0130",
@@ -136,7 +139,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "EHF",
-   "valor": 12879
+   "valor": 11879
   },
   {
    "id_conta": "030.010.0130",
@@ -156,7 +159,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "FSM",
-   "valor": 15019.8
+   "valor": 13409.4
   },
   {
    "id_conta": "030.010.0130",
@@ -166,7 +169,7 @@
   {
    "id_conta": "030.010.0010",
    "sigla": "IAC",
-   "valor": 17171
+   "valor": 15605
   },
   {
    "id_conta": "030.010.0130",
@@ -174,19 +177,14 @@
    "valor": 1621
   },
   {
-   "id_conta": "030.010.0010",
-   "sigla": "JGS",
-   "valor": 9379
-  },
-  {
-   "id_conta": "030.010.0130",
-   "sigla": "JGS",
-   "valor": 1621
-  },
-  {
    "id_conta": "030.010.0140",
    "sigla": "JVO",
    "valor": 2800
+  },
+  {
+   "id_conta": "030.010.0140",
+   "sigla": "VSR",
+   "valor": 1026.67
   },
   {
    "id_conta": "030.010.0110",
@@ -206,7 +204,7 @@
   {
    "id_conta": "030.010.0110",
    "sigla": "ASG",
-   "valor": 564.92
+   "valor": 1269.46
   },
   {
    "id_conta": "030.010.0110",
@@ -216,7 +214,7 @@
   {
    "id_conta": "030.010.0110",
    "sigla": "BMP",
-   "valor": 564.91
+   "valor": 1269.46
   },
   {
    "id_conta": "030.010.0110",
@@ -237,11 +235,6 @@
    "id_conta": "030.010.0110",
    "sigla": "IAC",
    "valor": 1564.08
-  },
-  {
-   "id_conta": "030.010.0110",
-   "sigla": "JGS",
-   "valor": 1911.95
   }
  ],
  "custo_equipe_prof": [
@@ -250,7 +243,21 @@
    "id_conta": "030.010.0010",
    "nome_conta": "Distribuição Mensal Fixa",
    "sigla": null,
-   "valor": 172129.96
+   "valor": 153935.55
+  },
+  {
+   "area": null,
+   "id_conta": "030.010.0180",
+   "nome_conta": "Cursos / Treinamento Jurídico",
+   "sigla": null,
+   "valor": 1094.49
+  },
+  {
+   "area": null,
+   "id_conta": "030.010.0200",
+   "nome_conta": "Seguro de Vida",
+   "sigla": null,
+   "valor": 92.45
   },
   {
    "area": "Equipe Direito Econômico",
@@ -341,7 +348,7 @@
    "id_conta": "030.010.0110",
    "nome_conta": "Convênio Médico",
    "sigla": "ASG",
-   "valor": 564.92
+   "valor": 1269.46
   },
   {
    "area": "Equipe Direito Econômico",
@@ -383,7 +390,7 @@
    "id_conta": "030.010.0110",
    "nome_conta": "Convênio Médico",
    "sigla": "BMP",
-   "valor": 564.91
+   "valor": 1269.46
   },
   {
    "area": "Equipe Direito Econômico",
@@ -484,25 +491,18 @@
    "valor": 324.2
   },
   {
-   "area": "Arbitragem",
-   "id_conta": "030.010.0110",
-   "nome_conta": "Convênio Médico",
-   "sigla": "JGS",
-   "valor": 1911.95
-  },
-  {
-   "area": "Arbitragem",
-   "id_conta": "030.010.0130",
-   "nome_conta": "Pró-Labores",
-   "sigla": "JGS",
-   "valor": 1442.69
-  },
-  {
    "area": "Equipe Contencioso",
    "id_conta": "030.010.0140",
    "nome_conta": "Bolsa Auxílio",
    "sigla": "JVO",
    "valor": 2800
+  },
+  {
+   "area": "Equipe Direito Econômico",
+   "id_conta": "030.010.0140",
+   "nome_conta": "Bolsa Auxílio",
+   "sigla": "VSR",
+   "valor": 1026.67
   }
  ],
  "despesas_conta": [
@@ -512,7 +512,7 @@
    "nome_conta": "Aluguel",
    "nome_conta_pai": "Ocupação",
    "tipo_conta": "D",
-   "total": 21707.78
+   "total": 23266.73
   },
   {
    "id_conta": "020.010.0020",
@@ -528,7 +528,7 @@
    "nome_conta": "Energia Elétrica",
    "nome_conta_pai": "Ocupação",
    "tipo_conta": "D",
-   "total": 926.16
+   "total": 910.64
   },
   {
    "id_conta": "020.010.0040",
@@ -537,14 +537,6 @@
    "nome_conta_pai": "Ocupação",
    "tipo_conta": "D",
    "total": 6916.97
-  },
-  {
-   "id_conta": "020.010.0050",
-   "n": 1,
-   "nome_conta": "Manutenção e Conservação",
-   "nome_conta_pai": "Ocupação",
-   "tipo_conta": "D",
-   "total": 50
   },
   {
    "id_conta": "020.020.0010",
@@ -564,19 +556,19 @@
   },
   {
    "id_conta": "020.030.0010",
-   "n": 1,
+   "n": 2,
    "nome_conta": "Material de Escritório",
    "nome_conta_pai": "Despesas Gerais",
    "tipo_conta": "D",
-   "total": 41.2
+   "total": 316.3
   },
   {
    "id_conta": "020.030.0020",
-   "n": 2,
+   "n": 5,
    "nome_conta": "Material de Copa/Higiene",
    "nome_conta_pai": "Despesas Gerais",
    "tipo_conta": "D",
-   "total": 263.89
+   "total": 990.45
   },
   {
    "id_conta": "020.030.0100",
@@ -587,20 +579,12 @@
    "total": 1887.76
   },
   {
-   "id_conta": "020.030.0140",
-   "n": 1,
-   "nome_conta": "Custas",
-   "nome_conta_pai": "Despesas Gerais",
-   "tipo_conta": "D",
-   "total": 38.42
-  },
-  {
    "id_conta": "020.040.0010",
-   "n": 1,
+   "n": 3,
    "nome_conta": "Serviços de Informática",
    "nome_conta_pai": "Serviços de Terceiros",
    "tipo_conta": "D",
-   "total": 2040
+   "total": 9653.09
   },
   {
    "id_conta": "020.040.0030",
@@ -608,7 +592,7 @@
    "nome_conta": "Terceirização Limpeza",
    "nome_conta_pai": "Serviços de Terceiros",
    "tipo_conta": "D",
-   "total": 3630.03
+   "total": 3984.13
   },
   {
    "id_conta": "020.040.0050",
@@ -616,7 +600,7 @@
    "nome_conta": "Contabilidade",
    "nome_conta_pai": "Serviços de Terceiros",
    "tipo_conta": "D",
-   "total": 7804.05
+   "total": 8260
   },
   {
    "id_conta": "020.050.0010",
@@ -624,7 +608,7 @@
    "nome_conta": "Salários",
    "nome_conta_pai": "Salários Administração",
    "tipo_conta": "D",
-   "total": 3455.42
+   "total": 4498.5
   },
   {
    "id_conta": "020.050.0050",
@@ -632,7 +616,7 @@
    "nome_conta": "INSS - ADM",
    "nome_conta_pai": "Salários Administração",
    "tipo_conta": "D",
-   "total": 1591.08
+   "total": 1343.98
   },
   {
    "id_conta": "020.050.0060",
@@ -640,7 +624,7 @@
    "nome_conta": "FGTS",
    "nome_conta_pai": "Salários Administração",
    "tipo_conta": "D",
-   "total": 354.66
+   "total": 304
   },
   {
    "id_conta": "020.050.0110",
@@ -649,14 +633,6 @@
    "nome_conta_pai": "Salários Administração",
    "tipo_conta": "D",
    "total": 1269.46
-  },
-  {
-   "id_conta": "020.050.0160",
-   "n": 1,
-   "nome_conta": "Relatórios trabalhistas - e-Social",
-   "nome_conta_pai": "Salários Administração",
-   "tipo_conta": "D",
-   "total": 1032.35
   },
   {
    "id_conta": "020.060.0020",
@@ -675,28 +651,68 @@
    "total": 182.71
   },
   {
+   "id_conta": "020.070.0030",
+   "n": 1,
+   "nome_conta": "Tarifas e Taxas Bancárias",
+   "nome_conta_pai": "Financeiras",
+   "tipo_conta": "D",
+   "total": 37.39
+  },
+  {
+   "id_conta": "020.080.0030",
+   "n": 1,
+   "nome_conta": "Estacionamento",
+   "nome_conta_pai": "Benefícios",
+   "tipo_conta": "D",
+   "total": 105
+  },
+  {
+   "id_conta": "020.080.0050",
+   "n": 1,
+   "nome_conta": "Vale Refeição",
+   "nome_conta_pai": "Benefícios",
+   "tipo_conta": "D",
+   "total": 507.1
+  },
+  {
+   "id_conta": "020.080.0060",
+   "n": 1,
+   "nome_conta": "Vale Transporte",
+   "nome_conta_pai": "Benefícios",
+   "tipo_conta": "D",
+   "total": 36.12
+  },
+  {
+   "id_conta": "020.090.0020",
+   "n": 1,
+   "nome_conta": "Refeições Prospecção",
+   "nome_conta_pai": "Investimento em Prospecção",
+   "tipo_conta": "D",
+   "total": 811.14
+  },
+  {
    "id_conta": "020.090.0040",
-   "n": 2,
+   "n": 1,
    "nome_conta": "Eventos e Happy Hour",
    "nome_conta_pai": "Investimento em Prospecção",
    "tipo_conta": "D",
-   "total": 1166.75
+   "total": 64.98
   },
   {
-   "id_conta": "020.110.0010",
+   "id_conta": "020.090.0080",
    "n": 1,
-   "nome_conta": "Participação Externa (comissões)",
-   "nome_conta_pai": "Comissões",
+   "nome_conta": "Deslocamento e Transportes Prospecção",
+   "nome_conta_pai": "Investimento em Prospecção",
    "tipo_conta": "D",
-   "total": 1500
+   "total": 162.09
   },
   {
    "id_conta": "030.010.0010",
-   "n": 21,
+   "n": 12,
    "nome_conta": "Distribuição Mensal Fixa",
    "nome_conta_pai": "Custos com Pessoal Técnico",
    "tipo_conta": "C",
-   "total": 172129.96
+   "total": 153935.55
   },
   {
    "id_conta": "030.010.0050",
@@ -708,27 +724,43 @@
   },
   {
    "id_conta": "030.010.0110",
-   "n": 11,
+   "n": 10,
    "nome_conta": "Convênio Médico",
    "nome_conta_pai": "Custos com Pessoal Técnico",
    "tipo_conta": "C",
-   "total": 19177.71
+   "total": 18674.85
   },
   {
    "id_conta": "030.010.0130",
-   "n": 12,
+   "n": 11,
    "nome_conta": "Pró-Labores",
    "nome_conta_pai": "Custos com Pessoal Técnico",
    "tipo_conta": "C",
-   "total": 17312.28
+   "total": 15869.59
   },
   {
    "id_conta": "030.010.0140",
-   "n": 1,
+   "n": 2,
    "nome_conta": "Bolsa Auxílio",
    "nome_conta_pai": "Custos com Pessoal Técnico",
    "tipo_conta": "C",
-   "total": 2800
+   "total": 3826.67
+  },
+  {
+   "id_conta": "030.010.0180",
+   "n": 2,
+   "nome_conta": "Cursos / Treinamento Jurídico",
+   "nome_conta_pai": "Custos com Pessoal Técnico",
+   "tipo_conta": "C",
+   "total": 1094.49
+  },
+  {
+   "id_conta": "030.010.0200",
+   "n": 1,
+   "nome_conta": "Seguro de Vida",
+   "nome_conta_pai": "Custos com Pessoal Técnico",
+   "tipo_conta": "C",
+   "total": 92.45
   },
   {
    "id_conta": "040.030.0010",
@@ -740,63 +772,88 @@
   },
   {
    "id_conta": "040.040.0030",
-   "n": 10,
+   "n": 6,
    "nome_conta": "Licenças de Uso de Software",
    "nome_conta_pai": "Informática",
    "tipo_conta": "I",
-   "total": 16207.9
+   "total": 7854.12
   }
  ],
  "despesas_desdobramento": [
   {
-   "historico": "IFood- Compra de bolo para os aniversariantes do mês de janeiro ( FSM)",
-   "id_conta": "020.090.0040",
-   "valor": 56.98
+   "historico": "Vale transporte - VRS - março",
+   "id_conta": "020.080.0060",
+   "valor": 36.12
   },
   {
-   "historico": "Contribuição Associativa IBRAC2026 - 12x de R$ 1.400,19 - Dividido em Contencioso e Econômico\r\n",
+   "historico": "Vale Refeição - Vitoria resende Março\r\n",
+   "id_conta": "020.080.0050",
+   "valor": 507.1
+  },
+  {
+   "historico": "R$1.102,55 direitoEconômico 1/3\r\n\r\n3.307,66/3=1102,55\r\n\r\n+0,01 ajuste",
    "id_conta": "020.060.0020",
-   "valor": 700.1
+   "valor": 1429.22
   },
   {
-   "historico": "Contribuição Associativa IBRAC 2026 - 12x de R$ 1.400,19 - Dividido em Contencioso e Econômico\r\n",
+   "historico": "R$3307,66 Arbitragem (MV) 1/3\r\n\r\n3307,66/3=1102,55\r\n",
    "id_conta": "020.060.0020",
-   "valor": 700.09
+   "valor": 1429.22
   },
   {
-   "historico": "R$ 4.287,67 Contencioso  (AM ) 1/3\r\n\r\n4.287,67/3=1.429,22\r\n\r\n+0,1 reajuste.",
+   "historico": "R$3307,66 Contencioso  (AM ) 1/3\r\n\r\n3307,66/3=1102,55\r\n\r\n+0,1 reajuste.",
    "id_conta": "020.060.0020",
    "valor": 1429.23
   },
   {
-   "historico": "R$ 1.429,22  direito Econômico 1/3\r\n\r\n4.287,67/3 =1102,55\r\n\r\n",
+   "historico": "Contribuição Associativa IBRAC 2026 - R$ 1.400,19 x de R$ 1.400,19 - Dividido em Contencioso e Econômico\r\n",
    "id_conta": "020.060.0020",
-   "valor": 1429.22
+   "valor": 700.09
   },
   {
-   "historico": "R$ 4.287,67  Arbitragem (MV) 1/3\r\n\r\n4.4287,67/3 = 1.429,22\r\n",
+   "historico": "Contribuição Associativa IBRAC 2026 - R$ 1.400,19 x de R$ 1.400,19 - Dividido em Contencioso e Econômico\r\n",
    "id_conta": "020.060.0020",
-   "valor": 1429.22
+   "valor": 700.1
   },
   {
-   "historico": "Compra de suporte de mangueira\r\n",
-   "id_conta": "020.030.0010",
-   "valor": 41.2
+   "historico": "GPS - RAT/FAP é 1% eterceiros 5,8% somente na base de folha CLT.",
+   "id_conta": "020.050.0050",
+   "valor": 19
   },
   {
-   "historico": "Confratenização MBC 2025 - Compra de vinhos para a confratenização da empresa em 27/11  - Parcela 3/3",
+   "historico": "GPS - INSS s/ folha\r\n\r\nEmpregados: 1 - R$ 344,58\r\n\r\nTerceiros: R$ 220,40\r\n\r\nParte empresa: R$ 760,00",
+   "id_conta": "020.050.0050",
+   "valor": 1324.98
+  },
+  {
+   "historico": "IFood- Compra de bolo para os aniversariantes do mês de fevereiro (JVO e RB)",
    "id_conta": "020.090.0040",
-   "valor": 1109.77
+   "valor": 64.98
   },
   {
-   "historico": "Compra de Filtro/refil Original De Água Acqua Pure Para Purificador Electrolux Pc01b",
+   "historico": "Tudo em grãos - Compra de sal rosa",
    "id_conta": "020.030.0020",
-   "valor": 67.3
+   "valor": 11.98
   },
   {
-   "historico": "Compra de 4 cafés bravos",
+   "historico": "Mercado Livre - Compra de 100 unidade de bolacha, 400 unidades de açucar em sache, 3 filtros de café e 4 pacotesde café\r\n\r\nDesconto de R$ 67,30 referente a compra do filtro que não chegou.",
    "id_conta": "020.030.0020",
-   "valor": 196.59
+   "valor": 202.06
+  },
+  {
+   "historico": "Mercado livre- Valor original da compra 383,39 - Compra de azeite e vinagre balsâmico e saleiro.",
+   "id_conta": "020.030.0020",
+   "valor": 88.99
+  },
+  {
+   "historico": "Mercado livre- Compra de 1 pct de pilha AAA Duracel, 1 pact de pilha AA e 4 resmas de papel sulfite",
+   "id_conta": "020.030.0010",
+   "valor": 294.4
+  },
+  {
+   "historico": "Mercado Livre - Compra defiltro de água eletrolux.",
+   "id_conta": "020.030.0020",
+   "valor": 67.42
   },
   {
    "historico": "AASP AM, DC 01/2026 - 108,70 por profissional",
@@ -804,29 +861,14 @@
    "valor": 217.4
   },
   {
-   "historico": "PPRO*Adobe R$110,00 referente janeiro 2026",
+   "historico": "PPRO*Adobe R$110,00 referente fevereiro 2026",
    "id_conta": "040.040.0030",
    "valor": 110
   },
   {
-   "historico": "Convêno Médico mla - Plano: SOHO30E - Valor: 1.269,46\r\n\r\n\r\n\r\n\r\n",
+   "historico": "Convêno Médico mla - Plano: SOHO30E - Valor: R$ 1.269,46\r\n\r\n\r\n\r\n\r\n",
    "id_conta": "020.050.0110",
    "valor": 1269.46
-  },
-  {
-   "historico": "Patrocinio apoiador - CC Arbitragem canal de arbitragem Canal de Arbitragem 50% Civil e 50% Arbitragem (demandas especiais - MV)\r\n\r\nContrato 1 ano - 1º pagamento 20.04.2021 - reajuste:\r\nRescisão 90 dias antes - Cancelamento de renovação 30 dias antes da renovação automatica. \r\n\r\n•Logo destaque no Si",
-   "id_conta": "020.060.0020",
-   "valor": 1204.47
-  },
-  {
-   "historico": "GPS - RAT/FAP é 1% e terceiros 5,8% somente na base de folha CLT.",
-   "id_conta": "020.050.0050",
-   "valor": 22.16
-  },
-  {
-   "historico": "GPS - INSS s/ folha\r\n\r\nEmpregados: 1 - R$ 422,16\r\n\r\nTerceiros: R$ 257,10\r\n\r\nParte empresa: R$ 886,66",
-   "id_conta": "020.050.0050",
-   "valor": 1568.92
   }
  ],
  "despesas_equipe_area": [
@@ -842,8 +884,8 @@
   },
   {
    "cc": "ESP",
-   "n": 2,
-   "total": 2633.69
+   "n": 6,
+   "total": 4701.41
   }
  ],
  "despesas_liquido": [
@@ -860,21 +902,15 @@
    "n": 1
   },
   {
-   "bruto": 926.16,
+   "bruto": 910.64,
    "id_conta": "020.010.0030",
-   "liquido": 926.16,
+   "liquido": 910.64,
    "n": 1
   },
   {
    "bruto": 6916.97,
    "id_conta": "020.010.0040",
    "liquido": 6916.97,
-   "n": 1
-  },
-  {
-   "bruto": 50,
-   "id_conta": "020.010.0050",
-   "liquido": 50,
    "n": 1
   },
   {
@@ -890,51 +926,57 @@
    "n": 3
   },
   {
+   "bruto": 21.9,
+   "id_conta": "020.030.0010",
+   "liquido": 21.9,
+   "n": 1
+  },
+  {
+   "bruto": 620,
+   "id_conta": "020.030.0020",
+   "liquido": 620,
+   "n": 1
+  },
+  {
    "bruto": 1887.76,
    "id_conta": "020.030.0100",
    "liquido": 1839.36,
    "n": 2
   },
   {
-   "bruto": 38.42,
-   "id_conta": "020.030.0140",
-   "liquido": 38.42,
-   "n": 1
-  },
-  {
-   "bruto": 2040,
+   "bruto": 9653.09,
    "id_conta": "020.040.0010",
-   "liquido": 2040,
-   "n": 1
+   "liquido": 9252.45,
+   "n": 3
   },
   {
-   "bruto": 3630.03,
+   "bruto": 3984.13,
    "id_conta": "020.040.0030",
-   "liquido": 3049.23,
+   "liquido": 3346.68,
    "n": 1
   },
   {
-   "bruto": 7804.05,
+   "bruto": 8260,
    "id_conta": "020.040.0050",
-   "liquido": 7804.05,
+   "liquido": 7752.01,
    "n": 1
   },
   {
-   "bruto": 3455.42,
+   "bruto": 4498.5,
    "id_conta": "020.050.0010",
-   "liquido": 3455.42,
+   "liquido": 4498.5,
    "n": 1
   },
   {
-   "bruto": 354.66,
+   "bruto": 304,
    "id_conta": "020.050.0060",
-   "liquido": 354.66,
+   "liquido": 304,
    "n": 1
   },
   {
-   "bruto": 1032.35,
-   "id_conta": "020.050.0160",
-   "liquido": 1032.35,
+   "bruto": 1204.47,
+   "id_conta": "020.060.0020",
+   "liquido": 1204.47,
    "n": 1
   },
   {
@@ -944,9 +986,27 @@
    "n": 1
   },
   {
-   "bruto": 1500,
-   "id_conta": "020.110.0010",
-   "liquido": 1500,
+   "bruto": 105,
+   "id_conta": "020.080.0030",
+   "liquido": 105,
+   "n": 1
+  },
+  {
+   "bruto": 811.14,
+   "id_conta": "020.090.0020",
+   "liquido": 811.14,
+   "n": 1
+  },
+  {
+   "bruto": 162.09,
+   "id_conta": "020.090.0080",
+   "liquido": 162.09,
+   "n": 1
+  },
+  {
+   "bruto": 279,
+   "id_conta": "030.010.0180",
+   "liquido": 279,
    "n": 1
   },
   {
@@ -956,10 +1016,10 @@
    "n": 1
   },
   {
-   "bruto": 16097.9,
+   "bruto": 7744.12,
    "id_conta": "040.040.0030",
-   "liquido": 15470.68,
-   "n": 9
+   "liquido": 7506.52,
+   "n": 5
   }
  ],
  "distribuicao_socio": [
@@ -971,27 +1031,22 @@
   {
    "cost_center": "ECT",
    "sigla": "DC",
-   "valor": 19582.18
+   "valor": 19582.2
   },
   {
    "cost_center": "ESP",
    "sigla": "MV",
-   "valor": 23379
+   "valor": 30006
   },
   {
    "cost_center": "EDE",
    "sigla": "RB",
-   "valor": 17325.69
+   "valor": 17325.76
   },
   {
    "cost_center": "EDE",
    "sigla": "ASG",
-   "valor": 7637
-  },
-  {
-   "cost_center": "ECT",
-   "sigla": "BBX",
-   "valor": 518.4
+   "valor": 3090
   },
   {
    "cost_center": "EDE",
@@ -1001,12 +1056,12 @@
   {
    "cost_center": "EDE",
    "sigla": "BMP",
-   "valor": 9072.76
+   "valor": 9379
   },
   {
    "cost_center": "EDE",
    "sigla": "EHF",
-   "valor": 10922.75
+   "valor": 9922.79
   },
   {
    "cost_center": "ESP",
@@ -1016,20 +1071,15 @@
   {
    "cost_center": "ESP",
    "sigla": "FSM",
-   "valor": 15019.8
+   "valor": 13409.4
   },
   {
    "cost_center": "ECT",
    "sigla": "IAC",
-   "valor": 17171
-  },
-  {
-   "cost_center": "ESP",
-   "sigla": "JGS",
-   "valor": 15885.98
+   "valor": 15605
   }
  ],
- "dl_excedente_mv": null,
+ "dl_excedente_mv": 6627,
  "dl_excedente_socios": null,
  "faturamento_area": [
   {
@@ -1039,22 +1089,22 @@
   },
   {
    "area": "Arbitragem MV",
-   "n": 14,
-   "total": 61173.7
+   "n": 21,
+   "total": 95899.47
   },
   {
    "area": "Contencioso",
-   "n": 57,
-   "total": 194589.46
+   "n": 53,
+   "total": 85501.06
   },
   {
    "area": "Direito Econômico",
-   "n": 22,
-   "total": 278989.68
+   "n": 26,
+   "total": 209605.36
   }
  ],
  "faturas": {
-  "faturas_emitidas": 48
+  "faturas_emitidas": 36
  },
  "faturas_analitico": [
   {
@@ -1070,22 +1120,6 @@
    "caso": "Consultas Concorrenciais",
    "codigo": "1",
    "id_caso": "5B0C2E74-9B29-712A-F594-1A47024C32D3",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Consultas Diversas ",
-   "codigo": "2",
-   "id_caso": "5B0C5ABA-9CBE-1628-9249-77150C18140B",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Ato de Concentração - Projeto CSA ",
-   "codigo": "1",
-   "id_caso": "5B0C5B15-9CD0-8F42-E86A-2F7884044ABF",
    "n": 1,
    "total": 0
   },
@@ -1107,6 +1141,14 @@
   },
   {
    "area": "Contencioso",
+   "caso": "Liquidação e Execução CCR",
+   "codigo": "1",
+   "id_caso": "5B0C5DC4-9D01-0BFF-C584-C74D4C628295",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
    "caso": "Ação Judicial Nutriex",
    "codigo": "1",
    "id_caso": "5B0C5EB5-9D11-ACB8-15D6-90C8826E90B7",
@@ -1119,11 +1161,11 @@
    "codigo": "4",
    "id_caso": "5B0C603D-9D39-3522-307B-25DB1EB28209",
    "n": 1,
-   "total": 678
+   "total": 0
   },
   {
    "area": "Contencioso",
-   "caso": "(Contrato Fixo) - Ação de Cobrança - ARG Representações - Acompanhamento Processual ",
+   "caso": "(ContratoFixo) - Ação de Cobrança - ARG Representações - Acompanhamento Processual ",
    "codigo": "7",
    "id_caso": "5B0C6172-9D45-66A7-B5EC-56CA9ACD3718",
    "n": 1,
@@ -1147,7 +1189,7 @@
   },
   {
    "area": "Contencioso",
-   "caso": "(Contrato Fixo) - Ação de Cobrança - UeltonAntonio Benfica e Cia Ltda. ME - Acompanhamento Processual ",
+   "caso": "(Contrato Fixo) - Ação de Cobrança - Uelton Antonio Benfica e Cia Ltda. ME - Acompanhamento Processual ",
    "codigo": "13",
    "id_caso": "5B0C6204-9D60-8C4C-C1CD-4F7658B517BA",
    "n": 1,
@@ -1155,25 +1197,9 @@
   },
   {
    "area": "Contencioso",
-   "caso": "Ação deDespejo - Secretaria de Estado de Ciência RJ ",
+   "caso": "Ação de Despejo - Secretaria de Estado de Ciência RJ ",
    "codigo": "1",
    "id_caso": "5B0C66C1-9D8D-60A7-7C37-78870B76D19D",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Recuperação Judicial Grupo Cotia ",
-   "codigo": "1",
-   "id_caso": "5B0C6795-9D9D-6776-1DA4-10E1A06B465B",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Recuperação Judicial Brasil Supply ",
-   "codigo": "2",
-   "id_caso": "5B0C67EA-9DA1-9A5E-977C-37C83E112212",
    "n": 1,
    "total": 0
   },
@@ -1202,14 +1228,6 @@
    "total": 650
   },
   {
-   "area": "Contencioso",
-   "caso": "(Contrato Fixo)- Mandados de Segurança - TRF1",
-   "codigo": "3",
-   "id_caso": "5B0C6B7D-9DE1-B0B4-32A1-E82E21DA1BEA",
-   "n": 1,
-   "total": 0
-  },
-  {
    "area": "Ambiental",
    "caso": "Trabalhos Administrativos Não Elegíveis.",
    "codigo": "1",
@@ -1227,7 +1245,7 @@
   },
   {
    "area": "Contencioso",
-   "caso": "(Contrato Fixo) Ação de Cobrança - Wellington Aparecido de Carvalho -Acompanhamento",
+   "caso": "(Contrato Fixo) Ação de Cobrança - WellingtonAparecido de Carvalho - Acompanhamento",
    "codigo": "16",
    "id_caso": "5B901EBC-0BE7-4EE6-C817-3AFB78BA7B15",
    "n": 1,
@@ -1243,9 +1261,17 @@
   },
   {
    "area": "Contencioso",
-   "caso": "Consultas",
-   "codigo": "6",
-   "id_caso": "5C8ABB45-50E9-5888-F9E9-72084DF17172",
+   "caso": "Trabalhos Administrativos Elegíveis.",
+   "codigo": "2",
+   "id_caso": "5D41838B-305E-68A8-0987-2927500150AA",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Direito Econômico",
+   "caso": "(fixo) ADI, SEAE e MPE",
+   "codigo": "2",
+   "id_caso": "5D9B9402-BDF0-6A34-C680-888FB9C11B62",
    "n": 1,
    "total": 0
   },
@@ -1256,14 +1282,6 @@
    "id_caso": "5DFA40EC-911E-10CC-C2DD-3214AC8ADE9E",
    "n": 1,
    "total": 303
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Ação judicial (Powertech/Sabbá) - Trabalhos adicionais",
-   "codigo": "4",
-   "id_caso": "5E25F897-30B5-89AD-8E29-FF468A4A7067",
-   "n": 1,
-   "total": 0
   },
   {
    "area": "Contencioso",
@@ -1284,14 +1302,6 @@
   {
    "area": "Contencioso",
    "caso": "Consultas Gerais",
-   "codigo": "5",
-   "id_caso": "6063A99F-514E-60E0-F441-511EDE76ADE3",
-   "n": 1,
-   "total": 303
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Consultas Gerais",
    "codigo": "3",
    "id_caso": "6063AA4F-5154-B836-690D-81DD1E30171B",
    "n": 1,
@@ -1303,15 +1313,15 @@
    "codigo": "1",
    "id_caso": "60664767-769B-111A-9F31-CD156E534821",
    "n": 1,
-   "total": 1998.33
+   "total": 5946.67
   },
   {
    "area": "Direito Econômico",
-   "caso": "PAMercado de Trabalho - Garcia",
+   "caso": "PA Mercado de Trabalho - Garcia",
    "codigo": "2",
    "id_caso": "606648C1-76A1-2564-2B6D-D423D44E7ACC",
    "n": 1,
-   "total": 1998.33
+   "total": 1486.67
   },
   {
    "area": "Direito Econômico",
@@ -1319,7 +1329,15 @@
    "codigo": "3",
    "id_caso": "6092F02A-AAB6-8A32-D617-EC210B1FE9C5",
    "n": 1,
-   "total": 1468.33
+   "total": 1310
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "(promocional) - Ação indenizatória - GFM\r\n",
+   "codigo": "1",
+   "id_caso": "609999EA-1313-E39A-6687-362BBE94D4C1",
+   "n": 1,
+   "total": 0
   },
   {
    "area": "Contencioso",
@@ -1327,7 +1345,7 @@
    "codigo": "2",
    "id_caso": "60C28900-F5C7-C053-9C7D-B4D73CB0B2AD",
    "n": 1,
-   "total": 0
+   "total": 300.64
   },
   {
    "area": "Contencioso",
@@ -1343,7 +1361,7 @@
    "codigo": "2",
    "id_caso": "60EDB2D1-E41C-DEBE-7C7E-639D846BB1F0",
    "n": 1,
-   "total": 4565.2
+   "total": 303
   },
   {
    "area": "Contencioso",
@@ -1354,12 +1372,28 @@
    "total": 0
   },
   {
+   "area": "Direito Econômico",
+   "caso": "Consultas diversas",
+   "codigo": "2",
+   "id_caso": "61033A95-4690-A37F-8F7C-E50D50218FFD",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Direito Econômico",
+   "caso": "Consultas Gerais",
+   "codigo": "2",
+   "id_caso": "617C6AA7-36D9-BB67-1667-0993660DCB5D",
+   "n": 1,
+   "total": 3716.67
+  },
+  {
    "area": "Contencioso",
    "caso": "Contratos Grune - Eucaliptos",
    "codigo": "1",
    "id_caso": "6218DD2C-1B53-E9A8-91A9-4F72C9A6D9E1",
    "n": 1,
-   "total": 0
+   "total": 773.07
   },
   {
    "area": "Arbitragem MV",
@@ -1367,7 +1401,7 @@
    "codigo": "1",
    "id_caso": "625ED051-0DA6-8BEB-79D0-C950F342D248",
    "n": 1,
-   "total": 1280
+   "total": 0
   },
   {
    "area": "Contencioso",
@@ -1402,12 +1436,28 @@
    "total": 151.5
   },
   {
+   "area": "Arbitragem MV",
+   "caso": "Arbitragem Usina Coruripe",
+   "codigo": "1",
+   "id_caso": "630FE62D-D6D0-BBF7-C3BC-C3FA3767299B",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
+   "caso": "Parceria SJC",
+   "codigo": "3",
+   "id_caso": "633329B1-6E5C-3C27-1900-E45D2584FFE5",
+   "n": 1,
+   "total": 0
+  },
+  {
    "area": "Direito Econômico",
    "caso": "Cade - Cumprimento ACC",
    "codigo": "9",
    "id_caso": "63519803-CBDF-A8D9-23C4-ADAEBDD427FC",
    "n": 1,
-   "total": 26690.69
+   "total": 0
   },
   {
    "area": "Direito Econômico",
@@ -1415,7 +1465,15 @@
    "codigo": "10",
    "id_caso": "63519940-CC31-C606-F675-58BF1EDE1717",
    "n": 1,
-   "total": 13511.29
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "Procedimento Arbitral - Guaçu",
+   "codigo": "2",
+   "id_caso": "636E9EA9-A5FC-53F8-A86A-A33A475EF63B",
+   "n": 1,
+   "total": 36000
   },
   {
    "area": "Contencioso",
@@ -1431,13 +1489,21 @@
    "codigo": "2",
    "id_caso": "63A364B8-1119-02FF-873B-226232352BA4",
    "n": 1,
-   "total": 92825.42
+   "total": 90597.62
   },
   {
    "area": "Arbitragem MV",
-   "caso": "Execução Luciana",
+   "caso": "Representação MPSP - Fundacao Arnaldo Vieira de Carvalho",
    "codigo": "1",
-   "id_caso": "63FE621E-7704-3F68-A925-3C722F71B092",
+   "id_caso": "64149903-B328-BAAD-591C-3A01FE74F5C7",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
+   "caso": "Fixo - Execução Fiscal SPU TIPLAM Taxa de Ocupação 2020",
+   "codigo": "44",
+   "id_caso": "64404205-39D9-02CD-AEB3-38B8037151A9",
    "n": 1,
    "total": 0
   },
@@ -1450,10 +1516,18 @@
    "total": 0
   },
   {
-   "area": "Contencioso",
-   "caso": "Mandado de Segurança ANTT 4º Aditivo Multas Valec",
-   "codigo": "49",
-   "id_caso": "64CD3735-A775-42F5-E818-203ECB0855A5",
+   "area": "Arbitragem MV",
+   "caso": "Mandado de Segurança AFRMM",
+   "codigo": "14",
+   "id_caso": "651725BE-ECC6-89E9-09BF-A9445987D5C3",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "Rafael Packer",
+   "codigo": "3",
+   "id_caso": "65172A4A-ED47-2995-2E00-66302F446133",
    "n": 1,
    "total": 0
   },
@@ -1483,14 +1557,6 @@
   },
   {
    "area": "Contencioso",
-   "caso": "Ação de Cobrança",
-   "codigo": "1",
-   "id_caso": "658ED5EF-F25E-7F15-4E97-4F82CC4D686D",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Contencioso",
    "caso": "Contrato Padrão Judicial - Fixo acompanhamento mensal (Brascan Allpark)",
    "codigo": "1",
    "id_caso": "65941BDB-EAA8-E8C7-7EA4-1A69B0491A85",
@@ -1502,6 +1568,14 @@
    "caso": "Ação de Dissolução de Sociedade | Wilson",
    "codigo": "2",
    "id_caso": "65A820B7-0571-E4C7-64C8-C38A6C2DF915",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "Arbitragem CAMES - Indenização",
+   "codigo": "1",
+   "id_caso": "65A8243D-05B6-69D5-239F-EDB9714AF019",
    "n": 1,
    "total": 0
   },
@@ -1527,7 +1601,7 @@
    "codigo": "8",
    "id_caso": "65C24DF6-07D0-171A-5549-ED17C1A765FC",
    "n": 1,
-   "total": 0
+   "total": 10170
   },
   {
    "area": "Contencioso",
@@ -1551,23 +1625,23 @@
    "codigo": "1",
    "id_caso": "66B10A1F-644A-500A-EC03-94901C878934",
    "n": 1,
-   "total": 1500
+   "total": 0
   },
   {
    "area": "Direito Econômico",
-   "caso": "Notificação de Operação ao CADE | Operação WPL",
+   "caso": "Notificação de Operação ao CADE |Operação WPL",
    "codigo": "17",
    "id_caso": "6706DF47-3C29-2336-FAFB-7F738B47CD37",
    "n": 1,
    "total": 30000
   },
   {
-   "area": "Direito Econômico",
-   "caso": "Assessoria e Monitoramento (Etapa 3) - Cade",
-   "codigo": "2",
-   "id_caso": "67F94FBE-F026-DD0D-0BAD-F3DCD7588E5B",
+   "area": "Arbitragem MV",
+   "caso": "Ação RG da Rocha\r\n",
+   "codigo": "4",
+   "id_caso": "67C09691-23B1-C681-F1BB-6DCC13C38A2E",
    "n": 1,
-   "total": 17983.33
+   "total": 0
   },
   {
    "area": "Arbitragem MV",
@@ -1575,7 +1649,7 @@
    "codigo": "3",
    "id_caso": "680A6DBA-B895-0E5B-C7B5-0CF56E54C284",
    "n": 1,
-   "total": 6052.19
+   "total": 13806.67
   },
   {
    "area": "Contencioso",
@@ -1583,15 +1657,7 @@
    "codigo": "12",
    "id_caso": "680FBF9E-7FAD-E8D1-F557-B9E764C6DE42",
    "n": 1,
-   "total": 105000
-  },
-  {
-   "area": "Arbitragem MV",
-   "caso": "Audiência ICC",
-   "codigo": "1",
-   "id_caso": "6846CB78-0C27-7306-A010-74756964638C",
-   "n": 1,
-   "total": 0
+   "total": 28004.34
   },
   {
    "area": "Arbitragem MV",
@@ -1606,14 +1672,6 @@
    "caso": "Ação de Execução TW Petróleo\r\n",
    "codigo": "19",
    "id_caso": "688BBC8F-3ECA-6505-1A3D-36F646E3AD03",
-   "n": 1,
-   "total": 0
-  },
-  {
-   "area": "Direito Econômico",
-   "caso": "CADE – Resposta Ofício - Inquérito Administrativo (Apple ATT)",
-   "codigo": "5",
-   "id_caso": "689504B4-6D2C-8585-F1BC-A0571F74F032",
    "n": 1,
    "total": 0
   },
@@ -1655,15 +1713,23 @@
    "codigo": "1",
    "id_caso": "68E698BE-E463-9828-37CE-5A07DD7B14E0",
    "n": 1,
-   "total": 0
+   "total": 1000
   },
   {
    "area": "Arbitragem MV",
-   "caso": "ProjectNorth",
+   "caso": "Project North",
    "codigo": "3",
    "id_caso": "68E69D58-E495-6E6E-C1B9-4A45B9D412A4",
    "n": 1,
-   "total": 26248.59
+   "total": 33092.8
+  },
+  {
+   "area": "Direito Econômico",
+   "caso": "Competition analysis and comments on Bill No. 4,675/2025",
+   "codigo": "6",
+   "id_caso": "68E90204-2407-D74E-050F-7CB0EC85658B",
+   "n": 1,
+   "total": 0
   },
   {
    "area": "Direito Econômico",
@@ -1675,19 +1741,11 @@
   },
   {
    "area": "Direito Econômico",
-   "caso": "Consulta - Programa Protect",
-   "codigo": "17",
-   "id_caso": "690A4268-002B-131D-54D5-DDB18CB7879A",
-   "n": 1,
-   "total": 470.63
-  },
-  {
-   "area": "Arbitragem MV",
-   "caso": "Contrato Montasul",
+   "caso": "Ato de Concentração - Armac/Fornecedora",
    "codigo": "2",
-   "id_caso": "69383E73-6A36-567B-1575-9E2D53AA5218",
+   "id_caso": "6915E973-50DC-C1A9-D793-6C1DAA82C8A2",
    "n": 1,
-   "total": 1632.92
+   "total": 12500
   },
   {
    "area": "Arbitragem MV",
@@ -1695,15 +1753,7 @@
    "codigo": "5",
    "id_caso": "69416C94-514C-D2E6-97AC-C5E2E7AAA236",
    "n": 1,
-   "total": 5893.33
-  },
-  {
-   "area": "Contencioso",
-   "caso": "Consulta Econômico e LeiFerrari - Parceria MWM – Tupy do Brasil Ltda.",
-   "codigo": "18",
-   "id_caso": "6943073F-2D23-6EB1-5CA1-62826ADAB337",
-   "n": 1,
-   "total": 941.25
+   "total": 0
   },
   {
    "area": "Direito Econômico",
@@ -1711,19 +1761,11 @@
    "codigo": "19",
    "id_caso": "69445B5B-0CAD-00CC-7D01-67A69635DEE2",
    "n": 1,
-   "total": 42383.93
-  },
-  {
-   "area": "Arbitragem MV",
-   "caso": "Arbitragem CMA 918-P",
-   "codigo": "4",
-   "id_caso": "695414DA-F825-527D-1E5C-CF2DBEEB0078",
-   "n": 1,
-   "total": 7066.67
+   "total": 0
   },
   {
    "area": "Contencioso",
-   "caso": "Ação de Obrigação de Fazer - Gaia",
+   "caso": "Ação deObrigação de Fazer - Gaia",
    "codigo": "15",
    "id_caso": "695E7171-CB76-B623-0736-73AB65ED3DA1",
    "n": 1,
@@ -1735,7 +1777,7 @@
    "codigo": "24",
    "id_caso": "69652C9A-EE74-88B9-6611-21413D06D6C3",
    "n": 1,
-   "total": 56080
+   "total": 3920
   },
   {
    "area": "Direito Econômico",
@@ -1743,7 +1785,7 @@
    "codigo": "1",
    "id_caso": "697A668C-87A2-387C-FD54-8759E0E1E374",
    "n": 1,
-   "total": 30000
+   "total": 0
   },
   {
    "area": "Direito Econômico",
@@ -1751,7 +1793,7 @@
    "codigo": "31",
    "id_caso": "69824818-1730-C51E-798D-A69A32E08D39",
    "n": 1,
-   "total": 6500
+   "total": 0
   },
   {
    "area": "Arbitragem MV",
@@ -1767,7 +1809,7 @@
    "codigo": "2",
    "id_caso": "698B5495-5386-570D-ADF1-67D9BD177E93",
    "n": 1,
-   "total": 0
+   "total": 13260
   },
   {
    "area": "Direito Econômico",
@@ -1783,7 +1825,7 @@
    "codigo": "13",
    "id_caso": "698B90C3-6324-5BF0-C1D6-5FC5ADE63C7A",
    "n": 1,
-   "total": 0
+   "total": 40000
   },
   {
    "area": "Contencioso",
@@ -1791,7 +1833,7 @@
    "codigo": "19",
    "id_caso": "698DFFB1-A79F-341F-54B1-76C1C79573B0",
    "n": 1,
-   "total": 15000
+   "total": 678
   },
   {
    "area": "Contencioso",
@@ -1803,797 +1845,653 @@
   },
   {
    "area": "Direito Econômico",
-   "caso": "Operação Cade- KWP/Comerc II",
+   "caso": "Operação Cade - KWP/Comerc II",
    "codigo": "6",
    "id_caso": "699EF183-523D-B497-4BC0-65141B2F2623",
+   "n": 1,
+   "total": 24898.33
+  },
+  {
+   "area": "Direito Econômico",
+   "caso": "CADE Movilway II - Movilway  (Adicionais)",
+   "codigo": "3",
+   "id_caso": "69B04F2F-68DC-BC6F-CC4D-F7A60F0957C9",
+   "n": 1,
+   "total": 2560
+  },
+  {
+   "area": "Direito Econômico",
+   "caso": "Avaliação Concorrencial/Beats",
+   "codigo": "32",
+   "id_caso": "69B3159F-470A-6E9A-7C83-9772A74BB57C",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "Arbitragem - Dissolução de Sociedade",
+   "codigo": "5",
+   "id_caso": "69B9465F-6F77-149D-4FA4-CF2EA95EC37F",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "FGC - Levantamento",
+   "codigo": "3",
+   "id_caso": "69B946E4-6FAB-664E-F456-99398C7A2A9C",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
+   "caso": "Execução F.M. Fernandes",
+   "codigo": "25",
+   "id_caso": "69BB029E-9A30-81F0-F58E-935DCD4DFF1D",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
+   "caso": "Execução Auto Posto AG",
+   "codigo": "26",
+   "id_caso": "69BB0390-9A64-4441-A5AA-19965969E960",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Contencioso",
+   "caso": "Execução Auto PostoSanta Luzia",
+   "codigo": "27",
+   "id_caso": "69CC141B-7CE8-0A92-570B-905593754458",
+   "n": 1,
+   "total": 0
+  },
+  {
+   "area": "Arbitragem MV",
+   "caso": "Contencioso- Mirassol",
+   "codigo": "4",
+   "id_caso": "69CD65E2-0192-F6DA-AADB-96C765CD4EEA",
    "n": 1,
    "total": 0
   }
  ],
  "faturas_moeda": [
   {
-   "caso": "2",
-   "cliente": "87",
-   "data_emissao": "2026-02-12",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": -24458.34,
-   "honorarios_nac": -132984.89,
-   "moeda": "US$",
-   "moeda_nac": "R$",
-   "numero": 3970,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": null,
-   "vencimento": "2026-02-05"
-  },
-  {
-   "caso": "2",
-   "cliente": "146",
-   "data_emissao": "2026-02-03",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4007,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": null,
-   "vencimento": "2026-03-06"
-  },
-  {
-   "caso": "3",
-   "cliente": "136",
-   "data_emissao": "2026-02-05",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 5025,
-   "honorarios_nac": 26248.59,
-   "moeda": "US$",
-   "moeda_nac": "R$",
-   "numero": 4009,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-02-10",
-   "vencimento": "2026-03-12"
-  },
-  {
-   "caso": "1",
-   "cliente": "97",
-   "data_emissao": "2026-02-05",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 1280,
-   "honorarios_nac": 1280,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4010,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-06",
-   "vencimento": "2026-03-05"
-  },
-  {
-   "caso": "3",
-   "cliente": "125",
-   "data_emissao": "2026-02-05",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 6052.19,
-   "honorarios_nac": 6052.19,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4011,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-19",
-   "vencimento": "2026-03-06"
-  },
-  {
-   "caso": "4",
-   "cliente": "124",
-   "data_emissao": "2026-02-05",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 7066.67,
-   "honorarios_nac": 7066.67,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4012,
-   "recebido_hon": 7066.67,
-   "recebido_hon_nac": 7066.67,
-   "recebimento": null,
-   "vencimento": "2026-06-12"
-  },
-  {
-   "caso": "9",
-   "cliente": "6",
-   "data_emissao": "2026-02-06",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 4068,
-   "honorarios_nac": 4068,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4013,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-13",
-   "vencimento": "2026-03-13"
-  },
-  {
    "caso": "1",
    "cliente": "123",
-   "data_emissao": "2026-02-06",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 1000,
    "honorarios_nac": 1000,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4014,
+   "numero": 4056,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-06",
-   "vencimento": "2026-02-26"
+   "recebimento": "2026-04-27",
+   "vencimento": "2026-04-06"
   },
   {
-   "caso": "15",
-   "cliente": "12",
-   "data_emissao": "2026-02-06",
+   "caso": "1",
+   "cliente": "145",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 600,
-   "honorarios_nac": 600,
+   "honorarios": 1000,
+   "honorarios_nac": 1000,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4015,
+   "numero": 4057,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-25",
-   "vencimento": "2026-03-25"
-  },
-  {
-   "caso": "4",
-   "cliente": "135",
-   "data_emissao": "2026-02-06",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 13000,
-   "honorarios_nac": 13000,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4016,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-04-06",
-   "vencimento": "2026-03-09"
+   "recebimento": "2026-03-09",
+   "vencimento": "2026-04-06"
   },
   {
    "caso": "1",
    "cliente": "115",
-   "data_emissao": "2026-02-09",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 466.66,
    "honorarios_nac": 466.66,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4017,
+   "numero": 4058,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-16",
-   "vencimento": "2026-02-20"
+   "recebimento": "2026-03-20",
+   "vencimento": "2026-03-20"
   },
   {
    "caso": "1",
    "cliente": "115",
-   "data_emissao": "2026-02-09",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 466.68,
    "honorarios_nac": 466.68,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4018,
+   "numero": 4059,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-10",
-   "vencimento": "2026-02-20"
+   "recebimento": "2026-04-10",
+   "vencimento": "2026-03-20"
   },
   {
    "caso": "1",
    "cliente": "115",
-   "data_emissao": "2026-02-09",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 466.66,
    "honorarios_nac": 466.66,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4019,
+   "numero": 4060,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-12",
-   "vencimento": "2026-02-20"
+   "recebimento": "2026-05-18",
+   "vencimento": "2026-04-20"
   },
   {
    "caso": "1",
    "cliente": "115",
-   "data_emissao": "2026-02-09",
+   "data_emissao": "2026-03-05",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 1400,
    "honorarios_nac": 1400,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4020,
+   "numero": 4061,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-18",
-   "vencimento": "2026-03-09"
+   "recebimento": "2026-04-20",
+   "vencimento": "2026-04-09"
   },
   {
-   "caso": "5",
-   "cliente": "22",
-   "data_emissao": "2026-02-09",
+   "caso": "9",
+   "cliente": "6",
+   "data_emissao": "2026-03-09",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 5893.33,
-   "honorarios_nac": 5893.33,
+   "honorarios": 4068,
+   "honorarios_nac": 4068,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4021,
+   "numero": 4062,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-10",
-   "vencimento": "2026-03-10"
+   "recebimento": "2026-04-14",
+   "vencimento": "2026-04-16"
   },
   {
-   "caso": "1",
-   "cliente": "114",
-   "data_emissao": "2026-02-09",
+   "caso": "15",
+   "cliente": "12",
+   "data_emissao": "2026-03-09",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 6579.7,
-   "honorarios_nac": 6579.7,
+   "honorarios": 600,
+   "honorarios_nac": 600,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4022,
+   "numero": 4063,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-05",
-   "vencimento": "2026-03-10"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-04-09"
   },
   {
-   "caso": "1",
-   "cliente": "114",
-   "data_emissao": "2026-02-09",
+   "caso": "2",
+   "cliente": "141",
+   "data_emissao": "2026-03-09",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 6579.7,
-   "honorarios_nac": 6579.7,
+   "honorarios": 13260,
+   "honorarios_nac": 13260,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4023,
+   "numero": 4064,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-18",
-   "vencimento": "2026-03-12"
+   "recebimento": "2026-04-20",
+   "vencimento": "2026-04-20"
   },
   {
-   "caso": "19",
-   "cliente": "7",
-   "data_emissao": "2026-02-10",
-   "despesas": 4197.71,
-   "despesas_nac": 4197.71,
-   "honorarios": 0,
-   "honorarios_nac": 0,
+   "caso": "2",
+   "cliente": "142",
+   "data_emissao": "2026-03-09",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 12500,
+   "honorarios_nac": 12500,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4024,
+   "numero": 4065,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-12",
-   "vencimento": "2026-03-20"
+   "recebimento": "2026-04-30",
+   "vencimento": "2026-04-09"
   },
   {
    "caso": "3",
    "cliente": "81",
-   "data_emissao": "2026-02-10",
+   "data_emissao": "2026-03-10",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 5464.99,
-   "honorarios_nac": 5464.99,
+   "honorarios": 8743.34,
+   "honorarios_nac": 8743.34,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4025,
+   "numero": 4066,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-12",
-   "vencimento": "2026-03-13"
+   "recebimento": "2026-04-20",
+   "vencimento": "2026-04-20"
+  },
+  {
+   "caso": "4",
+   "cliente": "135",
+   "data_emissao": "2026-03-10",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 13000,
+   "honorarios_nac": 13000,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4067,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-06-05",
+   "vencimento": "2026-06-05"
+  },
+  {
+   "caso": "3",
+   "cliente": "136",
+   "data_emissao": "2026-03-10",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 6258.33,
+   "honorarios_nac": 33092.8,
+   "moeda": "US$",
+   "moeda_nac": "R$",
+   "numero": 4068,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-03-20",
+   "vencimento": "2026-04-10"
+  },
+  {
+   "caso": "3",
+   "cliente": "131",
+   "data_emissao": "2026-03-11",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 0,
+   "honorarios_nac": 0,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4069,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": null,
+   "vencimento": "2026-04-10"
   },
   {
    "caso": "2",
    "cliente": "87",
-   "data_emissao": "2026-02-10",
+   "data_emissao": "2026-03-10",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 18833.34,
-   "honorarios_nac": 98575.58,
+   "honorarios": 17133.33,
+   "honorarios_nac": 90597.62,
    "moeda": "US$",
    "moeda_nac": "R$",
-   "numero": 4026,
+   "numero": 4070,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-25",
-   "vencimento": "2026-03-12"
+   "recebimento": "2026-04-09",
+   "vencimento": "2026-04-09"
   },
   {
-   "caso": "12",
-   "cliente": "28",
-   "data_emissao": "2026-02-10",
-   "despesas": 3916.04,
-   "despesas_nac": 3916.04,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4027,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-03"
-  },
-  {
-   "caso": "2",
-   "cliente": "139",
-   "data_emissao": "2026-02-12",
+   "caso": "3",
+   "cliente": "125",
+   "data_emissao": "2026-03-11",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 0,
-   "honorarios_nac": 0,
+   "honorarios": 13806.67,
+   "honorarios_nac": 13806.67,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4028,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
+   "numero": 4071,
+   "recebido_hon": 13806.67,
+   "recebido_hon_nac": 13806.67,
    "recebimento": null,
-   "vencimento": "2026-03-13"
+   "vencimento": "2026-04-10"
   },
   {
-   "caso": "2",
-   "cliente": "87",
-   "data_emissao": "2026-02-12",
+   "caso": "3",
+   "cliente": "131",
+   "data_emissao": "2026-03-11",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 24458.34,
-   "honorarios_nac": 127234.73,
-   "moeda": "US$",
-   "moeda_nac": "R$",
-   "numero": 4029,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-25",
-   "vencimento": "2026-03-12"
-  },
-  {
-   "caso": "2",
-   "cliente": "146",
-   "data_emissao": "2026-02-12",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 1632.92,
-   "honorarios_nac": 1632.92,
+   "honorarios": 2560,
+   "honorarios_nac": 2560,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4030,
+   "numero": 4072,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-04-28",
-   "vencimento": "2026-05-01"
-  },
-  {
-   "caso": "2",
-   "cliente": "139",
-   "data_emissao": "2026-02-12",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 17983.33,
-   "honorarios_nac": 17983.33,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4031,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-12",
-   "vencimento": "2026-03-12"
-  },
-  {
-   "caso": "10",
-   "cliente": "61",
-   "data_emissao": "2026-02-12",
-   "despesas": 495.53,
-   "despesas_nac": 495.53,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4032,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-06-01",
-   "vencimento": "2026-03-13"
+   "recebimento": "2026-05-28",
+   "vencimento": "2026-04-10"
   },
   {
    "caso": "17",
    "cliente": "61",
-   "data_emissao": "2026-02-12",
-   "despesas": 14447.07,
-   "despesas_nac": 14447.07,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4033,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": null,
-   "vencimento": "2026-09-01"
-  },
-  {
-   "caso": "17",
-   "cliente": "61",
-   "data_emissao": "2026-02-12",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4034,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": null,
-   "vencimento": "2026-03-13"
-  },
-  {
-   "caso": "17",
-   "cliente": "61",
-   "data_emissao": "2026-02-12",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 0,
-   "honorarios_nac": 0,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4035,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": null,
-   "vencimento": "2026-03-13"
-  },
-  {
-   "caso": "17",
-   "cliente": "61",
-   "data_emissao": "2026-02-12",
+   "data_emissao": "2026-03-11",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 15000,
    "honorarios_nac": 15000,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4036,
+   "numero": 4073,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-19",
-   "vencimento": "2026-03-24"
+   "recebimento": "2026-04-20",
+   "vencimento": "2026-04-20"
   },
   {
    "caso": "17",
    "cliente": "61",
-   "data_emissao": "2026-02-12",
+   "data_emissao": "2026-03-11",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 15000,
    "honorarios_nac": 15000,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4037,
+   "numero": 4074,
    "recebido_hon": 15000,
    "recebido_hon_nac": 15000,
    "recebimento": null,
-   "vencimento": "2026-03-20"
+   "vencimento": "2026-04-10"
+  },
+  {
+   "caso": "6",
+   "cliente": "107",
+   "data_emissao": "2026-03-12",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 24898.33,
+   "honorarios_nac": 24898.33,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4075,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-04-13",
+   "vencimento": "2026-04-13"
   },
   {
    "caso": "1",
-   "cliente": "147",
-   "data_emissao": "2026-02-13",
+   "cliente": "114",
+   "data_emissao": "2026-03-16",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 15000,
-   "honorarios_nac": 15000,
+   "honorarios": 6579.7,
+   "honorarios_nac": 6579.7,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4038,
+   "numero": 4076,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-26",
-   "vencimento": "2026-03-26"
+   "recebimento": "2026-04-15",
+   "vencimento": "2026-04-10"
   },
   {
    "caso": "1",
-   "cliente": "147",
-   "data_emissao": "2026-02-13",
+   "cliente": "114",
+   "data_emissao": "2026-03-16",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 15000,
-   "honorarios_nac": 15000,
+   "honorarios": 6579.7,
+   "honorarios_nac": 6579.7,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4039,
+   "numero": 4077,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-02-27",
-   "vencimento": "2026-03-13"
-  },
-  {
-   "caso": "18",
-   "cliente": "7",
-   "data_emissao": "2026-02-18",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 941.25,
-   "honorarios_nac": 941.25,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4040,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-20",
-   "vencimento": "2026-03-20"
-  },
-  {
-   "caso": "19",
-   "cliente": "7",
-   "data_emissao": "2026-02-18",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 42383.93,
-   "honorarios_nac": 42383.93,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4041,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-20",
-   "vencimento": "2026-03-20"
-  },
-  {
-   "caso": "17",
-   "cliente": "7",
-   "data_emissao": "2026-02-18",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 470.63,
-   "honorarios_nac": 470.63,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4042,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-20",
-   "vencimento": "2026-03-20"
-  },
-  {
-   "caso": "19",
-   "cliente": "6",
-   "data_emissao": "2026-02-18",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 15000,
-   "honorarios_nac": 15000,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4043,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-04-02",
-   "vencimento": "2026-04-03"
-  },
-  {
-   "caso": "1",
-   "cliente": "101",
-   "data_emissao": "2026-02-19",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 151.5,
-   "honorarios_nac": 151.5,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4044,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
+   "recebimento": "2026-04-22",
+   "vencimento": "2026-04-15"
   },
   {
    "caso": "2",
-   "cliente": "68",
-   "data_emissao": "2026-02-19",
+   "cliente": "94",
+   "data_emissao": "2026-03-17",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 4868.2,
-   "honorarios_nac": 4868.2,
+   "honorarios": 36000,
+   "honorarios_nac": 36000,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4045,
+   "numero": 4078,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-03-27"
+  },
+  {
+   "caso": "2",
+   "cliente": "20",
+   "data_emissao": "2026-03-17",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 50,
+   "honorarios_nac": 300.64,
+   "moeda": "EUR",
+   "moeda_nac": "R$",
+   "numero": 4079,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-03-17",
+   "vencimento": "2026-03-17"
+  },
+  {
+   "caso": "2",
+   "cliente": "84",
+   "data_emissao": "2026-03-18",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 3716.67,
+   "honorarios_nac": 3716.67,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4080,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-04-16",
+   "vencimento": "2026-04-17"
+  },
+  {
+   "caso": "8",
+   "cliente": "9",
+   "data_emissao": "2026-03-18",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 10170,
+   "honorarios_nac": 10170,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4081,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-05-18",
+   "vencimento": "2026-05-18"
+  },
+  {
+   "caso": "24",
+   "cliente": "61",
+   "data_emissao": "2026-03-20",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 3920,
+   "honorarios_nac": 3920,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4082,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-04-20",
+   "vencimento": "2026-04-20"
   },
   {
    "caso": "5",
    "cliente": "64",
-   "data_emissao": "2026-02-19",
+   "data_emissao": "2026-03-20",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 606,
    "honorarios_nac": 606,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4046,
+   "numero": 4083,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-03-30"
   },
   {
-   "caso": "5",
-   "cliente": "28",
-   "data_emissao": "2026-02-19",
+   "caso": "2",
+   "cliente": "68",
+   "data_emissao": "2026-03-20",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 303,
-   "honorarios_nac": 303,
+   "honorarios": 606,
+   "honorarios_nac": 606,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4047,
+   "numero": 4084,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
-  },
-  {
-   "caso": "12",
-   "cliente": "28",
-   "data_emissao": "2026-02-19",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 105000,
-   "honorarios_nac": 105000,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4048,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
-  },
-  {
-   "caso": "10",
-   "cliente": "28",
-   "data_emissao": "2026-02-19",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 303,
-   "honorarios_nac": 303,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4049,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-02-23",
-   "vencimento": "2026-03-02"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-03-30"
   },
   {
    "caso": "1",
-   "cliente": "132",
-   "data_emissao": "2026-02-19",
+   "cliente": "92",
+   "data_emissao": "2026-03-20",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 1500,
-   "honorarios_nac": 1500,
+   "honorarios": 773.07,
+   "honorarios_nac": 773.07,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4050,
+   "numero": 4085,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-24",
-   "vencimento": "2026-03-24"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-03-30"
   },
   {
-   "caso": "10",
-   "cliente": "61",
-   "data_emissao": "2026-02-19",
+   "caso": "1",
+   "cliente": "101",
+   "data_emissao": "2026-03-20",
    "despesas": 0,
    "despesas_nac": 0,
-   "honorarios": 13511.29,
-   "honorarios_nac": 13511.29,
+   "honorarios": 151.5,
+   "honorarios_nac": 151.5,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4051,
+   "numero": 4086,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-03-23",
-   "vencimento": "2026-03-23"
-  },
-  {
-   "caso": "24",
-   "cliente": "61",
-   "data_emissao": "2026-02-19",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 56080,
-   "honorarios_nac": 56080,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4052,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-19",
-   "vencimento": "2026-03-23"
-  },
-  {
-   "caso": "9",
-   "cliente": "61",
-   "data_emissao": "2026-02-19",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 26690.69,
-   "honorarios_nac": 26690.69,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4053,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-03-23",
-   "vencimento": "2026-03-23"
-  },
-  {
-   "caso": "31",
-   "cliente": "3",
-   "data_emissao": "2026-02-24",
-   "despesas": 0,
-   "despesas_nac": 0,
-   "honorarios": 6500,
-   "honorarios_nac": 6500,
-   "moeda": "R$",
-   "moeda_nac": "R$",
-   "numero": 4054,
-   "recebido_hon": 0,
-   "recebido_hon_nac": 0,
-   "recebimento": "2026-05-04",
-   "vencimento": "2026-06-24"
+   "recebimento": "2026-03-25",
+   "vencimento": "2026-03-30"
   },
   {
    "caso": "8",
    "cliente": "2",
-   "data_emissao": "2026-02-26",
+   "data_emissao": "2026-03-24",
    "despesas": 0,
    "despesas_nac": 0,
    "honorarios": 1368.51,
    "honorarios_nac": 1368.51,
    "moeda": "R$",
    "moeda_nac": "R$",
-   "numero": 4055,
+   "numero": 4087,
    "recebido_hon": 0,
    "recebido_hon_nac": 0,
-   "recebimento": "2026-04-06",
-   "vencimento": "2026-04-05"
+   "recebimento": "2026-05-20",
+   "vencimento": "2026-05-08"
+  },
+  {
+   "caso": "13",
+   "cliente": "5",
+   "data_emissao": "2026-03-26",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 40000,
+   "honorarios_nac": 40000,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4088,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-05-14",
+   "vencimento": "2026-05-11"
+  },
+  {
+   "caso": "12",
+   "cliente": "28",
+   "data_emissao": "2026-03-26",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 28004.34,
+   "honorarios_nac": 28004.34,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4089,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-03-27",
+   "vencimento": "2026-04-06"
+  },
+  {
+   "caso": "10",
+   "cliente": "28",
+   "data_emissao": "2026-03-27",
+   "despesas": 0,
+   "despesas_nac": 0,
+   "honorarios": 303,
+   "honorarios_nac": 303,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4090,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": "2026-03-27",
+   "vencimento": "2026-04-06"
+  },
+  {
+   "caso": "16",
+   "cliente": "3",
+   "data_emissao": "2026-03-30",
+   "despesas": 3200,
+   "despesas_nac": 3200,
+   "honorarios": 0,
+   "honorarios_nac": 0,
+   "moeda": "R$",
+   "moeda_nac": "R$",
+   "numero": 4091,
+   "recebido_hon": 0,
+   "recebido_hon_nac": 0,
+   "recebimento": null,
+   "vencimento": "2026-07-28"
   }
  ],
  "home_area": {
@@ -2616,7 +2514,7 @@
   "EHF": "Equipe Direito Econômico",
   "EMC": "Arbitragem",
   "ESC": "Não Alocados",
-  "FAS": "Equipe DireitoEconômico",
+  "FAS": "Equipe Direito Econômico",
   "FBF": "Equipe Contencioso",
   "FC": "Equipe Direito Econômico",
   "FFO": "Equipe Direito Econômico",
@@ -2668,19 +2566,14 @@
   "VSR": "Equipe Direito Econômico"
  },
  "meta": {
-  "ano_mes": "2026-02",
+  "ano_mes": "2026-03",
   "client_id": "mbc",
-  "d_end": "2026-03-01",
-  "d_start": "2026-02-01",
+  "d_end": "2026-04-01",
+  "d_start": "2026-03-01",
   "extract_version": 4,
-  "generated_at": "2026-08-03T19:21:45-03:00"
+  "generated_at": "2026-08-03T19:21:53-03:00"
  },
  "prolabore": [
-  {
-   "bruto": 1621,
-   "liquido": 1442.69,
-   "sigla": "ASG"
-  },
   {
    "bruto": 1621,
    "liquido": 1442.69,
@@ -2709,6 +2602,11 @@
   {
    "bruto": 1621,
    "liquido": 1442.69,
+   "sigla": "ASG"
+  },
+  {
+   "bruto": 1621,
+   "liquido": 1442.69,
    "sigla": "IAC"
   },
   {
@@ -2725,11 +2623,6 @@
    "bruto": 1621,
    "liquido": 1442.69,
    "sigla": "BBX"
-  },
-  {
-   "bruto": 1621,
-   "liquido": 1442.69,
-   "sigla": "JGS"
   },
   {
    "bruto": 1621,
@@ -2804,7 +2697,7 @@
    "sigla": "PD"
   },
   {
-   "grupo": "Equipe DireitoEconômico",
+   "grupo": "Equipe Direito Econômico",
    "percentual": 100,
    "sigla": "RB"
   },
@@ -2826,69 +2719,64 @@
  ],
  "rateio_prof": [
   {
-   "faturado": 67776.26,
+   "faturado": 25387.85,
    "id_profissional": "5B044D59-995A-3F07-1E74-68C16C6C8914",
-   "trabalhado": 67776.26
+   "trabalhado": 27855.96
   },
   {
-   "faturado": 249778.69,
+   "faturado": 63749.2,
    "id_profissional": "5B044FDE-995D-A3D4-A945-016A1B8D73B7",
-   "trabalhado": 291795.88
+   "trabalhado": 131761.7
   },
   {
-   "faturado": 57138.75,
+   "faturado": 25430,
    "id_profissional": "5B045093-9960-5FA8-B63F-AE96A5D1632B",
-   "trabalhado": 127675.34
+   "trabalhado": 25430
   },
   {
-   "faturado": 274888.3,
+   "faturado": 227154.78,
    "id_profissional": "5B50C5E0-BE6C-08D7-655D-253BB2039150",
    "trabalhado": 0
   },
   {
-   "faturado": 31920.94,
+   "faturado": 37210,
    "id_profissional": "5F2824C5-9E67-B406-1739-202EDD3CCE3A",
-   "trabalhado": 50070
+   "trabalhado": 37210
   },
   {
-   "faturado": 64181.34,
+   "faturado": 47250.02,
    "id_profissional": "6120318D-F7FA-D352-5887-B699B51D3359",
-   "trabalhado": 64344.44
+   "trabalhado": 47250.02
   },
   {
-   "faturado": 57996.02,
+   "faturado": 27990.26,
    "id_profissional": "62E3EA6F-7F8C-53BC-FDEC-4D11C98A1D9F",
-   "trabalhado": 57996.02
+   "trabalhado": 26636.66
   },
   {
-   "faturado": 94549.87,
+   "faturado": 51536.66,
    "id_profissional": "63334BB2-6EBD-4E6E-37B9-1B54FE97E398",
-   "trabalhado": 218430.16
+   "trabalhado": 51536.66
   },
   {
-   "faturado": 46468.19,
-   "id_profissional": "643EAA77-5820-A0DC-3AE1-527CD2D90D0C",
-   "trabalhado": 112773.32
-  },
-  {
-   "faturado": 50022.19,
+   "faturado": 8004.56,
    "id_profissional": "6452A888-F395-6C4E-8CA6-C6C25B3212A1",
-   "trabalhado": 106133.12
+   "trabalhado": 127981.02
   },
   {
-   "faturado": 31322.51,
+   "faturado": 52444.15,
    "id_profissional": "660B14DB-DEF2-6321-AD63-A715544C1CDB",
-   "trabalhado": 45063.34
+   "trabalhado": 73557.42
   },
   {
-   "faturado": 7229.41,
+   "faturado": 853.34,
    "id_profissional": "6720F99E-EB65-ED7C-EB5F-AD8DBAC7DB59",
-   "trabalhado": 9560
+   "trabalhado": 853.34
   },
   {
-   "faturado": 11452.69,
+   "faturado": 19022.13,
    "id_profissional": "6914B7F8-DC03-9074-43DE-18C59F405458",
-   "trabalhado": 47709
+   "trabalhado": 23270.6
   }
  ],
  "recebimento_area": [
@@ -2899,78 +2787,88 @@
   },
   {
    "area": "Arbitragem MV",
-   "n": 13,
-   "total": 68404.13
+   "n": 20,
+   "total": 123847.89
   },
   {
    "area": "Contencioso",
-   "n": 57,
-   "total": 133202.74
+   "n": 54,
+   "total": 104392.34
   },
   {
    "area": "Direito Econômico",
-   "n": 21,
-   "total": 117626.71
+   "n": 27,
+   "total": 384261.53
   }
  ],
  "recebimento_area_prof": [
   {
-   "fat": -0.25,
+   "fat": 0.07,
    "grupo": "Administração",
-   "total": -0.25
+   "total": 0.07
   },
   {
-   "fat": 48564.56,
+   "fat": 75602.49,
    "grupo": "Arbitragem",
-   "total": 62401.37
+   "total": 113441.99
   },
   {
-   "fat": -6.79,
+   "fat": 1.94,
    "grupo": "Equipe Ambiental",
-   "total": 105.04
+   "total": 1.94
   },
   {
-   "fat": 224519.93,
+   "fat": 111629.76,
    "grupo": "Equipe Contencioso",
-   "total": 159538.62
+   "total": 159925.2
   },
   {
-   "fat": 278088.52,
+   "fat": 185592.86,
    "grupo": "Equipe Direito Econômico",
-   "total": 119666.59
+   "total": 343892.93
   },
   {
-   "fat": -16413.14,
+   "fat": 18178.78,
    "grupo": "Não Alocados",
-   "total": -22477.79
+   "total": -4760.38
   }
  ],
  "revenue": {
-  "faturamento_bruto": 534752.84,
-  "faturamento_rows": 94,
-  "recebimento_bruto": 319233.58,
-  "recebimento_rows": 92
+  "faturamento_bruto": 391005.89,
+  "faturamento_rows": 101,
+  "recebimento_bruto": 612501.76,
+  "recebimento_rows": 102
  },
  "vale_prof": [
   {
    "historico": "Vale refeição",
-   "sigla": "MLA",
-   "valor": 1014.2
+   "sigla": "VSR",
+   "valor": 922
   },
   {
    "historico": "Vale refeição",
    "sigla": "JVO",
-   "valor": 1014.2
+   "valor": 922
+  },
+  {
+   "historico": "Valerefeição",
+   "sigla": "MLA",
+   "valor": 922
+  },
+  {
+   "historico": "Vale transporte",
+   "sigla": "VSR",
+   "valor": 86.4
   },
   {
    "historico": "Vale transporte",
    "sigla": "JVO",
-   "valor": 235.2
+   "valor": 268.8
   },
   {
    "historico": "Vale transporte",
    "sigla": "MLA",
-   "valor": 337.68
+   "valor": 318.92
   }
  ]
 }

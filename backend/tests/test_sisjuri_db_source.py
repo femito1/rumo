@@ -104,8 +104,13 @@ def test_rateio_mensal_has_area_and_lawyer_detail(source):
     assert len(rateio["rateio_profissional"]) == 13  # per-lawyer rows
 
 
-def test_distribuicao_socio_tolerates_null(source):
-    # The fixture has distribuicao_socio: null; must not crash and yields [].
+def test_distribuicao_socio_tolerates_null(snapshot):
+    # A null distribuicao_socio must not crash and must yield []. The live Feb
+    # fixture now carries real rows (the old thin stub had it null), so inject the
+    # null case explicitly rather than depending on the fixture's current shape.
+    snap = dict(snapshot)
+    snap["distribuicao_socio"] = None
+    src = SisjuriDbSource.from_snapshot(snap)
     p = Period.parse("2026-02")
-    out = source.fetch(p, DayRange.full_month(p))
+    out = src.fetch(p, DayRange.full_month(p))
     assert out[SectionKey.INSTITUCIONAL_ANO]["distribuicao_socio"] == []

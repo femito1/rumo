@@ -258,15 +258,28 @@ Vale account under `020.050.*` and no Vale in the summarised S/I views.
   4th payable *"benefícios VT e VR ... para o estagiária do concorrencial"* unfolding to
   `020.080.0050` 507,10 + `020.080.0060` 36,12 = **543,22** — which is the `543,22` half
   of the workbook's hand-summed `E123 = 543,22+674`. Not an adjustment.
-- **SISJURI grupo names are NOT whitespace-stable.** The same grupo arrives with and
-  without its space across months: `EquipeContencioso` (2026-02),
-  `Equipe DireitoEconômico` (04/05), `EquipeDireito Econômico` (05),
-  `EquipeAmbiental` (05). Dropping the space splices a false `"econ"` out of
-  `"equipE-CONtencioso"`, so a bare `"econ" in name` test matched **both**
-  Contencioso and Econômico. `match_area` now anchors Econômico on `econô`/`econo`
-  and `test_whitespace_variant_grupo_names_match_exactly_one_area` pins it. This
-  matters because `dre.py` has three loops that ADD over *every* matching área — an
-  ambiguous name lands in two áreas at once. Normalize before comparing grupo names.
+- **Grupo/account names arrive whitespace-corrupted — and it is OUR transport, not
+  SISJURI.** The same grupo arrives with and without a space across months:
+  `EquipeContencioso`, `Equipe DireitoEconômico`, `EquipeDireito Econômico`. It reads
+  like SISJURI emitting unstable names, and this note used to say so — **that is
+  wrong** (corrected 2026-08-04). The DB value is stable; the space was lost *in
+  transit*: `extract.sql` emitted the JSON in 180-char chunks and sqlplus trimmed a
+  blank sitting at a chunk boundary (`SET TRIMSPACE ON`), which `run-agent.ps1` then
+  reassembled without the space. Proof it is transport: sigla `AM`/`FAS`/`VO` all map
+  to `Equipe Direito Econômico`, yet arrive spelled differently in months extracted 40
+  seconds apart — master data cannot vary by month. It happened ~6× per month in every
+  2026 month (62 total), and it moved no money but silently created a duplicate expense
+  family (`section_for` is an exact dict lookup: `DespesasGerais` ≠ `Despesas Gerais`).
+  - **Fixed at the source in extract v5** (`~` guards on every chunk edge; see the note
+    at the top of `extract.sql`). Until the operator re-extracts
+    (`RUNBOOK_v5_reextract.md`, deliberately batched), the stored snapshots still carry
+    it, guarded by the two `xfail` tests in `test_snapshot_text_integrity.py`.
+  - **A defence still lives in `match_area`** because a glued grupo also splices a false
+    `"econ"` out of `"equipE-CONtencioso"`, matching **both** Contencioso and Econômico.
+    `dre.py` has three loops that ADD over *every* matching área, so an ambiguous name
+    would double-count into two áreas. `match_area` anchors Econômico on `econô`/`econo`
+    and `test_whitespace_variant_grupo_names_match_exactly_one_area` pins it. Keep this
+    even after v5 — it is a cheap belt to the transport braces.
 
 ### Workbook fact — the Jan–May per-área "Despesas Equipe" formulas are wrong (2026-07-29)
 

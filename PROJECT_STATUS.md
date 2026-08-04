@@ -20,7 +20,51 @@
 > guarding it, and the six mistakes I made this session with the pattern behind each.
 > Neither file is complete without the other.
 
-## ⭐ 2026-08-04 (latest) — v4 re-extract DONE. `35,52` is definitively NOT in SISJURI
+## ⭐ 2026-08-04 (latest) — found a transport bug that ate a space per ~180 chars; fixed at source (v5), fixtures refreshed
+
+Not on the gap list — found while sizing the fixture work. **The agent silently dropped a
+space ~6 times per month, in every month of 2026** (62 across the eight). `extract.sql`
+emitted the JSON in 180-char chunks and sqlplus trimmed a blank at a chunk edge
+(`SET TRIMSPACE ON`); `run-agent.ps1` reassembled without it, gluing two words —
+`"Despesas Gerais"` → `"DespesasGerais"`. Proof it is transport and not SISJURI: the same
+sigla's home grupo arrives spelled differently in months extracted 40 seconds apart.
+
+**It moved no money, and I verified that rather than asserting it** — repairing every
+corrupted string and re-running `assemble_dre_sections` for all eight months changes 0
+values and 0 reclassifications. But it is a live tripwire: `section_for` is an exact dict
+lookup, so a glued `nome_conta_pai` opens a DUPLICATE expense family; the reclass markers
+and the convênio "Parte MBC" guard both parse this same free text. Fixed at the source in
+**extract v5** (`~` guards on every chunk edge, stripped positionally in `run-agent.ps1`),
+tied to real months by `test_extract_chunk_transport.py` and `test_snapshot_text_integrity.py`.
+
+⚠ **The v5 re-extract is PENDING, by decision** (batched into the next re-extract that
+happens anyway — the corruption costs nothing in the meantime). All 2026 months read
+`stale: true` until then; `ops/sisjuri-agent/RUNBOOK_v5_reextract.md` is the procedure. The
+open month will self-update to v5 on its own daily run, so expect a mixed store. Two
+`test_snapshot_text_integrity.py` tests are `xfail(strict=True)` and **flip GREEN when the
+re-extracted fixtures land** — that is the end-to-end proof the fix worked.
+
+**Fixtures refreshed to a single contract and the gaps closed.** All six closed-month
+fixtures (`sisjuri_2026_01..06.json`, via the new `scripts/dump_fixture.py`) now carry the
+full 29-key payload — the old Feb stub had 11 keys, May 20, and June was v3, so their tests
+had drifted onto legacy code paths. **14 Feb/May assertions moved; every one was reported
+and explained before being changed** (per the user's decision): the moves are the fixtures
+becoming *more* correct — Feb per-área Receita now ties the workbook's own column exactly
+(159.539 / 119.667 / 62.506), where the old assertions were pinned to the wrong cash-by-case
+basis. June's client-validated cells did not move. Handoff §6.3 (Jan/Mar/Abr fixtures) and
+§6.4 (promote audit scripts) are both done: the per-área custo-equipe and Despesa
+Institucional rateio identities are now guarded tests over all six months, and the vale
+day-count test that silently checked 6 of its claimed 41 rows now iterates all six fixtures
+with a row-count floor.
+
+Backend **314** tests (+18: 15 transport, 3 integrity/identity) **+2 xfailed**, frontend
+**72**; all gates clean. The R$7,6k Resultado Bruto YTD difference is **unchanged** — this
+work fixed a transport bug and closed engineering gaps; it did not touch the client
+differences, and we still do not match the workbook.
+
+---
+
+## 2026-08-04 — v4 re-extract DONE. `35,52` is definitively NOT in SISJURI
 
 All eight 2026 months are on **extract v4**, `stale=false`, verified in the store. The
 operator ran it; I verified the outcome rather than trusting the "complete" message — which

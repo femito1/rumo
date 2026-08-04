@@ -48,7 +48,18 @@ _DEFAULT_CLIENT = "mbc"
 #: did not. Guarded by
 #: ``test_widening_the_historico_must_not_move_copa_to_informatica``, which pins every
 #: row that was actually at the cap on a reclass account.
-CURRENT_EXTRACT_VERSION = 4
+#:
+#: v5 (2026-08-04) wraps every emitted chunk in ``~`` guards so sqlplus can no longer
+#: trim a space that lands on a chunk boundary. Until now that silently GLUED two
+#: words together ~6 times per month, in EVERY month of 2026 (62 occurrences across
+#: the eight months): ``'Despesas Gerais'`` arriving as ``'DespesasGerais'``, which
+#: ``workbook_layouts.section_for`` — an exact dict lookup — turns into a DUPLICATE
+#: expense family. Text fidelity only: no field changes meaning and **no number
+#: moves** (verified by repairing every corrupted string and re-assembling all eight
+#: months: 0 value changes, 0 reclassifications). Tied to real months by
+#: ``test_extract_chunk_transport.py`` and
+#: ``test_snapshot_text_is_spelled_consistently_across_months``.
+CURRENT_EXTRACT_VERSION = 5
 
 
 def snapshot_extract_version(snapshot: dict[str, Any]) -> int:

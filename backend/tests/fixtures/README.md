@@ -1,5 +1,28 @@
 # Test fixtures
 
+## `sisjuri_2026_01..06.json`
+
+Real SISJURI closing snapshots for the six **closed** months of 2026, one per file, as
+stored by the agent. They are the regression guard for every DB-derived number the app
+shows, so keep them **all on the same extract contract** — a fixture missing a key does
+not fail, it makes the tests that read it pass VACUOUSLY (that is how the vale day-count
+test once claimed "41 rows" while checking 6; and how the old Feb stub, at 11 of 29 keys,
+pinned legacy code paths that production had long since replaced).
+
+### Regenerating
+
+```bash
+cd backend
+python -m scripts.dump_fixture --all-2026        # Jan..Jun (closed months only)
+```
+
+⚠ These are the guard for the client-facing numbers. After refreshing, run `pytest` and
+**explain every expectation that moves before changing it** — a refresh that quietly
+re-baselines an assertion turns a guard into a rubber stamp. The June per-área cells the
+client validated (Contencioso 75.424,21 · Econômico 80.536,85 · Arbitragem 54.383,94) must
+not move at all. There is deliberately no fixture for the OPEN month: it changes under you,
+so a fixture of it would make the suite's result depend on the day it runs.
+
 ## `legaldesk_2026_05.json`
 
 A recorded **real** LegalDesk payload for competence month **2026-05**, captured

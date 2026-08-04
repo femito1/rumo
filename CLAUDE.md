@@ -8,9 +8,12 @@
 
 ## Start here
 
-0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — all eight 2026
-   months are on extract **v4** (wider `historico`), the workbook-vs-system differences live
-   in `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
+0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — the code now
+   expects extract **v5** (a `~`-guard fix for a transport bug that dropped ~6 spaces per
+   month; **re-extract PENDING** by decision, so months read `stale` and two
+   `test_snapshot_text_integrity.py` tests are `xfail` until it runs — see
+   `ops/sisjuri-agent/RUNBOOK_v5_reextract.md`). The workbook-vs-system differences live in
+   `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
    partial month + blanks a withheld card. ⚠ **We are still ~R$7,6k apart from the workbook
    on Resultado Bruto YTD** — every component has a named cause, but "explained" is NOT
    "matching"; do not tell the client the numbers agree. Then read

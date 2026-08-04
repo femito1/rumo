@@ -27,7 +27,17 @@ no inbound firewall rule or VPN is needed.
   already-registered task keeps its old single-month command line.
 - `backfill.ps1` — one-shot historical catch-up: loops months from a start
   through the last closed month, calling `run-agent.ps1` for each.
-- `RUNBOOK_v4_reextract.md` — **do this now if it has not been done.** Contract v4
+- `RUNBOOK_v5_reextract.md` — **⚠ COPY `run-agent.ps1` TO THE BOX BEFORE ANYTHING ELSE.**
+  Contract v5 (2026-08-04) wraps each emitted chunk in `~` guards so sqlplus can no longer
+  trim a space sitting at a chunk boundary (it had been silently gluing two words together
+  ~6 times per month, in every month of 2026). **The fix spans BOTH files**: `extract.sql`
+  adds the guards and `run-agent.ps1` strips them. The box self-updates `extract.sql` from
+  `main` but **nobody updates `run-agent.ps1`** — so until you copy the new wrapper, the
+  self-update pulls guarded SQL into an old reassembler and the run FAILS with invalid JSON
+  (the self-update sanity gate does not catch this: v5 still contains `JSON_OBJECT` and
+  `'despesas_liquido'`). This affects the daily 06:00 task, not just manual runs. The
+  re-extract itself is not urgent — the bug moves no money — but the file copy is.
+- `RUNBOOK_v4_reextract.md` — done 2026-08-04, kept as the procedure. Contract v4
   (2026-08-03) widens the three `historico` fields from 60/80 to **300 chars**, so the
   full JSON payload lands ~10% bigger and, more importantly, the *arithmetic* finance
   writes into that text survives (*"Vale transporte / Calculo: 14 dias x R$ 18,76"*).
