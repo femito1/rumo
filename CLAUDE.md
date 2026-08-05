@@ -19,9 +19,12 @@
    a known, money-neutral cosmetic defect; do not re-attempt without validating against the
    box first. The workbook-vs-system differences live in
    `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
-   partial month + blanks a withheld card. ⚠ **We are still ~R$7,6k apart from the workbook
+   partial month + blanks a withheld card. ⚠ **We are still ~R$5,0k apart from the workbook
    on Resultado Bruto YTD** — every component has a named cause, but "explained" is NOT
-   "matching"; do not tell the client the numbers agree. Then read
+   "matching"; do not tell the client the numbers agree. ⚠ Note also that **repairing the
+   workbook's r204/205/206 would NOT close that gap** — measured: it halves the per-área
+   despesa error but `r198` does not reference those rows, so the institucional total (and
+   therefore the headline) does not move at all. Then read
    **`docs/HANDOFF_2026-08-04.md`**, which is the *opinion* layer: hypotheses, a shipped
    judgement call that could have gone another way, what has no test guarding it, and the
    six mistakes made in that session.

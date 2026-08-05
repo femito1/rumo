@@ -20,7 +20,31 @@
 > guarding it, and the six mistakes I made this session with the pattern behind each.
 > Neither file is complete without the other.
 
-## ⭐ 2026-08-04 (latest) — the convênio no longer needs a finance ruling; YTD gap −7.640 → −5.003
+## ⭐ 2026-08-04 (latest) — repairing the workbook's r204/205/206 would NOT close the gap
+
+Asked directly, so it was measured rather than reasoned about
+(`scripts/audit_fix_204_effect.py`). The repair is not local — those rows feed per-área
+Despesas Equipe directly **and** `r203 → r207`, the pool the per-área Despesa Institucional
+is rateado from. But:
+
+* **The headline does not move at all.** `r198` (institucional Despesas Indiretas) does not
+  reference 204–206, so the institucional total and the **−R$5.003,04** Resultado Bruto YTD
+  difference are completely unchanged. The repair fixes *which área* carries which despesa.
+* Per-área **Despesas Equipe** absolute error 10.216,30 → 4.244,76 (**−58%**); **Despesa
+  Institucional** 13.549,64 → 8.956,70 (**−34%**); per-área **Resultado Bruto** −1% only,
+  because it is the sum of those two and the corrections partly offset inside each área.
+
+So it is worth the client doing — the área tabs become trustworthy — but **nobody should
+expect the totals to converge afterwards.** `CLAUDE.md` step 0 now says this too.
+
+⚠ **Trap, recorded in the script's docstring:** my first run applied the "fix" to all six
+months and reported Resultado Bruto **4% worse**. June's r204/205/206 are *already* the
+repaired formula, so overwriting them corrupts a month that was fine. A model that does not
+match the sheet produces confident nonsense — the same shape as the v5 revert below.
+
+---
+
+## 2026-08-04 — the convênio no longer needs a finance ruling; YTD gap −7.640 → −5.003
 
 **The system now computes Parte MBC itself when the memo is stale.** `030.010.0110` posts
 the GROSS convênio; the MBC share lives only in the lançamento's free text, and finance does
