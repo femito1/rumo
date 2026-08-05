@@ -120,13 +120,28 @@ credentials (LegalDesk) never reach the client.
   `backend/scripts/build_diferencas_doc.py` from live snapshots + the June workbook.
   The former in-app "Diferenças conhecidas" panel (`app/closing/notes.py` +
   `NotesPanel.tsx`) was **removed** — do not reintroduce an in-app notes surface
-  without asking. Materiality is R$ 1.000 on the YTD ("R$ 4,80 does not matter,
-  R$ 1.900 does"); smaller ones are summed as a named remainder, never dropped. Each
-  entry keeps one format: *planilha value + its cell reference · our value · signed
-  delta · cause · where to verify · what we need from finance*. The causes are
-  HAND-WRITTEN in the generator — nothing inspects a value or decides a number is
-  wrong (that guard layer was explicitly rejected). **Fix a cause ⇒ delete its entry
-  in the same commit.**
+  without asking. Materiality is R$ 1.000 on the YTD **or on any single month** ("R$ 4,80
+  does not matter, R$ 1.900 does"); smaller ones are summed as a named remainder, never
+  dropped. The or-any-month half is load-bearing, not decoration: YTD-only hid
+  *Econômico · Despesas Equipe* (−31,45 YTD, but −1.166,75 in Feb and +1.504,72 in May)
+  under "menores" in a document whose own second paragraph warns that a total which nets
+  to zero is not validated. Each entry keeps one format: *planilha value + its cell
+  reference · our value · signed delta · cause · where to verify · what we need from
+  finance*. The causes are HAND-WRITTEN in the generator — nothing inspects a value or
+  decides a number is wrong (that guard layer was explicitly rejected). **Fix a cause ⇒
+  delete its entry in the same commit.**
+  - **Every printed total must be reachable by adding the printed parts.** Use the single
+    `_delta` helper (`round(ours) − round(theirs)`), never `round(ours − theirs)`: the
+    latter makes Σ(months) ≠ Acumulado, and *Contencioso · Custo equipe* really did print
+    **+3.140,19 in the summary and +3.140,20 in its own detail table**. The workbook
+    carries a trailing half-centavo on many cells, so this is not hypothetical.
+  - **Cite the sheet, not just the row.** The prose's *Conferir* lines name
+    `Base_Resultado Mensal_V2` rows while every table is keyed to
+    `Areas Sintetico atualizado`. Naming only "linha 204" sends a finance reader to the
+    wrong tab, where that row is blank or means something else entirely.
+  - `tests/test_diferencas_doc.py` guards the two rules above. It tests the pure helpers
+    only — the generator itself needs live Supabase, which is why it went untested for so
+    long.
 
 - **A partial month must be labelled INSIDE `#presentation-root`.** The print CSS
   (`index.css`) hides everything outside that element, so the workspace `.partial-banner`

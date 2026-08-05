@@ -34,8 +34,33 @@ REPO = Path(__file__).resolve().parents[2]
 WORKBOOK = REPO / "reference" / "workbook" / "Fechamento MBC 06.2026.xlsx"
 OUT = REPO / "docs" / "DIFERENCAS_ACUMULADO_2026.md"
 
-#: Materiality floor on the YTD difference, in R$.
+#: Materiality floor, in R$. Applied to the YTD **and to every single month** — see
+#: ``_material``. A line whose months cancel to a small YTD (Econômico · Despesas Equipe:
+#: −31,45 YTD out of a +1.504,72 May) is exactly the netting artifact this document warns
+#: about two paragraphs into itself; filing it under "menores" contradicted that warning.
 LIMIAR = 1000.0
+
+
+def _delta(nosso: float, planilha: float) -> float:
+    """The one definition of a difference: rounded values subtracted, then rounded.
+
+    Every total in this document must be reachable by adding up what is PRINTED. Rounding
+    the raw subtraction instead (``round(o - b, 2)``) makes ``round(Σ) ≠ Σ(round)`` and the
+    two disagreed in the wild: Contencioso · Custo equipe printed +3.140,19 in the summary
+    and +3.140,20 in its own detail table, one centavo apart on the same line of the same
+    document. Guarded by ``test_diferencas_doc.py``.
+    """
+    return round(round(nosso, 2) - round(planilha, 2), 2)
+
+
+def _material(ytd: float, mensais: list[float], limiar: float = LIMIAR) -> bool:
+    """Material if the YTD **or any single month** reaches the floor.
+
+    YTD-only was the original rule and it hid the worst kind of difference this project
+    keeps re-learning: months that cancel. R$ 1.000 in May does not stop mattering because
+    a −R$ 1.000 in February happens to offset it.
+    """
+    return abs(ytd) >= limiar or any(abs(d) >= limiar for d in mensais)
 
 #: Lines that are SUMS of other lines in this document. They carry the biggest deltas, so
 #: sorting purely by size would open with three "consequência das linhas acima" entries
@@ -106,127 +131,188 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "o tem lançado. De março em diante ele sai dos dois lados e a Arbitragem "
             "bate em 0,00. **Não é dúvida — é uma omissão da coluna de fevereiro.**"
         ),
-        "conferir": "Planilha, linhas **69, 70 e 71**, coluna de fevereiro.",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linhas **69, 70 e 71** (o convênio, "
+            "a distribuição e o pró-labore dele), coluna de fevereiro (**D**)."
+        ),
         "precisamos": None,
     },
     ("contencioso", "custo_equipe"): {
         "causa": (
-            "O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área e "
-            "a planilha não o incluiu de janeiro a maio. Junho, que "
-            "já inclui, bate em 0,00. O restante é classificação que não muda total "
-            "(ISS e AASP — ver *Diferenças que não mudam nenhum total*)."
+            "O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área, e "
+            "a planilha só o lança em alguns meses — nas linhas 26 e 27 ele aparece em "
+            "jan/fev/jun e fica **zerado em mar/abr/mai**, que são exatamente os três meses "
+            "com diferença acima de mil reais. Em janeiro e fevereiro o vale está nos dois "
+            "lados e o que sobra é só classificação: a **AASP** (−97,70 e −163,06), que a "
+            "planilha põe no Custo equipe e nós em Despesa de Área — sai desta linha e "
+            "entra em outra da mesma área, sem mexer no Resultado Bruto. Junho bate em "
+            "0,00. Em abril há ainda o **ISS trimestral** (−253,55), que é o mesmo tipo de "
+            "troca. Ver *Diferenças de classificação*."
         ),
-        "conferir": "Planilha, linhas **26 e 27** (vale).",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linhas **26 e 27** (Vale Refeição e "
+            "Vale Transporte do Contencioso) — compare jan/fev/jun com mar/abr/mai."
+        ),
         "precisamos": None,
     },
     ("economico", "custo_equipe"): {
         "causa": (
-            "Três coisas: a **anotação do convênio de EHF e RB** em jan/fev (causa 4 do "
-            "resumo); o **vale dos advogados** (como no Contencioso); e a **estagiária do "
-            "Direito Econômico**, "
-            "que entra na planilha em março e que reproduzimos ao centavo — é ela que "
-            "inverte o sinal da diferença entre fevereiro e março. Sobra uma estimativa "
-            "nossa: a parte MBC do **RB em janeiro** (o plano dele mudou e nada registra "
-            "qual era a proporção naquele mês)."
+            "Três coisas. Em **janeiro** (−887,63), a parte MBC do convênio do **RB** "
+            "(−789,94, causa 4 do resumo — é a nossa estimativa) mais a **AASP** (−97,70, "
+            "classificação: troca de linha dentro da área). Em **março e abril** (+2.425,63 "
+            "e +2.770,99), duas coisas iguais nos dois meses: o **vale dos advogados** "
+            "(+1.008,40 em cada) e a distribuição de uma advogada (ASG), que a planilha "
+            "lança **líquida** e nós bruta (+1.509,00 em cada). O que os separa é pequeno: "
+            "em março, um **seguro de vida** que só a planilha tem (−92,45); em abril, o "
+            "**ISS trimestral** (+253,59), que sai do Contencioso e entra aqui. Fevereiro e "
+            "maio ficam abaixo de cem reais.\n\n"
+            "A **estagiária do Direito Econômico** entra na planilha em março e nós a "
+            "reproduzimos ao centavo — ela não gera diferença, mas explica por que o custo "
+            "da área sobe nos dois lados a partir daquele mês."
         ),
-        "conferir": "Planilha, linhas **44 e 48** (convênio) e **52** (estagiária).",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linhas **44 e 48** (convênio de EHF "
+            "e de RB) e **52** (a bolsa da estagiária)."
+        ),
         "precisamos": None,
     },
     ("contencioso", "despesa_institucional"): {
         "causa": (
-            "**Não é da área — é a despesa institucional total, rateada** (causa 1 do "
-            "resumo). A diferença vem inteira do total; a divisão entre as três áreas "
-            "não cria nem apaga dinheiro. Para entender esta linha, olhe *Despesas "
-            "Indiretas*."
+            "**Não é da área — é a despesa institucional total, rateada** (causa 2 do "
+            "resumo). A divisão entre as três áreas não cria nem apaga dinheiro, então esta "
+            "linha não tem causa própria: olhe *Despesas Indiretas*.\n\n"
+            "Duas coisas se somam aqui. A maior parte vem do **total** (a linha 198, "
+            "detalhada em *Despesas Indiretas*). O resto vem da **fórmula deslocada** "
+            "(causa 1): o que se rateia é o total **menos** as despesas das áreas (linha "
+            "207 = 198 − 203), e a linha 203 é a soma das linhas 204/205/206 — as mesmas "
+            "que estão erradas de janeiro a maio. Por isso a soma das três áreas não é "
+            "igual à diferença do total nesses meses: em abril, por exemplo, as áreas somam "
+            "−3.394,34 contra −2.070,03 do total, e os R$ 1.324,31 de diferença são "
+            "exatamente o erro da linha 203."
         ),
-        "conferir": "Planilha, linha **207** (total a ratear) e **5 / 30 / 60** (custo de cada área).",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`: linha **207** (total a ratear = "
+            "198 − 203) e linha **203**. O custo de cada área, que dá a proporção do "
+            "rateio, está nas linhas **5 / 30 / 60** da mesma aba."
+        ),
         "precisamos": None,
     },
     ("economico", "despesa_institucional"): {
-        "causa": "Mesma causa do Contencioso: é o total institucional rateado (causa 1).",
-        "conferir": "Planilha, linha **207** e **5 / 30 / 60**.",
+        "causa": "Mesma causa do Contencioso: é o total institucional rateado (causa 2).",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linhas **207** e **203**; custo das "
+            "áreas nas linhas **5 / 30 / 60**."
+        ),
         "precisamos": None,
     },
     ("arbitragem", "despesa_institucional"): {
-        "causa": "Mesma causa do Contencioso: é o total institucional rateado (causa 1).",
-        "conferir": "Planilha, linha **207** e **5 / 30 / 60**.",
+        "causa": "Mesma causa do Contencioso: é o total institucional rateado (causa 2).",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linhas **207** e **203**; custo das "
+            "áreas nas linhas **5 / 30 / 60**."
+        ),
         "precisamos": None,
     },
     ("contencioso", "despesas_equipe"): {
         "causa": (
-            "A **fórmula deslocada** da planilha (causa 2 do resumo): de janeiro a maio "
-            "cada área soma as despesas da área seguinte. Junho já está com a fórmula "
-            "certa e bate. O que sobra em janeiro são lançamentos que a planilha não "
-            "somou (ver *Despesas Indiretas*)."
+            "A **fórmula deslocada** da planilha (causa 1 do resumo): de janeiro a maio a "
+            "linha 204 soma as linhas de *Eventos*, *Material Gráfico*, *Patrocínio*, "
+            "*Refeições* e *Viagens* uma linha abaixo da sua — pega a do Direito Econômico "
+            "em vez da do Contencioso. Junho já está com a fórmula certa e bate."
         ),
-        "conferir": "Planilha, linhas **204 / 205 / 206**, colunas de janeiro a maio.",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linha **204**: compare a fórmula de "
+            "junho (`=H125+H129+H139+H143+...`) com a de maio (`=G125+G129+G140+G144+...`) — "
+            "as cinco últimas parcelas estão uma linha adiante nos meses de janeiro a maio."
+        ),
         "precisamos": "Vale copiar as fórmulas de junho para janeiro–maio na planilha.",
     },
     ("economico", "despesas_equipe"): {
-        "causa": "A **fórmula deslocada** da planilha (causa 2). Junho está certo e bate.",
-        "conferir": "Planilha, linhas **204 / 205 / 206**, colunas de janeiro a maio.",
+        "causa": (
+            "A **fórmula deslocada** da planilha (causa 1), na linha 205. Junho está certo "
+            "e bate. O acumulado quase se anula (−31,45) porque os meses têm sinais "
+            "opostos — **não** porque a linha esteja certa: fevereiro difere −1.166,75 e "
+            "maio +1.504,72. É o caso que este documento usa para dizer que um total que "
+            "fecha por compensação não está validado."
+        ),
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linha **205**, colunas de janeiro a "
+            "maio (compare com a de junho)."
+        ),
         "precisamos": "Mesma correção de fórmula.",
     },
     ("arbitragem", "despesas_equipe"): {
         "causa": (
-            "A **fórmula deslocada** da planilha (causa 2) — na Arbitragem o efeito é o "
-            "maior dos três. O resíduo de janeiro (+1.204,47) é o **Canal de "
-            "Arbitragem**, que a planilha daquele mês não somou."
+            "A **fórmula deslocada** da planilha (causa 1) — na Arbitragem o efeito é o "
+            "maior dos três, porque a linha 206 é a que perde as parcelas de maior valor. "
+            "O resíduo de janeiro (+1.204,47) é o **Canal de Arbitragem**, que a planilha "
+            "daquele mês não somou."
         ),
-        "conferir": "Planilha, linhas **204 / 205 / 206**, colunas de janeiro a maio.",
+        "conferir": (
+            "Planilha, aba `Base_Resultado Mensal_V2`, linha **206**, colunas de janeiro a "
+            "maio (compare com a de junho)."
+        ),
         "precisamos": "Mesma correção de fórmula.",
     },
     ("contencioso", "resultado_bruto"): {
-        "causa": "Não tem causa própria: é a soma das linhas acima da área (causa 3 do resumo).",
+        "causa": "Não tem causa própria: é a soma das linhas acima da área.",
         "conferir": "Some as linhas 39 a 42 da própria área na planilha.",
         "precisamos": None,
     },
     ("economico", "resultado_bruto"): {
-        "causa": "Não tem causa própria: é a soma das linhas acima da área (causa 3 do resumo).",
+        "causa": "Não tem causa própria: é a soma das linhas acima da área.",
         "conferir": "Some as linhas 57 a 60 da própria área na planilha.",
         "precisamos": None,
     },
     ("arbitragem", "resultado_bruto"): {
-        "causa": "Não tem causa própria: é a soma das linhas acima da área (causa 3 do resumo).",
+        "causa": "Não tem causa própria: é a soma das linhas acima da área.",
         "conferir": "Some as linhas 75 a 78 da própria área na planilha.",
         "precisamos": None,
     },
     ("institucional", "despesas"): {
         "causa": (
-            "Esta linha também explica a Despesa Institucional das três áreas (ela é "
-            "rateada daqui). Somando família por família, as partes dão **exatamente** a "
-            "diferença de cada mês — não sobra centavo:\n\n"
-            "* **Vale do administrativo** (mar −2.199 · abr −2.199 · mai −2.281): a "
-            "planilha lançou as três pessoas em Salários Administração; nós lançamos ali "
-            "só a pessoa do administrativo e mandamos os estagiários para as áreas. Jan, "
-            "fev e jun batem.\n"
-            "* **Aluguel** (abr e mai, +129,17): usamos o aluguel líquido da sublocação "
-            "(crédito Belline).\n"
-            "* **Tarifa bancária** (+4,80/mês): vem do sistema e está zerada no Excel. É "
-            "a única diferença que sobra em junho.\n"
+            "Esta linha também explica a maior parte da Despesa Institucional das três "
+            "áreas (ela é rateada daqui). Somando família por família, as partes dão "
+            "**exatamente** a diferença de cada mês — não sobra centavo. Por mês, o que a "
+            "compõe:\n\n"
+            "* **Vale do administrativo** — a causa dominante em mar (−2.199,08), abr "
+            "(−2.199,20) e mai (−2.280,60). A planilha usa uma base **diferente em cada "
+            "mês** nas linhas 122/123: só a pessoa do administrativo em fev e jun, as três "
+            "pessoas em abr, e nenhuma das duas regras em jan/mar/mai. Nós usamos sempre a "
+            "mesma regra (só a pessoa do administrativo; os estagiários vão para as áreas "
+            "deles), por isso jan/fev/jun batem e os outros não.\n"
+            "* **Janeiro (+1.533,77)**: são duas coisas somadas. As **Associações** "
+            "(+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem "
+            "(1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta "
+            "sem linha na planilha; menos os 35,52 do vale-transporte (ver a pergunta no "
+            "fim do documento) e 0,10 de arredondamento.\n"
+            "* **Fevereiro (+1.249,19)**: o **e-Social** (+1.032,35), outra conta sem linha "
+            "na planilha, mais +217,11 de Administrativas.\n"
+            "* **Janeiro, seguro**: um prêmio **anual** de 2.722,55 (a planilha digita "
+            "182,71 todo mês). Não muda o total desta linha — a planilha põe o prêmio em "
+            "*Administrativas* (linha 133) e nós em Ocupação, e as duas famílias somam na "
+            "linha 198. É por isso que ele **não** aparece na conta de janeiro acima.\n"
+            "* **Aluguel** (abr +19,17 e mai +129,17): usamos o aluguel líquido da "
+            "sublocação (crédito Belline).\n"
+            "* **Tarifa bancária**: existe no sistema e está zerada na planilha (linha "
+            "136). Não é mensal — só mar (37,39) e jun (4,80) nos seis meses. Em junho é a "
+            "**única** diferença que sobra.\n"
             "* **Trocas de família** (Endomarketing ↔ Prospecção, Ocupação ↔ "
             "Administrativas): a mesma conta em famílias diferentes de cada lado, mas as "
-            "duas entram no total — efeito **zero** (ver *Diferenças que não mudam nenhum total*).\n"
-            "* **Janeiro, Associações** (+1.399,87): a planilha não somou a AASP (195,40) "
-            "nem o Canal de Arbitragem (1.204,47), que existem no sistema.\n"
-            "* **Janeiro, seguro** (+2.539,84): é um prêmio **anual**. A conta lança "
-            "2.722,55 em janeiro (de novo em julho); a planilha digita 182,71 todo mês. "
-            "Não falta dinheiro: a planilha põe o prêmio em *Administrativas* (linha 133) "
-            "e nós em Ocupação.\n"
+            "duas entram no total — efeito **zero** (ver *Diferenças de classificação*).\n"
             "* **Março, vale da estagiária** (+543,22): um pagamento de benefícios fora "
             "da conta transitória (Vale Refeição 507,10 + Vale Transporte 36,12, com o "
-            "nome dela no histórico).\n"
-            "* **Duas contas sem linha na planilha**: janeiro **IR Fonte ADM 169,52** e "
-            "fevereiro **e-Social 1.032,35** — lançamentos reais, ausentes do Excel.\n"
+            "nome dela no histórico). É o que faz a família de Salários Administração "
+            "fechar em 0,00 de março a junho, depois de tirado o vale.\n"
             "* **Março**: um curso de Arbitragem (−815,49) que a planilha pôs em "
             "institucional e nós na área; e Informática −237,60 (a planilha usou o valor "
             "bruto, nós o líquido)."
         ),
         "conferir": (
-            "Planilha: linhas **122/123** (vale ADM), **86** (aluguel), **128–131** "
-            "(Associações), **133** (seguro), **158** (curso), **180** (Informática). O "
-            "total é a linha **198** — e, depois de nomear cada item acima, ele fecha sem "
-            "sobra."
+            "Todas na aba `Base_Resultado Mensal_V2`: linhas **122/123** (vale ADM), **86** "
+            "(aluguel), **128–131** (Associações), **133** (seguro), **136** (tarifa "
+            "bancária, zerada), **158** (curso), **180** (Informática). O total é a linha "
+            "**198** — e, depois de nomear cada item acima, ele fecha sem sobra."
         ),
         "precisamos": None,
     },
@@ -395,7 +481,7 @@ def main() -> None:
         for m in months:
             o = _our(assembled[m], section, line) or 0.0
             b = float(sint.cell(wrow, SINT_COL[m]).value or 0.0)
-            cells[m] = (round(o, 2), round(b, 2), round(o - b, 2))
+            cells[m] = (round(o, 2), round(b, 2), _delta(o, b))
         per_month[(section, line)] = cells
         ytd.append((
             section, line, label, wrow,
@@ -404,8 +490,16 @@ def main() -> None:
             round(sum(c[2] for c in cells.values()), 2),
         ))
 
-    materiais = [t for t in ytd if abs(t[6]) >= LIMIAR]
-    menores = [t for t in ytd if abs(t[6]) < LIMIAR and t[6] != 0.0]
+    def _mensais(section: str, line: str) -> list[float]:
+        return [per_month[(section, line)][m][2] for m in months]
+
+    materiais = [t for t in ytd if _material(t[6], _mensais(t[0], t[1]))]
+    menores = [
+        t
+        for t in ytd
+        if not _material(t[6], _mensais(t[0], t[1]))
+        and any(d != 0.0 for d in _mensais(t[0], t[1]))
+    ]
 
     L: list[str] = []
     add = L.append
@@ -420,15 +514,20 @@ def main() -> None:
     add("1. **A receita bate em todos os meses.** Toda diferença está em *despesa*.")
     add(f"2. No acumulado de janeiro a {ult.lower()}, o **Resultado Bruto** difere"
         f" **{_sgn(rb)}** — sobre uma receita de mais de R$ 2 milhões.")
-    add("3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo.")
-    add("4. **Junho fecha** (só a tarifa bancária de R$ 4,80 difere) — é o mês em que a"
-        " planilha já está com as fórmulas certas e inclui o vale. É a referência de como"
-        " os dois lados batem quando ambos estão corretos.")
+    add("3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo. Ter"
+        " causa não é o mesmo que bater: nenhuma delas foi corrigida ainda, e uma —"
+        " a parte MBC do convênio do RB em janeiro — é uma **estimativa nossa**, não um"
+        " valor lançado.")
+    add("4. **Junho fecha**: a única diferença de despesa é a tarifa bancária de R$ 4,80"
+        " (o resto são centavos de arredondamento do recebimento). É o mês em que a"
+        " planilha já está com as fórmulas certas e inclui o vale — a referência de como os"
+        " dois lados batem quando ambos estão corretos.")
     add("")
     add("Cada diferença vem **mês a mês** com a célula da planilha ao lado (aba"
         " `Areas Sintetico atualizado`, colunas " + ", ".join(
-        f"**{abbr[m]}={_col(SINT_COL[m])}**" for m in months) + "). Detalhamos as de"
-        f" **{_brl(LIMIAR)} ou mais**; as menores estão no fim.")
+        f"**{abbr[m]}={_col(SINT_COL[m])}**" for m in months) + "). Detalhamos as que"
+        f" passam de **{_brl(LIMIAR)}** no acumulado **ou em qualquer mês isolado**; as"
+        " menores estão no fim.")
     add("")
 
     # ── What does NOT differ.
@@ -446,15 +545,22 @@ def main() -> None:
 
     add("## As quatro causas")
     add("")
-    add("1. **Fórmula deslocada na planilha** (linhas 204/205/206, janeiro a maio): cada")
-    add("   área soma as despesas da área **seguinte**. Junho já está certo. Move *Despesas")
-    add("   Equipe* e *Despesa Institucional* das três áreas — é ajuste na planilha, não no")
-    add("   sistema.")
+    add("Todas as linhas citadas abaixo estão na aba `Base_Resultado Mensal_V2` da planilha,")
+    add("que é o detalhe por trás dos totais da `Areas Sintetico atualizado`.")
+    add("")
+    add("1. **Fórmula deslocada na planilha** (linhas 204/205/206, janeiro a maio). Cada")
+    add("   uma dessas linhas soma as despesas de uma área; nas cinco últimas parcelas")
+    add("   (*Eventos*, *Material Gráfico*, *Patrocínio*, *Refeições*, *Viagens*) a fórmula")
+    add("   aponta uma linha adiante e pega a da área vizinha. Junho já está certo. Move")
+    add("   *Despesas Equipe* e — por meio da linha 203 — também a *Despesa Institucional*")
+    add("   das três áreas. É ajuste na planilha, não no sistema.")
     add("2. **Despesa Institucional por área é o total institucional dividido entre as**")
     add("   **áreas.** A divisão não cria nem apaga dinheiro; a diferença vem do total (ver")
-    add("   *Despesas Indiretas*).")
-    add("3. **O vale dos advogados** entra no custo da área, e a planilha não o incluiu de")
-    add("   janeiro a maio. Em junho ela incluiu e as três áreas fecham.")
+    add("   *Despesas Indiretas*) e da causa 1, através da linha 203.")
+    add("3. **O vale entra no custo da área, e a planilha varia de mês.** Nos advogados, as")
+    add("   linhas 26/27 (Contencioso) e 56/57 (Econômico) trazem o vale em alguns meses e")
+    add("   ficam zeradas em mar/abr/mai. No administrativo, as linhas 122/123 usam três")
+    add("   bases diferentes ao longo dos seis meses. O sistema usa sempre a mesma regra.")
     add("4. **A anotação do convênio médico fica velha.** A *memória de cálculo* no")
     add("   lançamento diz quanto do plano é da MBC; em jan/fev ela descrevia um plano")
     add("   antigo (o mesmo texto vinha desde 2025, com o plano mudando duas vezes). O")
@@ -463,7 +569,8 @@ def main() -> None:
     add("   estimado.")
     add("")
     add("*Um total que fecha porque dois erros se anulam não está validado — por isso tudo*")
-    add("*aparece mês a mês, não só no acumulado.*")
+    add("*aparece mês a mês, não só no acumulado. Uma linha entra no detalhe abaixo se*")
+    add(f"*passar de {_brl(LIMIAR)} no acumulado **ou** em qualquer mês isolado.*")
     add("")
     add("## Resumo: onde estão as diferenças")
     add("")
@@ -520,6 +627,12 @@ def main() -> None:
         add("Bruto e Líquido dentro de cada bloco; Custos Diretos = as três áreas). Elas")
         add("aparecem aqui só para fechar o acumulado:")
         add("")
+        add("Conferindo: *Custos Diretos* é exatamente a soma dos três *Custo equipe*, mês a")
+        add("mês. Já a soma dos três *Resultado Bruto* por área dá −R$ 5.004,01 contra os")
+        add("−R$ 5.003,04 do Resultado Bruto institucional: os **97 centavos** de diferença")
+        add("são o rateio da Despesa Institucional, que a planilha e o sistema arredondam em")
+        add("pontos diferentes ao dividir o total entre três áreas.")
+        add("")
         add(_hdr("Linha", months, abbr))
         add(_sep(months))
         for section, line, label, _w, _o, _b, _d in sorted(somas, key=_ordem):
@@ -534,10 +647,9 @@ def main() -> None:
         for section, line, label, _w, _o, _b, _d in sorted(menores, key=lambda t: -abs(t[6])):
             add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
         add("")
-        add(f"Somadas: **{_sgn(round(sum(t[6] for t in menores), 2))}** no acumulado. As causas")
-        add("conhecidas são a tarifa bancária, que vem do sistema e está zerada no Excel")
-        add("(R$ 4,80 por mês, conta `020.070.0030`), o vale do administrativo de março a")
-        add("maio (`Base_Resultado` linhas 122 e 123) e centavos de arredondamento.")
+        add(f"Somadas: **{_sgn(round(sum(t[6] for t in menores), 2))}** no acumulado, e"
+            " nenhuma passa de mil reais em nenhum mês isolado — são centavos de")
+        add("arredondamento do recebimento, que a planilha digita em reais inteiros.")
     else:
         add("Nenhuma.")
     add("")
@@ -546,10 +658,19 @@ def main() -> None:
     add("")
     add("### 1. Na planilha: copiar as fórmulas de junho para janeiro–maio")
     add("")
-    add("Nas linhas **204, 205 e 206**, as fórmulas de janeiro a maio somam as despesas da")
-    add("área **seguinte**. As de junho estão corretas — copiá-las para os meses anteriores")
-    add("resolve a maior parte da diferença de *Despesas Equipe* e *Despesa Institucional*")
-    add("das três áreas.")
+    add("Nas linhas **204, 205 e 206** da aba `Base_Resultado Mensal_V2`, as fórmulas de")
+    add("janeiro a maio pegam cinco parcelas da área vizinha. As de junho estão corretas —")
+    add("copiá-las para os meses anteriores corta bem mais da metade do erro mensal de")
+    add("*Despesas Equipe* (de R$ 10.216 para R$ 4.245, somados os seis meses em módulo) e")
+    add("cerca de um terço do de *Despesa Institucional*.")
+    add("")
+    add("⚠ **Isso não fecha o acumulado do Resultado Bruto, e é importante saber disso antes")
+    add("de mexer.** Medimos: a correção quase não move o Resultado Bruto (de R$ 14.175 para")
+    add("R$ 14.009 em erro mensal somado, e o acumulado sai de −R$ 5.003 para −R$ 5.004).")
+    add("O motivo é que a linha **198** — o total institucional, que é o que chega ao")
+    add("Resultado Bruto — não referencia as linhas 204/205/206. A correção arruma a")
+    add("**distribuição entre as áreas**, que é o que ela deve arrumar; o acumulado depende")
+    add("das outras causas.")
     add("")
     add("### 2. No sistema: manter a anotação do convênio atualizada quando o plano mudar")
     add("")
@@ -561,7 +682,8 @@ def main() -> None:
     add("")
     add("### 3. Uma pergunta: de onde vem o R$ 35,52 do vale-transporte de janeiro?")
     add("")
-    add("A célula `C123` traz `=35,52+262,64`. Os **262,64** são o vale-transporte da pessoa")
+    add("Na aba `Base_Resultado Mensal_V2`, a célula `C123` traz `=35,52+262,64`. Os")
+    add("**262,64** são o vale-transporte da pessoa")
     add("do administrativo (14 dias × R$ 18,76) e conferem. Os **35,52** não aparecem em")
     add("nenhum lançamento do sistema — nem em janeiro, nem em nenhum outro mês. Não é")
     add("vale-refeição (o menor do ano é R$ 783,70) e não corresponde a um número inteiro de")
@@ -571,23 +693,43 @@ def main() -> None:
     add("(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Se for de outra")
     add("competência ou um acerto pontual, é só dizer e passamos a tratá-lo da mesma forma.")
     add("")
-    add("## Diferenças que não mudam nenhum total")
+    add("## Diferenças de classificação")
     add("")
-    add("Estas são de classificação: o valor existe nos dois lados, em seções diferentes.")
-    add("Ficam registradas porque **se repetem todo mês** e costumam gerar dúvida.")
+    add("Estas são de **onde** o valor aparece, não de **quanto** ele é: o lançamento existe")
+    add("nos dois lados, em seções diferentes. Ficam registradas porque **se repetem todo")
+    add("mês** e costumam gerar dúvida.")
+    add("")
+    add("Não mudam **nenhum** total — a conta entra na mesma soma dos dois lados:")
+    add("")
+    add("* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta em")
+    add("  famílias diferentes de cada lado; as duas entram na linha 198.")
+    add("* **Prêmio de seguro** — é anual (lançado em janeiro e julho); a planilha o divide")
+    add("  em parcelas mensais e o classifica em *Administrativas* (linha 133), o sistema em")
+    add("  *Ocupação*. Como as duas famílias somam na linha 198, o total não se move.")
+    add("")
+    add("Movem uma linha, mas **não** movem o Resultado Bruto da área — o valor só troca de")
+    add("seção dentro da mesma área, e as duas seções ficam acima do Resultado Bruto:")
+    add("")
+    add("* **AASP** — dentro do Custo equipe na planilha, em Despesa de Área no sistema.")
+    add("  Contencioso, −97,70 em janeiro e −163,06 em fevereiro.")
+    add("")
+    add("Move valor **entre áreas** — some no total, mas cada área sente:")
     add("")
     add("* **ISS trimestral** — o sistema lança por advogado, a planilha numa única linha da")
-    add("  área (efeito no acumulado: R$ 0,04).")
-    add("* **AASP** — dentro do Custo equipe na planilha, em Despesa de Área no sistema.")
-    add("* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta em")
-    add("  famílias diferentes de cada lado; as duas entram no total, efeito zero.")
-    add("* **Vale do administrativo** — a planilha lança as três pessoas em Salários")
-    add("  Administração; o sistema deixa ali só a pessoa do administrativo e manda os")
-    add("  estagiários para o custo das áreas deles.")
-    add("* **Aluguel** — o sistema usa o valor líquido da sublocação (crédito Belline).")
-    add("* **Tarifa bancária** — R$ 4,80/mês, vem do sistema e está zerada no Excel.")
-    add("* **Prêmio de seguro** — é anual (lançado em janeiro e julho); a planilha o divide")
-    add("  em parcelas mensais e o classifica em *Administrativas*, o sistema em *Ocupação*.")
+    add("  área. No acumulado sobra R$ 0,04, mas em abril são −R$ 253,55 no Contencioso e")
+    add("  +R$ 253,59 no Econômico: o Resultado Bruto **de cada área** muda, o institucional")
+    add("  não.")
+    add("")
+    add("Estas duas **mudam** o total e estão contadas nas diferenças acima — ficam aqui só")
+    add("porque também são decisões de método, não erros de nenhum dos lados:")
+    add("")
+    add("* **Vale do administrativo** — a planilha muda de base a cada mês (linhas 122/123:")
+    add("  só a pessoa do administrativo em fev/jun, as três em abril, nenhuma das duas em")
+    add("  jan/mar/mai); o sistema usa sempre a mesma regra, com os estagiários no custo das")
+    add("  áreas deles. Não há o que convergir: aproximar a planilha significaria reproduzir")
+    add("  três regras diferentes.")
+    add("* **Aluguel** — o sistema usa o valor líquido da sublocação (crédito Belline),")
+    add("  a planilha o bruto. Diferença de +R$ 129,17 em abril e maio.")
     add("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
