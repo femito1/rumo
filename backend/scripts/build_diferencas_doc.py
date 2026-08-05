@@ -314,8 +314,8 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "* **Janeiro (+1.533,77)**: são duas coisas somadas. As **Associações** "
             "(+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem "
             "(1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta "
-            "sem linha na planilha; menos os 35,52 do vale-transporte (ver a pergunta no "
-            "fim do documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra "
+            "sem linha na planilha; menos os 35,52 do vale-transporte (item no fim do "
+            "documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra "
             "nesta conta, embora apareça como +2.539,84 em *Ocupação*: ele é cancelado por "
             "−2.539,84 em *Administrativas* (item abaixo).\n"
             "* **Fevereiro (+1.249,19)**: o **e-Social** (+1.032,35), outra conta sem linha "
@@ -1140,6 +1140,10 @@ def main() -> None:
     add("(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Depois de nomear")
     add("tudo o que está neste documento, é o único valor da comparação inteira que não tem um")
     add("lançamento atrás dele.")
+    add("")
+    add("**Ponto encerrado** (definido com o cliente em 05/08/2026): não é para investigar.")
+    add("Fica registrado apenas para que ninguém volte a procurar a origem dele — o valor é")
+    add("de R$ 35,52 e afeta só o vale do administrativo em janeiro.")
     add("")
     add("## Diferenças de classificação")
     add("")

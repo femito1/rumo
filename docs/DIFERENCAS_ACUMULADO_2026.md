@@ -98,7 +98,7 @@ o endereço exato para conferir.
 Esta linha também explica a maior parte da Despesa Institucional das três áreas (ela é rateada daqui). Somando família por família, as partes dão **exatamente** a diferença de cada mês — não sobra centavo. Por mês, o que a compõe:
 
 * **Vale do administrativo** — a causa dominante em mar (−2.199,08), abr (−2.199,20) e mai (−2.280,60). A planilha usa uma base **diferente em cada mês** nas linhas 122/123: só a pessoa do administrativo em fev e jun, as três pessoas em abr, e nenhuma das duas regras em jan/mar/mai. Nós usamos sempre a mesma regra (só a pessoa do administrativo; os estagiários vão para as áreas deles), por isso jan/fev/jun batem e os outros não.
-* **Janeiro (+1.533,77)**: são duas coisas somadas. As **Associações** (+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem (1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta sem linha na planilha; menos os 35,52 do vale-transporte (ver a pergunta no fim do documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra nesta conta, embora apareça como +2.539,84 em *Ocupação*: ele é cancelado por −2.539,84 em *Administrativas* (item abaixo).
+* **Janeiro (+1.533,77)**: são duas coisas somadas. As **Associações** (+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem (1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta sem linha na planilha; menos os 35,52 do vale-transporte (item no fim do documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra nesta conta, embora apareça como +2.539,84 em *Ocupação*: ele é cancelado por −2.539,84 em *Administrativas* (item abaixo).
 * **Fevereiro (+1.249,19)**: o **e-Social** (+1.032,35), outra conta sem linha na planilha, mais +217,11 de Administrativas.
 * **Janeiro, seguro — o caso que mais gera dúvida.** *Ocupação* difere +2.539,84 em janeiro e **esse número não aparece em nenhuma linha de Ocupação**, de lado nenhum. O motivo: temos uma conta só, *Seguros* 2.722,55, e a planilha usa duas linhas em **famílias diferentes** — *Seguro Locação* (linha 91, em Ocupação) 182,71 **mais** *Seguro de Responsabilidade Civil* (linha 133, em **Administrativas**) 2.539,84. As duas somam exatamente os nossos 2.722,55. Como a linha 133 está em Administrativas, ela falta em Ocupação (+2.539,84) e sobra em Administrativas (−2.539,84): as duas se cancelam na linha 198 e o total não se move. É também por isso que o prêmio não entra na conta de janeiro acima. Na tabela *Conta por conta* isto está na coluna *Onde está o resto*.
 * **Administrativas (linha 124), mês a mês.** É a família que mistura mais mecanismos, então vai inteira:
@@ -470,6 +470,10 @@ Também não é um pedaço que falte do nosso número: o vale-transporte de jane
 (R$ 262,64) já está completo, então os 35,52 estão somados por cima. Depois de nomear
 tudo o que está neste documento, é o único valor da comparação inteira que não tem um
 lançamento atrás dele.
+
+**Ponto encerrado** (definido com o cliente em 05/08/2026): não é para investigar.
+Fica registrado apenas para que ninguém volte a procurar a origem dele — o valor é
+de R$ 35,52 e afeta só o vale do administrativo em janeiro.
 
 ## Diferenças de classificação
 

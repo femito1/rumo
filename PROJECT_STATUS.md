@@ -83,9 +83,15 @@ fooled this codebase before:
   out-of-sample confirmation on 2025 — **that was wrong** (the 2025 number it matched is the
   memo's *subtrahend*, a different quantity) and is corrected in the audit script.
 
-**The client list is down to one item:** the R$35,52 typed into `C123`, which exists in no
-field of 32 months of snapshots. Kept as an open question at the user's request. The convênio
-notes item is **withdrawn** — we no longer need it.
+**The client list is now EMPTY.** It was down to one item — the R$35,52 typed into `C123`,
+which exists in no field of 32 months of snapshots — and on **2026-08-05 the client closed it
+("don't worry about it")** when asked in a meeting. Do not re-raise or investigate it; the
+differences document keeps the item marked *"Ponto encerrado"* purely so nobody hunts its
+origin again. The convênio notes item was already **withdrawn** (we no longer need it).
+
+The one thing a client answer could still improve is not on any list because they were never
+asked: the **parte MBC do convênio do RB em janeiro** (~R$ 790) is our own derived estimate,
+not a posted value. Raise it only if a conversation makes it natural.
 
 Backend **301** tests, frontend **72**; all gates clean.
 
@@ -243,7 +249,9 @@ each month reads as a pair of counts, and the VR−VT gap is **+3 to +5 in every
 (jan +4 · fev +4 · mar +3 · abr +4 · mai +3 · jun +5) — VR for every worked day, VT only for
 days actually commuted. Use it to sanity-check any vale figure before investigating.
 
-**`35,52` (January) is the only thing left, and we now know what it is NOT.** The most
+**`35,52` (January) is the only thing left, and we now know what it is NOT.** *(Historical —
+the client closed this item on 2026-08-05, see the top section. The exclusions below are still
+the record of what it is not, and are why we know we are not missing a vale.)* The most
 attractive hypothesis was a **typo**: 2 days of MLA's VT is `2 × 18,76 = 37,52`, and
 `262,64 + 37,52 = 300,16` is exactly 16 days — a round number one digit from the cell.
 **The day-count test refutes it:** at 16 days January's gap would be **+2**, which occurs in
@@ -265,7 +273,9 @@ text lives. That calculation currently exists only in the raw extrato export; wi
 SUBSTR would make this whole class of question answerable from the snapshot.
 
 **So the client list is down to two items, one of which is a typo-level fix:** update the
-two stale SISJURI convênio notes, and tell us where R$35,52 came from.
+two stale SISJURI convênio notes, and tell us where R$35,52 came from. *(Both since resolved:
+the convênio notes item was withdrawn when the share became derived, and the client closed
+the R$35,52 on 2026-08-05. The client list is empty — see the top section.)*
 
 ---
 
