@@ -11,6 +11,8 @@ Comparação da planilha `Fechamento MBC 06.2026.xlsx` com os números do sistem
 
 Cada diferença vem **mês a mês** com a célula da planilha ao lado (aba `Areas Sintetico atualizado`, colunas **Jan=C**, **Fev=G**, **Mar=K**, **Abr=O**, **Mai=S**, **Jun=W**). Detalhamos as que passam de **R$ 1.000,00** no acumulado **ou em qualquer mês isolado**; as menores estão no fim.
 
+Nas **Despesas Indiretas** — a linha que puxa também a Despesa Institucional das três áreas — a diferença é aberta até a **conta**: quais despesas, com que valor, em cada mês, dos dois lados. Quem quiser conferir um número específico deve ir direto a *Quais despesas, mês a mês* e *Conta por conta, onde há diferença*.
+
 ## O que NÃO difere
 
 | Linha | Jan | Fev | Mar | Abr | Mai | Jun | Acumulado |
@@ -105,6 +107,112 @@ Esta linha também explica a maior parte da Despesa Institucional das três áre
 
 *Conferir:* Todas na aba `Base_Resultado Mensal_V2`: linhas **122/123** (vale ADM), **86** (aluguel), **128–131** (Associações), **133** (seguro), **136** (tarifa bancária, zerada), **158** (curso), **180** (Informática). O total é a linha **198** — e, depois de nomear cada item acima, ele fecha sem sobra.
 
+#### Quais despesas, mês a mês
+
+As dez famílias de despesa institucional, com a diferença de cada uma em cada mês.
+Elas somam exatamente o total dos dois lados — a linha **198** na planilha e a
+*Despesas* no sistema — então esta tabela é a diferença inteira, sem resto.
+
+| Família (linha) | Jan | Fev | Mar | Abr | Mai | Jun | Acumulado |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Ocupação (r85) | +R$ 2.539,84 | -R$ 0,29 | R$ 0,00 ✓ | +R$ 129,17 | +R$ 129,17 | R$ 0,00 ✓ | **+R$ 2.797,89** |
+| Telecomunicações (r92) | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | **R$ 0,00** |
+| Despesas Gerais (r95) | -R$ 0,10 | R$ 0,00 ✓ | +R$ 105,00 | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | **+R$ 104,90** |
+| Consultoria (r110) | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | **R$ 0,00** |
+| Salários Administração (r116) | +R$ 134,00 | +R$ 1.032,35 | -R$ 2.199,08 | -R$ 2.199,20 | -R$ 2.280,60 | R$ 0,00 ✓ | **-R$ 5.512,53** |
+| Administrativas (r124) | -R$ 1.139,97 | +R$ 217,40 | +R$ 37,39 | -R$ 110,00 | R$ 0,00 ✓ | +R$ 4,80 | **-R$ 990,38** |
+| Investimentos em Prospecção (r137) | -R$ 1.317,71 | -R$ 1.166,75 | +R$ 162,09 | -R$ 200,00 | R$ 0,00 ✓ | R$ 0,00 ✓ | **-R$ 2.522,37** |
+| Gestão do Conhecimento (r158) | R$ 0,00 ✓ | R$ 0,00 ✓ | -R$ 815,49 | +R$ 200,00 | R$ 0,00 ✓ | R$ 0,00 ✓ | **-R$ 615,49** |
+| Endomarketing (r164) | +R$ 1.317,71 | +R$ 1.166,75 | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | R$ 0,00 ✓ | **+R$ 2.484,46** |
+| Informática (r180) | R$ 0,00 ✓ | -R$ 0,27 | -R$ 237,60 | +R$ 110,00 | R$ 0,00 ✓ | R$ 0,00 ✓ | **-R$ 127,87** |
+| **Total** |  |  |  |  |  |  | **-R$ 4.381,39** |
+
+Batem em todos os meses as famílias que não aparecem abaixo. As que diferem em
+algum mês são *Ocupação*, *Despesas Gerais*, *Salários Administração*, *Administrativas*, *Investimentos em Prospecção*, *Gestão do Conhecimento*, *Endomarketing*, *Informática* — e para cada uma delas os lançamentos vêm a seguir.
+
+#### Conta por conta, onde há diferença
+
+Para cada família e mês que difere: as contas de cada lado, já **descontadas as que
+batem**. Ou seja, o que está listado é exatamente o que explica aquela diferença —
+nada mais. Quando um valor aparece só de um lado, é porque a conta existe só ali ou
+está somada de outra forma (a planilha divide algumas contas por área, o sistema as
+mantém unidas; o inverso também acontece).
+
+A conta fecha em cada linha: **(soma do sistema) − (soma da planilha) = diferença**,
+e os subtotais estão na tabela para que dê para conferir sem somar à mão.
+
+**Ocupação** — linha 85 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | r91 Seguro Locação · R$ 182,71 | R$ 182,71 | Seguros · R$ 2.722,55 | R$ 2.722,55 | 3 | +R$ 2.539,84 |
+| Fevereiro | r91 Seguro Locação · R$ 183,00 | R$ 183,00 | Seguros · R$ 182,71 | R$ 182,71 | 4 | -R$ 0,29 |
+| Abril | r86 Aluguel · R$ 23.137,56 | R$ 23.137,56 | Aluguel · R$ 23.266,73 | R$ 23.266,73 | 4 | +R$ 129,17 |
+| Maio | r86 Aluguel · R$ 24.230,60 | R$ 24.230,60 | Aluguel · R$ 24.359,77 | R$ 24.359,77 | 4 | +R$ 129,17 |
+
+**Despesas Gerais** — linha 95 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | r102 Manutenção ar condicionado · R$ 919,76<br>r104 Manutenção do Jardim · R$ 836,00<br>r106 Material de Higiene e Copa · R$ 995,49 | R$ 2.751,25 | Material de Copa/Higiene · R$ 995,39<br>Manutenção do Escritório · R$ 1.755,76 | R$ 2.751,15 | 3 | -R$ 0,10 |
+| Março | r102 Manutenção ar condicionado · R$ 919,76<br>r104 Manutenção do Jardim · R$ 919,60 | R$ 1.839,36 | Manutenção do Escritório · R$ 1.839,36<br>Estacionamento · R$ 105,00 | R$ 1.944,36 | 3 | +R$ 105,00 |
+
+**Salários Administração** — linha 116 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | r122 Vale Refeição- ADM · R$ 829,80<br>r123 Vale Transporte · R$ 298,16 | R$ 1.127,96 | IR Fonte - ADM · R$ 169,52<br>Vale Refeição/Transporte - ADM · R$ 1.092,44 | R$ 1.261,96 | 3 | +R$ 134,00 |
+| Fevereiro | r122 Vale Refeição- ADM · R$ 1.014,20<br>r123 Vale Transporte · R$ 337,68 | R$ 1.351,88 | Relatórios trabalhistas - e-Social · R$ 1.032,35<br>Vale Refeição/Transporte - ADM · R$ 1.351,88 | R$ 2.384,23 | 2 | +R$ 1.032,35 |
+| Março | r122 Vale Refeição- ADM · R$ 2.766,00<br>r123 Vale Transporte · R$ 1.217,22 | R$ 3.983,22 | Vale Refeição · R$ 507,10<br>Vale Transporte · R$ 36,12<br>Vale Refeição/Transporte - ADM · R$ 1.240,92 | R$ 1.784,14 | 2 | -R$ 2.199,08 |
+| Abril | r122 Vale Refeição- ADM · R$ 2.766,00<br>r123 Vale Transporte · R$ 655,36 | R$ 3.421,36 | Vale Refeição/Transporte - ADM · R$ 1.222,16 | R$ 1.222,16 | 2 | -R$ 2.199,20 |
+| Maio | r122 Vale Refeição- ADM · R$ 2.719,90<br>r123 Vale Transporte · R$ 607,04 | R$ 3.326,94 | Vale Refeição/Transporte - ADM · R$ 1.046,34 | R$ 1.046,34 | 3 | -R$ 2.280,60 |
+
+**Administrativas** — linha 124 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 700,10<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 700,10<br>r133 Seguro de Responsabilidade Civil · R$ 2.539,84 | R$ 3.940,04 | Associações · R$ 2.800,06 | R$ 2.800,06 | 1 | -R$ 1.139,97 ¹ |
+| Fevereiro | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.129,32<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 6.892,33 | Associações · R$ 7.109,73 | R$ 7.109,73 | 0 | +R$ 217,40 |
+| Março | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.346,72<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 7.109,73 | Associações · R$ 7.109,73<br>Tarifas e Taxas Bancárias · R$ 37,39 | R$ 7.147,12 | 0 | +R$ 37,39 |
+| Abril | r128 Assinaturas - Institucional (ADOBE e Valor) · R$ 110,00<br>r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.346,72<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 7.219,73 | Associações · R$ 7.109,73 | R$ 7.109,73 | 1 | -R$ 110,00 |
+| Junho | r125 Assinaturas - Contencioso (AASP) · R$ 217,40<br>r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 700,10<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 700,10<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 1.257,35 | R$ 2.874,95 | Associações · R$ 2.874,94<br>Tarifas e Taxas Bancárias · R$ 4,80 | R$ 2.879,74 | 1 | +R$ 4,80 ¹ |
+
+**Investimentos em Prospecção** — linha 137 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | r139 Eventos e Happy hour - Contencioso · R$ 146,00<br>r141 Eventos e Happy hour - Institucional · R$ 1.171,71 | R$ 1.317,71 | — | R$ 0,00 | 0 | -R$ 1.317,71 |
+| Fevereiro | r141 Eventos e Happy hour - Institucional · R$ 1.166,75 | R$ 1.166,75 | — | R$ 0,00 | 0 | -R$ 1.166,75 |
+| Março | — | R$ 0,00 | Deslocamento e Transportes Prospecção · R$ 162,09 | R$ 162,09 | 1 | +R$ 162,09 |
+| Abril | r140 Eventos e Happy hour - Direito Econômico · R$ 200,00<br>r150 Refeições - Arbitragem e Compliance · R$ 835,74<br>r152 Refeições - Direito Econômico · R$ 102,20 | R$ 1.137,94 | Refeições Prospecção · R$ 937,94 | R$ 937,94 | 1 | -R$ 200,00 |
+
+**Gestão do Conhecimento** — linha 158 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Março | r159 Cursos e Treinamentos - Arbitragem e Compliance · R$ 1.094,49 | R$ 1.094,49 | Cursos / Treinamento Jurídico · R$ 279,00 | R$ 279,00 | 0 | -R$ 815,49 |
+| Abril | r160 Cursos e Treinamentos - Contencioso · R$ 1.450,00 | R$ 1.450,00 | Cursos / Treinamento Jurídico · R$ 1.650,00 | R$ 1.650,00 | 0 | +R$ 200,00 |
+
+**Endomarketing** — linha 164 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Janeiro | — | R$ 0,00 | Eventos e Happy Hour · R$ 1.317,71 | R$ 1.317,71 | 0 | +R$ 1.317,71 |
+| Fevereiro | — | R$ 0,00 | Eventos e Happy Hour · R$ 1.166,75 | R$ 1.166,75 | 0 | +R$ 1.166,75 |
+
+**Informática** — linha 180 da planilha
+
+| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem | Diferença |
+|---|---|---:|---|---:|---:|---:|
+| Fevereiro | r185 Licenças de Uso de Software - Institucional · R$ 12.193,48<br>r189 Suporte Totvs · R$ 3.387,47 | R$ 15.580,95 | Licenças de Uso de Software · R$ 15.580,68 | R$ 15.580,68 | 1 | -R$ 0,27 |
+| Março | r185 Licenças de Uso de Software - Institucional · R$ 12.148,80<br>r188 Suporte de Informática · R$ 2.040,00<br>r189 Suporte Totvs · R$ 2.917,77 | R$ 17.106,57 | Serviços de Informática · R$ 9.252,45<br>Licenças de Uso de Software · R$ 7.616,52 | R$ 16.868,97 | 0 | -R$ 237,60 |
+| Abril | r185 Licenças de Uso de Software - Institucional · R$ 11.533,41<br>r188 Suporte de Informática · R$ 2.040,00<br>r189 Suporte Totvs · R$ 2.917,77<br>r190 Microcomputadores / Servidores · R$ 1.166,69 | R$ 17.657,87 | Serviços de Informática · R$ 9.252,45<br>Microcomputadores / Servidores · R$ 904,68<br>Impressoras e Periféricos · R$ 262,01<br>Licenças de Uso de Software · R$ 7.348,73 | R$ 17.767,87 | 1 | +R$ 110,00 |
+
+¹ Nestas linhas (Administrativas / Janeiro, Administrativas / Junho) os subtotais reconstroem a diferença
+com **um centavo** de folga: a planilha divide a conta de Associações entre as
+três áreas e cada parte carrega meio centavo, que reaparece ao somar. Não é
+dinheiro faltando — é arredondamento da própria divisão.
+
 ### Econômico · Custo equipe — +R$ 4.330,76 no acumulado
 
 | Mês | Célula | Planilha | Sistema | Diferença |
@@ -172,6 +280,38 @@ O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área, e 
 Duas coisas se somam aqui. A maior parte vem do **total** (a linha 198, detalhada em *Despesas Indiretas*). O resto vem da **fórmula deslocada** (causa 1): o que se rateia é o total **menos** as despesas das áreas (linha 207 = 198 − 203), e a linha 203 é a soma das linhas 204/205/206 — as mesmas que estão erradas de janeiro a maio. Por isso a soma das três áreas não é igual à diferença do total nesses meses: em abril, por exemplo, as áreas somam −3.394,34 contra −2.070,03 do total, e os R$ 1.324,31 de diferença são exatamente o erro da linha 203.
 
 *Conferir:* Planilha, aba `Base_Resultado Mensal_V2`: linha **207** (total a ratear = 198 − 203) e linha **203**. O custo de cada área, que dá a proporção do rateio, está nas linhas **5 / 30 / 60** da mesma aba.
+
+#### De onde sai a Despesa Institucional de cada área
+
+O rateio tem só duas entradas: o **valor a ratear** (linha 207 = 198 − 203) e a
+**parte de cada área no Custo equipe** (linhas 5 / 30 / 60). Multiplicando as duas
+chega-se ao número de cada área, ao centavo, nos dois lados. A tabela mostra as
+duas entradas para que se veja qual delas causa a diferença em cada mês.
+
+| Mês | A ratear (planilha) | A ratear (sistema) | Diferença |
+|---|---:|---:|---:|
+| Janeiro | R$ 97.103,51 | R$ 98.769,12 | +R$ 1.665,61 |
+| Fevereiro | R$ 86.988,31 | R$ 89.186,85 | +R$ 2.198,54 |
+| Março | R$ 93.764,68 | R$ 89.843,76 | -R$ 3.920,92 |
+| Abril | R$ 101.209,18 | R$ 97.814,85 | -R$ 3.394,33 |
+| Maio | R$ 99.730,65 | R$ 97.365,22 | -R$ 2.365,43 |
+| Junho | R$ 90.812,09 | R$ 90.816,89 | +R$ 4,80 |
+
+E a parte de cada área (percentual do Custo equipe total):
+
+| Mês | Contencioso | Econômico | Arbitragem |
+|---|---|---|---|
+| Janeiro | 34,83% → 34,95% | 35,81% → 35,56% | 29,36% → 29,49% |
+| Fevereiro | 35,19% → 34,84% | 36,33% → 36,02% | 28,48% → 29,14% |
+| Março | 36,78% → 36,72% | 38,39% → 38,90% | 24,83% → 24,38% |
+| Abril | 35,97% → 35,78% | 37,77% → 38,41% | 26,26% → 25,81% |
+| Maio | 35,65% → 36,02% | 38,20% → 37,99% | 26,15% → 25,99% |
+| Junho | 35,86% → 35,86% | 38,29% → 38,29% | 25,85% → 25,85% |
+
+Lê-se *planilha → sistema*. Em junho os percentuais são idênticos e as três áreas
+batem; nos outros meses a diferença de cada área vem das duas entradas juntas — o
+valor a ratear (que é a linha 198, detalhada acima, menos a linha 203, afetada pela
+fórmula deslocada) e a parte de cada área, que muda quando o Custo equipe muda.
 
 ### Contencioso · Despesas Equipe — -R$ 2.162,24 no acumulado
 

@@ -16,9 +16,23 @@ Reads the LIVE snapshots + the June workbook and derives the per-área YTD from 
 PRODUCTION ``assemble_dre_sections`` — never a re-implementation, so the document cannot
 drift from what the app shows. Re-run it after any re-extract.
 
-Materiality: R$ 1.000 on the YTD. The client's words: R$ 4,80 does not matter, R$ 1.900
-does. Everything below the line is summed and named as a remainder rather than dropped, so
-"small" never reads as "unexamined".
+Materiality: R$ 1.000 on the YTD **or on any single month** (see ``_material`` for why the
+second half is not optional). The client's words: R$ 4,80 does not matter, R$ 1.900 does.
+Everything below the line is summed and named as a remainder rather than dropped, so "small"
+never reads as "unexamined".
+
+**A line-level delta is not an answer.** "Despesa Institucional differs by R$ 1.400" tells
+finance that something moved, not what — so the two biggest despesa lines are decomposed all
+the way down and the reader can redo the arithmetic:
+
+* ``_detalhe_despesas`` — every despesa family in both columns for every month, then, for
+  each family+month that differs, the individual accounts on each side with the agreeing
+  ones already netted out and subtotals printed. Safe to present as complete because both
+  sides reconcile exactly: the ten families sum to the workbook's r198 and to our own
+  *Despesas*, and each family's leaves sum to its own header, in all six months.
+* ``_detalhe_rateio`` — the two inputs behind every per-área Despesa Institucional (the pool
+  and each área's Custo-equipe share), which reproduce the printed number to the centavo on
+  both sides. That converts three opaque per-área lines into checkable arithmetic.
 
 Run: cd backend && python -m scripts.build_diferencas_doc
 Writes: docs/DIFERENCAS_ACUMULADO_2026.md
@@ -62,6 +76,7 @@ def _material(ytd: float, mensais: list[float], limiar: float = LIMIAR) -> bool:
     """
     return abs(ytd) >= limiar or any(abs(d) >= limiar for d in mensais)
 
+
 #: Lines that are SUMS of other lines in this document. They carry the biggest deltas, so
 #: sorting purely by size would open with three "consequência das linhas acima" entries
 #: before the reader has seen a single cause. These are ordered last.
@@ -91,6 +106,24 @@ MESES = {1: "Janeiro", 2: "Fevereiro", 3: "Março", 4: "Abril", 5: "Maio", 6: "J
 SINT_COL = {1: 3, 2: 7, 3: 11, 4: 15, 5: 19, 6: 23}
 #: 'Base_Resultado Mensal_V2' month column (the detail behind the sintetico totals).
 BASE_COL = {1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8}
+
+#: Our despesa family name -> (workbook family HEADER row, first row AFTER the family) in
+#: 'Base_Resultado Mensal_V2'. Read off the sheet, and verified two ways before use: the ten
+#: headers sum to r198 on the workbook side and to our ``despesas`` on ours, and inside each
+#: family the leaf rows sum to their own header in all six months. That is what makes an
+#: account-level table trustworthy rather than suggestive.
+FAMILIAS: dict[str, tuple[int, int]] = {
+    "Ocupação": (85, 92),
+    "Telecomunicações": (92, 95),
+    "Despesas Gerais": (95, 110),
+    "Consultoria": (110, 116),
+    "Salários Administração": (116, 124),
+    "Administrativas": (124, 137),
+    "Investimentos em Prospecção": (137, 158),
+    "Gestão do Conhecimento": (158, 164),
+    "Endomarketing": (164, 168),
+    "Informática": (180, 191),
+}
 
 #: (our section, our line key, label, sintetico row).
 LINHAS: tuple[tuple[str, str, str, int], ...] = (
@@ -359,6 +392,12 @@ def _col(idx: int) -> str:
     return get_column_letter(idx)
 
 
+def _pct(frac: float) -> str:
+    """A share the Brazilian way: ``34,95%``. The whole document is PT-BR; a decimal
+    point in a percentage next to ``R$ 1.234,56`` reads as a thousands separator."""
+    return f"{frac * 100:.2f}".replace(".", ",") + "%"
+
+
 def _hdr(first: str, months: list[int], abbr: dict[int, str]) -> str:
     return f"| {first} | " + " | ".join(abbr[m] for m in months) + " | Acumulado |"
 
@@ -394,6 +433,253 @@ def _row_deltas(
         out.append(f"{_sgn(d)} ✓" if abs(d) < 0.005 else _sgn(d))
     soma = round(sum(cells[m][2] for m in months), 2)
     return f"| {label} | " + " | ".join(out) + f" | **{_sgn(soma)}** |"
+
+
+def _num(cell: Any) -> float:
+    """A workbook cell as money. Blank rows and the odd stray ``'  '`` read as zero."""
+    v = cell.value if hasattr(cell, "value") else cell
+    return float(v) if isinstance(v, (int, float)) else 0.0
+
+
+def _folhas_planilha(base: Any, familia: str, m: int) -> list[tuple[str, float, int]]:
+    """The workbook's own leaf rows under a family, for one month: (label, value, row)."""
+    lo, hi = FAMILIAS[familia]
+    out = []
+    for r in range(lo + 1, hi):
+        rot = base.cell(r, 1).value or base.cell(r, 2).value
+        v = round(_num(base.cell(r, BASE_COL[m])), 2)
+        if rot and abs(v) >= 0.005:
+            out.append((" ".join(str(rot).split()), v, r))
+    return out
+
+
+def _folhas_nossas(assembled: dict[str, Any], familia: str) -> list[tuple[str, float]]:
+    """Our own per-account rows under a family, for one month: (label, value)."""
+    out = []
+    for row in (assembled.get("institucional") or {}).get("rows") or []:
+        if str(row.get("key") or "").startswith(f"acct::{familia}::"):
+            cell = row.get("Realizado")
+            v = cell.get("value") if isinstance(cell, dict) else cell
+            if isinstance(v, (int, float)) and abs(round(float(v), 2)) >= 0.005:
+                out.append((" ".join(str(row.get("Linha")).split()), round(float(v), 2)))
+    return out
+
+
+def _conciliar(
+    nossas: list[tuple[str, float]], planilha: list[tuple[str, float, int]]
+) -> tuple[int, list[tuple[str, float]], list[tuple[str, float, int]]]:
+    """Match leaves BY VALUE inside one family+month; return (matched, only-ours, only-book).
+
+    Matching by LABEL is not available: the two sides genuinely name accounts differently
+    (our single *Serviços de Informática* is the book's *Suporte de Informática* + *Suporte
+    Totvs*; the book splits *Associações* three ways by área where we keep one account).
+    Inventing a label join would produce confident-looking rows that are simply wrong, so
+    equal values are treated as the same lançamento and everything else is reported as
+    unmatched — which is precisely the list a finance reader wants to see.
+    """
+    from collections import Counter
+
+    comuns = Counter(v for _, v, _ in planilha) & Counter(v for _, v in nossas)
+    resta = Counter(comuns)
+    so_nossas = []
+    for nome, v in nossas:
+        if resta[v] > 0:
+            resta[v] -= 1
+        else:
+            so_nossas.append((nome, v))
+    resta = Counter(comuns)
+    so_planilha = []
+    for nome, v, r in planilha:
+        if resta[v] > 0:
+            resta[v] -= 1
+        else:
+            so_planilha.append((nome, v, r))
+    return sum(comuns.values()), so_nossas, so_planilha
+
+
+def _detalhe_despesas(
+    assembled: dict[int, dict[str, Any]],
+    base: Any,
+    months: list[int],
+    abbr: dict[int, str],
+) -> list[str]:
+    """Which despesas, with which numbers, per month — down to the account.
+
+    A line-level delta says *that* something moved; finance needs *what*. The prose above
+    already names the causes, but a reader who wants to check one has to trust the prose.
+    This puts the whole grid on the page: every despesa family in both columns for every
+    month, and then, for each family and month that differs, the individual accounts on
+    each side with the ones that agree already netted out.
+
+    Both sides reconcile exactly — the ten families sum to the workbook's r198 and to our
+    own *Despesas*, and each family's leaves sum to its header — so nothing here is a
+    partial view or an estimate. Accounts are matched by VALUE, not label (see
+    ``_conciliar``).
+    """
+    out: list[str] = []
+    add = out.append
+
+    def nossa(m: int, fam: str) -> float:
+        for row in (assembled[m].get("institucional") or {}).get("rows") or []:
+            if row.get("key") == f"sec::{fam}":
+                cell = row.get("Realizado")
+                v = cell.get("value") if isinstance(cell, dict) else cell
+                return float(v) if isinstance(v, (int, float)) else 0.0
+        return 0.0
+
+    def livro(m: int, fam: str) -> float:
+        return _num(base.cell(FAMILIAS[fam][0], BASE_COL[m]))
+
+    add("#### Quais despesas, mês a mês")
+    add("")
+    add("As dez famílias de despesa institucional, com a diferença de cada uma em cada mês.")
+    add("Elas somam exatamente o total dos dois lados — a linha **198** na planilha e a")
+    add("*Despesas* no sistema — então esta tabela é a diferença inteira, sem resto.")
+    add("")
+    add(_hdr("Família (linha)", months, abbr))
+    add(_sep(months))
+    difere: list[tuple[str, list[int]]] = []
+    for fam, (hrow, _fim) in FAMILIAS.items():
+        cells = {m: (round(nossa(m, fam), 2), round(livro(m, fam), 2)) for m in months}
+        ds = {m: _delta(*cells[m]) for m in months}
+        meses_com_dif = [m for m in months if abs(ds[m]) >= 0.005]
+        if meses_com_dif:
+            difere.append((fam, meses_com_dif))
+        celulas = " | ".join(
+            f"{_sgn(ds[m])} ✓" if abs(ds[m]) < 0.005 else _sgn(ds[m]) for m in months
+        )
+        add(f"| {fam} (r{hrow}) | {celulas} | **{_sgn(round(sum(ds.values()), 2))}** |")
+    total = round(
+        sum(_delta(nossa(m, f), livro(m, f)) for m in months for f in FAMILIAS), 2
+    )
+    add("| **Total** | " + " | ".join("" for _ in months) + f" | **{_sgn(total)}** |")
+    add("")
+    tocadas = ", ".join(f"*{f}*" for f, _ in difere)
+    add("Batem em todos os meses as famílias que não aparecem abaixo. As que diferem em")
+    add(f"algum mês são {tocadas} — e para cada uma delas os lançamentos vêm a seguir.")
+    add("")
+
+    add("#### Conta por conta, onde há diferença")
+    add("")
+    add("Para cada família e mês que difere: as contas de cada lado, já **descontadas as que")
+    add("batem**. Ou seja, o que está listado é exatamente o que explica aquela diferença —")
+    add("nada mais. Quando um valor aparece só de um lado, é porque a conta existe só ali ou")
+    add("está somada de outra forma (a planilha divide algumas contas por área, o sistema as")
+    add("mantém unidas; o inverso também acontece).")
+    add("")
+    add("A conta fecha em cada linha: **(soma do sistema) − (soma da planilha) = diferença**,")
+    add("e os subtotais estão na tabela para que dê para conferir sem somar à mão.")
+    add("")
+    centavos: list[str] = []
+    for fam, meses_com_dif in difere:
+        add(f"**{fam}** — linha {FAMILIAS[fam][0]} da planilha")
+        add("")
+        add(
+            "| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem |"
+            " Diferença |"
+        )
+        add("|---|---|---:|---|---:|---:|---:|")
+        for m in meses_com_dif:
+            nossas = _folhas_nossas(assembled[m], fam)
+            livres = _folhas_planilha(base, fam, m)
+            batem, so_nossas, so_livro = _conciliar(nossas, livres)
+            d = _delta(round(nossa(m, fam), 2), round(livro(m, fam), 2))
+            sp = round(sum(v for _, v, _ in so_livro), 2)
+            sn = round(sum(v for _, v in so_nossas), 2)
+            esq = (
+                "<br>".join(f"r{r} {nome} · {_brl(v)}" for nome, v, r in so_livro) or "—"
+            )
+            dir_ = "<br>".join(f"{nome} · {_brl(v)}" for nome, v in so_nossas) or "—"
+            # The listed parts must reconstruct the family delta. Where they miss by a
+            # centavo it is the workbook carrying a half-centavo inside an account it
+            # splits by área; say so on the spot instead of printing a row that does not
+            # add up.
+            nota = ""
+            if abs(round(sn - sp, 2) - d) >= 0.005:
+                nota = " ¹"
+                centavos.append(f"{fam} / {MESES[m]}")
+            add(
+                f"| {MESES[m]} | {esq} | {_brl(sp)} | {dir_} | {_brl(sn)} | {batem} |"
+                f" {_sgn(d)}{nota} |"
+            )
+        add("")
+    if centavos:
+        add(f"¹ Nestas linhas ({', '.join(centavos)}) os subtotais reconstroem a diferença")
+        add("com **um centavo** de folga: a planilha divide a conta de Associações entre as")
+        add("três áreas e cada parte carrega meio centavo, que reaparece ao somar. Não é")
+        add("dinheiro faltando — é arredondamento da própria divisão.")
+        add("")
+    return out
+
+
+def _detalhe_rateio(
+    assembled: dict[int, dict[str, Any]],
+    base: Any,
+    sint: Any,
+    months: list[int],
+) -> list[str]:
+    """The two inputs behind every per-área Despesa Institucional, on both sides.
+
+    "É o total rateado" is true but unverifiable as prose. The rateio has exactly two
+    inputs — the pool and each área's share of Custo equipe — and multiplying them
+    reproduces the printed number to the centavo on BOTH sides, in all six months. Showing
+    them side by side turns three opaque per-área lines into arithmetic the reader can
+    redo, and makes visible which of the two inputs is actually responsible in each month.
+    """
+    out: list[str] = []
+    add = out.append
+    AREAS_R = (
+        ("contencioso", "Contencioso", 5),
+        ("economico", "Econômico", 30),
+        ("arbitragem", "Arbitragem", 60),
+    )
+
+    def our(m: int, sec: str, line: str) -> float:
+        for row in (assembled[m].get(sec) or {}).get("rows") or []:
+            if row.get("key") == line:
+                cell = row.get("Realizado")
+                v = cell.get("value") if isinstance(cell, dict) else cell
+                return float(v) if isinstance(v, (int, float)) else 0.0
+        return 0.0
+
+    add("#### De onde sai a Despesa Institucional de cada área")
+    add("")
+    add("O rateio tem só duas entradas: o **valor a ratear** (linha 207 = 198 − 203) e a")
+    add("**parte de cada área no Custo equipe** (linhas 5 / 30 / 60). Multiplicando as duas")
+    add("chega-se ao número de cada área, ao centavo, nos dois lados. A tabela mostra as")
+    add("duas entradas para que se veja qual delas causa a diferença em cada mês.")
+    add("")
+    add("| Mês | A ratear (planilha) | A ratear (sistema) | Diferença |")
+    add("|---|---:|---:|---:|")
+    for m in months:
+        pool_b = _num(base.cell(207, BASE_COL[m]))
+        nossa_de = sum(our(m, a, "despesas_equipe") for a, _, _ in AREAS_R)
+        pool_o = our(m, "institucional", "despesas") - nossa_de
+        add(
+            f"| {MESES[m]} | {_brl(round(pool_b, 2))} | {_brl(round(pool_o, 2))} |"
+            f" {_sgn(_delta(pool_o, pool_b))} |"
+        )
+    add("")
+    add("E a parte de cada área (percentual do Custo equipe total):")
+    add("")
+    add("| Mês | Contencioso | Econômico | Arbitragem |")
+    add("|---|---|---|---|")
+    for m in months:
+        cel = []
+        tb = sum(_num(base.cell(cr, BASE_COL[m])) for _, _, cr in AREAS_R)
+        to = sum(our(m, a, "custo_equipe") for a, _, _ in AREAS_R)
+        for a, _nome, cr in AREAS_R:
+            sb = _num(base.cell(cr, BASE_COL[m])) / tb if tb else 0.0
+            so = our(m, a, "custo_equipe") / to if to else 0.0
+            cel.append(f"{_pct(sb)} → {_pct(so)}")
+        add(f"| {MESES[m]} | " + " | ".join(cel) + " |")
+    add("")
+    add("Lê-se *planilha → sistema*. Em junho os percentuais são idênticos e as três áreas")
+    add("batem; nos outros meses a diferença de cada área vem das duas entradas juntas — o")
+    add("valor a ratear (que é a linha 198, detalhada acima, menos a linha 203, afetada pela")
+    add("fórmula deslocada) e a parte de cada área, que muda quando o Custo equipe muda.")
+    add("")
+    return out
 
 
 def _br_date(iso: str) -> str:
@@ -448,6 +734,8 @@ def main() -> None:
     shares = convenio_mbc_shares(snaps)
     wb = openpyxl.load_workbook(WORKBOOK, data_only=True)
     sint = wb["Areas Sintetico atualizado"]
+    # The detail sheet behind those totals — where the per-account breakdown comes from.
+    base = wb["Base_Resultado Mensal_V2"]
 
     months = [m for m in MESES if m in snaps]
     assembled: dict[int, dict[str, Any]] = {}
@@ -529,6 +817,11 @@ def main() -> None:
         f" passam de **{_brl(LIMIAR)}** no acumulado **ou em qualquer mês isolado**; as"
         " menores estão no fim.")
     add("")
+    add("Nas **Despesas Indiretas** — a linha que puxa também a Despesa Institucional das"
+        " três áreas — a diferença é aberta até a **conta**: quais despesas, com que valor,"
+        " em cada mês, dos dois lados. Quem quiser conferir um número específico deve ir"
+        " direto a *Quais despesas, mês a mês* e *Conta por conta, onde há diferença*.")
+    add("")
 
     # ── What does NOT differ.
     add("## O que NÃO difere")
@@ -593,6 +886,10 @@ def main() -> None:
     # they get one shared paragraph and stay out of the per-line detail.
     detalhe = [t for t in materiais if not _is_derivada(t[0], t[1])]
     somas = [t for t in materiais if _is_derivada(t[0], t[1])]
+    _primeira_inst = next(
+        (t[0] for t in sorted(detalhe, key=_ordem) if t[1] == "despesa_institucional"),
+        None,
+    )
     for section, line, label, wrow, o, b, d in sorted(detalhe, key=_ordem):
         info = CAUSAS.get((section, line))
         add(f"### {label} — {_sgn(d)} no acumulado")
@@ -619,6 +916,12 @@ def main() -> None:
         else:
             add("*Causa ainda não documentada — falar com o time antes da reunião.*")
             add("")
+        if section == "institucional" and line == "despesas":
+            L.extend(_detalhe_despesas(assembled, base, months, abbr))
+        # The rateio inputs go under the FIRST per-área Despesa Institucional to appear; the
+        # other two say "mesma causa" and point back at it.
+        if line == "despesa_institucional" and section == _primeira_inst:
+            L.extend(_detalhe_rateio(assembled, base, sint, months))
 
     if somas:
         add("### Linhas que são somas de outras")

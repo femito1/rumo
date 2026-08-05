@@ -139,9 +139,24 @@ credentials (LegalDesk) never reach the client.
     `Base_Resultado Mensal_V2` rows while every table is keyed to
     `Areas Sintetico atualizado`. Naming only "linha 204" sends a finance reader to the
     wrong tab, where that row is blank or means something else entirely.
-  - `tests/test_diferencas_doc.py` guards the two rules above. It tests the pure helpers
-    only — the generator itself needs live Supabase, which is why it went untested for so
-    long.
+  - **A line-level delta is not an answer.** "Despesa Institucional differs by R$ 1.400"
+    says something moved, not *what* — the client's own request (2026-08-05). The two
+    biggest despesa lines are therefore decomposed to the account: `_detalhe_despesas`
+    (ten families × six months, then the individual accounts per differing family+month,
+    agreeing ones netted out, subtotals printed) and `_detalhe_rateio` (the pool and the
+    Custo-equipe share, which reproduce each per-área number to the centavo on both sides).
+    Before presenting any such grid as complete, verify BOTH sides reconcile — the families
+    sum to `r198` and to our `despesas`, and each family's leaves sum to its own header, in
+    every month. They do; that is what makes it safe to say "sem resto".
+  - **Match leaves by VALUE, never by label.** The two sides genuinely name accounts
+    differently (our one *Serviços de Informática* = the book's *Suporte de Informática* +
+    *Suporte Totvs*; the book splits *Associações* three ways by área, we keep one account).
+    A label join would emit confident rows that are simply wrong. `_conciliar` pairs equal
+    values and reports everything else as unmatched — and the unmatched remainder must
+    reconstruct the family delta, which is the claim the document makes in prose.
+  - `tests/test_diferencas_doc.py` guards the rules above (14 tests). It tests the pure
+    helpers only — the generator itself needs live Supabase, which is why it went untested
+    for so long.
 
 - **A partial month must be labelled INSIDE `#presentation-root`.** The print CSS
   (`index.css`) hides everything outside that element, so the workspace `.partial-banner`

@@ -16,12 +16,24 @@ generator needs a live Supabase snapshot, so no test touched it at all:
 
 These test the pure helpers only (no Supabase, no workbook), which is what the defects
 lived in.
+
+The account-level breakdown (added 2026-08-05, so finance sees *which* despesas move rather
+than only that a line moved) carries a third contract: it tells the reader that what it
+lists is "exactly what explains that difference — nothing more". That is only true if the
+unmatched leaves reconstruct the family delta, so ``_conciliar`` is pinned here too.
 """
 from __future__ import annotations
 
 import pytest
 
-from scripts.build_diferencas_doc import LIMIAR, _delta, _material, _sgn
+from scripts.build_diferencas_doc import (
+    LIMIAR,
+    _conciliar,
+    _delta,
+    _material,
+    _pct,
+    _sgn,
+)
 
 
 def test_delta_of_rounded_values_sums_to_the_printed_total():
@@ -99,3 +111,79 @@ def test_material_requires_a_thousand_somewhere():
 )
 def test_signed_money_reads_unambiguously(valor: float | None, esperado: str):
     assert _sgn(valor) == esperado
+
+
+def test_percentages_use_a_comma():
+    # The whole document is PT-BR: "34.95%" next to "R$ 1.234,56" reads as a thousands
+    # separator to the reader this is written for.
+    assert _pct(0.349468) == "34,95%"
+    assert _pct(0.0) == "0,00%"
+
+
+def test_unmatched_leaves_reconstruct_the_family_delta():
+    """The breakdown claims to list *exactly* what explains a difference.
+
+    Real Salários Administração, March: the workbook posts the full 3-person transitória in
+    two rows; we post MLA-only plus the estagiária's two separate accounts. Nothing matches
+    by label, but Convênio and Salário do match by value and must drop out.
+    """
+    nossas = [
+        ("Salários", 4498.50),
+        ("Convênio Médico - ADM", 1269.46),
+        ("Vale Refeição", 507.10),
+        ("Vale Transporte", 36.12),
+        ("Vale Refeição/Transporte - ADM", 1240.92),
+    ]
+    planilha = [
+        ("Convênio Médico - ADM", 1269.46, 118),
+        ("Salario ADM", 4498.50, 121),
+        ("Vale Refeição- ADM", 2766.00, 122),
+        ("Vale Transporte", 1217.22, 123),
+    ]
+    batem, so_nossas, so_planilha = _conciliar(nossas, planilha)
+
+    assert batem == 2  # Convênio 1.269,46 and Salário 4.498,50 agree and are netted out
+    assert so_nossas == [
+        ("Vale Refeição", 507.10),
+        ("Vale Transporte", 36.12),
+        ("Vale Refeição/Transporte - ADM", 1240.92),
+    ]
+    assert so_planilha == [
+        ("Vale Refeição- ADM", 2766.00, 122),
+        ("Vale Transporte", 1217.22, 123),
+    ]
+    # The listed remainder IS the family difference — that is the claim the doc makes.
+    delta = round(sum(v for _, v in so_nossas) - sum(v for _, v, _ in so_planilha), 2)
+    assert delta == -2199.08
+
+
+def test_conciliar_matches_by_value_not_label():
+    # Same value, different label on each side: still the same lançamento. Matching by
+    # label is impossible here — our one "Serviços de Informática" is the book's "Suporte
+    # de Informática" + "Suporte Totvs", and the book splits Associações three ways.
+    batem, so_nossas, so_planilha = _conciliar(
+        [("Energia Elétrica", 863.59)], [("Energia", 863.59, 89)]
+    )
+    assert (batem, so_nossas, so_planilha) == (1, [], [])
+
+
+def test_conciliar_keeps_repeated_values_separate():
+    # Two leaves at the same value on one side and one on the other: exactly one pairs off.
+    batem, so_nossas, so_planilha = _conciliar(
+        [("A", 700.10), ("B", 700.10)], [("X", 700.10, 129)]
+    )
+    assert batem == 1
+    assert so_nossas == [("B", 700.10)]
+    assert so_planilha == []
+
+
+def test_conciliar_reports_one_sided_families():
+    # January Investimentos em Prospecção: the book has two rows, we have none — the whole
+    # family moved to Endomarketing on our side. Nothing may be silently dropped.
+    batem, so_nossas, so_planilha = _conciliar(
+        [], [("Eventos - Contencioso", 146.0, 139), ("Eventos - Inst.", 1171.71, 141)]
+    )
+    assert batem == 0
+    assert so_nossas == []
+    assert len(so_planilha) == 2
+    assert round(-sum(v for _, v, _ in so_planilha), 2) == -1317.71

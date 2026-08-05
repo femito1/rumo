@@ -394,6 +394,20 @@ are summed as a named remainder rather than dropped. One format per entry: *plan
 cell reference · our value · signed delta · cause · where to verify · what we need from
 finance*.
 
+**The document goes down to the account, not just the line** (client request, 2026-08-05:
+they want to see *which* despesas come out at *what* number each month, not that a line
+differs by R$ 1.000). Two new sections under *Despesas Indiretas*: the ten despesa families
+× six months in both columns, then per differing family+month the individual accounts on each
+side with the agreeing ones netted out and subtotals printed so each row visibly reconciles;
+plus the two rateio inputs (pool `r198 − r203`, and each área's Custo-equipe share) which
+reproduce every per-área Despesa Institucional to the centavo on both sides. Safe to present
+as complete because both sides reconcile exactly — families sum to `r198` / to our `despesas`,
+and each family's leaves sum to its own header, in all six months. Leaves are matched **by
+value, not label** (`_conciliar`): our one *Serviços de Informática* is the book's *Suporte de
+Informática* + *Suporte Totvs*, and the book splits *Associações* three ways by área, so a
+label join would print confident nonsense. Two rows reconcile a centavo short and say so
+inline — the book's per-área Associações split carries half a centavo per part.
+
 ⚠ The **or-any-month** half of that rule was added 2026-08-05 and matters: a YTD-only floor
 filed *Econômico · Despesas Equipe* under "menores" at −R$ 31,45 when its February is
 −1.166,75 and its May +1.504,72. That is exactly the netting artifact the document warns
