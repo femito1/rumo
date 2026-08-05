@@ -43,8 +43,15 @@ LIMIAR = 1000.0
 #: NB the per-área ``custo_equipe`` is NOT derived — it has its own causes (vale, ISS,
 #: AASP); only the institucional roll-ups and the resultados are.
 def _is_derivada(section: str, line: str) -> bool:
+    """True for lines that are pure SUMS of other lines shown in this document.
+
+    ``institucional.despesas`` is deliberately NOT one, even though it is a total: three
+    per-área Despesa Institucional entries point at it as their cause, so it must keep its
+    own detailed breakdown (vale ADM, prêmio anual de seguro, IR Fonte, e-Social…). Listing
+    it among the roll-ups silently deleted that breakdown — caught 2026-08-04.
+    """
     return line in ("resultado_bruto", "resultado_liquido") or (
-        section == "institucional" and line in ("custo_equipe", "despesas")
+        section == "institucional" and line == "custo_equipe"
     )
 
 
@@ -418,14 +425,10 @@ def main() -> None:
         " planilha já está com as fórmulas certas e inclui o vale. É a referência de como"
         " os dois lados batem quando ambos estão corretos.")
     add("")
-    add("## Como conferir qualquer número")
-    add("")
-    add("Cada diferença aparece **mês a mês** com a **célula exata da planilha** ao lado.")
-    add("Abra a planilha, vá na célula indicada e compare com a coluna *Sistema*. As colunas")
-    add("de cada mês na aba `Areas Sintetico atualizado` são: " + ", ".join(
-        f"**{abbr[m]}={_col(SINT_COL[m])}**" for m in months) + ".")
-    add("")
-    add(f"Só detalhamos diferenças de **{_brl(LIMIAR)} ou mais**; as menores estão no fim.")
+    add("Cada diferença vem **mês a mês** com a célula da planilha ao lado (aba"
+        " `Areas Sintetico atualizado`, colunas " + ", ".join(
+        f"**{abbr[m]}={_col(SINT_COL[m])}**" for m in months) + "). Detalhamos as de"
+        f" **{_brl(LIMIAR)} ou mais**; as menores estão no fim.")
     add("")
 
     # ── What does NOT differ.
@@ -437,40 +440,30 @@ def main() -> None:
         if section == "institucional" and line in ("recebimento", "imposto", "amortizacao"):
             add(_row_deltas(label, per_month[(section, line)], months, ytd_of(ytd, section, line)))
     add("")
-    add("Receita, impostos e amortização batem. Os centavos de maio e junho são só")
-    add("arredondamento (a planilha arredonda o recebimento para reais inteiros).")
+    add("Os centavos de maio e junho são arredondamento — a planilha arredonda o")
+    add("recebimento para reais inteiros.")
     add("")
 
     add("## As quatro causas")
     add("")
-    add("Praticamente toda a diferença vem de quatro coisas. A tabela seguinte mostra onde")
-    add("cada linha cai; o detalhe por linha vem depois.")
+    add("1. **Fórmula deslocada na planilha** (linhas 204/205/206, janeiro a maio): cada")
+    add("   área soma as despesas da área **seguinte**. Junho já está certo. Move *Despesas")
+    add("   Equipe* e *Despesa Institucional* das três áreas — é ajuste na planilha, não no")
+    add("   sistema.")
+    add("2. **Despesa Institucional por área é o total institucional dividido entre as**")
+    add("   **áreas.** A divisão não cria nem apaga dinheiro; a diferença vem do total (ver")
+    add("   *Despesas Indiretas*).")
+    add("3. **O vale dos advogados** entra no custo da área, e a planilha não o incluiu de")
+    add("   janeiro a maio. Em junho ela incluiu e as três áreas fecham.")
+    add("4. **A anotação do convênio médico fica velha.** A *memória de cálculo* no")
+    add("   lançamento diz quanto do plano é da MBC; em jan/fev ela descrevia um plano")
+    add("   antigo (o mesmo texto vinha desde 2025, com o plano mudando duas vezes). O")
+    add("   sistema já não depende dela — calcula pela proporção dos meses corretos — mas")
+    add("   **atualizá-la quando um plano mudar** é o que mantém o valor exato em vez de")
+    add("   estimado.")
     add("")
-    add("1. **A planilha rateia a despesa institucional entre as áreas com uma fórmula**")
-    add("   **deslocada** (linhas 204/205/206), de janeiro a maio: cada área acaba somando")
-    add("   as despesas da área seguinte. Junho já está com a fórmula certa. Isso move as")
-    add("   linhas de *Despesa Institucional* e *Despesas Equipe* das três áreas — mas é a")
-    add("   **planilha** que precisa de ajuste, não o sistema.")
-    add("2. **A despesa institucional por área é o total institucional dividido entre as**")
-    add("   **áreas.** A divisão em si não cria nem apaga dinheiro (a soma das três áreas é")
-    add("   sempre a mesma); a diferença vem do total. Para entender essas linhas, olhe")
-    add("   *Despesas Indiretas*.")
-    add("3. **O vale dos advogados** entra no custo da equipe da área, e a")
-    add("   planilha não o incluiu de janeiro a maio. Em junho ela passou a incluir e o")
-    add("   custo de equipe das três áreas fecha. (O *Resultado Bruto* por área não tem")
-    add("   causa própria — é só a soma das linhas da área.)")
-    add("4. **A anotação do convênio médico fica velha no sistema.** No lançamento do")
-    add("   convênio de cada advogado há uma *memória de cálculo* dizendo quanto do plano")
-    add("   é da MBC. Em janeiro e fevereiro esse texto descrevia um plano antigo — e o")
-    add("   mesmo texto vinha repetido desde 2025, enquanto o valor do plano mudou duas")
-    add("   vezes. Hoje o sistema não depende mais dele: calcula a parte da MBC pela")
-    add("   proporção observada nos meses em que a anotação está correta. **Se um plano")
-    add("   mudar de novo, vale atualizar a anotação** — é o que mantém o cálculo exato em")
-    add("   vez de estimado.")
-    add("")
-    add("*Uma ressalva ao ler qualquer total: um número que fecha porque dois erros se*")
-    add("*anulam não está validado. Por isso mostramos tudo mês a mês, não só o acumulado —*")
-    add("*é mais fácil de conferir.*")
+    add("*Um total que fecha porque dois erros se anulam não está validado — por isso tudo*")
+    add("*aparece mês a mês, não só no acumulado.*")
     add("")
     add("## Resumo: onde estão as diferenças")
     add("")
@@ -484,37 +477,54 @@ def main() -> None:
 
     add("## Detalhe, linha por linha")
     add("")
-    for section, line, label, wrow, o, b, d in sorted(materiais, key=_ordem):
+    add("Cada tabela é uma linha da aba `Areas Sintetico atualizado`; a coluna *Célula* dá")
+    add("o endereço exato para conferir.")
+    add("")
+    # Roll-up lines have no cause of their own (Resultado Bruto/Líquido = sum of the lines
+    # above; institucional Custos Diretos = sum of the three áreas). Listing them with a
+    # full table each added ~100 lines that said "veja as linhas acima" six times over, so
+    # they get one shared paragraph and stay out of the per-line detail.
+    detalhe = [t for t in materiais if not _is_derivada(t[0], t[1])]
+    somas = [t for t in materiais if _is_derivada(t[0], t[1])]
+    for section, line, label, wrow, o, b, d in sorted(detalhe, key=_ordem):
         info = CAUSAS.get((section, line))
-        add(f"### {label}")
+        add(f"### {label} — {_sgn(d)} no acumulado")
         add("")
-        add(f"Diferença no acumulado: **{_sgn(d)}**")
-        add("")
-        add("| Mês | Célula na planilha | Planilha | Sistema | Diferença |")
+        add("| Mês | Célula | Planilha | Sistema | Diferença |")
         add("|---|---|---:|---:|---:|")
         cells = per_month[(section, line)]
         for m in months:
             ov, bv, dv = cells[m]
-            cel = f"`{_col(SINT_COL[m])}{wrow}`"
             marca = "" if abs(dv) >= 0.005 else " ✓"
-            add(f"| {MESES[m]} | {cel} | {_brl(bv)} | {_brl(ov)} | {_sgn(dv)}{marca} |")
+            add(
+                f"| {MESES[m]} | `{_col(SINT_COL[m])}{wrow}` | {_brl(bv)} | {_brl(ov)} |"
+                f" {_sgn(dv)}{marca} |"
+            )
         sb = round(sum(cells[m][1] for m in months), 2)
         so = round(sum(cells[m][0] for m in months), 2)
         add(f"| **Acumulado** | — | **{_brl(sb)}** | **{_brl(so)}** | **{_sgn(round(so - sb, 2))}** |")
         add("")
-        add(f"Na planilha: aba **Areas Sintetico atualizado**, linha **{wrow}**.")
-        add("")
         if info:
-            add(f"**Por quê:** {info['causa']}")
+            add(f"{info['causa']}")
             add("")
-            add(f"**Onde conferir o detalhe:** {info['conferir']}")
+            add(f"*Conferir:* {info['conferir']}")
             add("")
-            if info.get("precisamos"):
-                add(f"**O que precisamos de vocês:** {info['precisamos']}")
-                add("")
         else:
-            add("**Por quê:** causa ainda não documentada — falar com o time antes da reunião.")
+            add("*Causa ainda não documentada — falar com o time antes da reunião.*")
             add("")
+
+    if somas:
+        add("### Linhas que são somas de outras")
+        add("")
+        add("Estas não têm causa própria — cada uma é a soma das linhas acima (Resultado")
+        add("Bruto e Líquido dentro de cada bloco; Custos Diretos = as três áreas). Elas")
+        add("aparecem aqui só para fechar o acumulado:")
+        add("")
+        add(_hdr("Linha", months, abbr))
+        add(_sep(months))
+        for section, line, label, _w, _o, _b, _d in sorted(somas, key=_ordem):
+            add(_row_deltas(label, per_month[(section, line)], months, None))
+        add("")
 
     add("## Diferenças menores")
     add("")
