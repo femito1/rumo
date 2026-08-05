@@ -104,19 +104,19 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
     },
     ("contencioso", "custo_equipe"): {
         "causa": (
-            "O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área, "
-            "por regra de vocês, e a planilha não o incluiu de janeiro a maio. Junho, que "
+            "O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área e "
+            "a planilha não o incluiu de janeiro a maio. Junho, que "
             "já inclui, bate em 0,00. O restante é classificação que não muda total "
-            "(ISS e AASP — ver *Diferenças de classificação*)."
+            "(ISS e AASP — ver *Diferenças que não mudam nenhum total*)."
         ),
         "conferir": "Planilha, linhas **26 e 27** (vale).",
         "precisamos": None,
     },
     ("economico", "custo_equipe"): {
         "causa": (
-            "Três coisas: o **convênio de EHF e RB em jan/fev** (causa 4 do resumo — o "
-            "sistema agora calcula sozinho e não depende mais de vocês); o **vale dos "
-            "advogados** (como no Contencioso); e a **estagiária do Direito Econômico**, "
+            "Três coisas: a **anotação do convênio de EHF e RB** em jan/fev (causa 4 do "
+            "resumo); o **vale dos advogados** (como no Contencioso); e a **estagiária do "
+            "Direito Econômico**, "
             "que entra na planilha em março e que reproduzimos ao centavo — é ela que "
             "inverte o sinal da diferença entre fevereiro e março. Sobra uma estimativa "
             "nossa: a parte MBC do **RB em janeiro** (o plano dele mudou e nada registra "
@@ -192,14 +192,14 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "* **Vale do administrativo** (mar −2.199 · abr −2.199 · mai −2.281): a "
             "planilha lançou as três pessoas em Salários Administração; nós lançamos ali "
             "só a pessoa do administrativo e mandamos os estagiários para as áreas. Jan, "
-            "fev e jun batem. Vocês já disseram que não vale corrigir.\n"
+            "fev e jun batem.\n"
             "* **Aluguel** (abr e mai, +129,17): usamos o aluguel líquido da sublocação "
-            "(crédito Belline), que vocês já autorizaram.\n"
+            "(crédito Belline).\n"
             "* **Tarifa bancária** (+4,80/mês): vem do sistema e está zerada no Excel. É "
             "a única diferença que sobra em junho.\n"
             "* **Trocas de família** (Endomarketing ↔ Prospecção, Ocupação ↔ "
             "Administrativas): a mesma conta em famílias diferentes de cada lado, mas as "
-            "duas entram no total — efeito **zero** (ver *Diferenças de classificação*).\n"
+            "duas entram no total — efeito **zero** (ver *Diferenças que não mudam nenhum total*).\n"
             "* **Janeiro, Associações** (+1.399,87): a planilha não somou a AASP (195,40) "
             "nem o Canal de Arbitragem (1.204,47), que existem no sistema.\n"
             "* **Janeiro, seguro** (+2.539,84): é um prêmio **anual**. A conta lança "
@@ -213,7 +213,7 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "fevereiro **e-Social 1.032,35** — lançamentos reais, ausentes do Excel.\n"
             "* **Março**: um curso de Arbitragem (−815,49) que a planilha pôs em "
             "institucional e nós na área; e Informática −237,60 (a planilha usou o valor "
-            "bruto, nós o líquido — a regra que vocês confirmaram)."
+            "bruto, nós o líquido)."
         ),
         "conferir": (
             "Planilha: linhas **122/123** (vale ADM), **86** (aluguel), **128–131** "
@@ -408,19 +408,15 @@ def main() -> None:
     add(f"Comparação da planilha `{WORKBOOK.name}` com os números do sistema, dados"
         f" extraídos em {_vintage(snaps, months)}.")
     add("")
-    add("## O essencial, em cinco linhas")
+    add("## O essencial")
     add("")
     add("1. **A receita bate em todos os meses.** Toda diferença está em *despesa*.")
     add(f"2. No acumulado de janeiro a {ult.lower()}, o **Resultado Bruto** difere"
         f" **{_sgn(rb)}** — sobre uma receita de mais de R$ 2 milhões.")
-    add("3. **Cada centavo dessa diferença tem uma causa identificada** — nenhuma sobra"
-        " sem explicação. As causas estão logo abaixo.")
-    add("4. **Junho fecha** (só a tarifa bancária de R$ 4,80 difere): é o mês em que a"
-        " planilha já está com as fórmulas certas e inclui o vale — é o melhor espelho"
-        " de como os dois lados batem quando ambos estão corretos.")
-    add("5. **Só falta uma coisa de vocês, e é pequena:** de onde vem o R$ 35,52 do"
-        " vale-transporte de janeiro (última seção). Todo o resto ou já está respondido,"
-        " ou é a planilha que precisa de um ajuste — não o sistema.")
+    add("3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo.")
+    add("4. **Junho fecha** (só a tarifa bancária de R$ 4,80 difere) — é o mês em que a"
+        " planilha já está com as fórmulas certas e inclui o vale. É a referência de como"
+        " os dois lados batem quando ambos estão corretos.")
     add("")
     add("## Como conferir qualquer número")
     add("")
@@ -459,20 +455,22 @@ def main() -> None:
     add("   **áreas.** A divisão em si não cria nem apaga dinheiro (a soma das três áreas é")
     add("   sempre a mesma); a diferença vem do total. Para entender essas linhas, olhe")
     add("   *Despesas Indiretas*.")
-    add("3. **O vale dos advogados** entra no custo da equipe por regra de vocês, e a")
+    add("3. **O vale dos advogados** entra no custo da equipe da área, e a")
     add("   planilha não o incluiu de janeiro a maio. Em junho ela passou a incluir e o")
     add("   custo de equipe das três áreas fecha. (O *Resultado Bruto* por área não tem")
     add("   causa própria — é só a soma das linhas da área.)")
-    add("4. **O convênio médico de EHF e RB em janeiro/fevereiro** — resolvido, e não")
-    add("   depende mais de vocês. Detalhe no item *Econômico · Custo equipe*.")
-    add("")
-    add("**O que melhorou desde a última versão:** o sistema passou a calcular sozinho a")
-    add("parte da MBC no convênio quando a anotação do lançamento está velha. Com isso o")
-    add(f"Resultado Bruto acumulado saiu de −R$ 7.640,50 para **{_sgn(rb)}**.")
+    add("4. **A anotação do convênio médico fica velha no sistema.** No lançamento do")
+    add("   convênio de cada advogado há uma *memória de cálculo* dizendo quanto do plano")
+    add("   é da MBC. Em janeiro e fevereiro esse texto descrevia um plano antigo — e o")
+    add("   mesmo texto vinha repetido desde 2025, enquanto o valor do plano mudou duas")
+    add("   vezes. Hoje o sistema não depende mais dele: calcula a parte da MBC pela")
+    add("   proporção observada nos meses em que a anotação está correta. **Se um plano")
+    add("   mudar de novo, vale atualizar a anotação** — é o que mantém o cálculo exato em")
+    add("   vez de estimado.")
     add("")
     add("*Uma ressalva ao ler qualquer total: um número que fecha porque dois erros se*")
     add("*anulam não está validado. Por isso mostramos tudo mês a mês, não só o acumulado —*")
-    add("*é mais honesto e mais fácil de conferir.*")
+    add("*é mais fácil de conferir.*")
     add("")
     add("## Resumo: onde estão as diferenças")
     add("")
@@ -534,61 +532,52 @@ def main() -> None:
         add("Nenhuma.")
     add("")
 
-    add("## O que precisamos de vocês")
+    add("## O que fazer")
     add("")
-    add("**Uma coisa só, pequena: de onde vem o R$ 35,52 do vale-transporte de janeiro.**")
+    add("### 1. Na planilha: copiar as fórmulas de junho para janeiro–maio")
     add("")
-    add("A célula `C123` da planilha traz `=35,52+262,64`. Os 262,64 são o vale-transporte")
-    add("da pessoa do administrativo (14 dias × R$ 18,76), que confere. Os **35,52** não")
-    add("conseguimos amarrar a nenhum lançamento:")
+    add("Nas linhas **204, 205 e 206**, as fórmulas de janeiro a maio somam as despesas da")
+    add("área **seguinte**. As de junho estão corretas — copiá-las para os meses anteriores")
+    add("resolve a maior parte da diferença de *Despesas Equipe* e *Despesa Institucional*")
+    add("das três áreas.")
     add("")
-    add("* não é vale-refeição (o menor do ano é R$ 783,70 no mês);")
-    add("* não é um número inteiro de dias em nenhuma diária de vale;")
-    add("* **não aparece em lançamento nenhum** — alargamos o texto dos lançamentos do")
-    add("  sistema e re-extraímos os oito meses só para poder afirmar isso; o histórico do")
-    add("  vale de janeiro é literalmente \"Vale refeição\" / \"Vale transporte\", sem conta.")
+    add("### 2. No sistema: manter a anotação do convênio atualizada quando o plano mudar")
     add("")
-    add("Também sabemos que **não é um pedaço que falta do nosso número**: o nosso")
-    add("vale-transporte de janeiro (R$ 262,64) já está completo, então os 35,52 são algo")
-    add("somado por cima. Depois de explicar tudo o mais centavo a centavo, é o **único**")
-    add("valor do acumulado inteiro que não amarramos a um lançamento.")
+    add("A *memória de cálculo* no lançamento do convênio é o que diz quanto do plano é da")
+    add("MBC. Quando ela fica velha, o sistema estima a parte da MBC pela proporção dos")
+    add("outros meses — funciona, mas é estimativa. Hoje há uma: a parte da MBC do **RB em")
+    add("janeiro** (o plano dele mudou e nenhuma anotação registra a proporção daquele mês).")
+    add("Se puderem confirmar esse número, ele deixa de ser estimado.")
     add("")
-    add("**O que ajudaria:** de onde veio esse R$ 35,52? Se for de outra competência ou um")
-    add("acerto, passamos a tratá-lo da mesma forma.")
+    add("### 3. Uma pergunta: de onde vem o R$ 35,52 do vale-transporte de janeiro?")
     add("")
-    add("*(Curiosidade útil: o `=543,22+674` de março, que era a outra soma digitada à mão,")
-    add("está resolvido — os 543,22 são vale-refeição 507,10 + vale-transporte 36,12 de uma")
-    add("estagiária, os dois lançados no sistema.)*")
+    add("A célula `C123` traz `=35,52+262,64`. Os **262,64** são o vale-transporte da pessoa")
+    add("do administrativo (14 dias × R$ 18,76) e conferem. Os **35,52** não aparecem em")
+    add("nenhum lançamento do sistema — nem em janeiro, nem em nenhum outro mês. Não é")
+    add("vale-refeição (o menor do ano é R$ 783,70) e não corresponde a um número inteiro de")
+    add("dias em nenhuma diária de vale.")
     add("")
-    add("### Já respondido — nada a fazer")
+    add("Também não é um pedaço que falte do nosso número: o vale-transporte de janeiro")
+    add("(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Se for de outra")
+    add("competência ou um acerto pontual, é só dizer e passamos a tratá-lo da mesma forma.")
     add("")
-    add("Itens que estavam em aberto e hoje estão fechados, para registro:")
+    add("## Diferenças que não mudam nenhum total")
     add("")
-    add("* **Convênio de EHF e RB (jan/fev)** — pedíamos que a anotação do lançamento fosse")
-    add("  corrigida; hoje o sistema calcula a parte da MBC sozinho, então pode ficar como")
-    add("  está. (Sobra uma estimativa nossa: a parte da MBC do RB em janeiro.)")
-    add("* **Convênio da linha 69 (fev)** — a própria planilha responde: mantém")
-    add("  distribuição e pró-labore do advogado e zera só o convênio; ele estava na folha.")
-    add("* **Lançamentos avulsos de jan/fev** — conferidos um a um, estão no sistema dentro")
-    add("  do lançamento de distribuição. Ex.: Andrielly em fevereiro bate em R$ 0,00.")
-    add("* **Associações de janeiro** — a planilha não somou a AASP nem o Canal de")
-    add("  Arbitragem; ambos existem no sistema.")
-    add("* **Vale ADM (mar–mai)** e **aluguel** — já respondidos por vocês.")
+    add("Estas são de classificação: o valor existe nos dois lados, em seções diferentes.")
+    add("Ficam registradas porque **se repetem todo mês** e costumam gerar dúvida.")
     add("")
-    add("### Só na planilha — nada a mudar no sistema")
-    add("")
-    add("* **Fórmulas das linhas 204/205/206** (jan–mai) — deslocadas; vale copiar as de")
-    add("  junho. Não muda nada no sistema.")
-    add("")
-    add("### Diferenças de classificação — mesmo total, seção diferente")
-    add("")
-    add("Não mexem em nenhum total, só em onde a conta aparece:")
-    add("")
-    add("* **ISS trimestral** — por advogado no sistema, uma linha só na planilha (efeito")
-    add("  no acumulado: R$ 0,04).")
+    add("* **ISS trimestral** — o sistema lança por advogado, a planilha numa única linha da")
+    add("  área (efeito no acumulado: R$ 0,04).")
     add("* **AASP** — dentro do Custo equipe na planilha, em Despesa de Área no sistema.")
-    add("* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta")
-    add("  em famílias diferentes de cada lado; ambas entram no total, efeito zero.")
+    add("* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta em")
+    add("  famílias diferentes de cada lado; as duas entram no total, efeito zero.")
+    add("* **Vale do administrativo** — a planilha lança as três pessoas em Salários")
+    add("  Administração; o sistema deixa ali só a pessoa do administrativo e manda os")
+    add("  estagiários para o custo das áreas deles.")
+    add("* **Aluguel** — o sistema usa o valor líquido da sublocação (crédito Belline).")
+    add("* **Tarifa bancária** — R$ 4,80/mês, vem do sistema e está zerada no Excel.")
+    add("* **Prêmio de seguro** — é anual (lançado em janeiro e julho); a planilha o divide")
+    add("  em parcelas mensais e o classifica em *Administrativas*, o sistema em *Ocupação*.")
     add("")
 
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")

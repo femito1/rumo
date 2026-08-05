@@ -2,13 +2,12 @@
 
 Comparação da planilha `Fechamento MBC 06.2026.xlsx` com os números do sistema, dados extraídos em 04/08/2026.
 
-## O essencial, em cinco linhas
+## O essencial
 
 1. **A receita bate em todos os meses.** Toda diferença está em *despesa*.
 2. No acumulado de janeiro a junho, o **Resultado Bruto** difere **-R$ 5.003,04** — sobre uma receita de mais de R$ 2 milhões.
-3. **Cada centavo dessa diferença tem uma causa identificada** — nenhuma sobra sem explicação. As causas estão logo abaixo.
-4. **Junho fecha** (só a tarifa bancária de R$ 4,80 difere): é o mês em que a planilha já está com as fórmulas certas e inclui o vale — é o melhor espelho de como os dois lados batem quando ambos estão corretos.
-5. **Só falta uma coisa de vocês, e é pequena:** de onde vem o R$ 35,52 do vale-transporte de janeiro (última seção). Todo o resto ou já está respondido, ou é a planilha que precisa de um ajuste — não o sistema.
+3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo.
+4. **Junho fecha** (só a tarifa bancária de R$ 4,80 difere) — é o mês em que a planilha já está com as fórmulas certas e inclui o vale. É a referência de como os dois lados batem quando ambos estão corretos.
 
 ## Como conferir qualquer número
 
@@ -43,20 +42,22 @@ cada linha cai; o detalhe por linha vem depois.
    **áreas.** A divisão em si não cria nem apaga dinheiro (a soma das três áreas é
    sempre a mesma); a diferença vem do total. Para entender essas linhas, olhe
    *Despesas Indiretas*.
-3. **O vale dos advogados** entra no custo da equipe por regra de vocês, e a
+3. **O vale dos advogados** entra no custo da equipe da área, e a
    planilha não o incluiu de janeiro a maio. Em junho ela passou a incluir e o
    custo de equipe das três áreas fecha. (O *Resultado Bruto* por área não tem
    causa própria — é só a soma das linhas da área.)
-4. **O convênio médico de EHF e RB em janeiro/fevereiro** — resolvido, e não
-   depende mais de vocês. Detalhe no item *Econômico · Custo equipe*.
-
-**O que melhorou desde a última versão:** o sistema passou a calcular sozinho a
-parte da MBC no convênio quando a anotação do lançamento está velha. Com isso o
-Resultado Bruto acumulado saiu de −R$ 7.640,50 para **-R$ 5.003,04**.
+4. **A anotação do convênio médico fica velha no sistema.** No lançamento do
+   convênio de cada advogado há uma *memória de cálculo* dizendo quanto do plano
+   é da MBC. Em janeiro e fevereiro esse texto descrevia um plano antigo — e o
+   mesmo texto vinha repetido desde 2025, enquanto o valor do plano mudou duas
+   vezes. Hoje o sistema não depende mais dele: calcula a parte da MBC pela
+   proporção observada nos meses em que a anotação está correta. **Se um plano
+   mudar de novo, vale atualizar a anotação** — é o que mantém o cálculo exato em
+   vez de estimado.
 
 *Uma ressalva ao ler qualquer total: um número que fecha porque dois erros se*
 *anulam não está validado. Por isso mostramos tudo mês a mês, não só o acumulado —*
-*é mais honesto e mais fácil de conferir.*
+*é mais fácil de conferir.*
 
 ## Resumo: onde estão as diferenças
 
@@ -98,7 +99,7 @@ Diferença no acumulado: **+R$ 4.330,76**
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **57**.
 
-**Por quê:** Três coisas: o **convênio de EHF e RB em jan/fev** (causa 4 do resumo — o sistema agora calcula sozinho e não depende mais de vocês); o **vale dos advogados** (como no Contencioso); e a **estagiária do Direito Econômico**, que entra na planilha em março e que reproduzimos ao centavo — é ela que inverte o sinal da diferença entre fevereiro e março. Sobra uma estimativa nossa: a parte MBC do **RB em janeiro** (o plano dele mudou e nada registra qual era a proporção naquele mês).
+**Por quê:** Três coisas: a **anotação do convênio de EHF e RB** em jan/fev (causa 4 do resumo); o **vale dos advogados** (como no Contencioso); e a **estagiária do Direito Econômico**, que entra na planilha em março e que reproduzimos ao centavo — é ela que inverte o sinal da diferença entre fevereiro e março. Sobra uma estimativa nossa: a parte MBC do **RB em janeiro** (o plano dele mudou e nada registra qual era a proporção naquele mês).
 
 **Onde conferir o detalhe:** Planilha, linhas **44 e 48** (convênio) e **52** (estagiária).
 
@@ -140,7 +141,7 @@ Diferença no acumulado: **+R$ 3.140,19**
 
 Na planilha: aba **Areas Sintetico atualizado**, linha **39**.
 
-**Por quê:** O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área, por regra de vocês, e a planilha não o incluiu de janeiro a maio. Junho, que já inclui, bate em 0,00. O restante é classificação que não muda total (ISS e AASP — ver *Diferenças de classificação*).
+**Por quê:** O **vale dos advogados** (causa 3 do resumo): entra sempre no custo da área e a planilha não o incluiu de janeiro a maio. Junho, que já inclui, bate em 0,00. O restante é classificação que não muda total (ISS e AASP — ver *Diferenças que não mudam nenhum total*).
 
 **Onde conferir o detalhe:** Planilha, linhas **26 e 27** (vale).
 
@@ -320,15 +321,15 @@ Na planilha: aba **Areas Sintetico atualizado**, linha **13**.
 
 **Por quê:** Esta linha também explica a Despesa Institucional das três áreas (ela é rateada daqui). Somando família por família, as partes dão **exatamente** a diferença de cada mês — não sobra centavo:
 
-* **Vale do administrativo** (mar −2.199 · abr −2.199 · mai −2.281): a planilha lançou as três pessoas em Salários Administração; nós lançamos ali só a pessoa do administrativo e mandamos os estagiários para as áreas. Jan, fev e jun batem. Vocês já disseram que não vale corrigir.
-* **Aluguel** (abr e mai, +129,17): usamos o aluguel líquido da sublocação (crédito Belline), que vocês já autorizaram.
+* **Vale do administrativo** (mar −2.199 · abr −2.199 · mai −2.281): a planilha lançou as três pessoas em Salários Administração; nós lançamos ali só a pessoa do administrativo e mandamos os estagiários para as áreas. Jan, fev e jun batem.
+* **Aluguel** (abr e mai, +129,17): usamos o aluguel líquido da sublocação (crédito Belline).
 * **Tarifa bancária** (+4,80/mês): vem do sistema e está zerada no Excel. É a única diferença que sobra em junho.
-* **Trocas de família** (Endomarketing ↔ Prospecção, Ocupação ↔ Administrativas): a mesma conta em famílias diferentes de cada lado, mas as duas entram no total — efeito **zero** (ver *Diferenças de classificação*).
+* **Trocas de família** (Endomarketing ↔ Prospecção, Ocupação ↔ Administrativas): a mesma conta em famílias diferentes de cada lado, mas as duas entram no total — efeito **zero** (ver *Diferenças que não mudam nenhum total*).
 * **Janeiro, Associações** (+1.399,87): a planilha não somou a AASP (195,40) nem o Canal de Arbitragem (1.204,47), que existem no sistema.
 * **Janeiro, seguro** (+2.539,84): é um prêmio **anual**. A conta lança 2.722,55 em janeiro (de novo em julho); a planilha digita 182,71 todo mês. Não falta dinheiro: a planilha põe o prêmio em *Administrativas* (linha 133) e nós em Ocupação.
 * **Março, vale da estagiária** (+543,22): um pagamento de benefícios fora da conta transitória (Vale Refeição 507,10 + Vale Transporte 36,12, com o nome dela no histórico).
 * **Duas contas sem linha na planilha**: janeiro **IR Fonte ADM 169,52** e fevereiro **e-Social 1.032,35** — lançamentos reais, ausentes do Excel.
-* **Março**: um curso de Arbitragem (−815,49) que a planilha pôs em institucional e nós na área; e Informática −237,60 (a planilha usou o valor bruto, nós o líquido — a regra que vocês confirmaram).
+* **Março**: um curso de Arbitragem (−815,49) que a planilha pôs em institucional e nós na área; e Informática −237,60 (a planilha usou o valor bruto, nós o líquido).
 
 **Onde conferir o detalhe:** Planilha: linhas **122/123** (vale ADM), **86** (aluguel), **128–131** (Associações), **133** (seguro), **158** (curso), **180** (Informática). O total é a linha **198** — e, depois de nomear cada item acima, ele fecha sem sobra.
 
@@ -405,59 +406,50 @@ conhecidas são a tarifa bancária, que vem do sistema e está zerada no Excel
 (R$ 4,80 por mês, conta `020.070.0030`), o vale do administrativo de março a
 maio (`Base_Resultado` linhas 122 e 123) e centavos de arredondamento.
 
-## O que precisamos de vocês
+## O que fazer
 
-**Uma coisa só, pequena: de onde vem o R$ 35,52 do vale-transporte de janeiro.**
+### 1. Na planilha: copiar as fórmulas de junho para janeiro–maio
 
-A célula `C123` da planilha traz `=35,52+262,64`. Os 262,64 são o vale-transporte
-da pessoa do administrativo (14 dias × R$ 18,76), que confere. Os **35,52** não
-conseguimos amarrar a nenhum lançamento:
+Nas linhas **204, 205 e 206**, as fórmulas de janeiro a maio somam as despesas da
+área **seguinte**. As de junho estão corretas — copiá-las para os meses anteriores
+resolve a maior parte da diferença de *Despesas Equipe* e *Despesa Institucional*
+das três áreas.
 
-* não é vale-refeição (o menor do ano é R$ 783,70 no mês);
-* não é um número inteiro de dias em nenhuma diária de vale;
-* **não aparece em lançamento nenhum** — alargamos o texto dos lançamentos do
-  sistema e re-extraímos os oito meses só para poder afirmar isso; o histórico do
-  vale de janeiro é literalmente "Vale refeição" / "Vale transporte", sem conta.
+### 2. No sistema: manter a anotação do convênio atualizada quando o plano mudar
 
-Também sabemos que **não é um pedaço que falta do nosso número**: o nosso
-vale-transporte de janeiro (R$ 262,64) já está completo, então os 35,52 são algo
-somado por cima. Depois de explicar tudo o mais centavo a centavo, é o **único**
-valor do acumulado inteiro que não amarramos a um lançamento.
+A *memória de cálculo* no lançamento do convênio é o que diz quanto do plano é da
+MBC. Quando ela fica velha, o sistema estima a parte da MBC pela proporção dos
+outros meses — funciona, mas é estimativa. Hoje há uma: a parte da MBC do **RB em
+janeiro** (o plano dele mudou e nenhuma anotação registra a proporção daquele mês).
+Se puderem confirmar esse número, ele deixa de ser estimado.
 
-**O que ajudaria:** de onde veio esse R$ 35,52? Se for de outra competência ou um
-acerto, passamos a tratá-lo da mesma forma.
+### 3. Uma pergunta: de onde vem o R$ 35,52 do vale-transporte de janeiro?
 
-*(Curiosidade útil: o `=543,22+674` de março, que era a outra soma digitada à mão,
-está resolvido — os 543,22 são vale-refeição 507,10 + vale-transporte 36,12 de uma
-estagiária, os dois lançados no sistema.)*
+A célula `C123` traz `=35,52+262,64`. Os **262,64** são o vale-transporte da pessoa
+do administrativo (14 dias × R$ 18,76) e conferem. Os **35,52** não aparecem em
+nenhum lançamento do sistema — nem em janeiro, nem em nenhum outro mês. Não é
+vale-refeição (o menor do ano é R$ 783,70) e não corresponde a um número inteiro de
+dias em nenhuma diária de vale.
 
-### Já respondido — nada a fazer
+Também não é um pedaço que falte do nosso número: o vale-transporte de janeiro
+(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Se for de outra
+competência ou um acerto pontual, é só dizer e passamos a tratá-lo da mesma forma.
 
-Itens que estavam em aberto e hoje estão fechados, para registro:
+## Diferenças que não mudam nenhum total
 
-* **Convênio de EHF e RB (jan/fev)** — pedíamos que a anotação do lançamento fosse
-  corrigida; hoje o sistema calcula a parte da MBC sozinho, então pode ficar como
-  está. (Sobra uma estimativa nossa: a parte da MBC do RB em janeiro.)
-* **Convênio da linha 69 (fev)** — a própria planilha responde: mantém
-  distribuição e pró-labore do advogado e zera só o convênio; ele estava na folha.
-* **Lançamentos avulsos de jan/fev** — conferidos um a um, estão no sistema dentro
-  do lançamento de distribuição. Ex.: Andrielly em fevereiro bate em R$ 0,00.
-* **Associações de janeiro** — a planilha não somou a AASP nem o Canal de
-  Arbitragem; ambos existem no sistema.
-* **Vale ADM (mar–mai)** e **aluguel** — já respondidos por vocês.
+Estas são de classificação: o valor existe nos dois lados, em seções diferentes.
+Ficam registradas porque **se repetem todo mês** e costumam gerar dúvida.
 
-### Só na planilha — nada a mudar no sistema
-
-* **Fórmulas das linhas 204/205/206** (jan–mai) — deslocadas; vale copiar as de
-  junho. Não muda nada no sistema.
-
-### Diferenças de classificação — mesmo total, seção diferente
-
-Não mexem em nenhum total, só em onde a conta aparece:
-
-* **ISS trimestral** — por advogado no sistema, uma linha só na planilha (efeito
-  no acumulado: R$ 0,04).
+* **ISS trimestral** — o sistema lança por advogado, a planilha numa única linha da
+  área (efeito no acumulado: R$ 0,04).
 * **AASP** — dentro do Custo equipe na planilha, em Despesa de Área no sistema.
-* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta
-  em famílias diferentes de cada lado; ambas entram no total, efeito zero.
+* **Endomarketing × Prospecção** e **Ocupação × Administrativas** — a mesma conta em
+  famílias diferentes de cada lado; as duas entram no total, efeito zero.
+* **Vale do administrativo** — a planilha lança as três pessoas em Salários
+  Administração; o sistema deixa ali só a pessoa do administrativo e manda os
+  estagiários para o custo das áreas deles.
+* **Aluguel** — o sistema usa o valor líquido da sublocação (crédito Belline).
+* **Tarifa bancária** — R$ 4,80/mês, vem do sistema e está zerada no Excel.
+* **Prêmio de seguro** — é anual (lançado em janeiro e julho); a planilha o divide
+  em parcelas mensais e o classifica em *Administrativas*, o sistema em *Ocupação*.
 
