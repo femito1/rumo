@@ -330,6 +330,27 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "sobra em Administrativas (−2.539,84): as duas se cancelam na linha 198 e o "
             "total não se move. É também por isso que o prêmio não entra na conta de janeiro "
             "acima. Na tabela *Conta por conta* isto está na coluna *Onde está o resto*.\n"
+            "* **Administrativas (linha 124), mês a mês.** É a família que mistura mais "
+            "mecanismos, então vai inteira:\n"
+            "    * **Janeiro −1.139,97** = +1.399,87 de *Associações* (a planilha não somou "
+            "a **AASP 195,40** nem o **Canal de Arbitragem 1.204,47**) **−2.539,84** do "
+            "seguro do item acima, que a planilha tem aqui (linha 133) e nós em Ocupação.\n"
+            "    * **Fevereiro +217,40** = a **AASP**. Ela está dentro da nossa conta única "
+            "de Associações, e a planilha deixou a linha 125 vazia neste mês.\n"
+            "    * **Março +37,39** = a **tarifa bancária** (linha 136, zerada na planilha).\n"
+            "    * **Abril −110,00** = a assinatura **Adobe** (linha 128). Ela existe no "
+            "sistema todo mês, mas em *Informática* (conta 040.040.0030, histórico "
+            "*\"PPRO*Adobe R$110,00\"*) — não em Administrativas.\n"
+            "    * **Maio 0,00** — bate.\n"
+            "    * **Junho +4,80** = só a **tarifa bancária**. A AASP de 217,40 aparece dos "
+            "dois lados neste mês (a planilha em *Assinaturas*, linha 125; nós dentro de "
+            "*Associações*), então se cancela.\n"
+            "* **Assinaturas e Associações são uma coisa só do nosso lado.** Temos duas "
+            "contas (020.060.0010 e 020.060.0020) onde a planilha usa oito linhas "
+            "(125–132), divididas por área. Por isso o que importa é o **par somado**, não "
+            "cada linha: em junho, por exemplo, a planilha põe 10.340,35 em *Assinaturas — "
+            "Arbitragem* (linha 127) e nós a mesma quantia em *Informática* — é a assinatura "
+            "da plataforma de faturamento do cliente, a mesma reclassificação já conhecida.\n"
             "* **Aluguel** (abr +19,17 e mai +129,17): usamos o aluguel líquido da "
             "sublocação (crédito Belline).\n"
             "* **Tarifa bancária**: existe no sistema e está zerada na planilha (linha "
@@ -504,6 +525,69 @@ def _onde_esta(
     return []
 
 
+def _onde_esta_nosso(
+    valor: float,
+    familia: str,
+    assembled: dict[str, Any],
+    snap: dict[str, Any],
+) -> tuple[str, str] | None:
+    """The mirror of ``_onde_esta``: a workbook row whose value sits ELSEWHERE on OUR side.
+
+    ``_onde_esta`` only answers "our account is split across their families". Administrativas
+    is the opposite case and came back empty on every month: the book's *Adobe* 110,00 (r128,
+    April) and its *Assinaturas — Arbitragem* 10.340,35 (r127, June) are both real for us
+    too, just filed under **Informática** — so the reader again saw a delta with no visible
+    counterpart.
+
+    Three places are searched, cheapest first:
+
+    1. our other despesa families (that is what the surrounding table is about);
+    2. the raw account totals;
+    3. the ``despesas_desdobramento`` lines — necessary, not belt-and-braces: the Adobe 110,00
+       is **not** an account of its own, it is one unfolded line inside ``040.040.0030``
+       whose ``histórico`` reads *"PPRO*Adobe R$110,00 referente março 2026"*. Searching only
+       account totals finds nothing. This is the ``histórico``-carries-the-arithmetic property
+       the project relies on elsewhere.
+
+    Returns (where, detail) or None.
+    """
+    for f2 in FAMILIAS:
+        if f2 == familia:
+            continue
+        for nome, v in _folhas_nossas(assembled, f2):
+            if abs(v - valor) < 0.005:
+                return (f2, f"{nome} · {_brl(v)}")
+    # Only report a hit that is genuinely ELSEWHERE. A value found under the same family we
+    # are already showing is not an answer to "where is the rest" — it is the row the reader
+    # is looking at. June listed three of those (AASP, two IBRAC halves, all inside our own
+    # Administrativas) and buried the one line that mattered.
+    for r in snap.get("despesas_conta") or []:
+        v = round(float(r.get("total") or 0.0), 2)
+        pai = str(r.get("nome_conta_pai") or "").strip()
+        if abs(v - valor) < 0.005 and pai != familia:
+            return (
+                pai or str(r.get("id_conta")),
+                f"{r.get('nome_conta')} (`{r.get('id_conta')}`) · {_brl(v)}",
+            )
+    contas = {
+        str(r.get("id_conta")): r for r in (snap.get("despesas_conta") or [])
+    }
+    for r in snap.get("despesas_desdobramento") or []:
+        v = round(float(r.get("valor") or 0.0), 2)
+        if abs(v - valor) >= 0.005:
+            continue
+        cid = str(r.get("id_conta"))
+        pai = str((contas.get(cid) or {}).get("nome_conta_pai") or "").strip()
+        if pai == familia:
+            continue
+        hist = " ".join(str(r.get("historico") or "").split())[:60]
+        return (
+            pai or cid,
+            f"dentro de `{cid}` · {_brl(v)}" + (f' — *"{hist}"*' if hist else ""),
+        )
+    return None
+
+
 def _conciliar(
     nossas: list[tuple[str, float]], planilha: list[tuple[str, float, int]]
 ) -> tuple[int, list[tuple[str, float]], list[tuple[str, float, int]]]:
@@ -541,6 +625,7 @@ def _detalhe_despesas(
     base: Any,
     months: list[int],
     abbr: dict[int, str],
+    snaps: dict[int, Any],
 ) -> list[str]:
     """Which despesas, with which numbers, per month — down to the account.
 
@@ -648,6 +733,12 @@ def _detalhe_despesas(
                     for n, pv, r, pf in partes
                 )
                 fora.append(f"{nome} {_brl(v)} = {detalhe}")
+            # And the mirror: a workbook row we file under a different family of our own.
+            for nome, v, r in so_livro:
+                achado = _onde_esta_nosso(v, fam, assembled[m], snaps[m])
+                if achado:
+                    onde, detalhe = achado
+                    fora.append(f"r{r} {_brl(v)} → no sistema em **{onde}**: {detalhe}")
             # The listed parts must reconstruct the family delta. Where they miss by a
             # centavo it is the workbook carrying a half-centavo inside an account it
             # splits by área; say so on the spot instead of printing a row that does not
@@ -978,7 +1069,7 @@ def main() -> None:
             add("*Causa ainda não documentada — falar com o time antes da reunião.*")
             add("")
         if section == "institucional" and line == "despesas":
-            L.extend(_detalhe_despesas(assembled, base, months, abbr))
+            L.extend(_detalhe_despesas(assembled, base, months, abbr, snaps))
         # The rateio inputs go under the FIRST per-área Despesa Institucional to appear; the
         # other two say "mesma causa" and point back at it.
         if line == "despesa_institucional" and section == _primeira_inst:

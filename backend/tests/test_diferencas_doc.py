@@ -219,6 +219,71 @@ def test_onde_esta_is_silent_when_the_value_is_inside_its_own_family(monkeypatch
     assert bd._onde_esta(24359.77, "Ocupação", 5, base=None) == []
 
 
+def test_onde_esta_nosso_finds_a_value_inside_a_desdobramento(monkeypatch):
+    """Administrativas, April: the book's Adobe 110,00 is real for us, under Informática.
+
+    And it is NOT an account of its own — it is one unfolded line inside ``040.040.0030``,
+    identified only by its ``histórico``. Searching account totals alone finds nothing, which
+    is why this row's *Onde está o resto* was empty.
+    """
+    monkeypatch.setattr(bd, "FAMILIAS", {"Administrativas": (124, 137)})
+    monkeypatch.setattr(bd, "_folhas_nossas", lambda assembled, fam: [])
+    snap = {
+        "despesas_conta": [
+            {
+                "id_conta": "040.040.0030",
+                "nome_conta": "Licenças de Uso de Software",
+                "nome_conta_pai": "Informática",
+                "total": 7568.79,
+            }
+        ],
+        "despesas_desdobramento": [
+            {
+                "id_conta": "040.040.0030",
+                "valor": 110.0,
+                "historico": "PPRO*Adobe R$110,00 referente março 2026",
+            }
+        ],
+    }
+
+    achado = bd._onde_esta_nosso(110.0, "Administrativas", {}, snap)
+
+    assert achado is not None
+    onde, detalhe = achado
+    assert onde == "Informática"
+    assert "040.040.0030" in detalhe
+    assert "Adobe" in detalhe
+
+
+def test_onde_esta_nosso_ignores_a_hit_in_the_same_family(monkeypatch):
+    """"Where is the rest" must mean ELSEWHERE.
+
+    June listed three same-family hits (the AASP and two IBRAC halves, all inside our own
+    Administrativas) and buried the one line that mattered. A value found under the family
+    already being shown is the row the reader is looking at, not an answer.
+    """
+    monkeypatch.setattr(bd, "FAMILIAS", {"Administrativas": (124, 137)})
+    monkeypatch.setattr(bd, "_folhas_nossas", lambda assembled, fam: [])
+    snap = {
+        "despesas_conta": [
+            {
+                "id_conta": "020.060.0020",
+                "nome_conta": "Associações",
+                "nome_conta_pai": "Administrativas",
+                "total": 2874.94,
+            }
+        ],
+        "despesas_desdobramento": [
+            {
+                "id_conta": "020.060.0020",
+                "valor": 217.40,
+                "historico": "AASP AM, DC 05/2026 108,70 por profissional",
+            }
+        ],
+    }
+    assert bd._onde_esta_nosso(217.40, "Administrativas", {}, snap) is None
+
+
 def test_conciliar_reports_one_sided_families():
     # January Investimentos em Prospecção: the book has two rows, we have none — the whole
     # family moved to Endomarketing on our side. Nothing may be silently dropped.

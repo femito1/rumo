@@ -101,6 +101,14 @@ Esta linha também explica a maior parte da Despesa Institucional das três áre
 * **Janeiro (+1.533,77)**: são duas coisas somadas. As **Associações** (+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem (1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta sem linha na planilha; menos os 35,52 do vale-transporte (ver a pergunta no fim do documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra nesta conta, embora apareça como +2.539,84 em *Ocupação*: ele é cancelado por −2.539,84 em *Administrativas* (item abaixo).
 * **Fevereiro (+1.249,19)**: o **e-Social** (+1.032,35), outra conta sem linha na planilha, mais +217,11 de Administrativas.
 * **Janeiro, seguro — o caso que mais gera dúvida.** *Ocupação* difere +2.539,84 em janeiro e **esse número não aparece em nenhuma linha de Ocupação**, de lado nenhum. O motivo: temos uma conta só, *Seguros* 2.722,55, e a planilha usa duas linhas em **famílias diferentes** — *Seguro Locação* (linha 91, em Ocupação) 182,71 **mais** *Seguro de Responsabilidade Civil* (linha 133, em **Administrativas**) 2.539,84. As duas somam exatamente os nossos 2.722,55. Como a linha 133 está em Administrativas, ela falta em Ocupação (+2.539,84) e sobra em Administrativas (−2.539,84): as duas se cancelam na linha 198 e o total não se move. É também por isso que o prêmio não entra na conta de janeiro acima. Na tabela *Conta por conta* isto está na coluna *Onde está o resto*.
+* **Administrativas (linha 124), mês a mês.** É a família que mistura mais mecanismos, então vai inteira:
+    * **Janeiro −1.139,97** = +1.399,87 de *Associações* (a planilha não somou a **AASP 195,40** nem o **Canal de Arbitragem 1.204,47**) **−2.539,84** do seguro do item acima, que a planilha tem aqui (linha 133) e nós em Ocupação.
+    * **Fevereiro +217,40** = a **AASP**. Ela está dentro da nossa conta única de Associações, e a planilha deixou a linha 125 vazia neste mês.
+    * **Março +37,39** = a **tarifa bancária** (linha 136, zerada na planilha).
+    * **Abril −110,00** = a assinatura **Adobe** (linha 128). Ela existe no sistema todo mês, mas em *Informática* (conta 040.040.0030, histórico *"PPRO*Adobe R$110,00"*) — não em Administrativas.
+    * **Maio 0,00** — bate.
+    * **Junho +4,80** = só a **tarifa bancária**. A AASP de 217,40 aparece dos dois lados neste mês (a planilha em *Assinaturas*, linha 125; nós dentro de *Associações*), então se cancela.
+* **Assinaturas e Associações são uma coisa só do nosso lado.** Temos duas contas (020.060.0010 e 020.060.0020) onde a planilha usa oito linhas (125–132), divididas por área. Por isso o que importa é o **par somado**, não cada linha: em junho, por exemplo, a planilha põe 10.340,35 em *Assinaturas — Arbitragem* (linha 127) e nós a mesma quantia em *Informática* — é a assinatura da plataforma de faturamento do cliente, a mesma reclassificação já conhecida.
 * **Aluguel** (abr +19,17 e mai +129,17): usamos o aluguel líquido da sublocação (crédito Belline).
 * **Tarifa bancária**: existe no sistema e está zerada na planilha (linha 136). Não é mensal — só mar (37,39) e jun (4,80) nos seis meses. Em junho é a **única** diferença que sobra.
 * **Trocas de família** (Endomarketing ↔ Prospecção, Ocupação ↔ Administrativas): a mesma conta em famílias diferentes de cada lado, mas as duas entram no total — efeito **zero** (ver *Diferenças de classificação*).
@@ -181,15 +189,15 @@ como encontrá-la.
 | Janeiro | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 700,10<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 700,10<br>r133 Seguro de Responsabilidade Civil · R$ 2.539,84 | R$ 3.940,04 | Associações · R$ 2.800,06 | R$ 2.800,06 | 1 | -R$ 1.139,97 ¹ | — |
 | Fevereiro | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.129,32<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 6.892,33 | Associações · R$ 7.109,73 | R$ 7.109,73 | 0 | +R$ 217,40 | — |
 | Março | r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.346,72<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 7.109,73 | Associações · R$ 7.109,73<br>Tarifas e Taxas Bancárias · R$ 37,39 | R$ 7.147,12 | 0 | +R$ 37,39 | — |
-| Abril | r128 Assinaturas - Institucional (ADOBE e Valor) · R$ 110,00<br>r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.346,72<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 7.219,73 | Associações · R$ 7.109,73 | R$ 7.109,73 | 1 | -R$ 110,00 | — |
+| Abril | r128 Assinaturas - Institucional (ADOBE e Valor) · R$ 110,00<br>r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 2.346,72<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 2.129,32<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 2.633,69 | R$ 7.219,73 | Associações · R$ 7.109,73 | R$ 7.109,73 | 1 | -R$ 110,00 | r128 R$ 110,00 → no sistema em **Informática**: dentro de `040.040.0030` · R$ 110,00 — *"PPRO*Adobe R$110,00 referente março 2026"* |
 | Junho | r125 Assinaturas - Contencioso (AASP) · R$ 217,40<br>r129 Associações - Contencioso ( ICC e IBRAC AASP) · R$ 700,10<br>r130 Associações - Direito Econômico (ICC, IBRAC) · R$ 700,10<br>r131 Associações - Arbitragem e Compliance (Canal de Arbitragem, ICC, CBAR) · R$ 1.257,35 | R$ 2.874,95 | Associações · R$ 2.874,94<br>Tarifas e Taxas Bancárias · R$ 4,80 | R$ 2.879,74 | 1 | +R$ 4,80 ¹ | — |
 
 **Investimentos em Prospecção** — linha 137 da planilha
 
 | Mês | Só na planilha | Σ | Só no sistema | Σ | Batem | Diferença | Onde está o resto |
 |---|---|---:|---|---:|---:|---:|---|
-| Janeiro | r139 Eventos e Happy hour - Contencioso · R$ 146,00<br>r141 Eventos e Happy hour - Institucional · R$ 1.171,71 | R$ 1.317,71 | — | R$ 0,00 | 0 | -R$ 1.317,71 | — |
-| Fevereiro | r141 Eventos e Happy hour - Institucional · R$ 1.166,75 | R$ 1.166,75 | — | R$ 0,00 | 0 | -R$ 1.166,75 | — |
+| Janeiro | r139 Eventos e Happy hour - Contencioso · R$ 146,00<br>r141 Eventos e Happy hour - Institucional · R$ 1.171,71 | R$ 1.317,71 | — | R$ 0,00 | 0 | -R$ 1.317,71 | r139 R$ 146,00 → no sistema em **Investimento em Prospecção**: dentro de `020.090.0040` · R$ 146,00 — *"DeLadoPão - Compra de 20 pães de queijo para a participação "* |
+| Fevereiro | r141 Eventos e Happy hour - Institucional · R$ 1.166,75 | R$ 1.166,75 | — | R$ 0,00 | 0 | -R$ 1.166,75 | r141 R$ 1.166,75 → no sistema em **Endomarketing**: Eventos e Happy Hour · R$ 1.166,75 |
 | Março | — | R$ 0,00 | Deslocamento e Transportes Prospecção · R$ 162,09 | R$ 162,09 | 1 | +R$ 162,09 | — |
 | Abril | r140 Eventos e Happy hour - Direito Econômico · R$ 200,00<br>r150 Refeições - Arbitragem e Compliance · R$ 835,74<br>r152 Refeições - Direito Econômico · R$ 102,20 | R$ 1.137,94 | Refeições Prospecção · R$ 937,94 | R$ 937,94 | 1 | -R$ 200,00 | — |
 
@@ -197,7 +205,7 @@ como encontrá-la.
 
 | Mês | Só na planilha | Σ | Só no sistema | Σ | Batem | Diferença | Onde está o resto |
 |---|---|---:|---|---:|---:|---:|---|
-| Março | r159 Cursos e Treinamentos - Arbitragem e Compliance · R$ 1.094,49 | R$ 1.094,49 | Cursos / Treinamento Jurídico · R$ 279,00 | R$ 279,00 | 0 | -R$ 815,49 | — |
+| Março | r159 Cursos e Treinamentos - Arbitragem e Compliance · R$ 1.094,49 | R$ 1.094,49 | Cursos / Treinamento Jurídico · R$ 279,00 | R$ 279,00 | 0 | -R$ 815,49 | r159 R$ 1.094,49 → no sistema em **Custos com Pessoal Técnico**: Cursos / Treinamento Jurídico (`030.010.0180`) · R$ 1.094,49 |
 | Abril | r160 Cursos e Treinamentos - Contencioso · R$ 1.450,00 | R$ 1.450,00 | Cursos / Treinamento Jurídico · R$ 1.650,00 | R$ 1.650,00 | 0 | +R$ 200,00 | Cursos / Treinamento Jurídico R$ 1.650,00 = r140 Eventos e Happy hour - Direito Econômico · R$ 200,00 (**Investimentos em Prospecção**) + r160 Cursos e Treinamentos - Contencioso · R$ 1.450,00 |
 
 **Endomarketing** — linha 164 da planilha
