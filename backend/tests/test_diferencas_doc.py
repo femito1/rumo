@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import pytest
 
+import scripts.build_diferencas_doc as bd
 from scripts.build_diferencas_doc import (
     LIMIAR,
     _conciliar,
@@ -175,6 +176,47 @@ def test_conciliar_keeps_repeated_values_separate():
     assert batem == 1
     assert so_nossas == [("B", 700.10)]
     assert so_planilha == []
+
+
+def test_onde_esta_finds_a_value_split_across_two_families(monkeypatch):
+    """The January Ocupação delta the reader could not find.
+
+    Our single ``Seguros`` 2.722,55 is the book's *Seguro Locação* 182,71 (Ocupação) **plus**
+    *Seguro de Responsabilidade Civil* 2.539,84 — which sits in **Administrativas**. So
+    Ocupação differs by +2.539,84 while no Ocupação row on either side holds that number.
+    A within-family view can never show this; ``_onde_esta`` names the other family.
+    """
+    folhas = {
+        ("Ocupação", 1): [("Seguro Locação", 182.71, 91)],
+        ("Administrativas", 1): [("Seguro de Responsabilidade Civil", 2539.84, 133)],
+    }
+    monkeypatch.setattr(
+        bd, "FAMILIAS", {"Ocupação": (85, 92), "Administrativas": (124, 137)}
+    )
+    monkeypatch.setattr(
+        bd, "_folhas_planilha", lambda base, fam, m: folhas.get((fam, m), [])
+    )
+
+    partes = bd._onde_esta(2722.55, "Ocupação", 1, base=None)
+
+    assert [(n, v, r, f) for n, v, r, f in partes] == [
+        ("Seguro Locação", 182.71, 91, "Ocupação"),
+        ("Seguro de Responsabilidade Civil", 2539.84, 133, "Administrativas"),
+    ]
+    # And the part that is elsewhere is exactly the unexplained delta.
+    assert round(sum(v for _, v, _, f in partes if f != "Ocupação"), 2) == 2539.84
+
+
+def test_onde_esta_is_silent_when_the_value_is_inside_its_own_family(monkeypatch):
+    # Aluguel differs because we net the sublocação credit, not because it moved family.
+    # Reporting a "resto" here would invent a cross-family story that does not exist.
+    monkeypatch.setattr(bd, "FAMILIAS", {"Ocupação": (85, 92)})
+    monkeypatch.setattr(
+        bd,
+        "_folhas_planilha",
+        lambda base, fam, m: [("Aluguel", 24230.60, 86), ("Condomínio", 4996.0, 87)],
+    )
+    assert bd._onde_esta(24359.77, "Ocupação", 5, base=None) == []
 
 
 def test_conciliar_reports_one_sided_families():

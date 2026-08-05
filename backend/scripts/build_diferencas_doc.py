@@ -315,13 +315,21 @@ CAUSAS: dict[tuple[str, str], dict[str, str | None]] = {
             "(+1.399,87) — a planilha não somou a AASP (195,40) nem o Canal de Arbitragem "
             "(1.204,47), que existem no sistema — e o **IR Fonte ADM** (+169,52), uma conta "
             "sem linha na planilha; menos os 35,52 do vale-transporte (ver a pergunta no "
-            "fim do documento) e 0,10 de arredondamento.\n"
+            "fim do documento) e 0,10 de arredondamento. O prêmio de seguro **não** entra "
+            "nesta conta, embora apareça como +2.539,84 em *Ocupação*: ele é cancelado por "
+            "−2.539,84 em *Administrativas* (item abaixo).\n"
             "* **Fevereiro (+1.249,19)**: o **e-Social** (+1.032,35), outra conta sem linha "
             "na planilha, mais +217,11 de Administrativas.\n"
-            "* **Janeiro, seguro**: um prêmio **anual** de 2.722,55 (a planilha digita "
-            "182,71 todo mês). Não muda o total desta linha — a planilha põe o prêmio em "
-            "*Administrativas* (linha 133) e nós em Ocupação, e as duas famílias somam na "
-            "linha 198. É por isso que ele **não** aparece na conta de janeiro acima.\n"
+            "* **Janeiro, seguro — o caso que mais gera dúvida.** *Ocupação* difere "
+            "+2.539,84 em janeiro e **esse número não aparece em nenhuma linha de Ocupação**, "
+            "de lado nenhum. O motivo: temos uma conta só, *Seguros* 2.722,55, e a planilha "
+            "usa duas linhas em **famílias diferentes** — *Seguro Locação* (linha 91, em "
+            "Ocupação) 182,71 **mais** *Seguro de Responsabilidade Civil* (linha 133, em "
+            "**Administrativas**) 2.539,84. As duas somam exatamente os nossos 2.722,55. "
+            "Como a linha 133 está em Administrativas, ela falta em Ocupação (+2.539,84) e "
+            "sobra em Administrativas (−2.539,84): as duas se cancelam na linha 198 e o "
+            "total não se move. É também por isso que o prêmio não entra na conta de janeiro "
+            "acima. Na tabela *Conta por conta* isto está na coluna *Onde está o resto*.\n"
             "* **Aluguel** (abr +19,17 e mai +129,17): usamos o aluguel líquido da "
             "sublocação (crédito Belline).\n"
             "* **Tarifa bancária**: existe no sistema e está zerada na planilha (linha "
@@ -460,6 +468,42 @@ def _folhas_nossas(assembled: dict[str, Any], familia: str) -> list[tuple[str, f
     return out
 
 
+def _onde_esta(
+    valor: float, familia: str, m: int, base: Any
+) -> list[tuple[str, float, int, str]]:
+    """Find a value of ours in the workbook when it is NOT in the family we put it in.
+
+    This exists because of a question the document could not answer. The January *Ocupação*
+    delta is **+2.539,84** — but no leaf of Ocupação on either side holds that number, so a
+    reader looking for it finds nothing. It is the *difference* between our single
+    ``Seguros`` (2.722,55) and the book's ``Seguro Locação`` (182,71), and the missing
+    2.539,84 is sitting in **Administrativas** as *Seguro de Responsabilidade Civil*. Two
+    families, one of our accounts, and a table that only ever looks inside one family cannot
+    show it.
+
+    So: given one of our unmatched leaves, look for the same amount in the workbook as a
+    single row, or as a **pair** of rows, anywhere in any family, and return the parts when
+    at least one of them lives outside ``familia``. Pairs only — three-way splits would start
+    matching by coincidence, and over this data the pair rule finds exactly the four real
+    cases (the seguro above, the two Endomarketing↔Prospecção swaps, and one curso) with no
+    false positives.
+    """
+    from itertools import combinations
+
+    todas = [
+        (f, n, v, r)
+        for f in FAMILIAS
+        for n, v, r in _folhas_planilha(base, f, m)
+    ]
+    for f, n, v, r in todas:
+        if f != familia and abs(v - valor) < 0.005:
+            return [(n, v, r, f)]
+    for (fa, na, va, ra), (fb, nb, vb, rb) in combinations(todas, 2):
+        if abs(va + vb - valor) < 0.005 and (fa != familia or fb != familia):
+            return [(na, va, ra, fa), (nb, vb, rb, fb)]
+    return []
+
+
 def _conciliar(
     nossas: list[tuple[str, float]], planilha: list[tuple[str, float, int]]
 ) -> tuple[int, list[tuple[str, float]], list[tuple[str, float, int]]]:
@@ -565,15 +609,20 @@ def _detalhe_despesas(
     add("A conta fecha em cada linha: **(soma do sistema) − (soma da planilha) = diferença**,")
     add("e os subtotais estão na tabela para que dê para conferir sem somar à mão.")
     add("")
+    add("A coluna **Onde está o resto** resolve o caso que confunde mais: quando o valor que")
+    add("falta não está nesta família, e sim em **outra**, na mesma planilha. Aí a diferença")
+    add("desta linha existe, mas é compensada em outro lugar — e sem essa coluna não havia")
+    add("como encontrá-la.")
+    add("")
     centavos: list[str] = []
     for fam, meses_com_dif in difere:
         add(f"**{fam}** — linha {FAMILIAS[fam][0]} da planilha")
         add("")
         add(
-            "| Mês | Só na planilha | Σ | Só no sistema | Σ | Contas que batem |"
-            " Diferença |"
+            "| Mês | Só na planilha | Σ | Só no sistema | Σ | Batem | Diferença |"
+            " Onde está o resto |"
         )
-        add("|---|---|---:|---|---:|---:|---:|")
+        add("|---|---|---:|---|---:|---:|---:|---|")
         for m in meses_com_dif:
             nossas = _folhas_nossas(assembled[m], fam)
             livres = _folhas_planilha(base, fam, m)
@@ -585,6 +634,20 @@ def _detalhe_despesas(
                 "<br>".join(f"r{r} {nome} · {_brl(v)}" for nome, v, r in so_livro) or "—"
             )
             dir_ = "<br>".join(f"{nome} · {_brl(v)}" for nome, v in so_nossas) or "—"
+            # Where one of OUR accounts is split across families in the book, name the other
+            # family and row. Without this the biggest single-month despesa delta in the
+            # document (Ocupação, January, +2.539,64) has no visible source.
+            fora = []
+            for nome, v in so_nossas:
+                partes = _onde_esta(v, fam, m, base)
+                if not partes:
+                    continue
+                detalhe = " + ".join(
+                    f"r{r} {n} · {_brl(pv)}"
+                    + (f" (**{pf}**)" if pf != fam else "")
+                    for n, pv, r, pf in partes
+                )
+                fora.append(f"{nome} {_brl(v)} = {detalhe}")
             # The listed parts must reconstruct the family delta. Where they miss by a
             # centavo it is the workbook carrying a half-centavo inside an account it
             # splits by área; say so on the spot instead of printing a row that does not
@@ -595,7 +658,7 @@ def _detalhe_despesas(
                 centavos.append(f"{fam} / {MESES[m]}")
             add(
                 f"| {MESES[m]} | {esq} | {_brl(sp)} | {dir_} | {_brl(sn)} | {batem} |"
-                f" {_sgn(d)}{nota} |"
+                f" {_sgn(d)}{nota} | {'<br>'.join(fora) or '—'} |"
             )
         add("")
     if centavos:
