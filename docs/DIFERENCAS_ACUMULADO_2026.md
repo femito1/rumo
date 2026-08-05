@@ -6,12 +6,14 @@ Comparação da planilha `Fechamento MBC 06.2026.xlsx` com os números do sistem
 
 1. **A receita bate em todos os meses.** Toda diferença está em *despesa*.
 2. No acumulado de janeiro a junho, o **Resultado Bruto** difere **-R$ 5.003,04** — sobre uma receita de mais de R$ 2 milhões.
-3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo. Ter causa não é o mesmo que bater: nenhuma delas foi corrigida ainda, e uma — a parte MBC do convênio do RB em janeiro — é uma **estimativa nossa**, não um valor lançado.
+3. **Cada centavo dessa diferença tem uma causa identificada**, listada abaixo. Ter causa não é o mesmo que bater — os dois lados continuam diferentes, e um dos valores (a parte MBC do convênio do RB em janeiro) é uma **estimativa nossa**, não um valor lançado.
 4. **Junho fecha**: a única diferença de despesa é a tarifa bancária de R$ 4,80 (o resto são centavos de arredondamento do recebimento). É o mês em que a planilha já está com as fórmulas certas e inclui o vale — a referência de como os dois lados batem quando ambos estão corretos.
 
 Cada diferença vem **mês a mês** com a célula da planilha ao lado (aba `Areas Sintetico atualizado`, colunas **Jan=C**, **Fev=G**, **Mar=K**, **Abr=O**, **Mai=S**, **Jun=W**). Detalhamos as que passam de **R$ 1.000,00** no acumulado **ou em qualquer mês isolado**; as menores estão no fim.
 
-Nas **Despesas Indiretas** — a linha que puxa também a Despesa Institucional das três áreas — a diferença é aberta até a **conta**: quais despesas, com que valor, em cada mês, dos dois lados. Quem quiser conferir um número específico deve ir direto a *Quais despesas, mês a mês* e *Conta por conta, onde há diferença*.
+Nas **Despesas Indiretas** — a linha que puxa também a Despesa Institucional das três áreas — a diferença é aberta até a **conta**: quais despesas, com que valor, em cada mês, dos dois lados. Para conferir um número específico, as seções são *Quais despesas, mês a mês* e *Conta por conta, onde há diferença*.
+
+Este documento é só para entendimento: descreve o que cada lado faz e por que os números diferem. Não propõe mudança em nenhum dos dois.
 
 ## O que NÃO difere
 
@@ -32,9 +34,9 @@ que é o detalhe por trás dos totais da `Areas Sintetico atualizado`.
 1. **Fórmula deslocada na planilha** (linhas 204/205/206, janeiro a maio). Cada
    uma dessas linhas soma as despesas de uma área; nas cinco últimas parcelas
    (*Eventos*, *Material Gráfico*, *Patrocínio*, *Refeições*, *Viagens*) a fórmula
-   aponta uma linha adiante e pega a da área vizinha. Junho já está certo. Move
+   aponta uma linha adiante e pega a da área vizinha. Junho já está certo. Afeta
    *Despesas Equipe* e — por meio da linha 203 — também a *Despesa Institucional*
-   das três áreas. É ajuste na planilha, não no sistema.
+   das três áreas, mas **não** o total institucional da linha 198.
 2. **Despesa Institucional por área é o total institucional dividido entre as**
    **áreas.** A divisão não cria nem apaga dinheiro; a diferença vem do total (ver
    *Despesas Indiretas*) e da causa 1, através da linha 203.
@@ -42,12 +44,12 @@ que é o detalhe por trás dos totais da `Areas Sintetico atualizado`.
    linhas 26/27 (Contencioso) e 56/57 (Econômico) trazem o vale em alguns meses e
    ficam zeradas em mar/abr/mai. No administrativo, as linhas 122/123 usam três
    bases diferentes ao longo dos seis meses. O sistema usa sempre a mesma regra.
-4. **A anotação do convênio médico fica velha.** A *memória de cálculo* no
-   lançamento diz quanto do plano é da MBC; em jan/fev ela descrevia um plano
-   antigo (o mesmo texto vinha desde 2025, com o plano mudando duas vezes). O
-   sistema já não depende dela — calcula pela proporção dos meses corretos — mas
-   **atualizá-la quando um plano mudar** é o que mantém o valor exato em vez de
-   estimado.
+4. **A anotação do convênio médico está velha em jan/fev.** A *memória de cálculo*
+   no lançamento diz quanto do plano é da MBC; nesses dois meses ela descrevia um
+   plano antigo (o mesmo texto vinha desde 2025, com o plano mudando duas vezes). O
+   sistema não depende dela: calcula a parte da MBC pela proporção dos meses em que
+   a anotação está correta. Por isso um valor — a parte da MBC do convênio do RB em
+   janeiro — é **estimado**, e não lido de um lançamento.
 
 *Um total que fecha porque dois erros se anulam não está validado — por isso tudo*
 *aparece mês a mês, não só no acumulado. Uma linha entra no detalhe abaixo se*
@@ -424,44 +426,37 @@ pontos diferentes ao dividir o total entre três áreas.
 Somadas: **-R$ 0,69** no acumulado, e nenhuma passa de mil reais em nenhum mês isolado — são centavos de
 arredondamento do recebimento, que a planilha digita em reais inteiros.
 
-## O que fazer
+## Dois pontos que ajudam a ler os números
 
-### 1. Na planilha: copiar as fórmulas de junho para janeiro–maio
+Nada aqui pede mudança de lado nenhum — é só o que é útil saber ao comparar as duas
+colunas.
 
-Nas linhas **204, 205 e 206** da aba `Base_Resultado Mensal_V2`, as fórmulas de
-janeiro a maio pegam cinco parcelas da área vizinha. As de junho estão corretas —
-copiá-las para os meses anteriores corta bem mais da metade do erro mensal de
-*Despesas Equipe* (de R$ 10.216 para R$ 4.245, somados os seis meses em módulo) e
-cerca de um terço do de *Despesa Institucional*.
+### O efeito real da fórmula das linhas 204/205/206
 
-⚠ **Isso não fecha o acumulado do Resultado Bruto, e é importante saber disso antes
-de mexer.** Medimos: a correção quase não move o Resultado Bruto (de R$ 14.175 para
-R$ 14.009 em erro mensal somado, e o acumulado sai de −R$ 5.003 para −R$ 5.004).
+A fórmula deslocada (causa 1) afeta **a divisão entre as áreas**, não o total. Se as
+fórmulas de junho valessem para janeiro–maio, o erro mensal de *Despesas Equipe*
+cairia de R$ 10.216 para R$ 4.245 (somados os seis meses em módulo) e o de *Despesa
+Institucional* cerca de um terço — mas o **Resultado Bruto praticamente não se
+move**: de R$ 14.175 para R$ 14.009 em erro mensal somado, e o acumulado de
+−R$ 5.003 para −R$ 5.004.
+
 O motivo é que a linha **198** — o total institucional, que é o que chega ao
-Resultado Bruto — não referencia as linhas 204/205/206. A correção arruma a
-**distribuição entre as áreas**, que é o que ela deve arrumar; o acumulado depende
-das outras causas.
+Resultado Bruto — não referencia as linhas 204/205/206. Vale registrar porque a
+conclusão é contra-intuitiva: é a maior das causas por número de células afetadas e,
+ainda assim, não é ela que explica o acumulado.
 
-### 2. No sistema: manter a anotação do convênio atualizada quando o plano mudar
-
-A *memória de cálculo* no lançamento do convênio é o que diz quanto do plano é da
-MBC. Quando ela fica velha, o sistema estima a parte da MBC pela proporção dos
-outros meses — funciona, mas é estimativa. Hoje há uma: a parte da MBC do **RB em
-janeiro** (o plano dele mudou e nenhuma anotação registra a proporção daquele mês).
-Se puderem confirmar esse número, ele deixa de ser estimado.
-
-### 3. Uma pergunta: de onde vem o R$ 35,52 do vale-transporte de janeiro?
+### O único número sem origem: R$ 35,52 no vale-transporte de janeiro
 
 Na aba `Base_Resultado Mensal_V2`, a célula `C123` traz `=35,52+262,64`. Os
-**262,64** são o vale-transporte da pessoa
-do administrativo (14 dias × R$ 18,76) e conferem. Os **35,52** não aparecem em
-nenhum lançamento do sistema — nem em janeiro, nem em nenhum outro mês. Não é
-vale-refeição (o menor do ano é R$ 783,70) e não corresponde a um número inteiro de
-dias em nenhuma diária de vale.
+**262,64** são o vale-transporte da pessoa do administrativo (14 dias × R$ 18,76) e
+conferem. Os **35,52** não aparecem em nenhum lançamento do sistema — nem em
+janeiro, nem em nenhum outro mês. Não é vale-refeição (o menor do ano é R$ 783,70) e
+não corresponde a um número inteiro de dias em nenhuma diária de vale.
 
 Também não é um pedaço que falte do nosso número: o vale-transporte de janeiro
-(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Se for de outra
-competência ou um acerto pontual, é só dizer e passamos a tratá-lo da mesma forma.
+(R$ 262,64) já está completo, então os 35,52 estão somados por cima. Depois de nomear
+tudo o que está neste documento, é o único valor da comparação inteira que não tem um
+lançamento atrás dele.
 
 ## Diferenças de classificação
 
@@ -496,8 +491,7 @@ porque também são decisões de método, não erros de nenhum dos lados:
 * **Vale do administrativo** — a planilha muda de base a cada mês (linhas 122/123:
   só a pessoa do administrativo em fev/jun, as três em abril, nenhuma das duas em
   jan/mar/mai); o sistema usa sempre a mesma regra, com os estagiários no custo das
-  áreas deles. Não há o que convergir: aproximar a planilha significaria reproduzir
-  três regras diferentes.
+  áreas deles. É a maior das diferenças de despesa no acumulado.
 * **Aluguel** — o sistema usa o valor líquido da sublocação (crédito Belline),
   a planilha o bruto. Diferença de +R$ 129,17 em abril e maio.
 

@@ -430,8 +430,9 @@ lawyers (r26/27, r56/57 zeroed in mar/abr/mai) and the ADM (r122/123, three diff
 ⚠ **Repairing `r204/205/206` would not close the YTD gap** — measured by
 `audit_fix_204_effect.py`: *Despesas Equipe* monthly error halves (10.216 → 4.245) but
 Resultado Bruto barely moves (14.175 → 14.009; YTD −5.003 → −5.004), because `r198` does not
-reference those rows. The client document now says this explicitly under *O que fazer*, so
-nobody repairs the sheet expecting the headline to converge.
+reference those rows. The client document states this under *Dois pontos que ajudam a ler os
+números*, as an observation rather than a recommendation — the client is not changing the
+workbook (2026-08-05), so the document is descriptive only; see the CLAUDE.md gotcha.
 Cross-checked against `reconcile_custo_equipe.py`: Arbitragem's whole YTD delta is Jan–Abr
 with 0,00 from Mai/Jun, exactly as the convênio story predicts.
 
