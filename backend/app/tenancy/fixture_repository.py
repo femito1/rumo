@@ -16,14 +16,14 @@ from __future__ import annotations
 import os
 
 from app.auth.passwords import hash_password
+from app.tenancy.in_memory import InMemoryTenancyStore
 from app.tenancy.models import Client, Role, User
 
 
-class FixtureRepository:
-    def __init__(self, users: list[User], clients: list[Client]) -> None:
-        self._users_by_email = {u.email: u for u in users}
-        self._users_by_id = {u.id: u for u in users}
-        self._clients = {c.id: c for c in clients}
+class FixtureRepository(InMemoryTenancyStore):
+    """Reads and writes an in-memory store (see ``InMemoryTenancyStore``), seeded
+    with the same three accounts as ``scripts/seed.py``. Provisioning writes work
+    here too, so the whole flow can be exercised with no Supabase."""
 
     @classmethod
     def seeded(cls) -> "FixtureRepository":
@@ -61,14 +61,3 @@ class FixtureRepository:
         ]
         return cls(users, clients)
 
-    def get_user_by_email(self, email: str) -> User | None:
-        return self._users_by_email.get(email)
-
-    def get_user_by_id(self, user_id: str) -> User | None:
-        return self._users_by_id.get(user_id)
-
-    def list_clients(self) -> list[Client]:
-        return [c for c in self._clients.values() if c.active]
-
-    def get_client(self, client_id: str) -> Client | None:
-        return self._clients.get(client_id)
