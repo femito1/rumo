@@ -42,6 +42,23 @@ class SupabaseRepository:
 
     # --- provisioning writes -------------------------------------------------
 
+    @staticmethod
+    def _write(query, what: str):
+        """Run a write and turn ANY driver/database failure into ``ValueError``.
+
+        Without this, a constraint violation or an unknown column raises supabase-py's
+        APIError straight through the router as an opaque **500**. That is exactly what
+        production returned when `/usuarios` was used before the role-CHECK migration
+        had been applied: the operator saw "500 Internal Server Error" and learned
+        nothing, when the real answer was "run the ALTER TABLE". The router maps
+        ValueError to a 422 with a PT-BR message, and the original text is kept as the
+        cause so the log still says which constraint failed.
+        """
+        try:
+            return query.execute()
+        except Exception as exc:  # noqa: BLE001 - deliberately broad: any write failure
+            raise ValueError(f"falha ao {what}: {exc}") from exc
+
     def create_user(
         self,
         *,
@@ -55,9 +72,8 @@ class SupabaseRepository:
         # surfaces as an opaque 500, and the caller wants a PT-BR 422.
         if self.get_user_by_email(email) is not None:
             raise ValueError(f"e-mail já cadastrado: {email}")
-        res = (
-            self._c.table("users")
-            .insert(
+        res = self._write(
+            self._c.table("users").insert(
                 {
                     "email": email,
                     "password_hash": password_hash,
@@ -66,8 +82,8 @@ class SupabaseRepository:
                     "active": True,
                     "must_change_password": must_change_password,
                 }
-            )
-            .execute()
+            ),
+            "criar o usuário",
         )
         rows = res.data or []
         if not rows:
@@ -81,11 +97,9 @@ class SupabaseRepository:
         return [row_to_user(r) for r in (res.data or [])]
 
     def set_user_active(self, user_id: str, active: bool) -> User | None:
-        res = (
-            self._c.table("users")
-            .update({"active": active})
-            .eq("id", user_id)
-            .execute()
+        res = self._write(
+            self._c.table("users").update({"active": active}).eq("id", user_id),
+            "alterar o usuário",
         )
         rows = res.data or []
         return row_to_user(rows[0]) if rows else None
@@ -93,7 +107,7 @@ class SupabaseRepository:
     def set_password(
         self, user_id: str, password_hash: str, *, must_change_password: bool = False
     ) -> User | None:
-        res = (
+        res = self._write(
             self._c.table("users")
             .update(
                 {
@@ -101,8 +115,8 @@ class SupabaseRepository:
                     "must_change_password": must_change_password,
                 }
             )
-            .eq("id", user_id)
-            .execute()
+            .eq("id", user_id),
+            "alterar a senha",
         )
         rows = res.data or []
         return row_to_user(rows[0]) if rows else None
@@ -112,9 +126,8 @@ class SupabaseRepository:
     ) -> Client:
         if self.get_client(id) is not None:
             raise ValueError(f"cliente já existe: {id}")
-        res = (
-            self._c.table("clients")
-            .insert(
+        res = self._write(
+            self._c.table("clients").insert(
                 {
                     "id": id,
                     "name": name,
@@ -122,8 +135,8 @@ class SupabaseRepository:
                     "provider_config": provider_config or {},
                     "active": True,
                 }
-            )
-            .execute()
+            ),
+            "criar o cliente",
         )
         rows = res.data or []
         if not rows:

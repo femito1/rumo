@@ -305,6 +305,25 @@ def test_duplicate_email_is_a_ptbr_422_not_a_500(client):
     assert "já cadastrado" in resp.json()["detail"].lower()
 
 
+def test_a_storage_failure_is_not_reported_as_a_duplicate_email(client, repo, monkeypatch):
+    """Production returned a bare 500 from /usuarios because the role-CHECK migration
+    had not been applied. Two rules came out of it: a write failure must be a PT-BR 422
+    (not a 500), and it must NOT be dressed up as "E-mail já cadastrado" — that message
+    is a plausible-looking lie that would send an operator hunting the wrong problem."""
+    def boom(**_kw):
+        raise ValueError('violates check constraint "users_role_check"')
+
+    monkeypatch.setattr(repo, "create_user", boom)
+    resp = client.post(
+        "/api/clients/mbc/users",
+        json={"email": "brand-new@mbclaw.com.br", "role": "CLIENT"},
+        headers=_hdr(client, "admin@rumo.com.br", "admin123"),
+    )
+    assert resp.status_code == 422
+    assert "já cadastrado" not in resp.json()["detail"].lower()
+    assert "não foi possível criar" in resp.json()["detail"].lower()
+
+
 def test_unknown_role_and_malformed_email_are_rejected(client):
     hdr = _hdr(client, "admin@rumo.com.br", "admin123")
     assert client.post(

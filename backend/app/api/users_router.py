@@ -86,6 +86,20 @@ def _parse_role(raw: str) -> Role:
         raise HTTPException(status_code=422, detail=f"Papel inválido: {raw}") from None
 
 
+def _written(call, detail: str):
+    """Run a repository write, turning a storage failure into a PT-BR 422.
+
+    The repo raises ValueError for any failed write (see ``SupabaseRepository._write``).
+    Every mutating route goes through here so a database problem can never reach the
+    operator as a bare 500 — which is exactly what production did when `/usuarios` was
+    used before the role-CHECK migration had been applied.
+    """
+    try:
+        return call()
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=detail) from exc
+
+
 @router.get("/clients/{client_id}/users")
 def list_users(
     client_id: str,
@@ -111,17 +125,24 @@ def create_user(
     role = _parse_role(body.role)
     assert_may_grant(user, role)
 
+    email = body.email.strip().lower()
+    # Checked here, not inferred from a write failure: reporting every storage error as
+    # "E-mail já cadastrado" is what would hide a real problem (e.g. a missing
+    # migration) behind a plausible-looking validation message.
+    if repo.get_user_by_email(email) is not None:
+        raise HTTPException(status_code=422, detail="E-mail já cadastrado")
+
     temp_password = generate_temp_password()
-    try:
-        created = repo.create_user(
-            email=body.email.strip().lower(),
+    created = _written(
+        lambda: repo.create_user(
+            email=email,
             password_hash=hash_password(temp_password),
             role=role,
             client_id=client_id,
             must_change_password=True,
-        )
-    except ValueError:
-        raise HTTPException(status_code=422, detail="E-mail já cadastrado") from None
+        ),
+        "Não foi possível criar o usuário",
+    )
     # The ONLY time the password leaves this process. Not stored, not logged.
     return {**_user_public(created), "temp_password": temp_password}
 
@@ -140,7 +161,10 @@ def update_user(
     assert_may_manage(user, repo.get_user_by_id(user_id), client_id)
     if body.active is None:
         raise HTTPException(status_code=422, detail="Nada a alterar")
-    updated = repo.set_user_active(user_id, body.active)
+    updated = _written(
+        lambda: repo.set_user_active(user_id, body.active),
+        "Não foi possível alterar o usuário",
+    )
     if updated is None:  # pragma: no cover - assert_may_manage already resolved it
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     return _user_public(updated)
@@ -165,8 +189,11 @@ def reset_password(
 
     temp_password = generate_temp_password()
     # ``must_change_password=True``: a password someone else chose must not stay.
-    updated = repo.set_password(
-        target.id, hash_password(temp_password), must_change_password=True
+    updated = _written(
+        lambda: repo.set_password(
+            target.id, hash_password(temp_password), must_change_password=True
+        ),
+        "Não foi possível gerar uma nova senha",
     )
     if updated is None:  # pragma: no cover - target already resolved
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
@@ -212,7 +239,10 @@ def change_password(
             status_code=422,
             detail=f"A nova senha precisa de ao menos {MIN_PASSWORD_LEN} caracteres",
         )
-    updated = repo.set_password(user.id, hash_password(body.new_password))
+    updated = _written(
+        lambda: repo.set_password(user.id, hash_password(body.new_password)),
+        "Não foi possível alterar a senha",
+    )
     if updated is None:  # pragma: no cover - the session already resolved this user
         raise HTTPException(status_code=404, detail="Usuário não encontrado")
     return _user_public(updated)
