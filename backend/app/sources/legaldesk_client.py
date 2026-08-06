@@ -20,16 +20,71 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
+#: Fallback when a client's ``provider_config`` says nothing. MBC's row carries an
+#: empty config, so this is still the live path for it.
+_DEFAULT_BASE = "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV"
+
+
 @dataclass(frozen=True)
 class _LegalDeskSettings:
-    api_base: str = os.environ.get("LEGALDESK_BASE", "https://legaldesk.mbclaw.com.br/API/v1/ODataGERALADV").rstrip("/")
-    api_user: str = os.environ.get("LEGALDESK_USER", "integracao")
-    api_password: str = os.environ.get("LEGALDESK_PASSWORD", "")
-    request_timeout: int = int(os.environ.get("LEGALDESK_TIMEOUT", "120"))
-    default_top: int = int(os.environ.get("LEGALDESK_TOP", "5000"))
+    api_base: str = _DEFAULT_BASE
+    api_user: str = "integracao"
+    api_password: str = ""
+    request_timeout: int = 120
+    default_top: int = 5000
+
+    @classmethod
+    def from_env(cls) -> "_LegalDeskSettings":
+        """Read the environment NOW.
+
+        ⚠ These used to be dataclass field defaults (``api_base: str =
+        os.environ.get(...)``), which Python evaluates once when the class body runs —
+        i.e. at import. Combined with the module-level singleton below, that pinned a
+        whole process to one LegalDesk tenant and made ``monkeypatch.setenv`` in tests
+        silently ineffective. Same call-time shape as ``Settings.from_env``.
+        """
+        return cls(
+            api_base=os.environ.get("LEGALDESK_BASE", _DEFAULT_BASE).rstrip("/"),
+            api_user=os.environ.get("LEGALDESK_USER", "integracao"),
+            api_password=os.environ.get("LEGALDESK_PASSWORD", ""),
+            request_timeout=int(os.environ.get("LEGALDESK_TIMEOUT", "120")),
+            default_top=int(os.environ.get("LEGALDESK_TOP", "5000")),
+        )
+
+    @classmethod
+    def from_provider_config(cls, provider_config: dict | None) -> "_LegalDeskSettings":
+        """Per-client credentials from ``clients.provider_config['legaldesk']``.
+
+        Shape (every key optional)::
+
+            {"legaldesk": {"base": ..., "user": ..., "password": ...,
+                           "timeout": 120, "top": 5000}}
+
+        Each key falls back to the environment INDIVIDUALLY, so two tenants sharing a
+        host can override only user/password without blanking the base URL, and MBC's
+        empty config behaves exactly as before.
+
+        ⚠ These are upstream credentials: they must never be serialized into an API
+        response (see ``_client_public``) or reach the browser.
+        """
+        env = cls.from_env()
+        cfg = (provider_config or {}).get("legaldesk") or {}
+        base = str(cfg.get("base") or env.api_base).rstrip("/")
+        return cls(
+            api_base=base,
+            api_user=str(cfg.get("user") or env.api_user),
+            api_password=str(cfg.get("password") or env.api_password),
+            request_timeout=int(cfg.get("timeout") or env.request_timeout),
+            default_top=int(cfg.get("top") or env.default_top),
+        )
 
 
-SETTINGS = _LegalDeskSettings()
+def _default_settings() -> "_LegalDeskSettings":
+    return _LegalDeskSettings.from_env()
+
+
+#: Back-compat default for callers that construct a client with no settings.
+SETTINGS = _LegalDeskSettings.from_env()
 
 
 def to_float(value: Any) -> float:
@@ -43,7 +98,10 @@ def to_float(value: Any) -> float:
 
 
 class LegalDeskClient:
-    def __init__(self, settings: _LegalDeskSettings = SETTINGS) -> None:
+    def __init__(self, settings: _LegalDeskSettings | None = None) -> None:
+        # Resolved here, not as a default argument: a default would again freeze the
+        # environment at import time.
+        settings = settings if settings is not None else _LegalDeskSettings.from_env()
         self.settings = settings
         self.session = requests.Session()
         self.session.auth = HTTPBasicAuth(settings.api_user, settings.api_password)

@@ -3,6 +3,12 @@
 Run once after applying schema.sql:  python -m scripts.seed
 Passwords come from env (SEED_ADMIN_PASSWORD, SEED_MBC_PASSWORD, SEED_DEMO_PASSWORD)
 with dev defaults; override in production.
+
+⚠ This is a BOOTSTRAP, not a migration. The upsert rewrites `password_hash` for the
+three seeded accounts on every run, so re-running it against a live database resets
+those passwords to the env/dev values. Users created through the app (/usuarios) are
+untouched — they are not in this list — but do not reach for this script to "refresh"
+an existing deployment.
 """
 from __future__ import annotations
 import os
@@ -14,8 +20,16 @@ def main() -> None:
     s = Settings.from_env()
     c = create_client(s.supabase_url, s.supabase_service_key)
     clients = [
-        {"id": "mbc", "name": "MBC", "provider": "legaldesk", "provider_config": {}},
-        {"id": "demo", "name": "Cliente Demonstração", "provider": "fixture", "provider_config": {}},
+        # MBC really runs LegalDesk + the SISJURI snapshots; seeding plain "legaldesk"
+        # would silently drop every expense/DRE block the second source provides.
+        # `provider_config` stays empty on purpose — MBC's LegalDesk credentials come
+        # from the environment; a SECOND tenant puts its own here instead.
+        {"id": "mbc", "name": "MBC", "provider": "legaldesk+sisjuri", "provider_config": {}},
+        # Demo tenant: inactive so it is neither listed NOR reachable by direct URL
+        # (client decision 2026-08-05 — "hide the test client for now"). Flip `active`
+        # to true to demo the app with no external services.
+        {"id": "demo", "name": "Cliente Demonstração", "provider": "fixture",
+         "provider_config": {}, "active": False},
     ]
     for row in clients:
         c.table("clients").upsert(row).execute()

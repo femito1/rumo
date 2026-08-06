@@ -9,6 +9,7 @@ from app.sources.base import SectionKey, DayRange, Source, SectionData
 from app.sources.budget_source import BudgetSource
 from app.sources.fixture import FixtureSource
 from app.sources.legaldesk import LegalDeskSource
+from app.sources.legaldesk_client import _LegalDeskSettings
 from app.sources.sisjuri_db import SisjuriDbSource
 from app.tenancy.models import Client
 
@@ -356,8 +357,14 @@ def _transfers_repo():
 
 def build_provider_for(client: Client, *, period: Period | None = None) -> ClosingProvider:
     """Resolve a client's `provider` column to an ordered list of Sources (spec §4)."""
+    # Upstream credentials come from THIS client's provider_config, falling back to
+    # the environment per key (MBC's config is empty, so it keeps using the env).
+    # Passed as settings, not as a built client: this function runs on every closing
+    # request and the HTTP client is often never used.
+    legaldesk_settings = _LegalDeskSettings.from_provider_config(client.provider_config)
+
     if client.provider == "legaldesk":
-        return ClosingProvider(sources=[LegalDeskSource()])
+        return ClosingProvider(sources=[LegalDeskSource(settings=legaldesk_settings)])
     if client.provider == "fixture":
         return ClosingProvider(sources=[FixtureSource()])
     if client.provider == "legaldesk+sisjuri":
@@ -367,7 +374,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
         #   3. Budget     -> ORCAMENTO_2026 reference table.
         #   4. Assembler  -> computed DRE (Orcado x Realizado) over institucional
         #      + area blocks + areas_sintetico + dre_2026 + amortizacao.
-        sources: list[Source] = [LegalDeskSource()]
+        sources: list[Source] = [LegalDeskSource(settings=legaldesk_settings)]
 
         snapshot = None
         if period is not None:

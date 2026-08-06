@@ -1,7 +1,7 @@
 # backend/app/sources/legaldesk.py
 from __future__ import annotations
 from app.sources.base import SectionKey, DayRange, SectionData
-from app.sources.legaldesk_client import LegalDeskClient
+from app.sources.legaldesk_client import LegalDeskClient, _LegalDeskSettings
 from app.closing.builder import build_payload
 from app.closing.period import Period
 
@@ -17,8 +17,19 @@ class LegalDeskSource:
     """
     name = "legaldesk"
 
-    def __init__(self, client: LegalDeskClient | None = None, *, _recorded: dict | None = None) -> None:
+    def __init__(
+        self,
+        client: LegalDeskClient | None = None,
+        *,
+        settings: _LegalDeskSettings | None = None,
+        _recorded: dict | None = None,
+    ) -> None:
         self._client = client
+        #: Per-client credentials (from ``clients.provider_config``). Held rather than
+        #: used so the HTTP client is built only if ``fetch`` actually needs it —
+        #: ``build_provider_for`` runs on every request and a recorded payload or a
+        #: SISJURI snapshot often answers instead.
+        self.settings = settings
         self._recorded = _recorded
 
     @classmethod
@@ -28,8 +39,20 @@ class LegalDeskSource:
     def supports(self) -> set[SectionKey]:
         return set(_ALL)
 
+    def _http_client(self) -> LegalDeskClient | None:
+        """Build the HTTP client on first real use, with this tenant's credentials."""
+        if self._client is None and self.settings is not None:
+            self._client = LegalDeskClient(self.settings)
+        return self._client
+
     def fetch(self, period: Period, day_range: DayRange) -> dict[SectionKey, SectionData]:
-        payload = self._recorded if self._recorded is not None else build_payload(period, self._client)
+        # A recorded payload short-circuits before any client is built — which is why
+        # the sacred-numbers fixture test never touches credentials.
+        payload = (
+            self._recorded
+            if self._recorded is not None
+            else build_payload(period, self._http_client())
+        )
         tabs = payload["tabs"]
         out: dict[SectionKey, SectionData] = {}
         for key in SectionKey:
