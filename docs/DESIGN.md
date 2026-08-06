@@ -118,21 +118,65 @@ back to the environment individually:
 ⚠ It holds secrets: never serialize it into a response (`_client_public` omits it, and
 a test asserts no client endpoint leaks it) and never send it to the browser.
 
-**Still MBC-specific — this is the real cost of a new client, and it is consulting
-work, not configuration:**
+**Per-client accounting shape** (`app/tenancy/tenant_config.py`). Áreas, the account
+map and the two rates are now configuration, not constants. MBC's values are the
+DEFAULTS, so its empty config reproduces today's numbers exactly:
+
+```json
+{
+  "areas": [
+    {"label": "Tributário",  "match": ["tribut", "fiscal"]},
+    {"label": "Trabalhista", "match": ["trabalh"]}
+  ],
+  "accounts": {"020.060.0040": "Administrativas"},
+  "amortizacao_mensal": 8117.0,
+  "bonus_reserve_rate": 0.10
+}
+```
+
+* `areas` — any number of practice areas, not three. `match` lists the substrings that
+  identify the área in a SISJURI grupo name (SISJURI drops spaces, so matching is
+  substring-based); omit it and the label itself is used. ⚠ Each grupo must resolve to
+  **exactly one** área: three loops in `dre.py` ADD over every match, so an ambiguous
+  matcher books the same money twice. This is why MBC's Econômico is anchored on
+  `econô`/`econo` and not a bare `econ` (which `equipecontencioso` contains).
+* `accounts` — an **overlay** on the built-in CONTA3 map, not a replacement. A firm on
+  the same SISJURI install shares most of the tree and only names its exceptions.
+* A malformed config degrades to MBC's defaults rather than taking the closing down.
+
+### Onboarding a second client
+
+1. `POST /api/clients` `{id, name, provider}` (ADMIN). Use `legaldesk+sisjuri` for a
+   firm on the same stack.
+2. Set its `provider_config` **directly in Supabase** (never through the API — it holds
+   the LegalDesk password): the `legaldesk` block plus the `areas`/`accounts` above.
+3. `POST /api/clients/{id}/users` to create its Gestor; hand over the one-time password.
+4. Point the SISJURI agent at the new tenant (`meta.client_id` in the extract payload)
+   so its snapshots land under the right `client_id`.
+5. Enter its budget via `PUT /api/clients/{id}/budget`.
+
+**Still MBC-specific:**
 
 | Coupling | Where | Note |
 | --- | --- | --- |
-| Chart-of-accounts mapping (37 overrides) | `app/closing/workbook_layouts.py` | every client's plano de contas differs |
-| Área names `Contencioso`/`Econômico`/`Arbitragem` | ~12 modules | a new client has its own practice areas |
-| SIGLA→área (`ECT`/`EDE`/`ESP`) | `ops/sisjuri-agent/extract.sql` | cost-centre codes are per install |
-| 15 workbook tab layouts (20.9k lines) | `app/closing/tab_layouts.py` | mirrors MBC's workbook 1:1; **its generator (`gen_tab_layouts.py`) no longer exists**, so it cannot currently be regenerated for a different workbook shape |
+| SIGLA→área (`ECT`/`EDE`/`ESP`) | `ops/sisjuri-agent/extract.sql` | cost-centre codes are per install; the extract is per-tenant anyway |
+| 15 workbook tab layouts (20.9k lines) | `app/closing/tab_layouts.py` | mirrors MBC's workbook 1:1; **its generator (`gen_tab_layouts.py`) no longer exists**, so it cannot be regenerated for a different workbook shape. A second client gets the deck + DRE (which are config-driven) but not a 1:1 mirror of ITS workbook. |
 
-So: **a second law firm on the same stack (LegalDesk + SISJURI Oracle) is days of
-work** — credentials, its own account map, its own área set. A client on a different
-ERP needs a new `Source` implementation, which is exactly what the `Source` protocol is
-for. **Neither is self-serve**, and the tab layouts are the one piece that would need
-its generator rebuilt first.
+So: **a second firm on the same stack is now mostly configuration** — credentials,
+áreas, account exceptions, a budget. A client on a different ERP needs a new `Source`
+implementation, which is what the protocol is for. The detail tabs remain MBC-shaped.
+
+### The two tests that make this safe to change
+
+* `tests/test_mbc_golden.py` — a fingerprint (count + sum + sha256) of **every number**
+  the assembler produces for the six closed 2026 months. A generalisation that moves any
+  MBC number fails it. Its own sensitivity was verified by perturbing one value by
+  R$ 0,01 and confirming it is caught. ⚠ Never "update the expected values" to make it
+  pass; that is the one move it exists to prevent.
+* `tests/test_second_client.py` — drives the real provider with a non-MBC config and
+  asserts the payload reshapes (its áreas, not MBC's; a different área count) while the
+  institutional headline off the same snapshot is unchanged, since relabelling áreas
+  must not create or destroy money.
 
 ## Deploy
 

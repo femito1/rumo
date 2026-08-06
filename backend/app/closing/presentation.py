@@ -30,6 +30,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.closing.dre import area_section_key
+from app.tenancy.tenant_config import DEFAULT_AREAS, TenantConfig
+
 # Deck-wide line order for the per-área DRE table (PDF p.7/9/11).
 _AREA_DRE_LINES: tuple[tuple[str, str], ...] = (
     ("recebimento", "Receita"),
@@ -53,11 +56,25 @@ _MESES = (
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 )
 
+#: MBC's deck labels. 'Arbitragem & Compliance' is the DISPLAY name for the área whose
+#: config label is 'Arbitragem' — the workbook spells it out on the slide.
 _AREAS: tuple[tuple[str, str], ...] = (
     ("contencioso", "Contencioso"),
     ("economico", "Econômico"),
     ("arbitragem", "Arbitragem & Compliance"),
 )
+
+
+def _deck_areas(tenant: "TenantConfig | None") -> tuple[tuple[str, str], ...]:
+    """(section_key, slide label) per área, for THIS client.
+
+    MBC keeps its established keys and its spelled-out Arbitragem label; any other
+    client's áreas come from its config, so the deck follows the same practice areas the
+    rest of the closing uses instead of a second hardcoded list.
+    """
+    if tenant is None or tenant.area_labels == tuple(lbl for lbl, _ in DEFAULT_AREAS):
+        return _AREAS
+    return tuple((area_section_key(lbl), lbl) for lbl in tenant.area_labels)
 
 
 def _num(v: Any) -> float | None:
@@ -159,6 +176,7 @@ def build_presentation(
     faturamento_by_month: dict[int, float] | None = None,
     is_partial: bool = False,
     status_label: str | None = None,
+    tenant: "TenantConfig | None" = None,
 ) -> dict[str, Any]:
     """Return the full presentation payload (see module docstring).
 
@@ -252,7 +270,7 @@ def build_presentation(
 
     # ── Slides 6+: per-área (mês + YTD + DRE) ────────────────────────────────
     areas = []
-    for akey, alabel in _AREAS:
+    for akey, alabel in _deck_areas(tenant):
         acomp = _rows(comp.get(akey))
         aytd = _rows((ytd_sections or {}).get(akey))
         # per-month attainment for this área (receita vs its recebimento Orçado)
@@ -293,7 +311,7 @@ def build_presentation(
         })
 
     # ── Reserva de bônus matrix (institucional + áreas × months + YTD) ───────
-    reserva_areas = [("institucional", "Institucional"), *_AREAS]
+    reserva_areas = [("institucional", "Institucional"), *_deck_areas(tenant)]
     reserva = []
     for akey, alabel in reserva_areas:
         by_month = {

@@ -12,6 +12,7 @@ from typing import Any
 from app.closing.dre import assemble_dre_sections
 from app.closing.period import Period
 from app.sources.base import DayRange, SectionData, SectionKey
+from app.tenancy.tenant_config import DEFAULT_TENANT, TenantConfig
 
 _VALUE_TO_KEY = {k.value: k for k in SectionKey}
 
@@ -29,6 +30,7 @@ class AssemblerSource:
         targets: dict[str, dict[str, float]] | None = None,
         ytd_recebimento: dict[int, float] | None = None,
         convenio_shares: dict[str, float] | None = None,
+        tenant: "TenantConfig | None" = None,
     ) -> None:
         self._snapshot = snapshot
         self._budget = budget
@@ -37,6 +39,9 @@ class AssemblerSource:
         self._targets = targets
         self._ytd_recebimento = ytd_recebimento
         self._convenio_shares = convenio_shares
+        #: Per-client accounting shape (áreas, account overrides). None == MBC defaults,
+        #: which is what keeps an empty provider_config byte-identical.
+        self._tenant = tenant or DEFAULT_TENANT
 
     def supports(self) -> set[SectionKey]:
         return {
@@ -68,6 +73,7 @@ class AssemblerSource:
             targets=self._targets,
             ytd_recebimento=self._ytd_recebimento,
             convenio_shares=self._convenio_shares,
+            tenant=self._tenant,
         )
         out: dict[SectionKey, SectionData] = {}
         for value, data in sections.items():

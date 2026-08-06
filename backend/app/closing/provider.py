@@ -10,6 +10,7 @@ from app.sources.budget_source import BudgetSource
 from app.sources.fixture import FixtureSource
 from app.sources.legaldesk import LegalDeskSource
 from app.sources.legaldesk_client import _LegalDeskSettings
+from app.tenancy.tenant_config import TenantConfig
 from app.sources.sisjuri_db import SisjuriDbSource
 from app.tenancy.models import Client
 
@@ -120,6 +121,9 @@ def _build_presentation(
         faturamento_by_month=faturamento_by_month,
         is_partial=bool(pp["is_partial"]),
         status_label=str(pp["status_label"]),
+        # The deck follows the SAME áreas as the rest of the closing, instead of a
+        # second hardcoded list.
+        tenant=TenantConfig.from_provider_config(client.provider_config),
     )
 
 
@@ -362,6 +366,9 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
     # Passed as settings, not as a built client: this function runs on every closing
     # request and the HTTP client is often never used.
     legaldesk_settings = _LegalDeskSettings.from_provider_config(client.provider_config)
+    # Per-client accounting shape (áreas, account overrides, rates). An empty config
+    # yields MBC's defaults, so nothing moves for the existing tenant.
+    tenant = TenantConfig.from_provider_config(client.provider_config)
 
     if client.provider == "legaldesk":
         return ClosingProvider(sources=[LegalDeskSource(settings=legaldesk_settings)])
@@ -469,6 +476,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
                 targets=targets,
                 ytd_recebimento=ytd_recebimento,
                 convenio_shares=convenio_shares,
+                tenant=tenant,
             )
         )
         return ClosingProvider(sources=sources)

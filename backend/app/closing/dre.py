@@ -15,13 +15,14 @@ Row shape for rich DRE tabs: each row exposes the display columns first
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Any
 
 from app.closing.verification import MATCH_TOLERANCE, Targets, verified_value
+from app.tenancy.tenant_config import DEFAULT_TENANT, TenantConfig
 from app.closing.workbook_layouts import (
     AMORTIZACAO_MENSAL,
-    AREAS,
     BONUS_RESERVE_RATE,
     INSTITUCIONAL_SECTIONS,
     imposto_sobre_recebimento,
@@ -300,6 +301,7 @@ class RealizadoInputs:
         *,
         amortizacao_mensal: float | None = None,
         convenio_shares: dict[str, float] | None = None,
+        tenant: "TenantConfig | None" = None,
     ) -> "RealizadoInputs":
         """Build realizado inputs from a SISJURI snapshot.
 
@@ -315,6 +317,11 @@ class RealizadoInputs:
         back to the posted gross. A single-month caller cannot compute these, which is
         why they are injected rather than derived here.
         """
+        # Per-client áreas + account overrides. ``None`` == MBC's defaults, which is
+        # what keeps an empty provider_config byte-identical (tests/test_mbc_golden.py).
+        tenant = tenant or DEFAULT_TENANT
+        areas = tenant.area_labels
+
         revenue = snap.get("revenue", {}) or {}
         despesas_rows = snap.get("despesas_conta", []) or []
         custo_area = snap.get("custo_area", []) or []
@@ -393,7 +400,7 @@ class RealizadoInputs:
                 sec.accounts.append((nome, round(total, 2)))
                 continue
             if is_indirect(id_conta):
-                sec_name = section_for(row.get("nome_conta_pai"), id_conta)
+                sec_name = section_for(row.get("nome_conta_pai", tenant), id_conta)
                 sec = sec_map.setdefault(sec_name, SectionBreakdown(sec_name))
                 sec.total = round(sec.total + total, 2)
                 sec.accounts.append((nome, round(total, 2)))
@@ -417,7 +424,7 @@ class RealizadoInputs:
                 _sec_name = (
                     _family
                     or institutional_030_section(_conta)
-                    or section_for(None, _conta)
+                    or section_for(None, _conta, tenant)
                 )
                 _sec = sec_map.setdefault(_sec_name, SectionBreakdown(_sec_name))
                 _sec.total = round(_sec.total + _valor, 2)
@@ -491,8 +498,8 @@ class RealizadoInputs:
 
         area_custo: dict[str, float] = {}
         for a in custo_area:
-            for area in AREAS:
-                if match_area(str(a.get("area", "")), area):
+            for area in areas:
+                if tenant.match_area(str(a.get("area", "")), area):
                     area_custo[area] = round(
                         area_custo.get(area, 0.0) + float(a.get("total", 0.0) or 0.0), 2
                     )
@@ -639,8 +646,8 @@ class RealizadoInputs:
         area_receb: dict[str, float] = {}
         if receb_area_prof:
             for a in receb_area_prof:
-                for area in AREAS:
-                    if match_area(str(a.get("grupo", "")), area):
+                for area in areas:
+                    if tenant.match_area(str(a.get("grupo", "")), area):
                         area_receb[area] = round(
                             area_receb.get(area, 0.0)
                             + float(a.get("total", 0.0) or 0.0),
@@ -648,8 +655,8 @@ class RealizadoInputs:
                         )
         else:
             for a in receb_area:
-                for area in AREAS:
-                    if match_area(str(a.get("area", "")), area):
+                for area in areas:
+                    if tenant.match_area(str(a.get("area", "")), area):
                         area_receb[area] = round(
                             area_receb.get(area, 0.0)
                             + float(a.get("total", 0.0) or 0.0),
@@ -739,7 +746,7 @@ class RealizadoInputs:
                 )
                 area_desp_inst = {
                     a: round(_ratear * (area_custo.get(a, 0.0) / _tot_ce), 2)
-                    for a in AREAS
+                    for a in areas
                 }
 
         amortizacao = (
@@ -938,6 +945,7 @@ RECEBIMENTO_ORCADO_SHARE = {"Contencioso": 0.375, "Econômico": 0.375, "Arbitrag
 def _per_area_orcado(
     budget: dict[str, dict[str, float]],
     budget_annual: dict[str, dict[str, float]] | None = None,
+    tenant: "TenantConfig | None" = None,
 ) -> dict[str, dict[str, float]]:
     """Derive each área's Orçado, mirroring the workbook's per-área formulas
     (proven to the centavo vs Fechamento MBC 05/06.2026):
@@ -962,17 +970,18 @@ def _per_area_orcado(
 
     Returns ``{area: {line_key: orcado}}``; a line is omitted (→ blank) when its
     inputs aren't budgeted."""
+    tenant = tenant or DEFAULT_TENANT
     inst = budget.get("institucional", {})
     recb_inst = inst.get(RECEBIMENTO)
 
-    custo = {a: budget.get(a, {}).get(CUSTO_EQUIPE) for a in AREAS}
-    despeq = {a: budget.get(a, {}).get(DESPESAS_EQUIPE) for a in AREAS}
+    custo = {a: budget.get(a, {}).get(CUSTO_EQUIPE) for a in tenant.area_labels}
+    despeq = {a: budget.get(a, {}).get(DESPESAS_EQUIPE) for a in tenant.area_labels}
 
     # Rateio share: the workbook keys Despesa Institucional off the ANNUAL custo-
     # equipe plan (a fixed share), not one month's custo. Prefer the annual budget;
     # fall back to the monthly custo ratio when no annual figures are supplied.
     ann = (budget_annual or {})
-    ann_custo = {a: ann.get(a, {}).get(CUSTO_EQUIPE) for a in AREAS}
+    ann_custo = {a: ann.get(a, {}).get(CUSTO_EQUIPE) for a in tenant.area_labels}
     share_basis = ann_custo if any(v is not None for v in ann_custo.values()) else custo
     tot_share = sum(v for v in share_basis.values() if v is not None)
 
@@ -987,7 +996,7 @@ def _per_area_orcado(
             )
 
     out: dict[str, dict[str, float]] = {}
-    for area in AREAS:
+    for area in tenant.area_labels:
         row: dict[str, float] = {}
         area_custo = custo[area]
         area_despeq = despeq[area]
@@ -1117,7 +1126,21 @@ def _area_rows(
     ]
 
 
+#: MBC's three áreas have SectionKeys the frontend and the workbook layouts key off, so
+#: their slugs are pinned here rather than derived — 'Econômico' would otherwise slugify
+#: to 'economico' only by accident of the accent-stripping rule.
 _AREA_SECTION = {"Contencioso": "contencioso", "Econômico": "economico", "Arbitragem": "arbitragem"}
+
+
+def area_section_key(area: str) -> str:
+    """Section key for an área. MBC's three keep their established keys; any other
+    client's área gets a deterministic slug so a second tenant is not limited to
+    three hardcoded names."""
+    if area in _AREA_SECTION:
+        return _AREA_SECTION[area]
+    normalized = unicodedata.normalize("NFKD", area).encode("ascii", "ignore").decode()
+    slug = re.sub(r"[^a-z0-9]+", "_", normalized.lower()).strip("_")
+    return slug or "area"
 
 
 def assemble_dre_sections(
@@ -1131,6 +1154,7 @@ def assemble_dre_sections(
     targets: Targets | None = None,
     ytd_recebimento: dict[int, float] | None = None,
     convenio_shares: dict[str, float] | None = None,
+    tenant: "TenantConfig | None" = None,
 ) -> dict[str, dict[str, Any]]:
     """Return section payloads keyed by SectionKey.value (workbook-faithful).
 
@@ -1155,12 +1179,14 @@ def assemble_dre_sections(
     # POINT 12: annual amortização is a per-year budget input; the monthly DRE
     # line = annual / 12 (the budget layer already split it). Falsy/unset budget
     # falls back to the fixed 8.117/mês default inside ``from_snapshot``.
+    tenant = tenant or DEFAULT_TENANT
     amort_mensal = (budget.get("institucional", {}) or {}).get(AMORTIZACAO)
     r = (
         RealizadoInputs.from_snapshot(
             snapshot,
             amortizacao_mensal=amort_mensal,
             convenio_shares=convenio_shares,
+            tenant=tenant,
         )
         if snapshot is not None
         else RealizadoInputs.empty()
@@ -1177,7 +1203,7 @@ def assemble_dre_sections(
     # Per-área Orçado is derived from the institucional budget (workbook-faithful);
     # it supersedes the raw per-área budget map so Recebimento/Despesa Institucional/
     # Resultado Bruto Orçado fill (Custo equipe / Despesas Equipe pass through).
-    area_orcado = _per_area_orcado(budget, budget_annual)
+    area_orcado = _per_area_orcado(budget, budget_annual, tenant)
 
     sections: dict[str, dict[str, Any]] = {}
     sections["institucional"] = {
@@ -1187,8 +1213,8 @@ def assemble_dre_sections(
         "rows": _institucional_rows(r, inst_orc, targets, "institucional"),
         "snapshot_missing": missing,
     }
-    for area in AREAS:
-        area_key = _AREA_SECTION[area]
+    for area in tenant.area_labels:
+        area_key = area_section_key(area)
         sections[area_key] = {
             "kind": "rich",
             "name": area,
@@ -1202,10 +1228,10 @@ def assemble_dre_sections(
     # Areas Sintetico: consolidated block + the three area blocks stacked.
     sint: list[dict[str, Any]] = [_section_header_row("RESULTADO INSTITUCIONAL")]
     sint.extend(_institucional_rows(r, inst_orc, targets, "institucional")[:10])
-    for area in AREAS:
+    for area in tenant.area_labels:
         sint.append(_section_header_row(f"RESULTADO {area.upper()}"))
         sint.extend(_area_rows(
-            area, r, area_orcado.get(area, {}), targets, _AREA_SECTION[area],
+            area, r, area_orcado.get(area, {}), targets, area_section_key(area),
         ))
     sections["areas_sintetico"] = {
         "kind": "rich",

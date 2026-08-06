@@ -18,6 +18,10 @@ Only *structure* lives here; no IO, no math beyond summation helpers.
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:  # import-cycle-free: tenant_config does not import this module
+    from app.tenancy.tenant_config import TenantConfig
 from typing import Any
 
 # --- Institucional expense sections, in workbook display order ---------------
@@ -124,13 +128,23 @@ _PREFIX_TO_SECTION: tuple[tuple[str, str], ...] = (
 )
 
 
-def section_for(nome_conta_pai: str | None, id_conta: str | None = None) -> str:
+def section_for(
+    nome_conta_pai: str | None,
+    id_conta: str | None = None,
+    tenant: "TenantConfig | None" = None,
+) -> str:
     """Resolve the workbook institutional family for an expense leaf.
 
     Prefers the verified account-code rules (``id_conta`` = SISJURI CONTA3) and
     only falls back to the parent-name map when no code rule applies.
+
+    ``tenant`` supplies per-client overrides, which are checked FIRST and layered over
+    the built-in map — a second client shares most of the SISJURI tree and only needs to
+    name its exceptions. Omitting it keeps MBC's behaviour exactly.
     """
     if id_conta:
+        if tenant is not None and id_conta in tenant.account_overrides:
+            return tenant.account_overrides[id_conta]
         if id_conta in _CONTA3_TO_SECTION:
             return _CONTA3_TO_SECTION[id_conta]
         for prefix, section in _PREFIX_TO_SECTION:
