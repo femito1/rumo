@@ -17,7 +17,9 @@ class LoginIn(BaseModel):
     password: str
 
 def _user_public(u: User) -> dict:
-    return {"id": u.id, "email": u.email, "role": u.role.value, "client_id": u.client_id}
+    # ``must_change_password`` so the SPA can force the change before anything else.
+    return {"id": u.id, "email": u.email, "role": u.role.value, "client_id": u.client_id,
+            "must_change_password": u.must_change_password}
 
 @router.post("/login")
 def login(body: LoginIn, repo: Repository = Depends(get_repo), settings: Settings = Depends(get_settings)) -> dict:

@@ -78,12 +78,18 @@ class InMemoryTenancyStore:
             return None
         return self._put(replace(user, active=active))
 
-    def set_password(self, user_id: str, password_hash: str) -> User | None:
+    def set_password(
+        self, user_id: str, password_hash: str, *, must_change_password: bool = False
+    ) -> User | None:
         user = self._users_by_id.get(user_id)
         if user is None:
             return None
         return self._put(
-            replace(user, password_hash=password_hash, must_change_password=False)
+            replace(
+                user,
+                password_hash=password_hash,
+                must_change_password=must_change_password,
+            )
         )
 
     def create_client(

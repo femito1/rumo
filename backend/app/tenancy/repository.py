@@ -34,9 +34,13 @@ class Repository(Protocol):
         """Enable/disable a login. ``None`` if no such user."""
         ...
 
-    def set_password(self, user_id: str, password_hash: str) -> User | None:
-        """Replace the hash and clear ``must_change_password``. ``None`` if no such
-        user."""
+    def set_password(
+        self, user_id: str, password_hash: str, *, must_change_password: bool = False
+    ) -> User | None:
+        """Replace the hash. Clears ``must_change_password`` by default (the user
+        chose this password); pass True for an ADMIN-issued reset, where the new
+        password is known to someone else and must still be replaced. ``None`` if no
+        such user."""
         ...
 
     def create_client(

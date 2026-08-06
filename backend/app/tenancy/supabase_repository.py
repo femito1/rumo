@@ -90,10 +90,17 @@ class SupabaseRepository:
         rows = res.data or []
         return row_to_user(rows[0]) if rows else None
 
-    def set_password(self, user_id: str, password_hash: str) -> User | None:
+    def set_password(
+        self, user_id: str, password_hash: str, *, must_change_password: bool = False
+    ) -> User | None:
         res = (
             self._c.table("users")
-            .update({"password_hash": password_hash, "must_change_password": False})
+            .update(
+                {
+                    "password_hash": password_hash,
+                    "must_change_password": must_change_password,
+                }
+            )
             .eq("id", user_id)
             .execute()
         )
