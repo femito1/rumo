@@ -35,6 +35,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span className="brand-sub">Fechamento Mensal</span>
           </Link>
 
+          {/* Usuários is reachable by RUMO and by a client's Gestor; the Clientes
+              list and the client switcher stay RUMO-only. */}
+          {user?.role === "ADMIN" || user?.role === "CLIENT_ADMIN" ? (
+            <nav className="topnav">
+              <Link
+                to="/usuarios"
+                className={`topnav-link${location.pathname === "/usuarios" ? " active" : ""}`}
+              >
+                Usuários
+              </Link>
+            </nav>
+          ) : null}
+
           {user?.role === "ADMIN" ? (
             <nav className="topnav">
               <Link

@@ -12,6 +12,9 @@ export interface AuthUser {
   email: string;
   role: Role;
   client_id: string | null;
+  /** Set when the account still carries a password someone else chose (created or
+   *  reset by an admin). The app forces a change before anything else is reachable. */
+  must_change_password?: boolean;
 }
 
 export interface ClientSummary {

@@ -27,7 +27,7 @@ const payload = {
 
 function renderAs(role: AuthUser["role"]) {
   const user: AuthUser = { id: "u", email: "e", role, client_id: role === "ADMIN" ? null : "mbc" };
-  const ctx: AuthCtx = { user, status: "authenticated", login: vi.fn(), logout: vi.fn() };
+  const ctx: AuthCtx = { user, status: "authenticated", login: vi.fn(), logout: vi.fn(), refresh: vi.fn() };
   return render(
     <Ctx.Provider value={ctx}>
       <MemoryRouter initialEntries={["/clientes/mbc"]}>

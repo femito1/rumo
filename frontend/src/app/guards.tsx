@@ -1,12 +1,18 @@
 // frontend/src/app/guards.tsx
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 import { AppShell } from "./AppShell";
 
 export function RequireAuth() {
-  const { status } = useAuth();
+  const { status, user } = useAuth();
+  const location = useLocation();
   if (status === "loading") return <div className="page-loading">Carregando…</div>;
   if (status === "unauthenticated") return <Navigate to="/login" replace />;
+  // A password someone else chose (created or reset by an admin) must be replaced
+  // before anything else is reachable. Gated here so no route can be deep-linked
+  // around it; the exemption is the change-password screen itself.
+  if (user?.must_change_password && location.pathname !== "/trocar-senha")
+    return <Navigate to="/trocar-senha" replace />;
   return (
     <AppShell>
       <Outlet />

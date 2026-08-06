@@ -9,6 +9,9 @@ export interface AuthCtx {
   status: Status;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  /** Re-read the session. Used after a password change so `must_change_password`
+   *  clears without forcing the user to log in again. */
+  refresh: () => Promise<void>;
 }
 
 export const Ctx = createContext<AuthCtx | null>(null);

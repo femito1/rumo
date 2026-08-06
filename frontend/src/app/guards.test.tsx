@@ -5,13 +5,15 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { RequireAuth, RequireAdmin, RequireUserManager, HomeRedirect } from "./guards";
 import * as authStore from "../features/auth/useAuth";
 
-function mockAuth(status: string, role: string | null) {
+function mockAuth(status: string, role: string | null, extra: object = {}) {
   vi.spyOn(authStore, "useAuth").mockReturnValue({
     // Every non-ADMIN role belongs to a client. Keying this on `=== "CLIENT"` would
     // give a CLIENT_ADMIN `client_id: null`, and its redirect assertions would then
     // pass against "/clientes/null" — green for the wrong reason.
-    user: role ? ({ id: "u", email: "a@b", role, client_id: role === "ADMIN" ? null : "mbc" } as never) : null,
-    status: status as never, login: vi.fn(), logout: vi.fn(),
+    user: role
+      ? ({ id: "u", email: "a@b", role, client_id: role === "ADMIN" ? null : "mbc", ...extra } as never)
+      : null,
+    status: status as never, login: vi.fn(), logout: vi.fn(), refresh: vi.fn(),
   });
 }
 
@@ -104,6 +106,37 @@ describe("guards", () => {
       </MemoryRouter>,
     );
     expect(screen.getByText("USUARIOS")).toBeInTheDocument();
+  });
+
+  it("RequireAuth forces a provisional password to be changed, from any route", () => {
+    // A user created (or reset) by an admin carries a password a third party knows.
+    // Gated in RequireAuth so no route can be deep-linked around it.
+    mockAuth("authenticated", "CLIENT", { must_change_password: true });
+    render(
+      <MemoryRouter initialEntries={["/clientes/mbc"]}>
+        <Routes>
+          <Route path="/trocar-senha" element={<div>TROCAR</div>} />
+          <Route element={<RequireAuth />}>
+            <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("TROCAR")).toBeInTheDocument();
+  });
+
+  it("RequireAuth does not trap the user on the change-password route itself", () => {
+    mockAuth("authenticated", "CLIENT", { must_change_password: true });
+    render(
+      <MemoryRouter initialEntries={["/trocar-senha"]}>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/trocar-senha" element={<div>TROCAR</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("TROCAR")).toBeInTheDocument();
   });
 
   it("RequireUserManager bounces a plain CLIENT", () => {

@@ -29,6 +29,13 @@ class FixtureRepository(InMemoryTenancyStore):
     def seeded(cls) -> "FixtureRepository":
         clients = [
             Client(id="mbc", name="MBC", provider="legaldesk+sisjuri", provider_config={}),
+            # Stays ACTIVE here on purpose, unlike the production row (which
+            # scripts/seed.py now seeds inactive — client asked to hide the test
+            # client). This repo is the local no-external-services escape hatch and
+            # `demo` is its only usable client: `mbc` needs real LegalDesk
+            # credentials and SISJURI snapshots. Deactivating it here would leave
+            # USE_FAKE_REPO with nothing to show. Never used in production —
+            # `get_repo` selects it only behind the explicit env flag.
             Client(
                 id="demo",
                 name="Cliente Demonstração",

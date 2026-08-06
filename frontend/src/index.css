@@ -1258,3 +1258,80 @@ input::placeholder {
   }
   @page { size: landscape; margin: 8mm; }
 }
+
+/* ============================================================
+   Usuários (provisioning)
+   ============================================================ */
+.users-toolbar {
+  margin-bottom: calc(var(--space) * 2);
+  align-items: flex-end;
+}
+.users-client-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.users-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 460px;
+  margin-bottom: calc(var(--space) * 2);
+}
+.users-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space);
+  margin-top: var(--space);
+}
+.users-table {
+  margin-top: var(--space);
+}
+.users-row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+/* A deactivated account stays listed (so nobody re-creates it) but reads as muted. */
+.grid-table tbody tr.row-inactive td {
+  color: var(--muted);
+  text-decoration-color: var(--border-strong);
+}
+
+/* The one-time password reveal. Deliberately loud: it cannot be recovered, so it
+   must not look like an ordinary success toast. */
+.temp-password-card {
+  border: 2px solid var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: calc(var(--space) * 2);
+  margin-bottom: calc(var(--space) * 2);
+  max-width: 560px;
+}
+.temp-password-head {
+  font-size: 14px;
+  margin-bottom: var(--space);
+}
+.temp-password-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space);
+}
+.temp-password-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 8px 12px;
+  user-select: all;
+}
+.temp-password-note {
+  font-size: 13px;
+  color: var(--accent-ink);
+  margin: var(--space) 0;
+}
