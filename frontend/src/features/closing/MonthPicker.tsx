@@ -51,7 +51,11 @@ export function MonthPicker({ value, availableMonths, partialMonths, onChange }:
           ›
         </button>
       </div>
-      <div className="month-grid">
+      {/* translate="no": these PT-BR abbreviations collide with English words, so a
+          browser translator turns Set/Out/Ago into "definir"/"fora"/"atrás". `lang`
+          on <html> is the primary fix; this makes the grid immune even if a user
+          translates the page by hand. */}
+      <div className="month-grid" translate="no">
         {MESES.map((label, i) => {
           const anoMes = `${viewYear}-${String(i + 1).padStart(2, "0")}`;
           const enabled = available.has(anoMes);

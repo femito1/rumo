@@ -1,4 +1,5 @@
 // frontend/src/features/closing/PresentationPanel.tsx
+import { ClientNameCtx, useClientName } from "./clientName";
 import { formatBRL, formatBRLShort, formatPercent, formatPercentSigned } from "../../lib/format";
 import type {
   Presentation,
@@ -18,6 +19,10 @@ import type {
  */
 export function PresentationPanel({ data }: { data: Presentation }) {
   return (
+    // The client's own name reaches every slide footer through context rather than
+    // six threaded props. It used to be the string "Marchini Botelho Caselta",
+    // hardcoded — so any other client's exported PDF carried MBC's name.
+    <ClientNameCtx.Provider value={data.titulo}>
     <div className="deck" id="presentation-root">
       <SlideCapa data={data} />
       <SlideIndice partial={data.is_partial} />
@@ -29,6 +34,7 @@ export function PresentationPanel({ data }: { data: Presentation }) {
       ))}
       <SlideReserva data={data} />
     </div>
+    </ClientNameCtx.Provider>
   );
 }
 
@@ -37,6 +43,7 @@ export function PresentationPanel({ data }: { data: Presentation }) {
 function Slide({ title, sub, partial, children }: {
   title?: string; sub?: string; partial?: boolean; children: React.ReactNode;
 }) {
+  const clientName = useClientName();
   return (
     <section className="slide" data-pdf-page>
       {title ? (
@@ -53,7 +60,7 @@ function Slide({ title, sub, partial, children }: {
       {/* Every slide is one printed PAGE, so the partial marker belongs on each of
           them: a single page pulled out of the PDF must still not read as a closing. */}
       <footer className="slide-foot">
-        <span>Marchini Botelho Caselta · Relatório de Resultados</span>
+        <span>{clientName} · Relatório de Resultados</span>
         {partial ? (
           <span className="foot-parcial">Mês em aberto · parcial — não é um fechamento</span>
         ) : null}
@@ -96,7 +103,7 @@ function SlideCapa({ data }: { data: Presentation }) {
         <span className="capa-client">{data.titulo}</span>
       </div>
       <div className="capa-title">
-        <span className="capa-eyebrow">MARCHINI BOTELHO CASELTA</span>
+        <span className="capa-eyebrow">{data.titulo.toUpperCase()}</span>
         <h1>Relatório de Resultados</h1>
         <p className="capa-period">Janeiro – {data.periodo_mes} {data.ano}</p>
       </div>

@@ -117,4 +117,20 @@ describe("PresentationPanel — open month must never present as a closing", () 
     expect(root.textContent).not.toMatch(/parcial/i);
     expect(root.textContent).not.toMatch(/mês em aberto/i);
   });
+
+  it("carries the deck's OWN client name, never a hardcoded one", () => {
+    // The cover eyebrow and every slide footer used to print the literal string
+    // "Marchini Botelho Caselta", so a second client's exported PDF — the artefact
+    // that goes to the client — would have carried MBC's name on every page.
+    const { container } = render(
+      <PresentationPanel data={{ ...data, titulo: "Acme Advogados" }} />,
+    );
+    const root = container.querySelector("#presentation-root")!;
+    expect(root.textContent).not.toMatch(/Marchini/i);
+    expect(root.textContent).toMatch(/ACME ADVOGADOS/);
+    // Present on EVERY slide, because each slide is one printed page.
+    const feet = container.querySelectorAll(".slide-foot");
+    expect(feet.length).toBeGreaterThan(1);
+    feet.forEach((f) => expect(f.textContent).toContain("Acme Advogados"));
+  });
 });

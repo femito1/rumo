@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import rumoLogo from "../../assets/rumo-logo.png";
 
 export function LoginPage() {
   const { login } = useAuth();
@@ -28,7 +29,10 @@ export function LoginPage() {
   return (
     <div className="login-screen">
       <form className="login-card" onSubmit={onSubmit}>
-        <h1>RUMO</h1>
+        {/* The logo carries the brand visually; the h1 stays for screen readers and
+            document outline (visually hidden, not removed). */}
+        <img className="login-logo" src={rumoLogo} alt="" aria-hidden="true" />
+        <h1 className="visually-hidden">RUMO</h1>
         <p className="muted">Plataforma de Fechamento Mensal</p>
         <label htmlFor="email">E-mail</label>
         <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />

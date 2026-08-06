@@ -17,18 +17,29 @@
   --text: #17191c;
   --muted: #6b7280;
 
-  /* Brand accent (PPTX orange/amber) */
-  --accent: #e8a33d;
-  --accent-strong: #d6871a;
-  --accent-ink: #3a2a08;        /* text on an accent fill */
-  --accent-soft: #fbf1de;       /* faint accent tint for headers/rows */
+  /* Brand accent — sampled from the RUMO logo (reference/workbook/"Apresentacao
+     Institucional Rumo Gestao de Negocios .pptx", ppt/media/image3.png): the ring is
+     an #f99d1c → #f15a22 → #dd5928 gradient over a #414042 charcoal wordmark.
+     Contrast was measured before choosing, not assumed:
+       - as a FILL with dark ink, amber wins: #3a2a08 on #f99d1c = 6.51 (was 6.43).
+       - as TEXT, the deep orange fails AA (#f15a22 on white = 3.37, #dd5928 = 3.79),
+         and the OLD --accent-strong already failed at 2.86. Darkening it to #c2481c
+         gives 4.96 — the first value here that actually passes AA for body text.
+     So: amber fills, deep-orange emphasis, and --brand-orange for decorative marks. */
+  --accent: #f99d1c;
+  --accent-strong: #c2481c;     /* text/emphasis — AA on white (4.96) */
+  --accent-ink: #3a2a08;        /* text on an accent fill — 6.51 on --accent */
+  --accent-soft: #fdf3e3;       /* faint accent tint for headers/rows */
+  --brand-orange: #f15a22;      /* the logo's mid-ring orange, for marks/borders */
+  --brand-charcoal: #414042;    /* the logo's wordmark grey */
 
   /* Signed numbers — the ONLY place green/red appear */
   --pos: #167a3c;
   --neg: #c0392b;
 
-  /* Header band (slide table headers are near-black in the PPTX) */
-  --band: #1b1d21;
+  /* Header band — the logo's charcoal rather than a generic near-black, so the deck
+     bands and the wordmark are the same grey. */
+  --band: #414042;
   --band-ink: #ffffff;
 
   /* Legacy aliases (kept so old references don't break) */

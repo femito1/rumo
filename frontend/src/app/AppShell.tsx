@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 import { apiFetch } from "../lib/api";
+import rumoLogo from "../assets/rumo-logo.png";
 import type { ClientSummary } from "../lib/types";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -31,7 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="topbar">
         <div className="topbar-left">
           <Link to="/" className="brand-link">
-            <span className="brand">RUMO</span>
+            <img className="brand-logo" src={rumoLogo} alt="RUMO Gestão de Negócios" />
             <span className="brand-sub">Fechamento Mensal</span>
           </Link>
 
