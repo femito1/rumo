@@ -25,8 +25,8 @@ const payload = {
   generated_at: "2026-06-01T00:00:00Z",
 };
 
-function renderAs(role: "ADMIN" | "CLIENT") {
-  const user: AuthUser = { id: "u", email: "e", role, client_id: role === "CLIENT" ? "mbc" : null };
+function renderAs(role: AuthUser["role"]) {
+  const user: AuthUser = { id: "u", email: "e", role, client_id: role === "ADMIN" ? null : "mbc" };
   const ctx: AuthCtx = { user, status: "authenticated", login: vi.fn(), logout: vi.fn() };
   return render(
     <Ctx.Provider value={ctx}>
@@ -89,6 +89,24 @@ describe("WorkspacePage", () => {
     expect(screen.queryByRole("button", { name: "Meta" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /^Acumulado/ })).not.toBeInTheDocument();
     // The PDF download is available to the client.
+    expect(screen.getByRole("button", { name: /Baixar apresentação/ })).toBeInTheDocument();
+  });
+
+  it("shows RUMO-only controls to ADMIN and to nobody else", async () => {
+    // The role gate used to be `isClient = role === "CLIENT"` — a DENY-list, so a
+    // CLIENT_ADMIN (a client's own manager) would have fallen through and been
+    // treated as RUMO staff: the Orçado editor, the day-range filter, the export
+    // menu and the internal KPI strip. Assert the ALLOW-list directly.
+    mockApi({ tab_order: [], tabs: {} });
+    renderAs("CLIENT_ADMIN");
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { level: 1, name: "MBC" })).toBeInTheDocument();
+    });
+    expect(screen.queryByRole("button", { name: /Orçado/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Filtrar por dia/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Exportar/ })).not.toBeInTheDocument();
+    expect(screen.queryByText("Receita de honorários")).not.toBeInTheDocument();
+    // But the deck they are entitled to still renders.
     expect(screen.getByRole("button", { name: /Baixar apresentação/ })).toBeInTheDocument();
   });
 

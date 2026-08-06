@@ -426,6 +426,21 @@ def test_client_role_gets_no_acumulado_tab(tmp_path, monkeypatch):
     assert body["presentation"]["titulo"] == "MBC"
 
 
+@pytest.mark.parametrize("role", ["CLIENT_ADMIN", "", None, "GESTOR"])
+def test_only_admin_sees_detail_tabs(tmp_path, monkeypatch, role):
+    """The tab boundary must be an ALLOW-list: only ADMIN (RUMO) sees the detail
+    tabs. It used to deny on ``role == "CLIENT"`` alone, so ANY other role string
+    fell through to the full KEEP set — a fail-open that would have handed a
+    client's own staff (CLIENT_ADMIN) RUMO's internal tabs the moment that role
+    existed. Parametrized over plausible non-ADMIN values so a future role cannot
+    reintroduce it."""
+    body = _closing(tmp_path, monkeypatch, role=role)
+    assert body["tab_order"] == []
+    assert body["tabs"] == {}
+    # The presentation panel is still served — it is what a non-ADMIN reads.
+    assert body["presentation"]["titulo"] == "MBC"
+
+
 def test_assembler_populates_dre_and_flags_missing_snapshot():
     # With no snapshot, the assembler still emits institucional (DRE) but with
     # snapshot_missing=True so the UI can show a banner. Test the assembler

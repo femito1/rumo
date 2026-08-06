@@ -22,7 +22,12 @@ const PRESENTATION_TAB = "__apresentacao__";
 export function WorkspacePage() {
   const { id = "" } = useParams();
   const { user } = useAuth();
-  const isClient = user?.role === "CLIENT";
+  // ⚠ ALLOW-list: only RUMO staff see the internal controls (Orçado, day range,
+  // export, KPI strip) and the detail tabs. This was `role === "CLIENT"`, a
+  // deny-list, so a CLIENT_ADMIN would have been treated as RUMO staff. The real
+  // boundary is server-side (`_is_admin_view` in app/closing/provider.py withholds
+  // the tab data); this only keeps the UI honest. Do not invert it back.
+  const isRumo = user?.role === "ADMIN";
   const [months, setMonths] = useState<string[]>([]);
   const [partialMonths, setPartialMonths] = useState<Set<string>>(() => new Set());
   const [month, setMonth] = useState<string>("");
@@ -76,7 +81,7 @@ export function WorkspacePage() {
         <div className="workspace-toolbar">
           <MonthPicker value={month} availableMonths={months} partialMonths={partialMonths} onChange={(m) => { setMonth(m); setFrom(null); setTo(null); }} />
           <div className="toolbar-actions">
-            {!isClient ? (
+            {isRumo ? (
               <>
                 <DayRangeFilter from={from} to={to} maxDay={daysInMonth(month)} busy={loading} onApply={(f, t) => { setFrom(f); setTo(t); }} onClear={() => { setFrom(null); setTo(null); }} />
                 <BudgetEditor clientId={id} ano={Number(month.slice(0, 4))} />
@@ -91,7 +96,7 @@ export function WorkspacePage() {
             >
               Baixar apresentação (PDF)
             </button>
-            {!isClient ? (
+            {isRumo ? (
               <ExportMenu
                 disabled={!data || loading}
                 pageEnabled={!!activeTab && activeTab !== PRESENTATION_TAB}
@@ -119,9 +124,9 @@ export function WorkspacePage() {
             </div>
           ) : null}
 
-          {!isClient && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
+          {isRumo && !data.day_range.is_full_month ? <div className="filter-chip">Filtrado por dia · KPIs referem-se ao mês completo</div> : null}
 
-          {!isClient ? (
+          {isRumo ? (
             <>
               <section className="kpis kpis-hero">
                 <KpiCard label="Receita de honorários" value={data.kpis.receita_honorarios ?? null} hero />
@@ -153,7 +158,7 @@ export function WorkspacePage() {
           ) : null}
 
           <section className="tab-content">
-            {activeTab === PRESENTATION_TAB || isClient ? (
+            {activeTab === PRESENTATION_TAB || !isRumo ? (
               data.presentation ? (
                 <PresentationPanel data={data.presentation} />
               ) : (
