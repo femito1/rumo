@@ -1,7 +1,7 @@
 # backend/app/api/closing_router.py
 from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Query
-from app.api.deps import require_user, require_client_access
+from app.api.deps import active_client_or_404, require_user, require_client_access
 from app.api.providers import get_repo
 from app.closing.available import is_viewable
 from app.closing.period import Period
@@ -22,9 +22,7 @@ def get_closing(
     repo: Repository = Depends(get_repo),
 ) -> dict:
     require_client_access(user, client_id)
-    client = repo.get_client(client_id)
-    if client is None:
-        raise HTTPException(status_code=404, detail="Cliente não encontrado")
+    client = active_client_or_404(repo, client_id)
     # The OPEN current month is served as an explicit partial (client request,
     # 2026-07-28); only FUTURE months are rejected — there is nothing to show.
     if not is_viewable(month):

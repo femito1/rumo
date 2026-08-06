@@ -24,6 +24,12 @@ def login(body: LoginIn, repo: Repository = Depends(get_repo), settings: Setting
     user = repo.get_user_by_email(body.email)
     if user is None or not user.active or not verify_password(body.password, user.password_hash):
         raise HTTPException(status_code=401, detail="E-mail ou senha inválidos")
+    # A deactivated tenant issues no new sessions either (``require_user`` covers the
+    # existing ones). 403, not 401: the credentials are valid, the client is not.
+    if user.client_id is not None:
+        client = repo.get_client(user.client_id)
+        if client is None or not client.active:
+            raise HTTPException(status_code=403, detail="Cliente inativo")
     token = create_access_token(sub=user.id, role=user.role.value, client_id=user.client_id,
                                 secret=settings.jwt_secret, ttl_minutes=settings.jwt_ttl_minutes)
     return {"access_token": token, "token_type": "bearer", "user": _user_public(user)}

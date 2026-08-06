@@ -11,6 +11,24 @@ def test_demo_closing_returns_payload(client):
     assert body["period"]["ano_mes"] == "2026-05"
     assert body["day_range"]["is_full_month"] is True
 
+def test_inactive_client_is_not_served_by_direct_url(client, repo):
+    """`list_clients()` filters on active, so deactivating hid the CARD — but
+    `get_client()` does not, and the route only checked `is None`. So a "hidden"
+    client was still fully served to anyone who typed its URL, ADMIN included.
+    404 rather than 403: an inactive tenant should read as absent."""
+    from app.tenancy.models import Client
+
+    repo._clients["demo"] = Client(
+        id="demo", name="Cliente Demonstração", provider="fixture",
+        provider_config={}, active=False,
+    )
+    tok = _token(client, "admin@rumo.com.br", "admin123")
+    headers = {"Authorization": f"Bearer {tok}"}
+    assert client.get("/api/clients/demo/closing?month=2026-05", headers=headers).status_code == 404
+    # ...and its metadata route agrees, so the SPA cannot navigate into it either.
+    assert client.get("/api/clients/demo", headers=headers).status_code == 404
+
+
 def test_future_month_rejected_422(client):
     tok = _token(client, "admin@rumo.com.br", "admin123")
     resp = client.get("/api/clients/demo/closing?month=2999-01", headers={"Authorization": f"Bearer {tok}"})
