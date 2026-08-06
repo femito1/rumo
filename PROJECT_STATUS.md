@@ -24,7 +24,93 @@
 > hypotheses, the judgement call that could reasonably have gone another way, and what is
 > believed but has no test guarding it.
 
-## ⭐ 2026-08-05 (latest) — client meeting: three rulings, client list now EMPTY
+## ⭐ 2026-08-06 (latest) — client provisioning, RUMO branding, per-tenant credentials
+
+Branch `feat/client-provisioning`. Delivers the two things promised on the 2026-08-05
+call that no doc was tracking, and closes two security defects found while doing it.
+Backend **383** tests, frontend **91**; ruff, mypy, eslint, tsc, build all clean.
+
+### ⚠ DEPLOY GATE — hand-run DDL BEFORE pushing
+
+`schema.sql` is all `create table if not exists`, so editing it does **nothing** to the
+live database and **no test can catch it** (the fakes have no constraints). Run this on
+Supabase first, or the first Gestor created in production fails the old CHECK:
+
+```sql
+alter table users drop constraint if exists users_role_check;
+alter table users add constraint users_role_check
+  check (role in ('ADMIN','CLIENT_ADMIN','CLIENT'));
+alter table users add column if not exists
+  must_change_password boolean not null default false;
+```
+
+Then deploy, then (optionally) `update clients set active = false where id = 'demo';`
+— `scripts/seed.py` seeds it inactive but does not deactivate an existing row.
+
+### What shipped
+
+* **User provisioning** (Adriana, turn 1365: *"como que a gente dá o acesso para o
+  cliente?"*). `/usuarios` for RUMO and for a client's **Gestor** (`CLIENT_ADMIN`), who
+  provisions its own team. New accounts get a generated temporary password shown
+  **once** (there is no mail delivery) and are forced to change it on first login.
+* **Per-client LegalDesk credentials** in `clients.provider_config` — the one hard
+  blocker to a second tenant. `_LegalDeskSettings` read `os.environ` as *dataclass
+  field defaults*, evaluated at import, so a process could only ever reach ONE
+  LegalDesk install. Empty config falls back to env per key, so MBC is unaffected.
+* **RUMO branding**: the real logo (extracted from the institutional PPTX), a RUMO
+  favicon replacing the recolored *Vite* glyph, real `<title>`, and **`lang="pt-BR"`**
+  — which is what let Chrome translate the month picker into *"definir/fora/atrás"* on
+  Adriana's screen mid-meeting. Accent tokens retuned to the logo's palette with
+  contrast **measured** (`--accent-strong` now passes AA at 4.96; the old one failed at
+  2.86).
+
+### Two defects closed, both worth remembering
+
+1. **The role boundary was a DENY-list and failed open.** `_visible_tabs` denied on
+   `role == "CLIENT"` and returned RUMO's full detail-tab set for anything else, in
+   three backend sites and five frontend ones. Adding a role would silently have handed
+   a client's own manager RUMO's internal tabs. Now an allow-list, fixed *before* the
+   role existed, with a test parametrized over four role strings.
+2. **`client.active` was never enforced.** `list_clients()` filtered it, so
+   deactivating hid the *card* — but `get_client()` did not, so a "hidden" client was
+   still served in full by direct URL and its users could still log in. Now enforced in
+   `require_user` (covers every route at once, including provisioning into a dead
+   tenant) and via one `active_client_or_404` helper.
+
+### The escalation model (read before touching `users_router`)
+
+Gating on the request **body** is not enough — three holes came from it:
+
+* a **reset-password** body carries no role and no `client_id`, so a body-only check
+  passes vacuously: a Gestor could have minted a working credential for
+  `admin@rumo.com.br`;
+* `require_client_access` validates the `{client_id}` **path segment**, not the target,
+  so a Gestor could pass its own client_id with another tenant's `user_id`;
+* `require_user` re-read the user but never the client (JWT TTL 720 min).
+
+So `assert_may_manage` resolves the **stored** target and checks *its* role and client,
+and every cross-tenant miss answers **404** (never 403 — a caller must not be able to
+confirm an id exists elsewhere). Two properties fell out better than designed: role
+changes are **structurally impossible** (no endpoint accepts a role; changing one means
+deactivate + re-create, which is visible in the list), and because a Gestor may only
+manage roles it could have granted, **it cannot deactivate itself or a peer** — so the
+last-manager lockout needs no special invariant.
+
+### Known limitations
+
+* A Gestor cannot create another Gestor — deliberate (self-propagation), RUMO does it.
+* `scripts/seed.py` is a **bootstrap, not a migration**: its upsert rewrites the three
+  seeded accounts' passwords on every run. Users created via `/usuarios` are untouched.
+* `FixtureRepository` keeps `demo` **active** (production seeds it inactive) because it
+  is the only usable client in the no-external-services dev path.
+* The tenancy assessment — what a second client really costs — is in `docs/DESIGN.md`
+  § "Selling this to a second client". Short version: same-stack firm = days; different
+  ERP = a new `Source`; **neither is self-serve**, and `tab_layouts.py` (20.9k lines)
+  cannot be regenerated because `gen_tab_layouts.py` no longer exists.
+
+---
+
+## 2026-08-05 — client meeting: three rulings, client list now EMPTY
 
 Transcript `reference/meeting_05_aug.vtt`. Full detail in `docs/HANDOFF_2026-08-05.md`;
 the load-bearing parts:
@@ -729,7 +815,9 @@ i.e. still executing when queried.
 
 **Still open:** §5.6 (map, don't fix, the Jan–Abr diffs — now known to be largely the
 workbook's own formula bug; **re-extract first**, Jan–May still serve extract v1) and
-§5.7 (logo + palette, then per-user logins — blocked on Adriana sending the assets).
+~~§5.7 (logo + palette, then per-user logins — blocked on Adriana sending the assets)~~
+— ✅ **DONE 2026-08-06**, and the "blocked" note was already stale when written:
+Adriana had sent the assets and said so on the 2026-08-05 call. See the top section.
 
 ---
 
