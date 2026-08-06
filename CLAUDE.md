@@ -8,11 +8,14 @@
 
 ## Start here
 
-0. **Read the top section of `PROJECT_STATUS.md` (2026-08-06) first** — it covers the
-   provisioning/branding work and, critically, a **hand-run DDL that must be applied to
-   Supabase before that branch deploys** (`schema.sql` edits are no-ops on an existing
-   database and no test catches it). Then `docs/HANDOFF_2026-08-05.md` for the accounting
-   state. The contract is **v4**. What that handoff carries, in short:
+0. **Read the top section of `PROJECT_STATUS.md` (2026-08-06) first** — provisioning +
+   branding + the per-client config layer, all **live and verified in production**. Two
+   things to carry forward: `schema.sql` edits are **no-ops on an existing database and no
+   test catches it** (pair every schema change with a hand-run `alter table`), and
+   **`tests/test_mbc_golden.py` must never be "updated" to pass** — it is the fingerprint
+   that proves a generalisation did not move MBC's client-facing numbers. Then
+   `docs/HANDOFF_2026-08-05.md` for the accounting state. The contract is **v4**. What
+   that handoff carries, in short:
    - **The client list is EMPTY** — nothing waits on finance. The R$35,52 was closed by the
      client; the convênio ruling was withdrawn when the Parte MBC became **derived**
      (`dre.convenio_mbc_shares`), which closed the YTD Resultado Bruto gap from −7.640,50 to

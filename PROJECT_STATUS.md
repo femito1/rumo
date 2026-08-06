@@ -24,17 +24,23 @@
 > hypotheses, the judgement call that could reasonably have gone another way, and what is
 > believed but has no test guarding it.
 
-## ⭐ 2026-08-06 (latest) — client provisioning, RUMO branding, per-tenant credentials
+## ⭐ 2026-08-06 (latest) — LIVE: provisioning, branding, per-tenant credentials + config
 
-Branch `feat/client-provisioning`. Delivers the two things promised on the 2026-08-05
-call that no doc was tracking, and closes two security defects found while doing it.
-Backend **383** tests, frontend **91**; ruff, mypy, eslint, tsc, build all clean.
+Merged to `main`, **deployed and verified in production**. Backend **413** tests,
+frontend **91**; ruff, mypy, eslint, tsc, build all clean.
 
-### ⚠ DEPLOY GATE — hand-run DDL BEFORE pushing
+### Production state — verified, not assumed
 
-`schema.sql` is all `create table if not exists`, so editing it does **nothing** to the
-live database and **no test can catch it** (the fakes have no constraints). Run this on
-Supabase first, or the first Gestor created in production fails the old CHECK:
+| Check | Result |
+| --- | --- |
+| `/openapi.json` | all 14 routes live, incl. the 5 provisioning ones |
+| Frontend bundle | `lang="pt-BR"`, real `<title>`, RUMO favicon, 22.785-byte logo, **zero** "Marchini" |
+| Provisioning | created a real Gestor against prod, logged in with its temp password, hit the forced change, then provisioned a team member — probe row removed afterwards |
+| Escalation | Gestor creating an ADMIN / another Gestor / cross-client → **403**; resetting an ADMIN's password → **404**, no password in the body |
+| `Cliente Demonstração` | `active=false` **and** its login disabled → `/api/clients/demo` is **404** and it is absent from the client list |
+| **MBC integrity** | live 2026-06 unchanged after the multi-client refactor: receita 265.018,56 · faturamento 1.090.965,20 · RB −51.694,64 · RL −99.564,42 · 7 tabs |
+
+The DDL below **has been applied** (2026-08-06). Kept for a fresh environment:
 
 ```sql
 alter table users drop constraint if exists users_role_check;
@@ -44,8 +50,39 @@ alter table users add column if not exists
   must_change_password boolean not null default false;
 ```
 
-Then deploy, then (optionally) `update clients set active = false where id = 'demo';`
-— `scripts/seed.py` seeds it inactive but does not deactivate an existing row.
+⚠ `schema.sql` is all `create table if not exists`, so editing it does **nothing** to an
+existing database and **no test catches it** (the fakes have no constraints). Not
+hypothetical: it is exactly how production returned a 500 from `/usuarios` on the first
+attempt. `scripts/seed.py` seeds `demo` inactive but does not deactivate an existing row —
+that was done with `update clients set active = false where id = 'demo';`.
+
+### Multi-client readiness (same day, second pass)
+
+Áreas, the account map and the two rates are now per-client configuration
+(`app/tenancy/tenant_config.py` ← `clients.provider_config`), with **MBC's values as the
+defaults** so its empty config reproduces every number. Full shape and an onboarding
+runbook: `docs/DESIGN.md` § "Selling this to a second client".
+
+Two tests carry this, and they are why it stays safe to keep generalising:
+
+* **`tests/test_mbc_golden.py`** — a fingerprint (count + sum + sha256) of every number
+  the assembler produces for the six closed 2026 months. Targeted tests would not notice
+  a *broad* drift (money moving between áreas while each specific assertion still
+  passes); this does. Its sensitivity was verified by perturbing one value by R$ 0,01 and
+  confirming it fails. ⚠ **Never update the expected values to make it pass** — that is
+  the one move it exists to prevent.
+* **`tests/test_second_client.py`** — drives the real provider with a non-MBC config and
+  asserts the payload reshapes, while the institutional headline off the same snapshot is
+  unchanged: relabelling áreas must not create or destroy money.
+
+That end-to-end test paid for itself immediately — it found **two** hardcoded area→key
+maps the config alone would never have reached (`_AREA_SECTION` in `dre.py`, `_AREAS` in
+`presentation.py`). The deck kept its own list of MBC's three áreas, so a second client's
+slides would have carried Contencioso/Econômico/Arbitragem.
+
+**Still MBC-shaped:** `tab_layouts.py` (20.9k lines) mirrors MBC's workbook 1:1 and
+`gen_tab_layouts.py` no longer exists, so another client gets the config-driven deck and
+DRE but not a mirror of *its own* workbook.
 
 ### What shipped
 
