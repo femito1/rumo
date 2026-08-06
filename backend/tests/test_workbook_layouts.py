@@ -2,7 +2,7 @@
 """Lock the verified account -> workbook-family map.
 
 These rules were reconciled to the centavo against Fechamento MBC 02.2026 and
-05.2026 via FINANCE.VW_RESULTADO_MENSAL_DET (docs/HANDOFF_DRE_AUTOMATION.md,
+05.2026 via FINANCE.VW_RESULTADO_MENSAL_DET (pruned HANDOFF_DRE_AUTOMATION.md,
 Appendix B). They are keyed on the stable numeric CONTA3 codes, so a label change
 upstream must not move them. If one of these assertions fails, the DRE
 institutional block no longer matches the workbook — treat it as a bug.

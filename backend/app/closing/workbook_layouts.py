@@ -57,8 +57,8 @@ _PAI_TO_SECTION: dict[str, str] = {
 # Account-code-level overrides for the workbook institutional families.
 #
 # Verified to the centavo against Fechamento MBC 02.2026 and 05.2026 by
-# reconciling FINANCE.VW_RESULTADO_MENSAL_DET (see docs/HANDOFF_DRE_AUTOMATION.md,
-# Appendix B). These are keyed on the STABLE numeric CONTA3 codes, never on the
+# reconciling FINANCE.VW_RESULTADO_MENSAL_DET (Appendix B of the pruned
+# HANDOFF_DRE_AUTOMATION.md: `git show 118a6c4^:docs/archive/HANDOFF_DRE_AUTOMATION.md`). These are keyed on the STABLE numeric CONTA3 codes, never on the
 # accented ``nome_conta_pai`` text, so they survive label churn.
 #
 # The workbook re-buckets a handful of leaves away from their SISJURI parent:

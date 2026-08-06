@@ -1,8 +1,8 @@
 """Per-person / per-account reconciliation of per-área Custo equipe, Jan–Abr 2026.
 
-Why this exists, and why it is NOT build_janabr_diff.py
--------------------------------------------------------
-`build_janabr_diff.py` proves its *despesa* attribution structurally: the ten
+Why this exists: despesa attribution vs custo-equipe attribution
+----------------------------------------------------------------
+The *despesa* side is provable structurally: the ten
 institutional families ARE the components of `r198`, so their deltas must sum to the
 Despesas Indiretas delta. That is an accounting identity and it leaves no residue.
 

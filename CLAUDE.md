@@ -8,26 +8,34 @@
 
 ## Start here
 
-0. **Latest state: the top section of `PROJECT_STATUS.md`** (2026-08-04) — the contract is
-   **v4**. The convênio Parte MBC is now **derived** when the memo is stale
-   (`dre.convenio_mbc_shares`), which took the last real item off the finance-ruling list and
-   closed the YTD Resultado Bruto gap from −7.640,50 to −5.003,04. ⚠ RB **January** inside
-   that is an extrapolation we own — read the caveats before quoting it. A v5 chunk-guard fix
-   was attempted and **REVERTED the same day** (it corrupted the live store; the box is Oracle
-   11g, which rejects `SET TRIMSPACE`, so the root-cause theory was wrong — see
-   `docs/HANDOFF_v5_reverted_2026-08-04.md`). The whitespace glue it chased is
-   a known, money-neutral cosmetic defect; do not re-attempt without validating against the
-   box first. The workbook-vs-system differences live in
-   `docs/DIFERENCAS_ACUMULADO_2026.md` rather than in the product, and the deck labels a
-   partial month + blanks a withheld card. ⚠ **We are still ~R$5,0k apart from the workbook
-   on Resultado Bruto YTD** — every component has a named cause, but "explained" is NOT
-   "matching"; do not tell the client the numbers agree. ⚠ Note also that **repairing the
-   workbook's r204/205/206 would NOT close that gap** — measured: it halves the per-área
-   despesa error but `r198` does not reference those rows, so the institucional total (and
-   therefore the headline) does not move at all. Then read
-   **`docs/HANDOFF_2026-08-04.md`**, which is the *opinion* layer: hypotheses, a shipped
-   judgement call that could have gone another way, what has no test guarding it, and the
-   six mistakes made in that session.
+0. **Read `docs/HANDOFF_2026-08-05.md` first**, then the top section of `PROJECT_STATUS.md`
+   (2026-08-05). The contract is **v4**. What that handoff carries, in short:
+   - **The client list is EMPTY** — nothing waits on finance. The R$35,52 was closed by the
+     client; the convênio ruling was withdrawn when the Parte MBC became **derived**
+     (`dre.convenio_mbc_shares`), which closed the YTD Resultado Bruto gap from −7.640,50 to
+     −5.003,04. ⚠ RB **January** inside that is an extrapolation we own.
+   - **The vale-ADM rule is client-confirmed correct** (*"o sistema está certo"*) — do NOT
+     converge the workbook's Jan–May, which lumps three people into one line by its own
+     account.
+   - **One open item where the obvious fix is measurably wrong:** the Seguro
+     (`020.060.0040`) belongs in Administrativas per the client and per the DB, but our
+     account bundles two seguros and no value/count split survives 2025-10/11. Flipping the
+     mapping takes Ocupação from 2 exact ties to 0. Read the handoff before touching it.
+   - A v5 chunk-guard fix was attempted and **REVERTED the same day** (it corrupted the live
+     store; the box is Oracle 11g, which rejects `SET TRIMSPACE`, so the root-cause theory
+     was wrong — see `docs/HANDOFF_v5_reverted_2026-08-04.md`). The whitespace glue it chased
+     is a known, money-neutral cosmetic defect; do not re-attempt without validating against
+     the box first.
+   - ⚠ **We are still ~R$5,0k apart from the workbook on Resultado Bruto YTD** — every
+     component has a named cause, but "explained" is NOT "matching"; do not tell the client
+     the numbers agree. ⚠ And **repairing the workbook's r204/205/206 would NOT close that
+     gap** — measured: it halves the per-área despesa error but `r198` does not reference
+     those rows, so the headline does not move at all.
+   - Workbook-vs-system differences live in `docs/DIFERENCAS_ACUMULADO_2026.md`, not in the
+     product; the deck labels a partial month + blanks a withheld card.
+
+   `docs/HANDOFF_2026-08-04.md` is the *opinion* layer for the convênio session: hypotheses,
+   a shipped judgement call that could have gone another way, and what has no test guarding it.
 1. Read `PROJECT_STATUS.md`. **§0 has client-confirmed business rules that you
    must NOT re-ask the user about** (no Juritis API ever — DB only; authoritative
    book = 05.2026; two-area lawyers always split 50/50; the workbook is the number

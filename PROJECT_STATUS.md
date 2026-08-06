@@ -7,20 +7,59 @@
 > older docs, this file wins (except for the sacred LegalDesk numbers, which
 > live in `docs/LEGALDESK.md`).
 
-**Last updated:** 2026-08-03
+**Last updated:** 2026-08-05
 **Product:** RUMO — Plataforma de Fechamento Mensal Multi-Cliente
 **Architecture:** `docs/DESIGN.md` · **LegalDesk:** `docs/LEGALDESK.md`
 
 ---
 
-> 📌 **Next agent: read `docs/HANDOFF_2026-08-04.md` first.** This file records what is
-> *verified*; that one records what I only *think* — the hypotheses, the judgement calls
-> that could reasonably have gone the other way (notably the jan/fev convênio fallback,
-> where I shipped one of three defensible options), what is believed but has no test
-> guarding it, and the six mistakes I made this session with the pattern behind each.
-> Neither file is complete without the other.
+> 📌 **Next agent: read `docs/HANDOFF_2026-08-05.md` first.** It is the forward-looking
+> layer: what the client ruled on 2026-08-05 (the differences document is descriptive only;
+> our vale-ADM rule is confirmed correct and Jan–May must NOT be converged), what is now
+> closed so you do not reopen it, and the one genuinely open piece of work — the Seguro de
+> Resp. Civil family, where the obvious fix is measurably wrong and the sound one needs an
+> extract change.
+>
+> Then `docs/HANDOFF_2026-08-04.md` for the opinion layer of the convênio session: the
+> hypotheses, the judgement call that could reasonably have gone another way, and what is
+> believed but has no test guarding it.
 
-## ⭐ 2026-08-04 (latest) — repairing the workbook's r204/205/206 would NOT close the gap
+## ⭐ 2026-08-05 (latest) — client meeting: three rulings, client list now EMPTY
+
+Transcript `reference/meeting_05_aug.vtt`. Full detail in `docs/HANDOFF_2026-08-05.md`;
+the load-bearing parts:
+
+* **The differences document is DESCRIPTIVE ONLY.** *"They will not change anything, this is
+  just for understanding purposes."* Every prescriptive passage was removed. A **measured**
+  consequence is still fine as an observation; a recommendation is not.
+* **The vale-ADM rule: ours is correct.** Adriana, verbatim: *"o sistema está certo"* — and
+  Renata confirmed the workbook's Jan–May lumped all three people because the transitória
+  arrives as one value, which she only began unfolding around Mai/Jun. **Do NOT converge
+  Jan–May.** Previously inferred, now client-confirmed.
+* **Tarifa bancária is correct for us to include** (*"tá certo ela entrar"*); it is simply
+  not budgeted, hence r136 = 0 in the workbook.
+* **The client question list is EMPTY.** The R$35,52 was closed by the client
+  (*"don't worry about it"*).
+
+**One genuinely open item, and the obvious fix is wrong.** Adriana ruled that
+`020.060.0040` (Seguro) belongs in **Administrativas**, not Ocupação — the DB's
+`nome_conta_pai` already says so, and our `_CONTA3_TO_SECTION` override contradicts it. But
+the account bundles TWO seguros (locação 182,71/month + resp. civil), the workbook splits
+them and we do not, and **no value- or count-based split survives the data**: in 2025-10/11
+the resp. civil posted ALONE (`n=1`), so a "subtract the locação" rule would invent a
+−182,71 that never existed. Flipping the override wholesale takes Ocupação from **2 exact
+ties to 0** across Jan–Jun. The sound fix needs the extract to carry the individual
+lançamentos — **probe the box first** (see `HANDOFF_v5_reverted_2026-08-04.md`). Money is
+unaffected: both families feed `r198`, so the pair nets to zero in every total.
+
+Docs pruned the same day: `DIFF_JAN_ABR_2026.md`, `HANDOFF_2026-07-29.md`, `NOTA_CLIENTE.md`
+and the two generators `build_janabr_diff.py` / `build_may_comparison.py` were removed —
+all superseded by `DIFERENCAS_ACUMULADO_2026.md`, which covers six months and decomposes to
+the account. Backend **325** tests.
+
+---
+
+## 2026-08-04 — repairing the workbook's r204/205/206 would NOT close the gap
 
 Asked directly, so it was measured rather than reasoned about
 (`scripts/audit_fix_204_effect.py`). The repair is not local — those rows feed per-área
@@ -317,7 +356,7 @@ accuracy. The document explains the movement explicitly so nobody is ambushed by
    Convênio (r69). Someone still drawing both is on the payroll, so the plan is a real
    cost, and the DB posts it. From March all three rows blank on both sides and Arbitragem
    ties 0,00. JGS has **no memo in any month** — do not confuse this with the EHF/RB case.
-2. **REFUTED: the jan/fev "lançamentos avulsos" ARE in the DB.** `DIFF_JAN_ABR_2026.md` §3
+2. **REFUTED: the jan/fev "lançamentos avulsos" ARE in the DB.** An earlier diff (since removed) §3
    called r34/r35/r43/r47/r51/r54 *"sem lançamento correspondente"*. Wrong — the DB posts
    ONE distribuição that already includes the Reajuste and the Subsídio. February: BBX,
    IAC, EHF, FSM tie to the centavo, and **ASG closes at R$0,00** (book 9.822,92 across
@@ -489,7 +528,7 @@ Backend **293** tests (was 303: −10 note tests, 2 guards merged into 1, +2 new
 **The Jan–Abr custo-equipe attribution had a hole and it is now closed.** The 2026-07-30
 entry below claims "every Jan–Abr difference has a named cause". That was true for
 *despesa* (proved structurally — the ten families ARE the components of `r198`) but only
-narrative for *custo equipe*: §1–§4 of `docs/DIFF_JAN_ABR_2026.md` showed four causes in
+narrative for *custo equipe*: §1–§4 of the earlier Jan–Abr diff (since removed) showed four causes in
 isolation and nothing summed them against the per-área delta. Adding them by hand left a
 residual — Econômico Jan/Fev ≈ −3.000 was covered by none of the four.
 
@@ -579,9 +618,10 @@ renders nothing on a clean month. Fix a cause ⇒ delete the note in the same co
 
 ### 3. Jan–Abr differences: every delta attributed
 
-`docs/DIFF_JAN_ABR_2026.md`, regenerated by `scripts/build_janabr_diff.py` from live
-data — per line, per área, per institutional family, with the components summing
-**exactly** to each month's total (no "unexplained" residue).
+*(Both the doc and its generator were removed 2026-08-05 — superseded by
+`docs/DIFERENCAS_ACUMULADO_2026.md`, which covers all six months and decomposes to the
+account. The findings below stand.)* Per line, per área, per institutional family, with the
+components summing **exactly** to each month's total (no "unexplained" residue).
 
 - **Faturamento, Receita, Impostos and Amortização differ by ZERO in all four months.**
   The sacred LegalDesk revenue is clean; every difference is in *despesa*.
@@ -624,7 +664,7 @@ prod. Treat every push as a deploy: that is how today's `backfill.ps1` run and t
 backend landed together without an explicit deploy step. `ops/easypanel-deploy.sh`
 remains useful to FORCE a rebuild and to read build logs (`<svc> logs`).
 
-All of HANDOFF_2026-07-29 §5.1–§5.5 implemented, TDD, each verified against the
+All of the 2026-07-29 handoff's §5.1–§5.5 implemented, TDD, each verified against the
 workbook or live prod. Backend **285** tests, frontend **65**; all gates clean.
 
 **DEPLOY: ✅ BOTH SERVICES LIVE** (`fb0a183`), verified rather than assumed:
@@ -988,8 +1028,8 @@ A full-state confirmation sweep of the ISS/backfill handoff, plus two fixes.
 ## ⭐ 2026-07-21 — "lançamentos manuais" REFUTED; ISS decoded; full backfill
 
 (Detailed handoff + per-family findings docs consolidated away 2026-07-28; the durable
-account facts live in the `docs/SISJURI_DB.md` account index, the client-facing summary in
-`docs/NOTA_CLIENTE.md`.)
+account facts live in the `docs/SISJURI_DB.md` account index; the client-facing comparison is
+now `docs/DIFERENCAS_ACUMULADO_2026.md`.)
 
 - **Every DRE family is DB-derived** — the old "lançamentos manuais não deriváveis"
   claim is refuted (proven against the raw `lancextrato de contas.xls` / `Pagtos maio`

@@ -1,6 +1,6 @@
 """Audit the workbook's per-área YTD against ours, and explain every gap.
 
-Answers TODO §5.2 of HANDOFF_2026-07-29: "Contencioso + Arbitragem differ ~7k,
+Answers the open question "Contencioso + Arbitragem differ ~7k,
 Econômico ties". The client and the previous session both suspected a cross-área
 leak on OUR side ("pode ser de lá, veio para cá"). It is a leak — but it is in the
 **workbook's own Jan–May formulas**, not in our derivation.

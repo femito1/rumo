@@ -182,8 +182,8 @@ def main() -> None:
     )
     print(
         "    = AASP 195,40 + Canal de Arbitragem 1.204,47 — lançamentos REAIS que a\n"
-        "      planilha de janeiro não somou (docs/NOTA_CLIENTE.md: 'é sempre o banco\n"
-        "      tendo mais informação que a planilha antiga, nunca o contrário').\n"
+        "      planilha de janeiro não somou — 'é sempre o banco tendo mais informação\n"
+        "      que a planilha antiga, nunca o contrário' (regra do cliente).\n"
         "    O Canal de Arbitragem 1.204,47 é exatamente o resíduo da Arbitragem.\n"
         "  O resto é reclassificação: a planilha divide as duas fatias de Associações\n"
         "  entre Contencioso (r129) e Econômico (r130) a 700,10 cada; o banco marca as\n"

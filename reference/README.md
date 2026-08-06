@@ -28,8 +28,9 @@ fixtures. These are the source-of-truth exports we reconcile against.
 | --- | --- |
 | `workbook/MBC_JanJun_2026.pptx` | Rumo's monthly client deck — the template the presentation panel mirrors |
 | `workbook/Pontos da Reuniao com RUMO em 10JUL2026.xlsx` | Meeting points (2026-07-10) |
-| `workbook/Transcript - Checkpoint c RUMO - projeto MBC.docx` · `meeting_transcript.MD` | Meeting transcripts |
+| `workbook/Transcript - Checkpoint c RUMO - projeto MBC.docx` · `meeting_transcript.MD` · `meeting_05_aug.vtt` | Meeting transcripts |
 | `comparativo/` | Generated 3-way comparison spreadsheets (proof-of-match) |
 
-Business rules from the meetings: `docs/MEETING_2026-07-10.md`. Client-facing summary:
-`docs/NOTA_CLIENTE.md`. API behaviour + sacred numbers: `docs/LEGALDESK.md`.
+Business rules from the meetings: `docs/MEETING_2026-07-10.md` and
+`meeting_05_aug.vtt`. Client-facing workbook-vs-system comparison:
+`docs/DIFERENCAS_ACUMULADO_2026.md`. API behaviour + sacred numbers: `docs/LEGALDESK.md`.
