@@ -8,15 +8,37 @@ create table if not exists clients (
   created_at timestamptz not null default now()
 );
 
+-- `role`: ADMIN = RUMO staff (all clients); CLIENT_ADMIN = a client's own manager
+-- ("Gestor"), who reads what a CLIENT reads and may provision users for its OWN
+-- client; CLIENT = reads its own deck. `must_change_password` is set when a user is
+-- created with a generated temporary password (there is no e-mail delivery, so the
+-- password is shown ONCE to whoever created the account).
 create table if not exists users (
   id uuid primary key default gen_random_uuid(),
   email text unique not null,
   password_hash text not null,
-  role text not null check (role in ('ADMIN','CLIENT')),
+  role text not null check (role in ('ADMIN','CLIENT_ADMIN','CLIENT')),
   client_id text references clients(id),
   active boolean not null default true,
+  must_change_password boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+-- ⚠ MIGRATION — RUN THIS BY HAND ON AN EXISTING DATABASE, BEFORE DEPLOYING.
+-- Everything above is `create table if not exists`, so on a database where the
+-- schema was already applied the edits above are a NO-OP: the live `users` table
+-- keeps its old two-value CHECK and has no `must_change_password`. Nothing in CI
+-- catches this (the test fakes have no constraints), so the first CLIENT_ADMIN
+-- created in production would fail the old constraint at insert time.
+-- Idempotent, safe to re-run:
+--
+--   alter table users drop constraint if exists users_role_check;
+--   alter table users add constraint users_role_check
+--     check (role in ('ADMIN','CLIENT_ADMIN','CLIENT'));
+--   alter table users add column if not exists
+--     must_change_password boolean not null default false;
+--
+-- (Same manual-DDL pattern as budgets.monthly_amounts.)
 
 -- Manually-entered Orcado (budget). One row per client + year + DRE line +
 -- area. `annual_amount` is the yearly budget; monthly = annual / 12. `area` is

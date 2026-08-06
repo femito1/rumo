@@ -2,12 +2,15 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { RequireAuth, RequireAdmin, HomeRedirect } from "./guards";
+import { RequireAuth, RequireAdmin, RequireUserManager, HomeRedirect } from "./guards";
 import * as authStore from "../features/auth/useAuth";
 
 function mockAuth(status: string, role: string | null) {
   vi.spyOn(authStore, "useAuth").mockReturnValue({
-    user: role ? ({ id: "u", email: "a@b", role, client_id: role === "CLIENT" ? "mbc" : null } as never) : null,
+    // Every non-ADMIN role belongs to a client. Keying this on `=== "CLIENT"` would
+    // give a CLIENT_ADMIN `client_id: null`, and its redirect assertions would then
+    // pass against "/clientes/null" — green for the wrong reason.
+    user: role ? ({ id: "u", email: "a@b", role, client_id: role === "ADMIN" ? null : "mbc" } as never) : null,
     status: status as never, login: vi.fn(), logout: vi.fn(),
   });
 }
@@ -65,6 +68,53 @@ describe("guards", () => {
           <Route path="/" element={<HomeRedirect />} />
           <Route path="/clientes" element={<div>CLIENTES</div>} />
           <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("WORKSPACE")).toBeInTheDocument();
+  });
+
+  it("RequireAdmin bounces a CLIENT_ADMIN — /clientes lists every tenant", () => {
+    // A Gestor manages its own client's logins; it is not RUMO staff, so the
+    // cross-tenant client list stays closed to it (the API 403s it too).
+    mockAuth("authenticated", "CLIENT_ADMIN");
+    render(
+      <MemoryRouter initialEntries={["/clientes"]}>
+        <Routes>
+          <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+          <Route element={<RequireAdmin />}>
+            <Route path="/clientes" element={<div>CLIENTES</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("WORKSPACE")).toBeInTheDocument();
+  });
+
+  it.each(["ADMIN", "CLIENT_ADMIN"])("RequireUserManager admits %s", (role) => {
+    mockAuth("authenticated", role);
+    render(
+      <MemoryRouter initialEntries={["/usuarios"]}>
+        <Routes>
+          <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+          <Route element={<RequireUserManager />}>
+            <Route path="/usuarios" element={<div>USUARIOS</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("USUARIOS")).toBeInTheDocument();
+  });
+
+  it("RequireUserManager bounces a plain CLIENT", () => {
+    mockAuth("authenticated", "CLIENT");
+    render(
+      <MemoryRouter initialEntries={["/usuarios"]}>
+        <Routes>
+          <Route path="/clientes/:id" element={<div>WORKSPACE</div>} />
+          <Route element={<RequireUserManager />}>
+            <Route path="/usuarios" element={<div>USUARIOS</div>} />
+          </Route>
         </Routes>
       </MemoryRouter>,
     );

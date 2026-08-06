@@ -5,6 +5,9 @@ def row_to_user(row: dict) -> User:
     return User(
         id=str(row["id"]), email=row["email"], password_hash=row["password_hash"],
         role=Role(row["role"]), client_id=row.get("client_id"), active=row.get("active", True),
+        # Absent on a database that has not had the migration applied yet -> False,
+        # i.e. nobody is forced to change a password they were never given.
+        must_change_password=bool(row.get("must_change_password", False)),
     )
 
 def row_to_client(row: dict) -> Client:
