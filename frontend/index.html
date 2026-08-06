@@ -1,10 +1,17 @@
 <!doctype html>
-<html lang="en">
+<!-- lang="pt-BR": the entire UI is Brazilian Portuguese. It said "en", which made
+     Chrome offer (and on at least one client machine silently apply) a translation of
+     the app's own PT-BR abbreviations back into English — the month picker rendered
+     "Set/Out/Ago" as "definir/fora/atrás" during the 2026-08-05 client meeting, and
+     the numbers looked fine so it read as our bug. -->
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <meta name="theme-color" content="#414042" />
+    <meta name="description" content="RUMO — Plataforma de Fechamento Mensal" />
+    <title>RUMO · Fechamento Mensal</title>
   </head>
   <body>
     <div id="root"></div>

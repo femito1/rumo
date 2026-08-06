@@ -9,6 +9,7 @@ from app.sources.base import SectionKey, DayRange, Source, SectionData
 from app.sources.budget_source import BudgetSource
 from app.sources.fixture import FixtureSource
 from app.sources.legaldesk import LegalDeskSource
+from app.sources.legaldesk_client import _LegalDeskSettings
 from app.sources.sisjuri_db import SisjuriDbSource
 from app.tenancy.models import Client
 
@@ -34,12 +35,23 @@ _KEEP_TAB_ORDER = (
 _KEEP_TABS = frozenset(_KEEP_TAB_ORDER)
 
 
+def _is_admin_view(role: str | None) -> bool:
+    """Whether this role may see RUMO's internal detail tabs.
+
+    ⚠ ALLOW-list, deliberately. This was once ``if role == "CLIENT": deny`` — a
+    deny-list, so every OTHER role string fell through to the full KEEP set. That
+    is a fail-open: adding CLIENT_ADMIN (a client's own manager) would silently
+    have handed them RUMO's internal tabs. Anything that is not ADMIN gets the
+    presentation panel only. Do not turn this back into a deny-list.
+    """
+    return role == "ADMIN"
+
+
 def _visible_tabs(role: str | None) -> frozenset[str]:
-    """Tabs a role may see. ADMIN (RUMO) sees the KEEP set; a CLIENT sees none of
-    the detail tabs (it gets the presentation panel, built from KPIs + sections)."""
-    if role == "CLIENT":
-        return frozenset()
-    return _KEEP_TABS
+    """Tabs a role may see. ADMIN (RUMO) sees the KEEP set; everyone else sees none
+    of the detail tabs (they get the presentation panel, built from KPIs +
+    sections)."""
+    return _KEEP_TABS if _is_admin_view(role) else frozenset()
 
 
 def _num(v: object) -> float | None:
@@ -242,16 +254,17 @@ class ClosingProvider:
 
         # Cumulative (acumulado) TAB — the workbook's own cumulative view is the
         # right-hand column group of 'Areas Sintetico atualizado' over the same
-        # stacked rows, so it is one additive tab, not a second render mode. Skipped
-        # for a CLIENT (which gets no detail tabs).
-        if role != "CLIENT" and ytd_sections and (stacked := ytd_sections.get("areas_sintetico")):
+        # stacked rows, so it is one additive tab, not a second render mode. Built
+        # only for the ADMIN view (nobody else gets detail tabs).
+        is_admin_view = _is_admin_view(role)
+        if is_admin_view and ytd_sections and (stacked := ytd_sections.get("areas_sintetico")):
             tabs[ACUMULADO_TAB] = {
                 **stacked,
                 "name": f"Acumulado (Jan → {period.month_name_pt})",
             }
 
-        # Tab visibility: only the KEEP set is shown, and a CLIENT sees none of the
-        # detail tabs (they get the presentation panel only). Boundary is server-side.
+        # Tab visibility: only the KEEP set is shown, and only to an ADMIN — every
+        # other role gets the presentation panel only. Boundary is server-side.
         visible = _visible_tabs(role)
         order = [t for t in _KEEP_TAB_ORDER if t in tabs and t in visible]
 
@@ -262,7 +275,7 @@ class ClosingProvider:
             "kpis": meta_kpis,
             "presentation": presentation,
             "tab_order": order,
-            "tabs": {t: tabs[t] for t in order} if role == "CLIENT" else tabs,
+            "tabs": tabs if is_admin_view else {t: tabs[t] for t in order},
             "generated_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -344,8 +357,14 @@ def _transfers_repo():
 
 def build_provider_for(client: Client, *, period: Period | None = None) -> ClosingProvider:
     """Resolve a client's `provider` column to an ordered list of Sources (spec §4)."""
+    # Upstream credentials come from THIS client's provider_config, falling back to
+    # the environment per key (MBC's config is empty, so it keeps using the env).
+    # Passed as settings, not as a built client: this function runs on every closing
+    # request and the HTTP client is often never used.
+    legaldesk_settings = _LegalDeskSettings.from_provider_config(client.provider_config)
+
     if client.provider == "legaldesk":
-        return ClosingProvider(sources=[LegalDeskSource()])
+        return ClosingProvider(sources=[LegalDeskSource(settings=legaldesk_settings)])
     if client.provider == "fixture":
         return ClosingProvider(sources=[FixtureSource()])
     if client.provider == "legaldesk+sisjuri":
@@ -355,7 +374,7 @@ def build_provider_for(client: Client, *, period: Period | None = None) -> Closi
         #   3. Budget     -> ORCAMENTO_2026 reference table.
         #   4. Assembler  -> computed DRE (Orcado x Realizado) over institucional
         #      + area blocks + areas_sintetico + dre_2026 + amortizacao.
-        sources: list[Source] = [LegalDeskSource()]
+        sources: list[Source] = [LegalDeskSource(settings=legaldesk_settings)]
 
         snapshot = None
         if period is not None:

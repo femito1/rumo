@@ -1,5 +1,10 @@
 // frontend/src/lib/types.ts
-export type Role = "ADMIN" | "CLIENT";
+/** ADMIN = RUMO staff (all clients). CLIENT_ADMIN ("Gestor") = a client's own
+ *  manager: same data as a CLIENT, plus the ability to provision users for its
+ *  OWN client. CLIENT = read the deck only.
+ *  ⚠ Gate RUMO-only UI on `=== "ADMIN"`, never on `!== "CLIENT"` — the latter is a
+ *  deny-list that lets any new role through. */
+export type Role = "ADMIN" | "CLIENT_ADMIN" | "CLIENT";
 export type Origin = "legaldesk" | "juritis" | "manual" | "formula" | "fixture";
 
 export interface AuthUser {
@@ -7,6 +12,9 @@ export interface AuthUser {
   email: string;
   role: Role;
   client_id: string | null;
+  /** Set when the account still carries a password someone else chose (created or
+   *  reset by an admin). The app forces a change before anything else is reachable. */
+  must_change_password?: boolean;
 }
 
 export interface ClientSummary {

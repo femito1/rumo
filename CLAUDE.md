@@ -8,8 +8,11 @@
 
 ## Start here
 
-0. **Read `docs/HANDOFF_2026-08-05.md` first**, then the top section of `PROJECT_STATUS.md`
-   (2026-08-05). The contract is **v4**. What that handoff carries, in short:
+0. **Read the top section of `PROJECT_STATUS.md` (2026-08-06) first** — it covers the
+   provisioning/branding work and, critically, a **hand-run DDL that must be applied to
+   Supabase before that branch deploys** (`schema.sql` edits are no-ops on an existing
+   database and no test catches it). Then `docs/HANDOFF_2026-08-05.md` for the accounting
+   state. The contract is **v4**. What that handoff carries, in short:
    - **The client list is EMPTY** — nothing waits on finance. The R$35,52 was closed by the
      client; the convênio ruling was withdrawn when the Parte MBC became **derived**
      (`dre.convenio_mbc_shares`), which closed the YTD Resultado Bruto gap from −7.640,50 to
@@ -72,9 +75,14 @@ credentials (LegalDesk) never reach the client.
   and emit canonical `SectionKey`s. They must never change the API contract or
   the SPA. Compose them via `ClosingProvider`; precedence is later-overrides-
   earlier through `merge_policy`.
-- **The ADMIN/CLIENT boundary is enforced server-side**, on every request, in
-  FastAPI dependencies (`require_user`, `require_admin`, `require_client_access`).
-  Hiding a frontend button is never the security boundary.
+- **The role boundary is enforced server-side**, on every request, in FastAPI
+  dependencies (`require_user`, `require_admin`, `require_user_manager`,
+  `require_client_access`, `assert_may_grant`/`assert_may_manage`,
+  `active_client_or_404`). Hiding a frontend button is never the security boundary.
+  Three roles: `ADMIN` (RUMO, everything), `CLIENT_ADMIN` ("Gestor" — its own client's
+  deck **plus** provisioning that client's ordinary users), `CLIENT` (its own deck).
+  `is_admin` means RUMO only — a Gestor must never satisfy it. Full table and the three
+  load-bearing rules: `docs/DESIGN.md` § API surface → Roles.
 
 ## Gotchas (the kind that waste an afternoon)
 
@@ -116,6 +124,42 @@ credentials (LegalDesk) never reach the client.
   initializers and render-phase state adjustment over `setState` inside effects;
   keep hooks/contexts in their own modules (e.g. `features/auth/useAuth.ts`),
   not co-located with components.
+
+- **Role gates are ALLOW-lists. Never `!= "CLIENT"`.** `_visible_tabs`
+  (`app/closing/provider.py`) and `WorkspacePage.tsx` both once denied on
+  `role == "CLIENT"` and fell through to RUMO's full detail-tab set for every other
+  role — so adding `CLIENT_ADMIN` silently handed a client's own manager the internal
+  tabs. Gate on `role == "ADMIN"`. Guarded by a test parametrized over several role
+  strings precisely so a future role cannot reintroduce it.
+
+- **Any mutation of an existing user must resolve the STORED target and check ITS
+  role/client** (`assert_may_manage` in `app/api/deps.py`), never the request body. A
+  reset-password body carries no role and no `client_id`, so a body-only check passes
+  vacuously — a Gestor could mint a credential for a RUMO admin. And
+  `require_client_access` validates the `{client_id}` **path segment**, not the target.
+  Cross-tenant misses answer **404, never 403**: a caller must not be able to confirm an
+  id exists under another tenant. A Gestor may not create another Gestor (the role would
+  be self-propagating), which also means it cannot deactivate itself.
+
+- **`schema.sql` is `create table if not exists`, so editing a column or CHECK is a
+  NO-OP on an existing database — and no test catches it** (the fakes have no
+  constraints). Pair every schema edit with an idempotent `alter table …` block in the
+  same file *and* run it by hand before deploying. This is how a `role` CHECK would
+  have rejected the first Gestor in production while all tests passed green.
+
+- **`clients.provider_config` holds upstream credentials.** Per-client LegalDesk
+  settings live there (`_LegalDeskSettings.from_provider_config`), falling back to env
+  per key so MBC's empty config is unchanged. It must never be serialized into a
+  response — `_client_public` omits it and a test asserts no client endpoint leaks it.
+  Related trap: config read as *dataclass field defaults* is evaluated at **import**,
+  which is what pinned the whole process to one LegalDesk tenant; use a `from_env`
+  classmethod so the environment is read at call time.
+
+- **`<html lang>` must be `pt-BR`.** With `lang="en"` on a PT-BR app, Chrome translated
+  the month picker's own abbreviations back into English — `Set`→"definir",
+  `Out`→"fora", `Ago`→"atrás" — live on a client's screen during the 2026-08-05
+  meeting, while the numbers looked fine, so it read as our bug. The month grid also
+  carries `translate="no"`.
 
 - **The agent's `.ps1` files must be PURE ASCII.** MBC-LDESK01's PowerShell 3/4 reads
   BOM-less UTF-8 as cp1252, so an em-dash's trailing byte becomes a closing quote and

@@ -45,5 +45,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStatus("unauthenticated");
   }
 
-  return <Ctx.Provider value={{ user, status, login, logout }}>{children}</Ctx.Provider>;
+  /** Re-read /me. After a password change this is what clears
+   *  `must_change_password` in the session the user is already inside. */
+  async function refresh() {
+    if (!getToken()) return;
+    setUser(await apiFetch<AuthUser>("/api/auth/me"));
+  }
+
+  return (
+    <Ctx.Provider value={{ user, status, login, logout, refresh }}>{children}</Ctx.Provider>
+  );
 }

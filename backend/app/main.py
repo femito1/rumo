@@ -6,6 +6,7 @@ from app.api.budget_router import router as budget_router
 from app.api.clients_router import router as clients_router
 from app.api.closing_router import router as closing_router
 from app.api.ingest_router import router as ingest_router
+from app.api.users_router import router as users_router
 from app.config import Settings
 
 _settings = Settings.from_env()
@@ -20,6 +21,9 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+# Before clients_router: its `GET /api/clients/{client_id}` is a catch-all that would
+# otherwise shadow the nested provisioning paths.
+app.include_router(users_router)
 app.include_router(clients_router)
 app.include_router(closing_router)
 app.include_router(budget_router)

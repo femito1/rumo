@@ -19,3 +19,20 @@ def test_me_returns_current_user(client):
     resp = client.get("/api/auth/me", headers={"Authorization": f"Bearer {tok}"})
     assert resp.status_code == 200
     assert resp.json()["client_id"] == "mbc"
+
+
+def test_login_refused_for_a_user_of_an_inactive_client(client, repo):
+    """Deactivating a client must stop new sessions too, not only existing ones.
+    Credentials stay valid, so the refusal is 403 (not 401) — the account is fine,
+    the tenant is not."""
+    from app.tenancy.models import Client
+
+    repo._clients["mbc"] = Client(
+        id="mbc", name="MBC", provider="legaldesk", provider_config={}, active=False
+    )
+    resp = client.post(
+        "/api/auth/login",
+        json={"email": "financeiro@mbclaw.com.br", "password": "mbc123"},
+    )
+    assert resp.status_code == 403
+    assert "inativo" in resp.json()["detail"].lower()

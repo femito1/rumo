@@ -11,7 +11,7 @@ describe("LoginPage", () => {
     vi.spyOn(authStore, "useAuth").mockReturnValue({
       user: null, status: "unauthenticated",
       login: vi.fn().mockRejectedValue(Object.assign(new Error("x"), { detail: "E-mail ou senha inválidos" })),
-      logout: vi.fn(),
+      logout: vi.fn(), refresh: vi.fn(),
     });
     render(<MemoryRouter><LoginPage /></MemoryRouter>);
     await userEvent.type(screen.getByLabelText(/E-mail/i), "a@b.com");

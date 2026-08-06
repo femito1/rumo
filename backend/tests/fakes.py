@@ -1,13 +1,12 @@
 from __future__ import annotations
+from app.tenancy.in_memory import InMemoryTenancyStore
 from app.tenancy.models import User, Client, Role
 from app.auth.passwords import hash_password
 
 
-class FakeRepository:
-    def __init__(self, users: list[User], clients: list[Client]) -> None:
-        self._users = {u.email: u for u in users}
-        self._users_by_id = {u.id: u for u in users}
-        self._clients = {c.id: c for c in clients}
+class FakeRepository(InMemoryTenancyStore):
+    """Test double. Shares the write logic with the FixtureRepository via
+    ``InMemoryTenancyStore`` so a provisioning bug cannot pass here and fail there."""
 
     @classmethod
     def seeded(cls) -> "FakeRepository":
@@ -22,14 +21,3 @@ class FakeRepository:
         ]
         return cls(users, clients)
 
-    def get_user_by_email(self, email: str) -> User | None:
-        return self._users.get(email)
-
-    def get_user_by_id(self, user_id: str) -> User | None:
-        return self._users_by_id.get(user_id)
-
-    def list_clients(self) -> list[Client]:
-        return [c for c in self._clients.values() if c.active]
-
-    def get_client(self, client_id: str) -> Client | None:
-        return self._clients.get(client_id)

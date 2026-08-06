@@ -7,7 +7,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from app.api.deps import require_client_access, require_user
+from app.api.deps import active_client_or_404, require_client_access, require_user
 from app.api.providers import get_budget_repo, get_repo
 from app.budget.models import (
     BUDGET_AREAS,
@@ -60,8 +60,7 @@ def get_budget(
     budget_repo=Depends(get_budget_repo),
 ) -> dict[str, Any]:
     require_client_access(user, client_id)
-    if repo.get_client(client_id) is None:
-        raise HTTPException(status_code=404, detail="Cliente não encontrado")
+    active_client_or_404(repo, client_id)
     entries = budget_repo.get_budget(client_id, ano)
     return {
         "client_id": client_id,
@@ -82,8 +81,7 @@ def put_budget(
     budget_repo=Depends(get_budget_repo),
 ) -> dict[str, Any]:
     require_client_access(user, client_id)
-    if repo.get_client(client_id) is None:
-        raise HTTPException(status_code=404, detail="Cliente não encontrado")
+    active_client_or_404(repo, client_id)
 
     raw = payload.get("entries")
     if not isinstance(raw, list):
